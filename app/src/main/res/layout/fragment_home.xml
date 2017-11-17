@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="id.variable.orderinapp.Fragment.HomeFragment"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:logo="@drawable/icon_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/colorAccent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SALES"
+                android:layout_marginLeft="25dp"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textSize="18sp"
+                android:id="@+id/toolbar_title" />
+        </android.support.v7.widget.Toolbar>
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/tab_history"
+            android:background="@color/colorBackground"
+            app:titleTextColor="@color/colorAccent"
+            android:tabStripEnabled="false"
+            app:tabIndicatorHeight="0dp"
+            >
+
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!-- TODO: Update blank fragment layout -->
+
+
+</LinearLayout>

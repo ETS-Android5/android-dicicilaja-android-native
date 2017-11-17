@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CORAP</string>
+    <string name="Logo">Logo</string>
+
+    <!-- Login Screen -->
+    <string name="title">C O R A P</string>
+    <string name="subtitle">Leads Management App</string>
+    <string name="username_hint">USERNAME</string>
+    <string name="password_hint">PASSWORD</string>
+    <string name="login">MASUK</string>
+    <string name="auth_failed">Authentication failed, periksa kembali email dan password anda</string>
+    <string name="auth_success">Berhasil masuk</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lupa_password">Tidak bisa masuk? Lupa Password</string>
+    <string name="email">email</string>
+    <string name="nama">nama</string>
+    <string name="phone">phone</string>
+
+</resources>

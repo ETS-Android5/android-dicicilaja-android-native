@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fec515</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#262626</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorApp">#fafafa</color>
+    <color name="colorMarloClicked">#C6A313</color>
+    <color name="colorIcon">#C7C7C7</color>
+    <color name="colorPressed">#ffe26d</color>
+</resources>
