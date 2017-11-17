@@ -1,6 +1,6 @@
 ## Introduction
 
-Sales Management App 
+Sales Management App - Android Application
 
 ## Feature
 
