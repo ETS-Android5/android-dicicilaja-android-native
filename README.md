@@ -14,3 +14,5 @@ Sales Management App
 - Task Reminder
 
 ## Screenshoots
+
+<img src="screenshots/screenshoot-1.png" height="400" alt="Screenshot"/> 
