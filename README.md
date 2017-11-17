@@ -15,9 +15,10 @@ Sales Management App
 
 ## Screenshoots
 
-
-<img src="screenshots/screenshoot-1.png" height="400" alt="Screenshot"/> 
-<img src="screenshots/screenshoot-2.png" height="400" alt="Screenshot"/> 
-<img src="screenshots/screenshoot-3.png" height="400" alt="Screenshot"/> 
-
-![Smartphones](http://www.andreas-schrade.de/assets/external/screen-nexus5.jpg)  |  ![Tablet](http://www.andreas-schrade.de/assets/external/screen-tablet.jpg)
+<table border="0">
+  <tr>
+    <td><img src="screenshots/screenshoot-1.png" height="400" alt="Screenshot"/></td>
+    <td><img src="screenshots/screenshoot-2.png" height="400" alt="Screenshot"/></td>
+    <td><img src="screenshots/screenshoot-3.png" height="400" alt="Screenshot"/></td>
+  </tr>
+</table>
