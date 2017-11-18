@@ -19,9 +19,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import id.variable.orderinapp.Register.RegisterAxiActivity;
+import id.variable.orderinapp.Register.RegisterMitraActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView title_login,subtitle_login,forgot_password,powered;
+    private TextView title_login,subtitle_login,forgot_password,powered,register_axi, register_mitra;
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
@@ -47,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         progressDialog = new ProgressDialog(this);
         powered = (TextView) findViewById(R.id.powered);
+        register_axi = (TextView) findViewById(R.id.register_axi);
+        register_mitra = (TextView) findViewById(R.id.register_mitra);
 
         Typeface nunito_black = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/Nunito-Black.ttf");
         Typeface nunito_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/Nunito-Bold.ttf");
@@ -63,6 +68,22 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         getSupportActionBar().hide();
+        register_axi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterAxiActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        register_mitra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterMitraActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

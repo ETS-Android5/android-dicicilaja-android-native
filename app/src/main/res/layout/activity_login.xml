@@ -113,7 +113,35 @@
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"/>
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_below="@+id/forgot_password"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/register_axi"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daftar_axi"
+                    android:textAllCaps="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="15dp"/>
+                <TextView
+                    android:id="@+id/register_mitra"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daftar_mitra"
+                    android:textAllCaps="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/register_mitra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

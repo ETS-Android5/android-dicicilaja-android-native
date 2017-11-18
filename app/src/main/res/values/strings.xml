@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">CORAP</string>
+    <string name="app_name">SALES</string>
     <string name="Logo">Logo</string>
 
     <!-- Login Screen -->
-    <string name="title">C O R A P</string>
+    <string name="title">S A L E S</string>
     <string name="subtitle">Leads Management App</string>
     <string name="username_hint">USERNAME</string>
     <string name="password_hint">PASSWORD</string>
@@ -15,5 +15,7 @@
     <string name="email">email</string>
     <string name="nama">nama</string>
     <string name="phone">phone</string>
+    <string name="daftar_mitra">Daftar Mitra</string>
+    <string name="daftar_axi">Daftar AXI</string>
 
 </resources>
