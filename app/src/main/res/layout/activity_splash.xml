@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.variable.orderinapp.SplashActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorBackground">
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -19,12 +19,12 @@
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/icon"
+        android:layout_width="260dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/logo_color"
         tools:layout_editor_absoluteY="87dp"
         tools:layout_editor_absoluteX="75dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="200dp"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

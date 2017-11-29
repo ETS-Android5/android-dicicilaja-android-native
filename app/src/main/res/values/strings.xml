@@ -2,7 +2,7 @@
     <string name="app_name">SALES</string>
     <string name="Logo">Logo</string>
 
-    <!-- Login Screen -->
+    <!-- LoginActivity -->
     <string name="title">S A L E S</string>
     <string name="subtitle">Leads Management App</string>
     <string name="username_hint">USERNAME</string>
@@ -17,5 +17,14 @@
     <string name="phone">phone</string>
     <string name="daftar_mitra">Daftar Mitra</string>
     <string name="daftar_axi">Daftar AXI</string>
+
+    <!-- RegisterMitraActivity -->
+    <string name="nama_perusahaan">Nama Perusahaan</string>
+    <string name="nama_pemilik">Nama Pemilik</string>
+    <string name="alamat_rumah">Alamat Rumah</string>
+    <string name="nomor_handphone">Nomor Handphone</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="nomor_ktp">Nomor KTP</string>
+    <string name="nomor_npwp_pribadi">Nomor NPWP Pribadi</string>
 
 </resources>

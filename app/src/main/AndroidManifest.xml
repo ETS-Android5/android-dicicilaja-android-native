@@ -22,8 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".Register.RegisterAxiActivity" />
-        <activity android:name=".Register.RegisterMitraActivity"></activity>
+        <activity android:name=".Register.RegisterAxiActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Register.RegisterMitraActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

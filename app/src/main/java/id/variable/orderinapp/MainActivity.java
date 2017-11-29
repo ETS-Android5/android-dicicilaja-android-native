@@ -49,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
 
+        Bundle extras = getIntent().getExtras();
+        String username;
+
+        if(extras != null) {
+            username = extras.getString("username");
+
+
+        }
+
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
         Typeface nunito_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/Nunito-Bold.ttf");

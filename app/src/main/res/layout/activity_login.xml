@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.variable.orderinapp.LoginActivity"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
@@ -21,43 +21,18 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="65dp"
+                android:layout_width="200dp"
                 android:layout_height="65dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="140dp"
                 android:contentDescription="@string/Logo"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo_color" />
 
-            <TextView
-                android:id="@+id/title_login"
-                android:layout_below="@+id/logo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="27sp"
-                android:layout_marginTop="25dp"
-                android:textAllCaps="true"
-                android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/subtitle_login"
-                android:layout_below="@+id/title_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/subtitle"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/inputEmail"
-                android:layout_below="@+id/subtitle_login"
+                android:id="@+id/inputUsername"
+                android:layout_below="@+id/logo"
                 android:layout_marginTop="25dp"
                 android:layout_centerHorizontal="true"
                 android:inputType="textEmailAddress"
@@ -73,11 +48,11 @@
                 />
 
             <EditText
+                android:id="@+id/inputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/inputPassword"
-                android:layout_below="@+id/inputEmail"
+                android:layout_below="@+id/inputUsername"
                 android:layout_marginTop="10dp"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
@@ -112,36 +87,9 @@
                 android:textSize="12sp"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@+id/forgot_password"
-                android:weightSum="1">
-                <TextView
-                    android:id="@+id/register_axi"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
-                    android:text="@string/daftar_axi"
-                    android:textAllCaps="true"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_marginTop="15dp"/>
-                <TextView
-                    android:id="@+id/register_mitra"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
-                    android:text="@string/daftar_mitra"
-                    android:textAllCaps="true"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_marginTop="15dp"/>
-            </LinearLayout>
 
             <LinearLayout
-                android:layout_below="@+id/register_mitra"
+                android:layout_below="@+id/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
