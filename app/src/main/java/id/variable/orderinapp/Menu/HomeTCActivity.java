@@ -1,21 +1,26 @@
-package id.variable.orderinapp;
+package id.variable.orderinapp.Menu;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import id.variable.orderinapp.Fragment.HomeFragment;
 import id.variable.orderinapp.Fragment.ProfileFragment;
+import id.variable.orderinapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeTCActivity extends AppCompatActivity {
 
-
+    String token;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,19 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
 
-        Bundle extras = getIntent().getExtras();
-        String username;
-
-        if(extras != null) {
-            username = extras.getString("username");
-
-
-        }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+        // String s = getIntent().getStringExtra("token");
+        String token = pref.getString("bearer", null);
+        Log.d("lihat", "token = " + token);
 
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
         Typeface nunito_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/Nunito-Bold.ttf");
         navigation.setTypeface(nunito_bold);
+
 //        navigation.setIconsMarginTop(32);
 //        navigation.setIconSize(26,26);
 //        navigation.setItemHeight(144);

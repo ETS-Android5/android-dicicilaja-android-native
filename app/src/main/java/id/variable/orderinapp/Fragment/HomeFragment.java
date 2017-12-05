@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import id.variable.orderinapp.HomePagerAdapter;
+import id.variable.orderinapp.Menu.HomeTCActivity;
 import id.variable.orderinapp.R;
 
 /**

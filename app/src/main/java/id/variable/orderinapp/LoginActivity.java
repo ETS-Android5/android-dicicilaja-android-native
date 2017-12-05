@@ -2,26 +2,21 @@ package id.variable.orderinapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import id.variable.orderinapp.Menu.HomeTCActivity;
 import id.variable.orderinapp.Model.ResObj;
-import id.variable.orderinapp.Register.RegisterAxiActivity;
-import id.variable.orderinapp.Register.RegisterMitraActivity;
+import id.variable.orderinapp.Model.Token;
 import id.variable.orderinapp.Remote.ApiUtils;
 import id.variable.orderinapp.Remote.UserService;
 import retrofit2.Call;
@@ -45,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, HomeTCActivity.class));
             finish();
         }
         // set the view now
@@ -80,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = inputUsername.getText().toString();
                 String password = inputPassword.getText().toString();
-
                 if(validateLogin(username, password)) {
                     doLogin(username, password);
                 }
@@ -90,11 +84,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String username, String password) {
         if(username == null || username.trim().length() == 0) {
-            Toast.makeText(this, "Username is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Masukan username anda", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password == null || password.trim().length() == 0) {
-            Toast.makeText(this, "Username is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Masukan password anda", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -107,15 +101,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResObj> call, Response<ResObj> response) {
                 if(response.isSuccessful()) {
                     ResObj resObj = response.body();
-                    if(resObj.getMessage().equals("true")) {
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
-                    }
+
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    editor.putString("bearer", resObj.getToken().getAccessToken());
+                    editor.apply();
+
+                    Intent intent = new Intent(getBaseContext(), HomeTCActivity.class);
+                    startActivity(intent);
+                    finish();
+
                 } else {
-                    Toast.makeText(LoginActivity.this, "Error! Pleaase try again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }
             }
 
