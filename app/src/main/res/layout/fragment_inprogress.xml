@@ -2,12 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.orderinapp.Fragment.InprogressFragment">
-    <TextView
-        android:id="@+id/token"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+    tools:context="id.variable.dicicilaja.Fragment.InprogressFragment"
+    android:background="@color/colorPrimary"
+    android:layout_margin="16dp">
     <ListView
         android:id="@+id/order_in"
         android:layout_width="match_parent"

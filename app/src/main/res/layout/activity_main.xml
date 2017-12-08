@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.orderinapp.Menu.HomeTCActivity"
+    tools:context="id.variable.dicicilaja.Activity.HomeActivity"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,14 +12,14 @@
         android:layout_height="0dp"
         android:layout_weight="1.05"
         android:id="@+id/fragment_home"
-        android:background="@color/colorBackground"/>
+        android:background="@color/colorWhite"/>
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBackground"
+        android:background="@color/colorWhite"
         app:itemIconTint="@color/selector_item_primary_color"
         app:itemTextColor="@color/selector_item_primary_color"
         app:menu="@menu/navigation" />
