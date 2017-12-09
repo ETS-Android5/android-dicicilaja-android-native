@@ -8,15 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import java.util.HashMap;
 
 import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
 
 public class HomeActivity extends AppCompatActivity {
 
+    SessionManager session;
     String token;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -46,15 +51,20 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        session = new SessionManager(getApplicationContext());
+
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManager.KEY_TOKEN);
         HomeFragment homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, homeFragment).addToBackStack(null).commit();
 
         BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
-        // String s = getIntent().getStringExtra("token");
-        String token = pref.getString("bearer", null);
-        Log.d("lihat", "token = " + token);
+        Toast.makeText(HomeActivity.this, "bearer" + token, Toast.LENGTH_SHORT).show();
 
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
