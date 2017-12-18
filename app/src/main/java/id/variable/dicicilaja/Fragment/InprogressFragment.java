@@ -18,11 +18,11 @@ import id.variable.dicicilaja.R;
  */
 public class InprogressFragment extends Fragment {
 
-    private ListView listView;
-    ArrayList<Inprogress> inprogressArrayList;
-    public InprogressFragment() {
-        // Required empty public constructor
-    }
+//    private ListView listView;
+//    ArrayList<Inprogress> inprogressArrayList;
+//    public InprogressFragment() {
+//        // Required empty public constructor
+//    }
 
 
     @Override
@@ -31,12 +31,12 @@ public class InprogressFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inprogress, container, false);
 
-        listView = (ListView) view.findViewById(R.id.order_in);
-        inprogressArrayList = new ArrayList<>();
-        inprogressArrayList.add(new Inprogress("#9432","FAWAZ RIFQI","15 menit yang lalu"));
-
-        InprogressAdapter adapter = new InprogressAdapter(getContext(),inprogressArrayList);
-        listView.setAdapter(adapter);
+//        listView = (ListView) view.findViewById(R.id.order_in);
+//        inprogressArrayList = new ArrayList<>();
+//        inprogressArrayList.add(new Inprogress("#9432","FAWAZ RIFQI","15 menit yang lalu"));
+//
+//        InprogressAdapter adapter = new InprogressAdapter(getContext(),inprogressArrayList);
+//        listView.setAdapter(adapter);
         return view;
     }
 

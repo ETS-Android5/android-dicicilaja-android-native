@@ -4,13 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.R;
@@ -25,8 +33,9 @@ import static java.lang.Boolean.TRUE;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView subPassword,forgotPassword,powered;
-    private EditText inputUsername, inputPassword;
+    private TextView subPassword,forgotPassword,powered,judulDaftarAkun,judulButuhBantuan,daftarAkun,butuhBantuan;
+    private TextInputLayout inputLayoutEmailID, inputLayoutPassword;
+    private EditText inputPassword, inputEmailID;
     private ProgressDialog progressDialog;
     private Button btnLogin;
 
@@ -46,13 +55,20 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else{
-            forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-            subPassword = (TextView) findViewById(R.id.subPassword);
-            inputUsername = (EditText) findViewById(R.id.inputUsername);
+            judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
+            judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
+            daftarAkun = (TextView) findViewById(R.id.daftarAkun);
+            butuhBantuan = (TextView) findViewById(R.id.butuhBantuan);
+            inputLayoutEmailID = (TextInputLayout) findViewById(R.id.inputLayoutEmailID);
+            inputLayoutPassword = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
+            inputEmailID = (EditText) findViewById(R.id.inputEmailID);
             inputPassword = (EditText) findViewById(R.id.inputPassword);
             btnLogin = (Button) findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
             powered = (TextView) findViewById(R.id.powered);
+
+            inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
+            inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
             userService = ApiUtils.getUserService();
 
@@ -60,12 +76,14 @@ public class LoginActivity extends AppCompatActivity {
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
             Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
             Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
-            inputUsername.setTypeface(opensans_semibold);
+            inputEmailID.setTypeface(opensans_semibold);
             inputPassword.setTypeface(opensans_semibold);
             btnLogin.setTypeface(opensans_bold);
-            forgotPassword.setTypeface(opensans_bold);
-            subPassword.setTypeface(opensans_reguler);
             powered.setTypeface(opensans_reguler);
+            judulDaftarAkun.setTypeface(opensans_reguler);
+            judulButuhBantuan.setTypeface(opensans_reguler);
+            daftarAkun.setTypeface(opensans_semibold);
+            butuhBantuan.setTypeface(opensans_semibold);
 
 
             getSupportActionBar().hide();
@@ -73,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String username = inputUsername.getText().toString();
+                    String username = inputEmailID.getText().toString();
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
                         doLogin(username, password);
@@ -81,20 +99,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            forgotPassword.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
-                    startActivity(intent);
-                }
-            });
         }
 
     }
 
     private boolean validateLogin(String username, String password) {
         if(username == null || username.trim().length() == 0) {
-            Toast.makeText(this, "Masukan username anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Masukan Email/ID anda", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password == null || password.trim().length() == 0) {
@@ -129,5 +140,63 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean validateEmailID() {
+        if (inputEmailID.getText().toString().trim().isEmpty()) {
+            inputLayoutEmailID.setError(getString(R.string.err_msg_username));
+            requestFocus(inputEmailID);
+            return false;
+        } else {
+            inputLayoutEmailID.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (inputPassword.getText().toString().trim().isEmpty()) {
+            inputLayoutPassword.setError(getString(R.string.err_msg_password));
+            requestFocus(inputPassword);
+            return false;
+        } else {
+            inputLayoutPassword.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.inputEmailID:
+                    validateEmailID();
+                    break;
+
+                case R.id.inputPassword:
+                    validatePassword();
+                    break;
+            }
+        }
     }
 }
