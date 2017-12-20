@@ -24,10 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity"
+            />
         <activity android:name=".Activity.ForgotPasswordActivity"
-            android:label="Lupa Password"
-            android:theme="@style/Accent">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Lupa Password">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.LoginActivity"/>

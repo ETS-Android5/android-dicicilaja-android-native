@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ import static java.lang.Boolean.TRUE;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView subPassword,forgotPassword,powered,judulDaftarAkun,judulButuhBantuan,daftarAkun,butuhBantuan;
+    private TextView subPassword,forgotPassword,powered,judulDaftarAkun,judulButuhBantuan,daftarAkun,butuhBantuan, lewati, tvForgot;
     private TextInputLayout inputLayoutEmailID, inputLayoutPassword;
     private EditText inputPassword, inputEmailID;
     private ProgressDialog progressDialog;
@@ -55,6 +56,12 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else{
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                Window window = this.getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.setStatusBarColor(this.getResources().getColor(R.color.colorBlack));
+            }
             judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
             judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
             daftarAkun = (TextView) findViewById(R.id.daftarAkun);
@@ -66,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin = (Button) findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
             powered = (TextView) findViewById(R.id.powered);
+            lewati = (TextView) findViewById(R.id.lewati);
+            tvForgot = (TextView) findViewById(R.id.tvForgot);
 
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
@@ -84,6 +93,8 @@ public class LoginActivity extends AppCompatActivity {
             judulButuhBantuan.setTypeface(opensans_reguler);
             daftarAkun.setTypeface(opensans_semibold);
             butuhBantuan.setTypeface(opensans_semibold);
+            lewati.setTypeface(opensans_semibold);
+            tvForgot.setTypeface(opensans_semibold);
 
 
             getSupportActionBar().hide();
@@ -96,6 +107,14 @@ public class LoginActivity extends AppCompatActivity {
                     if(validateLogin(username, password)) {
                         doLogin(username, password);
                     }
+                }
+            });
+
+            tvForgot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
+                    startActivity(intent);
                 }
             });
 

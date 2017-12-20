@@ -2,9 +2,14 @@ package id.variable.dicicilaja.Activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +29,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         forgotHelpText = (TextView) findViewById(R.id.forgotHelpText);
         inputEmail = (EditText) findViewById(R.id.inputEmail);
         btnVerifikasi = (Button) findViewById(R.id.btnVerifikasi);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
