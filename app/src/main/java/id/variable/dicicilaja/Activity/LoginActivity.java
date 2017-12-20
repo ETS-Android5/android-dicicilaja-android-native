@@ -109,11 +109,24 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-
+            daftarAkun.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                    startActivity(intent);
+                }
+            });
             tvForgot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
+                    startActivity(intent);
+                }
+            });
+            butuhBantuan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), HelpActivity.class);
                     startActivity(intent);
                 }
             });

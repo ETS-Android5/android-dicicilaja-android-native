@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorBlack</item>
     </style>
 
     <style name="Accent" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -31,7 +32,7 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:editTextColor">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent2</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

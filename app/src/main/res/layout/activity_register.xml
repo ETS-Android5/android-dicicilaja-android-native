@@ -1,32 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.variable.dicicilaja.Fragment.HomeFragment"
+    tools:context="id.variable.dicicilaja.Activity.RegisterActivity"
     android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme1">
+        android:theme="@style/AppTheme">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorWhite"
-            app:titleTextColor="@color/colorAccent">
-            <ImageView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo_color"
-                />
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/colorBlack">
+
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/tab_history"
-            android:background="@color/colorWhite"
+            android:id="@+id/tab_register"
+            android:background="?attr/colorPrimary"
             app:titleTextColor="@color/colorAccent"
             android:tabStripEnabled="true"
             >
@@ -40,6 +38,4 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 </LinearLayout>

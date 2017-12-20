@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    tools:context="id.variable.dicicilaja.Activity.ForgotPasswordActivity">
+    tools:context="id.variable.dicicilaja.Activity.HelpActivity"
+    android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
                         android:textColor="@color/colorWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lupa Kata Sandi"
+                        android:text="Kami siap membantu"
                         android:textSize="13sp"
                         android:textStyle="bold"/>
                     <TextView
@@ -63,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
-                        android:text="Kami akan mengirimkan link reset password akun Anda pada email berikut. Pastikan Anda dapat mengakses emailnya."/>
+                        android:text="Beragam channel bisa Anda gunakan untuk mendapatkan bantuan segera terkait dengan penggunaan layanan dicicilaja."/>
                     <TextView
                         android:textColor="@color/colorWhite"
                         android:id="@+id/detailSection"
@@ -84,36 +83,46 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:paddingTop="16dp">
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/logo">
-                    <EditText
-                        android:id="@+id/inputEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email akun Anda"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:inputType="textEmailAddress"
-                        android:fontFamily="sans-serif"
-                        android:padding="10dp"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-                </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnVerifikasi"
+                    android:id="@+id/hotline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/inputLayoutEmail"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/capsule_button"
-                    android:text="Kirim"
+                    android:text="Telephone Hotline"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingRight="25dp"
+                    android:textSize="14sp" />
+                <Button
+                    android:id="@+id/chat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hotline"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/capsule_button"
+                    android:text="Chat Tasya"
+                    android:textColor="@color/colorWhite"
+                    android:paddingLeft="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingRight="25dp"
+                    android:textSize="14sp" />
+                <Button
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chat"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/capsule_button"
+                    android:text="Kirim Email ke Admin"
                     android:textColor="@color/colorWhite"
                     android:paddingLeft="25dp"
                     android:layout_marginLeft="5dp"
@@ -121,29 +130,6 @@
                     android:paddingRight="25dp"
                     android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_marginTop="25dp"
-                    android:layout_below="@id/btnVerifikasi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/judulButuhBantuan"
-                        android:layout_gravity="right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lupa dengan emailnya?"/>
-                    <TextView
-                        android:id="@+id/butuhBantuan"
-                        android:layout_marginTop="3dp"
-                        android:layout_gravity="right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccentDark2"
-                        android:text="Butuh Bantuan"/>
-                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

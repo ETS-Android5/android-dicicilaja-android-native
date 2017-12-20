@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,19 +19,30 @@ import id.variable.dicicilaja.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    TextView forgotHelpText, forgotHelpButton;
+    TextView titleSection, bodySection, detailSection, judulButuhBantuan, butuhBantuan;
     EditText inputEmail;
     Button btnVerifikasi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        forgotHelpButton = (TextView) findViewById(R.id.forgotHelpButton);
-        forgotHelpText = (TextView) findViewById(R.id.forgotHelpText);
         inputEmail = (EditText) findViewById(R.id.inputEmail);
         btnVerifikasi = (Button) findViewById(R.id.btnVerifikasi);
+        titleSection = (TextView) findViewById(R.id.titleSection);
+        bodySection = (TextView) findViewById(R.id.bodySection);
+        detailSection = (TextView) findViewById(R.id.detailSection);
+        judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
+        butuhBantuan = (TextView) findViewById(R.id.butuhBantuan);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorBlack));
+        }
 
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
@@ -38,17 +50,30 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        forgotHelpText.setTypeface(opensans_reguler);
-        forgotHelpButton.setTypeface(opensans_bold);
         btnVerifikasi.setTypeface(opensans_bold);
         inputEmail.setTypeface(opensans_semibold);
+        titleSection.setTypeface(opensans_bold);
+        bodySection.setTypeface(opensans_reguler);
+        detailSection.setTypeface(opensans_semibold);
+        judulButuhBantuan.setTypeface(opensans_reguler);
+        butuhBantuan.setTypeface(opensans_semibold);
 
-        forgotHelpButton.setOnClickListener(new View.OnClickListener() {
+        butuhBantuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
+                Intent intent = new Intent(getBaseContext(), HelpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.finish();
+        }
+        return true;
     }
 }

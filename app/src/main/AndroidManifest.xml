@@ -24,14 +24,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"
-            />
-        <activity android:name=".Activity.ForgotPasswordActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="Lupa Password">
+        <activity android:name=".Activity.LoginActivity" />
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:label="Lupa Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.LoginActivity"/>
+                android:value=".Activity.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.HelpActivity"
+            android:label="Bantuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.LoginActivity" />
+        </activity>
+        <activity android:name=".Activity.RegisterActivity"
+            android:label="Daftar"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.LoginActivity" />
         </activity>
     </application>
 
