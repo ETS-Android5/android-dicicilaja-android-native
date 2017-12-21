@@ -41,12 +41,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.LoginActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterActivity"
+        <activity
+            android:name=".Activity.RegisterActivity"
             android:label="Daftar"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.LoginActivity" />
+        </activity>
+        <activity android:name=".Activity.RegisterAxi2Activity"
+            android:label="Pendaftaran AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
         </activity>
     </application>
 
