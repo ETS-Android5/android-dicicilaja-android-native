@@ -49,12 +49,36 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.LoginActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterAxi2Activity"
+        <activity
+            android:name=".Activity.RegisterAxi2Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterAxi3Activity"
+            android:label="Pendaftaran AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterAxi2Activity" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterAxi4Activity"
+            android:label="Pendaftaran AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterAxi3Activity" />
+        </activity>
+        <activity android:name=".Activity.RegisterAxi5Activity"
+            android:label="Pendaftaran AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterAxi3Activity" />
         </activity>
     </application>
 
