@@ -9,10 +9,16 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 import id.variable.dicicilaja.Activity.HelpActivity;
 import id.variable.dicicilaja.Activity.LoginActivity;
 import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
@@ -24,9 +30,10 @@ import id.variable.dicicilaja.R;
 public class RegisterAxiFragment extends Fragment {
 
     TextView titleSection, bodySection, detailSection, sudahPunyaAkun, judulSudahPunyaAkun;
-    AppCompatSpinner selectTempat, selectTempat2;
     EditText inputReferal, inputNama, inputEmail, inputHandphone, inputIbu;
     Button btnLanjut;
+    AppCompatSpinner spinnerArea, spinnerCabang;
+    MaterialSpinner spinner;
     public RegisterAxiFragment() {
         // Required empty public constructor
     }
@@ -48,8 +55,7 @@ public class RegisterAxiFragment extends Fragment {
         bodySection = (TextView) view.findViewById(R.id.bodySection);
         detailSection = (TextView) view.findViewById(R.id.detailSection);
         btnLanjut = (Button) view.findViewById(R.id.btnLanjut);
-        selectTempat = (AppCompatSpinner) view.findViewById(R.id.selectTempat);
-        selectTempat2 = (AppCompatSpinner) view.findViewById(R.id.selectTempat2);
+//        spinnerArea = (AppCompatSpinner) view.findViewById(R.id.spinnerArea);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -78,6 +84,12 @@ public class RegisterAxiFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        String[] ITEMS = {"Item 1", "Item 2", "Item 3"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ITEMS);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner = (MaterialSpinner) view.findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+
         return view;
     }
 

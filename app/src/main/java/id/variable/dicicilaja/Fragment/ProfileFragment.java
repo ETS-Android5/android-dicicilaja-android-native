@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 
 import id.variable.dicicilaja.Activity.LoginActivity;
 import id.variable.dicicilaja.R;
@@ -27,7 +26,6 @@ import id.variable.dicicilaja.R;
 public class ProfileFragment extends Fragment {
 
 
-    private FirebaseAuth firebaseAuth;
     private TextView btnLogout, name, title_name, email, title_email, phone, title_phone;
     public ProfileFragment() {
         // Required empty public constructor
@@ -43,7 +41,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        firebaseAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(null);
@@ -71,7 +68,6 @@ public class ProfileFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(),"Berhasil keluar",Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), LoginActivity.class);
                 startActivity(i);

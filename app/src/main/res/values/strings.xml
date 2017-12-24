@@ -44,4 +44,7 @@
     <string name="err_msg_username">Masukan Email/ID anda</string>
     <string name="err_msg_password">Masukan Kata sandi anda</string>
 
+    <!-- RegisterAxiFragment -->
+    <string name="spinner_area">Pilih Area</string>
+    <string name="spinner_cabang">Pilih Cabang</string>
 </resources>
