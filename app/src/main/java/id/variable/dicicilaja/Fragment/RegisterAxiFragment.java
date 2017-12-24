@@ -32,8 +32,7 @@ public class RegisterAxiFragment extends Fragment {
     TextView titleSection, bodySection, detailSection, sudahPunyaAkun, judulSudahPunyaAkun;
     EditText inputReferal, inputNama, inputEmail, inputHandphone, inputIbu;
     Button btnLanjut;
-    AppCompatSpinner spinnerArea, spinnerCabang;
-    MaterialSpinner spinner;
+    MaterialSpinner spinnerArea, spinnerCabang;
     public RegisterAxiFragment() {
         // Required empty public constructor
     }
@@ -55,7 +54,6 @@ public class RegisterAxiFragment extends Fragment {
         bodySection = (TextView) view.findViewById(R.id.bodySection);
         detailSection = (TextView) view.findViewById(R.id.detailSection);
         btnLanjut = (Button) view.findViewById(R.id.btnLanjut);
-//        spinnerArea = (AppCompatSpinner) view.findViewById(R.id.spinnerArea);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -87,8 +85,12 @@ public class RegisterAxiFragment extends Fragment {
         String[] ITEMS = {"Item 1", "Item 2", "Item 3"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner = (MaterialSpinner) view.findViewById(R.id.spinner);
-        spinner.setAdapter(adapter);
+        spinnerArea = (MaterialSpinner) view.findViewById(R.id.spinnerArea);
+        spinnerArea.setAdapter(adapter);
+        spinnerArea.setTypeface(opensans_semibold);
+        spinnerCabang = (MaterialSpinner) view.findViewById(R.id.spinnerCabang);
+        spinnerCabang.setAdapter(adapter);
+        spinnerCabang.setTypeface(opensans_semibold);
 
         return view;
     }

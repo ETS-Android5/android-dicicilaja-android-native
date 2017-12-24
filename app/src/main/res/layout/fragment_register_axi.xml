@@ -67,19 +67,41 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutReferal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/inputReferal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Refferal"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:padding="10dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tempat Pendataran"
-                    android:layout_marginTop="25dp"/>
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="9dp"/>
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutArea"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/spinner"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerArea"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ms_multiline="false"
@@ -94,37 +116,47 @@
                         app:ms_errorColor="@color/colorPrimaryDark"
                         android:layout_marginLeft="9dp"
                         android:layout_marginRight="9dp"
-                        app:ms_hintColor="@color/colorBlack"
                         app:ms_alignLabels="true"
-                        app:ms_floatingLabelColor="@color/colorAccent"/>
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
                 </android.support.design.widget.TextInputLayout>
-
-
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutReferal"
+                    android:id="@+id/inputLayoutCabang"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp">
 
-                    <EditText
-                        android:id="@+id/inputReferal"
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/spinnerCabang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Refferal"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:padding="10dp"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Cabang"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Cabang"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorBackgroundDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        app:ms_hintColor="@color/colorBlack"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorAccent"/>
 
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutNama"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/inputNama"
@@ -132,7 +164,6 @@
                         android:layout_height="wrap_content"
                         android:hint="Nama Lengkap"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -144,7 +175,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/inputEmail"
@@ -152,7 +184,6 @@
                         android:layout_height="wrap_content"
                         android:hint="Email"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -164,7 +195,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutHandphone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/inputHandphone"
@@ -172,7 +204,6 @@
                         android:layout_height="wrap_content"
                         android:hint="No. HP"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -184,7 +215,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutIbu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/inputIbu"
@@ -192,7 +224,6 @@
                         android:layout_height="wrap_content"
                         android:hint="Nama Ibu Kandung"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
