@@ -1,11 +1,12 @@
 package id.variable.dicicilaja.Fragment;
 
-
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +15,40 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
+import id.variable.dicicilaja.Model.Branch;
+import id.variable.dicicilaja.Model.Area;
+import id.variable.dicicilaja.Item.AreaItem;
 import id.variable.dicicilaja.Activity.HelpActivity;
 import id.variable.dicicilaja.Activity.LoginActivity;
 import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Remote.AreaService;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
- */
+  */
 public class RegisterAxiFragment extends Fragment {
 
     TextView titleSection, bodySection, detailSection, sudahPunyaAkun, judulSudahPunyaAkun;
     EditText inputReferal, inputNama, inputEmail, inputHandphone, inputIbu;
     Button btnLanjut;
     MaterialSpinner spinnerArea, spinnerCabang;
+    AreaService AreaService;
+
     public RegisterAxiFragment() {
         // Required empty public constructor
     }
@@ -82,17 +98,38 @@ public class RegisterAxiFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        String[] ITEMS = {"Item 1", "Item 2", "Item 3"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ITEMS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        final List<String> AREA_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
+
+        AreaService = ApiUtils.getAreaService();
+
+        Call<List<Area>> call = AreaService.getArea();
+        call.enqueue(new Callback<List<Area>>() {
+            @Override
+            public void onResponse(Call<List<Area>> call, Response<List<Area>> response) {
+                for ( int i = 0; i < response.body().size(); i++ ) {
+                    AREA_MAP.put(response.body().get(i).getId(), response.body().get(i).getName());
+                    AREA_ITEMS.add(response.body().get(i).getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Area>> call, Throwable t) {
+                Log.e("Error",t.getMessage());
+            }
+        });
+
+        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         spinnerArea = (MaterialSpinner) view.findViewById(R.id.spinnerArea);
-        spinnerArea.setAdapter(adapter);
+        spinnerArea.setAdapter(area_adapter);
         spinnerArea.setTypeface(opensans_semibold);
+
         spinnerCabang = (MaterialSpinner) view.findViewById(R.id.spinnerCabang);
-        spinnerCabang.setAdapter(adapter);
-        spinnerCabang.setTypeface(opensans_semibold);
+        spinnerCabang.setEnabled(false);
 
         return view;
     }
-
 }

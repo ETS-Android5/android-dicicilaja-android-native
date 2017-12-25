@@ -12,9 +12,6 @@ import retrofit2.http.POST;
 
 public interface UserService {
 
-//    @GET("login/{username}/{password}")
-//    Call<ResObj> login(@Path("username") String username, @Path("password") String password);
-
     @POST("login")
     @FormUrlEncoded
     Call<ResObj> login(@Field("username") String username,
