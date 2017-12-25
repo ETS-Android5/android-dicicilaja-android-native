@@ -53,7 +53,7 @@ public class RegisterAxiFragment extends Fragment {
         titleSection = (TextView) view.findViewById(R.id.titleSection);
         bodySection = (TextView) view.findViewById(R.id.bodySection);
         detailSection = (TextView) view.findViewById(R.id.detailSection);
-        btnLanjut = (Button) view.findViewById(R.id.btnLanjut);
+        btnLanjut = view.findViewById(R.id.btnLanjut);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");

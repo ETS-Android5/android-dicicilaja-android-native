@@ -95,24 +95,39 @@
                     android:textSize="14sp"/>
 
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/selectLayoutJk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputJk"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Jenis Kelamin"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:text="Tempat Pendataran"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginBottom="5dp"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/radioL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Laki-laki"
+                            android:layout_marginRight="10dp"/>
+                        <RadioButton
+                            android:id="@+id/radioP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Perempuan"/>
+                    </LinearLayout>
+                </RadioGroup>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -156,103 +171,143 @@
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutPerkawinan"
+                android:id="@+id/inputLayoutStatusPerkawinan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/inputPerkawinan"
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerStatusPerkawinan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Status Perkawinan"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    app:ms_multiline="false"
+                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                    app:ms_hintView="@layout/hint_item"
+                    app:ms_hint="Pilih Status Perkawinan"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_floatingLabelText="Pilih Status Perkawinan"
+                    app:ms_baseColor="@color/colorBlack"
+                    app:ms_highlightColor="@color/colorPrimaryDark"
+                    app:ms_errorColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    app:ms_alignLabels="true"
+                    android:textSize="14sp"
+                    app:ms_hintTextSize="14sp"
+                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutProvinsi"
+                android:id="@+id/inputLayoutProvinsi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/inputProvinsi"
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerProvinsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Provinsi"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    app:ms_multiline="false"
+                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                    app:ms_hintView="@layout/hint_item"
+                    app:ms_hint="Pilih Provinsi"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_floatingLabelText="Pilih Provinsi"
+                    app:ms_baseColor="@color/colorBlack"
+                    app:ms_highlightColor="@color/colorPrimaryDark"
+                    app:ms_errorColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    app:ms_alignLabels="true"
+                    android:textSize="14sp"
+                    app:ms_hintTextSize="14sp"
+                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKotaKab"
+                android:id="@+id/inputLayoutKotaKab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/inputKotaKab"
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerKotaKab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kota/Kabupaten"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    app:ms_multiline="false"
+                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                    app:ms_hintView="@layout/hint_item"
+                    app:ms_hint="Pilih Kota/Kabupaten"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_floatingLabelText="Pilih Kota/Kabupaten"
+                    app:ms_baseColor="@color/colorBlack"
+                    app:ms_highlightColor="@color/colorPrimaryDark"
+                    app:ms_errorColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    app:ms_alignLabels="true"
+                    android:textSize="14sp"
+                    app:ms_hintTextSize="14sp"
+                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKecamatan"
+                android:id="@+id/inputLayoutKecamatan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/inputKecamatan"
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerKecamatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kota/Kabupaten"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    app:ms_multiline="false"
+                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                    app:ms_hintView="@layout/hint_item"
+                    app:ms_hint="Pilih Kecamatan"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_floatingLabelText="Pilih Kecamatan"
+                    app:ms_baseColor="@color/colorBlack"
+                    app:ms_highlightColor="@color/colorPrimaryDark"
+                    app:ms_errorColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    app:ms_alignLabels="true"
+                    android:textSize="14sp"
+                    app:ms_hintTextSize="14sp"
+                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKelurahan"
+                android:id="@+id/inputLayoutKelurahan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/inputKelurahan"
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/spinnerKelurahan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kota/Kabupaten"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    app:ms_multiline="false"
+                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                    app:ms_hintView="@layout/hint_item"
+                    app:ms_hint="Pilih Provinsi"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_floatingLabelText="Pilih Provinsi"
+                    app:ms_baseColor="@color/colorBlack"
+                    app:ms_highlightColor="@color/colorPrimaryDark"
+                    app:ms_errorColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    app:ms_alignLabels="true"
+                    android:textSize="14sp"
+                    app:ms_hintTextSize="14sp"
+                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout

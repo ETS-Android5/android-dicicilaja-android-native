@@ -41,7 +41,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp">
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah foto"/>
+                    <ImageView
+                        android:id="@+id/gambar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+                </LinearLayout>
                 <EditText
                     android:id="@+id/inputNo"
                     android:layout_width="match_parent"
@@ -96,8 +109,22 @@
                     android:textSize="14sp"/>
 
             </android.support.design.widget.TextInputLayout>
-
-
+            <RelativeLayout
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <CheckBox
+                    android:id="@+id/check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/textCheck"
+                    android:layout_toRightOf="@+id/check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Saya setuju dengan syarat dan ketentuan yang berlaku"/>
+            </RelativeLayout>
             <Button
                 android:id="@+id/btnLanjut"
                 android:layout_width="match_parent"
@@ -105,7 +132,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/capsule_button"
-                android:text="Lanjut"
+                android:text="Kirim"
                 android:textColor="@color/colorWhite"
                 android:paddingLeft="25dp"
                 android:layout_marginLeft="5dp"
@@ -120,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Step 4 dari 5"/>
+                    android:text="Step 5 dari 5"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
