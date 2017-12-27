@@ -25,14 +25,12 @@ import java.util.List;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import id.variable.dicicilaja.Model.Branch;
 import id.variable.dicicilaja.Model.Area;
-import id.variable.dicicilaja.Item.AreaItem;
 import id.variable.dicicilaja.Activity.HelpActivity;
 import id.variable.dicicilaja.Activity.LoginActivity;
 import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Remote.AreaService;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,7 +70,7 @@ public class RegisterAxiFragment extends Fragment {
         btnLanjut = (Button) view.findViewById(R.id.btnLanjut);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        final Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
         inputNama.setTypeface(opensans_semibold);
         inputEmail.setTypeface(opensans_semibold);
@@ -102,21 +100,31 @@ public class RegisterAxiFragment extends Fragment {
         final List<String> AREA_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
 
+        final List<String> CABANG_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
+
         AreaService = ApiUtils.getAreaService();
 
         Call<List<Area>> call = AreaService.getArea();
         call.enqueue(new Callback<List<Area>>() {
             @Override
             public void onResponse(Call<List<Area>> call, Response<List<Area>> response) {
+
+                AREA_MAP.clear();
+                AREA_ITEMS.clear();
+
                 for ( int i = 0; i < response.body().size(); i++ ) {
-                    AREA_MAP.put(response.body().get(i).getId(), response.body().get(i).getName());
+                    AREA_MAP.put(response.body().get(i).getId(), response.body().get(i).getId().toString());
                     AREA_ITEMS.add(response.body().get(i).getName());
                 }
+
             }
 
             @Override
             public void onFailure(Call<List<Area>> call, Throwable t) {
-                Log.e("Error",t.getMessage());
+                AREA_MAP.clear();
+                AREA_ITEMS.clear();
+                Log.e("Error", t.getMessage());
             }
         });
 
@@ -129,6 +137,54 @@ public class RegisterAxiFragment extends Fragment {
 
         spinnerCabang = (MaterialSpinner) view.findViewById(R.id.spinnerCabang);
         spinnerCabang.setEnabled(false);
+
+        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Call<List<Branch>> callBranch = AreaService.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+                callBranch.enqueue(new Callback<List<Branch>>() {
+                    @Override
+                    public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
+
+                        CABANG_MAP.clear();
+                        CABANG_ITEMS.clear();
+
+                        for ( int i = 0; i < response.body().size(); i++ ) {
+                            CABANG_MAP.put(response.body().get(i).getId(), response.body().get(i).getName());
+                            CABANG_ITEMS.add(response.body().get(i).getName());
+                        }
+
+                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
+                        branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                        spinnerCabang.setEnabled(true);
+                        spinnerCabang.setAdapter(branch_adapter);
+                        spinnerCabang.setTypeface(opensans_semibold);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Branch>> call, Throwable t) {
+                        CABANG_MAP.clear();
+                        CABANG_ITEMS.clear();
+                        spinnerCabang.setEnabled(false);
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                AREA_ITEMS.clear();
+                AREA_MAP.clear();
+                CABANG_MAP.clear();
+                CABANG_ITEMS.clear();
+                spinnerCabang.setEnabled(false);
+            }
+
+        });
+
 
         return view;
     }
