@@ -6,6 +6,8 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,7 @@ public class RegisterAxiFragment extends Fragment {
         inputNama = (EditText) view.findViewById(R.id.inputNama);
         inputEmail = (EditText) view.findViewById(R.id.inputEmail);
         inputIbu = (EditText) view.findViewById(R.id.inputIbu);
-        inputReferal = (EditText) view.findViewById(R.id.inputReferal);
+        inputReferal = view.findViewById(R.id.inputReferal);
         inputHandphone = (EditText) view.findViewById(R.id.inputHandphone);
         sudahPunyaAkun = (TextView) view.findViewById(R.id.sudahPunyaAkun);
         judulSudahPunyaAkun = (TextView) view.findViewById(R.id.judulSudahPunyaAkun);
@@ -89,6 +91,7 @@ public class RegisterAxiFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +99,8 @@ public class RegisterAxiFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        btnLanjut.setEnabled(false);
 
         final List<String> AREA_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
@@ -171,7 +176,6 @@ public class RegisterAxiFragment extends Fragment {
                     }
                 });
 
-
             }
 
             @Override
@@ -185,7 +189,7 @@ public class RegisterAxiFragment extends Fragment {
 
         });
 
-
         return view;
     }
+
 }
