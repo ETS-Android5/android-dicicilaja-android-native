@@ -1,8 +1,10 @@
 package id.variable.dicicilaja.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import javax.xml.transform.Source;
 
 import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.R;
@@ -130,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
         }
 
     }

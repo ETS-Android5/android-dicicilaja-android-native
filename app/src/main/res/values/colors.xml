@@ -12,4 +12,5 @@
     <color name="colorApp">#FAFAFA</color>
     <color name="colorIcon">#C7C7C7</color>
     <color name="colorBlack">#1C1C1C</color>
+    <color name="colorRed">#ff0000</color>
 </resources>
