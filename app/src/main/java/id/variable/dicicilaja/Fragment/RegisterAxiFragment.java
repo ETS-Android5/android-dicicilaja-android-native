@@ -100,7 +100,7 @@ public class RegisterAxiFragment extends Fragment {
             }
         });
 
-        btnLanjut.setEnabled(false);
+        // btnLanjut.setEnabled(false);
 
         final List<String> AREA_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
