@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 Window window = this.getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.setStatusBarColor(this.getResources().getColor(R.color.colorBlack));
+                window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
             }
             judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
             judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
@@ -131,6 +131,13 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getBaseContext(), HelpActivity.class);
+                    startActivity(intent);
+                }
+            });
+            lewati.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                     startActivity(intent);
                 }
             });

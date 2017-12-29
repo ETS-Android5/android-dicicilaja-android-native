@@ -76,12 +76,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.RegisterAxi3Activity" />
         </activity>
-        <activity android:name=".Activity.RegisterAxi5Activity"
+        <activity
+            android:name=".Activity.RegisterAxi5Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.RegisterAxi4Activity" />
+        </activity>
+        <activity
+            android:name=".Activity.AxiDashboardActivity"
+            android:label="@string/title_activity_marketplace"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
