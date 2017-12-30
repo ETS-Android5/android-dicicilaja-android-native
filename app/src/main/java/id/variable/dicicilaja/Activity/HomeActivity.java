@@ -1,11 +1,11 @@
 package id.variable.dicicilaja.Activity;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,11 +13,18 @@ import android.widget.Toast;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.HashMap;
+import java.util.List;
 
+import id.variable.dicicilaja.API.Interface.ApiPengajuan;
 import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
+import id.variable.dicicilaja.API.Item.Pengajuan;
+import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -52,19 +59,19 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        session = new SessionManager(getApplicationContext());
-
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
-        session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
-
-        String token = user.get(SessionManager.KEY_TOKEN);
+//        session = new SessionManager(getApplicationContext());
+//
+//        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
+//        session.checkLogin();
+//        HashMap<String, String> user = session.getUserDetails();
+//
+//        String token = user.get(SessionManager.KEY_TOKEN);
         HomeFragment homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, homeFragment).addToBackStack(null).commit();
 
         BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
 
-        Toast.makeText(HomeActivity.this, "bearer" + token, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(HomeActivity.this, "bearer" + token, Toast.LENGTH_SHORT).show();
 
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
@@ -78,6 +85,8 @@ public class HomeActivity extends AppCompatActivity {
 //        navigation.setIconSize(26,26);
 //        navigation.setItemHeight(144);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
     @Override

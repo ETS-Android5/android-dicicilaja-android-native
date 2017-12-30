@@ -165,7 +165,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     ResObj resObj = response.body();
 
-
                     session.createLoginSession(resObj.getToken().getAccessToken().toString());
 
                     Intent intent = new Intent(getBaseContext(), HomeActivity.class);

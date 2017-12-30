@@ -8,16 +8,31 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.List;
+
+import id.variable.dicicilaja.API.Interface.ApiPengajuan;
+import id.variable.dicicilaja.API.Item.Pengajuan;
+import id.variable.dicicilaja.API.Item.PengajuanResponse;
+import id.variable.dicicilaja.Activity.HomeActivity;
 import id.variable.dicicilaja.Adapter.HomePagerAdapter;
 import id.variable.dicicilaja.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
