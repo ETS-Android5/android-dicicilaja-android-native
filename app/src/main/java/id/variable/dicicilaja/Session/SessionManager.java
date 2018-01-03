@@ -44,7 +44,7 @@ public class SessionManager {
      * Else won't do anything
      * */
     public void checkLogin(){
-        if(!this.isLoggedIn()){
+        if( ! this.isLoggedIn() ){
             Intent i = new Intent(_context, LoginActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -59,9 +59,7 @@ public class SessionManager {
      * */
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
-        // user name
         user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
-
         return user;
     }
 

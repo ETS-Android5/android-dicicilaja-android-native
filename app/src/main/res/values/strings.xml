@@ -49,4 +49,24 @@
     <string name="spinner_cabang">Pilih Cabang</string>
     <string name="title_activity_marketplace">MarketplaceActivity</string>
     <string name="title_activity_tcdashboard">TCDashboardActivity</string>
+
+    <!-- Navbar Title -->
+    <string name="main_navbar">Utama</string>
+    <string name="other_programs">Program Lainnya</string>
+    <string name="preferences">Preferensi</string>
+
+    <!-- Navbar Main Menu -->
+    <string name="home">DICICILAJA</string>
+    <string name="request_simulation">SIMULASI CICILAN</string>
+    <string name="request">PENGAJUAN</string>
+    <string name="category">KATEGORY</string>
+
+    <!-- Navbar Other Program -->
+    <string name="axi">AXI</string>
+    <string name="mitra_maxi">MITRA MAXI</string>
+
+    <!-- Navbar Preferences -->
+    <string name="help">BANTUAN</string>
+    <string name="pref_menu">PENGATURAN</string>
+    <string name="about">TENTANG</string>
 </resources>

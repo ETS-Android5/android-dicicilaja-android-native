@@ -59,19 +59,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        session = new SessionManager(getApplicationContext());
-//
-//        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
-//        session.checkLogin();
-//        HashMap<String, String> user = session.getUserDetails();
-//
-//        String token = user.get(SessionManager.KEY_TOKEN);
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManager.KEY_TOKEN);
         HomeFragment homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, homeFragment).addToBackStack(null).commit();
 
         BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
-
-//        Toast.makeText(HomeActivity.this, "bearer" + token, Toast.LENGTH_SHORT).show();
 
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);

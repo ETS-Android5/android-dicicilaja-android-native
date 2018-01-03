@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,10 +45,11 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private Button btnLogin;
 
-
     SessionManager session;
 
     UserService userService;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         if (session.isLoggedIn() == TRUE) {
-            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+            intent = getRoleActivity("admin");
             startActivity(intent);
             finish();
-        }else{
+        } else {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -165,12 +167,17 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     ResObj resObj = response.body();
 
-                    session.createLoginSession(resObj.getToken().getAccessToken().toString());
+                    try {
+                        session.createLoginSession(resObj.getToken().getAccessToken());
+                    } catch(Exception ex) {
+                        Log.w("Login Exception:", ex.getMessage());
+                        Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+                    }
 
-                    Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                    String role = resObj.getRole();
+                    intent = getRoleActivity(role);
                     startActivity(intent);
                     finish();
-
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }
@@ -181,6 +188,19 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private Intent getRoleActivity(String role) {
+        switch( role ) {
+            case "admin":
+                intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                break;
+            default:
+                intent = new Intent(getBaseContext(), HomeActivity.class);
+                break;
+        }
+
+        return intent;
     }
 
     private boolean validateEmailID() {

@@ -3,35 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
-    <item android:title="Communicate">
+    <item android:title="@string/main_navbar">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/navbar_home"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/home" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/navbar_simulation"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/request_simulation" />
+            <item
+                android:id="@+id/navbar_request"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/request" />
+            <item
+                android:id="@+id/navbar_category"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/category" />
+        </menu>
+    </item>
+
+    <item android:title="@string/other_programs">
+        <menu>
+            <item
+                android:id="@+id/navbar_axi"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/axi"
+                />
+            <item
+                android:id="@+id/navbar_maxi"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/mitra_maxi"
+                />
+        </menu>
+    </item>
+
+    <item android:title="@string/preferences">
+        <menu>
+            <item
+                android:id="@+id/navbar_help"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/help"
+                />
+            <item
+                android:id="@+id/navbar_pref_menu"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/pref_menu"
+                />
+            <item
+                android:id="@+id/navbar_about"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/about"
+                />
         </menu>
     </item>
 
