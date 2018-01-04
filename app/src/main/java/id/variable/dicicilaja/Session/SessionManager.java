@@ -21,7 +21,6 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "DicicilajaPref";
     private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_TOKEN = "";
 
     public SessionManager(Context context){
         this._context = context;
@@ -32,10 +31,29 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String token){
+    public void createLoginSession(String token, String role, String user, String photo_profile_url){
         editor.putBoolean(IS_LOGIN, true);
-        editor.putString(KEY_TOKEN, token);
+        editor.putString("token", token);
+        editor.putString("role", role);
+        editor.putString("name", user);
+        editor.putString("photo", photo_profile_url);
         editor.commit();
+    }
+
+    public String getToken() {
+        return pref.getString("token", null);
+    }
+
+    public String getRole() {
+        return pref.getString("role", null);
+    }
+
+    public String getName() {
+        return pref.getString("name", null);
+    }
+
+    public String getPhoto() {
+        return pref.getString("photo", null);
     }
 
     /**
@@ -52,17 +70,6 @@ public class SessionManager {
         }
     }
 
-
-
-    /**
-     * Get stored session data
-     * */
-    public HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String, String>();
-        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
-        return user;
-    }
-
     /**
      * Clear session details
      * */
@@ -75,6 +82,7 @@ public class SessionManager {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
     }
+
 
     /**
      * Quick check for login

@@ -61,9 +61,8 @@ public class HomeActivity extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
 
-        String token = user.get(SessionManager.KEY_TOKEN);
+        String token = session.getToken();
         HomeFragment homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, homeFragment).addToBackStack(null).commit();
 

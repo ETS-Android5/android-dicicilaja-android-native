@@ -12,9 +12,15 @@ public class ResObj {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("photo")
+    @Expose
+    private String photo;
     @SerializedName("_token")
     @Expose
     private Token token;
@@ -28,6 +34,10 @@ public class ResObj {
         this.userId = userId;
     }
 
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
     public String getRole() {
         return role;
     }
@@ -35,6 +45,10 @@ public class ResObj {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getPhoto() { return photo; }
+
+    public void setPhoto(String photo) { this.photo = photo; }
 
     public Token getToken() {
         return token;

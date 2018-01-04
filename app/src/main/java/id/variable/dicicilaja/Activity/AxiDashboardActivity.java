@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,8 +25,7 @@ import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
 import id.variable.dicicilaja.R;
 
-public class AxiDashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class AxiDashboardActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,7 +83,27 @@ public class AxiDashboardActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                Intent intent;
+
+                switch( id ) {
+                    case R.id.navbar_home:
+                        intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                        startActivity(intent);
+                        break;
+
+                    case R.id.navbar_pref_menu:
+                        intent = new Intent(getBaseContext(), HomeActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+
+                return true;
+            }
+        });
 
         AxiHomeFragment axiHomeFragment = new AxiHomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiHomeFragment)
@@ -133,30 +153,5 @@ public class AxiDashboardActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

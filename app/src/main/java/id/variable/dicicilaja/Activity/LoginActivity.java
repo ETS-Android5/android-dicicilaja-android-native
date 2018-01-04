@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+
 import javax.xml.transform.Source;
 
 import id.variable.dicicilaja.Model.ResObj;
@@ -55,10 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager(LoginActivity.this);
 
         if (session.isLoggedIn() == TRUE) {
-            intent = getRoleActivity("admin");
+            String role = session.getRole();
+            intent = getRoleActivity(role);
             startActivity(intent);
             finish();
         } else {
@@ -168,16 +171,16 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
-                        session.createLoginSession(resObj.getToken().getAccessToken());
+                        session.createLoginSession(resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto());
+                        String role = resObj.getRole();
+                        intent = getRoleActivity(role);
+                        startActivity(intent);
                     } catch(Exception ex) {
                         Log.w("Login Exception:", ex.getMessage());
                         Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                     }
 
-                    String role = resObj.getRole();
-                    intent = getRoleActivity(role);
-                    startActivity(intent);
-                    finish();
+
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }

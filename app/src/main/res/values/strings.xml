@@ -69,4 +69,6 @@
     <string name="help">BANTUAN</string>
     <string name="pref_menu">PENGATURAN</string>
     <string name="about">TENTANG</string>
+
+    <string name="profile_navbar">Lihat Profil</string>
 </resources>

@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,8 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Interface.ApiPengajuan;
@@ -31,12 +37,16 @@ import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
 import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TCDashboardActivity extends AppCompatActivity {
 
+    SessionManager session;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +86,23 @@ public class TCDashboardActivity extends AppCompatActivity {
                 }
 
                 return true;
+            }
+
+        });
+        View navbarView = navigationView.getHeaderView(0);
+
+        ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
+        TextView name = navbarView.findViewById(R.id.nameView);
+        TextView profile = navbarView.findViewById(R.id.textView);
+
+        session = new SessionManager(getApplicationContext());
+
+        name.setText(session.getName());
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                startActivity(intent);
             }
         });
 
