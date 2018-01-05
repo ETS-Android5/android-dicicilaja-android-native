@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="id.variable.dicicilaja.Fragment.NasabahPemohonFragment"
     android:orientation="vertical">
 
@@ -23,11 +23,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp">
                     <TextView
-                        android:id="@+id/title_informasi"
+                        android:id="@+id/title_nasabah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Informasi Pengajuan"/>
+                        android:text="Informasi Nasabah"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
@@ -37,9 +37,8 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                card_view:cardCornerRadius="4dp"
-                android:elevation="100dp"
-                android:contextClickable="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
@@ -49,115 +48,222 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/top_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:orientation="vertical">
                         <LinearLayout
-                            android:id="@+id/title_of_card"
-                            android:layout_width="120dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
                             <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Program Pembiayaan"/>
+                                android:text="Nama Nasabah"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Nama Produk"/>
+                                android:text=":"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Channel Penjualan"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Informasi Tambahan"/>
+                                android:text="Rienaldi Muh"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/div_of_card"
-                            android:layout_toRightOf="@+id/title_of_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="No. HP Nasabah"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="089876543210"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Email Nasabah"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="muh@rienaldi.com"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Alamat Nasabah"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Jalan Kejaksaan No. 8B Pondok Bambu"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Kecamatan"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Duren Sawit"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Kota"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Jakarta Timur"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary">
+                        <TextView
+                            android:id="@+id/telephone_button_nasabah"
+                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/value_of_card"
-                            android:layout_toRightOf="@+id/div_of_card"
+                            android:background="@drawable/capsule_tag"
+                            android:textColor="@color/colorWhite"
+                            android:paddingTop="2dp"
+                            android:textSize="12sp"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="16dp"
+                            android:clickable="true"
+                            android:elevation="1dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_marginRight="15dp"
+                            android:text="TELEPHONE"/>
+                        <TextView
+                            android:id="@+id/sms_button_nasabah"
+                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="MAXI Durable"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Xiaomi Mi A1 4Gb 64 Gb"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Lazada Indonesia"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Red Edition"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
+                            android:background="@drawable/capsule_button"
+                            android:textColor="@color/colorWhite"
+                            android:paddingTop="2dp"
+                            android:textSize="12sp"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:clickable="true"
+                            android:elevation="1dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:text="SMS"/>
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <LinearLayout
-                android:id="@+id/title_jaminan"
+                android:id="@+id/layout_pemohon"
                 android:layout_below="@+id/card_pengajuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,23 +274,22 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp">
                     <TextView
-                        android:id="@+id/title_informasi_jaminan"
+                        android:id="@+id/title_pemohon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Informasi Jaminan"/>
+                        android:text="Informasi Pemohon"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
-                android:id="@+id/card_jaminan"
-                android:layout_below="@+id/title_jaminan"
+                android:id="@+id/card_pemohon"
+                android:layout_below="@+id/layout_pemohon"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                card_view:cardCornerRadius="4dp"
-                android:elevation="100dp"
-                android:contextClickable="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
@@ -194,308 +299,220 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:id="@+id/top_card_jaminan"
+                    <LinearLayout
+                        android:id="@+id/top_card_pemohon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:orientation="vertical">
                         <LinearLayout
-                            android:id="@+id/title_of_card_jaminan"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Kolateral"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Merk"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Tahun"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Tenor"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Jumlah Pinjaman"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Area Pengajuan"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Cabang Pengajuan"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="Kode Pos Cabang"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/div_of_card_jaminan"
-                            android:layout_toRightOf="@+id/title_of_card_jaminan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/value_of_card_jaminan"
-                            android:layout_toRightOf="@+id/div_of_card_jaminan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="BPKB Motor"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Honda Vario 125"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="2015"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="12 Bulan"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Rp 8.000.000"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Jawa Tengah"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Purwadadi"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="58112"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/foto_ktp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/title_of_card_jaminan">
-                            <LinearLayout
-                                android:id="@+id/title_of_card_jaminan_2"
-                                android:layout_below="@+id/title_of_card_jaminan"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:text="Foto KTP"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/div_of_card_jaminan_2"
-                                android:layout_below="@+id/div_of_card_jaminan"
-                                android:layout_toRightOf="@+id/title_of_card_jaminan"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Nama Nasabah"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text=":"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/value_of_card_jaminan_2"
-                                android:layout_below="@+id/value_of_card_jaminan"
-                                android:layout_toRightOf="@+id/div_of_card_jaminan"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="140dp"
-                                    android:layout_height="80dp"
-                                    android:src="@drawable/logo"
-                                    android:layout_marginBottom="10dp"/>
-                            </LinearLayout>
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Jarlina Kartika Dewi"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/foto_kolateral"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/foto_ktp">
-                            <LinearLayout
-                                android:id="@+id/title_of_card_jaminan_3"
-                                android:layout_below="@+id/title_of_card_jaminan"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:text="Foto Kolateral"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/div_of_card_jaminan_3"
-                                android:layout_below="@+id/div_of_card_jaminan_2"
-                                android:layout_toRightOf="@+id/title_of_card_jaminan_3"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Email Pemohon"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text=":"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/value_of_card_jaminan_3"
-                                android:layout_below="@+id/value_of_card_jaminan_2"
-                                android:layout_toRightOf="@+id/div_of_card_jaminan_3"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="140dp"
-                                    android:layout_height="80dp"
-                                    android:src="@drawable/logo"/>
-                            </LinearLayout>
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="jarlina@gmail.com"/>
                         </LinearLayout>
-                    </RelativeLayout>
-
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="No. HP Pemohon"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="081234567890"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="AXI ID"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="045217000002"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Kecamatan"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Duren Sawit"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Kota"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Jakarta Timur"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary">
+                        <TextView
+                            android:id="@+id/telephone_button_pemohon"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/capsule_tag"
+                            android:textColor="@color/colorWhite"
+                            android:paddingTop="2dp"
+                            android:textSize="12sp"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="16dp"
+                            android:clickable="true"
+                            android:elevation="1dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_marginRight="15dp"
+                            android:text="TELEPHONE"/>
+                        <TextView
+                            android:id="@+id/sms_button_pemohon"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/capsule_button"
+                            android:textColor="@color/colorWhite"
+                            android:paddingTop="2dp"
+                            android:textSize="12sp"
+                            android:clickable="true"
+                            android:elevation="1dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:text="SMS"/>
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-            <RelativeLayout
-                android:id="@+id/proses"
-                android:layout_below="@+id/card_jaminan"
-                android:layout_marginTop="20dp"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:clickable="true"
-                android:elevation="5dp"
-                android:paddingTop="5dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/title_proses"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PROSES PENGAJUAN"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent2"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 
