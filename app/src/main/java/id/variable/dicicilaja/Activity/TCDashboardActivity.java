@@ -56,9 +56,10 @@ public class TCDashboardActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(null);
 
         TabLayout tabLayout = findViewById(R.id.tab_tc);
-        tabLayout.addTab(tabLayout.newTab().setText("MENUNGGU"));
-        tabLayout.addTab(tabLayout.newTab().setText("SELESAI"));
+        tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN MASUK"));
+        tabLayout.addTab(tabLayout.newTab().setText("SEDANG DIPROSES"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent2));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -1,13 +1,42 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Fragment.CompleteFragment">
+    tools:context="id.variable.dicicilaja.Fragment.CompleteFragment"
+    android:background="@color/colorPrimary">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Complete" />
+        android:fillViewport="true"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+            <TextView
+                android:id="@+id/title_pengumuman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Total Pengajuan"/>
+            <TextView
+                android:id="@+id/jumlah_pengajuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="678"
+                android:background="@drawable/capsule_value"
+                android:textColor="@color/colorWhite"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_pengajuan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

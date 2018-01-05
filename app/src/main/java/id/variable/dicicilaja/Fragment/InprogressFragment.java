@@ -1,9 +1,11 @@
 package id.variable.dicicilaja.Fragment;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,7 +20,11 @@ import java.util.List;
 import id.variable.dicicilaja.API.Interface.ApiPengajuan;
 import id.variable.dicicilaja.API.Item.Pengajuan;
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
+import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
+import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
 import id.variable.dicicilaja.Adapter.PengajuanAdapter;
+import id.variable.dicicilaja.Listener.ClickListener;
+import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +37,7 @@ import static android.content.ContentValues.TAG;
  */
 public class InprogressFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = InprogressFragment.class.getSimpleName();
 
     private final static String API_KEY = "5ecafcd6b64015065d4d58ba9837b7e0";
 
@@ -64,6 +70,19 @@ public class InprogressFragment extends Fragment {
 
         final RecyclerView recyclerView =  view.findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), "Posisi pengajuan ke : "+position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
         ApiPengajuan apiService =
                 id.variable.dicicilaja.API.Client.ApiPengajuan.getClient().create(ApiPengajuan.class);

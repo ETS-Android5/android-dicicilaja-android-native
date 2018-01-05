@@ -11,6 +11,8 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="4dp"
         android:elevation="100dp"
         android:contextClickable="true"
