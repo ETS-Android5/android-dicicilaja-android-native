@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import id.variable.dicicilaja.Adapter.DetailPengajuanPagerAdapter;
 import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
 import id.variable.dicicilaja.R;
 
@@ -33,13 +34,13 @@ public class DetailPengajuanActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_detail_pengajuan);
         tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN & JAMINAN"));
         tabLayout.addTab(tabLayout.newTab().setText("NASABAH & PEMOHON"));
-        tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN & JAMINAN"));
-        tabLayout.addTab(tabLayout.newTab().setText("NASABAH & PEMOHON"));
+        tabLayout.addTab(tabLayout.newTab().setText("RIWAYAT PENGAJUAN"));
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent2));
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new TCHomePagerAdapter(getSupportFragmentManager(), 2));
+        viewPager.setAdapter(new DetailPengajuanPagerAdapter(getSupportFragmentManager(), 3));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
