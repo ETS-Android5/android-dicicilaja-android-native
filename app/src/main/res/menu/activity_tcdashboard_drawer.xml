@@ -4,22 +4,22 @@
     tools:showIn="navigation_view">
 
     <item android:title="@string/main_navbar">
-        <menu>
+        <menu android:title="@string/main_navbar">
             <item
                 android:id="@+id/navbar_home"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/home" />
             <item
                 android:id="@+id/navbar_simulation"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/request_simulation" />
             <item
                 android:id="@+id/navbar_request"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/request" />
             <item
                 android:id="@+id/navbar_category"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/category" />
         </menu>
     </item>
@@ -28,12 +28,12 @@
         <menu>
             <item
                 android:id="@+id/navbar_axi"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/axi"
                 />
             <item
                 android:id="@+id/navbar_maxi"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/mitra_maxi"
                 />
         </menu>
@@ -43,17 +43,17 @@
         <menu>
             <item
                 android:id="@+id/navbar_help"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/help"
                 />
             <item
                 android:id="@+id/navbar_pref_menu"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/pref_menu"
                 />
             <item
                 android:id="@+id/navbar_about"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_circle"
                 android:title="@string/about"
                 />
         </menu>

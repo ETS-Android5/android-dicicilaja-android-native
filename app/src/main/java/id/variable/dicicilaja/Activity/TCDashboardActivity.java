@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +92,7 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         });
         View navbarView = navigationView.getHeaderView(0);
-
+        LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
         TextView profile = navbarView.findViewById(R.id.textView);
@@ -99,10 +100,11 @@ public class TCDashboardActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         name.setText(session.getName());
-        profile.setOnClickListener(new View.OnClickListener() {
+
+        open_profile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -155,6 +157,8 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
+            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            startActivity(intent);
             return true;
         }
 
