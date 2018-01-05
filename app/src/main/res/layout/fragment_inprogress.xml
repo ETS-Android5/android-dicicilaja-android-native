@@ -18,22 +18,24 @@
                 android:id="@+id/title_pengumuman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:text="Total Pengajuan"/>
             <TextView
+                android:id="@+id/jumlah_pengajuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="678"
-                android:background="@drawable/capsule_tag"
+                android:background="@drawable/capsule_value"
                 android:textColor="@color/colorWhite"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
+                android:textSize="16sp"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_pengajuan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 

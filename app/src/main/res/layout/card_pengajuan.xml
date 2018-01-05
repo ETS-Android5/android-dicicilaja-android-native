@@ -32,12 +32,50 @@
                     android:id="@+id/resi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#0010001608 - DANA MULTIGUNA"/>
+                    android:textStyle="bold"
+                    android:text="#0010001608"/>
+                <TextView
+                    android:id="@+id/div_resi"
+                    android:layout_toRightOf="@+id/resi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+                <TextView
+                    android:id="@+id/nama_resi"
+                    android:layout_toRightOf="@+id/div_resi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DANA MULTIGUNA"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_more_vert"/>
+                <TextView
+                    android:id="@+id/detail_resi"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/resi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="BPKB Motor"/>
+                <TextView
+                    android:id="@+id/div_detail_resi"
+                    android:layout_below="@+id/resi"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/detail_resi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" • "/>
+                <TextView
+                    android:id="@+id/harga_resi"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/div_detail_resi"
+                    android:layout_below="@+id/resi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Rp 9.500.000"/>
 
             </RelativeLayout>
             <RelativeLayout
@@ -56,12 +94,14 @@
                     android:text="06 Desember 2017"/>
                 <TextView
                     android:id="@+id/status"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/capsule_tag"
                     android:textColor="@color/colorWhite"
                     android:paddingTop="2dp"
+                    android:textSize="10sp"
                     android:paddingBottom="2dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"

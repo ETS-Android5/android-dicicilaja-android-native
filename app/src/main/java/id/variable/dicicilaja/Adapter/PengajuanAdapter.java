@@ -54,7 +54,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
     @Override
     public void onBindViewHolder(PengajuanAdapter.PengajuanViewHolder holder, int position) {
 //        holder.resi.setText(pengajuans.get(position).getTitle());
-        holder.resi.setText("#0010001608 - DANA MULTIGUNA");
+        holder.resi.setText("#0010001608");
         holder.tanggal.setText("06 Desember 2017");
         holder.status.setText("REALISASI");
     }

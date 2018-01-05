@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Fragment;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -39,6 +41,16 @@ public class InprogressFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inprogress, container, false);
+
+        TextView title_pengumuman = view.findViewById(R.id.title_pengumuman);
+        TextView jumlah_pengajuan = view.findViewById(R.id.jumlah_pengajuan);
+        Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        title_pengumuman.setTypeface(opensans_bold);
+        jumlah_pengajuan.setTypeface(opensans_bold);
 
         if (API_KEY.isEmpty()) {
             Toast.makeText(getContext(), "Harap masukan API KEY", Toast.LENGTH_LONG).show();
