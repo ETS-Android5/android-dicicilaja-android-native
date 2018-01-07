@@ -74,7 +74,7 @@ public class InprogressFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(), "Posisi pengajuan ke : "+position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Posisi pengajuan ke : "+position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
                 startActivity(intent);
             }

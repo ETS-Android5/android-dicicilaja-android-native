@@ -116,7 +116,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.TCDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.ProsesPengajuanActivity"></activity>
+        <activity android:name=".Activity.ProsesPengajuanActivity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.DetailPengajuanActivity" /></activity>
     </application>
 
 </manifest>
