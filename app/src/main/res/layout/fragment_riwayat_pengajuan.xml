@@ -363,6 +363,28 @@
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            <RelativeLayout
+                android:id="@+id/proses"
+                android:layout_below="@+id/card_jejak"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:paddingTop="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_proses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROSES PENGAJUAN"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent2"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 
