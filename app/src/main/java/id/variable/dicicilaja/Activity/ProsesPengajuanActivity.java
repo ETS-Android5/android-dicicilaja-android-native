@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
         TextView konfirmasi = findViewById(R.id.konfirmasi);
+        TextView lihat_database = findViewById(R.id.lihat_database);
 
 
 
@@ -64,6 +66,14 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
 
                 // Showing Alert Message
                 alertDialog.show();
+            }
+        });
+
+        lihat_database.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), LihatDatabaseCRHActivity.class);
+                startActivity(intent);
             }
         });
     }
