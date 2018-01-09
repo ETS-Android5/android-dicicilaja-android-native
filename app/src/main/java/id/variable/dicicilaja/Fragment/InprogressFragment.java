@@ -77,7 +77,7 @@ public class InprogressFragment extends Fragment {
         }));
 
         ApiPengajuan apiService =
-                id.variable.dicicilaja.API.Client.ApiPengajuan.getClient().create(ApiPengajuan.class);
+                id.variable.dicicilaja.API.Client.ApiPengajuan.getClientPengajuan().create(ApiPengajuan.class);
 
         Call<PengajuanResponse> call = apiService.getPengajuan(apiKey);
         call.enqueue(new Callback<PengajuanResponse>() {

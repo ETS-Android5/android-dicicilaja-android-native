@@ -4,16 +4,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by ziterz on 30/12/2017.
+ * Created by ziterz on 1/9/2018.
  */
 
-public class ApiPengajuan {
+public class ApiDatabaseEmployee {
 
     public static final String BASE_URL = "https://api.dicicilaja.com/";
     private static Retrofit retrofit = null;
 
 
-    public static Retrofit getClientPengajuan() {
+    public static Retrofit getClientDatabaseEmployee() {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

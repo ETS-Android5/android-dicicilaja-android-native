@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Pengajuan {
+
     @SerializedName("id")
     @Expose
     private Integer id;

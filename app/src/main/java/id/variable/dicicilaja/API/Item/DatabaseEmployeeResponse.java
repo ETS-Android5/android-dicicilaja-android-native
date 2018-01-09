@@ -1,22 +1,22 @@
 package id.variable.dicicilaja.API.Item;
 
-
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
- * Created by ziterz on 30/12/2017.
+ * Created by ziterz on 1/9/2018.
  */
 
-public class PengajuanResponse {
+public class DatabaseEmployeeResponse {
 
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private List<Pengajuan> data = null;
+    private List<DatabaseEmployee> data = null;
 
     public String getStatus() {
         return status;
@@ -26,11 +26,11 @@ public class PengajuanResponse {
         this.status = status;
     }
 
-    public List<Pengajuan> getData() {
+    public List<DatabaseEmployee> getData() {
         return data;
     }
 
-    public void setData(List<Pengajuan> data) {
+    public void setData(List<DatabaseEmployee> data) {
         this.data = data;
     }
 
