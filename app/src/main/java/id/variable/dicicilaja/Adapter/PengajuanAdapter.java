@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Item.Pengajuan;
@@ -28,14 +29,18 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         TextView resi;
         TextView tanggal;
         TextView status;
+        TextView harga_resi;
+        TextView detail_resi;
 
 
         public PengajuanViewHolder(View v) {
             super(v);
-            card_pengajuan =  v.findViewById(R.id.card_pengajuan);
-            resi =  v.findViewById(R.id.resi);
-            tanggal =  v.findViewById(R.id.tanggal);
-            status =  v.findViewById(R.id.status);
+            card_pengajuan  = v.findViewById(R.id.card_pengajuan);
+            resi            = v.findViewById(R.id.resi);
+            tanggal         = v.findViewById(R.id.tanggal);
+            status          = v.findViewById(R.id.status);
+            harga_resi      = v.findViewById(R.id.harga_resi);
+            detail_resi     = v.findViewById(R.id.detail_resi);
         }
     }
 
@@ -53,10 +58,11 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
 
     @Override
     public void onBindViewHolder(PengajuanAdapter.PengajuanViewHolder holder, int position) {
-//        holder.resi.setText(pengajuans.get(position).getTitle());
-        holder.resi.setText("#0010001608");
-        holder.tanggal.setText("06 Desember 2017");
-        holder.status.setText("REALISASI");
+        holder.resi.setText("#" + pengajuans.get(position).getTrackingId().toString());
+        holder.tanggal.setText(pengajuans.get(position).getCreatedAt());
+        holder.status.setText(pengajuans.get(position).getStatus());
+        holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
+        holder.detail_resi.setText(pengajuans.get(position).getColleteral());
     }
 
     @Override

@@ -10,49 +10,27 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class PengajuanResponse {
-
-    @SerializedName("page")
+    @SerializedName("status")
     @Expose
-    public Integer page;
-    @SerializedName("total_results")
+    private String status;
+    @SerializedName("data")
     @Expose
-    public Integer totalResults;
-    @SerializedName("total_pages")
-    @Expose
-    public Integer totalPages;
-    @SerializedName("results")
-    @Expose
-    public List<Pengajuan> results = null;
+    private List<Pengajuan> data = null;
 
-    public Integer getPage() {
-        return page;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Integer getTotalResults() {
-        return totalResults;
+    public List<Pengajuan> getData() {
+        return data;
     }
 
-    public void setTotalResults(Integer totalResults) {
-        this.totalResults = totalResults;
+    public void setData(List<Pengajuan> data) {
+        this.data = data;
     }
 
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
-
-    public List<Pengajuan> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Pengajuan> results) {
-        this.results = results;
-    }
 }

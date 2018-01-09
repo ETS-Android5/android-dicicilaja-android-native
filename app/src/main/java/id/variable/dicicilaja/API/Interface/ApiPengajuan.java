@@ -1,20 +1,23 @@
 package id.variable.dicicilaja.API.Interface;
 
+import java.util.List;
+
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
+
 /**
  * Created by ziterz on 30/12/2017.
  */
 
 public interface ApiPengajuan {
 
-    @GET("movie/popular")
-    Call<PengajuanResponse> getPengajuan(@Query("api_key") String apiKey);
-
-    @GET("movie/{id}")
-    Call<PengajuanResponse> getDetailPengajuan(@Path("id") int id, @Query("api_key") String apiKey);
+    @Headers({
+            "Accept: application/json",
+    })
+    @GET("request")
+    Call<PengajuanResponse> getPengajuan(@Header("Authorization") String apiKey);
 
 }
