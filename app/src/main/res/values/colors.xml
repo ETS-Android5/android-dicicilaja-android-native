@@ -14,7 +14,8 @@
     <color name="colorBlack">#1C1C1C</color>
     <color name="colorRed">#ff0000</color>
     <color name="colorTab">#ffcfa3</color>
-
+    <color name="colorSection">#ECECEC</color>
+    <color name="colorTextSection">#424242</color>
     <!-- STATUS DISPOSISI -->
     <color name="statusGreen">#2ECC71</color>
     <color name="statusRed">#2ECC71</color>
