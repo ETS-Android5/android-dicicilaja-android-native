@@ -71,7 +71,7 @@ public class DetailPengajuanActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("EXTRA_REQUEST_ID"), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), getIntent().getStringExtra("EXTRA_REQUEST_ID"), Toast.LENGTH_LONG).show();
     }
 
 
