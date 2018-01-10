@@ -414,8 +414,8 @@
                                 android:orientation="vertical">
                                 <ImageView
                                     android:layout_width="140dp"
-                                    android:layout_height="80dp"
-                                    android:src="@drawable/logo"
+                                    android:layout_height="90dp"
+                                    android:src="@drawable/ktp"
                                     android:layout_marginBottom="10dp"/>
                             </LinearLayout>
                         </LinearLayout>
@@ -463,8 +463,8 @@
                                 android:orientation="vertical">
                                 <ImageView
                                     android:layout_width="140dp"
-                                    android:layout_height="80dp"
-                                    android:src="@drawable/logo"/>
+                                    android:layout_height="90dp"
+                                    android:src="@drawable/bpkb"/>
                             </LinearLayout>
                         </LinearLayout>
                     </RelativeLayout>
