@@ -35,13 +35,17 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         }
         TextView konfirmasi = findViewById(R.id.konfirmasi);
         TextView lihat_database = findViewById(R.id.lihat_database);
-
+        TextView title_tugas = findViewById(R.id.title_tugas);
+        TextView title_penugasan = findViewById(R.id.title_penugasan);
 
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        title_tugas.setTypeface(opensans_bold);
+        title_penugasan.setTypeface(opensans_bold);
 
         konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
