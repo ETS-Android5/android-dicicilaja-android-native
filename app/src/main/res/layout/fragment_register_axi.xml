@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="AXI"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/bodySection"
@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
-                        android:text="Pihak yang membantu menawarkan dan menjawab permasalahan calon pelanggan untuk melakukan transaksi dicicilaja."/>
+                        android:text="Pihak yang membantu menawarkan dan menjawab permasalahan calon pelanggan untuk melakukan transaksi."/>
                     <TextView
                         android:textColor="@color/colorTextSection"
                         android:id="@+id/detailSection"
@@ -57,7 +57,7 @@
                         android:layout_below="@+id/bodySection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:text="Selengkapnya"/>
                 </RelativeLayout>
             </LinearLayout>

@@ -38,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nasabah"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/bodySection"
@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
-                        android:text="adalah nasabah atau calon nasabah yang ingin atau sedang mengajukan pinjam atau hanya sekedar."/>
+                        android:text="Nasabah atau calon nasabah yang ingin atau sedang mengajukan pinjam atau hanya sekedar."/>
                     <TextView
                         android:textColor="@color/colorTextSection"
                         android:id="@+id/detailSection"
@@ -56,7 +56,7 @@
                         android:layout_below="@+id/bodySection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:text="Selengkapnya"/>
                 </RelativeLayout>
             </LinearLayout>
