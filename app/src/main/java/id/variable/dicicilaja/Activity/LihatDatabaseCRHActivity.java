@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -128,7 +130,20 @@ public class LihatDatabaseCRHActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.finish();
+                break;
+            case R.id.search:
+                break;
+            case R.id.filter:
+                break;
         }
         return true;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.database_crh_menu, menu);
+        return true;
+    }
+
 }

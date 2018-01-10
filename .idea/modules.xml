@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\AndroidProjects\sales-app-android\DicicilAja.iml" filepath="D:\AndroidProjects\sales-app-android\DicicilAja.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DicicilAja.iml" filepath="$PROJECT_DIR$/DicicilAja.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sales-app-android.iml" filepath="$PROJECT_DIR$/sales-app-android.iml" />
     </modules>
   </component>
 </project>

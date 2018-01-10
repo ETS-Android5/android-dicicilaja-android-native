@@ -124,12 +124,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.DetailPengajuanActivity" />
         </activity>
-        <activity android:name=".Activity.LihatDatabaseCRHActivity"
+        <activity
+            android:name=".Activity.LihatDatabaseCRHActivity"
             android:label="Database CRH"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ProsesPengajuanActivity" /></activity>
+                android:value=".Activity.ProsesPengajuanActivity" />
+        </activity>
+        <activity android:name=".Activity.ProsesPengajuan2Activity"></activity>
     </application>
 
 </manifest>
