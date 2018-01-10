@@ -37,6 +37,12 @@
                     android:textStyle="bold"
                     android:text="#0010001608"/>
                 <TextView
+                    android:id="@+id/id_pengajuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    android:visibility="gone"/>
+                <TextView
                     android:id="@+id/div_resi"
                     android:layout_toRightOf="@+id/resi"
                     android:layout_width="wrap_content"

@@ -39,6 +39,7 @@ import static android.content.ContentValues.TAG;
 public class InprogressFragment extends Fragment {
 
     private static final String TAG = InprogressFragment.class.getSimpleName();
+    List<Pengajuan> pengajuans;
 
 
     @Override
@@ -63,18 +64,7 @@ public class InprogressFragment extends Fragment {
         final RecyclerView recyclerView =  view.findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-//                Toast.makeText(getContext(), "Posisi pengajuan ke : "+position, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
-                startActivity(intent);
-            }
 
-            @Override
-            public void onLongClick(View view, int position) {
-            }
-        }));
 
         ApiPengajuan apiService =
                 id.variable.dicicilaja.API.Client.ApiPengajuan.getClientPengajuan().create(ApiPengajuan.class);
@@ -84,11 +74,27 @@ public class InprogressFragment extends Fragment {
             @Override
             public void onResponse(Call<PengajuanResponse> call, Response<PengajuanResponse> response) {
                 if ( response.isSuccessful() ) {
-                    List<Pengajuan> pengajuans = response.body().getData();
+                    pengajuans = response.body().getData();
                     jumlah_pengajuan.setText(Integer.toString(pengajuans.size()));
                     recyclerView.setAdapter(new PengajuanAdapter(pengajuans, R.layout.card_pengajuan, getContext()));
+
+
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, int position) {
+                            Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", pengajuans.get(position).getId().toString());
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
+
+
                 } else {
-                    //Toast.makeText(getContext(), session.getToken(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -96,9 +102,12 @@ public class InprogressFragment extends Fragment {
             @Override
             public void onFailure(Call<PengajuanResponse> call, Throwable t) {
                 // Log error here since request failed
+                Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.toString());
             }
         });
+
+
 
         return view;
     }

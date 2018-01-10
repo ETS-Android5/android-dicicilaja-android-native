@@ -12,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import id.variable.dicicilaja.Adapter.DetailPengajuanPagerAdapter;
+import id.variable.dicicilaja.Adapter.PengajuanAdapter;
 import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
+import id.variable.dicicilaja.Fragment.InprogressFragment;
 import id.variable.dicicilaja.R;
 
 public class DetailPengajuanActivity extends AppCompatActivity {
@@ -67,6 +70,8 @@ public class DetailPengajuanActivity extends AppCompatActivity {
 
             }
         });
+
+        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("EXTRA_REQUEST_ID"), Toast.LENGTH_LONG).show();
     }
 
 

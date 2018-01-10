@@ -101,6 +101,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/no_telp_nasabah"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -379,6 +380,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/no_telp_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
