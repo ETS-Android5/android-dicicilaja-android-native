@@ -1,5 +1,7 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,8 +59,28 @@ public class LihatDatabaseCRHActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-              Toast.makeText(getBaseContext(), "Urutan database crh : "+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Urutan database crh : "+position, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(LihatDatabaseCRHActivity.this);
+                // Setting Dialog Title
+                alertDialog.setTitle("INFORMASI DETAIL");
 
+                // Setting Dialog Message
+                alertDialog.setMessage("Apakah Anda sudah menghubungi pemohon dan mengkonfirmasi bahwa benar adanya pengajuan tersebut.");
+                alertDialog.setMessage("Apakah Anda sudah menghubungi pemohon dan mengkonfirmasi bahwa benar adanya pengajuan tersebut.");
+
+                // Setting Icon to Dialog
+//                alertDialog.setIcon(R.drawable.ic_circle);
+
+                // Setting OK Button
+                alertDialog.setPositiveButton("Ya, saya sudah konfirmasi data", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog closed
+                        Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
             }
 
             @Override

@@ -139,13 +139,13 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            lewati.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                    startActivity(intent);
-                }
-            });
+//            lewati.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
         }
 
     }

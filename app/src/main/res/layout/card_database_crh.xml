@@ -7,6 +7,7 @@
     android:gravity="center_vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
+        android:id="@+id/card_database"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
@@ -14,6 +15,8 @@
         card_view:cardCornerRadius="4dp"
         android:elevation="100dp"
         android:contextClickable="true"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
