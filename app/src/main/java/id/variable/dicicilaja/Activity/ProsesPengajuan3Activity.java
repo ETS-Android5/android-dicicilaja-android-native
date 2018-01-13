@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import id.variable.dicicilaja.R;
 
-public class ProsesPengajuan2Activity extends AppCompatActivity {
+public class ProsesPengajuan3Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proses_pengajuan2);
+        setContentView(R.layout.activity_proses_pengajuan3);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,7 +49,7 @@ public class ProsesPengajuan2Activity extends AppCompatActivity {
         konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProsesPengajuan2Activity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProsesPengajuan3Activity.this);
                 // Setting Dialog Title
                 alertDialog.setTitle("KONFIRMASI");
 
@@ -80,6 +80,7 @@ public class ProsesPengajuan2Activity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

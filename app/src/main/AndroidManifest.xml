@@ -132,7 +132,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.ProsesPengajuanActivity" />
         </activity>
-        <activity android:name=".Activity.ProsesPengajuan2Activity"></activity>
+        <activity android:name=".Activity.ProsesPengajuan2Activity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.DetailPengajuanActivity" />
+        </activity>
+        <activity android:name=".Activity.ProsesPengajuan3Activity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.DetailPengajuanActivity" />
+        </activity>
     </application>
 
 </manifest>
