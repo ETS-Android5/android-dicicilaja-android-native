@@ -39,13 +39,27 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/branch"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/profile_picture_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jakarta Timur, Indonesia" />
+            android:text="Tebet"/>
+        <TextView
+            android:id="@+id/coma"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "/>
+        <TextView
+            android:id="@+id/area"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/coma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jabodetabekser" />
     </RelativeLayout>
 
 

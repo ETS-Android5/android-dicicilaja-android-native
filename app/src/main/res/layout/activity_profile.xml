@@ -70,7 +70,7 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/profile_picture"
+                            android:id="@+id/profile_picture_page"
                             android:layout_width="60dp"
                             android:layout_centerVertical="true"
                             android:layout_height="60dp"
@@ -83,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_toRightOf="@+id/profile_picture">
+                            android:layout_toRightOf="@+id/profile_picture_page">
                             <TextView
                                 android:id="@+id/name_user"
                                 android:layout_marginLeft="5dp"
@@ -94,13 +94,30 @@
                                 android:textStyle="bold"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                            <TextView
-                                android:id="@+id/location_user"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginLeft="5dp"
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Jakarta Timur, Indonesia" />
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/branch"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_toRightOf="@+id/profile_picture_user"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Tebet"/>
+                                <TextView
+                                    android:id="@+id/coma"
+                                    android:layout_toRightOf="@+id/branch"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=", "/>
+                                <TextView
+                                    android:id="@+id/area"
+                                    android:layout_toRightOf="@+id/coma"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Jabodetabekser" />
+                            </RelativeLayout>
+
                             <TextView
                                 android:id="@+id/edit_profile"
                                 android:layout_marginTop="5dp"

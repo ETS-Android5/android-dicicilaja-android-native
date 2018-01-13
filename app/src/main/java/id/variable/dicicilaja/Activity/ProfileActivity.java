@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 
@@ -43,14 +46,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         session = new SessionManager(getBaseContext());
 
-        Toast.makeText(getBaseContext(), "user_id : " + session.getUserId() + " role : " + session.getRole(), Toast.LENGTH_SHORT).show();
-
-
         TextView title_status = findViewById(R.id.title_status);
         TextView title_profile = findViewById(R.id.title_profile);
         Button btnLogout = findViewById(R.id.btnLogout);
         TextView name_user = findViewById(R.id.name_user);
-        TextView location_user = findViewById(R.id.location_user);
+        TextView branch = findViewById(R.id.branch);
+        TextView area = findViewById(R.id.area);
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -59,9 +60,13 @@ public class ProfileActivity extends AppCompatActivity {
         title_status.setTypeface(opensans_bold);
         title_profile.setTypeface(opensans_bold);
         name_user.setTypeface(opensans_bold);
-        location_user.setTypeface(opensans_reguler);
-
+        branch.setText(session.getBranch());
+        area.setText(session.getArea());
         name_user.setText(session.getName());
+        String imageUrl = session.getPhoto().toString();
+
+        CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
+        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

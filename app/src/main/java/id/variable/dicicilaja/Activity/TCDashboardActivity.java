@@ -96,6 +96,8 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         });
         CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_user);
+        TextView branch = navigationView.getHeaderView(0).findViewById(R.id.branch);
+        TextView area = navigationView.getHeaderView(0).findViewById(R.id.area);
         View navbarView = navigationView.getHeaderView(0);
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
@@ -104,6 +106,8 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
+        branch.setText(session.getBranch());
+        area.setText(session.getArea());
         String imageUrl = session.getPhoto().toString();
         Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
 
