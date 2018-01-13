@@ -101,7 +101,6 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         name.setText(session.getName());
 
-        Toast.makeText(getBaseContext(), "user_id : " + session.getUserId() + " role : " + session.getRole(), Toast.LENGTH_SHORT).show();
         open_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -21,10 +21,18 @@ public class ResObj {
     @SerializedName("photo")
     @Expose
     private String photo;
+    @SerializedName("area")
+    @Expose
+    private String area;
+    @SerializedName("branch")
+    @Expose
+    private String branch;
+    @SerializedName("zipcode")
+    @Expose
+    private String zipcode;
     @SerializedName("_token")
     @Expose
     private Token token;
-
 
     public String getUserId() {
         return userId;
@@ -34,9 +42,13 @@ public class ResObj {
         this.userId = userId;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getRole() {
         return role;
@@ -46,9 +58,37 @@ public class ResObj {
         this.role = role;
     }
 
-    public String getPhoto() { return photo; }
+    public String getPhoto() {
+        return photo;
+    }
 
-    public void setPhoto(String photo) { this.photo = photo; }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
     public Token getToken() {
         return token;

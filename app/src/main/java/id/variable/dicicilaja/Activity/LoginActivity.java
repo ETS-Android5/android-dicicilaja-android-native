@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
-                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto());
+                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode());
                         Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
                         startActivity(intent);
                         finish();
