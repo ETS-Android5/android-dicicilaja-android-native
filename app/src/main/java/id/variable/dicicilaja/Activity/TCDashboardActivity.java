@@ -24,11 +24,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.API.Interface.ApiPengajuan;
 import id.variable.dicicilaja.API.Item.Pengajuan;
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
@@ -68,6 +71,7 @@ public class TCDashboardActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -91,6 +95,7 @@ public class TCDashboardActivity extends AppCompatActivity {
             }
 
         });
+        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_user);
         View navbarView = navigationView.getHeaderView(0);
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
@@ -98,6 +103,9 @@ public class TCDashboardActivity extends AppCompatActivity {
         TextView profile = navbarView.findViewById(R.id.textView);
 
         session = new SessionManager(getApplicationContext());
+
+        String imageUrl = session.getPhoto().toString();
+        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
 
         name.setText(session.getName());
 

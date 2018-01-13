@@ -20,7 +20,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_picture"
+            android:id="@+id/profile_picture_user"
             android:layout_width="80dp"
             android:layout_height="100dp"
             android:src="@drawable/user"
@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/nameView"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/profile_picture"
+            android:layout_toRightOf="@+id/profile_picture_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -42,7 +42,7 @@
             android:id="@+id/textView"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/profile_picture"
+            android:layout_toRightOf="@+id/profile_picture_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jakarta Timur, Indonesia" />
