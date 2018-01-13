@@ -68,7 +68,7 @@ public class TCDashboardActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -81,8 +81,8 @@ public class TCDashboardActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
 
-                    case R.id.navbar_pref_menu:
-                        intent = new Intent(getBaseContext(), HomeActivity.class);
+                    case R.id.navbar_request:
+                        intent = new Intent(getBaseContext(), TCDashboardActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -101,6 +101,7 @@ public class TCDashboardActivity extends AppCompatActivity {
 
         name.setText(session.getName());
 
+        Toast.makeText(getBaseContext(), "user_id : " + session.getUserId() + " role : " + session.getRole(), Toast.LENGTH_SHORT).show();
         open_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

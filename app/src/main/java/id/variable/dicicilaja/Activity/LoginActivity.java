@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     SessionManager session;
 
     UserService userService;
-    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(LoginActivity.this);
 
         if (session.isLoggedIn() == TRUE) {
-            String role = session.getRole();
-            intent = getRoleActivity(role);
+            Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -171,10 +169,10 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
-                        session.createLoginSession(resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto());
-                        String role = resObj.getRole();
-                        intent = getRoleActivity(role);
+                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto());
+                        Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
                         startActivity(intent);
+                        finish();
                     } catch(Exception ex) {
                         Log.w("Login Exception:", ex.getMessage());
                         Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
@@ -193,18 +191,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private Intent getRoleActivity(String role) {
-        switch( role ) {
-            case "admin":
-                intent = new Intent(getBaseContext(), TCDashboardActivity.class);
-                break;
-            default:
-                intent = new Intent(getBaseContext(), HomeActivity.class);
-                break;
-        }
-
-        return intent;
-    }
+//    private Intent getRoleActivity(String role) {
+//        switch( role ) {
+//            case "admin":
+//                intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+//                break;
+//            default:
+//                intent = new Intent(getBaseContext(), HomeActivity.class);
+//                break;
+//        }
+//
+//        return intent;
+//    }
 
     private boolean validateEmailID() {
         if (inputEmailID.getText().toString().trim().isEmpty()) {

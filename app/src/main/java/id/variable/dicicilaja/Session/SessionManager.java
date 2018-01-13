@@ -31,13 +31,21 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String token, String role, String user, String photo_profile_url){
+    public void createLoginSession(String user_id, String token, String role, String user, String photo_profile_url, String area, String branch, String zipcode){
         editor.putBoolean(IS_LOGIN, true);
+        editor.putString("user_id", user_id);
         editor.putString("token", token);
         editor.putString("role", role);
         editor.putString("name", user);
         editor.putString("photo", photo_profile_url);
+        editor.putString("area", area);
+        editor.putString("branch", branch);
+        editor.putString("zipcode", zipcode);
         editor.commit();
+    }
+
+    public String getUserId() {
+        return pref.getString("user_id", null);
     }
 
     public String getToken() {
@@ -54,6 +62,18 @@ public class SessionManager {
 
     public String getPhoto() {
         return pref.getString("photo", null);
+    }
+
+    public String getArea() {
+        return pref.getString("area", null);
+    }
+
+    public String getBranch() {
+        return pref.getString("branch", null);
+    }
+
+    public String getZipCode() {
+        return pref.getString("zipcode", null);
     }
 
     /**

@@ -17,7 +17,7 @@ public interface ApiPengajuan {
     @Headers({
             "Accept: application/json",
     })
-    @GET("request")
+    @GET("request/{user_id}")
     Call<PengajuanResponse> getPengajuan(@Header("Authorization") String apiKey);
 
 }
