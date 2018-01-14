@@ -72,6 +72,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/api_client_name"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
-                                android:id="@+id/no_telp_nasabah"
+                                android:id="@+id/api_hp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -127,6 +128,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/api_email"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -154,6 +156,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/api_address"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -181,6 +184,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/api_district"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -208,6 +212,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/api_city"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
