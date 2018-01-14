@@ -11,7 +11,7 @@ import retrofit2.http.Query;
  * Created by ziterz on 1/9/2018.
  */
 
-public interface ApiDatabaseEmployee {
+public interface InterfaceDatabaseEmployee {
 
     @Headers({
             "Accept: application/json",

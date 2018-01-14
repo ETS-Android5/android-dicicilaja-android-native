@@ -12,12 +12,12 @@ import retrofit2.http.Headers;
  * Created by ziterz on 30/12/2017.
  */
 
-public interface ApiPengajuan {
+public interface InterfacePengajuan {
 
     @Headers({
             "Accept: application/json",
     })
-    @GET("request/{user_id}")
+    @GET("request")
     Call<PengajuanResponse> getPengajuan(@Header("Authorization") String apiKey);
 
 }

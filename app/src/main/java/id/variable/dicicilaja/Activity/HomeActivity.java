@@ -5,26 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import java.util.HashMap;
-import java.util.List;
-
-import id.variable.dicicilaja.API.Interface.ApiPengajuan;
 import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
-import id.variable.dicicilaja.API.Item.Pengajuan;
-import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 

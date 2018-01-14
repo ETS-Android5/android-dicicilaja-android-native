@@ -12,16 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.List;
 
-import id.variable.dicicilaja.API.Interface.ApiPengajuan;
-import id.variable.dicicilaja.API.Item.Pengajuan;
+import id.variable.dicicilaja.API.Client.ClientPengajuan;
+import id.variable.dicicilaja.API.Interface.InterfacePengajuan;
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
-import id.variable.dicicilaja.Adapter.PengajuanAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
 import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
@@ -66,8 +63,8 @@ public class CompleteFragment extends Fragment {
         final RecyclerView recyclerView =  view.findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ApiPengajuan apiService =
-                id.variable.dicicilaja.API.Client.ApiPengajuan.getClientPengajuan().create(ApiPengajuan.class);
+        InterfacePengajuan apiService =
+                ClientPengajuan.getClientPengajuan().create(InterfacePengajuan.class);
 
         Call<PengajuanResponse> call = apiService.getPengajuan(apiKey);
         call.enqueue(new Callback<PengajuanResponse>() {

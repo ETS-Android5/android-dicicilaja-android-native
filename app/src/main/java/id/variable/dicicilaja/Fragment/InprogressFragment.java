@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,14 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
 import java.util.List;
 
-import id.variable.dicicilaja.API.Interface.ApiPengajuan;
+import id.variable.dicicilaja.API.Client.ClientPengajuan;
+import id.variable.dicicilaja.API.Interface.InterfacePengajuan;
 import id.variable.dicicilaja.API.Item.Pengajuan;
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
-import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
 import id.variable.dicicilaja.Adapter.PengajuanAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
 import id.variable.dicicilaja.Listener.RecyclerTouchListener;
@@ -30,8 +28,6 @@ import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,8 +62,8 @@ public class InprogressFragment extends Fragment {
 
 
 
-        ApiPengajuan apiService =
-                id.variable.dicicilaja.API.Client.ApiPengajuan.getClientPengajuan().create(ApiPengajuan.class);
+        InterfacePengajuan apiService =
+                ClientPengajuan.getClientPengajuan().create(InterfacePengajuan.class);
 
         Call<PengajuanResponse> call = apiService.getPengajuan(apiKey);
         call.enqueue(new Callback<PengajuanResponse>() {

@@ -1,7 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +19,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import id.variable.dicicilaja.API.Interface.ApiDatabaseEmployee;
+import id.variable.dicicilaja.API.Client.ClientDatabaseEmployee;
+import id.variable.dicicilaja.API.Interface.InterfaceDatabaseEmployee;
 import id.variable.dicicilaja.API.Item.DatabaseEmployee;
 import id.variable.dicicilaja.API.Item.DatabaseEmployeeResponse;
 import id.variable.dicicilaja.Adapter.DatabaseEmployeeAdapter;
-import id.variable.dicicilaja.Adapter.PengajuanAdapter;
-import id.variable.dicicilaja.Fragment.InprogressFragment;
 import id.variable.dicicilaja.Listener.ClickListener;
 import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
@@ -101,8 +99,8 @@ public class LihatDatabaseCRHActivity extends AppCompatActivity {
             }
         }));
 
-        ApiDatabaseEmployee apiService =
-                id.variable.dicicilaja.API.Client.ApiDatabaseEmployee.getClientDatabaseEmployee().create(ApiDatabaseEmployee.class);
+        InterfaceDatabaseEmployee apiService =
+                ClientDatabaseEmployee.getClientDatabaseEmployee().create(InterfaceDatabaseEmployee.class);
 
         Call<DatabaseEmployeeResponse> call = apiService.getDatabaseEmployee(apiKey);
         call.enqueue(new Callback<DatabaseEmployeeResponse>() {
