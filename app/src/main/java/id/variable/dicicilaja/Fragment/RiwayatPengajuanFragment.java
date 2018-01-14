@@ -11,14 +11,21 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import id.variable.dicicilaja.API.Item.DetailPengajuan;
+import id.variable.dicicilaja.API.Item.Transaction;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RiwayatPengajuanFragment extends Fragment {
 
+    private static final String TAG = RiwayatPengajuanFragment.class.getSimpleName();
+    List<Transaction> transactions;
 
     public RiwayatPengajuanFragment() {
         // Required empty public constructor
@@ -30,6 +37,9 @@ public class RiwayatPengajuanFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_riwayat_pengajuan, container, false);
+
+        final SessionManager session = new SessionManager(getContext());
+        String apiKey = "Bearer " + session.getToken();
 
         RelativeLayout proses = view.findViewById(R.id.proses);
         TextView title_jejak = view.findViewById(R.id.title_jejak);
