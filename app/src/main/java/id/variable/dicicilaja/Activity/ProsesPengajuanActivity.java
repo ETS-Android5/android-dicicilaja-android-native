@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
-        TextView konfirmasi = findViewById(R.id.konfirmasi);
+        final Button konfirmasi = findViewById(R.id.konfirmasi);
         final TextView lihat_database = findViewById(R.id.lihat_database);
         TextView title_tugas = findViewById(R.id.title_tugas);
         TextView title_penugasan = findViewById(R.id.title_penugasan);
@@ -63,6 +64,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
 
         inputReferal.setEnabled(false);
         lihat_database.setEnabled(false);
+        inputReferal.setTextColor(getResources().getColor(R.color.colorBackgroundDark));
         inputProgressBarReferal.setVisibility(View.GONE);
 
         konfirmasi.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                         lihat_database.setEnabled(true);
 
                         inputReferal.requestFocus();
+                        konfirmasi.setEnabled(false);
                     }
                 });
 

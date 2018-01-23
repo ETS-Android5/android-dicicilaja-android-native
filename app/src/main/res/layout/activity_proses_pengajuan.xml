@@ -84,26 +84,18 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <TextView
+                        <Button
                             android:id="@+id/konfirmasi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginBottom="10dp"
                             android:layout_marginLeft="16dp"
-                            android:layout_marginRight="15dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/capsule_confirm"
-                            android:clickable="true"
                             android:elevation="1dp"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:paddingTop="5dp"
                             android:text="KONFIRMASI"
-                            android:textColor="@color/colorWhite"
                             android:textSize="12sp" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -172,7 +164,7 @@
                             android:textStyle="bold"
                             android:id="@+id/textView2" />
 
-                        <TextView
+                        <Button
                             android:id="@+id/lihat_database"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -180,14 +172,11 @@
                             android:layout_alignBottom="@+id/textView2"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:background="@drawable/capsule_confirm"
+                            android:layout_centerVertical="true"
+                            android:backgroundTint="@color/colorAccent2"
                             android:clickable="true"
                             android:elevation="1dp"
                             android:foreground="?android:attr/selectableItemBackground"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:paddingTop="5dp"
                             android:text="LIHAT DATABASE"
                             android:textColor="@color/colorWhite"
                             android:textSize="12sp" />
