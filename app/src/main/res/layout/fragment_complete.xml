@@ -27,7 +27,7 @@
                     android:id="@+id/jumlah_pengajuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="678"
+                    android:text="0"
                     android:background="@drawable/capsule_value"
                     android:textColor="@color/colorWhite"
                     android:paddingRight="10dp"

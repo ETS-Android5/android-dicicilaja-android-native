@@ -238,24 +238,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_below="@+id/detail_item"
-                        android:layout_alignLeft="@+id/detail_item"
-                        android:layout_alignStart="@+id/detail_item">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                        </RelativeLayout>
+                        android:orientation="vertical">
                         <RelativeLayout
                             android:id="@+id/terkirim_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="33dp"
-                                android:layout_marginLeft="18dp"
-                                android:background="@drawable/border_left"/>
+                            <!--<View-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="20dp"-->
+                                <!--android:layout_marginTop="33dp"-->
+                                <!--android:layout_marginLeft="18dp"-->
+                                <!--android:background="@drawable/border_left"/>-->
                             <ImageView
                                 android:id="@+id/icon_terkirim"
                                 android:layout_width="40dp"
@@ -295,8 +288,8 @@
                             android:layout_height="wrap_content">
                             <View
                                 android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginTop="0dp"
+                                android:layout_height="50dp"
+                                android:layout_marginTop="-30dp"
                                 android:layout_marginLeft="18dp"
                                 android:background="@drawable/border_left"/>
                             <ImageView

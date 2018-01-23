@@ -81,7 +81,7 @@ public class RiwayatPengajuanFragment extends Fragment {
         title_jejak.setTypeface(opensans_bold);
         title_penanggung_jawab.setTypeface(opensans_bold);
 
-        if(session.getRole() == "tc"){
+        if(session.getRole().equals("tc")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +92,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-        }else if(session.getRole() == "crh"){
+        }else if(session.getRole().equals("crh")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,7 +103,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-        }else if(session.getRole() == "cro"){
+        }else if(session.getRole().equals("cro")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override

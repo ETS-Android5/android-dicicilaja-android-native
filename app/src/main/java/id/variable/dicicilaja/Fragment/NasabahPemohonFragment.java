@@ -87,7 +87,7 @@ public class NasabahPemohonFragment extends Fragment {
         title_nasabah.setTypeface(opensans_bold);
         title_pemohon.setTypeface(opensans_bold);
 
-        if(session.getRole() == "tc"){
+        if(session.getRole().equals("tc")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,7 +98,7 @@ public class NasabahPemohonFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-        }else if(session.getRole() == "crh"){
+        }else if(session.getRole().equals("crh")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,7 +109,7 @@ public class NasabahPemohonFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-        }else if(session.getRole() == "cro"){
+        }else if(session.getRole().equals("cro")){
             proses.setVisibility(View.VISIBLE);
             proses.setOnClickListener(new View.OnClickListener() {
                 @Override
