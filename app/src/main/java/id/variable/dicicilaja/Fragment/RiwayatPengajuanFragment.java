@@ -25,6 +25,8 @@ import id.variable.dicicilaja.API.Item.DetailPengajuanStatusResponse;
 import id.variable.dicicilaja.API.Item.Status;
 import id.variable.dicicilaja.API.Item.StatusDetail;
 import id.variable.dicicilaja.API.Item.Transaction;
+import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
+import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
@@ -79,13 +81,42 @@ public class RiwayatPengajuanFragment extends Fragment {
         title_jejak.setTypeface(opensans_bold);
         title_penanggung_jawab.setTypeface(opensans_bold);
 
-        proses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
-                startActivity(intent);
-            }
-        });
+        if(session.getRole() == "tc"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "crh"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan2Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "cro"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan3Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else{
+            proses.setVisibility(View.GONE);
+        }
 
         InterfaceDetailPengajuanStatus apiService = ClientDetailPengajuanStatus.getClientDetailPengajuanStatus().create(InterfaceDetailPengajuanStatus.class);
         Call<DetailPengajuanStatus> call = apiService.getDetailPengajuanStatus(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
@@ -96,25 +127,25 @@ public class RiwayatPengajuanFragment extends Fragment {
                     detailPengajuanStatuses = response.body().getData();
                     statusDetails = detailPengajuanStatuses.get(0).getStatusDetail();
 
-                    if (statusDetails.get(statusDetails.size() - 1).getStatusName().equals("Terkirim")) {
-                        responsiblePersonNameLayout.setVisibility(View.GONE);
-                        responsiblePersonRoleLayout.setVisibility(View.GONE);
-                        responsiblePersonIdLayout.setVisibility(View.GONE);
-                        responsiblePersonResponseTimeLayout.setVisibility(View.GONE);
-                        responsiblePersonNoteLayout.setVisibility(View.GONE);
-                    } else {
-                        responsiblePersonNameLayout.setVisibility(View.VISIBLE);
-                        responsiblePersonRoleLayout.setVisibility(View.VISIBLE);
-                        responsiblePersonIdLayout.setVisibility(View.VISIBLE);
-                        responsiblePersonResponseTimeLayout.setVisibility(View.VISIBLE);
-                        responsiblePersonNoteLayout.setVisibility(View.VISIBLE);
-
-                        responsiblePersonName.setText(statusDetails.get(0).getResponsiblePerson().getName());
-                        responsiblePersonRole.setText(statusDetails.get(0).getResponsiblePerson().getRole());
-                        responsiblePersonId.setText(statusDetails.get(0).getResponsiblePerson().getId());
-                        responsiblePersonResponseTime.setText("0");
-                        responsiblePersonNote.setText(statusDetails.get(0).getNotes());
-                    }
+//                    if (statusDetails.get(statusDetails.size() - 1).getStatusName().equals("Terkirim")) {
+//                        responsiblePersonNameLayout.setVisibility(View.GONE);
+//                        responsiblePersonRoleLayout.setVisibility(View.GONE);
+//                        responsiblePersonIdLayout.setVisibility(View.GONE);
+//                        responsiblePersonResponseTimeLayout.setVisibility(View.GONE);
+//                        responsiblePersonNoteLayout.setVisibility(View.GONE);
+//                    } else {
+//                        responsiblePersonNameLayout.setVisibility(View.VISIBLE);
+//                        responsiblePersonRoleLayout.setVisibility(View.VISIBLE);
+//                        responsiblePersonIdLayout.setVisibility(View.VISIBLE);
+//                        responsiblePersonResponseTimeLayout.setVisibility(View.VISIBLE);
+//                        responsiblePersonNoteLayout.setVisibility(View.VISIBLE);
+//
+//                        responsiblePersonName.setText(statusDetails.get(0).getResponsiblePerson().getName());
+//                        responsiblePersonRole.setText(statusDetails.get(0).getResponsiblePerson().getRole());
+//                        responsiblePersonId.setText(statusDetails.get(0).getResponsiblePerson().getId());
+//                        responsiblePersonResponseTime.setText("0");
+//                        responsiblePersonNote.setText(statusDetails.get(0).getNotes());
+//                    }
 
                 } catch (Exception ex) {
                     Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();

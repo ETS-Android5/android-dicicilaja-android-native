@@ -69,6 +69,10 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         holder.status.setText(pengajuans.get(position).getStatus());
         holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
         holder.detail_resi.setText(pengajuans.get(position).getColleteral());
+        if(pengajuans.get(position).getStatus().equals("Terkirim")) {
+            holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
+        }
+
 
     }
 

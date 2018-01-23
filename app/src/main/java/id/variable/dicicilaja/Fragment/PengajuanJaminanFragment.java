@@ -27,6 +27,8 @@ import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.Pengajuan;
 import id.variable.dicicilaja.API.Item.PengajuanResponse;
 import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
+import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
+import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.Adapter.PengajuanAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -93,14 +95,43 @@ public class PengajuanJaminanFragment extends Fragment {
 
         title_informasi.setTypeface(opensans_bold);
         title_informasi_jaminan.setTypeface(opensans_bold);
+        if(session.getRole() == "tc"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "crh"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan2Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "cro"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan3Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else{
+            proses.setVisibility(View.GONE);
+        }
 
-        proses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
-                startActivity(intent);
-            }
-        });
 
         InterfaceDetailPengajuan apiService = ClientDetailPengajuan.getClientDetailPengajuan().create(InterfaceDetailPengajuan.class);
         Call<DetailPengajuanResponse> call = apiService.getDetailPengajuan(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
@@ -126,24 +157,25 @@ public class PengajuanJaminanFragment extends Fragment {
                     String imageColleteral = detailPengajuans.get(0).getColleteralImage().toString();
                     Picasso.with(getContext()).load(imageColleteral).into(api_colleteral_image);
 
-                    try {
-                        title_of_product.setVisibility(View.VISIBLE);
-                        title_of_spec.setVisibility(View.VISIBLE);
-                        colon_of_product.setVisibility(View.VISIBLE);
-                        colon_of_spec.setVisibility(View.VISIBLE);
-                        api_product.setVisibility(View.VISIBLE);
-                        api_specification.setVisibility(View.VISIBLE);
 
-                        api_product.setText(detailPengajuans.get(0).getProduct().toString());
-                        api_specification.setText(detailPengajuans.get(0).getSpecification().toString());
-                    } catch (Exception ex) {
-                        title_of_product.setVisibility(View.GONE);
-                        title_of_spec.setVisibility(View.GONE);
-                        colon_of_product.setVisibility(View.GONE);
-                        colon_of_spec.setVisibility(View.GONE);
-                        api_product.setVisibility(View.GONE);
-                        api_specification.setVisibility(View.GONE);
-                    }
+//                    try {
+//                        title_of_product.setVisibility(View.VISIBLE);
+//                        title_of_spec.setVisibility(View.VISIBLE);
+//                        colon_of_product.setVisibility(View.VISIBLE);
+//                        colon_of_spec.setVisibility(View.VISIBLE);
+//                        api_product.setVisibility(View.VISIBLE);
+//                        api_specification.setVisibility(View.VISIBLE);
+//
+//                        api_product.setText(detailPengajuans.get(0).getProduct().toString());
+//                        api_specification.setText(detailPengajuans.get(0).getSpecification().toString());
+//                    } catch (Exception ex) {
+//                        title_of_product.setVisibility(View.GONE);
+//                        title_of_spec.setVisibility(View.GONE);
+//                        colon_of_product.setVisibility(View.GONE);
+//                        colon_of_spec.setVisibility(View.GONE);
+//                        api_product.setVisibility(View.GONE);
+//                        api_specification.setVisibility(View.GONE);
+//                    }
 
                 } else {
                     Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();

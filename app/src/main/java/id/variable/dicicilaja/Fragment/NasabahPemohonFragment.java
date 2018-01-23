@@ -23,6 +23,8 @@ import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
 import id.variable.dicicilaja.API.Item.Applicant;
 import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
+import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
+import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
@@ -85,13 +87,42 @@ public class NasabahPemohonFragment extends Fragment {
         title_nasabah.setTypeface(opensans_bold);
         title_pemohon.setTypeface(opensans_bold);
 
-        proses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
-                startActivity(intent);
-            }
-        });
+        if(session.getRole() == "tc"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "crh"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan2Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else if(session.getRole() == "cro"){
+            proses.setVisibility(View.VISIBLE);
+            proses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ProsesPengajuan3Activity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    Toast.makeText(getContext(), "Id : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            });
+        }else{
+            proses.setVisibility(View.GONE);
+        }
 
         button_telp_nasabah.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,17 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.variable.dicicilaja.Fragment.RiwayatPengajuanFragment"
-    android:orientation="vertical">
+    tools:context="id.variable.dicicilaja.Fragment.RiwayatPengajuanFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="70dp">
             <LinearLayout
                 android:id="@+id/title_pengajuan"
                 android:layout_width="match_parent"
@@ -77,7 +77,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:text="-"/>
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/responsible_person_role_layout"
@@ -105,7 +106,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:text="-"/>
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/responsible_person_id_layout"
@@ -133,7 +135,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:text="-"/>
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/responsible_person_response_time_layout"
@@ -161,7 +164,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:text="-"/>
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/responsible_person_note_layout"
@@ -189,7 +193,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:text="-"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -210,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Jejang Pengajuan"/>
+                        android:text="Jenjang Pengajuan"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
@@ -290,8 +295,8 @@
                             android:layout_height="wrap_content">
                             <View
                                 android:layout_width="wrap_content"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="33dp"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="0dp"
                                 android:layout_marginLeft="18dp"
                                 android:background="@drawable/border_left"/>
                             <ImageView
@@ -330,29 +335,30 @@
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-            <RelativeLayout
-                android:id="@+id/proses"
-                android:layout_below="@+id/card_jejak"
-                android:layout_marginTop="20dp"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:paddingTop="5dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/title_proses"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PROSES PENGAJUAN"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent2"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-        </RelativeLayout>
-    </ScrollView>
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:id="@+id/proses"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:paddingTop="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title_proses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROSES PENGAJUAN"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent2"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+</RelativeLayout>
