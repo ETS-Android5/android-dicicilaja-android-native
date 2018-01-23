@@ -243,28 +243,27 @@
                             android:id="@+id/terkirim_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <!--<View-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="20dp"-->
-                                <!--android:layout_marginTop="33dp"-->
-                                <!--android:layout_marginLeft="18dp"-->
-                                <!--android:background="@drawable/border_left"/>-->
+                            <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="18dp"
+                            android:background="@drawable/border_left"/>
                             <ImageView
                                 android:id="@+id/icon_terkirim"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginRight="10dp"
                                 android:src="@drawable/ic_circle"
-                                android:padding="8dp"
                                 android:layout_centerVertical="true"
-                                android:layout_marginTop="5dp"/>
+                                android:padding="8dp"/>
                             <TextView
                                 android:id="@+id/title_terkirim"
                                 android:layout_toRightOf="@+id/icon_terkirim"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Terkirim"
-                                android:textSize="12sp"/>
+                                android:textSize="11sp"/>
                             <TextView
                                 android:id="@+id/nama_terkirim"
                                 android:layout_below="@+id/title_terkirim"
@@ -284,12 +283,12 @@
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/verifikasi_card"
+                            android:layout_below="@+id/terkirim_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <View
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
-                                android:layout_marginTop="-30dp"
                                 android:layout_marginLeft="18dp"
                                 android:background="@drawable/border_left"/>
                             <ImageView
@@ -307,7 +306,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Verifikasi"
-                                android:textSize="12sp"/>
+                                android:textSize="11sp"/>
                             <TextView
                                 android:id="@+id/nama_verifikasi"
                                 android:layout_below="@+id/title_verifikasi"
@@ -323,6 +322,264 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="11sp"
                                 android:layout_toRightOf="@+id/icon_verifikasi"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/proses_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_proses"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_proses"
+                                android:layout_toRightOf="@+id/icon_proses"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Proses"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_proses"
+                                android:layout_below="@+id/title_proses"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_proses"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_proses"
+                                android:layout_below="@+id/nama_proses"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_proses"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/survey_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_survey"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_survey"
+                                android:layout_toRightOf="@+id/icon_survey"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Survey"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_survey"
+                                android:layout_below="@+id/title_survey"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_survey"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_survey"
+                                android:layout_below="@+id/nama_survey"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_survey"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/pending_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_pending"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_pending"
+                                android:layout_toRightOf="@+id/icon_pending"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Survey"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_pending"
+                                android:layout_below="@+id/title_pending"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_pending"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_pending"
+                                android:layout_below="@+id/nama_pending"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_pending"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/analisa_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_analisa"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_analisa"
+                                android:layout_toRightOf="@+id/icon_analisa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Analisa Kredit"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_analisa"
+                                android:layout_below="@+id/title_analisa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_analisa"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_analisa"
+                                android:layout_below="@+id/nama_analisa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_analisa"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/ditolak_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_ditolak"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_ditolak"
+                                android:layout_toRightOf="@+id/icon_ditolak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ditolak"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_ditolak"
+                                android:layout_below="@+id/title_ditolak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_ditolak"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_ditolak"
+                                android:layout_below="@+id/nama_ditolak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_ditolak"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/pencairan_card"
+                            android:layout_below="@+id/terkirim_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_pencairan"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_pencairan"
+                                android:layout_toRightOf="@+id/icon_pencairan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pencairan"
+                                android:textSize="11sp"/>
+                            <TextView
+                                android:id="@+id/nama_pencairan"
+                                android:layout_below="@+id/title_pencairan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_pencairan"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_pencairan"
+                                android:layout_below="@+id/nama_pencairan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_pencairan"
                                 android:text="2 Menit • 16 Des 2017" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -345,7 +602,7 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/title_proses"
+            android:id="@+id/title_proses_pengajuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PROSES PENGAJUAN"
