@@ -36,6 +36,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         TextView status;
         TextView harga_resi;
         TextView detail_resi;
+        TextView nama_resi;
 
 
 
@@ -47,6 +48,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
             status          = v.findViewById(R.id.status);
             harga_resi      = v.findViewById(R.id.harga_resi);
             detail_resi     = v.findViewById(R.id.detail_resi);
+            nama_resi     = v.findViewById(R.id.nama_resi);
         }
     }
 
@@ -69,6 +71,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         holder.status.setText(pengajuans.get(position).getStatus());
         holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
         holder.detail_resi.setText(pengajuans.get(position).getColleteral());
+        holder.nama_resi.setText(pengajuans.get(position).getProgram());
         if(pengajuans.get(position).getStatus().equals("Terkirim")) {
             holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
         }

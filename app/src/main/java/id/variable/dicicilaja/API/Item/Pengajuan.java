@@ -32,6 +32,9 @@ public class Pengajuan {
     @SerializedName("amount")
     @Expose
     private String amount;
+    @SerializedName("program")
+    @Expose
+    private String program;
 
     public Integer getId() {
         return id;
@@ -83,5 +86,13 @@ public class Pengajuan {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
     }
 }
