@@ -20,6 +20,7 @@ import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuan;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
+import id.variable.dicicilaja.API.Item.Applicant;
 import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
@@ -58,8 +59,10 @@ public class NasabahPemohonFragment extends Fragment {
         TextView title_pemohon = view.findViewById(R.id.title_pemohon);
         TextView button_telp_nasabah = view.findViewById(R.id.telephone_button_nasabah);
         TextView button_telp_pemohon = view.findViewById(R.id.telephone_button_pemohon);
+        TextView button_sms_nasabah = view.findViewById(R.id.sms_button_nasabah);
+        TextView button_sms_pemohon = view.findViewById(R.id.sms_button_pemohon);
         final TextView no_telp_nasabah = view.findViewById(R.id.api_hp);
-        final TextView no_telp_pemohon = view.findViewWithTag(R.id.no_telp_pemohon);
+        final TextView no_telp_pemohon = view.findViewById(R.id.no_telp_pemohon);
 
         final TextView api_client_name = view.findViewById(R.id.api_client_name);
         final TextView api_hp = view.findViewById(R.id.api_hp);
@@ -67,6 +70,12 @@ public class NasabahPemohonFragment extends Fragment {
         final TextView api_address = view.findViewById(R.id.api_address);
         final TextView api_district = view.findViewById(R.id.api_district);
         final TextView api_city = view.findViewById(R.id.api_city);
+
+        final TextView nama_pemohon = view.findViewById(R.id.nama_pemohon);
+        final TextView email_pemohon = view.findViewById(R.id.email_pemohon);
+        final TextView axi_id_pemohon = view.findViewById(R.id.id_axi_pemohon);
+        final TextView kecamtan_pemohon = view.findViewById(R.id.kecamatan_pemohon);
+        final TextView kota_pemohon = view.findViewById(R.id.kota_pemohon);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -88,7 +97,7 @@ public class NasabahPemohonFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent call = new Intent(Intent.ACTION_DIAL);
-                    call.setData(Uri.parse("tel:" + no_telp_nasabah.getText()));
+                    call.setData(Uri.parse("tel:" + no_telp_nasabah.getText() ));
                     startActivity(call);
                 }
         });
@@ -97,8 +106,26 @@ public class NasabahPemohonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent call = new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:" +no_telp_pemohon.getText() ));
+                call.setData(Uri.parse("tel:" + no_telp_pemohon.getText() ));
                 startActivity(call);
+            }
+        });
+
+        button_sms_nasabah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sms = new Intent(Intent.ACTION_VIEW);
+                sms.setData(Uri.parse("sms:" + no_telp_nasabah.getText() ));
+                startActivity(sms);
+            }
+        });
+
+        button_sms_pemohon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sms = new Intent(Intent.ACTION_VIEW);
+                sms.setData(Uri.parse("sms:" + no_telp_pemohon.getText() ));
+                startActivity(sms);
             }
         });
 
@@ -111,6 +138,7 @@ public class NasabahPemohonFragment extends Fragment {
             public void onResponse(Call<DetailPengajuanResponse> call, Response<DetailPengajuanResponse> response) {
                 if ( response.isSuccessful() ) {
                     detailPengajuans = response.body().getData();
+
                     api_client_name.setText(detailPengajuans.get(0).getClientName().toString());
                     api_hp.setText(detailPengajuans.get(0).getHp().toString());
                     api_email.setText(detailPengajuans.get(0).getEmail().toString());
@@ -118,9 +146,15 @@ public class NasabahPemohonFragment extends Fragment {
                     api_district.setText(detailPengajuans.get(0).getDistrict().toString());
                     api_city.setText(detailPengajuans.get(0).getCity().toString());
 
+                    nama_pemohon.setText(detailPengajuans.get(0).getApplicant().getName());
+                    email_pemohon.setText(detailPengajuans.get(0).getApplicant().getEmail());
+                    no_telp_pemohon.setText(detailPengajuans.get(0).getApplicant().getPhone());
+                    kecamtan_pemohon.setText(detailPengajuans.get(0).getApplicant().getDistrict());
+                    kota_pemohon.setText(detailPengajuans.get(0).getApplicant().getCity());
+
 
                 } else {
-                    Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -128,7 +162,7 @@ public class NasabahPemohonFragment extends Fragment {
             @Override
             public void onFailure(Call<DetailPengajuanResponse> call, Throwable t) {
                 // Log error here since request failed
-                Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.toString());
             }
         });

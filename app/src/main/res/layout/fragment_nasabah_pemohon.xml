@@ -327,6 +327,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/nama_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -354,6 +355,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/email_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -387,7 +389,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="081234567890"/>
+                                android:text="081284063046"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -409,6 +411,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/id_axi_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -436,6 +439,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/kecamatan_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
@@ -463,6 +467,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/kota_pemohon"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"

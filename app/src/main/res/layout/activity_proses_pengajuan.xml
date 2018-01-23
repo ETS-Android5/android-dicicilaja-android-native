@@ -20,38 +20,44 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/layout_title_tugas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp">
+
                 <TextView
                     android:id="@+id/title_tugas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Tugas"/>
+                    android:text="Tugas"
+                    android:textSize="16sp" />
             </RelativeLayout>
         </LinearLayout>
+
         <android.support.v7.widget.CardView
             android:id="@+id/card_tugas"
-            android:layout_below="@+id/layout_title_tugas"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_title_tugas"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@color/colorWhite"
             app:cardCornerRadius="4dp"
-            app:cardElevation="2dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,76 +67,84 @@
                     android:id="@+id/top_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
-                            android:width="120dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_marginTop="5dp"
-                            android:layout_centerVertical="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
+                            android:width="120dp"
+                            android:text="Validasi Pengajuan"
                             android:textSize="12sp"
-                            android:text="Validasi Pengajuan"/>
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:layout_alignParentRight="true"
                             android:id="@+id/konfirmasi"
-                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/capsule_confirm"
-                            android:textColor="@color/colorWhite"
-                            android:paddingTop="5dp"
-                            android:textSize="12sp"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="16dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/capsule_confirm"
                             android:clickable="true"
                             android:elevation="1dp"
                             android:foreground="?android:attr/selectableItemBackground"
-                            android:layout_marginRight="15dp"
-                            android:text="KONFIRMASI"/>
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="5dp"
+                            android:text="KONFIRMASI"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="12sp" />
                     </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <LinearLayout
             android:id="@+id/layout_title_penugasan"
-            android:layout_below="@+id/card_tugas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/card_tugas"
             android:fillViewport="true"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp">
+
                 <TextView
                     android:id="@+id/title_penugasan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Penugasan"/>
+                    android:text="Penugasan"
+                    android:textSize="16sp" />
             </RelativeLayout>
         </LinearLayout>
+
         <android.support.v7.widget.CardView
             android:id="@+id/card_pengajuan"
-            android:layout_below="@+id/layout_title_penugasan"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_title_penugasan"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@color/colorWhite"
             app:cardCornerRadius="4dp"
-            app:cardElevation="2dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,86 +154,110 @@
                     android:id="@+id/top_card_penugasan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
-                            android:width="120dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_marginTop="5dp"
-                            android:layout_centerVertical="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:width="120dp"
+                            android:text="Pilih CRH"
+                            android:textSize="12sp"
                             android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:text="Pilih CRH"/>
+                            android:id="@+id/textView2" />
+
                         <TextView
-                            android:layout_alignParentRight="true"
                             android:id="@+id/lihat_database"
-                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/textView2"
+                            android:layout_alignBottom="@+id/textView2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:background="@drawable/capsule_confirm"
-                            android:textColor="@color/colorWhite"
-                            android:paddingTop="5dp"
-                            android:textSize="12sp"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="16dp"
                             android:clickable="true"
                             android:elevation="1dp"
                             android:foreground="?android:attr/selectableItemBackground"
-                            android:layout_marginRight="15dp"
-                            android:text="LIHAT DATABASE"/>
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="5dp"
+                            android:text="LIHAT DATABASE"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="12sp" />
                     </RelativeLayout>
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputReferal"
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Ketik NIK CRH"
-                        app:met_floatingLabel="normal"
-                        app:met_helperText="Nama CRH"
-                        app:met_baseColor="@color/colorAccent"
-                        app:met_primaryColor="@color/colorAccent"
-                        app:met_textColor="@color/colorBlack"
-                        app:met_textColorHint="@color/colorAccent"
-                        app:met_errorColor="@color/colorRed"
-                        app:met_helperTextColor="@color/colorAccentDark"
-                        app:met_underlineColor="@color/colorAccent"
-                        app:met_floatingLabelTextColor="@color/colorAccent"
-                        android:layout_centerHorizontal="true"
-                        android:textColorHighlight="@color/colorAccent"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        android:layout_height="wrap_content">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputReferal"
+                            android:layout_width="319dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:fontFamily="sans-serif"
+                            android:hint="Ketik NIK CRH"
+                            android:textColor="#000000"
+                            android:textColorHighlight="@color/colorAccent"
+                            android:textSize="14sp"
+                            app:met_baseColor="@color/colorAccent"
+                            app:met_errorColor="@color/colorRed"
+                            app:met_floatingLabel="normal"
+                            app:met_floatingLabelTextColor="@color/colorAccent"
+                            app:met_helperText="Nama CRH"
+                            app:met_helperTextColor="@color/colorAccentDark"
+                            app:met_primaryColor="@color/colorAccent"
+                            app:met_textColor="@color/colorBlack"
+                            app:met_textColorHint="@color/colorAccent"
+                            app:met_underlineColor="@color/colorAccent" />
+
+                        <ProgressBar
+                            android:id="@+id/input_progess_bar_referal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_alignTop="@id/inputReferal"
+                            android:layout_alignBottom="@id/inputReferal"
+                            android:layout_alignRight="@id/inputReferal"/>
+
+                    </RelativeLayout>
+
+
                 </LinearLayout>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
         <RelativeLayout
             android:id="@+id/proses"
-            android:layout_marginTop="20dp"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite"
             android:clickable="true"
             android:elevation="4dp"
-            android:paddingTop="5dp"
             android:foreground="?android:attr/selectableItemBackground"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorWhite"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
             <TextView
                 android:id="@+id/title_proses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="TERUSKAN PENGAJUAN"
-                android:textStyle="bold"
                 android:textColor="@color/colorAccent2"
-                android:layout_centerInParent="true"/>
+                android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

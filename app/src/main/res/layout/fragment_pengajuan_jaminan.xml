@@ -63,6 +63,7 @@
                                 android:textSize="12sp"
                                 android:text="Program Pembiayaan"/>
                             <TextView
+                                android:id="@+id/title_of_product"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -77,6 +78,7 @@
                                 android:textSize="12sp"
                                 android:text="Channel Penjualan"/>
                             <TextView
+                                android:id="@+id/title_of_spec"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -98,6 +100,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/colon_of_product"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -110,6 +113,7 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/colon_of_spec"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

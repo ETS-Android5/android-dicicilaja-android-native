@@ -23,6 +23,9 @@ public class Pengajuan {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("style")
+    @Expose
+    private String style;
     @SerializedName("colleteral")
     @Expose
     private String colleteral;
@@ -61,6 +64,10 @@ public class Pengajuan {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getStyle() { return style; }
+
+    public void setStyle(String style) { this.style = style; }
 
     public String getColleteral() {
         return colleteral;

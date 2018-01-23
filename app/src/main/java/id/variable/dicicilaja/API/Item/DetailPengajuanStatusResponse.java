@@ -13,9 +13,9 @@ public class DetailPengajuanStatusResponse {
     @SerializedName("transaction")
     @Expose
     private Transaction transaction;
-    @SerializedName("status")
+    @SerializedName("status_detail")
     @Expose
-    private List<Status> status = null;
+    private List<StatusDetail> statusDetail = null;
 
     public Transaction getTransaction() {
         return transaction;
@@ -25,11 +25,11 @@ public class DetailPengajuanStatusResponse {
         this.transaction = transaction;
     }
 
-    public List<Status> getStatus() {
-        return status;
+    public List<StatusDetail> getStatusDetail() {
+        return statusDetail;
     }
 
-    public void setStatus(List<Status> status) {
-        this.status = status;
+    public void setStatusDetail(List<StatusDetail> statusDetail) {
+        this.statusDetail = statusDetail;
     }
 }

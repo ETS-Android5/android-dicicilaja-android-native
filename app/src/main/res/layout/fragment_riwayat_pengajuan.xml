@@ -45,7 +45,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:id="@+id/top_card"
                         android:layout_width="match_parent"
@@ -53,6 +52,7 @@
                         android:padding="16dp"
                         android:orientation="vertical">
                         <LinearLayout
+                            android:id="@+id/responsible_person_name_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -72,15 +72,15 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
-                                android:id="@+id/api_name"
+                                android:id="@+id/responsible_person_name"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Fawaz Rifqi"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/responsible_person_role_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -100,15 +100,15 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
-                                android:id="@+id/api_role"
+                                android:id="@+id/responsible_person_role"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="TC (Traffic Coordinator)"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/responsible_person_id_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -128,15 +128,15 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
-                                android:id="@+id/api_user_id"
+                                android:id="@+id/responsible_person_id"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="98071098312"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/responsible_person_response_time_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -156,14 +156,15 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/responsible_person_response_time"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="2 Menit"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/responsible_person_note_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -183,12 +184,12 @@
                                 android:textSize="12sp"
                                 android:text=":"/>
                             <TextView
+                                android:id="@+id/responsible_person_response_note"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="Tolong segera di proses karena nasabah sangat butuh segera"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -241,6 +242,7 @@
                             android:layout_height="wrap_content">
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/terkirim_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <View
@@ -250,7 +252,7 @@
                                 android:layout_marginLeft="18dp"
                                 android:background="@drawable/border_left"/>
                             <ImageView
-                                android:id="@+id/icon_process_1"
+                                android:id="@+id/icon_terkirim"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginRight="10dp"
@@ -259,105 +261,71 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="5dp"/>
                             <TextView
-                                android:id="@+id/title_process_1"
-                                android:layout_toRightOf="@+id/icon_process_1"
+                                android:id="@+id/title_terkirim"
+                                android:layout_toRightOf="@+id/icon_terkirim"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Terkirim"
+                                android:textSize="12sp"/>
+                            <TextView
+                                android:id="@+id/nama_terkirim"
+                                android:layout_below="@+id/title_terkirim"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_terkirim"
+                                android:text="Rienaldi (TC)" />
+                            <TextView
+                                android:id="@+id/durasi_terkirim"
+                                android:layout_below="@+id/nama_terkirim"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_terkirim"
+                                android:text="2 Menit • 16 Des 2017" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/verifikasi_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="33dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_verifikasi"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_verifikasi"
+                                android:layout_toRightOf="@+id/icon_verifikasi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Verifikasi"
                                 android:textSize="12sp"/>
                             <TextView
-                                android:id="@+id/name_process_1"
-                                android:layout_below="@+id/title_process_1"
+                                android:id="@+id/nama_verifikasi"
+                                android:layout_below="@+id/title_verifikasi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_1"
+                                android:layout_toRightOf="@+id/icon_verifikasi"
                                 android:text="Rienaldi (TC)" />
                             <TextView
-                                android:layout_below="@+id/name_process_1"
+                                android:id="@+id/durasi_verifikasi"
+                                android:layout_below="@+id/nama_verifikasi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_1"
+                                android:layout_toRightOf="@+id/icon_verifikasi"
                                 android:text="2 Menit • 16 Des 2017" />
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_marginLeft="18dp"
-                                android:background="@drawable/border_left"/>
-                            <ImageView
-                                android:id="@+id/icon_process_2"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_circle"
-                                android:padding="8dp"
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:id="@+id/title_process_2"
-                                android:layout_toRightOf="@+id/icon_process_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Proses"
-                                android:textSize="12sp"/>
-                            <TextView
-                                android:id="@+id/name_process_2"
-                                android:layout_below="@+id/title_process_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_2"
-                                android:text="Fawaz (CRH)" />
-                            <TextView
-                                android:layout_below="@+id/name_process_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_2"
-                                android:text="24 Menit • 16 Des 2017" />
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="18dp"
-                                android:background="@drawable/border_left"/>
-                            <ImageView
-                                android:id="@+id/icon_process_3"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_circle"
-                                android:padding="8dp"
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:id="@+id/title_process_3"
-                                android:layout_toRightOf="@+id/icon_process_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pending"
-                                android:textSize="12sp"/>
-                            <TextView
-                                android:id="@+id/name_process_3"
-                                android:layout_below="@+id/title_process_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_3"
-                                android:text="Deni (CRO)" />
-                            <TextView
-                                android:layout_below="@+id/name_process_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_process_3"
-                                android:text="2 Jam • 16 Des 2017" />
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>

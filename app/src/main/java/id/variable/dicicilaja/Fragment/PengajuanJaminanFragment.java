@@ -80,7 +80,11 @@ public class PengajuanJaminanFragment extends Fragment {
         final ImageView api_ktp_image = view.findViewById(R.id.api_ktp_image);
         final ImageView api_colleteral_image = view.findViewById(R.id.api_colleteral_image);
 
+        final TextView title_of_product = view.findViewById(R.id.title_of_product);
+        final TextView title_of_spec = view.findViewById(R.id.title_of_spec);
 
+        final TextView colon_of_product = view.findViewById(R.id.colon_of_product);
+        final TextView colon_of_spec = view.findViewById(R.id.colon_of_spec);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -98,32 +102,48 @@ public class PengajuanJaminanFragment extends Fragment {
             }
         });
 
-        InterfaceDetailPengajuan apiService =
-                ClientDetailPengajuan.getClientDetailPengajuan().create(InterfaceDetailPengajuan.class);
-//        Toast.makeText(getContext(), "Kode Pengajuan : " + getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID"), Toast.LENGTH_LONG).show();
+        InterfaceDetailPengajuan apiService = ClientDetailPengajuan.getClientDetailPengajuan().create(InterfaceDetailPengajuan.class);
         Call<DetailPengajuanResponse> call = apiService.getDetailPengajuan(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
         call.enqueue(new Callback<DetailPengajuanResponse>() {
             @Override
             public void onResponse(Call<DetailPengajuanResponse> call, Response<DetailPengajuanResponse> response) {
                 if ( response.isSuccessful() ) {
                     detailPengajuans = response.body().getData();
-                    api_program.setText(detailPengajuans.get(0).getProgram().toString());
-//                    api_product.setText(detailPengajuans.get(0).getProduct().toString());
-                    api_channel.setText(detailPengajuans.get(0).getChannel().toString());
-//                    api_specification.setText(detailPengajuans.get(0).getSpecification().toString());
-                    api_colleteral.setText(detailPengajuans.get(0).getColleteral().toString());
-                    api_manufacturer.setText(detailPengajuans.get(0).getManufacturer().toString());
+
+                    api_program.setText(detailPengajuans.get(0).getProgram());
+                    api_channel.setText(detailPengajuans.get(0).getChannel());
+                    api_colleteral.setText(detailPengajuans.get(0).getColleteral());
+                    api_manufacturer.setText(detailPengajuans.get(0).getManufacturer());
                     api_year.setText(detailPengajuans.get(0).getYear().toString());
                     api_tenor.setText(detailPengajuans.get(0).getTenor().toString() + " bulan");
-                    api_ammount.setText(detailPengajuans.get(0).getAmmount().toString());
-                    api_area.setText(detailPengajuans.get(0).getArea().toString());
-                    api_branch.setText(detailPengajuans.get(0).getBranch().toString());
-                    api_zipcode.setText("000000");
+                    api_ammount.setText(detailPengajuans.get(0).getAmmount());
+                    api_area.setText(detailPengajuans.get(0).getArea());
+                    api_branch.setText(detailPengajuans.get(0).getBranch());
+                    api_zipcode.setText(detailPengajuans.get(0).getZipcode());
+
                     String imageKtp = detailPengajuans.get(0).getKtpImage().toString();
                     Picasso.with(getContext()).load(imageKtp).into(api_ktp_image);
                     String imageColleteral = detailPengajuans.get(0).getColleteralImage().toString();
                     Picasso.with(getContext()).load(imageColleteral).into(api_colleteral_image);
 
+                    try {
+                        title_of_product.setVisibility(View.VISIBLE);
+                        title_of_spec.setVisibility(View.VISIBLE);
+                        colon_of_product.setVisibility(View.VISIBLE);
+                        colon_of_spec.setVisibility(View.VISIBLE);
+                        api_product.setVisibility(View.VISIBLE);
+                        api_specification.setVisibility(View.VISIBLE);
+
+                        api_product.setText(detailPengajuans.get(0).getProduct().toString());
+                        api_specification.setText(detailPengajuans.get(0).getSpecification().toString());
+                    } catch (Exception ex) {
+                        title_of_product.setVisibility(View.GONE);
+                        title_of_spec.setVisibility(View.GONE);
+                        colon_of_product.setVisibility(View.GONE);
+                        colon_of_spec.setVisibility(View.GONE);
+                        api_product.setVisibility(View.GONE);
+                        api_specification.setVisibility(View.GONE);
+                    }
 
                 } else {
                     Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();

@@ -1,6 +1,10 @@
 package id.variable.dicicilaja.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +38,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         TextView detail_resi;
 
 
+
         public PengajuanViewHolder(View v) {
             super(v);
             card_pengajuan  = v.findViewById(R.id.card_pengajuan);
@@ -64,12 +69,12 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         holder.status.setText(pengajuans.get(position).getStatus());
         holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
         holder.detail_resi.setText(pengajuans.get(position).getColleteral());
+
     }
 
     @Override
     public int getItemCount() {
         return pengajuans.size();
     }
-
 
 }

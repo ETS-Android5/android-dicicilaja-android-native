@@ -57,6 +57,9 @@ public class DetailPengajuan {
     @SerializedName("branch")
     @Expose
     private String branch;
+    @SerializedName("zipcode")
+    @Expose
+    private String zipcode;
     @SerializedName("client_name")
     @Expose
     private String clientName;
@@ -84,6 +87,9 @@ public class DetailPengajuan {
     @SerializedName("colleteral_image")
     @Expose
     private String colleteralImage;
+    @SerializedName("applicant")
+    @Expose
+    private Applicant applicant = null;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -216,6 +222,10 @@ public class DetailPengajuan {
         this.branch = branch;
     }
 
+    public String getZipcode() { return zipcode; }
+
+    public void setZipcode(String zipcode) { this.zipcode = zipcode; }
+
     public String getClientName() {
         return clientName;
     }
@@ -287,6 +297,10 @@ public class DetailPengajuan {
     public void setColleteralImage(String colleteralImage) {
         this.colleteralImage = colleteralImage;
     }
+
+    public Applicant getApplicant() { return applicant; }
+
+    public void setApplicant(Applicant applicant) { this.applicant = applicant; }
 
     public String getCreatedAt() {
         return createdAt;
