@@ -28,6 +28,7 @@ import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.Remote.RequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +48,9 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final SessionManager session = new SessionManager(getBaseContext());
+        final String apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -151,31 +155,23 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 String transaction_id = getIntent().getStringExtra("TRANSACTION_ID").toString();
                 String assigned_id = inputReferal.getText().toString();
                 String notes = inputCatatan.getText().toString();
-                doProcess(transaction_id, assigned_id, notes);
+                doProcess(apiKey, transaction_id, assigned_id, notes);
             }
         });
     }
 
-    private void doProcess(final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(transaction_id, assigned_id, notes);
+    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
+        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-                if(response.isSuccessful()) {
-                    ResRequestProcess resRequestProcess = response.body();
-                    try {
-                        Toast.makeText(getBaseContext(),"Catatan : " + resRequestProcess.getNotes(),Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } catch(Exception ex) {
-                        Log.w("Process Exception :", ex.getMessage());
-                        Toast.makeText(ProsesPengajuanActivity.this, "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } else {
-                    Toast.makeText(ProsesPengajuanActivity.this, "Proses pengajuan gagal", Toast.LENGTH_SHORT).show();
+                try {
+                    Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch(Exception ex) {
+                    Log.w("Process Exception :", ex.getMessage());
+                    Toast.makeText(ProsesPengajuanActivity.this, "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
                 }
             }
 
