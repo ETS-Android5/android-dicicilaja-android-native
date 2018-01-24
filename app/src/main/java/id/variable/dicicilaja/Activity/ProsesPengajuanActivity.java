@@ -10,23 +10,34 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import id.variable.dicicilaja.Model.ResObj;
+import id.variable.dicicilaja.Model.ResRequestProcess;
+import id.variable.dicicilaja.Remote.RequestProcess;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Remote.ApiUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProsesPengajuanActivity extends AppCompatActivity {
 
     long delay = 1000;
     long last_text_edit;
+
+    RequestProcess interfaceTCProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +55,15 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
         final Button konfirmasi = findViewById(R.id.konfirmasi);
+        final RelativeLayout proses = findViewById(R.id.proses);
         final TextView lihat_database = findViewById(R.id.lihat_database);
         TextView title_tugas = findViewById(R.id.title_tugas);
         TextView title_penugasan = findViewById(R.id.title_penugasan);
 
         final Handler handler = new Handler();
+        interfaceTCProcess = ApiUtils.getRequestService();
 
+        Toast.makeText(getBaseContext(),"ID PENGAJUAN : " + getIntent().getStringExtra("TRANSACTION_ID"),Toast.LENGTH_SHORT).show();
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -60,9 +74,11 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         title_penugasan.setTypeface(opensans_bold);
 
         final MaterialEditText inputReferal = findViewById(R.id.inputReferal);
+        final MaterialEditText inputCatatan = findViewById(R.id.inputCatatan);
         final ProgressBar inputProgressBarReferal = findViewById(R.id.input_progess_bar_referal);
 
         inputReferal.setEnabled(false);
+        inputCatatan.setEnabled(false);
         lihat_database.setEnabled(false);
         inputReferal.setTextColor(getResources().getColor(R.color.colorBackgroundDark));
         inputProgressBarReferal.setVisibility(View.GONE);
@@ -82,6 +98,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Write your code here to execute after dialog closed
                         inputReferal.setEnabled(true);
+                        inputCatatan.setEnabled(true);
                         lihat_database.setEnabled(true);
 
                         inputReferal.requestFocus();
@@ -93,6 +110,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
 
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +145,46 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
+        proses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String transaction_id = getIntent().getStringExtra("TRANSACTION_ID").toString();
+                String assigned_id = inputReferal.getText().toString();
+                String notes = inputCatatan.getText().toString();
+                doProcess(transaction_id, assigned_id, notes);
+            }
+        });
     }
 
+    private void doProcess(final String transaction_id, final String assigned_id, final String notes) {
+        Call<ResRequestProcess> call = interfaceTCProcess.assign(transaction_id, assigned_id, notes);
+        call.enqueue(new Callback<ResRequestProcess>() {
+            @Override
+            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
+                if(response.isSuccessful()) {
+                    ResRequestProcess resRequestProcess = response.body();
+                    try {
+                        Toast.makeText(getBaseContext(),"Catatan : " + resRequestProcess.getNotes(),Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } catch(Exception ex) {
+                        Log.w("Process Exception :", ex.getMessage());
+                        Toast.makeText(ProsesPengajuanActivity.this, "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    Toast.makeText(ProsesPengajuanActivity.this, "Proses pengajuan gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -24,208 +24,240 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/layout_title_tugas"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp">
-
-                <TextView
-                    android:id="@+id/title_tugas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tugas"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_tugas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_title_tugas"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorWhite"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="2dp">
-
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/top_card"
+                android:layout_height="match_parent">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_height="match_parent">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/layout_title_tugas"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="5dp"
-                            android:width="120dp"
-                            android:text="Validasi Pengajuan"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_margin="16dp">
 
-                        <Button
-                            android:id="@+id/konfirmasi"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/title_tugas"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tugas"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_tugas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_tugas"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="10dp"
-                            android:elevation="1dp"
-                            android:text="KONFIRMASI"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:orientation="vertical">
 
+                            <LinearLayout
+                                android:id="@+id/top_card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="5dp"
+                                        android:width="120dp"
+                                        android:text="Validasi Pengajuan"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold" />
+
+                                    <Button
+                                        android:id="@+id/konfirmasi"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="KONFIRMASI"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/layout_title_penugasan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_tugas"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_penugasan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Penugasan"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_pengajuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_penugasan"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="100dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card_penugasan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="5dp"
+                                        android:width="120dp"
+                                        android:text="Pilih CRH"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold"
+                                        android:id="@+id/textView2" />
+
+                                    <Button
+                                        android:id="@+id/lihat_database"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBaseline="@+id/textView2"
+                                        android:layout_alignBottom="@+id/textView2"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:backgroundTint="@color/colorAccent2"
+                                        android:clickable="true"
+                                        android:elevation="1dp"
+                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:text="LIHAT DATABASE"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/inputReferal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:fontFamily="sans-serif"
+                                        android:hint="Ketik NIK CRH"
+                                        android:textColor="#000000"
+                                        android:textColorHighlight="@color/colorAccent"
+                                        android:textSize="14sp"
+                                        app:met_baseColor="@color/colorAccent"
+                                        app:met_errorColor="@color/colorRed"
+                                        app:met_floatingLabel="normal"
+                                        app:met_floatingLabelTextColor="@color/colorAccent"
+                                        app:met_helperText="Nama CRH"
+                                        app:met_helperTextColor="@color/colorAccentDark"
+                                        app:met_primaryColor="@color/colorAccent"
+                                        app:met_textColor="@color/colorBlack"
+                                        app:met_textColorHint="@color/colorAccent"
+                                        app:met_underlineColor="@color/colorAccent" />
+
+                                    <ProgressBar
+                                        android:id="@+id/input_progess_bar_referal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="?android:attr/progressBarStyleSmall"
+                                        android:layout_alignTop="@id/inputReferal"
+                                        android:layout_alignBottom="@id/inputReferal"
+                                        android:layout_alignRight="@id/inputReferal"/>
+
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/inputCatatan"
+                                        android:layout_below="@+id/inputReferal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:hint="Catatan"
+                                        android:textColor="#000000"
+                                        android:textColorHighlight="@color/colorAccent"
+                                        android:textSize="14sp"
+                                        app:met_baseColor="@color/colorAccent"
+                                        app:met_errorColor="@color/colorRed"
+                                        app:met_floatingLabel="normal"
+                                        app:met_floatingLabelTextColor="@color/colorAccent"
+                                        app:met_primaryColor="@color/colorAccent"
+                                        app:met_textColor="@color/colorBlack"
+                                        app:met_textColorHint="@color/colorAccent"
+                                        app:met_underlineColor="@color/colorAccent" />
+
+                                </RelativeLayout>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:id="@+id/layout_title_penugasan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/card_tugas"
-            android:fillViewport="true"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp">
-
-                <TextView
-                    android:id="@+id/title_penugasan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Penugasan"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_pengajuan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_title_penugasan"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorWhite"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/top_card_penugasan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="5dp"
-                            android:width="120dp"
-                            android:text="Pilih CRH"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:id="@+id/textView2" />
-
-                        <Button
-                            android:id="@+id/lihat_database"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/textView2"
-                            android:layout_alignBottom="@+id/textView2"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:backgroundTint="@color/colorAccent2"
-                            android:clickable="true"
-                            android:elevation="1dp"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:text="LIHAT DATABASE"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/inputReferal"
-                            android:layout_width="319dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:fontFamily="sans-serif"
-                            android:hint="Ketik NIK CRH"
-                            android:textColor="#000000"
-                            android:textColorHighlight="@color/colorAccent"
-                            android:textSize="14sp"
-                            app:met_baseColor="@color/colorAccent"
-                            app:met_errorColor="@color/colorRed"
-                            app:met_floatingLabel="normal"
-                            app:met_floatingLabelTextColor="@color/colorAccent"
-                            app:met_helperText="Nama CRH"
-                            app:met_helperTextColor="@color/colorAccentDark"
-                            app:met_primaryColor="@color/colorAccent"
-                            app:met_textColor="@color/colorBlack"
-                            app:met_textColorHint="@color/colorAccent"
-                            app:met_underlineColor="@color/colorAccent" />
-
-                        <ProgressBar
-                            android:id="@+id/input_progess_bar_referal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="?android:attr/progressBarStyleSmall"
-                            android:layout_alignTop="@id/inputReferal"
-                            android:layout_alignBottom="@id/inputReferal"
-                            android:layout_alignRight="@id/inputReferal"/>
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
+        </ScrollView>
         <RelativeLayout
             android:id="@+id/proses"
             android:layout_width="match_parent"
