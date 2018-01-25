@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class ProsesPengajuan2Activity extends AppCompatActivity {
     long last_text_edit;
     String id_database;
     MaterialEditText inputReferal;
-    RequestProcess interfaceTCProcess;
+    RequestProcess interfaceCRHProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,22 @@ public class ProsesPengajuan2Activity extends AppCompatActivity {
         TextView title_tugas = findViewById(R.id.title_tugas);
         TextView title_penugasan = findViewById(R.id.title_penugasan);
 
+        LinearLayout layout_title_tugas = findViewById(R.id.layout_title_tugas);
+        CardView card_tugas = findViewById(R.id.card_tugas);
+        LinearLayout layout_title_nilai = findViewById(R.id.layout_title_nilai);
+        CardView card_nilai = findViewById(R.id.card_nilai);
+        LinearLayout layout_title_realisasi = findViewById(R.id.layout_title_realisasi);
+        CardView card_realisasi = findViewById(R.id.card_realisasi);
+
+
+        layout_title_tugas.setVisibility(View.GONE);
+        card_tugas.setVisibility(View.GONE);
+        layout_title_nilai.setVisibility(View.GONE);
+        card_nilai.setVisibility(View.GONE);
+        layout_title_realisasi.setVisibility(View.GONE);
+        card_realisasi.setVisibility(View.GONE);
         final Handler handler = new Handler();
-        interfaceTCProcess = ApiUtils.getRequestService();
+        interfaceCRHProcess = ApiUtils.getRequestService();
 
 //        Toast.makeText(getBaseContext(),"ID PENGAJUAN : " + getIntent().getStringExtra("TRANSACTION_ID"),Toast.LENGTH_SHORT).show();
 
@@ -112,16 +128,16 @@ public class ProsesPengajuan2Activity extends AppCompatActivity {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String transaction_id = getIntent().getStringExtra("TRANSACTION_ID").toString();
+                String transaction_id = getIntent().getStringExtra("TRANSACTION_ID");
                 String assigned_id = inputReferal.getText().toString();
                 String notes = inputCatatan.getText().toString();
-//                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                 doProcess(apiKey, transaction_id, assigned_id, notes);
             }
         });
     }
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
+        Call<ResRequestProcess> call = interfaceCRHProcess.assign(apiKey,transaction_id, assigned_id, notes);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {

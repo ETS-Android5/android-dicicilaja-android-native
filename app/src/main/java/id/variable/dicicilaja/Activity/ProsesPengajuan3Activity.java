@@ -32,7 +32,6 @@ public class ProsesPengajuan3Activity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
-        TextView konfirmasi = findViewById(R.id.konfirmasi);
         TextView lihat_database = findViewById(R.id.lihat_database);
         TextView title_tugas = findViewById(R.id.title_tugas);
         TextView title_penugasan = findViewById(R.id.title_penugasan);
@@ -46,31 +45,6 @@ public class ProsesPengajuan3Activity extends AppCompatActivity {
         title_tugas.setTypeface(opensans_bold);
         title_penugasan.setTypeface(opensans_bold);
 
-        konfirmasi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProsesPengajuan3Activity.this);
-                // Setting Dialog Title
-                alertDialog.setTitle("KONFIRMASI");
-
-                // Setting Dialog Message
-                alertDialog.setMessage("Apakah Anda sudah menghubungi pemohon dan mengkonfirmasi bahwa benar adanya pengajuan tersebut.");
-
-                // Setting Icon to Dialog
-//                alertDialog.setIcon(R.drawable.ic_circle);
-
-                // Setting OK Button
-                alertDialog.setPositiveButton("Ya, saya sudah konfirmasi data", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog closed
-//                        Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                // Showing Alert Message
-                alertDialog.show();
-            }
-        });
 
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
