@@ -65,7 +65,8 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="100dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -116,168 +117,277 @@
                                     <RelativeLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp">
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
                                         <TextView
-                                            android:id="@+id/title_ktp"
+                                            android:id="@+id/title_data1"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:layout_marginTop="5dp"
-                                            android:text="Menentukan waktu Survey"
+                                            android:text="KTP Suami/Istri"
                                             android:textStyle="bold" />
                                         <CheckBox
-                                            android:id="@+id/check_ktp"
+                                            android:id="@+id/check_data1"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:layout_alignParentRight="true"/>
                                     </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="KTP Penjamin"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_below="@+id/title_data2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:text="(Jika belum menikah)"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Surat Cerai"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_below="@+id/title_data3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:text="(Jika cerai hidup)"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Surat Kematian"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_below="@+id/title_data4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:text="(Jika cerai mati)"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Surat Keterangan Domisili"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_below="@+id/title_data5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:text="(Jika berbeda dengan di KTP)"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data6"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Kartu Keluarga"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data6"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data7"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Bukti Kepemilikan Rumah"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data7"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data8"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Bukti Penghasilan"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data8"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data9"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Gesekan No. Rangka Mesin"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data9"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data10"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="STNK"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data10"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_data11"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="BPKB"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <CheckBox
+                                            android:id="@+id/check_data11"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp">
+                                        <Button
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Simpan Berkas"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:paddingLeft="15dp">
+                                        <TextView
+                                            android:id="@+id/title_konfirmasi"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Survey Nasabah"
+                                            android:layout_centerVertical="true"
+                                            android:textStyle="bold" />
+                                        <Button
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:text="Konfirmasi"/>
+                                    </RelativeLayout>
                                 </LinearLayout>
                             </LinearLayout>
-
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <LinearLayout
-                        android:id="@+id/layout_title_penugasan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/card_tugas"
-                        android:fillViewport="true"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
-
-                            <TextView
-                                android:id="@+id/title_penugasan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Penugasan"
-                                android:textSize="16sp" />
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_pengajuan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/layout_title_penugasan"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:background="@color/colorWhite"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp"
-                        android:layout_marginBottom="100dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:id="@+id/top_card_penugasan"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginTop="5dp"
-                                        android:width="120dp"
-                                        android:text="Pilih CRH"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold"
-                                        android:id="@+id/textView2" />
-
-                                    <Button
-                                        android:id="@+id/lihat_database"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignBaseline="@+id/textView2"
-                                        android:layout_alignBottom="@+id/textView2"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_centerVertical="true"
-                                        android:backgroundTint="@color/colorAccent2"
-                                        android:clickable="true"
-                                        android:elevation="1dp"
-                                        android:foreground="?android:attr/selectableItemBackground"
-                                        android:text="LIHAT DATABASE"
-                                        android:textColor="@color/colorWhite"
-                                        android:textSize="12sp" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-                                        android:id="@+id/inputReferal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_alignParentTop="true"
-                                        android:fontFamily="sans-serif"
-                                        android:hint="Ketik NIK CRH"
-                                        android:textColor="#000000"
-                                        android:textColorHighlight="@color/colorAccent"
-                                        android:textSize="14sp"
-                                        app:met_baseColor="@color/colorAccent"
-                                        app:met_errorColor="@color/colorRed"
-                                        app:met_floatingLabel="normal"
-                                        app:met_floatingLabelTextColor="@color/colorAccent"
-                                        app:met_helperText="Nama CRH"
-                                        app:met_helperTextColor="@color/colorAccentDark"
-                                        app:met_primaryColor="@color/colorAccent"
-                                        app:met_textColor="@color/colorBlack"
-                                        app:met_textColorHint="@color/colorAccent"
-                                        app:met_underlineColor="@color/colorAccent" />
-
-                                    <ProgressBar
-                                        android:id="@+id/input_progess_bar_referal"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        style="?android:attr/progressBarStyleSmall"
-                                        android:layout_alignTop="@id/inputReferal"
-                                        android:layout_alignBottom="@id/inputReferal"
-                                        android:layout_alignRight="@id/inputReferal"/>
-
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-                                        android:id="@+id/inputCatatan"
-                                        android:layout_below="@+id/inputReferal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="sans-serif"
-                                        android:hint="Catatan"
-                                        android:textColor="#000000"
-                                        android:textColorHighlight="@color/colorAccent"
-                                        android:textSize="14sp"
-                                        app:met_baseColor="@color/colorAccent"
-                                        app:met_errorColor="@color/colorRed"
-                                        app:met_floatingLabel="normal"
-                                        app:met_floatingLabelTextColor="@color/colorAccent"
-                                        app:met_primaryColor="@color/colorAccent"
-                                        app:met_textColor="@color/colorBlack"
-                                        app:met_textColorHint="@color/colorAccent"
-                                        app:met_underlineColor="@color/colorAccent" />
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
                 </RelativeLayout>
