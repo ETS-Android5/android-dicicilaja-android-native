@@ -72,8 +72,33 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
         holder.detail_resi.setText(pengajuans.get(position).getColleteral());
         holder.nama_resi.setText(pengajuans.get(position).getProgram());
-        if(pengajuans.get(position).getStatus().equals("Terkirim")) {
-            holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
+        switch(pengajuans.get(position).getStatus()) {
+            case "Terkirim":
+                holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
+                break;
+            case "Verifikasi":
+                holder.status.setBackgroundResource(R.drawable.capsule_verifikasi);
+                break;
+            case "Proses":
+                holder.status.setBackgroundResource(R.drawable.capsule_proses);
+                break;
+            case "Survey":
+                holder.status.setBackgroundResource(R.drawable.capsule_survey);
+                break;
+            case "Pending":
+                holder.status.setBackgroundResource(R.drawable.capsule_pending);
+                break;
+            case "Analisa Kredit":
+                holder.status.setBackgroundResource(R.drawable.capsule_analisa);
+                break;
+            case "Ditolak":
+                holder.status.setBackgroundResource(R.drawable.capsule_ditolak);
+                break;
+            case "Pencairan":
+                holder.status.setBackgroundResource(R.drawable.capsule_pencairan);
+                break;
+            default:
+                break;
         }
 
 
