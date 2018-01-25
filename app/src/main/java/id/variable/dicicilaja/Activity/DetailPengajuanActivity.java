@@ -2,9 +2,7 @@ package id.variable.dicicilaja.Activity;
 
 import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import id.variable.dicicilaja.Adapter.DetailPengajuanPagerAdapter;
-import id.variable.dicicilaja.Adapter.PengajuanAdapter;
-import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
-import id.variable.dicicilaja.Fragment.InprogressFragment;
 import id.variable.dicicilaja.R;
 
 public class DetailPengajuanActivity extends AppCompatActivity {

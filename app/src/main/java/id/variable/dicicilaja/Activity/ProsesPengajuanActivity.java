@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.Remote.RequestProcess;
 import id.variable.dicicilaja.R;
@@ -68,7 +67,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         interfaceTCProcess = ApiUtils.getRequestService();
 
-        Toast.makeText(getBaseContext(),"ID PENGAJUAN : " + getIntent().getStringExtra("TRANSACTION_ID"),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getBaseContext(),"ID PENGAJUAN : " + getIntent().getStringExtra("TRANSACTION_ID"),Toast.LENGTH_SHORT).show();
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -119,7 +118,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), LihatDatabaseCRHActivity.class);
+                Intent i = new Intent(getBaseContext(), LihatDatabaseEmployeeActivity.class);
                 startActivityForResult(i, 1);
             }
         });
@@ -155,6 +154,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 String transaction_id = getIntent().getStringExtra("TRANSACTION_ID").toString();
                 String assigned_id = inputReferal.getText().toString();
                 String notes = inputCatatan.getText().toString();
+                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                 doProcess(apiKey, transaction_id, assigned_id, notes);
             }
         });
@@ -196,7 +196,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 id_database = data.getStringExtra("ID_DATABASE").toString();
-                Toast.makeText(getBaseContext(),"Halo : " + id_database,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(),"Halo : " + id_database,Toast.LENGTH_SHORT).show();
                 inputReferal.setText(id_database);
             }
         }

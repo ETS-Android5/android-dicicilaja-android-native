@@ -10,20 +10,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.variable.dicicilaja.API.Item.Pengajuan;
-import id.variable.dicicilaja.API.Item.PengajuanProgress;
+import id.variable.dicicilaja.API.Item.Task.Datum;
 import id.variable.dicicilaja.R;
 
 /**
  * Created by ziterz on 1/25/2018.
  */
 
-public class PengajuanProgressAdapter extends RecyclerView.Adapter<PengajuanProgressAdapter.PengajuanProgressViewHolder> {
-    private List<PengajuanProgress> pengajuanProgresses;
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+    private List<Datum> tasks;
     private int rowLayout;
     private Context context;
 
-    public static class PengajuanProgressViewHolder extends RecyclerView.ViewHolder {
+    public static class TaskViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout card_pengajuan;
         TextView resi;
         TextView tanggal;
@@ -34,7 +33,7 @@ public class PengajuanProgressAdapter extends RecyclerView.Adapter<PengajuanProg
 
 
 
-        public PengajuanProgressViewHolder(View v) {
+        public TaskViewHolder(View v) {
             super(v);
             card_pengajuan  = v.findViewById(R.id.card_pengajuan);
             resi            = v.findViewById(R.id.resi);
@@ -46,27 +45,27 @@ public class PengajuanProgressAdapter extends RecyclerView.Adapter<PengajuanProg
         }
     }
 
-    public PengajuanProgressAdapter(List<PengajuanProgress> pengajuanProgresses, int rowLayout, Context context) {
-        this.pengajuanProgresses = pengajuanProgresses;
+    public TaskAdapter(List<Datum> tasks, int rowLayout, Context context) {
+        this.tasks = tasks;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @Override
-    public PengajuanProgressAdapter.PengajuanProgressViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TaskAdapter.TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new PengajuanProgressAdapter.PengajuanProgressViewHolder(view);
+        return new TaskAdapter.TaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PengajuanProgressAdapter.PengajuanProgressViewHolder holder, int position) {
-        holder.resi.setText("#" + pengajuanProgresses.get(position).getTrackingId().toString());
-        holder.tanggal.setText(pengajuanProgresses.get(position).getCreatedAt());
-        holder.status.setText(pengajuanProgresses.get(position).getStatus());
-        holder.harga_resi.setText(pengajuanProgresses.get(position).getAmount().toString());
-        holder.detail_resi.setText(pengajuanProgresses.get(position).getColleteral());
-        holder.nama_resi.setText(pengajuanProgresses.get(position).getProgram());
-        switch(pengajuanProgresses.get(position).getStatus()) {
+    public void onBindViewHolder(TaskAdapter.TaskViewHolder holder, int position) {
+        holder.resi.setText("#" + tasks.get(position).getTrackingId().toString());
+        holder.tanggal.setText(tasks.get(position).getCreatedAt());
+        holder.status.setText(tasks.get(position).getStatus());
+        holder.harga_resi.setText(tasks.get(position).getAmount().toString());
+        holder.detail_resi.setText(tasks.get(position).getColleteral());
+        holder.nama_resi.setText(tasks.get(position).getProgram());
+        switch(tasks.get(position).getStatus()) {
             case "Terkirim":
                 holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
                 break;
@@ -94,12 +93,10 @@ public class PengajuanProgressAdapter extends RecyclerView.Adapter<PengajuanProg
             default:
                 break;
         }
-
-
     }
 
     @Override
     public int getItemCount() {
-        return pengajuanProgresses.size();
+        return tasks.size();
     }
 }

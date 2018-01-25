@@ -1,10 +1,6 @@
 package id.variable.dicicilaja.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +8,24 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Item.Pengajuan;
-import id.variable.dicicilaja.Fragment.InprogressFragment;
+import id.variable.dicicilaja.API.Item.Request.Datum;
+import id.variable.dicicilaja.API.Item.Request.Request;
 import id.variable.dicicilaja.R;
 
 /**
- * Created by daniellindp on 30/12/2017.
+ * Created by ziterz on 30/12/2017.
  */
 
-public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.PengajuanViewHolder> {
+public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
-    private List<Pengajuan> pengajuans;
+    private List<Datum> requests;
     private int rowLayout;
     private Context context;
 
-    public static class PengajuanViewHolder extends RecyclerView.ViewHolder {
+    public static class RequestViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout card_pengajuan;
         TextView resi;
         TextView tanggal;
@@ -38,9 +34,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         TextView detail_resi;
         TextView nama_resi;
 
-
-
-        public PengajuanViewHolder(View v) {
+        public RequestViewHolder(View v) {
             super(v);
             card_pengajuan  = v.findViewById(R.id.card_pengajuan);
             resi            = v.findViewById(R.id.resi);
@@ -52,27 +46,27 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
         }
     }
 
-    public PengajuanAdapter(List<Pengajuan> pengajuans, int rowLayout, Context context) {
-        this.pengajuans = pengajuans;
+    public RequestAdapter(List<Datum> requests, int rowLayout, Context context) {
+        this.requests = requests;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @Override
-    public PengajuanAdapter.PengajuanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RequestAdapter.RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new PengajuanViewHolder(view);
+        return new RequestAdapter.RequestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PengajuanAdapter.PengajuanViewHolder holder, int position) {
-        holder.resi.setText("#" + pengajuans.get(position).getTrackingId().toString());
-        holder.tanggal.setText(pengajuans.get(position).getCreatedAt());
-        holder.status.setText(pengajuans.get(position).getStatus());
-        holder.harga_resi.setText(pengajuans.get(position).getAmount().toString());
-        holder.detail_resi.setText(pengajuans.get(position).getColleteral());
-        holder.nama_resi.setText(pengajuans.get(position).getProgram());
-        switch(pengajuans.get(position).getStatus()) {
+    public void onBindViewHolder(RequestAdapter.RequestViewHolder holder, int position) {
+        holder.resi.setText("#" + requests.get(position).getTrackingId().toString());
+        holder.tanggal.setText(requests.get(position).getCreatedAt());
+        holder.status.setText(requests.get(position).getStatus());
+        holder.harga_resi.setText(requests.get(position).getAmount().toString());
+        holder.detail_resi.setText(requests.get(position).getColleteral());
+        holder.nama_resi.setText(requests.get(position).getProgram());
+        switch(requests.get(position).getStatus()) {
             case "Terkirim":
                 holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
                 break;
@@ -106,7 +100,7 @@ public class PengajuanAdapter extends RecyclerView.Adapter<PengajuanAdapter.Peng
 
     @Override
     public int getItemCount() {
-        return pengajuans.size();
+        return requests.size();
     }
 
 }

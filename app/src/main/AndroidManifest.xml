@@ -125,7 +125,7 @@
                 android:value=".Activity.DetailPengajuanActivity" />
         </activity>
         <activity
-            android:name=".Activity.LihatDatabaseCRHActivity"
+            android:name=".Activity.LihatDatabaseEmployeeActivity"
             android:label="Database CRH"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
