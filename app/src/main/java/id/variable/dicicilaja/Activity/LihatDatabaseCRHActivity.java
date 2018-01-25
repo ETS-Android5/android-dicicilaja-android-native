@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -67,37 +68,7 @@ public class LihatDatabaseCRHActivity extends AppCompatActivity {
         final RecyclerView recyclerView =  findViewById(R.id.recycler_database_crh);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getBaseContext(), "Urutan database crh : "+position, Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(LihatDatabaseCRHActivity.this);
-                // Setting Dialog Title
-                alertDialog.setTitle("INFORMASI DETAIL");
 
-                // Setting Dialog Message
-                alertDialog.setMessage("Apakah Anda sudah menghubungi pemohon dan mengkonfirmasi bahwa benar adanya pengajuan tersebut.");
-                alertDialog.setMessage("Apakah Anda sudah menghubungi pemohon dan mengkonfirmasi bahwa benar adanya pengajuan tersebut.");
-
-                // Setting Icon to Dialog
-//                alertDialog.setIcon(R.drawable.ic_circle);
-
-                // Setting OK Button
-                alertDialog.setPositiveButton("Ya, saya sudah konfirmasi data", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog closed
-                        Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                // Showing Alert Message
-                alertDialog.show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-            }
-        }));
 
         InterfaceDatabaseEmployee apiService =
                 ClientDatabaseEmployee.getClientDatabaseEmployee().create(InterfaceDatabaseEmployee.class);
@@ -107,8 +78,23 @@ public class LihatDatabaseCRHActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DatabaseEmployeeResponse> call, Response<DatabaseEmployeeResponse> response) {
                 if ( response.isSuccessful() ) {
-                    List<DatabaseEmployee> databaseEmployees = response.body().getData();
+                    final List<DatabaseEmployee> databaseEmployees = response.body().getData();
                     recyclerView.setAdapter(new DatabaseEmployeeAdapter(databaseEmployees, R.layout.card_database_crh, getBaseContext()));
+
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, int position) {
+                            Toast.makeText(getBaseContext(), "Urutan database crh : "+position + " nik : " + databaseEmployees.get(position).getUserId().toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("ID_DATABASE", databaseEmployees.get(position).getUserId().toString());
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
                 } else {
                     //Toast.makeText(getContext(), session.getToken(), Toast.LENGTH_LONG).show();
                 }

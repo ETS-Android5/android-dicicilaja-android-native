@@ -37,7 +37,8 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
 
     long delay = 1000;
     long last_text_edit;
-
+    String id_database;
+    MaterialEditText inputReferal;
     RequestProcess interfaceTCProcess;
 
     @Override
@@ -77,7 +78,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         title_tugas.setTypeface(opensans_bold);
         title_penugasan.setTypeface(opensans_bold);
 
-        final MaterialEditText inputReferal = findViewById(R.id.inputReferal);
+        inputReferal = findViewById(R.id.inputReferal);
         final MaterialEditText inputCatatan = findViewById(R.id.inputCatatan);
         final ProgressBar inputProgressBarReferal = findViewById(R.id.input_progess_bar_referal);
 
@@ -115,12 +116,11 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             }
         });
 
-
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), LihatDatabaseCRHActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(getBaseContext(), LihatDatabaseCRHActivity.class);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -188,5 +188,17 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 super.finish();
         }
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                id_database = data.getStringExtra("ID_DATABASE").toString();
+                Toast.makeText(getBaseContext(),"Halo : " + id_database,Toast.LENGTH_SHORT).show();
+                inputReferal.setText(id_database);
+            }
+        }
     }
 }
