@@ -148,6 +148,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.DetailPengajuanActivity" />
         </activity>
+        <activity android:name=".Activity.ChatActivity"
+            android:label="Chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.HelpActivity" /></activity>
     </application>
 
 </manifest>

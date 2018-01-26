@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
             userService = ApiUtils.getUserService();
 
+            lewati.setVisibility(View.GONE);
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
             Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
