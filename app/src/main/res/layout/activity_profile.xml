@@ -82,6 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/profile_picture_page">
                             <TextView
                                 android:id="@+id/name_user"
@@ -95,7 +96,8 @@
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
                                 <TextView
                                     android:id="@+id/branch"
                                     android:layout_marginLeft="5dp"
@@ -116,17 +118,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Jabodetabekser" />
                             </RelativeLayout>
-
-                            <TextView
-                                android:id="@+id/edit_profile"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/colorAccent2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:text="EDIT PROFIL" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -148,34 +139,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Status Pengajuan"/>
-                    <TextView
-                        android:id="@+id/more_order"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent2"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="LEBIH BANYAK >" />
+                        android:text="Detail Profil"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
+                android:id="@+id/card_detail"
+                android:layout_below="@+id/title_jaminan"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginRight="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,85 +163,226 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp">
-                        <TextView
-                            android:id="@+id/resi"
+                        <LinearLayout
+                            android:id="@+id/title_of_card"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="NIK"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_product"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Jabatan"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_area_branch_code"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Kode Cabang"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_area_report"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Area Report"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_area"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Area"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_area_branch"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Cabang"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_hp1"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="HP 1"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/title_of_hp2"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="HP 2"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/div_of_card"
+                            android:layout_toRightOf="@+id/title_of_card"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="#0010001608"/>
-                        <TextView
-                            android:id="@+id/div_resi"
-                            android:layout_toRightOf="@+id/resi"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/colon_of_product"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/colon_of_branch_code"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/colon_of_area_report"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/colon_of_area"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/colon_of_branch"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/value_of_card"
+                            android:layout_toRightOf="@+id/div_of_card"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" - "/>
-                        <TextView
-                            android:id="@+id/nama_resi"
-                            android:layout_toRightOf="@+id/div_resi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="DANA MULTIGUNA"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/ic_more_vert"/>
-                        <TextView
-                            android:id="@+id/detail_resi"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@+id/resi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="BPKB Motor"/>
-                        <TextView
-                            android:id="@+id/div_detail_resi"
-                            android:layout_below="@+id/resi"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@+id/detail_resi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" • "/>
-                        <TextView
-                            android:id="@+id/harga_resi"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@+id/div_detail_resi"
-                            android:layout_below="@+id/resi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="Rp 9.500.000"/>
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/api_program"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_product"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_branch_code"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_area_report"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_area"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_branch"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_hp1"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_hp2"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                    </RelativeLayout>
 
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:minHeight="30dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp">
-                        <TextView
-                            android:id="@+id/tanggal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="06 Desember 2017"/>
-                        <TextView
-                            android:id="@+id/status"
-                            android:layout_centerVertical="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:background="@drawable/capsule_tag"
-                            android:textColor="@color/colorWhite"
-                            android:paddingTop="2dp"
-                            android:textSize="10sp"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:text="REALISASI"/>
-                    </RelativeLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <Button

@@ -160,8 +160,6 @@ public class LihatDatabaseEmployeeActivity extends AppCompatActivity {
                 break;
             case R.id.search:
                 break;
-            case R.id.filter:
-                break;
         }
         return true;
     }

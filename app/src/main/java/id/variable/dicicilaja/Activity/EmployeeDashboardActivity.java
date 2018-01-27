@@ -1,10 +1,12 @@
 package id.variable.dicicilaja.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -82,6 +84,34 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.navbar_exit:
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeDashboardActivity.this);
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Konfirmasi");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+
+
+                        // Setting Positive "Yes" Button
+                        alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+                        // Setting Negative "NO" Button
+                        alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
                         break;
                 }
                 drawer.closeDrawers();
