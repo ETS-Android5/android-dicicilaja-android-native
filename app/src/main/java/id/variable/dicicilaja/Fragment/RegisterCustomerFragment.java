@@ -22,7 +22,7 @@ import id.variable.dicicilaja.R;
 public class RegisterCustomerFragment extends Fragment {
 
     EditText inputNama, inputEmail, inputHandphone, inputKataSandi, inputKonfirmasi;
-    TextView textCheck, judulSudahPunyaAkun, sudahPunyaAkun, titleSection, bodySection, detailSection;
+    TextView textCheck, judulSudahPunyaAkun, sudahPunyaAkun, titleSection, bodySection;
     Button btnDaftar;
     public RegisterCustomerFragment() {
         // Required empty public constructor
@@ -44,7 +44,6 @@ public class RegisterCustomerFragment extends Fragment {
         sudahPunyaAkun = (TextView) view.findViewById(R.id.sudahPunyaAkun);
         titleSection = (TextView) view.findViewById(R.id.titleSection);
         bodySection = (TextView) view.findViewById(R.id.bodySection);
-        detailSection = (TextView) view.findViewById(R.id.detailSection);
         btnDaftar = (Button) view.findViewById(R.id.btnDaftar);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -60,7 +59,6 @@ public class RegisterCustomerFragment extends Fragment {
         sudahPunyaAkun.setTypeface(opensans_semibold);
         titleSection.setTypeface(opensans_bold);
         bodySection.setTypeface(opensans_reguler);
-        detailSection.setTypeface(opensans_semibold);
         btnDaftar.setTypeface(opensans_bold);
         sudahPunyaAkun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +66,8 @@ public class RegisterCustomerFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        btnDaftar.setEnabled(false);
         return view;
     }
 

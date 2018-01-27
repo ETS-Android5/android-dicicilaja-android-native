@@ -33,6 +33,7 @@ import id.variable.dicicilaja.Activity.RegisterAxi2Activity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Remote.AreaService;
+import id.variable.dicicilaja.WebView.AboutAxiActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +46,7 @@ public class RegisterAxiFragment extends Fragment {
 
     TextView titleSection, bodySection, detailSection, sudahPunyaAkun, judulSudahPunyaAkun;
     EditText inputReferal, inputNama, inputEmail, inputHandphone, inputIbu;
-    Button btnLanjut;
+    Button btnLanjut, btnDaftar;
     MaterialSpinner spinnerArea, spinnerCabang;
     AreaService AreaService;
 
@@ -70,6 +71,7 @@ public class RegisterAxiFragment extends Fragment {
         bodySection = (TextView) view.findViewById(R.id.bodySection);
         detailSection = (TextView) view.findViewById(R.id.detailSection);
         btnLanjut = view.findViewById(R.id.btnLanjut);
+        btnDaftar = view.findViewById(R.id.btnDaftar);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         final Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -99,6 +101,15 @@ public class RegisterAxiFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        detailSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AboutAxiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnDaftar.setEnabled(false);
 
         // btnLanjut.setEnabled(false);
 

@@ -148,12 +148,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.DetailPengajuanActivity" />
         </activity>
-        <activity android:name=".Activity.ChatActivity"
-            android:label="Chat"
+        <activity
+            android:name=".WebView.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.HelpActivity" /></activity>
+        </activity>
+        <activity
+            android:name=".WebView.AboutAxiActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WebView.AboutMaxiActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

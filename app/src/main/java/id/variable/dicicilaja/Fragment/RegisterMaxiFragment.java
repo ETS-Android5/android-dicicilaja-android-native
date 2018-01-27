@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import id.variable.dicicilaja.R;
@@ -16,7 +17,7 @@ import id.variable.dicicilaja.R;
  */
 public class RegisterMaxiFragment extends Fragment {
 
-
+    Button btnDaftar;
     public RegisterMaxiFragment() {
         // Required empty public constructor
     }
@@ -31,7 +32,7 @@ public class RegisterMaxiFragment extends Fragment {
         TextView titleSection   = view.findViewById(R.id.titleSection);
         TextView bodySection    = view.findViewById(R.id.bodySection);
         TextView detailSection  = view.findViewById(R.id.detailSection);
-
+        btnDaftar = (Button) view.findViewById(R.id.btnDaftar);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold      = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold  = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -41,6 +42,7 @@ public class RegisterMaxiFragment extends Fragment {
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);
 
+        btnDaftar.setEnabled(false);
         return view;
     }
 
