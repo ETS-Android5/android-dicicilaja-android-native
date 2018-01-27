@@ -11,12 +11,12 @@ import android.webkit.WebViewClient;
 
 import id.variable.dicicilaja.R;
 
-public class AboutMaxiActivity extends AppCompatActivity {
+public class SimulationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_maxi);
+        setContentView(R.layout.activity_simulation);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,7 +34,7 @@ public class AboutMaxiActivity extends AppCompatActivity {
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://dicicilaja.com/mitra-bisnis");
+        webView.loadUrl("http://dicicilaja.com/checkout");
     }
 
     @Override

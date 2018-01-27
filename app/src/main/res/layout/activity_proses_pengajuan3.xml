@@ -50,16 +50,90 @@
                                 android:id="@+id/title_tugas"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tugas"
+                                android:text="Survey"
                                 android:textSize="16sp" />
                         </RelativeLayout>
                     </LinearLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_survey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_tugas"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="16dp">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card_survey"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:id="@+id/title_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:text="Menentukan waktu Survey"
+                                        android:textStyle="bold" />
+                                    <EditText
+                                        android:id="@+id/date_text"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@+id/date"
+                                        android:textSize="12sp"/>
+                                    <ImageView
+                                        android:id="@+id/date"
+                                        android:layout_below="@+id/title_date"
+                                        android:clickable="true"
+                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentRight="true"
+                                        android:src="@drawable/ic_date_range"/>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:id="@+id/layout_title_lampiran"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/card_survey"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_lampiran"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lampiran"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_tugas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/layout_title_tugas"
+                        android:layout_below="@+id/layout_title_lampiran"
                         android:layout_gravity="center"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
@@ -84,42 +158,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
-                                        <TextView
-                                            android:id="@+id/title_date"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:text="Menentukan waktu Survey"
-                                            android:textStyle="bold" />
-                                        <EditText
-                                            android:id="@+id/date_text"
-                                            android:layout_width="120dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_toLeftOf="@+id/date"
-                                            android:textSize="12sp"/>
-                                        <ImageView
-                                            android:id="@+id/date"
-                                            android:layout_below="@+id/title_date"
-                                            android:clickable="true"
-                                            android:foreground="?android:attr/selectableItemBackground"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_alignParentRight="true"
-                                            android:src="@drawable/ic_date_range"/>
-                                    </RelativeLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp">
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="Berkas Pendukung"/>
-                                    </RelativeLayout>
                                     <RelativeLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -363,34 +401,6 @@
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:layout_alignParentRight="true"/>
-                                    </RelativeLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp">
-                                        <Button
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="Simpan Berkas"/>
-                                    </RelativeLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:paddingLeft="15dp">
-                                        <TextView
-                                            android:id="@+id/title_konfirmasi"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="Survey Nasabah"
-                                            android:layout_centerVertical="true"
-                                            android:textStyle="bold" />
-                                        <Button
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentRight="true"
-                                            android:text="Konfirmasi"/>
                                     </RelativeLayout>
                                 </LinearLayout>
                             </LinearLayout>

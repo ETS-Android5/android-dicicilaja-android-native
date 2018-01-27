@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Fragment;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.WebView.AboutAxiActivity;
+import id.variable.dicicilaja.WebView.AboutMaxiActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegisterMaxiFragment extends Fragment {
 
-    Button btnDaftar;
+    Button btnLanjut;
     public RegisterMaxiFragment() {
         // Required empty public constructor
     }
@@ -32,7 +35,7 @@ public class RegisterMaxiFragment extends Fragment {
         TextView titleSection   = view.findViewById(R.id.titleSection);
         TextView bodySection    = view.findViewById(R.id.bodySection);
         TextView detailSection  = view.findViewById(R.id.detailSection);
-        btnDaftar = (Button) view.findViewById(R.id.btnDaftar);
+        btnLanjut = view.findViewById(R.id.btnLanjut);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold      = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold  = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -42,7 +45,14 @@ public class RegisterMaxiFragment extends Fragment {
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);
 
-        btnDaftar.setEnabled(false);
+        btnLanjut.setEnabled(false);
+        detailSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AboutMaxiActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

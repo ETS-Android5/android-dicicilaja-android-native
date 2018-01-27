@@ -44,7 +44,6 @@
                     android:layout_below="@+id/nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     app:hint="10051685"/>
                 <TextView
                     android:id="@+id/div_nik"
@@ -61,7 +60,6 @@
                     android:layout_below="@+id/nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     app:hint="JABAR"/>
                 <TextView
                     android:id="@+id/div_area"
@@ -78,7 +76,6 @@
                     android:layout_below="@+id/nama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     app:hint="Car"/>
                 <TextView
                     android:layout_alignParentRight="true"

@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Fragment;
 
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,6 +37,8 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class PengajuanJaminanFragment extends Fragment {
+    private Animator mCurrentAnimator;
+    private int mShortAnimationDuration;
 
     private static final String TAG = PengajuanJaminanFragment.class.getSimpleName();
     List<DetailPengajuan> detailPengajuans;
@@ -71,7 +75,7 @@ public class PengajuanJaminanFragment extends Fragment {
         final TextView api_area = view.findViewById(R.id.api_area);
         final TextView api_branch = view.findViewById(R.id.api_branch);
         final TextView api_zipcode = view.findViewById(R.id.api_zipcode);
-        final ImageView api_ktp_image = view.findViewById(R.id.api_ktp_image);
+        final PhotoView api_ktp_image = view.findViewById(R.id.api_ktp_image);
         final ImageView api_colleteral_image = view.findViewById(R.id.api_colleteral_image);
 
         final TextView title_of_product = view.findViewById(R.id.title_of_product);

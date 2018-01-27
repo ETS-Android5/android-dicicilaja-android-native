@@ -51,7 +51,7 @@
     <string name="title_activity_tcdashboard">TCDashboardActivity</string>
 
     <!-- Navbar Title -->
-    <string name="main_navbar">Utama</string>
+    <string name="main_navbar">Menu Utama</string>
     <string name="other_programs">Program Lainnya</string>
     <string name="preferences">Preferensi</string>
 

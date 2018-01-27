@@ -23,8 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
+import id.variable.dicicilaja.WebView.CekStatusActivity;
+import id.variable.dicicilaja.WebView.CreateRequestActivity;
+import id.variable.dicicilaja.WebView.SimulationActivity;
 
-public class TCDashboardActivity extends AppCompatActivity {
+public class EmployeeDashboardActivity extends AppCompatActivity {
 
     SessionManager session;
 
@@ -32,7 +35,7 @@ public class TCDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tcdashboard);
+        setContentView(R.layout.activity_employee_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -43,7 +46,7 @@ public class TCDashboardActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent2));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -51,25 +54,39 @@ public class TCDashboardActivity extends AppCompatActivity {
 
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.setCheckedItem(R.id.navbar_request);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                int id = menuItem.getItemId();
                 Intent intent;
-
-                switch( id ) {
-                    case R.id.navbar_home:
-                        intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                switch( menuItem.getItemId() ) {
+                    case R.id.navbar_request:
+                        break;
+                    case R.id.navbar_create_request:
+                        intent = new Intent(getBaseContext(), CreateRequestActivity.class);
                         startActivity(intent);
                         break;
-
-                    case R.id.navbar_request:
-                        intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                    case R.id.navbar_cek:
+                        intent = new Intent(getBaseContext(), CekStatusActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.navbar_simulation:
+                        intent = new Intent(getBaseContext(), SimulationActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navbar_statistics:
+                        break;
+                    case R.id.navbar_profile:
+                        intent = new Intent(getBaseContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navbar_exit:
                         break;
                 }
-
+                drawer.closeDrawers();
                 return true;
+
             }
 
         });
@@ -124,7 +141,7 @@ public class TCDashboardActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tc_dashboard, menu);
+        getMenuInflater().inflate(R.menu.employee_dashboard, menu);
         return true;
     }
 

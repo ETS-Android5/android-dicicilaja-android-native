@@ -183,12 +183,10 @@
                                         android:layout_alignParentEnd="true"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
-                                        android:backgroundTint="@color/colorAccent2"
                                         android:clickable="true"
                                         android:elevation="1dp"
                                         android:foreground="?android:attr/selectableItemBackground"
                                         android:text="LIHAT DATABASE"
-                                        android:textColor="@color/colorWhite"
                                         android:textSize="12sp" />
                                 </RelativeLayout>
 
@@ -212,21 +210,20 @@
                                         app:met_errorColor="@color/colorRed"
                                         app:met_floatingLabel="normal"
                                         app:met_floatingLabelTextColor="@color/colorAccent"
-                                        app:met_helperText="Nama CRH"
                                         app:met_helperTextColor="@color/colorAccentDark"
                                         app:met_primaryColor="@color/colorAccent"
                                         app:met_textColor="@color/colorBlack"
                                         app:met_textColorHint="@color/colorAccent"
                                         app:met_underlineColor="@color/colorAccent" />
 
-                                    <ProgressBar
-                                        android:id="@+id/input_progess_bar_referal"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        style="?android:attr/progressBarStyleSmall"
-                                        android:layout_alignTop="@id/inputReferal"
-                                        android:layout_alignBottom="@id/inputReferal"
-                                        android:layout_alignRight="@id/inputReferal"/>
+                                    <!--<ProgressBar-->
+                                        <!--android:id="@+id/input_progess_bar_referal"-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="wrap_content"-->
+                                        <!--style="?android:attr/progressBarStyleSmall"-->
+                                        <!--android:layout_alignTop="@id/inputReferal"-->
+                                        <!--android:layout_alignBottom="@id/inputReferal"-->
+                                        <!--android:layout_alignRight="@id/inputReferal"/>-->
 
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/inputCatatan"

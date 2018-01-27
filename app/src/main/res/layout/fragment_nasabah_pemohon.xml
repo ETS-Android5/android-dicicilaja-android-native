@@ -27,7 +27,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Informasi Nasabah"/>
+                        android:text="Informasi Nasabah"
+                        android:textIsSelectable="true"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
@@ -63,14 +64,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Nama Nasabah"/>
+                                android:text="Nama Nasabah"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_client_name"
                                 android:layout_marginLeft="10dp"
@@ -78,7 +81,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -91,14 +95,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="No. HP Nasabah"/>
+                                android:text="No. HP Nasabah"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_hp"
                                 android:layout_marginLeft="10dp"
@@ -106,7 +112,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -119,14 +126,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Email Nasabah"/>
+                                android:text="Email Nasabah"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_email"
                                 android:layout_marginLeft="10dp"
@@ -134,7 +143,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -147,14 +157,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Alamat Nasabah"/>
+                                android:text="Alamat Nasabah"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_address"
                                 android:layout_marginLeft="10dp"
@@ -162,7 +174,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -175,14 +188,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Kecamatan"/>
+                                android:text="Kecamatan"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_district"
                                 android:layout_marginLeft="10dp"
@@ -190,7 +205,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -203,14 +219,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Kota"/>
+                                android:text="Kota"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_city"
                                 android:layout_marginLeft="10dp"
@@ -218,7 +236,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
@@ -282,7 +301,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Informasi Pemohon"/>
+                        android:text="Informasi Pemohon"
+                        android:textIsSelectable="true"/>
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.CardView
@@ -319,14 +339,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Nama Nasabah"/>
+                                android:text="Nama Nasabah"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/nama_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -334,7 +356,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -347,14 +370,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Email Pemohon"/>
+                                android:text="Email Pemohon"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/email_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -362,7 +387,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -375,14 +401,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="No. HP Pemohon"/>
+                                android:text="No. HP Pemohon"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/no_telp_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -390,7 +418,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -403,14 +432,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="AXI ID"/>
+                                android:text="AXI ID"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/id_axi_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -418,7 +449,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -431,14 +463,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Kecamatan"/>
+                                android:text="Kecamatan"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/kecamatan_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -446,7 +480,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -459,14 +494,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Kota"/>
+                                android:text="Kota"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text=":"/>
+                                android:text=":"
+                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/kota_pemohon"
                                 android:layout_marginLeft="10dp"
@@ -474,7 +511,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"/>
+                                android:text="-"
+                                android:textIsSelectable="true"/>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout

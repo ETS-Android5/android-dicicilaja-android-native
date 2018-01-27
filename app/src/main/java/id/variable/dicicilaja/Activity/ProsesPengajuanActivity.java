@@ -79,13 +79,13 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
 
         inputReferal = findViewById(R.id.inputReferal);
         final MaterialEditText inputCatatan = findViewById(R.id.inputCatatan);
-        final ProgressBar inputProgressBarReferal = findViewById(R.id.input_progess_bar_referal);
+//        final ProgressBar inputProgressBarReferal = findViewById(R.id.input_progess_bar_referal);
 
         inputReferal.setEnabled(false);
         inputCatatan.setEnabled(false);
         lihat_database.setEnabled(false);
         inputReferal.setTextColor(getResources().getColor(R.color.colorBackgroundDark));
-        inputProgressBarReferal.setVisibility(View.GONE);
+//        inputProgressBarReferal.setVisibility(View.GONE);
 
         konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,30 +123,30 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             }
         });
 
-        final Runnable isInputFinish = new Runnable() {
-            @Override
-            public void run() {
-                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    inputProgressBarReferal.setVisibility(View.GONE);
-                }
-            }
-        };
-
-        inputReferal.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-
-                if ( s.length() > 0 ) {
-                    last_text_edit = System.currentTimeMillis();
-                    handler.postDelayed(isInputFinish, delay);
-                    inputProgressBarReferal.setVisibility(View.VISIBLE);
-                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
-                handler.removeCallbacks(isInputFinish);
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });
+//        final Runnable isInputFinish = new Runnable() {
+//            @Override
+//            public void run() {
+//                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+//                    inputProgressBarReferal.setVisibility(View.GONE);
+//                }
+//            }
+//        };
+//
+//        inputReferal.addTextChangedListener(new TextWatcher() {
+//            public void afterTextChanged(Editable s) {
+//
+//                if ( s.length() > 0 ) {
+//                    last_text_edit = System.currentTimeMillis();
+//                    handler.postDelayed(isInputFinish, delay);
+//                    inputProgressBarReferal.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+//                handler.removeCallbacks(isInputFinish);
+//            }
+//            public void onTextChanged(CharSequence s, int start, int before, int count){}
+//        });
 
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +166,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
-                    Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                    Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                     startActivity(intent);
                     finish();
                 } catch(Exception ex) {

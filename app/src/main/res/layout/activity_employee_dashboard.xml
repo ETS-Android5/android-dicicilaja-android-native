@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_tcdashboard"
+        layout="@layout/app_bar_employee_dashboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_tcdashboard"
-        app:menu="@menu/activity_tcdashboard_drawer" />
+        app:itemBackground="@drawable/drawer_color"
+        app:headerLayout="@layout/nav_header_employee_dashboard"
+        app:menu="@menu/activity_employee_dashboard_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

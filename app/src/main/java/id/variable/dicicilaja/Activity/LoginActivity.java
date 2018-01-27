@@ -1,17 +1,12 @@
 package id.variable.dicicilaja.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -21,12 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-
-import javax.xml.transform.Source;
 
 import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.R;
@@ -59,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(LoginActivity.this);
 
         if (session.isLoggedIn() == TRUE) {
-            Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -171,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     try {
                         session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode());
-                        Intent intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         startActivity(intent);
                         finish();
                     } catch(Exception ex) {
@@ -195,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 //    private Intent getRoleActivity(String role) {
 //        switch( role ) {
 //            case "admin":
-//                intent = new Intent(getBaseContext(), TCDashboardActivity.class);
+//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
 //                break;
 //            default:
 //                intent = new Intent(getBaseContext(), HomeActivity.class);

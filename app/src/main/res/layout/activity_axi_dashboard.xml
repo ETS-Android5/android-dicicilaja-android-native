@@ -20,6 +20,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_axi_dashboard"
-        app:menu="@menu/activity_tcdashboard_drawer" />
+        app:menu="@menu/activity_employee_dashboard_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

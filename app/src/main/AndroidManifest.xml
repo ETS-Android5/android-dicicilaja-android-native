@@ -89,7 +89,7 @@
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.TCDashboardActivity"
+            android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -98,7 +98,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.TCDashboardActivity" />
+                android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProfileActivity"
@@ -106,7 +106,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.TCDashboardActivity" />
+                android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.NotificationActivity"
@@ -114,7 +114,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.TCDashboardActivity" />
+                android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProsesPengajuanActivity"
@@ -126,7 +126,7 @@
         </activity>
         <activity
             android:name=".Activity.LihatDatabaseEmployeeActivity"
-            android:label="Database CRH"
+            android:label="Database"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -150,16 +150,48 @@
         </activity>
         <activity
             android:name=".WebView.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".WebView.AboutAxiActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".WebView.AboutMaxiActivity"
+            android:name=".WebView.AboutAxiActivity"
+            android:label="Tentang AXI"
             android:theme="@style/AppTheme.NoActionBar">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
         </activity>
+        <activity
+            android:name=".WebView.AboutMaxiActivity"
+            android:label="Tentang MAXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.CreateRequestActivity"
+            android:label="Buat Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.SimulationActivity"
+            android:label="Simulasi Cicilan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.CekStatusActivity"
+            android:label="Cek Status"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.ConfirmRequestActivity"></activity>
     </application>
 
 </manifest>

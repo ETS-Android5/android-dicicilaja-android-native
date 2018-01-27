@@ -90,15 +90,15 @@ public class AxiDashboardActivity extends AppCompatActivity {
                 Intent intent;
 
                 switch( id ) {
-                    case R.id.navbar_home:
-                        intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navbar_pref_menu:
-                        intent = new Intent(getBaseContext(), HomeActivity.class);
-                        startActivity(intent);
-                        break;
+//                    case R.id.navbar_home:
+//                        intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+//                        startActivity(intent);
+//                        break;
+//
+//                    case R.id.navbar_pref_menu:
+//                        intent = new Intent(getBaseContext(), HomeActivity.class);
+//                        startActivity(intent);
+//                        break;
                 }
 
                 return true;
