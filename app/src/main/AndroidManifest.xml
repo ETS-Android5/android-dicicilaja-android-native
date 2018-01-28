@@ -21,11 +21,7 @@
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity
@@ -191,7 +187,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.ConfirmRequestActivity"></activity>
+        <activity android:name=".Activity.ConfirmRequestActivity" />
+        <activity android:name=".Activity.RequestProcessActivity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.DetailPengajuanActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

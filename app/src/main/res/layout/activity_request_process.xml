@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="id.variable.dicicilaja.Activity.DetailPengajuanActivity">
+    tools:context="id.variable.dicicilaja.Activity.RequestProcessActivity"
+    android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,12 +21,14 @@
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/tab_detail_pengajuan"
-            android:background="?attr/colorAccent"
-            app:titleTextColor="@color/colorAccent"
+            android:id="@+id/tab_process"
+            android:background="@color/colorAccent"
+            app:titleTextColor="@color/colorWhite"
             android:tabStripEnabled="true"
-            app:tabMode="fixed"
-            app:tabGravity="fill">
+            app:tabIndicatorColor="@color/colorWhite"
+            app:tabSelectedTextColor="@color/colorWhite"
+            app:tabTextColor="@color/colorTab"
+            >
 
         </android.support.design.widget.TabLayout>
 

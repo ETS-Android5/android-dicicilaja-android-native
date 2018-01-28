@@ -1,25 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="id.variable.dicicilaja.Activity.ProsesPengajuan2Activity">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
-            app:titleTextColor="@color/colorWhite">
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="id.variable.dicicilaja.Fragment.TaskCRHFragment"
+    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -108,7 +93,7 @@
                                         android:elevation="1dp"
                                         android:foreground="?android:attr/selectableItemBackground"
                                         android:text="LIHAT DATABASE"
-                                        android:textSize="12sp" />
+                                        android:textSize="10sp" />
                                 </RelativeLayout>
 
                                 <RelativeLayout
@@ -138,13 +123,13 @@
                                         app:met_underlineColor="@color/colorAccent" />
 
                                     <!--<ProgressBar-->
-                                        <!--android:id="@+id/input_progess_bar_referal"-->
-                                        <!--android:layout_width="wrap_content"-->
-                                        <!--android:layout_height="wrap_content"-->
-                                        <!--style="?android:attr/progressBarStyleSmall"-->
-                                        <!--android:layout_alignTop="@id/inputReferal"-->
-                                        <!--android:layout_alignBottom="@id/inputReferal"-->
-                                        <!--android:layout_alignRight="@id/inputReferal"/>-->
+                                    <!--android:id="@+id/input_progess_bar_referal"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--style="?android:attr/progressBarStyleSmall"-->
+                                    <!--android:layout_alignTop="@id/inputReferal"-->
+                                    <!--android:layout_alignBottom="@id/inputReferal"-->
+                                    <!--android:layout_alignRight="@id/inputReferal"/>-->
 
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/inputCatatan"
@@ -165,6 +150,15 @@
                                         app:met_textColorHint="@color/colorAccent"
                                         app:met_underlineColor="@color/colorAccent" />
 
+                                    <Button
+                                        android:id="@+id/button_penugasan"
+                                        android:layout_below="@+id/inputCatatan"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Teruskan Pengajuan"
+                                        android:textSize="10sp" />
                                 </RelativeLayout>
 
 
@@ -236,7 +230,7 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Analisa Kredit"
-                                        android:textSize="10sp" />
+                                        android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/ditolak1"
                                         android:layout_width="0dp"
@@ -250,7 +244,7 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
-                                        android:textSize="10sp" />
+                                        android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/pending1"
                                         android:layout_width="0dp"
@@ -264,8 +258,36 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="10sp" />
+                                        android:textSize="8sp" />
                                 </LinearLayout>
+                                <com.rengwuxian.materialedittext.MaterialEditText
+                                    android:id="@+id/input_catatan_survey"
+                                    android:layout_below="@+id/inputReferal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:hint="Catatan"
+                                    android:textColor="#000000"
+                                    android:textColorHighlight="@color/colorAccent"
+                                    android:textSize="14sp"
+                                    app:met_baseColor="@color/colorAccent"
+                                    app:met_errorColor="@color/colorRed"
+                                    app:met_floatingLabel="normal"
+                                    app:met_floatingLabelTextColor="@color/colorAccent"
+                                    app:met_primaryColor="@color/colorAccent"
+                                    app:met_textColor="@color/colorBlack"
+                                    app:met_textColorHint="@color/colorAccent"
+                                    app:met_underlineColor="@color/colorAccent" />
+
+                                <Button
+                                    android:id="@+id/button_survey"
+                                    android:layout_below="@+id/inputCatatan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:elevation="1dp"
+                                    android:text="Teruskan Pengajuan"
+                                    android:textSize="10sp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -324,12 +346,34 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Berdasarkan hasil credit analyst"/>
-                                    <TextView
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/input_catatan_pinjaman"
                                         android:layout_below="@+id/title_credit"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:text="Nilai pinjaman setelah proses review"/>
+                                        android:fontFamily="sans-serif"
+                                        android:hint="Nilai pinjaman setelah proses review"
+                                        android:textColor="#000000"
+                                        android:textColorHighlight="@color/colorAccent"
+                                        android:textSize="14sp"
+                                        app:met_baseColor="@color/colorAccent"
+                                        app:met_errorColor="@color/colorRed"
+                                        app:met_floatingLabel="normal"
+                                        app:met_floatingLabelTextColor="@color/colorAccent"
+                                        app:met_primaryColor="@color/colorAccent"
+                                        app:met_textColor="@color/colorBlack"
+                                        app:met_textColorHint="@color/colorAccent"
+                                        app:met_underlineColor="@color/colorAccent" />
+
+                                    <Button
+                                        android:id="@+id/button_pinjaman"
+                                        android:layout_below="@+id/input_catatan_pinjaman"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Konfirmasi Pemohon    "
+                                        android:textSize="10sp" />
                                 </RelativeLayout>
                             </LinearLayout>
 
@@ -388,7 +432,7 @@
                                     android:orientation="horizontal"
                                     android:weightSum="3">
                                     <Button
-                                        android:id="@+id/diterima"
+                                        android:id="@+id/pencairan"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -399,8 +443,8 @@
                                         android:layout_marginLeft="16dp"
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
-                                        android:text="Diterima"
-                                        android:textSize="10sp" />
+                                        android:text="Pencairan"
+                                        android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/ditolak"
                                         android:layout_width="0dp"
@@ -414,7 +458,7 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
-                                        android:textSize="10sp" />
+                                        android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/pending"
                                         android:layout_width="0dp"
@@ -428,8 +472,35 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="10sp" />
+                                        android:textSize="8sp" />
                                 </LinearLayout>
+                                <com.rengwuxian.materialedittext.MaterialEditText
+                                    android:id="@+id/input_no_pk"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:hint="No. PK"
+                                    android:textColor="#000000"
+                                    android:textColorHighlight="@color/colorAccent"
+                                    android:textSize="14sp"
+                                    app:met_baseColor="@color/colorAccent"
+                                    app:met_errorColor="@color/colorRed"
+                                    app:met_floatingLabel="normal"
+                                    app:met_floatingLabelTextColor="@color/colorAccent"
+                                    app:met_primaryColor="@color/colorAccent"
+                                    app:met_textColor="@color/colorBlack"
+                                    app:met_textColorHint="@color/colorAccent"
+                                    app:met_underlineColor="@color/colorAccent" />
+
+                                <Button
+                                    android:id="@+id/button_selesai"
+                                    android:layout_below="@+id/input_no_pk"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:elevation="1dp"
+                                    android:text="Selesaikan Pengajuan"
+                                    android:textSize="10sp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -461,4 +532,5 @@
                 android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
+
 </LinearLayout>
