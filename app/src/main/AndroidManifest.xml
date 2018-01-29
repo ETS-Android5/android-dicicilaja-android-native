@@ -93,7 +93,7 @@
             android:label="@string/title_activity_tcdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.DetailPengajuanActivity"
+            android:name=".Activity.DetailRequestActivity"
             android:label="Detail Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -122,7 +122,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailPengajuanActivity" />
+                android:value=".Activity.DetailRequestActivity" />
         </activity>
         <activity
             android:name=".Activity.LihatDatabaseEmployeeActivity"
@@ -138,7 +138,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailPengajuanActivity" />
+                android:value=".Activity.DetailRequestActivity" />
         </activity>
         <activity
             android:name=".Activity.ProsesPengajuan3Activity"
@@ -146,7 +146,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailPengajuanActivity" />
+                android:value=".Activity.DetailRequestActivity" />
         </activity>
         <activity
             android:name=".WebView.ChatActivity"
@@ -197,7 +197,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailPengajuanActivity" />
+                android:value=".Activity.DetailRequestActivity" />
         </activity>
     </application>
 

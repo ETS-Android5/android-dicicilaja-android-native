@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import id.variable.dicicilaja.Adapter.DetailPengajuanPagerAdapter;
 import id.variable.dicicilaja.R;
 
-public class DetailPengajuanActivity extends AppCompatActivity {
+public class DetailRequestActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

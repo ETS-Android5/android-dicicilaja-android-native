@@ -17,11 +17,16 @@ import android.widget.Toast;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuanStatus;
+import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuanStatus;
+import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
 import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.DetailPengajuanStatus;
 import id.variable.dicicilaja.API.Item.DetailPengajuanStatusResponse;
+import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
+import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import id.variable.dicicilaja.API.Item.DetailRequest.Progress;
 import id.variable.dicicilaja.API.Item.Status;
 import id.variable.dicicilaja.API.Item.StatusDetail;
 import id.variable.dicicilaja.API.Item.Transaction;
@@ -42,9 +47,11 @@ import retrofit2.Response;
 public class RiwayatPengajuanFragment extends Fragment {
 
     private static final String TAG = RiwayatPengajuanFragment.class.getSimpleName();
-    List<StatusDetail> statusDetails;
-    List<DetailPengajuanStatusResponse> detailPengajuanStatuses;
+    List<Datum> detailRequests;
+    List<Progress> progress;
 
+    RelativeLayout terkirimCard, verifikasiCard, prosesCard, surveyCard, survey1Card, survey2Card, pendingCard, analisaCard, ditolakCard, pencairanCard;
+    TextView titleTerkirim, namaTerkirim, durasiTerkirim, titleVerifikasi, namaVerifikasi, durasiVerifikasi, titleProses, namaProses, durasiProses, titleSurvey, namaSurvey, durasiSurvey, titleSurvey1, namaSurvey1, durasiSurvey1, titleSurvey2, namaSurvey2, durasiSurvey2, titlePending, namaPending, durasiPending, titleAnalisa, namaAnalisa, durasiAnalisa, titleDitolak, namaDitolak, durasiDitolak, titlePencairan, namaPencairan, durasiPencairan;
     public RiwayatPengajuanFragment() {
         // Required empty public constructor
     }
@@ -65,6 +72,48 @@ public class RiwayatPengajuanFragment extends Fragment {
         final LinearLayout responsiblePersonIdLayout = view.findViewById(R.id.responsible_person_id_layout);
         final LinearLayout responsiblePersonResponseTimeLayout = view.findViewById(R.id.responsible_person_response_time_layout);
         final LinearLayout responsiblePersonNoteLayout = view.findViewById(R.id.responsible_person_note_layout);
+
+        terkirimCard = view.findViewById(R.id.terkirim_card);
+        verifikasiCard = view.findViewById(R.id.verifikasi_card);
+        prosesCard = view.findViewById(R.id.proses_card);
+        surveyCard = view.findViewById(R.id.survey_card);
+        survey1Card = view.findViewById(R.id.survey1_card);
+        survey2Card = view.findViewById(R.id.survey2_card);
+        analisaCard = view.findViewById(R.id.analisa_card);
+        pencairanCard = view.findViewById(R.id.pencairan_card);
+
+        titleTerkirim = view.findViewById(R.id.title_terkirim);
+        namaTerkirim = view.findViewById(R.id.nama_terkirim);
+        durasiTerkirim = view.findViewById(R.id.durasi_terkirim);
+
+        titleVerifikasi = view.findViewById(R.id.title_verifikasi);
+        namaVerifikasi = view.findViewById(R.id.nama_verifikasi);
+        durasiVerifikasi = view.findViewById(R.id.durasi_verifikasi);
+
+        titleProses = view.findViewById(R.id.title_proses);
+        namaProses = view.findViewById(R.id.nama_proses);
+        durasiProses = view.findViewById(R.id.durasi_proses);
+
+        titleSurvey = view.findViewById(R.id.title_survey);
+        namaSurvey = view.findViewById(R.id.nama_survey);
+        durasiSurvey = view.findViewById(R.id.durasi_survey);
+
+        titleSurvey1 = view.findViewById(R.id.title_survey1);
+        namaSurvey1 = view.findViewById(R.id.nama_survey1);
+        durasiSurvey1 = view.findViewById(R.id.durasi_survey1);
+
+        titleSurvey2 = view.findViewById(R.id.title_survey2);
+        namaSurvey2 = view.findViewById(R.id.nama_survey2);
+        durasiSurvey2 = view.findViewById(R.id.durasi_survey2);
+
+        titleAnalisa = view.findViewById(R.id.title_analisa);
+        namaAnalisa = view.findViewById(R.id.nama_analisa);
+        durasiAnalisa = view.findViewById(R.id.durasi_analisa);
+
+        titlePencairan = view.findViewById(R.id.title_pencairan);
+        namaPencairan = view.findViewById(R.id.nama_pencairan);
+        durasiPencairan = view.findViewById(R.id.durasi_pencairan);
+
 
         TextView title_jejak = view.findViewById(R.id.title_jejak);
         TextView title_penanggung_jawab = view.findViewById(R.id.title_penanggung_jawab);
@@ -122,42 +171,96 @@ public class RiwayatPengajuanFragment extends Fragment {
             }
         }
 
-        InterfaceDetailPengajuanStatus apiService = ClientDetailPengajuanStatus.getClientDetailPengajuanStatus().create(InterfaceDetailPengajuanStatus.class);
-        Call<DetailPengajuanStatus> call = apiService.getDetailPengajuanStatus(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<DetailPengajuanStatus>() {
-            @Override
-            public void onResponse(Call<DetailPengajuanStatus> call, Response<DetailPengajuanStatus> response) {
-                try {
-                    detailPengajuanStatuses = response.body().getData();
-                    statusDetails = detailPengajuanStatuses.get(0).getStatusDetail();
+        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-//                    if (statusDetails.get(statusDetails.size() - 1).getStatusName().equals("Terkirim")) {
-//                        responsiblePersonNameLayout.setVisibility(View.GONE);
-//                        responsiblePersonRoleLayout.setVisibility(View.GONE);
-//                        responsiblePersonIdLayout.setVisibility(View.GONE);
-//                        responsiblePersonResponseTimeLayout.setVisibility(View.GONE);
-//                        responsiblePersonNoteLayout.setVisibility(View.GONE);
-//                    } else {
-//                        responsiblePersonNameLayout.setVisibility(View.VISIBLE);
-//                        responsiblePersonRoleLayout.setVisibility(View.VISIBLE);
-//                        responsiblePersonIdLayout.setVisibility(View.VISIBLE);
-//                        responsiblePersonResponseTimeLayout.setVisibility(View.VISIBLE);
-//                        responsiblePersonNoteLayout.setVisibility(View.VISIBLE);
-//
-//                        responsiblePersonName.setText(statusDetails.get(0).getResponsiblePerson().getName());
-//                        responsiblePersonRole.setText(statusDetails.get(0).getResponsiblePerson().getRole());
-//                        responsiblePersonId.setText(statusDetails.get(0).getResponsiblePerson().getId());
-//                        responsiblePersonResponseTime.setText("0");
-//                        responsiblePersonNote.setText(statusDetails.get(0).getNotes());
-//                    }
+        Call<DetailRequest> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<DetailRequest>() {
+            @Override
+            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+                try {
+                    detailRequests = response.body().getData();
+                    progress = response.body().getProgress();
+
+                    responsiblePersonName.setText(detailRequests.get(0).getResponsiblePerson().getName());
+                    responsiblePersonRole.setText(detailRequests.get(0).getResponsiblePerson().getRole());
+                    responsiblePersonId.setText(detailRequests.get(0).getResponsiblePerson().getUserId());
+                    responsiblePersonResponseTime.setText(detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                    responsiblePersonNote.setText(detailRequests.get(0).getResponsiblePerson().getCatatan());
 
                 } catch (Exception ex) {
-                    Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+
                 }
+
+                try {
+                    titleTerkirim.setText(progress.get(0).getStatus());
+                    namaTerkirim.setText(progress.get(0).getResponsiblePerson());
+                    durasiTerkirim.setText(progress.get(0).getResponseTime());
+                } catch (Exception ex) {
+                    terkirimCard.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleVerifikasi.setText(progress.get(1).getStatus());
+                    namaVerifikasi.setText(progress.get(1).getResponsiblePerson());
+                    durasiVerifikasi.setText(progress.get(1).getResponseTime());
+                } catch (Exception ex) {
+                    verifikasiCard.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleProses.setText(progress.get(2).getStatus());
+                    namaProses.setText(progress.get(2).getResponsiblePerson());
+                    durasiProses.setText(progress.get(2).getResponseTime());
+                } catch (Exception ex) {
+                    prosesCard.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleSurvey.setText(progress.get(3).getStatus());
+                    namaSurvey.setText(progress.get(3).getResponsiblePerson());
+                    durasiSurvey.setText(progress.get(3).getResponseTime());
+                } catch (Exception ex) {
+                    surveyCard.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleSurvey1.setText(progress.get(4).getStatus());
+                    namaSurvey1.setText(progress.get(4).getResponsiblePerson());
+                    durasiSurvey1.setText(progress.get(4).getResponseTime());
+                } catch (Exception ex) {
+                    survey1Card.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleSurvey2.setText(progress.get(5).getStatus());
+                    namaSurvey2.setText(progress.get(5).getResponsiblePerson());
+                    durasiSurvey2.setText(progress.get(5).getResponseTime());
+                } catch (Exception ex) {
+                    survey2Card.setVisibility(View.GONE);
+                }
+
+                try {
+                    titleAnalisa.setText(progress.get(6).getStatus());
+                    namaAnalisa.setText(progress.get(6).getResponsiblePerson());
+                    durasiAnalisa.setText(progress.get(6).getResponseTime());
+                } catch (Exception ex) {
+                    analisaCard.setVisibility(View.GONE);
+                }
+
+                try {
+                    titlePencairan.setText(progress.get(7).getStatus());
+                    namaPencairan.setText(progress.get(7).getResponsiblePerson());
+                    durasiPencairan.setText(progress.get(7).getResponseTime());
+                } catch (Exception ex) {
+                    pencairanCard.setVisibility(View.GONE);
+                }
+
+
+
             }
 
             @Override
-            public void onFailure(Call<DetailPengajuanStatus> call, Throwable t) {
+            public void onFailure(Call<DetailRequest> call, Throwable t) {
                 Log.e("ini", t.getMessage());
             }
         });

@@ -19,10 +19,14 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuan;
+import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
+import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
 import id.variable.dicicilaja.API.Item.Applicant;
 import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
+import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
+import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
@@ -39,7 +43,7 @@ import retrofit2.Response;
 public class NasabahPemohonFragment extends Fragment {
 
     private static final String TAG = NasabahPemohonFragment.class.getSimpleName();
-    List<DetailPengajuan> detailPengajuans;
+    List<Datum> detailRequests;
 
     public NasabahPemohonFragment() {
         // Required empty public constructor
@@ -163,28 +167,27 @@ public class NasabahPemohonFragment extends Fragment {
             }
         });
 
-        InterfaceDetailPengajuan apiService =
-                ClientDetailPengajuan.getClientDetailPengajuan().create(InterfaceDetailPengajuan.class);
+        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-        Call<DetailPengajuanResponse> call = apiService.getDetailPengajuan(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<DetailPengajuanResponse>() {
+        Call<DetailRequest> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<DetailRequest>() {
             @Override
-            public void onResponse(Call<DetailPengajuanResponse> call, Response<DetailPengajuanResponse> response) {
+            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
                 if ( response.isSuccessful() ) {
-                    detailPengajuans = response.body().getData();
+                    detailRequests = response.body().getData();
 
-                    api_client_name.setText(detailPengajuans.get(0).getClientName().toString());
-                    api_hp.setText(detailPengajuans.get(0).getHp().toString());
-                    api_email.setText(detailPengajuans.get(0).getEmail().toString());
-                    api_address.setText(detailPengajuans.get(0).getAddress().toString());
-                    api_district.setText(detailPengajuans.get(0).getDistrict().toString());
-                    api_city.setText(detailPengajuans.get(0).getCity().toString());
+                    api_client_name.setText(detailRequests.get(0).getClientName().toString());
+                    api_hp.setText(detailRequests.get(0).getHp().toString());
+                    api_email.setText(detailRequests.get(0).getEmail().toString());
+                    api_address.setText(detailRequests.get(0).getAddress().toString());
+                    api_district.setText(detailRequests.get(0).getDistrict().toString());
+                    api_city.setText(detailRequests.get(0).getCity().toString());
 
-                    nama_pemohon.setText(detailPengajuans.get(0).getApplicant().getName());
-                    email_pemohon.setText(detailPengajuans.get(0).getApplicant().getEmail());
-                    no_telp_pemohon.setText(detailPengajuans.get(0).getApplicant().getPhone());
-                    kecamtan_pemohon.setText(detailPengajuans.get(0).getApplicant().getDistrict());
-                    kota_pemohon.setText(detailPengajuans.get(0).getApplicant().getCity());
+                    nama_pemohon.setText(detailRequests.get(0).getApplicant().getName());
+                    email_pemohon.setText(detailRequests.get(0).getApplicant().getEmail());
+                    no_telp_pemohon.setText(detailRequests.get(0).getApplicant().getPhone());
+                    kecamtan_pemohon.setText(detailRequests.get(0).getApplicant().getDistrict());
+                    kota_pemohon.setText(detailRequests.get(0).getApplicant().getCity());
 
 
                 } else {
@@ -194,7 +197,7 @@ public class NasabahPemohonFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DetailPengajuanResponse> call, Throwable t) {
+            public void onFailure(Call<DetailRequest> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.toString());

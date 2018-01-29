@@ -441,8 +441,8 @@
                                 android:textIsSelectable="true" />
                         </RelativeLayout>
                         <RelativeLayout
-                            android:id="@+id/pending_card"
-                            android:layout_below="@+id/terkirim_card"
+                            android:id="@+id/survey1_card"
+                            android:layout_below="@+id/survey_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <View
@@ -451,7 +451,7 @@
                                 android:layout_marginLeft="18dp"
                                 android:background="@drawable/border_left"/>
                             <ImageView
-                                android:id="@+id/icon_pending"
+                                android:id="@+id/icon_survey1"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginRight="10dp"
@@ -460,35 +460,81 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="5dp"/>
                             <TextView
-                                android:id="@+id/title_pending"
-                                android:layout_toRightOf="@+id/icon_pending"
+                                android:id="@+id/title_survey1"
+                                android:layout_toRightOf="@+id/icon_survey1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Survey"
                                 android:textSize="11sp"
                                 android:textIsSelectable="true"/>
                             <TextView
-                                android:id="@+id/nama_pending"
-                                android:layout_below="@+id/title_pending"
+                                android:id="@+id/nama_survey1"
+                                android:layout_below="@+id/title_survey1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_pending"
+                                android:layout_toRightOf="@+id/icon_survey1"
                                 android:text="Rienaldi (TC)"
                                 android:textIsSelectable="true" />
                             <TextView
-                                android:id="@+id/durasi_pending"
-                                android:layout_below="@+id/nama_pending"
+                                android:id="@+id/durasi_survey1"
+                                android:layout_below="@+id/nama_survey1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_pending"
+                                android:layout_toRightOf="@+id/icon_survey1"
+                                android:text="2 Menit • 16 Des 2017"
+                                android:textIsSelectable="true" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/survey2_card"
+                            android:layout_below="@+id/survey1_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="18dp"
+                                android:background="@drawable/border_left"/>
+                            <ImageView
+                                android:id="@+id/icon_survey2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_circle"
+                                android:padding="8dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="5dp"/>
+                            <TextView
+                                android:id="@+id/title_survey2"
+                                android:layout_toRightOf="@+id/icon_survey2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Survey"
+                                android:textSize="11sp"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/nama_survey2"
+                                android:layout_below="@+id/title_survey2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_survey2"
+                                android:text="Rienaldi (TC)"
+                                android:textIsSelectable="true" />
+                            <TextView
+                                android:id="@+id/durasi_survey2"
+                                android:layout_below="@+id/nama_survey2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:layout_toRightOf="@+id/icon_survey2"
                                 android:text="2 Menit • 16 Des 2017"
                                 android:textIsSelectable="true" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/analisa_card"
-                            android:layout_below="@+id/terkirim_card"
+                            android:layout_below="@+id/survey2_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <View
@@ -533,54 +579,8 @@
                                 android:textIsSelectable="true"/>
                         </RelativeLayout>
                         <RelativeLayout
-                            android:id="@+id/ditolak_card"
-                            android:layout_below="@+id/terkirim_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_marginLeft="18dp"
-                                android:background="@drawable/border_left"/>
-                            <ImageView
-                                android:id="@+id/icon_ditolak"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_circle"
-                                android:padding="8dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:id="@+id/title_ditolak"
-                                android:layout_toRightOf="@+id/icon_ditolak"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Ditolak"
-                                android:textSize="11sp"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/nama_ditolak"
-                                android:layout_below="@+id/title_ditolak"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_ditolak"
-                                android:text="Rienaldi (TC)"
-                                android:textIsSelectable="true" />
-                            <TextView
-                                android:id="@+id/durasi_ditolak"
-                                android:layout_below="@+id/nama_ditolak"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:layout_toRightOf="@+id/icon_ditolak"
-                                android:text="2 Menit • 16 Des 2017"
-                                android:textIsSelectable="true"/>
-                        </RelativeLayout>
-                        <RelativeLayout
                             android:id="@+id/pencairan_card"
-                            android:layout_below="@+id/terkirim_card"
+                            android:layout_below="@+id/analisa_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <View

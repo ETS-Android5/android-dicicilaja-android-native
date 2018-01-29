@@ -23,11 +23,7 @@ import id.variable.dicicilaja.API.Interface.InterfaceTask;
 import id.variable.dicicilaja.API.Item.Request.Request;
 import id.variable.dicicilaja.API.Item.Task.Datum;
 import id.variable.dicicilaja.API.Item.Task.Task;
-import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
-import id.variable.dicicilaja.Activity.EmployeeDashboardActivity;
-import id.variable.dicicilaja.Activity.LoginActivity;
-import id.variable.dicicilaja.Activity.ProfileActivity;
-import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
+import id.variable.dicicilaja.Activity.DetailRequestActivity;
 import id.variable.dicicilaja.Adapter.RequestAdapter;
 import id.variable.dicicilaja.Adapter.TaskAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -113,7 +109,7 @@ public class InprogressFragment extends Fragment {
                                             String notes = "-";
 //                                        Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                                             doProcess(apiKey, transaction_id, assigned_id, notes);
-                                            Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
                                             intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
                                             startActivity(intent);
                                         }
@@ -129,7 +125,7 @@ public class InprogressFragment extends Fragment {
                                     // Showing Alert Message
                                     alertDialog.show();
                                 }else if (requests.get(position).getStatus().toString().equals("Verifikasi")) {
-                                    Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                                    Intent intent = new Intent(getContext(), DetailRequestActivity.class);
                                     intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
                                     startActivity(intent);
                                 }
@@ -189,7 +185,7 @@ public class InprogressFragment extends Fragment {
                                         String assigned_id = session.getUserId();
                                         String notes = "-";
                                         doProcess(apiKey, transaction_id, assigned_id, notes);
-                                        Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                                        Intent intent = new Intent(getContext(), DetailRequestActivity.class);
                                         intent.putExtra("EXTRA_REQUEST_ID", tasks.get(position).getTransactionId().toString());
                                         startActivity(intent);
                                     }

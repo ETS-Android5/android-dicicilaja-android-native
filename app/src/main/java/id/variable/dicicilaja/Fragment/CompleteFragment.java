@@ -16,22 +16,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import id.variable.dicicilaja.API.Client.ClientPengajuanProgress;
 import id.variable.dicicilaja.API.Client.RetrofitClient;
-import id.variable.dicicilaja.API.Interface.InterfacePengajuanProgress;
-import id.variable.dicicilaja.API.Interface.InterfaceRequest;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestProgress;
-import id.variable.dicicilaja.API.Interface.InterfaceTask;
-import id.variable.dicicilaja.API.Item.PengajuanProgress;
-import id.variable.dicicilaja.API.Item.PengajuanProgressResponse;
-import id.variable.dicicilaja.API.Item.Request.Request;
 import id.variable.dicicilaja.API.Item.RequestProgress.Datum;
 import id.variable.dicicilaja.API.Item.RequestProgress.RequestProgress;
-import id.variable.dicicilaja.API.Item.Task.Task;
-import id.variable.dicicilaja.Activity.DetailPengajuanActivity;
-import id.variable.dicicilaja.Adapter.RequestAdapter;
+import id.variable.dicicilaja.Activity.DetailRequestActivity;
 import id.variable.dicicilaja.Adapter.RequestProgressAdapter;
-import id.variable.dicicilaja.Adapter.TaskAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
 import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
@@ -86,7 +76,7 @@ public class CompleteFragment extends Fragment {
                     recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
                         @Override
                         public void onClick(View view, int position) {
-                            Intent intent = new Intent(getContext(), DetailPengajuanActivity.class);
+                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
                             intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
                             intent.putExtra("STATUS", true);
                             startActivity(intent);

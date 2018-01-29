@@ -21,9 +21,13 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuan;
+import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
+import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
 import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
+import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
+import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
@@ -42,7 +46,7 @@ public class PengajuanJaminanFragment extends Fragment {
     private int mShortAnimationDuration;
 
     private static final String TAG = PengajuanJaminanFragment.class.getSimpleName();
-    List<DetailPengajuan> detailPengajuans;
+    List<Datum> detailRequests;
 
     public PengajuanJaminanFragment() {
         // Required empty public constructor
@@ -135,28 +139,29 @@ public class PengajuanJaminanFragment extends Fragment {
 
 
 
-        InterfaceDetailPengajuan apiService = ClientDetailPengajuan.getClientDetailPengajuan().create(InterfaceDetailPengajuan.class);
-        Call<DetailPengajuanResponse> call = apiService.getDetailPengajuan(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<DetailPengajuanResponse>() {
+        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
+
+        Call<DetailRequest> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<DetailRequest>() {
             @Override
-            public void onResponse(Call<DetailPengajuanResponse> call, Response<DetailPengajuanResponse> response) {
+            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
                 if ( response.isSuccessful() ) {
-                    detailPengajuans = response.body().getData();
+                    detailRequests = response.body().getData();
 
-                    api_program.setText(detailPengajuans.get(0).getProgram());
-                    api_channel.setText(detailPengajuans.get(0).getChannel());
-                    api_colleteral.setText(detailPengajuans.get(0).getColleteral());
-                    api_manufacturer.setText(detailPengajuans.get(0).getManufacturer());
-                    api_year.setText(detailPengajuans.get(0).getYear().toString());
-                    api_tenor.setText(detailPengajuans.get(0).getTenor().toString() + " bulan");
-                    api_ammount.setText(detailPengajuans.get(0).getAmmount());
-                    api_area.setText(detailPengajuans.get(0).getArea());
-                    api_branch.setText(detailPengajuans.get(0).getBranch());
-                    api_zipcode.setText(detailPengajuans.get(0).getZipcode());
+                    api_program.setText(detailRequests.get(0).getProgram());
+                    api_channel.setText(detailRequests.get(0).getChannel());
+                    api_colleteral.setText(detailRequests.get(0).getColleteral());
+                    api_manufacturer.setText(detailRequests.get(0).getManufacturer());
+                    api_year.setText(detailRequests.get(0).getYear().toString());
+                    api_tenor.setText(detailRequests.get(0).getTenor().toString() + " bulan");
+                    api_ammount.setText(detailRequests.get(0).getAmmount());
+                    api_area.setText(detailRequests.get(0).getArea());
+                    api_branch.setText(detailRequests.get(0).getBranch());
+                    api_zipcode.setText(detailRequests.get(0).getZipcode());
 
-                    String imageKtp = detailPengajuans.get(0).getKtpImage().toString();
+                    String imageKtp = detailRequests.get(0).getKtpImage().toString();
                     Picasso.with(getContext()).load(imageKtp).into(api_ktp_image);
-                    String imageColleteral = detailPengajuans.get(0).getColleteralImage().toString();
+                    String imageColleteral = detailRequests.get(0).getColleteralImage().toString();
                     Picasso.with(getContext()).load(imageColleteral).into(api_colleteral_image);
 
 
@@ -168,8 +173,8 @@ public class PengajuanJaminanFragment extends Fragment {
                         api_product.setVisibility(View.VISIBLE);
                         api_specification.setVisibility(View.VISIBLE);
 
-                        api_product.setText(detailPengajuans.get(0).getProduct().toString());
-                        api_specification.setText(detailPengajuans.get(0).getSpecification().toString());
+                        api_product.setText(detailRequests.get(0).getProduct().toString());
+                        api_specification.setText(detailRequests.get(0).getSpecification().toString());
                     } catch (Exception ex) {
                         title_of_product.setVisibility(View.GONE);
                         title_of_spec.setVisibility(View.GONE);
@@ -186,7 +191,7 @@ public class PengajuanJaminanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DetailPengajuanResponse> call, Throwable t) {
+            public void onFailure(Call<DetailRequest> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.toString());
