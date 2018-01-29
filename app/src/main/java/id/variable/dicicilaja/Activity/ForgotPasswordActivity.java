@@ -30,7 +30,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnVerifikasi = (Button) findViewById(R.id.btnVerifikasi);
         titleSection = (TextView) findViewById(R.id.titleSection);
         bodySection = (TextView) findViewById(R.id.bodySection);
-        detailSection = (TextView) findViewById(R.id.detailSection);
         judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
         butuhBantuan = (TextView) findViewById(R.id.butuhBantuan);
 
@@ -54,7 +53,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         inputEmail.setTypeface(opensans_semibold);
         titleSection.setTypeface(opensans_bold);
         bodySection.setTypeface(opensans_reguler);
-        detailSection.setTypeface(opensans_semibold);
         judulButuhBantuan.setTypeface(opensans_reguler);
         butuhBantuan.setTypeface(opensans_semibold);
 

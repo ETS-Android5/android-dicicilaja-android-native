@@ -27,6 +27,7 @@ import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
+import id.variable.dicicilaja.Activity.RequestProcessActivity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -111,7 +112,7 @@ public class PengajuanJaminanFragment extends Fragment {
                 proses.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ProsesPengajuan2Activity.class);
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
                         intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
                         startActivity(intent);
                     }
@@ -121,7 +122,7 @@ public class PengajuanJaminanFragment extends Fragment {
                 proses.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ProsesPengajuan3Activity.class);
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
                         intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
                         startActivity(intent);
                     }

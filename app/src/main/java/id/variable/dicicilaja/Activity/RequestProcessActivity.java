@@ -1,20 +1,24 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import id.variable.dicicilaja.Adapter.DetailPengajuanPagerAdapter;
-import id.variable.dicicilaja.Adapter.RequestProcessAdapter;
+import id.variable.dicicilaja.Adapter.RequestProcessCRHAdapter;
+import id.variable.dicicilaja.Adapter.RequestProcessCROAdapter;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
 
 public class RequestProcessActivity extends AppCompatActivity {
 
+    ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,9 @@ public class RequestProcessActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final SessionManager session = new SessionManager(getBaseContext());
+        String apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -41,8 +48,14 @@ public class RequestProcessActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent2));
 
-        final ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new RequestProcessAdapter(getSupportFragmentManager(), 2));
+        viewPager = findViewById(R.id.pager);
+
+        if(session.getRole().equals("crh")){
+            viewPager.setAdapter(new RequestProcessCRHAdapter(getSupportFragmentManager(), 2));
+        }else if(session.getRole().equals("cro")){
+            viewPager.setAdapter(new RequestProcessCROAdapter(getSupportFragmentManager(), 2));
+        }
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -16,10 +16,10 @@ import id.variable.dicicilaja.Fragment.TaskRequestFragment;
  * Created by ziterz on 1/28/2018.
  */
 
-public class RequestProcessAdapter extends FragmentStatePagerAdapter {
+public class RequestProcessCRHAdapter extends FragmentStatePagerAdapter {
     int num;
 
-    public RequestProcessAdapter(FragmentManager fm, int num) {
+    public RequestProcessCRHAdapter(FragmentManager fm, int num) {
         super(fm);
         this.num = num;
     }
