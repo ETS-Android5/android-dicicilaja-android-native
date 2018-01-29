@@ -154,7 +154,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 String transaction_id = getIntent().getStringExtra("TRANSACTION_ID");
                 String assigned_id = inputReferal.getText().toString();
                 String notes = inputCatatan.getText().toString();
-                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                 doProcess(apiKey, transaction_id, assigned_id, notes);
             }
         });

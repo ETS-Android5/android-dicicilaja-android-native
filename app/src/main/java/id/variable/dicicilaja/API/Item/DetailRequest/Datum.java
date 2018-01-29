@@ -89,6 +89,9 @@ public class Datum {
     @SerializedName("applicant")
     @Expose
     private Applicant applicant;
+    @SerializedName("status_survey")
+    @Expose
+    private String status_survey;
     @SerializedName("responsible_person")
     @Expose
     private ResponsiblePerson responsiblePerson;
@@ -134,6 +137,14 @@ public class Datum {
 
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    public String getStatus_survey() {
+        return status_survey;
+    }
+
+    public void setStatus_survey(String product) {
+        this.status_survey = status_survey;
     }
 
     public String getSpecification() {

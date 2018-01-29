@@ -97,45 +97,6 @@ public class PengajuanJaminanFragment extends Fragment {
         title_informasi.setTypeface(opensans_bold);
         title_informasi_jaminan.setTypeface(opensans_bold);
 
-        Intent intent = getActivity().getIntent();
-        if(intent.hasExtra("STATUS")) {
-            proses.setVisibility(View.GONE);
-        }else{
-            if(session.getRole().equals("tc")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        startActivity(intent);
-                    }
-                });
-            }else if(session.getRole().equals("crh")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        startActivity(intent);
-                    }
-                });
-            }else if(session.getRole().equals("cro")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        startActivity(intent);
-                    }
-                });
-            }else{
-                proses.setVisibility(View.GONE);
-            }
-        }
-
 
 
 
@@ -197,6 +158,55 @@ public class PengajuanJaminanFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
+
+        Intent intent = getActivity().getIntent();
+        if(intent.hasExtra("STATUS")) {
+            proses.setVisibility(View.GONE);
+        }else{
+            if(session.getRole().equals("tc")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        startActivity(intent);
+                    }
+                });
+            }else if(session.getRole().equals("crh")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
+                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey());
+                        startActivity(intent);
+                    }
+                });
+            }else if(session.getRole().equals("cro")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
+                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey());
+                        startActivity(intent);
+                    }
+                });
+            }else{
+                proses.setVisibility(View.GONE);
+            }
+        }
 
         return view;
     }

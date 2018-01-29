@@ -491,6 +491,24 @@
                                     app:met_textColor="@color/colorBlack"
                                     app:met_textColorHint="@color/colorAccent"
                                     app:met_underlineColor="@color/colorAccent" />
+                                <com.rengwuxian.materialedittext.MaterialEditText
+                                    android:id="@+id/input_catatan_keputusan_pinjaman"
+                                    android:layout_below="@+id/inputReferal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:hint="Catatan"
+                                    android:textColor="#000000"
+                                    android:textColorHighlight="@color/colorAccent"
+                                    android:textSize="14sp"
+                                    app:met_baseColor="@color/colorAccent"
+                                    app:met_errorColor="@color/colorRed"
+                                    app:met_floatingLabel="normal"
+                                    app:met_floatingLabelTextColor="@color/colorAccent"
+                                    app:met_primaryColor="@color/colorAccent"
+                                    app:met_textColor="@color/colorBlack"
+                                    app:met_textColorHint="@color/colorAccent"
+                                    app:met_underlineColor="@color/colorAccent" />
 
                                 <Button
                                     android:id="@+id/button_selesai"
@@ -509,28 +527,6 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-        <RelativeLayout
-            android:id="@+id/proses"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorWhite"
-            android:clickable="true"
-            android:elevation="4dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingTop="5dp">
-
-            <TextView
-                android:id="@+id/title_proses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="TERUSKAN PENGAJUAN"
-                android:textColor="@color/colorAccent2"
-                android:textStyle="bold" />
-        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>
