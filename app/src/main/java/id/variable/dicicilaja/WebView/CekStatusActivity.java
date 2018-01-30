@@ -34,7 +34,7 @@ public class CekStatusActivity extends AppCompatActivity {
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://dicicilaja.com/checkout");
+        webView.loadUrl("http://dicicilaja.com/status-pengajuan");
     }
 
     @Override
