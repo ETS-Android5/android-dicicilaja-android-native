@@ -33,5 +33,6 @@ public interface InterfaceDraft {
                                    @Field("bukti_penghasilan") String bukti_penghasilan,
                                    @Field("no_rangka") String no_rangka,
                                    @Field("stnk") String stnk,
-                                   @Field("bpkb") String bpkb);
+                                   @Field("bpkb") String bpkb,
+                                   @Field("is_draft") String is_draft);
 }

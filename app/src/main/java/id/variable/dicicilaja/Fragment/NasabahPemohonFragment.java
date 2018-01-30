@@ -27,6 +27,7 @@ import id.variable.dicicilaja.API.Item.DetailPengajuan;
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
 import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import id.variable.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
@@ -44,6 +45,7 @@ public class NasabahPemohonFragment extends Fragment {
 
     private static final String TAG = NasabahPemohonFragment.class.getSimpleName();
     List<Datum> detailRequests;
+    List<SurveyChecklist> surveyChecklists;
 
     public NasabahPemohonFragment() {
         // Required empty public constructor
@@ -138,6 +140,7 @@ public class NasabahPemohonFragment extends Fragment {
             public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
                 if ( response.isSuccessful() ) {
                     detailRequests = response.body().getData();
+                    surveyChecklists = response.body().getSurveyChecklist();
 
                     api_client_name.setText(detailRequests.get(0).getClientName().toString());
                     api_hp.setText(detailRequests.get(0).getHp().toString());
@@ -209,6 +212,23 @@ public class NasabahPemohonFragment extends Fragment {
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
                         intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey());
+
+                        intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami());
+                        intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin());
+                        intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai());
+                        intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian());
+                        intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili());
+                        intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga());
+                        intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah());
+                        intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan());
+                        intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka());
+                        intent.putExtra("STNK", surveyChecklists.get(0).getStnk());
+                        intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb());
+                        try {
+                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                        } catch (Exception ex) {
+
+                        }
                         startActivity(intent);
                     }
                 });

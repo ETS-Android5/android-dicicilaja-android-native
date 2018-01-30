@@ -19,6 +19,9 @@ public class DetailRequest {
     @SerializedName("progress")
     @Expose
     private List<Progress> progress = null;
+    @SerializedName("survey_checklist")
+    @Expose
+    private List<SurveyChecklist> surveyChecklist = null;
 
     public String getStatus() {
         return status;
@@ -42,5 +45,13 @@ public class DetailRequest {
 
     public void setProgress(List<Progress> progress) {
         this.progress = progress;
+    }
+
+    public List<SurveyChecklist> getSurveyChecklist() {
+        return surveyChecklist;
+    }
+
+    public void setSurveyChecklist(List<SurveyChecklist> surveyChecklist) {
+        this.surveyChecklist = surveyChecklist;
     }
 }

@@ -104,6 +104,57 @@ public class TaskCROFragment extends Fragment {
         interfaceRequestSurvey = ApiUtils.getRequestSurvey();
         interfaceDraft = ApiUtils.getDraft();
 
+
+        String check_data_value1 = getActivity().getIntent().getStringExtra("KTP_SUAMI");
+        String check_data_value2 = getActivity().getIntent().getStringExtra("KTP_PENJAMIN");
+        String check_data_value3 = getActivity().getIntent().getStringExtra("SURAT_CERAI");
+        String check_data_value4 = getActivity().getIntent().getStringExtra("SURAT_KEMATIAN");
+        String check_data_value5 = getActivity().getIntent().getStringExtra("SURAT_DOMISILI");
+        String check_data_value6 = getActivity().getIntent().getStringExtra("KARTU_KELUARGA");
+        String check_data_value7 = getActivity().getIntent().getStringExtra("BUKTI_KEPEMILIKAN_RUMAH");
+        String check_data_value8 = getActivity().getIntent().getStringExtra("BUKTI_PENGHASILAN");
+        String check_data_value9 = getActivity().getIntent().getStringExtra("NO_RANGKA");
+        String check_data_value10 = getActivity().getIntent().getStringExtra("STNK");
+        String check_data_value11 = getActivity().getIntent().getStringExtra("BPKB");
+        if(getActivity().getIntent().hasExtra("RESCHEDULE_DATE")) {
+            String reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
+        }
+
+        if(check_data_value1.equals(1)){
+            check_data1.setChecked(true);
+        }
+        if(check_data_value2.equals(1)){
+            check_data2.setChecked(true);
+        }
+        if(check_data_value3.equals(1)){
+            check_data3.setChecked(true);
+        }
+        if(check_data_value4.equals(1)){
+            check_data4.setChecked(true);
+        }
+        if(check_data_value5.equals(1)){
+            check_data5.setChecked(true);
+        }
+        if(check_data_value6.equals(1)){
+            check_data6.setChecked(true);
+        }
+        if(check_data_value7.equals(1)){
+            check_data7.setChecked(true);
+        }
+        if(check_data_value8.equals(1)){
+            check_data8.setChecked(true);
+        }
+        if(check_data_value9.equals(1)){
+            check_data9.setChecked(true);
+        }
+        if(check_data_value10.equals(1)){
+            check_data10.setChecked(true);
+        }
+        if(check_data_value11.equals(1)){
+            check_data11.setChecked(true);
+        }
+
+
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,7 +294,7 @@ public class TaskCROFragment extends Fragment {
     }
 
     private void doDraft(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String reschedule_date, final String ktp_suami1, final String ktp_penjamin, final String surat_cerai, final String surat_kematian, final String surat_domisili, final String kartu_keluarga, final String bukti_kepemilikan_rumah, final String bukti_penghasilan, final String no_rangka, final String stnk, final String bpkb) {
-        Call<ResRequestProcess> call = interfaceDraft.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
+        Call<ResRequestProcess> call = interfaceDraft.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb, "1");
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
