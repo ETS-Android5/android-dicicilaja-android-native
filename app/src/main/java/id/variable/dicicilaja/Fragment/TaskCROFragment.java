@@ -120,37 +120,37 @@ public class TaskCROFragment extends Fragment {
             String reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
         }
 
-        if(check_data_value1.equals(1)){
+        if(check_data_value1.equals("1")){
             check_data1.setChecked(true);
         }
-        if(check_data_value2.equals(1)){
+        if(check_data_value2.equals("1")){
             check_data2.setChecked(true);
         }
-        if(check_data_value3.equals(1)){
+        if(check_data_value3.equals("1")){
             check_data3.setChecked(true);
         }
-        if(check_data_value4.equals(1)){
+        if(check_data_value4.equals("1")){
             check_data4.setChecked(true);
         }
-        if(check_data_value5.equals(1)){
+        if(check_data_value5.equals("1")){
             check_data5.setChecked(true);
         }
-        if(check_data_value6.equals(1)){
+        if(check_data_value6.equals("1")){
             check_data6.setChecked(true);
         }
-        if(check_data_value7.equals(1)){
+        if(check_data_value7.equals("1")){
             check_data7.setChecked(true);
         }
-        if(check_data_value8.equals(1)){
+        if(check_data_value8.equals("1")){
             check_data8.setChecked(true);
         }
-        if(check_data_value9.equals(1)){
+        if(check_data_value9.equals("1")){
             check_data9.setChecked(true);
         }
-        if(check_data_value10.equals(1)){
+        if(check_data_value10.equals("1")){
             check_data10.setChecked(true);
         }
-        if(check_data_value11.equals(1)){
+        if(check_data_value11.equals("1")){
             check_data11.setChecked(true);
         }
 
