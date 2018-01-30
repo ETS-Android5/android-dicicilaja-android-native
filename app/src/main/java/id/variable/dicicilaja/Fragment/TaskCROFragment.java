@@ -28,6 +28,7 @@ import java.util.Calendar;
 import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import id.variable.dicicilaja.Activity.EmployeeDashboardActivity;
+import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.Model.ResRequestProcess;
@@ -89,6 +90,8 @@ public class TaskCROFragment extends Fragment {
         final String apiKey = "Bearer " + session.getToken();
 
         TextView title_tugas = view.findViewById(R.id.title_tugas);
+        TextView title_lampiran = view.findViewById(R.id.title_lampiran);
+
         proses = view.findViewById(R.id.proses);
         button_save = view.findViewById(R.id.button_save);
 
@@ -101,6 +104,7 @@ public class TaskCROFragment extends Fragment {
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         title_tugas.setTypeface(opensans_bold);
+        title_lampiran.setTypeface(opensans_bold);
         interfaceRequestSurvey = ApiUtils.getRequestSurvey();
         interfaceDraft = ApiUtils.getDraft();
 
@@ -283,11 +287,11 @@ public class TaskCROFragment extends Fragment {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-//                String assigned_id = inputReferal.getText().toString();
-//                String notes = inputCatatan.getText().toString();
-////                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-//                doProcess(apiKey, transaction_id, assigned_id, notes);
+                String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                String assigned_id = session.getUserId();
+                String notes = "-";
+//                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+                doProcess(apiKey, transaction_id, assigned_id, notes);
             }
         });
         return view;
