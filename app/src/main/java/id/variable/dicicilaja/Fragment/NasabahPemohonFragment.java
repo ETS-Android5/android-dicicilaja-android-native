@@ -204,6 +204,7 @@ public class NasabahPemohonFragment extends Fragment {
                         Intent intent = new Intent(getContext(), RequestProcessActivity.class);
                         intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
                         intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                        intent.putExtra("ID", detailRequests.get(0).getResponsiblePerson().getUserId());
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());

@@ -1,5 +1,8 @@
 package id.variable.dicicilaja.Remote;
 
+import id.variable.dicicilaja.API.Interface.InterfaceDraft;
+import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
+
 /**
  * Created by ziterz on 11/29/2017.
  */
@@ -18,6 +21,14 @@ public class ApiUtils {
 
     public static RequestProcess getRequestService() {
         return RetrofitClient.getClient(BASE_URL).create(RequestProcess.class);
+    }
+
+    public static InterfaceRequestSurvey getRequestSurvey() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceRequestSurvey.class);
+    }
+
+    public static InterfaceDraft getDraft() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceDraft.class);
     }
 
 }

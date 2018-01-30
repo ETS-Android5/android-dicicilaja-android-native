@@ -25,13 +25,13 @@ public class RequestProcessCROAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new SummaryCROFragment();
+                return new SummaryCRHFragment();
 
             case 1:
                 return new TaskCROFragment();
 
             default:
-                return new SummaryCROFragment();
+                return new SummaryCRHFragment();
         }
     }
 

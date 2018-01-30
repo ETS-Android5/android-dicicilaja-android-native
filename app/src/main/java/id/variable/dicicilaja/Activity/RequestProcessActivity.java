@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import id.variable.dicicilaja.Adapter.RequestProcessCRH2Adapter;
 import id.variable.dicicilaja.Adapter.RequestProcessCRHAdapter;
 import id.variable.dicicilaja.Adapter.RequestProcessCROAdapter;
 import id.variable.dicicilaja.R;
@@ -51,7 +52,12 @@ public class RequestProcessActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
 
         if(session.getRole().equals("crh")){
-            viewPager.setAdapter(new RequestProcessCRHAdapter(getSupportFragmentManager(), 2));
+            if(getIntent().getStringExtra("STATUS_SURVEY").equals(1)){
+                viewPager.setAdapter(new RequestProcessCRH2Adapter(getSupportFragmentManager(), 2));
+            }else{
+                viewPager.setAdapter(new RequestProcessCRHAdapter(getSupportFragmentManager(), 2));
+            }
+
         }else if(session.getRole().equals("cro")){
             viewPager.setAdapter(new RequestProcessCROAdapter(getSupportFragmentManager(), 2));
         }
