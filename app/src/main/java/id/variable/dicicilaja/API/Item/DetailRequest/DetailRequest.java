@@ -22,6 +22,9 @@ public class DetailRequest {
     @SerializedName("survey_checklist")
     @Expose
     private List<SurveyChecklist> surveyChecklist = null;
+    @SerializedName("responsible_crh")
+    @Expose
+    private String responsibleCrh;
 
     public String getStatus() {
         return status;
@@ -53,5 +56,13 @@ public class DetailRequest {
 
     public void setSurveyChecklist(List<SurveyChecklist> surveyChecklist) {
         this.surveyChecklist = surveyChecklist;
+    }
+
+    public String getResponsibleCrh() {
+        return responsibleCrh;
+    }
+
+    public void setResponsibleCrh(String responsibleCrh) {
+        this.responsibleCrh = responsibleCrh;
     }
 }

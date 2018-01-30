@@ -52,7 +52,7 @@ public class RequestProcessActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
 
         if(session.getRole().equals("crh")){
-            if(getIntent().getStringExtra("STATUS_SURVEY").equals(1)){
+            if(getIntent().getStringExtra("STATUS_SURVEY").equals("1")){
                 viewPager.setAdapter(new RequestProcessCRH2Adapter(getSupportFragmentManager(), 2));
             }else{
                 viewPager.setAdapter(new RequestProcessCRHAdapter(getSupportFragmentManager(), 2));

@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
@@ -54,6 +56,21 @@ public class ProfileActivity extends AppCompatActivity {
         TextView name_user = findViewById(R.id.name_user);
         TextView branch = findViewById(R.id.branch);
         TextView area = findViewById(R.id.area);
+
+        TextView api_nik = findViewById(R.id.api_nik);
+        TextView api_jabatan = findViewById(R.id.api_jabatan);
+        TextView api_kode_cabang = findViewById(R.id.api_kode_cabang);
+        TextView api_laporan_area = findViewById(R.id.api_laporan_area);
+        TextView api_area = findViewById(R.id.api_area);
+        TextView api_cabang = findViewById(R.id.api_cabang);
+        TextView api_hp1 = findViewById(R.id.api_hp1);
+        TextView api_hp2 = findViewById(R.id.api_hp2);
+
+        api_nik.setText(session.getUserId().toString());
+        api_jabatan.setText(session.getRole().toString());
+        api_cabang.setText(session.getBranch().toString());
+        api_area.setText(session.getArea().toString());
+
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");

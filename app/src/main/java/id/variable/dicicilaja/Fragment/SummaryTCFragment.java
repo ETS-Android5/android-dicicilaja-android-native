@@ -43,10 +43,15 @@ public class SummaryTCFragment extends Fragment {
 
         title_tugas.setTypeface(opensans_bold);
 
-        api_employee.setText(getActivity().getIntent().getStringExtra("NAME"));
-        api_title.setText(getActivity().getIntent().getStringExtra("ROLE"));
-        api_time.setText(getActivity().getIntent().getStringExtra("RESPONSE_TIME"));
-        api_note.setText(getActivity().getIntent().getStringExtra("NOTE"));
+        try {
+            api_employee.setText(getActivity().getIntent().getStringExtra("NAME"));
+            api_title.setText(getActivity().getIntent().getStringExtra("ROLE"));
+            api_time.setText(getActivity().getIntent().getStringExtra("RESPONSE_TIME"));
+            api_note.setText(getActivity().getIntent().getStringExtra("NOTE"));
+        } catch (Exception ex) {
+
+        }
+
 
         return view;
     }

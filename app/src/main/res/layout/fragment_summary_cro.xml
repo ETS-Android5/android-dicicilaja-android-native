@@ -262,7 +262,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Kartu Keluarga"
+                                            android:text="KTP Penjamin"
                                             android:textSize="11sp"/>
                                     </RelativeLayout>
                                     <RelativeLayout
@@ -280,7 +280,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Bukti Kepemilikan Rumah"
+                                            android:text="Surat Cerai"
                                             android:textSize="11sp"/>
                                     </RelativeLayout>
                                     <RelativeLayout
@@ -298,7 +298,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Bukti Penghasilan"
+                                            android:text="Surat Kematian"
                                             android:textSize="11sp"/>
                                     </RelativeLayout>
                                     <RelativeLayout
@@ -316,7 +316,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Gesekan Rangka Mesin"
+                                            android:text="Surat Keterangan Domisili"
                                             android:textSize="11sp"/>
                                     </RelativeLayout>
                                     <RelativeLayout
@@ -331,6 +331,96 @@
                                             android:layout_centerVertical="true"/>
                                         <TextView
                                             android:layout_toRightOf="@+id/icon_check6"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Kartu Keluarga"
+                                            android:textSize="11sp"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp">
+                                        <ImageView
+                                            android:id="@+id/icon_check7"
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:src="@drawable/ic_check_circle"
+                                            android:layout_centerVertical="true"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/icon_check7"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Bukti Kepemilikan Rumah"
+                                            android:textSize="11sp"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp">
+                                        <ImageView
+                                            android:id="@+id/icon_check8"
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:src="@drawable/ic_check_circle"
+                                            android:layout_centerVertical="true"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/icon_check8"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Bukti Penghasilan"
+                                            android:textSize="11sp"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp">
+                                        <ImageView
+                                            android:id="@+id/icon_check9"
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:src="@drawable/ic_check_circle"
+                                            android:layout_centerVertical="true"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/icon_check9"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Gesekan No. Rangka Mesin"
+                                            android:textSize="11sp"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp">
+                                        <ImageView
+                                            android:id="@+id/icon_check10"
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:src="@drawable/ic_check_circle"
+                                            android:layout_centerVertical="true"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/icon_check10"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="STNK"
+                                            android:textSize="11sp"/>
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp">
+                                        <ImageView
+                                            android:id="@+id/icon_check11"
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:src="@drawable/ic_check_circle"
+                                            android:layout_centerVertical="true"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/icon_check11"
                                             android:layout_marginLeft="10dp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"

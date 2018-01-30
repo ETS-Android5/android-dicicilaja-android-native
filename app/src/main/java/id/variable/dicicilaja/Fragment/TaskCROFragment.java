@@ -22,11 +22,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Api;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
+import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
 import id.variable.dicicilaja.Activity.EmployeeDashboardActivity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
@@ -56,6 +59,8 @@ public class TaskCROFragment extends Fragment {
     private int mYear, mMonth, mDay, mHour, mMinute;
     InterfaceRequestSurvey interfaceRequestSurvey;
     InterfaceDraft interfaceDraft;
+    InterfaceSurveyFinish interfaceSurveyFinish;
+    String nik_crh;
     public TaskCROFragment() {
         // Required empty public constructor
     }
@@ -107,8 +112,10 @@ public class TaskCROFragment extends Fragment {
         title_lampiran.setTypeface(opensans_bold);
         interfaceRequestSurvey = ApiUtils.getRequestSurvey();
         interfaceDraft = ApiUtils.getDraft();
+        interfaceSurveyFinish = ApiUtils.getSurvey();
 
 
+        final String nik_crh = getActivity().getIntent().getStringExtra("NIK_CRH");
         String check_data_value1 = getActivity().getIntent().getStringExtra("KTP_SUAMI");
         String check_data_value2 = getActivity().getIntent().getStringExtra("KTP_PENJAMIN");
         String check_data_value3 = getActivity().getIntent().getStringExtra("SURAT_CERAI");
@@ -124,39 +131,44 @@ public class TaskCROFragment extends Fragment {
             String reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
         }
 
-        if(check_data_value1.equals("1")){
-            check_data1.setChecked(true);
+        try {
+            if(check_data_value1.equals("1")){
+                check_data1.setChecked(true);
+            }
+            if(check_data_value2.equals("1")){
+                check_data2.setChecked(true);
+            }
+            if(check_data_value3.equals("1")){
+                check_data3.setChecked(true);
+            }
+            if(check_data_value4.equals("1")){
+                check_data4.setChecked(true);
+            }
+            if(check_data_value5.equals("1")){
+                check_data5.setChecked(true);
+            }
+            if(check_data_value6.equals("1")){
+                check_data6.setChecked(true);
+            }
+            if(check_data_value7.equals("1")){
+                check_data7.setChecked(true);
+            }
+            if(check_data_value8.equals("1")){
+                check_data8.setChecked(true);
+            }
+            if(check_data_value9.equals("1")){
+                check_data9.setChecked(true);
+            }
+            if(check_data_value10.equals("1")){
+                check_data10.setChecked(true);
+            }
+            if(check_data_value11.equals("1")){
+                check_data11.setChecked(true);
+            }
+        } catch (Exception ex) {
+
         }
-        if(check_data_value2.equals("1")){
-            check_data2.setChecked(true);
-        }
-        if(check_data_value3.equals("1")){
-            check_data3.setChecked(true);
-        }
-        if(check_data_value4.equals("1")){
-            check_data4.setChecked(true);
-        }
-        if(check_data_value5.equals("1")){
-            check_data5.setChecked(true);
-        }
-        if(check_data_value6.equals("1")){
-            check_data6.setChecked(true);
-        }
-        if(check_data_value7.equals("1")){
-            check_data7.setChecked(true);
-        }
-        if(check_data_value8.equals("1")){
-            check_data8.setChecked(true);
-        }
-        if(check_data_value9.equals("1")){
-            check_data9.setChecked(true);
-        }
-        if(check_data_value10.equals("1")){
-            check_data10.setChecked(true);
-        }
-        if(check_data_value11.equals("1")){
-            check_data11.setChecked(true);
-        }
+
 
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +291,7 @@ public class TaskCROFragment extends Fragment {
                 }else{
                     bpkb = "0";
                 }
-                Toast.makeText(getContext(),"ktp_suami : " + ktp_suami1,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"ktp_suami : " + ktp_suami1,Toast.LENGTH_LONG).show();
                 doDraft(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
 
             }
@@ -287,11 +299,78 @@ public class TaskCROFragment extends Fragment {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String reschedule_date = date_text.getText() + " " + time_text.getText().toString();
                 String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-                String assigned_id = session.getUserId();
+                String assigned_id = nik_crh;
                 String notes = "-";
-//                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                doProcess(apiKey, transaction_id, assigned_id, notes);
+                String ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb;
+                if(check_data1.isChecked() == true){
+                    ktp_suami1 = "1";
+                }else{
+                    ktp_suami1 = "0";
+                }
+
+                if(check_data2.isChecked() == true){
+                    ktp_penjamin = "1";
+                }else{
+                    ktp_penjamin = "0";
+                }
+
+                if(check_data3.isChecked() == true){
+                    surat_cerai = "1";
+                }else{
+                    surat_cerai = "0";
+                }
+
+                if(check_data4.isChecked() == true){
+                    surat_kematian = "1";
+                }else{
+                    surat_kematian = "0";
+                }
+
+                if(check_data5.isChecked() == true){
+                    surat_domisili = "1";
+                }else{
+                    surat_domisili = "0";
+                }
+
+                if(check_data6.isChecked() == true){
+                    kartu_keluarga = "1";
+                }else{
+                    kartu_keluarga = "0";
+                }
+
+                if(check_data7.isChecked() == true){
+                    bukti_kepemilikan_rumah = "1";
+                }else{
+                    bukti_kepemilikan_rumah = "0";
+                }
+
+                if(check_data8.isChecked() == true){
+                    bukti_penghasilan = "1";
+                }else{
+                    bukti_penghasilan = "0";
+                }
+
+                if(check_data9.isChecked() == true){
+                    no_rangka = "1";
+                }else{
+                    no_rangka = "0";
+                }
+
+                if(check_data10.isChecked() == true){
+                    stnk = "1";
+                }else{
+                    stnk = "0";
+                }
+
+                if(check_data11.isChecked() == true){
+                    bpkb = "1";
+                }else{
+                    bpkb = "0";
+                }
+                doProcess(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
+
             }
         });
         return view;
@@ -320,12 +399,13 @@ public class TaskCROFragment extends Fragment {
         });
     }
 
-    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceRequestSurvey.assign(apiKey,transaction_id, assigned_id, notes);
+    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String reschedule_date, final String ktp_suami1, final String ktp_penjamin, final String surat_cerai, final String surat_kematian, final String surat_domisili, final String kartu_keluarga, final String bukti_kepemilikan_rumah, final String bukti_penghasilan, final String no_rangka, final String stnk, final String bpkb) {
+        Call<ResRequestProcess> call = interfaceSurveyFinish.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
+//                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
                     startActivity(intent);
                     getActivity().finish();

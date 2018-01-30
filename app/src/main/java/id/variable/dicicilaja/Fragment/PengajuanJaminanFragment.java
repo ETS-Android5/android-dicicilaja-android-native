@@ -46,7 +46,7 @@ public class PengajuanJaminanFragment extends Fragment {
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
     List<SurveyChecklist> surveyChecklists;
-
+    String nikCrh;
     private static final String TAG = PengajuanJaminanFragment.class.getSimpleName();
     List<Datum> detailRequests;
 
@@ -111,6 +111,7 @@ public class PengajuanJaminanFragment extends Fragment {
                 if ( response.isSuccessful() ) {
                     detailRequests = response.body().getData();
                     surveyChecklists = response.body().getSurveyChecklist();
+                    nikCrh = response.body().getResponsibleCrh();
 
                     api_program.setText(detailRequests.get(0).getProgram());
                     api_channel.setText(detailRequests.get(0).getChannel());
@@ -187,7 +188,25 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+
+                        try {
+                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
+                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
+                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
+                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
+                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
+                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
+                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
+                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
+                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
+                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
+                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
+
+                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                        } catch (Exception ex) {
+
+                        }
                         startActivity(intent);
                     }
                 });
@@ -203,20 +222,23 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
 
-                        intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
-                        intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
-                        intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
-                        intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
-                        intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
-                        intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
-                        intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
-                        intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
-                        intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
-                        intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
-                        intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
+                        intent.putExtra("NIK_CRH", nikCrh.toString());
+
+
                         try {
+                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
+                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
+                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
+                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
+                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
+                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
+                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
+                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
+                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
+                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
+                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
                         } catch (Exception ex) {
 

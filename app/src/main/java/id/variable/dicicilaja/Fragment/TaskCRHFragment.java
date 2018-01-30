@@ -110,7 +110,11 @@ public class TaskCRHFragment extends Fragment {
             }
         });
         Intent intent = getActivity().getIntent();
-        if(getActivity().getIntent().getStringExtra("STATUS_SURVEY").equals(1)) {
+        if(getActivity().getIntent().getStringExtra("STATUS_SURVEY").equals("1")) {
+            input_catatan_survey.setVisibility(View.GONE);
+            input_no_pk.setVisibility(View.GONE);
+            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+
             analisa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
