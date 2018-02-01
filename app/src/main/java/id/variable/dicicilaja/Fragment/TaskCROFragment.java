@@ -60,7 +60,7 @@ public class TaskCROFragment extends Fragment {
     InterfaceRequestSurvey interfaceRequestSurvey;
     InterfaceDraft interfaceDraft;
     InterfaceSurveyFinish interfaceSurveyFinish;
-    String nik_crh;
+    String nik_crh, reschedule_date1;
     public TaskCROFragment() {
         // Required empty public constructor
     }
@@ -128,7 +128,9 @@ public class TaskCROFragment extends Fragment {
         String check_data_value10 = getActivity().getIntent().getStringExtra("STNK");
         String check_data_value11 = getActivity().getIntent().getStringExtra("BPKB");
         if(getActivity().getIntent().hasExtra("RESCHEDULE_DATE")) {
-            String reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
+            reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
+            Toast.makeText(getContext(), "Date : " + reschedule_date1.substring(0,9),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Time : " + reschedule_date1.substring(1,18),Toast.LENGTH_SHORT).show();
         }
 
         try {

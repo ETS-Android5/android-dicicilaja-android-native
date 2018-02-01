@@ -50,7 +50,6 @@ public class SummaryCRHFragment extends Fragment {
         api_time.setText(getActivity().getIntent().getStringExtra("RESPONSE_TIME"));
         api_note.setText(getActivity().getIntent().getStringExtra("NOTE"));
 
-
         return view;
     }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.variable.dicicilaja.R;
 
@@ -17,7 +18,8 @@ import id.variable.dicicilaja.R;
  */
 public class SummaryCROFragment extends Fragment {
 
-    TextView api_employee, api_title, api_date, api_note, title_tugas;
+    TextView api_employee, api_title, api_date, api_note, title_tugas, api_time;
+    String reschedule_date1;
     public SummaryCROFragment() {
         // Required empty public constructor
     }
@@ -34,6 +36,7 @@ public class SummaryCROFragment extends Fragment {
         api_date = view.findViewById(R.id.api_date);
         api_note = view.findViewById(R.id.api_note);
         title_tugas = view.findViewById(R.id.title_tugas);
+        api_time = view.findViewById(R.id.api_time);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -66,9 +69,9 @@ public class SummaryCROFragment extends Fragment {
         String check_data_value10 = getActivity().getIntent().getStringExtra("STNK");
         String check_data_value11 = getActivity().getIntent().getStringExtra("BPKB");
         if(getActivity().getIntent().hasExtra("RESCHEDULE_DATE")) {
-            String reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
+            reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
+            api_time.setText(getActivity().getIntent().getStringExtra("RESCHEDULE_DATE"));
         }
-
         try {
             if(check_data_value1.equals("1")){
                 icon_check1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_active));
