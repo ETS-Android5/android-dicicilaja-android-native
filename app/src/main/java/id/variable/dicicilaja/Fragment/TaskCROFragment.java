@@ -135,7 +135,9 @@ public class TaskCROFragment extends Fragment {
             reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
 
             date_text.setText(parseDateToddMMyyyy(reschedule_date1.substring(0,10)));
+            date_post = reschedule_date1.substring(0,10);
             time_text.setText(reschedule_date1.substring(11,16));
+            time_post = reschedule_date1.substring(11,16);
         }
 
         try {

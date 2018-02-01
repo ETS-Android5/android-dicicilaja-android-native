@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.variable.dicicilaja.R;
 
@@ -42,7 +43,6 @@ public class SummaryTCFragment extends Fragment {
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         title_tugas.setTypeface(opensans_bold);
-
         try {
             api_employee.setText(getActivity().getIntent().getStringExtra("NAME"));
             api_title.setText(getActivity().getIntent().getStringExtra("ROLE"));

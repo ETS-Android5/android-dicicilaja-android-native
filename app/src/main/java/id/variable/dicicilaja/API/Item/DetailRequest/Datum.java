@@ -47,6 +47,9 @@ public class Datum {
     @SerializedName("ammount")
     @Expose
     private String ammount;
+    @SerializedName("final_amount")
+    @Expose
+    private String final_amount;
     @SerializedName("quantity")
     @Expose
     private Integer quantity;
@@ -209,6 +212,14 @@ public class Datum {
 
     public void setAmmount(String ammount) {
         this.ammount = ammount;
+    }
+
+    public String getFinal_amount() {
+        return final_amount;
+    }
+
+    public void setFinal_amount(String final_amount) {
+        this.final_amount = final_amount;
     }
 
     public Integer getQuantity() {

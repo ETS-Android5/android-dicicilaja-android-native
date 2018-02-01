@@ -226,7 +226,7 @@ public class RiwayatPengajuanFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailRequest> call, Throwable t) {
-                Log.e("ini", t.getMessage());
+                Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -256,6 +256,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
                         intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         try {
                             intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
@@ -271,6 +272,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
                         } catch (Exception ex) {
 
                         }
@@ -290,6 +292,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
                         intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         intent.putExtra("NIK_CRH", nikCrh.toString());
 
@@ -309,6 +312,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
                         } catch (Exception ex) {
 
                         }

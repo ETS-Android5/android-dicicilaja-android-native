@@ -346,33 +346,46 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Berdasarkan hasil credit analyst"/>
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-                                        android:id="@+id/input_catatan_pinjaman"
-                                        android:layout_below="@+id/title_credit"
+                                    <RelativeLayout
+                                        android:id="@+id/layout_catatan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="sans-serif"
-                                        android:hint="Nilai pinjaman setelah proses review"
-                                        android:textColor="#000000"
-                                        android:textColorHighlight="@color/colorAccent"
-                                        android:textSize="14sp"
-                                        app:met_baseColor="@color/colorAccent"
-                                        app:met_errorColor="@color/colorRed"
-                                        app:met_floatingLabel="normal"
-                                        app:met_floatingLabelTextColor="@color/colorAccent"
-                                        app:met_primaryColor="@color/colorAccent"
-                                        app:met_textColor="@color/colorBlack"
-                                        app:met_textColorHint="@color/colorAccent"
-                                        app:met_underlineColor="@color/colorAccent" />
+                                        android:layout_below="@+id/title_credit">
+                                        <com.rengwuxian.materialedittext.MaterialEditText
+                                            android:id="@+id/input_catatan_pinjaman"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif"
+                                            android:hint="Nilai pinjaman setelah proses review"
+                                            android:textColor="#000000"
+                                            android:textColorHighlight="@color/colorAccent"
+                                            android:textSize="14sp"
+                                            app:met_baseColor="@color/colorAccent"
+                                            app:met_errorColor="@color/colorRed"
+                                            app:met_floatingLabel="normal"
+                                            app:met_floatingLabelTextColor="@color/colorAccent"
+                                            app:met_primaryColor="@color/colorAccent"
+                                            app:met_textColor="@color/colorBlack"
+                                            app:met_textColorHint="@color/colorAccent"
+                                            app:met_underlineColor="@color/colorAccent" />
+                                        <!--<Button-->
+                                            <!--android:id="@+id/simpan_nilai"-->
+                                            <!--android:layout_width="wrap_content"-->
+                                            <!--android:layout_height="wrap_content"-->
+                                            <!--android:layout_toRightOf="@+id/input_catatan_pinjaman"-->
+                                            <!--android:text="Simpan"-->
+                                            <!--android:textSize="10sp"/>-->
+                                    </RelativeLayout>
+
 
                                     <Button
                                         android:id="@+id/button_pinjaman"
-                                        android:layout_below="@+id/input_catatan_pinjaman"
+                                        android:layout_below="@+id/layout_catatan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
-                                        android:text="Konfirmasi Pemohon    "
+                                        android:text="Konfirmasi Nilai Pinjaman"
                                         android:textSize="10sp" />
                                 </RelativeLayout>
                             </LinearLayout>
