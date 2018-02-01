@@ -24,8 +24,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.Api;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
@@ -61,6 +64,7 @@ public class TaskCROFragment extends Fragment {
     InterfaceDraft interfaceDraft;
     InterfaceSurveyFinish interfaceSurveyFinish;
     String nik_crh, reschedule_date1;
+    String date_post, time_post;
     public TaskCROFragment() {
         // Required empty public constructor
     }
@@ -129,8 +133,9 @@ public class TaskCROFragment extends Fragment {
         String check_data_value11 = getActivity().getIntent().getStringExtra("BPKB");
         if(getActivity().getIntent().hasExtra("RESCHEDULE_DATE")) {
             reschedule_date1 = getActivity().getIntent().getStringExtra("RESCHEDULE_DATE");
-            Toast.makeText(getContext(), "Date : " + reschedule_date1.substring(0,9),Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Time : " + reschedule_date1.substring(1,18),Toast.LENGTH_SHORT).show();
+
+            date_text.setText(parseDateToddMMyyyy(reschedule_date1.substring(0,10)));
+            time_text.setText(reschedule_date1.substring(11,16));
         }
 
         try {
@@ -186,6 +191,11 @@ public class TaskCROFragment extends Fragment {
                         String formatTanggal = "dd/MM/yyyy";
                         SimpleDateFormat sdf = new SimpleDateFormat(formatTanggal);
                         date_text.setText(sdf.format(myCalendar.getTime()));
+
+                        String formatDate = "yyyy-MM-dd";
+                        SimpleDateFormat sdf1 = new SimpleDateFormat(formatDate);
+                        date_post = sdf1.format(myCalendar.getTime());
+
                     }
                 },
                         myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -209,6 +219,7 @@ public class TaskCROFragment extends Fragment {
                                                   int minute) {
 
                                 time_text.setText(hourOfDay + ":" + minute);
+                                time_post = hourOfDay + ":" + minute;
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -223,7 +234,7 @@ public class TaskCROFragment extends Fragment {
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String reschedule_date = date_text.getText() + " " + time_text.getText().toString();
+                String reschedule_date = date_post + " " + time_post;
                 String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                 String assigned_id = session.getUserId();
                 String notes = "-";
@@ -422,6 +433,24 @@ public class TaskCROFragment extends Fragment {
 
             }
         });
+    }
+
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd/MM/yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
 }
