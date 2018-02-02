@@ -108,7 +108,9 @@ public class PengajuanJaminanFragment extends Fragment {
         call.enqueue(new Callback<DetailRequest>() {
             @Override
             public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+
                 if ( response.isSuccessful() ) {
+
                     detailRequests = response.body().getData();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();

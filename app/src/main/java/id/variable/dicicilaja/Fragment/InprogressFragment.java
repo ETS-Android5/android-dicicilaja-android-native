@@ -110,6 +110,7 @@ public class InprogressFragment extends Fragment {
 //                                        Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                                             doProcess(apiKey, transaction_id, assigned_id, notes);
                                             Intent intent = new Intent(getContext(), DetailRequestActivity.class);
+
                                             intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
                                             startActivity(intent);
                                         }
@@ -237,7 +238,7 @@ public class InprogressFragment extends Fragment {
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-
+//Toast.makeText(getContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
             }
 
             @Override

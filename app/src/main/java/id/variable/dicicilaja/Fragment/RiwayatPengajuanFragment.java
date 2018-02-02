@@ -226,7 +226,9 @@ public class RiwayatPengajuanFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailRequest> call, Throwable t) {
+                // Log error here since request failed
                 Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, t.toString());
             }
         });
 

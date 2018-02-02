@@ -31,7 +31,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String token, String role, String user, String photo_profile_url, String area, String branch, String zipcode, String token_firebase){
+    public void createLoginSession(String user_id, String token, String role, String user, String photo_profile_url, String area, String branch, String zipcode){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString("user_id", user_id);
         editor.putString("token", token);
@@ -41,7 +41,6 @@ public class SessionManager {
         editor.putString("area", area);
         editor.putString("branch", branch);
         editor.putString("zipcode", zipcode);
-        editor.putString("token_firebase", token_firebase);
         editor.commit();
     }
 
@@ -77,9 +76,6 @@ public class SessionManager {
         return pref.getString("zipcode", null);
     }
 
-    public String getTokenFirebase() {
-        return pref.getString("token_firebase", null);
-    }
 
     /**
      * Check login method wil check user login status

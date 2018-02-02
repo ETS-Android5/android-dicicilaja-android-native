@@ -141,12 +141,6 @@ public class LoginActivity extends AppCompatActivity {
 //                }
 //            });
 
-            interfaceNotifToken = ApiUtils.getNotifToken();
-
-            final SessionManager session = new SessionManager(getBaseContext());
-            String apiKey = "Bearer " + session.getToken();
-
-            sendFirebaseToken(apiKey, session.getTokenFirebase());
         }
 
     }
@@ -172,9 +166,8 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
-                        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
+                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode());
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         startActivity(intent);
                         finish();
@@ -267,23 +260,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void sendFirebaseToken(final String apiKey, final String firebase_token) {
-        Call<ResRequestProcess> call = interfaceNotifToken.assign(apiKey, firebase_token);
-        call.enqueue(new Callback<ResRequestProcess>() {
-            @Override
-            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-                try {
-                    Toast.makeText(getBaseContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
-                } catch(Exception ex) {
-                    Log.w("Process Exception :", ex.getMessage());
-                    Toast.makeText(getBaseContext(), "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
-
-            }
-        });
-    }
 }
