@@ -17,7 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
+import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
 import id.variable.dicicilaja.Model.ResObj;
+import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Remote.UserService;
@@ -35,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword, inputEmailID;
     private ProgressDialog progressDialog;
     private Button btnLogin;
+    InterfaceNotifToken interfaceNotifToken;
 
     SessionManager session;
 
@@ -134,6 +140,13 @@ public class LoginActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
 //            });
+
+            interfaceNotifToken = ApiUtils.getNotifToken();
+
+            final SessionManager session = new SessionManager(getBaseContext());
+            String apiKey = "Bearer " + session.getToken();
+
+            sendFirebaseToken(apiKey, session.getTokenFirebase());
         }
 
     }
@@ -159,7 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
-                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode());
+                        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         startActivity(intent);
                         finish();
@@ -250,5 +265,25 @@ public class LoginActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    private void sendFirebaseToken(final String apiKey, final String firebase_token) {
+        Call<ResRequestProcess> call = interfaceNotifToken.assign(apiKey, firebase_token);
+        call.enqueue(new Callback<ResRequestProcess>() {
+            @Override
+            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
+                try {
+                    Toast.makeText(getBaseContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
+                } catch(Exception ex) {
+                    Log.w("Process Exception :", ex.getMessage());
+                    Toast.makeText(getBaseContext(), "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -131,7 +131,7 @@
                                     android:layout_height="wrap_content"
                                     android:textStyle="bold"
                                     android:textSize="12sp"
-                                    android:text="Tanggal Pengiriman"
+                                    android:text="Waktu Respon"
                                     android:textIsSelectable="true"/>
                                 <TextView
                                     android:layout_marginLeft="10dp"

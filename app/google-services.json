@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "651625157733",
-    "firebase_url": "https://possible-arch-124004.firebaseio.com",
-    "project_id": "possible-arch-124004",
-    "storage_bucket": "possible-arch-124004.appspot.com"
+    "project_number": "830597415011",
+    "firebase_url": "https://dicicilaja-db65b.firebaseio.com",
+    "project_id": "dicicilaja-db65b",
+    "storage_bucket": "dicicilaja-db65b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:651625157733:android:cb03aec09ebc2b8e",
+        "mobilesdk_app_id": "1:830597415011:android:c28a2daefd6933d4",
         "android_client_info": {
           "package_name": "id.variable.dicicilaja"
         }
       },
       "oauth_client": [
         {
-          "client_id": "651625157733-vprd6pol6vs4tfgecvg9ifk92f7jq25s.apps.googleusercontent.com",
+          "client_id": "830597415011-jcan45fvar6f2uadn5d52pckddq3mr02.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAkeyYm_9WPNs2Oi13CcEWX_wjGGlW8iOU"
+          "current_key": "AIzaSyBdSuZWOQKA42dqdUjNS5mWFgWtq_82CNc"
         }
       ],
       "services": {

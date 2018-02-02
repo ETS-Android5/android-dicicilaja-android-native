@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Api;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -4,6 +4,7 @@ import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceNilaiPinjaman;
+import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
 
@@ -49,6 +50,10 @@ public class ApiUtils {
 
     public static InterfaceKeputusanPinjaman getKeputusanPinjaman() {
         return RetrofitClient.getClient(BASE_URL).create(InterfaceKeputusanPinjaman.class);
+    }
+
+    public static InterfaceNotifToken getNotifToken() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceNotifToken.class);
     }
 
 
