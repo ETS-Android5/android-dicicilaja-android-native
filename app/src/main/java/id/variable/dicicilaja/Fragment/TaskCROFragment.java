@@ -305,7 +305,7 @@ public class TaskCROFragment extends Fragment {
                 }else{
                     bpkb = "0";
                 }
-//                Toast.makeText(getContext(),"ktp_suami : " + ktp_suami1,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"date : " + reschedule_date,Toast.LENGTH_LONG).show();
                 doDraft(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
 
             }
@@ -396,7 +396,7 @@ public class TaskCROFragment extends Fragment {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
-                    Toast.makeText(getContext(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
                     startActivity(intent);
                     getActivity().finish();
