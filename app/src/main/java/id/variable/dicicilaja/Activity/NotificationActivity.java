@@ -84,6 +84,7 @@ public class NotificationActivity extends AppCompatActivity {
                         public void onClick(View view, final int position) {
                             Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
                             intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransaction_id().toString());
+                            intent.putExtra("STATUS", true);
                             startActivity(intent);
 
                         }
