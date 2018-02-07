@@ -25,6 +25,7 @@ import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Remote.UserFirebase;
 import id.variable.dicicilaja.Remote.UserService;
 import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     SessionManager session;
 
     UserService userService;
-
+    UserFirebase userFirebase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +83,10 @@ public class LoginActivity extends AppCompatActivity {
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
             userService = ApiUtils.getUserService();
+            userFirebase = ApiUtils.getUserFirebase();
+
+            final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+            Log.i("firebase_login", "token : "  + refreshedToken.toString());
 
             lewati.setVisibility(View.GONE);
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
@@ -108,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     String username = inputEmailID.getText().toString();
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
-                        doLogin(username, password);
+                        doLogin(username, password, refreshedToken);
                     }
                 }
             });
@@ -157,8 +162,8 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void doLogin(final String username, final String password) {
-        Call<ResObj> call = userService.login(username, password);
+    private void doLogin(final String username, final String password, final String firebase_token) {
+        Call<ResObj> call = userFirebase.login_token(username, password, firebase_token);
         call.enqueue(new Callback<ResObj>() {
             @Override
             public void onResponse(Call<ResObj> call, Response<ResObj> response) {
@@ -166,8 +171,9 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
 
                     try {
+                        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode());
+                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         startActivity(intent);
                         finish();

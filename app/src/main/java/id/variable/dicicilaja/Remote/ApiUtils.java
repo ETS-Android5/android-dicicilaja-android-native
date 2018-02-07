@@ -3,6 +3,7 @@ package id.variable.dicicilaja.Remote;
 import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanSurvey;
+import id.variable.dicicilaja.API.Interface.InterfaceLogout;
 import id.variable.dicicilaja.API.Interface.InterfaceNilaiPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
@@ -18,6 +19,10 @@ public class ApiUtils {
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
+    }
+
+    public static UserFirebase getUserFirebase() {
+        return RetrofitClient.getClient(BASE_URL).create(UserFirebase.class);
     }
 
     public static AreaService getAreaService() {
@@ -54,6 +59,10 @@ public class ApiUtils {
 
     public static InterfaceNotifToken getNotifToken() {
         return RetrofitClient.getClient(BASE_URL).create(InterfaceNotifToken.class);
+    }
+
+    public static InterfaceLogout getLogout() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceLogout.class);
     }
 
 

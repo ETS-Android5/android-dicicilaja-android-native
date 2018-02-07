@@ -3,8 +3,6 @@ package id.variable.dicicilaja.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,23 +17,30 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.variable.dicicilaja.API.Interface.InterfaceLogout;
+import id.variable.dicicilaja.Model.Logout;
+import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Session.SessionManager;
-
-import static java.lang.Boolean.TRUE;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
-
     SessionManager session;
+    InterfaceLogout interfaceLogout;
+    String apiKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        final SessionManager session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        session = new SessionManager(getBaseContext());
+        interfaceLogout = ApiUtils.getLogout();
 
         TextView title_status = findViewById(R.id.title_status);
         TextView title_profile = findViewById(R.id.title_profile);
@@ -98,10 +103,10 @@ public class ProfileActivity extends AppCompatActivity {
                 // Setting Dialog Message
                 alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
 
-
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+//                        doLogout(apiKey);
                         session.logoutUser();
                         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                         startActivity(intent);
@@ -132,4 +137,20 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private void doLogout(final String apiKey) {
+        Call<Logout> call = interfaceLogout.logout(apiKey);
+        call.enqueue(new Callback<Logout>() {
+            @Override
+            public void onResponse(Call<Logout> call, Response<Logout> response) {
+                Toast.makeText(getBaseContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Logout> call, Throwable t) {
+
+            }
+        });
+    }
 }
+

@@ -28,8 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         Log.d("firebase", "From: " + remoteMessage.getFrom());
-        Log.d("firebase", "Notification Message Body: " +
-                remoteMessage.getNotification().getBody());
+        Log.d("firebase", "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
         Intent intent = new Intent(this, NotificationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -44,13 +43,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSound(soundUri)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
 
     }
-
 
 //    private void sendMyNotification(String message) {
 //
