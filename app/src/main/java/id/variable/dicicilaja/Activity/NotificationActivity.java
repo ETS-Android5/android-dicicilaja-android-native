@@ -3,14 +3,19 @@ package id.variable.dicicilaja.Activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -18,12 +23,28 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.List;
+
+import id.variable.dicicilaja.API.Client.RetrofitClient;
+import id.variable.dicicilaja.API.Interface.InterfaceNotification;
+import id.variable.dicicilaja.API.Interface.InterfaceRequest;
+import id.variable.dicicilaja.API.Item.Notification.Notification;
+import id.variable.dicicilaja.API.Item.Request.Datum;
+import id.variable.dicicilaja.API.Item.Request.Request;
+import id.variable.dicicilaja.Adapter.NotifAdapter;
+import id.variable.dicicilaja.Adapter.RequestAdapter;
+import id.variable.dicicilaja.Listener.ClickListener;
+import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class NotificationActivity extends AppCompatActivity {
-
-
+    List<id.variable.dicicilaja.API.Item.Notification.Datum> notifs;
+    String apiKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +54,9 @@ public class NotificationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final SessionManager session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -40,6 +64,47 @@ public class NotificationActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
+        final RecyclerView recyclerView =  findViewById(R.id.recycler_notif);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        InterfaceNotification apiService =
+                RetrofitClient.getClient().create(InterfaceNotification.class);
+
+        Call<Notification> call = apiService.getNotification(apiKey);
+        call.enqueue(new Callback<Notification>() {
+            @Override
+            public void onResponse(Call<Notification> call, Response<Notification> response) {
+                if ( response.isSuccessful() ) {
+                    notifs = response.body().getData();
+                    recyclerView.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
+
+
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransaction_id().toString());
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
+
+
+                } else {
+                    Toast.makeText(getBaseContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Notification> call, Throwable t) {
+
+            }
+        });
 
     }
 
