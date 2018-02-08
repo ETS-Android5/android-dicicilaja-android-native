@@ -37,11 +37,16 @@
                     android:textSize="16sp"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_pengajuan"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeToRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_pengajuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
