@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Fragment;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import id.variable.dicicilaja.Activity.SimulasiActivity;
 import id.variable.dicicilaja.Adapter.SectionListDataAdapter;
 import id.variable.dicicilaja.Content.SingleItemModel;
 import id.variable.dicicilaja.R;
@@ -37,6 +40,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     SliderLayout mDemoSlider;
     private ArrayList<SingleItemModel> allSampleData;
     private SnapHelper snapHelper;
+    Button btn_hitung;
 
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle;
 
@@ -56,6 +60,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         program_maxi = view.findViewById(R.id.program_maxi);
         simulasi_title = view.findViewById(R.id.simulasi_title);
         simulasi_subtitle = view.findViewById(R.id.simulasi_subtitle);
+        btn_hitung = view.findViewById(R.id.btn_hitung);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -100,6 +105,14 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         mDemoSlider.setDuration(4000);
 //        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
         mDemoSlider.addOnPageChangeListener(this);
+
+        btn_hitung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SimulasiActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
