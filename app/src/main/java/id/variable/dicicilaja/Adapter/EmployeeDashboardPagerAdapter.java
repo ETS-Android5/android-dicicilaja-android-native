@@ -11,10 +11,10 @@ import id.variable.dicicilaja.Fragment.InprogressFragment;
  * Created by daniellindp on 30/12/2017.
  */
 
-public class TCHomePagerAdapter extends FragmentStatePagerAdapter {
+public class EmployeeDashboardPagerAdapter extends FragmentStatePagerAdapter {
     int num;
 
-    public TCHomePagerAdapter(FragmentManager fm, int num) {
+    public EmployeeDashboardPagerAdapter(FragmentManager fm, int num) {
         super(fm);
         this.num = num;
     }

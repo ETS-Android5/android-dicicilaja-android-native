@@ -22,28 +22,37 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="16dp">
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/lewati"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/lewati_text"
+                    android:src="@drawable/ic_skip"/>
                 <TextView
-                    android:id="@+id/lewati"
+                    android:id="@+id/lewati_text"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="right"
                     android:gravity="right"
-                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccentDark2"
+                    android:textColor="@color/colorAccentDark"
                     android:text="Lewati"/>
-            </LinearLayout>
+            </RelativeLayout>
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="200dp"
                 android:layout_height="65dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="100dp"
                 android:contentDescription="@string/Logo"
                 app:srcCompat="@drawable/logo_color" />
 

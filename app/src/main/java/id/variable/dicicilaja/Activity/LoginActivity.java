@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +37,13 @@ import static java.lang.Boolean.TRUE;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView subPassword,forgotPassword,powered,judulDaftarAkun,judulButuhBantuan,daftarAkun,butuhBantuan, lewati, tvForgot;
+    private TextView lewati_text, subPassword,forgotPassword,powered,judulDaftarAkun,judulButuhBantuan,daftarAkun,butuhBantuan, tvForgot;
     private TextInputLayout inputLayoutEmailID, inputLayoutPassword;
     private EditText inputPassword, inputEmailID;
     private ProgressDialog progressDialog;
     private Button btnLogin;
+    RelativeLayout lewati;
+
     InterfaceNotifToken interfaceNotifToken;
 
     SessionManager session;
@@ -76,7 +79,8 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin = (Button) findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
             powered = (TextView) findViewById(R.id.powered);
-            lewati = (TextView) findViewById(R.id.lewati);
+            lewati = findViewById(R.id.lewati);
+            lewati_text = findViewById(R.id.lewati_text);
             tvForgot = (TextView) findViewById(R.id.tvForgot);
 
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
@@ -101,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             judulButuhBantuan.setTypeface(opensans_reguler);
             daftarAkun.setTypeface(opensans_semibold);
             butuhBantuan.setTypeface(opensans_semibold);
-            lewati.setTypeface(opensans_semibold);
+            lewati_text.setTypeface(opensans_semibold);
             tvForgot.setTypeface(opensans_semibold);
 
 
@@ -138,13 +142,13 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-//            lewati.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
+            lewati.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                    startActivity(intent);
+                }
+            });
 
         }
 

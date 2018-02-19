@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import id.variable.dicicilaja.Adapter.TCHomePagerAdapter;
+import id.variable.dicicilaja.Adapter.EmployeeDashboardPagerAdapter;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 import id.variable.dicicilaja.WebView.CekStatusActivity;
@@ -42,7 +42,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        TabLayout tabLayout = findViewById(R.id.tab_tc);
+        TabLayout tabLayout = findViewById(R.id.tab_employee);
         tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN MASUK"));
         tabLayout.addTab(tabLayout.newTab().setText("SEDANG DIPROSES"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -147,7 +147,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         });
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new TCHomePagerAdapter(getSupportFragmentManager(), 2));
+        viewPager.setAdapter(new EmployeeDashboardPagerAdapter(getSupportFragmentManager(), 2));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
