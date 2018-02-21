@@ -67,7 +67,7 @@ public class RegisterCustomerFragment extends Fragment {
             }
         });
 
-        btnDaftar.setEnabled(false);
+//        btnDaftar.setEnabled(false);
         return view;
     }
 

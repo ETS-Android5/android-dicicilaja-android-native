@@ -45,7 +45,7 @@ public class RegisterMaxiFragment extends Fragment {
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);
 
-        btnLanjut.setEnabled(false);
+//        btnLanjut.setEnabled(false);
         detailSection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

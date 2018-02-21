@@ -27,19 +27,19 @@ public class RegisterAxi5Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        upload = findViewById(R.id.upload);
-        gambar = findViewById(R.id.gambar);
-
-        upload.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Pilih Gambar"), GET_FROM_GALLERY);
-            }
-
-        });
+//        upload = findViewById(R.id.upload);
+//        gambar = findViewById(R.id.gambar);
+//
+//        upload.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_PICK);
+//                startActivityForResult(Intent.createChooser(intent, "Pilih Gambar"), GET_FROM_GALLERY);
+//            }
+//
+//        });
     }
 
     @Override

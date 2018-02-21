@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Nama Lengkap"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@+id/inputEmail"
                         android:layout_marginTop="25dp"

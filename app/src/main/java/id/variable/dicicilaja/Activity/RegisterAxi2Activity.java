@@ -42,20 +42,25 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnLanjut = findViewById(R.id.btnLanjut);
-        spinnerStatusPerkawinan = (MaterialSpinner) findViewById(R.id.spinnerStatusPerkawinan);
         spinnerProvinsi = (MaterialSpinner) findViewById(R.id.spinnerProvinsi);
         spinnerKotaKab = (MaterialSpinner) findViewById(R.id.spinnerKotaKab);
         spinnerKecamatan = (MaterialSpinner) findViewById(R.id.spinnerKecamatan);
         spinnerKelurahan = (MaterialSpinner) findViewById(R.id.spinnerKelurahan);
         inputTanggal = (EditText) findViewById(R.id.inputTanggal);
-        inputTanggal.setOnClickListener(new View.OnClickListener() {
+        inputTanggal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
+            public void onFocusChange(View view, boolean b) {
                 DialogFragment dialogfragment = new DatePickerDialogTheme4();
 
                 dialogfragment.show(getSupportFragmentManager(), "Theme 4");
             }
         });
+//        inputTanggal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -63,8 +68,6 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         String[] ITEMS = {"Item 1", "Item 2", "Item 3"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerStatusPerkawinan.setAdapter(adapter);
-        spinnerStatusPerkawinan.setTypeface(opensans_semibold);
         spinnerProvinsi.setAdapter(adapter);
         spinnerProvinsi.setTypeface(opensans_semibold);
         spinnerKotaKab.setAdapter(adapter);

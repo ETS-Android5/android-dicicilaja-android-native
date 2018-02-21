@@ -25,6 +25,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
@@ -32,6 +34,102 @@
             android:paddingRight="25dp"
             android:paddingTop="25dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:weightSum="5">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorIcon"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorIcon"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorIcon"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorIcon"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,6 +145,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Bank"
+                    android:inputType="textPersonName|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/inputRekening"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -67,6 +168,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="No. Rekening"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/inputCabang"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -87,6 +191,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Cabang Bank"
+                    android:inputType="textPersonName|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/inputANRekening"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -107,6 +214,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="A/N Rekening"
+                    android:inputType="textPersonName|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/inputKodePos"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -127,6 +237,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kota Bank"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -151,16 +263,6 @@
                 android:layout_marginRight="5dp"
                 android:paddingRight="25dp"
                 android:textSize="14sp" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Step 3 dari 5"/>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

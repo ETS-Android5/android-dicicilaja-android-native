@@ -109,7 +109,7 @@ public class RegisterAxiFragment extends Fragment {
             }
         });
 
-        btnLanjut.setEnabled(false);
+//        btnLanjut.setEnabled(false);
 
         // btnLanjut.setEnabled(false);
 
