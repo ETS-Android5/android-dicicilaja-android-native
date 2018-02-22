@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.variable.dicicilaja.Activity.SimulasiActivity"
+    android:background="@color/colorSection"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,4 +21,195 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/simulasi_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingRight="16dp"
+                        android:textColor="@color/colorAccent"
+                        android:text="Pembiayaan Dana Multiguna"/>
+                    <TextView
+                        android:id="@+id/simulasi_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:text="Isi Jumlah Pembiayaan yang Anda butuhkan"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginRight="64dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginRight="64dp"
+                        android:weightSum="2">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="8dp">
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"></Spinner>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingBottom="8dp">
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="8dp"></Spinner>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginRight="64dp"
+                        android:weightSum="2">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="8dp">
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                ></Spinner>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingTop="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingBottom="8dp">
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="8dp"></Spinner>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_hitung"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/regis_layout"
+                        android:layout_centerHorizontal="true"
+                        android:backgroundTint="@color/colorAccent"
+                        android:layout_marginLeft="64dp"
+                        android:layout_marginRight="64dp"
+                        android:text="Hitung"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="16dp"
+                    android:padding="16dp"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cicilan Per Bulan"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentLeft="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp 433.000"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Harga diatas merupakan simulasi, akan disesuaikan dengan nilai jaminan dan area pengajuan."/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download PDF"
+                        android:backgroundTint="@color/colorAccent2"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerHorizontal="true"/>
+                    <Button
+                        android:id="@+id/btn_send"
+                        android:layout_below="@+id/btn_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kirim Email"
+                        android:backgroundTint="@color/colorAccent2"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerHorizontal="true"/>
+                    <Button
+                        android:id="@+id/btn_order"
+                        android:layout_below="@id/btn_send"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ajukan Disini"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btn_order"
+                        android:text="Rincin simulasi diatas bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan detail, hubungi dicicilaja.com"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 </LinearLayout>

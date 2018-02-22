@@ -222,13 +222,20 @@
             android:name=".Activity.MarketplaceActivity"
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.SimulasiActivity"
+        <activity
+            android:name=".Activity.SimulasiActivity"
             android:label="Simulasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MarketplaceActivity" />
         </activity>
+        <activity
+            android:name=".Activity.GuestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.HelpAboutActivity"
+            android:label="Tentang dicicilaja.com"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
