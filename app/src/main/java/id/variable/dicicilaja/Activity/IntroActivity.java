@@ -52,6 +52,10 @@ public class IntroActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_intro);
+        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
@@ -59,6 +63,8 @@ public class IntroActivity extends AppCompatActivity {
         btnNext = (Button) findViewById(R.id.btn_next);
         btnBack.setVisibility(View.GONE);
 
+        btnBack.setTypeface(opensans_bold);
+        btnNext.setTypeface(opensans_bold);
 
 
 

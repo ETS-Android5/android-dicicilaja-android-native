@@ -42,7 +42,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     private SnapHelper snapHelper;
     Button btn_hitung;
 
-    TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle;
+    TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
     public BerandaFragment() {
         // Required empty public constructor
@@ -62,12 +62,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         simulasi_subtitle = view.findViewById(R.id.simulasi_subtitle);
         btn_hitung = view.findViewById(R.id.btn_hitung);
 
+
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_program_agen.setTypeface(opensans_bold);
+        title_program_agen.setTypeface(opensans_semibold);
         program_maxi.setTypeface(opensans_semibold);
         program_axi.setTypeface(opensans_semibold);
         simulasi_title.setTypeface(opensans_semibold);
@@ -86,9 +87,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("1",R.drawable.illustration_1_01);
-        file_maps.put("2",R.drawable.illustration_1_02);
-        file_maps.put("3",R.drawable.illustration_1_03);
+        file_maps.put("1",R.drawable.slider_1);
+        file_maps.put("2",R.drawable.slider_2);
 
         for(String name : file_maps.keySet()){
             DefaultSliderView sliderView = new DefaultSliderView(getContext());
@@ -119,8 +119,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     private void createDummyData() {
         for (int j = 1; j <= 5; j++) {
             SingleItemModel dm = new SingleItemModel();
-            dm.setName("nama" + j);
-            dm.setUrl("url" + j);
+            dm.setTitle("Umroh Free Tour Istanbul Turkey");
+            dm.setId("1");
+            dm.setMitra("Mitra Usaha : PT. SUKA JADI");
+            dm.setHarga("Rp 20.000.000");
+            dm.setTenor("Cicilan 60 bulan Rp 900.000/bulan");
+            dm.setGambar("1");
+            dm.setDiskon("20%");
             allSampleData.add(dm);
         }
 

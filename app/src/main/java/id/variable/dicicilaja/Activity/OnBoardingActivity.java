@@ -46,8 +46,8 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         lewati_text.setTypeface(opensans_bold);
         title_regis.setTypeface(opensans_bold);
-        title_regis_account.setTypeface(opensans_reguler);
-        login_account.setTypeface(opensans_reguler);
+        title_regis_account.setTypeface(opensans_bold);
+        login_account.setTypeface(opensans_bold);
         title_login.setTypeface(opensans_bold);
         desc_login.setTypeface(opensans_bold);
         lewati.setOnClickListener(new View.OnClickListener() {

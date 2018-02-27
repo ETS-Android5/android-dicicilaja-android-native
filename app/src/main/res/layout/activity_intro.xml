@@ -29,6 +29,7 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:text="@string/next"
+        android:textAllCaps="false"
         android:textColor="@color/colorAccent" />
 
     <Button
@@ -39,6 +40,7 @@
         android:layout_alignParentLeft="true"
         android:background="@null"
         android:text="@string/back"
+        android:textAllCaps="false"
         android:textColor="@color/colorAccent" />
 
 </RelativeLayout>

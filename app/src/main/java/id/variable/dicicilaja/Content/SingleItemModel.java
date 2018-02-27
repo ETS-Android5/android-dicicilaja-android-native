@@ -5,38 +5,75 @@ package id.variable.dicicilaja.Content;
  */
 
 public class SingleItemModel {
-    private String name, url, description;
+    private String title, id, mitra, harga, tenor, gambar, diskon;
 
     public SingleItemModel() {
 
     }
 
-    public SingleItemModel(String name, String url) {
-        this.name = name;
-        this.url = url;
+    public SingleItemModel(String title, String id, String mitra, String harga, String tenor, String gambar, String diskon) {
+        this.title = title;
+        this.id = id;
+        this.mitra = mitra;
+        this.harga = harga;
+        this.tenor = tenor;
+        this.gambar = gambar;
+        this.diskon = diskon;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public String getId() {
+        return id;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMitra() {
+        return mitra;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMitra(String mitra) {
+        this.mitra = mitra;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+
+    public String getTenor() {
+        return tenor;
+    }
+
+    public void setTenor(String tenor) {
+        this.tenor = tenor;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
+    }
+
+    public String getDiskon() {
+        return diskon;
+    }
+
+    public void setDiskon(String diskon) {
+        this.diskon = diskon;
     }
 }

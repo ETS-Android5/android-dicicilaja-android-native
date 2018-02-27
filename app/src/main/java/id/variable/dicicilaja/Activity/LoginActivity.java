@@ -69,16 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                 window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
             }
             judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
-            judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
             daftarAkun = (TextView) findViewById(R.id.daftarAkun);
-            butuhBantuan = (TextView) findViewById(R.id.butuhBantuan);
             inputLayoutEmailID = (TextInputLayout) findViewById(R.id.inputLayoutEmailID);
             inputLayoutPassword = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
             inputEmailID = (EditText) findViewById(R.id.inputEmailID);
             inputPassword = (EditText) findViewById(R.id.inputPassword);
             btnLogin = (Button) findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
-            powered = (TextView) findViewById(R.id.powered);
             lewati = findViewById(R.id.lewati);
             lewati_text = findViewById(R.id.lewati_text);
             tvForgot = (TextView) findViewById(R.id.tvForgot);
@@ -92,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.i("firebase_login", "token : "  + refreshedToken.toString());
 
-            lewati.setVisibility(View.GONE);
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
             Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -100,16 +96,11 @@ public class LoginActivity extends AppCompatActivity {
             inputEmailID.setTypeface(opensans_semibold);
             inputPassword.setTypeface(opensans_semibold);
             btnLogin.setTypeface(opensans_bold);
-            powered.setTypeface(opensans_reguler);
             judulDaftarAkun.setTypeface(opensans_reguler);
-            judulButuhBantuan.setTypeface(opensans_reguler);
             daftarAkun.setTypeface(opensans_semibold);
-            butuhBantuan.setTypeface(opensans_semibold);
             lewati_text.setTypeface(opensans_semibold);
             tvForgot.setTypeface(opensans_semibold);
 
-
-            getSupportActionBar().hide();
 
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,13 +126,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            butuhBantuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getBaseContext(), HelpActivity.class);
-                    startActivity(intent);
-                }
-            });
             lewati.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -156,11 +140,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String username, String password) {
         if(username == null || username.trim().length() == 0) {
-            Toast.makeText(this, "Masukan Email/ID anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Masukan Email/ID Anda", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password == null || password.trim().length() == 0) {
-            Toast.makeText(this, "Masukan password anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Masukan Password Anda", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
