@@ -28,8 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import id.variable.dicicilaja.Activity.SimulasiActivity;
-import id.variable.dicicilaja.Adapter.SectionListDataAdapter;
-import id.variable.dicicilaja.Content.SingleItemModel;
+import id.variable.dicicilaja.Adapter.ListPartnerAdapter;
+import id.variable.dicicilaja.Adapter.ListPromoAdapter;
+import id.variable.dicicilaja.Adapter.ListRekomendasiAdapter;
+import id.variable.dicicilaja.Content.PartnerModel;
+import id.variable.dicicilaja.Content.PromoModel;
+import id.variable.dicicilaja.Content.RekomendasiModel;
 import id.variable.dicicilaja.R;
 
 /**
@@ -38,7 +42,9 @@ import id.variable.dicicilaja.R;
 public class BerandaFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SliderLayout mDemoSlider;
-    private ArrayList<SingleItemModel> allSampleData;
+    private ArrayList<PromoModel> promoData;
+    private ArrayList<RekomendasiModel> rekomendasiData;
+    private ArrayList<PartnerModel> partnerData;
     private SnapHelper snapHelper;
     Button btn_hitung;
 
@@ -74,16 +80,32 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         simulasi_title.setTypeface(opensans_semibold);
         simulasi_subtitle.setTypeface(opensans_reguler);
 
-        allSampleData = new ArrayList<>();
+        promoData = new ArrayList<>();
+        rekomendasiData = new ArrayList<>();
+        partnerData = new ArrayList<>();
         snapHelper = new GravitySnapHelper(Gravity.START);
         createDummyData();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_list);
-        recyclerView.setHasFixedSize(true);
-        SectionListDataAdapter adapter = new SectionListDataAdapter(allSampleData, getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        snapHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerPromo = (RecyclerView) view.findViewById(R.id.recycler_promo);
+        recyclerPromo.setHasFixedSize(true);
+        ListPromoAdapter adapterPromo = new ListPromoAdapter(promoData, getContext());
+        recyclerPromo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        snapHelper.attachToRecyclerView(recyclerPromo);
+        recyclerPromo.setAdapter(adapterPromo);
+
+        RecyclerView recyclerRekomendasi = (RecyclerView) view.findViewById(R.id.recycler_rekomendasi);
+        recyclerRekomendasi.setHasFixedSize(true);
+        ListRekomendasiAdapter adapterRekomendasi = new ListRekomendasiAdapter(rekomendasiData, getContext());
+        recyclerRekomendasi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        snapHelper.attachToRecyclerView(recyclerRekomendasi);
+        recyclerRekomendasi.setAdapter(adapterRekomendasi);
+
+        RecyclerView recyclerPartner = (RecyclerView) view.findViewById(R.id.recycler_partner);
+        recyclerRekomendasi.setHasFixedSize(true);
+        ListPartnerAdapter adapterPartner = new ListPartnerAdapter(partnerData, getContext());
+        recyclerPartner.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        snapHelper.attachToRecyclerView(recyclerPartner);
+        recyclerPartner.setAdapter(adapterPartner);
 
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
@@ -118,15 +140,27 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     private void createDummyData() {
         for (int j = 1; j <= 5; j++) {
-            SingleItemModel dm = new SingleItemModel();
-            dm.setTitle("Umroh Free Tour Istanbul Turkey");
-            dm.setId("1");
-            dm.setMitra("Mitra Usaha : PT. SUKA JADI");
-            dm.setHarga("Rp 20.000.000");
-            dm.setTenor("Cicilan 60 bulan Rp 900.000/bulan");
-            dm.setGambar("1");
-            dm.setDiskon("20%");
-            allSampleData.add(dm);
+            promoData.add(new PromoModel("Umroh Free Tour Istanbul Turkey",
+                    "1",
+                    "Mitra Usaha : PT. SUKA JADI",
+                    "Rp 20.000.000",
+                    "Cicilan 60 bulan Rp 900.000/bulan",
+                    "1",
+                    "20%"));
+        }
+
+        for (int j = 1; j <= 5; j++) {
+            rekomendasiData.add(new RekomendasiModel("Umroh Free Tour Istanbul Turkey",
+                    "1",
+                    "Mitra Usaha : PT. SUKA JADI",
+                    "Rp 20.000.000",
+                    "Cicilan 60 bulan Rp 900.000/bulan",
+                    "1"));
+        }
+
+        for (int j = 1; j <= 5; j++) {
+            partnerData.add(new PartnerModel("1",
+                    "1"));
         }
 
     }

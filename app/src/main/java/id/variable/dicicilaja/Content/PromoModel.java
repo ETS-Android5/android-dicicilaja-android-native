@@ -4,14 +4,10 @@ package id.variable.dicicilaja.Content;
  * Created by ziterz on 2/16/2018.
  */
 
-public class SingleItemModel {
+public class PromoModel {
     private String title, id, mitra, harga, tenor, gambar, diskon;
 
-    public SingleItemModel() {
-
-    }
-
-    public SingleItemModel(String title, String id, String mitra, String harga, String tenor, String gambar, String diskon) {
+    public PromoModel(String title, String id, String mitra, String harga, String tenor, String gambar, String diskon) {
         this.title = title;
         this.id = id;
         this.mitra = mitra;

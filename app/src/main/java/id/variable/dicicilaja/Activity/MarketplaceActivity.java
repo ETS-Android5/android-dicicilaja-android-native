@@ -1,12 +1,17 @@
 package id.variable.dicicilaja.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -39,12 +44,12 @@ public class MarketplaceActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private int[] tabIcons = {
-            R.drawable.ic_home,
-            R.drawable.ic_access_time,
-            R.drawable.ic_date_range,
-            R.drawable.ic_add_box
-    };
+//    private int[] tabIcons = {
+//            R.drawable.ic_home,
+//            R.drawable.ic_access_time,
+//            R.drawable.ic_date_range,
+//            R.drawable.ic_add_box
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,14 @@ public class MarketplaceActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                TextView tabOne = (TextView) LayoutInflater.from(getBaseContext()).inflate(R.layout.custom_tab, null);
+                Drawable ddd = getResources().getDrawable(R.drawable.tab_home_active);
+                Drawable drawable = DrawableCompat.wrap(ddd);
+
+                DrawableCompat.setTint(drawable, ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
+
+                tabOne.setCompoundDrawables(null, null, drawable, null);
             }
 
             @Override
@@ -151,25 +164,25 @@ public class MarketplaceActivity extends AppCompatActivity
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Beranda");
         tabOne.setTextSize(12);
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_home, 0, 0);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_home, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Pengajuan");
         tabTwo.setTextSize(12);
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_access_time, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_order, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setText("Bantuan");
         tabThree.setTextSize(12);
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_date_range, 0, 0);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_help, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);
 //
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabFour.setText("Akun Saya");
         tabFour.setTextSize(12);
-        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_add_box, 0, 0);
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_account, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabFour);
 
 //        tabLayout.getTabAt(0).setIcon(tabIcons[0]);

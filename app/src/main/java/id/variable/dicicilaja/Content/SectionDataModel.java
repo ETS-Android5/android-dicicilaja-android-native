@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class SectionDataModel {
     private String headerTitle;
-    private ArrayList<SingleItemModel> allItemInSection;
+    private ArrayList<PromoModel> allItemInSection;
 
     public SectionDataModel() {
     }
 
-    public SectionDataModel(String headerTitle, ArrayList<SingleItemModel> allItemInSection) {
+    public SectionDataModel(String headerTitle, ArrayList<PromoModel> allItemInSection) {
         this.headerTitle = headerTitle;
         this.allItemInSection = allItemInSection;
     }
@@ -26,11 +26,11 @@ public class SectionDataModel {
         this.headerTitle = headerTitle;
     }
 
-    public ArrayList<SingleItemModel> getAllItemInSection() {
+    public ArrayList<PromoModel> getAllItemInSection() {
         return allItemInSection;
     }
 
-    public void setAllItemInSection(ArrayList<SingleItemModel> allItemInSection) {
+    public void setAllItemInSection(ArrayList<PromoModel> allItemInSection) {
         this.allItemInSection = allItemInSection;
     }
 }

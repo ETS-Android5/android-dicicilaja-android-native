@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:id="@+id/tab_marketplace"
             android:background="@color/colorWhite"
-            app:titleTextColor="@color/colorAccent"
+            app:titleTextColor="@color/colorTab"
             android:tabStripEnabled="true"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="@color/colorAccent"

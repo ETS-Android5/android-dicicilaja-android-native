@@ -12,25 +12,25 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import id.variable.dicicilaja.Content.SingleItemModel;
+import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.R;
 
 /**
  * Created by ziterz on 2/17/2018.
  */
 
-public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
-    private ArrayList<SingleItemModel> itemModels;
+public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.SingleItemRowHolder> {
+    private ArrayList<PromoModel> itemModels;
     private Context mContext;
 
-    public SectionListDataAdapter(ArrayList<SingleItemModel> itemModels, Context mContext) {
+    public ListPromoAdapter(ArrayList<PromoModel> itemModels, Context mContext) {
         this.itemModels = itemModels;
         this.mContext = mContext;
     }
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_single_card, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_promo, null);
         SingleItemRowHolder singleItemRowHolder = new SingleItemRowHolder(v);
         Typeface opensans_extrabold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -43,7 +43,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
-        SingleItemModel itemModel = itemModels.get(position);
+        PromoModel itemModel = itemModels.get(position);
         holder.tv_title.setText(itemModel.getTitle());
         holder.tv_mitra.setText(itemModel.getMitra());
         holder.tv_harga.setText(itemModel.getHarga());
