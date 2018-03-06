@@ -99,13 +99,6 @@ public class MarketplaceActivity extends AppCompatActivity
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
 
-                TextView tabOne = (TextView) LayoutInflater.from(getBaseContext()).inflate(R.layout.custom_tab, null);
-                Drawable ddd = getResources().getDrawable(R.drawable.tab_home_active);
-                Drawable drawable = DrawableCompat.wrap(ddd);
-
-                DrawableCompat.setTint(drawable, ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
-
-                tabOne.setCompoundDrawables(null, null, drawable, null);
             }
 
             @Override
