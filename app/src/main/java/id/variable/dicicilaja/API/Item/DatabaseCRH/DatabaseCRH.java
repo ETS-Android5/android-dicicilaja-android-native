@@ -1,4 +1,4 @@
-package id.variable.dicicilaja.API.Item;
+package id.variable.dicicilaja.API.Item.DatabaseCRH;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,14 +9,14 @@ import java.util.List;
  * Created by ziterz on 1/9/2018.
  */
 
-public class DatabaseEmployeeResponse {
+public class DatabaseCRH {
 
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private List<DatabaseEmployee> data = null;
+    private List<Datum> data = null;
 
     public String getStatus() {
         return status;
@@ -26,11 +26,11 @@ public class DatabaseEmployeeResponse {
         this.status = status;
     }
 
-    public List<DatabaseEmployee> getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(List<DatabaseEmployee> data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 

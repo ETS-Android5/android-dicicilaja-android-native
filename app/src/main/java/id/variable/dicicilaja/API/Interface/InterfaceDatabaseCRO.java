@@ -1,7 +1,6 @@
 package id.variable.dicicilaja.API.Interface;
 
 import id.variable.dicicilaja.API.Item.DatabaseCRO.DatabaseCRO;
-import id.variable.dicicilaja.API.Item.DatabaseEmployeeResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

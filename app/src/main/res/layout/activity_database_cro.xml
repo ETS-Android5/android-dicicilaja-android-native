@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Activity.LihatDatabaseEmployeeActivity"
+    tools:context="id.variable.dicicilaja.Activity.DatabaseCRO"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:text="Hasil Pencarian"/>
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_database_crh"
+            android:id="@+id/recycler_database_cro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>

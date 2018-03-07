@@ -20,10 +20,9 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceNilaiPinjaman;
+import id.variable.dicicilaja.Activity.DatabaseCRH;
+import id.variable.dicicilaja.Activity.DatabaseCRO;
 import id.variable.dicicilaja.Activity.EmployeeDashboardActivity;
-import id.variable.dicicilaja.Activity.LihatDatabaseEmployeeActivity;
-import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
-import id.variable.dicicilaja.Activity.RequestProcessActivity;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
@@ -106,7 +105,7 @@ public class TaskCRHFragment extends Fragment {
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), LihatDatabaseEmployeeActivity.class);
+                Intent i = new Intent(getContext(), DatabaseCRO.class);
                 startActivityForResult(i, 1);
             }
         });

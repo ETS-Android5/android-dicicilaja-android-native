@@ -1,4 +1,4 @@
-package id.variable.dicicilaja.API.Item;
+package id.variable.dicicilaja.API.Item.DatabaseCRH;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by ziterz on 1/9/2018.
  */
 
-public class DatabaseEmployee {
+public class Datum {
 
     @SerializedName("id")
     @Expose
@@ -26,16 +26,16 @@ public class DatabaseEmployee {
     private String role;
     @SerializedName("photo")
     @Expose
-    private Object photo;
+    private String photo;
     @SerializedName("phone")
     @Expose
-    private Object phone;
+    private String phone;
     @SerializedName("area")
     @Expose
-    private Object area;
+    private String area;
     @SerializedName("branch")
     @Expose
-    private Object branch;
+    private String branch;
     @SerializedName("status")
     @Expose
     private String status;
@@ -80,35 +80,35 @@ public class DatabaseEmployee {
         this.role = role;
     }
 
-    public Object getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Object photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Object getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Object area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
-    public Object getBranch() {
+    public String getBranch() {
         return branch;
     }
 
-    public void setBranch(Object branch) {
+    public void setBranch(String branch) {
         this.branch = branch;
     }
 

@@ -13,27 +13,29 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.variable.dicicilaja.API.Item.DatabaseCRO.Datum;
+import id.variable.dicicilaja.API.Item.DatabaseCRH.DatabaseCRH;
+import id.variable.dicicilaja.API.Item.DatabaseCRH.Datum;
 import id.variable.dicicilaja.R;
 
 /**
- * Created by ziterz on 1/25/2018.
+ * Created by ziterz on 1/9/2018.
  */
 
-public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.DatabaseCROViewHolder> implements Filterable {
+public class DatabaseCRHAdapter extends RecyclerView.Adapter<DatabaseCRHAdapter.DatabaseCRHViewHolder> implements Filterable{
+
 
     private Context context;
     private List<Datum> dataList;
     private List<Datum> dataListFiltered;
-    private CROAdapterListener listener;
+    private DatabaseCRHAdapter.CRHAdapterListener listener;
 
-    public class DatabaseCROViewHolder extends RecyclerView.ViewHolder {
+    public class DatabaseCRHViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout card_database_crh;
         TextView nama;
         TextView nik;
         TextView branch;
 
-        public DatabaseCROViewHolder(View v) {
+        public DatabaseCRHViewHolder(View v) {
             super(v);
             card_database_crh  = v.findViewById(R.id.card_database_crh);
             nama               = v.findViewById(R.id.nama);
@@ -50,7 +52,7 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
         }
     }
 
-    public DatabaseCROAdapter(Context context, List<Datum> dataList, CROAdapterListener listener) {
+    public DatabaseCRHAdapter(Context context, List<Datum> dataList, DatabaseCRHAdapter.CRHAdapterListener listener) {
         this.context = context;
         this.listener = listener;
         this.dataList = dataList;
@@ -58,19 +60,18 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
     }
 
     @Override
-    public DatabaseCROAdapter.DatabaseCROViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DatabaseCRHAdapter.DatabaseCRHViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_database_crh, parent, false);
-        return new DatabaseCROAdapter.DatabaseCROViewHolder(view);
+        return new DatabaseCRHAdapter.DatabaseCRHViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DatabaseCROAdapter.DatabaseCROViewHolder holder, int position) {
+    public void onBindViewHolder(DatabaseCRHAdapter.DatabaseCRHViewHolder holder, int position) {
         final Datum datum = dataListFiltered.get(position);
         holder.nama.setText(datum.getName().toString());
         holder.nik.setText(datum.getUserId().toString());
         holder.branch.setText(datum.getBranch().toString());
     }
-
 
     @Override
     public int getItemCount() {
@@ -90,7 +91,7 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getBranch().toLowerCase().contains(charString.toLowerCase()) || row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getUserId().contains(charSequence)) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getUserId().contains(charSequence)) {
                             filteredList.add(row);
                         }
                     }
@@ -111,8 +112,7 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
         };
     }
 
-    public interface CROAdapterListener {
+    public interface CRHAdapterListener {
         void onDataSelected(Datum datum);
     }
-
 }

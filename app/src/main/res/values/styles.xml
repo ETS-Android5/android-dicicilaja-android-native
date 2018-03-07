@@ -5,6 +5,7 @@
         <item name="colorPrimaryDark">@color/colorBackgroundDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorBlack</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="Accent" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -22,6 +23,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="AppTheme1" parent="Theme.AppCompat.Light">
@@ -33,9 +35,14 @@
         <item name="android:editTextColor">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
 </resources>

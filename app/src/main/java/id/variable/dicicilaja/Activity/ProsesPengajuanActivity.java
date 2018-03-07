@@ -118,7 +118,7 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         lihat_database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), LihatDatabaseEmployeeActivity.class);
+                Intent i = new Intent(getBaseContext(), DatabaseCRH.class);
                 startActivityForResult(i, 1);
             }
         });

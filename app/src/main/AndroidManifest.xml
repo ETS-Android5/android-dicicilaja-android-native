@@ -125,14 +125,6 @@
                 android:value=".Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name=".Activity.LihatDatabaseEmployeeActivity"
-            android:label="Database"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ProsesPengajuanActivity" />
-        </activity>
-        <activity
             android:name=".Activity.ProsesPengajuan2Activity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
@@ -192,7 +184,8 @@
                 android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
         <activity android:name=".Activity.ConfirmRequestActivity" />
-        <activity android:name=".Activity.RequestProcessActivity"
+        <activity
+            android:name=".Activity.RequestProcessActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -205,12 +198,26 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".Notification.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".Activity.DatabaseCRH"
+            android:label="Database CRH"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ProsesPengajuanActivity" />
+        </activity>
+        <activity android:name=".Activity.DatabaseCRO"
+            android:label="Database CRO"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ProsesPengajuanActivity" />
+        </activity>
     </application>
 
 </manifest>

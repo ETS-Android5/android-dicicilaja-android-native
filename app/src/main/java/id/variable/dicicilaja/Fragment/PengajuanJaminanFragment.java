@@ -2,6 +2,7 @@ package id.variable.dicicilaja.Fragment;
 
 
 import android.animation.Animator;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -101,6 +102,11 @@ public class PengajuanJaminanFragment extends Fragment {
 
 
 
+// Set up progress before call
+        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress.setMessage("Sedang memanggil data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
 
         InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
@@ -110,7 +116,6 @@ public class PengajuanJaminanFragment extends Fragment {
             public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
 
                 if ( response.isSuccessful() ) {
-
                     detailRequests = response.body().getData();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();
@@ -150,7 +155,7 @@ public class PengajuanJaminanFragment extends Fragment {
                         api_product.setVisibility(View.GONE);
                         api_specification.setVisibility(View.GONE);
                     }
-
+                    progress.dismiss();
                 }
 
             }
