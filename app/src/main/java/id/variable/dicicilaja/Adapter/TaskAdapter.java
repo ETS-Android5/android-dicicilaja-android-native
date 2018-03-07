@@ -62,7 +62,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.resi.setText("#" + tasks.get(position).getTrackingId().toString());
         holder.tanggal.setText(tasks.get(position).getCreatedAt());
         holder.status.setText(tasks.get(position).getStatus());
-        holder.harga_resi.setText(tasks.get(position).getAmount().toString());
+        holder.harga_resi.setText(tasks.get(position).getBranch().toString());
         holder.detail_resi.setText(tasks.get(position).getColleteral());
         holder.nama_resi.setText(tasks.get(position).getProgram());
         switch(tasks.get(position).getStatus()) {

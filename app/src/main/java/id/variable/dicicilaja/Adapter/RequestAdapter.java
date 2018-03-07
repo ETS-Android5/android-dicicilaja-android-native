@@ -63,7 +63,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         holder.resi.setText("#" + requests.get(position).getTrackingId().toString());
         holder.tanggal.setText(requests.get(position).getCreatedAt());
         holder.status.setText(requests.get(position).getStatus());
-        holder.harga_resi.setText(requests.get(position).getAmount().toString());
+        holder.harga_resi.setText(requests.get(position).getBranch().toString());
         holder.detail_resi.setText(requests.get(position).getColleteral());
         holder.nama_resi.setText(requests.get(position).getProgram());
         switch(requests.get(position).getStatus()) {
