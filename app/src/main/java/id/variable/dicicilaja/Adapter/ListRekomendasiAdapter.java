@@ -1,7 +1,10 @@
 package id.variable.dicicilaja.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import id.variable.dicicilaja.Activity.ProductActivity;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.Content.RekomendasiModel;
 import id.variable.dicicilaja.R;
@@ -38,17 +42,27 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
         Typeface opensans_semibold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
         TextView tv_title = v.findViewById(R.id.tv_title);
+
         tv_title.setTypeface(opensans_semibold);
         return singleItemRowHolder;
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int position) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, final int position) {
         RekomendasiModel itemModel = itemModels.get(position);
         holder.tv_title.setText(itemModel.getTitle());
         holder.tv_mitra.setText(itemModel.getMitra());
         holder.tv_harga.setText(itemModel.getHarga());
         holder.tv_tenor.setText(itemModel.getTenor());
+        holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"ID : " + position,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext,ProductActivity.class);
+                view.getContext().startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -63,6 +77,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
         protected TextView tv_mitra;
         protected TextView tv_harga;
         protected TextView tv_tenor;
+        protected CardView card_rekomendasi;
 
 
 
@@ -73,12 +88,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_tenor = itemView.findViewById(R.id.tv_tenor);
             this.discount_image = itemView.findViewById(R.id.discount_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(), tv_title.getText(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            this.card_rekomendasi = itemView.findViewById(R.id.card_rekomendasi);
         }
     }
 }

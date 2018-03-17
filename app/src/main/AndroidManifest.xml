@@ -233,9 +233,51 @@
         <activity
             android:name=".Activity.GuestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.HelpAboutActivity"
+        <activity
+            android:name=".Activity.HelpAboutActivity"
             android:label="Tentang dicicilaja.com"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ProductCategoryActivity"
+            android:label="Product"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterMaxi2Activity"
+            android:label="Pendaftaran MAXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterMaxi3Activity"
+            android:label="Pendaftaran MAXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterMaxi4Activity"
+            android:label="Pendaftaran MAXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
+        </activity>
+        <activity android:name=".Activity.RegisterMaxi5Activity" />
+        <activity
+            android:name=".Activity.ProductActivity"
+            android:label="@string/title_activity_product"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.RegisterActivity" />
+        </activity>
     </application>
 
 </manifest>

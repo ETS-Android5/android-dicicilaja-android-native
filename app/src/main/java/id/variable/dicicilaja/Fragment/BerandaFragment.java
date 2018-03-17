@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import id.variable.dicicilaja.Activity.ProductCategoryActivity;
 import id.variable.dicicilaja.Activity.SimulasiActivity;
 import id.variable.dicicilaja.Adapter.ListPartnerAdapter;
 import id.variable.dicicilaja.Adapter.ListPromoAdapter;
@@ -50,6 +52,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
+    LinearLayout maxi_travel;
     public BerandaFragment() {
         // Required empty public constructor
     }
@@ -67,6 +70,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         simulasi_title = view.findViewById(R.id.simulasi_title);
         simulasi_subtitle = view.findViewById(R.id.simulasi_subtitle);
         btn_hitung = view.findViewById(R.id.btn_hitung);
+        maxi_travel = view.findViewById(R.id.maxi_travel);
 
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
@@ -132,6 +136,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SimulasiActivity.class);
+                startActivity(intent);
+            }
+        });
+        maxi_travel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 startActivity(intent);
             }
         });

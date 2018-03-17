@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import id.variable.dicicilaja.Activity.RegisterMaxi2Activity;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.WebView.AboutAxiActivity;
 import id.variable.dicicilaja.WebView.AboutMaxiActivity;
@@ -46,6 +47,13 @@ public class RegisterMaxiFragment extends Fragment {
         detailSection.setTypeface(opensans_semibold);
 
 //        btnLanjut.setEnabled(false);
+        btnLanjut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), RegisterMaxi2Activity.class);
+                startActivity(intent);
+            }
+        });
         detailSection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

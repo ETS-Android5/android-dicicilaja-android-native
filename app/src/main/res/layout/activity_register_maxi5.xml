@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Activity.RegisterAxi5Activity"
+    tools:context="id.variable.dicicilaja.Activity.RegisterMaxi5Activity"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -130,10 +130,6 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Upload Dokumen"/>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputFotoKTP"
                 android:layout_width="match_parent"
@@ -186,32 +182,6 @@
                         android:layout_height="100dp" />
                 </RelativeLayout>
             </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputFotoCover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Unggah Foto Cover Tabungan"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/uploadCover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/gambarCover"
-                        android:src="@drawable/illustration_1_02"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp" />
-                </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
             <RelativeLayout
                 android:id="@+id/confirm"
                 android:layout_width="match_parent"
@@ -236,6 +206,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/colorAccent"
                 android:text="Daftar"
+
                 android:textColor="@color/colorWhite"
                 android:paddingLeft="25dp"
                 android:layout_marginLeft="5dp"
@@ -244,5 +215,4 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

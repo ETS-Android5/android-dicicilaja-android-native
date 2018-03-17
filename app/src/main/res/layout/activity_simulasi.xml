@@ -64,71 +64,131 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginLeft="64dp"
-                        android:layout_marginRight="64dp">
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp">
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:textSize="12sp"
+                            android:background="@drawable/input_style"/>
                     </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="64dp"
-                        android:layout_marginRight="64dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="32dp"
                         android:weightSum="2">
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingTop="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingBottom="8dp">
-                            <Spinner
+                            android:padding="8dp"
+                            android:layout_marginRight="2.5dp"
+                            android:background="@drawable/input_style">
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:id="@+id/jaminan"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"></Spinner>
+                                android:layout_height="wrap_content"
+                                app:ms_multiline="false"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Pilih Area"
+                                app:ms_enableFloatingLabel="false"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_baseColor="@color/colorBlack"
+                                app:ms_highlightColor="@color/colorPrimaryDark"
+                                app:ms_errorColor="@color/colorPrimaryDark"
+                                app:ms_thickness="0dp"
+                                app:ms_alignLabels="true"
+                                android:textSize="12sp"
+                                app:ms_arrowSize="10dp"
+                                app:ms_hintTextSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingTop="8dp"
-                            android:paddingLeft="8dp"
-                            android:paddingBottom="8dp">
-                            <Spinner
+                            android:padding="8dp"
+                            android:layout_marginLeft="2.5dp"
+                            android:background="@drawable/input_style">
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:id="@+id/tahun"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="8dp"></Spinner>
+                                android:padding="0dp"
+                                android:layout_margin="0dp"
+                                app:ms_multiline="false"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Pilih Area"
+                                app:ms_enableFloatingLabel="false"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_baseColor="@color/colorBlack"
+                                app:ms_highlightColor="@color/colorPrimaryDark"
+                                app:ms_errorColor="@color/colorPrimaryDark"
+                                app:ms_thickness="0dp"
+                                app:ms_alignLabels="true"
+                                android:textSize="12sp"
+                                app:ms_arrowSize="10dp"
+                                app:ms_hintTextSize="12sp"/>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="64dp"
-                        android:layout_marginRight="64dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="5dp"
                         android:weightSum="2">
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingTop="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingBottom="8dp">
-                            <Spinner
+                            android:padding="8dp"
+                            android:layout_marginRight="2.5dp"
+                            android:background="@drawable/input_style">
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:id="@+id/jangka_waktu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                ></Spinner>
+                                app:ms_multiline="false"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Pilih Area"
+                                app:ms_enableFloatingLabel="false"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_baseColor="@color/colorBlack"
+                                app:ms_highlightColor="@color/colorPrimaryDark"
+                                app:ms_errorColor="@color/colorPrimaryDark"
+                                app:ms_thickness="0dp"
+                                app:ms_alignLabels="true"
+                                android:textSize="12sp"
+                                app:ms_arrowSize="10dp"
+                                app:ms_hintTextSize="12sp"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingTop="8dp"
-                            android:paddingLeft="8dp"
-                            android:paddingBottom="8dp">
-                            <Spinner
+                            android:padding="8dp"
+                            android:layout_marginLeft="2.5dp"
+                            android:background="@drawable/input_style">
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:id="@+id/area"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="8dp"></Spinner>
+                                app:ms_multiline="false"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Pilih Area"
+                                app:ms_enableFloatingLabel="false"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_baseColor="@color/colorBlack"
+                                app:ms_highlightColor="@color/colorPrimaryDark"
+                                app:ms_errorColor="@color/colorPrimaryDark"
+                                app:ms_thickness="0dp"
+                                app:ms_alignLabels="true"
+                                android:textSize="12sp"
+                                app:ms_arrowSize="10dp"
+                                app:ms_hintTextSize="12sp"/>
                         </LinearLayout>
                     </LinearLayout>
                     <Button
@@ -138,11 +198,11 @@
                         android:layout_below="@+id/regis_layout"
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/colorAccent"
-                        android:layout_marginLeft="64dp"
-                        android:layout_marginRight="64dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
                         android:text="Hitung"
                         android:textColor="@color/colorWhite"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,7 +213,10 @@
                     android:orientation="vertical">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/border_bottom">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -179,18 +242,23 @@
                     android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/btn_download"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Download PDF"
+                        android:layout_marginTop="10dp"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
                         android:backgroundTint="@color/colorAccent2"
                         android:textColor="@color/colorWhite"
                         android:layout_centerHorizontal="true"/>
                     <Button
                         android:id="@+id/btn_send"
                         android:layout_below="@+id/btn_download"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Kirim Email"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
                         android:backgroundTint="@color/colorAccent2"
                         android:textColor="@color/colorWhite"
                         android:layout_centerHorizontal="true"/>
@@ -200,6 +268,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Ajukan Disini"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
                         android:backgroundTint="@color/colorAccent"
                         android:textColor="@color/colorWhite"
                         android:layout_centerHorizontal="true"/>
@@ -207,6 +277,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/btn_order"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="12sp"
                         android:text="Rincin simulasi diatas bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan detail, hubungi dicicilaja.com"/>
                 </RelativeLayout>
             </LinearLayout>

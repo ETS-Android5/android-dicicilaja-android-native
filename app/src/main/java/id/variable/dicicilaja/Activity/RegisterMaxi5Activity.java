@@ -10,24 +10,19 @@ import android.widget.Button;
 
 import id.variable.dicicilaja.R;
 
-public class RegisterAxi4Activity extends AppCompatActivity {
+public class RegisterMaxi5Activity extends AppCompatActivity {
 
-    Button btnLanjut;
+    Button btnDaftar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_axi4);
+        setContentView(R.layout.activity_register_maxi5);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        btnLanjut = findViewById(R.id.btnLanjut);
-        btnLanjut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), RegisterAxi5Activity.class);
-                startActivity(intent);
-            }
-        });
+        btnDaftar = findViewById(R.id.btnLanjut);
+
     }
 
     @Override
