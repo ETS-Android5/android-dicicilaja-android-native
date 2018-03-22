@@ -219,8 +219,8 @@ public class TaskCROFragment extends Fragment {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                time_text.setText(hourOfDay + ":" + minute);
-                                time_post = hourOfDay + ":" + minute;
+                                time_text.setText(String.format("%02d:%02d", hourOfDay, minute));
+                                time_post = String.format("%02d:%02d", hourOfDay, minute);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -313,7 +313,7 @@ public class TaskCROFragment extends Fragment {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String reschedule_date = date_text.getText() + " " + time_text.getText().toString();
+                String reschedule_date = date_post + " " + time_post + ":00";
                 String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                 String assigned_id = nik_crh;
                 String notes = "-";

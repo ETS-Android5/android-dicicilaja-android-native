@@ -42,7 +42,7 @@ public class TaskCRHFragment extends Fragment {
     TextView title_penugasan, title_tugas, title_nilai, title_keputusan, inputReferal, inputCatatan;
     Button simpan_nilai, analisa, ditolak1, pending1, button_survey, button_pinjaman, pencairan, ditolak, pending, button_selesai, lihat_database, button_penugasan;
     MaterialEditText input_catatan_survey, input_catatan_pinjaman, input_no_pk, input_catatan_keputusan_pinjaman;
-    String id_database, decision;
+    String id_database, decision, notes;
     RequestProcess interfaceCRHProcess;
     InterfaceKeputusanSurvey interfaceKeputusanSurvey;
     InterfaceNilaiPinjaman interfaceNilaiPinjaman;
@@ -121,13 +121,36 @@ public class TaskCRHFragment extends Fragment {
             }
         });
         Intent intent = getActivity().getIntent();
-
         if(getActivity().getIntent().getStringExtra("STATUS").equals("Proses")) {
 
             lihat_database.setEnabled(true);
             inputReferal.setEnabled(true);
             inputCatatan.setEnabled(true);
             button_penugasan.setEnabled(true);
+
+            analisa.setEnabled(false);
+            pending1.setEnabled(false);
+            ditolak1.setEnabled(false);
+            input_catatan_survey.setVisibility(View.GONE);
+            button_survey.setEnabled(false);
+
+            input_catatan_pinjaman.setEnabled(false);
+            button_pinjaman.setEnabled(false);
+//            simpan_nilai.setEnabled(false);
+
+            pencairan.setEnabled(false);
+            pending.setEnabled(false);
+            ditolak.setEnabled(false);
+            input_no_pk.setVisibility(View.GONE);
+            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+            button_selesai.setVisibility(View.GONE);
+
+        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Ditolak")) {
+
+            lihat_database.setEnabled(false);
+            inputReferal.setEnabled(false);
+            inputCatatan.setEnabled(false);
+            button_penugasan.setEnabled(false);
 
             analisa.setEnabled(false);
             pending1.setEnabled(false);
@@ -178,6 +201,7 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.GONE);
                     button_survey.setEnabled(true);
                     decision = "analisa";
+                    notes = " ";
                 }
             });
             ditolak1.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +213,7 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.VISIBLE);
                     button_survey.setEnabled(true);
                     decision = "ditolak";
+                    notes = input_catatan_survey.getText().toString();
                 }
             });
             pending1.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +225,7 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.VISIBLE);
                     button_survey.setEnabled(true);
                     decision = "pending";
+                    notes = input_catatan_survey.getText().toString();
                 }
             });
             button_survey.setOnClickListener(new View.OnClickListener() {
@@ -207,12 +233,11 @@ public class TaskCRHFragment extends Fragment {
                 public void onClick(View view) {
                     String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                     String assigned_id = session.getUserId();
-                    String notes = "-";
 //                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
                     keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
                 }
             });
-        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Analisa Kredit") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
+        }else if(getActivity().getIntent().getStringExtra("STATUS").equals("Analisa Kredit") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
             lihat_database.setEnabled(false);
             inputReferal.setEnabled(false);
             inputCatatan.setEnabled(false);
@@ -283,6 +308,7 @@ public class TaskCRHFragment extends Fragment {
             button_survey.setEnabled(false);
 
             input_catatan_pinjaman.setEnabled(false);
+            input_catatan_pinjaman.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));
             button_pinjaman.setEnabled(false);
 
             pencairan.setEnabled(true);
@@ -333,8 +359,76 @@ public class TaskCRHFragment extends Fragment {
                     String assigned_id = session.getUserId();
                     String notes = "-";
                     String pk_number = input_no_pk.getText().toString();
-//                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
-                    keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number);
+                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
+//                    keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number);
+                }
+            });
+        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") != null) {
+            lihat_database.setEnabled(false);
+            inputReferal.setEnabled(false);
+            inputCatatan.setEnabled(false);
+            button_penugasan.setEnabled(false);
+
+            analisa.setEnabled(false);
+            pending1.setEnabled(false);
+            ditolak1.setEnabled(false);
+            input_catatan_survey.setVisibility(View.GONE);
+            button_survey.setEnabled(false);
+
+            input_catatan_pinjaman.setEnabled(false);
+            input_catatan_pinjaman.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));
+            button_pinjaman.setEnabled(false);
+
+            pencairan.setEnabled(true);
+            pending.setEnabled(true);
+            ditolak.setEnabled(true);
+            input_no_pk.setVisibility(View.GONE);
+            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+            button_selesai.setEnabled(true);
+
+            pencairan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pencairan.setEnabled(false);
+                    ditolak.setEnabled(true);
+                    pending.setEnabled(true);
+                    input_no_pk.setVisibility(View.VISIBLE);
+                    input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+                    decision = "pencairan";
+                }
+            });
+            ditolak.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pencairan.setEnabled(true);
+                    ditolak.setEnabled(false);
+                    pending.setEnabled(true);
+                    input_no_pk.setVisibility(View.GONE);
+                    input_catatan_keputusan_pinjaman.setVisibility(View.VISIBLE);
+                    decision = "ditolak";
+                }
+            });
+            pending.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pencairan.setEnabled(true);
+                    ditolak.setEnabled(true);
+                    pending.setEnabled(false);
+                    input_no_pk.setVisibility(View.GONE);
+                    input_catatan_keputusan_pinjaman.setVisibility(View.VISIBLE);
+                    decision = "pending";
+                }
+            });
+
+            button_selesai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                    String assigned_id = session.getUserId();
+                    String notes = "-";
+                    String pk_number = input_no_pk.getText().toString();
+                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
+//                    keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number);
                 }
             });
         }
@@ -370,6 +464,7 @@ public class TaskCRHFragment extends Fragment {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
+                    Toast.makeText(getContext(),"Code : " + response.code(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
                     startActivity(intent);
                     getActivity().finish();
