@@ -23,5 +23,6 @@ public interface InterfaceKeputusanPinjaman {
                                    @Field("assigned_id") String assigned_id,
                                    @Field("notes") String notes,
                                    @Field("decision") String decision,
-                                   @Field("pk_number") String pk_number);
+                                   @Field("pk_number") String pk_number,
+                                   @Field("amount") String amount);
 }

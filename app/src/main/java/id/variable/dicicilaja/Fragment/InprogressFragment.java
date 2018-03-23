@@ -315,7 +315,8 @@ public class InprogressFragment extends Fragment {
                     Log.e(TAG, t.toString());
                 }
             });
-        }else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
+        }
+        else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
             InterfaceTask apiService =
                     RetrofitClient.getClient().create(InterfaceTask.class);
 
