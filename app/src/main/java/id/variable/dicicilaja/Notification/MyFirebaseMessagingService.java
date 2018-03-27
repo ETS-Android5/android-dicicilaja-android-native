@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -37,12 +38,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle(remoteMessage.getFrom())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setAutoCancel(true)
                 .setSound(soundUri)
                 .setContentIntent(pendingIntent);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+            notificationBuilder.setColor(getResources().getColor(R.color.colorAccent));
+        } else {
+            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        }
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
