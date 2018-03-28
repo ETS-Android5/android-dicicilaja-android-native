@@ -235,6 +235,8 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Analisa Kredit"
+                                        android:backgroundTint="#2ECC71"
+                                        android:textColor="@color/colorWhite"
                                         android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/ditolak1"
@@ -249,6 +251,8 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
+                                        android:backgroundTint="#FF0000"
+                                        android:textColor="@color/colorWhite"
                                         android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/pending1"

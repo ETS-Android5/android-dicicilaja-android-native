@@ -21,17 +21,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import id.variable.dicicilaja.API.Client.ClientDetailPengajuan;
 import id.variable.dicicilaja.API.Client.RetrofitClient;
-import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
-import id.variable.dicicilaja.API.Item.DetailPengajuan;
-import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
 import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import id.variable.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
-import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
-import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
+import id.variable.dicicilaja.Activity.FullscreenActivity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
 import id.variable.dicicilaja.Activity.RequestProcessActivity;
 import id.variable.dicicilaja.R;
@@ -83,7 +78,7 @@ public class PengajuanJaminanFragment extends Fragment {
         final TextView api_area = view.findViewById(R.id.api_area);
         final TextView api_branch = view.findViewById(R.id.api_branch);
         final TextView api_zipcode = view.findViewById(R.id.api_zipcode);
-        final PhotoView api_ktp_image = view.findViewById(R.id.api_ktp_image);
+        final ImageView api_ktp_image = view.findViewById(R.id.api_ktp_image);
         final ImageView api_colleteral_image = view.findViewById(R.id.api_colleteral_image);
 
         final TextView title_of_product = view.findViewById(R.id.title_of_product);
@@ -173,6 +168,22 @@ public class PengajuanJaminanFragment extends Fragment {
             proses.setVisibility(View.GONE);
         }else{
             if(session.getRole().equals("tc")){
+                api_colleteral_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getColleteralImage().toString());
+                        startActivity(intent);
+                    }
+                });
+                api_ktp_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getKtpImage().toString());
+                        startActivity(intent);
+                    }
+                });
                 proses.setVisibility(View.VISIBLE);
                 proses.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -183,6 +194,22 @@ public class PengajuanJaminanFragment extends Fragment {
                     }
                 });
             }else if(session.getRole().equals("crh")){
+                api_colleteral_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getColleteralImage().toString());
+                        startActivity(intent);
+                    }
+                });
+                api_ktp_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getKtpImage().toString());
+                        startActivity(intent);
+                    }
+                });
                 proses.setVisibility(View.VISIBLE);
                 proses.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -219,6 +246,22 @@ public class PengajuanJaminanFragment extends Fragment {
                     }
                 });
             }else if(session.getRole().equals("cro")){
+                api_colleteral_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getColleteralImage().toString());
+                        startActivity(intent);
+                    }
+                });
+                api_ktp_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                        intent.putExtra("URL", detailRequests.get(0).getKtpImage().toString());
+                        startActivity(intent);
+                    }
+                });
                 proses.setVisibility(View.VISIBLE);
                 proses.setOnClickListener(new View.OnClickListener() {
                     @Override

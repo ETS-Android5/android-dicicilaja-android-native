@@ -466,7 +466,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:orientation="vertical">
-                                <com.github.chrisbanes.photoview.PhotoView
+                                <ImageView
                                     android:id="@+id/api_ktp_image"
                                     android:layout_width="140dp"
                                     android:layout_height="90dp"
@@ -532,25 +532,28 @@
 
         </RelativeLayout>
     </ScrollView>
+
     <RelativeLayout
         android:id="@+id/proses"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorAccent2"
         android:clickable="true"
         android:elevation="4dp"
-        android:paddingTop="5dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="5dp">
+
         <TextView
             android:id="@+id/title_proses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="PROSES PENGAJUAN"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent2"
-            android:layout_centerInParent="true"/>
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

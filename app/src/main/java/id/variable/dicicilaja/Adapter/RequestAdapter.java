@@ -64,7 +64,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         holder.tanggal.setText(requests.get(position).getCreatedAt());
         holder.status.setText(requests.get(position).getStatus());
         holder.harga_resi.setText(requests.get(position).getBranch());
-        holder.detail_resi.setText(requests.get(position).getColleteral());
+        holder.detail_resi.setText(requests.get(position).getClient_name());
         holder.nama_resi.setText(requests.get(position).getProgram());
         switch(requests.get(position).getStatus()) {
             case "Terkirim":

@@ -91,7 +91,7 @@ public class DatabaseCRHAdapter extends RecyclerView.Adapter<DatabaseCRHAdapter.
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getUserId().contains(charSequence)) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getBranch().toLowerCase().contains(charString.toLowerCase()) || row.getUserId().contains(charSequence)) {
                             filteredList.add(row);
                         }
                     }

@@ -178,6 +178,30 @@ public class TaskCROFragment extends Fragment {
         }
 
 
+        date_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        String formatTanggal = "dd/MM/yyyy";
+                        SimpleDateFormat sdf = new SimpleDateFormat(formatTanggal);
+                        date_text.setText(sdf.format(myCalendar.getTime()));
+
+                        String formatDate = "yyyy-MM-dd";
+                        SimpleDateFormat sdf1 = new SimpleDateFormat(formatDate);
+                        date_post = sdf1.format(myCalendar.getTime());
+
+                    }
+                },
+                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +226,30 @@ public class TaskCROFragment extends Fragment {
                         myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
+        });
+        time_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Time
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                time_text.setText(String.format("%02d:%02d", hourOfDay, minute));
+                                time_post = String.format("%02d:%02d", hourOfDay, minute);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+
         });
         time.setOnClickListener(new View.OnClickListener() {
             @Override
