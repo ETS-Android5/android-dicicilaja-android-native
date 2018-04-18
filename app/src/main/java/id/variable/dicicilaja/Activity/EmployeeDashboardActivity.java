@@ -127,7 +127,6 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
-        TextView profile = navbarView.findViewById(R.id.textView);
 
         session = new SessionManager(getApplicationContext());
 

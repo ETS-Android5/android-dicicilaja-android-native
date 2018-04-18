@@ -278,6 +278,82 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.RegisterActivity" />
         </activity>
+        <activity
+            android:name=".Activity.RutePerjalananActivity"
+            android:label="Rute Perjalanan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ProductActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SyaratKetentuanActivity"
+            android:label="Syarat &amp; Ketentuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ProductActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SearchActivity"
+            android:label="Pencarian"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllPartnerActivity"
+            android:label="Semua Produk Partner"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllPromoActivity"
+            android:label="Semua Promo"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.PromoActivity"
+            android:label="Info Promo"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.AboutAxiMarketplaceActivity"
+            android:label="Ayo jadi AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.AboutMaxiMarketplaceActivity"
+            android:label="Daftar Rekan Bisnis"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" />
+        </activity>
+        <activity android:name=".Activity.ProductPartnerActivity"
+            android:label="Produk Partner"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" /></activity>
+        <activity android:name=".Activity.AjukanPengajuanActivity"
+            android:label="Konfirmasi Program Pilihan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MarketplaceActivity" /></activity>
     </application>
 
 </manifest>

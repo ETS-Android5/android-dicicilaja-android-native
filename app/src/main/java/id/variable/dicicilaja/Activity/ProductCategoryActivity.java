@@ -20,16 +20,36 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import id.variable.dicicilaja.API.Client.ClientDatabaseEmployee;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
+import id.variable.dicicilaja.API.Interface.InterfaceDatabaseEmployee;
+import id.variable.dicicilaja.API.Interface.InterfacePromo;
+import id.variable.dicicilaja.API.Item.DatabaseEmployee;
+import id.variable.dicicilaja.API.Item.DatabaseEmployeeResponse;
+import id.variable.dicicilaja.API.Item.Product.SectionDataModel;
+import id.variable.dicicilaja.API.Item.Product.SingleItemModel;
+import id.variable.dicicilaja.API.Item.Promo.Datum;
+import id.variable.dicicilaja.API.Item.Promo.Promo;
+import id.variable.dicicilaja.Adapter.DatabaseEmployeeAdapter;
 import id.variable.dicicilaja.Adapter.ListPromoAdapter;
+import id.variable.dicicilaja.Adapter.RecyclerViewDataAdapter;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductCategoryActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SliderLayout mDemoSlider;
     private ArrayList<PromoModel> promoData;
     private SnapHelper snapHelper;
+
+    private ArrayList<SectionDataModel> allSampleData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +58,27 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getIntent().getStringExtra("title"));
+        promoData = new ArrayList<>();
+        allSampleData = new ArrayList<>();
+        snapHelper = new GravitySnapHelper(Gravity.START);
+        createDummyData1();
+        createDummyData();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(allSampleData, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
 
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        promoData = new ArrayList<>();
-        snapHelper = new GravitySnapHelper(Gravity.START);
-        createDummyData();
+        final SessionManager session = new SessionManager(getBaseContext());
+        String apiKey = "Bearer " + session.getToken();
 
-        RecyclerView recyclerPromo = (RecyclerView) findViewById(R.id.recycler_promo);
-        recyclerPromo.setHasFixedSize(true);
-        ListPromoAdapter adapterPromo = new ListPromoAdapter(promoData, getBaseContext());
-        recyclerPromo.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
-        snapHelper.attachToRecyclerView(recyclerPromo);
-        recyclerPromo.setAdapter(adapterPromo);
+
+
+
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
         file_maps.put("1",R.drawable.slider_1);
@@ -92,6 +120,20 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
                     "Cicilan 60 bulan Rp 900.000/bulan",
                     "1",
                     "20%"));
+        }
+
+    }
+
+    private void createDummyData1() {
+        for (int i = 1; i <= 5; i++) {
+            SectionDataModel dm = new SectionDataModel();
+            dm.setHeaderTitle("Section " + i);
+            ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
+            for (int j = 1; j <= 5; j++) {
+                singleItemModels.add(new SingleItemModel("Item " + j, "URL " + j));
+            }
+            dm.setAllItemInSection(singleItemModels);
+            allSampleData.add(dm);
         }
 
     }

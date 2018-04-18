@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import id.variable.dicicilaja.R;
 
 public class GuestActivity extends AppCompatActivity {
 
-    RelativeLayout lewati;
+    ImageView lewati;
     Button btn_register;
     TextView lewati_text, title_regis, title_regis_account, regis_account,title_login, desc_login, login_account;
 
@@ -24,14 +25,8 @@ public class GuestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
-        }
+
         lewati = findViewById(R.id.lewati);
-        lewati_text = findViewById(R.id.lewati_text);
         title_regis = findViewById(R.id.title_regis);
         title_regis_account = findViewById(R.id.title_regis_account);
         title_login = findViewById(R.id.title_login);
@@ -44,7 +39,6 @@ public class GuestActivity extends AppCompatActivity {
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        lewati_text.setTypeface(opensans_bold);
         title_regis.setTypeface(opensans_bold);
         title_regis_account.setTypeface(opensans_reguler);
         login_account.setTypeface(opensans_reguler);
@@ -53,8 +47,7 @@ public class GuestActivity extends AppCompatActivity {
         lewati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {

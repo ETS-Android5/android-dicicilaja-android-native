@@ -3,35 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
-    <item android:title="Communicate">
-        <menu>
+    <item android:title="@string/main_navbar">
+        <menu android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/navbar_request"
+                android:title="PENGAJUAN"
+                android:checkable="true"/>
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/navbar_create_request"
+                android:title="BUAT PENGAJUAN"/>
+            <item
+                android:id="@+id/navbar_cek"
+                android:title="CEK STATUS"/>
+            <item
+                android:id="@+id/navbar_simulation"
+                android:title="SIMULASI CICILAN"/>
+            <item
+                android:id="@+id/navbar_statistics"
+                android:title="STATISTICS"/>
+            <item
+                android:id="@+id/navbar_profile"
+                android:title="PROFILE"/>
+            <item
+                android:id="@+id/navbar_exit"
+                android:title="KELUAR"/>
         </menu>
     </item>
 

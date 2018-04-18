@@ -13,8 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import id.variable.dicicilaja.API.Item.Promo.Datum;
 import id.variable.dicicilaja.Activity.ProductActivity;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.Content.RekomendasiModel;
@@ -25,11 +29,11 @@ import id.variable.dicicilaja.R;
  */
 
 public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasiAdapter.SingleItemRowHolder> {
-    private ArrayList<RekomendasiModel> itemModels;
+    private List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends;
     private Context mContext;
 
-    public ListRekomendasiAdapter(ArrayList<RekomendasiModel> itemModels, Context mContext) {
-        this.itemModels = itemModels;
+    public ListRekomendasiAdapter(List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends, Context mContext) {
+        this.recommends = recommends;
         this.mContext = mContext;
     }
 
@@ -49,16 +53,18 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
 
     @Override
     public void onBindViewHolder(final SingleItemRowHolder holder, final int position) {
-        RekomendasiModel itemModel = itemModels.get(position);
-        holder.tv_title.setText(itemModel.getTitle());
-        holder.tv_mitra.setText(itemModel.getMitra());
-        holder.tv_harga.setText(itemModel.getHarga());
-        holder.tv_tenor.setText(itemModel.getTenor());
+        id.variable.dicicilaja.API.Item.Recommend.Datum itemModel = recommends.get(position);
+        holder.tv_title.setText(itemModel.getName());
+        holder.tv_mitra.setText(itemModel.getMerchant().getCompany());
+        holder.tv_harga.setText(itemModel.getPrice());
+        Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
+        holder.tv_tenor.setText(itemModel.getExcerpt());
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,"ID : " + position,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext,ProductActivity.class);
+                intent.putExtra("ID", position);
                 view.getContext().startActivity(intent);
 
             }
@@ -67,7 +73,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
 
     @Override
     public int getItemCount() {
-        return (null != itemModels ? itemModels.size() : 0);
+        return (null != recommends ? recommends.size() : 0);
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {

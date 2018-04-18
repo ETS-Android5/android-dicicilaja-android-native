@@ -3,36 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
-    <item android:title="Communicate">
-        <menu>
+    <item android:title="@string/main_navbar">
+        <menu android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/navbar_axi"
+                android:title="Axi"
+                android:checkable="true"/>
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/navbar_rekan_bisnis"
+                android:title="Rekan Bisnis"/>
+            <item
+                android:id="@+id/navbar_mitra_maxiZ"
+                android:title="Mitra Maxi"/>
+            <item
+                android:id="@+id/navbar_home"
+                android:title="Home"/>
+            <item
+                android:id="@+id/navbar_simulasi"
+                android:title="Simulasi"/>
+            <item
+                android:id="@+id/navbar_semua_produk"
+                android:title="Semua Produk Pembiayaan"/>
+            <item
+                android:id="@+id/navbar_bookmark"
+                android:title="Book mark"/>
+            <item
+                android:id="@+id/navbar_pengajuan"
+                android:title="Pengajuan"/>
+            <item
+                android:id="@+id/navbar_gudang_info"
+                android:title="Gudang Info"/>
+            <item
+                android:id="@+id/navbar_tentang"
+                android:title="Tentang"/>
+            <item
+                android:id="@+id/navbar_bantuan"
+                android:title="Bantuan"/>
+            <item
+                android:id="@+id/navbar_pengaturan"
+                android:title="Pengaturan"/>
         </menu>
+
     </item>
+
 
 </menu>

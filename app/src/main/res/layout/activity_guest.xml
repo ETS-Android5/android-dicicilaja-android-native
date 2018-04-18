@@ -21,9 +21,14 @@
             android:paddingRight="25dp"
             android:paddingTop="16dp">
             <ImageView
+                android:id="@+id/lewati"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_skip"/>
+            <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="180dp"
                 android:layout_marginTop="50dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/Logo"
@@ -119,28 +124,34 @@
                     android:id="@+id/btn_facebook"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
-
-                    android:layout_centerHorizontal="true"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/layout_login"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:backgroundTint="@color/colorFacebook"
-                    android:drawableLeft="@drawable/facebook_logo"
+                    android:backgroundTint="@color/colorWhite"
+                    android:drawableLeft="@drawable/facebook"
                     android:text="Facebook"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorFacebook"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_google"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/btn_facebook"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
-                    android:backgroundTint="@color/colorGooglePlus"
-                    android:drawableLeft="@drawable/google_plus"
-                    android:text="Google Plus"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
+                    android:layout_marginRight="5dp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:drawableLeft="@drawable/google"
+                    android:text="Google"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:textColor="#444444"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </RelativeLayout>

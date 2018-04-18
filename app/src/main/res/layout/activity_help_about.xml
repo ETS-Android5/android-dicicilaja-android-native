@@ -58,7 +58,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Aplikasi dicicilaja.com"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -75,7 +76,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pembiayaan Dana Multiguna"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -88,11 +92,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi1"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MXI Travel"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi1"
+                                android:text="Travel"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -105,11 +118,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi2"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MAXI Usaha"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi2"
+                                android:text="Usaha"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -122,11 +144,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi3"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MAXI Edukasi"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi3"
+                                android:text="Edukasi"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -139,11 +170,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi4"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MAXI Sehat"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi4"
+                                android:text="Sehat"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -156,11 +196,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi5"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MAXI ExtraGuna"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi5"
+                                android:text="ExtraGuna"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -173,11 +222,20 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
+                            <ImageView
+                                android:id="@+id/logo_maxi6"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/maxi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="MAXI Elektronik"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/logo_maxi6"
+                                android:text="Elektronik"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -190,11 +248,12 @@
                             android:orientation="vertical"
                             android:background="@drawable/border_bottom"
                             android:padding="8dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="AXI"
-                                android:layout_centerVertical="true"/>
+                            <ImageView
+                                android:id="@+id/logo_axi"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/axi_logo"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -211,7 +270,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Mitra Bisnis"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -228,7 +290,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Akun Saya"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
@@ -245,7 +309,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lainnya"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="16dp"/>
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"

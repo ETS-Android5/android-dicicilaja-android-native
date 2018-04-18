@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,10 @@ import id.variable.dicicilaja.Fragment.BantuanFragment;
 import id.variable.dicicilaja.Fragment.BerandaFragment;
 import id.variable.dicicilaja.Fragment.PengajuanFragment;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Session.SessionManager;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class MarketplaceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +49,7 @@ public class MarketplaceActivity extends AppCompatActivity
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    SessionManager session;
 
 //    private int[] tabIcons = {
 //            R.drawable.ic_home,
@@ -65,6 +72,7 @@ public class MarketplaceActivity extends AppCompatActivity
 
         tabLayout = findViewById(R.id.tab_marketplace);
 
+        session = new SessionManager(getApplicationContext());
 
         tabLayout.setupWithViewPager(viewPager);
 
@@ -98,6 +106,11 @@ public class MarketplaceActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                if(tab.getPosition() == 3) {
+                    Intent intent = new Intent(getBaseContext(), GuestActivity.class);
+                    startActivity(intent);
+                }
 
             }
 
@@ -235,6 +248,10 @@ public class MarketplaceActivity extends AppCompatActivity
             Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
             startActivity(intent);
             return true;
+        }else if (id == R.id.search) {
+            Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -246,19 +263,6 @@ public class MarketplaceActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

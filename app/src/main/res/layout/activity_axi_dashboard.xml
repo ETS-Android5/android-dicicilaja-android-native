@@ -14,12 +14,12 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view1"
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_axi_dashboard"
-        app:menu="@menu/activity_employee_dashboard_drawer" />
+        app:menu="@menu/activity_axi_dashboard_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

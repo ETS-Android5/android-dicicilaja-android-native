@@ -162,9 +162,20 @@ public class LoginActivity extends AppCompatActivity {
                         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
                         session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
+
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         startActivity(intent);
                         finish();
+//                        if(resObj.getRole().equals("axi")) {
+//                            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }else {
+//                            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+
                     } catch(Exception ex) {
                         Log.w("Login Exception:", ex.getMessage());
                         Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();

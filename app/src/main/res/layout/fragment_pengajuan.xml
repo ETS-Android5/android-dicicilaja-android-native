@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="id.variable.dicicilaja.Fragment.PengajuanFragment"
     android:background="@color/colorSection">
 
@@ -20,240 +21,95 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@color/colorWhite">
-                    <EditText
-                        android:layout_width="0dp"
+                    android:layout_marginRight="16dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Cari program pilihanmu"
-                        android:drawableLeft="@drawable/ic_search"
-                        android:layout_marginRight="10dp"/>
-                    <org.angmarch.views.NiceSpinner
-                        android:id="@+id/filter"
-                        android:textSize="12sp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:orientation="horizontal"
+                        android:background="@color/colorWhite">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="Cari program pilihanmu"
+                            android:imeOptions="actionSearch"
+                            android:drawableLeft="@drawable/ic_search"
+                            android:layout_marginRight="10dp"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:background="@android:color/transparent"/>
+                    </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_margin="16dp">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_marginBottom="5dp">-->
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Nomor Pengajuan : "-->
+                            <!--android:textSize="11sp"/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="DA 171163CGTQYWSD"-->
+                            <!--android:textSize="11sp"/>-->
+                    <!--</LinearLayout>-->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_pengajuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="5dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nomor Pengajuan : "
-                            android:textSize="11sp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="DA 171163CGTQYWSD"
-                            android:textSize="11sp"/>
-                    </LinearLayout>
-                    <android.support.v7.widget.CardView
+                        android:id="@+id/order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        card_view:cardCornerRadius="4dp"
-                        android:elevation="100dp"
-                        android:contextClickable="true">
-                        <RelativeLayout
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/no_order"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/no_request"/>
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="16dp">
-                            <ImageView
-                                android:id="@+id/image"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:src="@drawable/illustration_1_02"/>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_toRightOf="@+id/image"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="TRIP TURKEY 10 HARI"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/colorAccent2"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="11sp"
-                                    android:text="Mitra Usaha : Kurnia tour dan travel"
-                                    android:textColor="@color/colorAccent2"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rp 19.000.000"
-                                    android:textColor="@color/colorAccent"
-                                    android:textSize="11sp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="5dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="10sp"
-                                    android:layout_marginBottom="15dp"
-                                    android:text="Cicilan 60 bulan Rp 652.200/bulan"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Status Order Proses"
-                                    android:textSize="10sp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_1"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
+                            android:text="Belum Ada Pengajuan"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:layout_marginTop="10dp"
+                            android:text="Semua Pengajuan Pembiayaan dana multiguna akan muncul disini supaya Anda bisa mengecek dengan mudah dan kapanpun."/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:backgroundTint="@color/colorAccent"
+                            android:layout_gravity="center"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Ajukan Pengajuan"/>
+                    </LinearLayout>
 
-                                    <ImageView
-                                        android:layout_width="10dp"
-                                        android:layout_height="10dp"
-                                        android:src="@drawable/ic_show_more"
-                                        android:layout_gravity="center"/>
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_2"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
-
-                                    <ImageView
-                                        android:layout_width="10dp"
-                                        android:layout_height="10dp"
-                                        android:src="@drawable/ic_show_more"
-                                        android:layout_gravity="center"/>
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_3"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_3"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
-
-                                    <ImageView
-                                        android:layout_width="10dp"
-                                        android:layout_height="10dp"
-                                        android:src="@drawable/ic_show_more"
-                                        android:layout_gravity="center"/>
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_4"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_4"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
-
-                                    <ImageView
-                                        android:layout_width="10dp"
-                                        android:layout_height="10dp"
-                                        android:src="@drawable/ic_show_more"
-                                        android:layout_gravity="center"/>
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_5"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_5"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
-
-                                    <ImageView
-                                        android:layout_width="10dp"
-                                        android:layout_height="10dp"
-                                        android:src="@drawable/ic_show_more"
-                                        android:layout_gravity="center"/>
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:id="@+id/img_6"
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:src="@drawable/ic_share"
-                                            android:layout_centerHorizontal="true"/>
-                                        <TextView
-                                            android:layout_below="@+id/img_6"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="6sp"
-                                            android:text="Terkirim"/>
-                                    </RelativeLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </android.support.v7.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

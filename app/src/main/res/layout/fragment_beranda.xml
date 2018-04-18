@@ -41,28 +41,28 @@
                         android:layout_centerVertical="true"
                         card_view:selected_color="@color/colorAccent"
                         card_view:unselected_color="@color/colorWhite"
-                        android:layout_alignParentLeft="true"
                         android:gravity="center"
                         />
                     <RelativeLayout
+                        android:id="@+id/allpromo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true">
                         <TextView
+                            android:id="@+id/text_all_promo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
                             android:text="Lihat Semua Produk"
                             android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/show_more"
                             android:textColor="@color/colorAccent"/>
                         <ImageView
                             android:id="@+id/show_more"
+                            android:layout_toRightOf="@+id/text_all_promo"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_show_more"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"/>
+                            android:layout_centerVertical="true"/>
                     </RelativeLayout>
 
                 </RelativeLayout>
@@ -97,6 +97,7 @@
                         android:paddingRight="16dp"
                         android:paddingBottom="16dp">
                         <LinearLayout
+                            android:id="@+id/webview_axi"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -107,7 +108,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/illustration_1_03"
+                                android:src="@drawable/ayo_jadi_axi"
                                 android:scaleType="fitCenter"
                                 android:adjustViewBounds="true"/>
                             <TextView
@@ -120,6 +121,7 @@
                                 android:paddingTop="8dp"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/webview_maxi"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -130,7 +132,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/illustration_1_03"
+                                android:src="@drawable/daftar_rekan_bisnis"
                                 android:scaleType="fitCenter"
                                 android:adjustViewBounds="true"/>
                             <TextView
@@ -176,6 +178,7 @@
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp">
                         <EditText
+                            android:id="@+id/harga_simulasi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
@@ -202,7 +205,7 @@
                                 android:layout_height="wrap_content"
                                 app:ms_multiline="false"
                                 app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Area"
+                                app:ms_hint="Pilih Jaminan"
                                 app:ms_enableFloatingLabel="false"
                                 app:ms_enableErrorLabel="false"
                                 app:ms_baseColor="@color/colorBlack"
@@ -213,6 +216,7 @@
                                 android:textSize="12sp"
                                 app:ms_arrowSize="10dp"
                                 app:ms_hintTextSize="12sp"/>
+
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -222,14 +226,14 @@
                             android:layout_marginLeft="2.5dp"
                             android:background="@drawable/input_style">
                             <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/tahun"
+                                android:id="@+id/tenor"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="0dp"
                                 android:layout_margin="0dp"
                                 app:ms_multiline="false"
                                 app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Area"
+                                app:ms_hint="Pilih Tenor"
                                 app:ms_enableFloatingLabel="false"
                                 app:ms_enableErrorLabel="false"
                                 app:ms_baseColor="@color/colorBlack"
@@ -247,42 +251,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
-                        android:layout_marginTop="5dp"
-                        android:weightSum="2">
+                        android:layout_marginTop="5dp">
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:padding="8dp"
                             android:layout_marginRight="2.5dp"
                             android:background="@drawable/input_style">
                             <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/jangka_waktu"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ms_multiline="false"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Area"
-                                app:ms_enableFloatingLabel="false"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                app:ms_thickness="0dp"
-                                app:ms_alignLabels="true"
-                                android:textSize="12sp"
-                                app:ms_arrowSize="10dp"
-                                app:ms_hintTextSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:layout_marginLeft="2.5dp"
-                            android:background="@drawable/input_style">
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/area"
+                                android:id="@+id/arearequest"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:ms_multiline="false"
@@ -338,33 +315,14 @@
                     android:paddingLeft="32dp"
                     android:paddingRight="32dp"
                     android:orientation="vertical">
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_alignParentRight="true">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="Lihat Semua"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/show_more1"
-                            android:textColor="@color/colorAccent"/>
-                        <ImageView
-                            android:id="@+id/show_more1"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/ic_show_more"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"/>
-                    </RelativeLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
                         <ImageView
+                            android:id="@+id/dana_multiguna"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:scaleType="fitCenter"
@@ -586,6 +544,7 @@
                         android:paddingLeft="32dp"
                         android:paddingRight="32dp">
                         <RelativeLayout
+                            android:id="@+id/show_all_partner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"

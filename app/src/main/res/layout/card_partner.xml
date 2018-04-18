@@ -8,6 +8,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/card_merchant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
@@ -15,8 +16,9 @@
 
         <ImageView
             android:id="@+id/discount_image"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="10dp"
             android:src="@drawable/illustration_1_02"
             android:scaleType="fitCenter"
             android:layout_gravity="center"
