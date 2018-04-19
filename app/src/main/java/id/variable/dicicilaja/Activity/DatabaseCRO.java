@@ -91,19 +91,19 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
 
                 mAdapter.notifyDataSetChanged();
 
-                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent intent = new Intent();
-                        intent.putExtra("ID_DATABASE", dataList.get(position).getUserId().toString());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+//                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+//                    @Override
+//                    public void onClick(View view, int position) {
+//                        Intent intent = new Intent();
+//                        intent.putExtra("ID_DATABASE", dataList.get(position).getUserId().toString());
+//                        setResult(RESULT_OK, intent);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onLongClick(View view, int position) {
+//                    }
+//                }));
 
 
             }
@@ -164,7 +164,7 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
 
     @Override
     public void onDataSelected(id.variable.dicicilaja.API.Item.DatabaseCRO.Datum datum) {
-        Toast.makeText(getApplicationContext(), "Selected: " + datum.getBranch() + ", " + datum.getBranch(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Selected: " + datum.getBranch() + ", " + datum.getBranch(), Toast.LENGTH_LONG).show();
     }
 }
 

@@ -92,19 +92,19 @@ public class DatabaseCRH extends AppCompatActivity implements DatabaseCRHAdapter
 
                 mAdapter.notifyDataSetChanged();
 
-                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent intent = new Intent();
-                        intent.putExtra("ID_DATABASE", dataList.get(position).getUserId().toString());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+//                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+//                    @Override
+//                    public void onClick(View view, int position) {
+//                        Intent intent = new Intent();
+//                        intent.putExtra("ID_DATABASE", dataList.get(position).getUserId().toString());
+//                        setResult(RESULT_OK, intent);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onLongClick(View view, int position) {
+//                    }
+//                }));
 
 
             }
@@ -165,6 +165,6 @@ public class DatabaseCRH extends AppCompatActivity implements DatabaseCRHAdapter
 
     @Override
     public void onDataSelected(Datum datum) {
-        Toast.makeText(getApplicationContext(), "Selected: " + datum.getBranch() + ", " + datum.getBranch(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Selected: " + datum.getBranch() + ", " + datum.getBranch(), Toast.LENGTH_LONG).show();
     }
 }

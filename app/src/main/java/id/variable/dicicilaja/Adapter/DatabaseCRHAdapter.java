@@ -1,10 +1,13 @@
 package id.variable.dicicilaja.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.RelativeLayout;
@@ -16,6 +19,8 @@ import java.util.List;
 import id.variable.dicicilaja.API.Item.DatabaseCRH.DatabaseCRH;
 import id.variable.dicicilaja.API.Item.DatabaseCRH.Datum;
 import id.variable.dicicilaja.R;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by ziterz on 1/9/2018.
@@ -34,6 +39,7 @@ public class DatabaseCRHAdapter extends RecyclerView.Adapter<DatabaseCRHAdapter.
         TextView nama;
         TextView nik;
         TextView branch;
+        Button button_pilih;
 
         public DatabaseCRHViewHolder(View v) {
             super(v);
@@ -41,12 +47,18 @@ public class DatabaseCRHAdapter extends RecyclerView.Adapter<DatabaseCRHAdapter.
             nama               = v.findViewById(R.id.nama);
             nik                = v.findViewById(R.id.nik);
             branch               = v.findViewById(R.id.branch);
+            button_pilih        = v.findViewById(R.id.button_pilih);
 
-            v.setOnClickListener(new View.OnClickListener() {
+            button_pilih.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // send selected contact in callback
                     listener.onDataSelected(dataListFiltered.get(getAdapterPosition()));
+                    Intent intent = new Intent();
+                    intent.putExtra("ID_DATABASE", dataListFiltered.get(getAdapterPosition()).getUserId());
+                    ((Activity) context).setResult(RESULT_OK, intent);
+                    ((Activity) context).finish();
+
                 }
             });
         }
