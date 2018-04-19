@@ -91,7 +91,8 @@
                                         android:layout_centerVertical="true"
                                         android:clickable="true"
                                         android:elevation="1dp"
-                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:backgroundTint="@color/colorAccent"
+                                        android:textColor="@color/colorWhite"
                                         android:text="LIHAT DATABASE"
                                         android:textSize="10sp" />
                                 </RelativeLayout>
@@ -163,7 +164,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Teruskan Pengajuan"
-                                        android:textSize="10sp" />
+                                        android:textSize="10sp"
+                                        android:backgroundTint="@color/colorAccent"
+                                        android:textColor="@color/colorWhite"/>
                                 </RelativeLayout>
 
 
@@ -221,17 +224,16 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
-                                    android:weightSum="10">
+                                    android:weightSum="3">
                                     <Button
                                         android:id="@+id/analisa"
                                         android:layout_width="0dp"
-                                        android:layout_weight="4"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
                                         android:layout_alignParentEnd="true"
                                         android:layout_marginBottom="10dp"
-                                        android:layout_marginLeft="16dp"
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Analisa Kredit"
@@ -241,7 +243,7 @@
                                     <Button
                                         android:id="@+id/ditolak1"
                                         android:layout_width="0dp"
-                                        android:layout_weight="3"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
@@ -257,7 +259,7 @@
                                     <Button
                                         android:id="@+id/pending1"
                                         android:layout_width="0dp"
-                                        android:layout_weight="3"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
@@ -267,7 +269,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="@color/colorAccent2"
+                                        android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText
                                     android:id="@+id/input_catatan_survey"
@@ -298,7 +302,9 @@
                                     android:layout_marginTop="10dp"
                                     android:elevation="1dp"
                                     android:text="Teruskan Pengajuan"
-                                    android:textSize="10sp" />
+                                    android:textSize="10sp"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:textColor="@color/colorWhite"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -397,7 +403,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Konfirmasi Nilai Pinjaman"
-                                        android:textSize="10sp" />
+                                        android:textSize="10sp"
+                                        android:backgroundTint="@color/colorAccent"
+                                        android:textColor="@color/colorWhite"/>
                                 </RelativeLayout>
                             </LinearLayout>
 
@@ -468,7 +476,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pencairan"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#2ECC71"
+                                        android:textColor="@color/colorWhite"/>
                                     <Button
                                         android:id="@+id/ditolak"
                                         android:layout_width="0dp"
@@ -482,7 +492,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#FF0000"
+                                        android:textColor="@color/colorWhite"/>
                                     <Button
                                         android:id="@+id/pending"
                                         android:layout_width="0dp"
@@ -496,7 +508,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="@color/colorAccent2"
+                                        android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText
                                     android:id="@+id/input_no_pk"
@@ -546,7 +560,9 @@
                                     android:layout_marginTop="10dp"
                                     android:elevation="1dp"
                                     android:text="Selesaikan Pengajuan"
-                                    android:textSize="10sp" />
+                                    android:textSize="10sp"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:textColor="@color/colorWhite"/>
                             </LinearLayout>
 
                         </LinearLayout>
