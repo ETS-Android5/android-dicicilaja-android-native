@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.RetrofitClient;
@@ -41,7 +43,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InprogressFragment extends Fragment {
+public class InprogressFragment extends Fragment implements RequestAdapter.RequestAdapterListener, TaskAdapter.TaskAdapterListener {
 
     private static final String TAG = InprogressFragment.class.getSimpleName();
     List<id.variable.dicicilaja.API.Item.Request.Datum> requests;
@@ -50,6 +52,8 @@ public class InprogressFragment extends Fragment {
     Integer positionCard;
     String apiKey;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    RequestAdapter requestAdapter;
+    TaskAdapter taskAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +82,11 @@ public class InprogressFragment extends Fragment {
 
         interfaceTCProcess = ApiUtils.getRequestService();
 
+        requests = new ArrayList<>();
+        tasks = new ArrayList<>();
+        requestAdapter = new RequestAdapter(getContext(), requests, this);
+        taskAdapter = new TaskAdapter(getContext(), tasks, this);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,67 +99,15 @@ public class InprogressFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Request> call, Response<Request> response) {
                             if ( response.isSuccessful() ) {
-                                requests = response.body().getData();
-                                jumlah_pengajuan.setText(Integer.toString(requests.size()));
-                                recyclerView.setAdapter(new RequestAdapter(requests, R.layout.card_pengajuan, getContext()));
+                                List<id.variable.dicicilaja.API.Item.Request.Datum> items = response.body().getData();
+                                jumlah_pengajuan.setText(Integer.toString(items.size()));
+                                requests.clear();
+                                requests.addAll(items);
 
+                                requestAdapter.notifyDataSetChanged();
+                                recyclerView.setAdapter(requestAdapter);
 
-                                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-                                    @Override
-                                    public void onClick(View view, final int position) {
-                                        if (requests.get(position).getStatus().toString().equals("Terkirim")) {
-                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                            // Setting Dialog Title
-                                            alertDialog.setTitle("Proses Pengajuan");
-
-                                            // Setting Dialog Message
-                                            alertDialog.setMessage("Dengan menekan tombol \"lanjutkan\" Anda bertanggung jawab untuk segera menindaklanjuti pengajuan ini.");
-
-
-                                            // Setting Positive "Yes" Button
-                                            alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    String transaction_id = requests.get(position).getId().toString();
-                                                    String assigned_id = session.getUserId();
-                                                    String notes = "-";
-//                                            Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                                                    doProcess(apiKey, transaction_id, assigned_id, notes);
-                                                    Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-
-                                                    intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
-                                                    startActivity(intent);
-                                                }
-                                            });
-
-                                            // Setting Negative "NO" Button
-//                                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                    }
-//                                });
-
-                                            // Showing Alert Message
-                                            alertDialog.show();
-                                        }else if (requests.get(position).getStatus().toString().equals("Verifikasi")) {
-                                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-                                            intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
-                                            startActivity(intent);
-                                        }
-
-
-                                    }
-
-                                    @Override
-                                    public void onLongClick(View view, int position) {
-                                    }
-                                }));
-
-
-                            } else {
-                                Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                             }
-
                         }
 
                         @Override
@@ -169,51 +126,14 @@ public class InprogressFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Task> call, Response<Task> response) {
                             if ( response.isSuccessful() ) {
-                                tasks = response.body().getData();
-                                jumlah_pengajuan.setText(Integer.toString(tasks.size()));
-                                recyclerView.setAdapter(new TaskAdapter(tasks, R.layout.card_pengajuan, getContext()));
+                                Toast.makeText(getContext(), "RISA", Toast.LENGTH_LONG).show();
+                                List<Datum> items = response.body().getData();
+                                jumlah_pengajuan.setText(Integer.toString(items.size()));
+                                tasks.clear();
+                                tasks.addAll(items);
 
-
-                                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-                                    @Override
-                                    public void onClick(View view, final int position) {
-                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                        // Setting Dialog Title
-                                        alertDialog.setTitle("Proses Pengajuan");
-
-                                        // Setting Dialog Message
-                                        alertDialog.setMessage("Dengan menekan tombol \"lanjutkan\" Anda bertanggung jawab untuk segera menindaklanjuti pengajuan ini.");
-
-
-                                        // Setting Positive "Yes" Button
-                                        alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                String transaction_id = tasks.get(position).getId().toString();
-                                                String assigned_id = session.getUserId();
-                                                String notes = "-";
-                                                doProcess(apiKey, transaction_id, assigned_id, notes);
-                                                Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-                                                intent.putExtra("EXTRA_REQUEST_ID", tasks.get(position).getTransactionId().toString());
-                                                startActivity(intent);
-                                            }
-                                        });
-
-                                        // Setting Negative "NO" Button
-//                                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                    }
-//                                });
-
-                                        // Showing Alert Message
-                                        alertDialog.show();
-                                    }
-
-                                    @Override
-                                    public void onLongClick(View view, int position) {
-                                    }
-                                }));
+                                taskAdapter.notifyDataSetChanged();
+                                recyclerView.setAdapter(taskAdapter);
 
 
                             } else {
@@ -245,74 +165,21 @@ public class InprogressFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Request> call, Response<Request> response) {
                     if ( response.isSuccessful() ) {
-                        requests = response.body().getData();
-                        jumlah_pengajuan.setText(Integer.toString(requests.size()));
-                        recyclerView.setAdapter(new RequestAdapter(requests, R.layout.card_pengajuan, getContext()));
+                        List<id.variable.dicicilaja.API.Item.Request.Datum> items = response.body().getData();
+                        jumlah_pengajuan.setText(Integer.toString(items.size()));
+                        requests.clear();
+                        requests.addAll(items);
 
+                        requestAdapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(requestAdapter);
 
-                        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-                            @Override
-                            public void onClick(View view, final int position) {
-                                if (requests.get(position).getStatus().toString().equals("Terkirim")) {
-                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                    // Setting Dialog Title
-                                    alertDialog.setTitle("Proses Pengajuan");
-
-                                    // Setting Dialog Message
-                                    alertDialog.setMessage("Dengan menekan tombol \"lanjutkan\" Anda bertanggung jawab untuk segera menindaklanjuti pengajuan ini.");
-
-
-                                    // Setting Positive "Yes" Button
-                                    alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            String transaction_id = requests.get(position).getId().toString();
-                                            String assigned_id = session.getUserId();
-                                            String notes = "-";
-//                                            Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                                            doProcess(apiKey, transaction_id, assigned_id, notes);
-                                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-
-                                            intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
-                                            startActivity(intent);
-                                        }
-                                    });
-
-                                    // Setting Negative "NO" Button
-//                                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                    }
-//                                });
-
-                                    // Showing Alert Message
-                                    alertDialog.show();
-                                }else if (requests.get(position).getStatus().toString().equals("Verifikasi")) {
-                                    Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-                                    intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
-                                    startActivity(intent);
-                                }
-
-
-                            }
-
-                            @Override
-                            public void onLongClick(View view, int position) {
-                            }
-                        }));
-
-
-                    } else {
-                        Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<Request> call, Throwable t) {
-                    // Log error here since request failed
-                    Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
-                    Log.e(TAG, t.toString());
+
                 }
             });
         }
@@ -325,51 +192,14 @@ public class InprogressFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Task> call, Response<Task> response) {
                     if ( response.isSuccessful() ) {
-                        tasks = response.body().getData();
-                        jumlah_pengajuan.setText(Integer.toString(tasks.size()));
-                        recyclerView.setAdapter(new TaskAdapter(tasks, R.layout.card_pengajuan, getContext()));
+                        Toast.makeText(getContext(), "RISA", Toast.LENGTH_LONG).show();
+                        List<Datum> items = response.body().getData();
+                        jumlah_pengajuan.setText(Integer.toString(items.size()));
+                        tasks.clear();
+                        tasks.addAll(items);
 
-
-                        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-                            @Override
-                            public void onClick(View view, final int position) {
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                // Setting Dialog Title
-                                alertDialog.setTitle("Proses Pengajuan");
-
-                                // Setting Dialog Message
-                                alertDialog.setMessage("Dengan menekan tombol \"lanjutkan\" Anda bertanggung jawab untuk segera menindaklanjuti pengajuan ini.");
-
-
-                                // Setting Positive "Yes" Button
-                                alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        String transaction_id = tasks.get(position).getId().toString();
-                                        String assigned_id = session.getUserId();
-                                        String notes = "-";
-                                        doProcess(apiKey, transaction_id, assigned_id, notes);
-                                        Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-                                        intent.putExtra("EXTRA_REQUEST_ID", tasks.get(position).getTransactionId().toString());
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                // Setting Negative "NO" Button
-//                                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                    }
-//                                });
-
-                                // Showing Alert Message
-                                alertDialog.show();
-                            }
-
-                            @Override
-                            public void onLongClick(View view, int position) {
-                            }
-                        }));
+                        taskAdapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(taskAdapter);
 
 
                     } else {
@@ -389,10 +219,35 @@ public class InprogressFragment extends Fragment {
 
         }
 
+        SearchView search = view.findViewById(R.id.search);
 
+        search.setActivated(true);
+        search.setQueryHint("Ketik disini untuk mencari");
+        search.onActionViewExpanded();
+        search.setIconified(false);
+        search.clearFocus();
 
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
+                    requestAdapter.getFilter().filter(query);
+                } else if(session.getRole().equals("crh") || session.getRole().equals("cro")) {
+                    taskAdapter.getFilter().filter(query);
+                }
+                return false;
+            }
 
-
+            @Override
+            public boolean onQueryTextChange(String query) {
+                if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
+                    requestAdapter.getFilter().filter(query);
+                } else if(session.getRole().equals("crh") || session.getRole().equals("cro")) {
+                    taskAdapter.getFilter().filter(query);
+                }
+                return false;
+            }
+        });
         return view;
     }
 
@@ -409,5 +264,15 @@ public class InprogressFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onDataSelected(id.variable.dicicilaja.API.Item.Request.Datum datum) {
+
+    }
+
+    @Override
+    public void onDataSelected(Datum datum) {
+
     }
 }
