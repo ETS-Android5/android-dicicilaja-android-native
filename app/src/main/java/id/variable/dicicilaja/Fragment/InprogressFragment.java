@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,10 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
     RequestAdapter requestAdapter;
     TaskAdapter taskAdapter;
 
+    RelativeLayout top_attribut;
+    SearchView search;
+    ImageView search_toggle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +92,22 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         tasks = new ArrayList<>();
         requestAdapter = new RequestAdapter(getContext(), requests, this);
         taskAdapter = new TaskAdapter(getContext(), tasks, this);
-
+        search = view.findViewById(R.id.search);
+        search_toggle = view.findViewById(R.id.search_toggle);
+        top_attribut = view.findViewById(R.id.top_attribut);
+        search.setVisibility(View.GONE);
+        search_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (search.getVisibility() == View.GONE) {
+                    top_attribut.setVisibility(View.GONE);
+                    search.setVisibility(View.VISIBLE);
+                }else {
+                    top_attribut.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.GONE);
+                }
+            }
+        });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
