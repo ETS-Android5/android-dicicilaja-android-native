@@ -233,6 +233,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.DetailRequestActivity" />
         </activity>
+        <activity
+            android:name=".Activity.SPGDashboardActivity"
+            android:label="@string/title_activity_spgdashboard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -52,11 +52,13 @@
                 <ImageView
                     android:layout_centerVertical="true"
                     android:id="@+id/search_toggle"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/capsule_search"
                     android:src="@drawable/ic_search_employee"
                     android:layout_alignParentRight="true"
                     android:clickable="true"
+                    android:padding="5dp"
                     android:foreground="?android:attr/selectableItemBackground"/>
             </RelativeLayout>
             <android.support.v4.widget.SwipeRefreshLayout
