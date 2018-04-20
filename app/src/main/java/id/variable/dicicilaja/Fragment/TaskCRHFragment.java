@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,8 @@ public class TaskCRHFragment extends Fragment {
     InterfaceNilaiPinjaman interfaceNilaiPinjaman;
     InterfaceKeputusanPinjaman interfaceKeputusanPinjaman;
     Integer keputusan_survey;
+    LinearLayout layout_title_penugasan, layout_title_tugas, layout_title_nilai, layout_title_keputusan;
+    CardView card_pengajuan, card_tugas, card_nilai, card_keputusan;
     public TaskCRHFragment() {
         // Required empty public constructor
     }
@@ -98,6 +102,15 @@ public class TaskCRHFragment extends Fragment {
         button_pinjaman = view.findViewById(R.id.button_pinjaman);
         input_catatan_keputusan_pinjaman = view.findViewById(R.id.input_catatan_keputusan_pinjaman);
 
+        layout_title_penugasan = view.findViewById(R.id.layout_title_penugasan);
+        card_pengajuan = view.findViewById(R.id.card_pengajuan);
+        layout_title_tugas = view.findViewById(R.id.layout_title_tugas);
+        card_tugas = view.findViewById(R.id.card_tugas);
+        layout_title_nilai = view.findViewById(R.id.layout_title_nilai);
+        card_nilai = view.findViewById(R.id.card_nilai);
+        layout_title_keputusan = view.findViewById(R.id.layout_title_keputusan);
+        card_keputusan = view.findViewById(R.id.card_keputusan);
+
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -129,57 +142,47 @@ public class TaskCRHFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         if(getActivity().getIntent().getStringExtra("STATUS").equals("Proses")) {
 
+            layout_title_penugasan.setVisibility(View.VISIBLE);
+            card_pengajuan.setVisibility(View.VISIBLE);
+            layout_title_tugas.setVisibility(View.GONE);
+            card_tugas.setVisibility(View.GONE);
+            layout_title_nilai.setVisibility(View.GONE);
+            card_nilai.setVisibility(View.GONE);
+            layout_title_keputusan.setVisibility(View.GONE);
+            card_keputusan.setVisibility(View.GONE);
+
             lihat_database.setEnabled(true);
             inputReferal.setEnabled(true);
             inputCatatan.setEnabled(true);
             button_penugasan.setEnabled(true);
 
-            analisa.setEnabled(false);
-            pending1.setEnabled(false);
-            ditolak1.setEnabled(false);
-            input_catatan_survey.setVisibility(View.GONE);
-            button_survey.setEnabled(false);
-
-            input_catatan_pinjaman.setEnabled(false);
-            button_pinjaman.setEnabled(false);
-//            simpan_nilai.setEnabled(false);
-
-            pencairan.setEnabled(false);
-            pending.setEnabled(false);
-            ditolak.setEnabled(false);
-            input_no_pk.setVisibility(View.GONE);
-            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
-            button_selesai.setVisibility(View.GONE);
-
-        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Ditolak")) {
-
-            lihat_database.setEnabled(false);
-            inputReferal.setEnabled(false);
-            inputCatatan.setEnabled(false);
-            button_penugasan.setEnabled(false);
-
-            analisa.setEnabled(false);
-            pending1.setEnabled(false);
-            ditolak1.setEnabled(false);
-            input_catatan_survey.setVisibility(View.GONE);
-            button_survey.setEnabled(false);
-
-            input_catatan_pinjaman.setEnabled(false);
-            button_pinjaman.setEnabled(false);
-//            simpan_nilai.setEnabled(false);
-
-            pencairan.setEnabled(false);
-            pending.setEnabled(false);
-            ditolak.setEnabled(false);
-            input_no_pk.setVisibility(View.GONE);
-            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
-            button_selesai.setVisibility(View.GONE);
+//            analisa.setEnabled(false);
+//            pending1.setEnabled(false);
+//            ditolak1.setEnabled(false);
+//            input_catatan_survey.setVisibility(View.GONE);
+//            button_survey.setEnabled(false);
+//
+//            input_catatan_pinjaman.setEnabled(false);
+//            button_pinjaman.setEnabled(false);
+////            simpan_nilai.setEnabled(false);
+//
+//            pencairan.setEnabled(false);
+//            pending.setEnabled(false);
+//            ditolak.setEnabled(false);
+//            input_no_pk.setVisibility(View.GONE);
+//            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+//            button_selesai.setVisibility(View.GONE);
 
         } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
-            lihat_database.setEnabled(false);
-            inputReferal.setEnabled(false);
-            inputCatatan.setEnabled(false);
-            button_penugasan.setEnabled(false);
+
+            layout_title_penugasan.setVisibility(View.GONE);
+            card_pengajuan.setVisibility(View.GONE);
+            layout_title_tugas.setVisibility(View.VISIBLE);
+            card_tugas.setVisibility(View.VISIBLE);
+            layout_title_nilai.setVisibility(View.GONE);
+            card_nilai.setVisibility(View.GONE);
+            layout_title_keputusan.setVisibility(View.GONE);
+            card_keputusan.setVisibility(View.GONE);
 
             analisa.setEnabled(true);
             pending1.setEnabled(true);
@@ -187,16 +190,16 @@ public class TaskCRHFragment extends Fragment {
             input_catatan_survey.setVisibility(View.GONE);
             button_survey.setEnabled(false);
 
-            input_catatan_pinjaman.setEnabled(false);
-            button_pinjaman.setEnabled(false);
-//            simpan_nilai.setEnabled(false);
-
-            pencairan.setEnabled(false);
-            pending.setEnabled(false);
-            ditolak.setEnabled(false);
-            input_no_pk.setVisibility(View.GONE);
-            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
-            button_selesai.setVisibility(View.GONE);
+//            input_catatan_pinjaman.setEnabled(false);
+//            button_pinjaman.setEnabled(false);
+////            simpan_nilai.setEnabled(false);
+//
+//            pencairan.setEnabled(false);
+//            pending.setEnabled(false);
+//            ditolak.setEnabled(false);
+//            input_no_pk.setVisibility(View.GONE);
+//            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+//            button_selesai.setVisibility(View.GONE);
 
             analisa.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -244,28 +247,37 @@ public class TaskCRHFragment extends Fragment {
                 }
             });
         } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Analisa Kredit")) {
-            lihat_database.setEnabled(false);
-            inputReferal.setEnabled(false);
-            inputCatatan.setEnabled(false);
-            button_penugasan.setEnabled(false);
+//            lihat_database.setEnabled(false);
+//            inputReferal.setEnabled(false);
+//            inputCatatan.setEnabled(false);
+//            button_penugasan.setEnabled(false);
 
-            analisa.setEnabled(false);
-            pending1.setEnabled(false);
-            ditolak1.setEnabled(false);
-            input_catatan_survey.setVisibility(View.GONE);
-            button_survey.setEnabled(false);
+//            analisa.setEnabled(false);
+//            pending1.setEnabled(false);
+//            ditolak1.setEnabled(false);
+//            input_catatan_survey.setVisibility(View.GONE);
+//            button_survey.setEnabled(false);
+
+            layout_title_penugasan.setVisibility(View.GONE);
+            card_pengajuan.setVisibility(View.GONE);
+            layout_title_tugas.setVisibility(View.GONE);
+            card_tugas.setVisibility(View.GONE);
+            layout_title_nilai.setVisibility(View.VISIBLE);
+            card_nilai.setVisibility(View.VISIBLE);
+            layout_title_keputusan.setVisibility(View.GONE);
+            card_keputusan.setVisibility(View.GONE);
 
             input_catatan_pinjaman.setEnabled(true);
             setCurrency(input_catatan_pinjaman);
             button_pinjaman.setEnabled(true);
 //            simpan_nilai.setEnabled(true);
 
-            pencairan.setEnabled(false);
-            pending.setEnabled(false);
-            ditolak.setEnabled(false);
-            input_no_pk.setVisibility(View.GONE);
-            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
-            button_selesai.setEnabled(false);
+//            pencairan.setEnabled(false);
+//            pending.setEnabled(false);
+//            ditolak.setEnabled(false);
+//            input_no_pk.setVisibility(View.GONE);
+//            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+//            button_selesai.setEnabled(false);
 
             button_pinjaman.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -357,16 +369,26 @@ public class TaskCRHFragment extends Fragment {
                 }
             });
         }else if(getActivity().getIntent().getStringExtra("STATUS").equals("Pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") != null) {
-            lihat_database.setEnabled(false);
-            inputReferal.setEnabled(false);
-            inputCatatan.setEnabled(false);
-            button_penugasan.setEnabled(false);
 
-            analisa.setEnabled(false);
-            pending1.setEnabled(false);
-            ditolak1.setEnabled(false);
-            input_catatan_survey.setVisibility(View.GONE);
-            button_survey.setEnabled(false);
+            layout_title_penugasan.setVisibility(View.GONE);
+            card_pengajuan.setVisibility(View.GONE);
+            layout_title_tugas.setVisibility(View.GONE);
+            card_tugas.setVisibility(View.GONE);
+            layout_title_nilai.setVisibility(View.VISIBLE);
+            card_nilai.setVisibility(View.VISIBLE);
+            layout_title_keputusan.setVisibility(View.VISIBLE);
+            card_keputusan.setVisibility(View.VISIBLE);
+
+//            lihat_database.setEnabled(false);
+//            inputReferal.setEnabled(false);
+//            inputCatatan.setEnabled(false);
+//            button_penugasan.setEnabled(false);
+//
+//            analisa.setEnabled(false);
+//            pending1.setEnabled(false);
+//            ditolak1.setEnabled(false);
+//            input_catatan_survey.setVisibility(View.GONE);
+//            button_survey.setEnabled(false);
 
             input_catatan_pinjaman.setEnabled(false);
             input_catatan_pinjaman.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));

@@ -29,7 +29,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_penugasan"
@@ -51,6 +54,7 @@
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp">
 
                         <LinearLayout
@@ -185,7 +189,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_tugas"
@@ -206,7 +213,9 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -237,7 +246,7 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Analisa Kredit"
-                                        android:backgroundTint="#2ECC71"
+                                        android:backgroundTint="#03A9F4"
                                         android:textColor="@color/colorWhite"
                                         android:textSize="8sp" />
                                     <Button
@@ -270,7 +279,7 @@
                                         android:elevation="1dp"
                                         android:text="Pending"
                                         android:textSize="8sp"
-                                        android:backgroundTint="@color/colorAccent2"
+                                        android:backgroundTint="#818890"
                                         android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -320,7 +329,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_nilai"
@@ -341,9 +353,12 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
                         <LinearLayout
+                            android:id="@+id/card_nilai_pinjaman"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -422,7 +437,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_keputusan"
@@ -444,6 +462,7 @@
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="100dp">
 
                         <LinearLayout
@@ -509,7 +528,7 @@
                                         android:elevation="1dp"
                                         android:text="Pending"
                                         android:textSize="8sp"
-                                        android:backgroundTint="@color/colorAccent2"
+                                        android:backgroundTint="#818890"
                                         android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText

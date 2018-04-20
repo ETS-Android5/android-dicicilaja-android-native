@@ -112,9 +112,6 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
                         @Override
                         public void onFailure(Call<Request> call, Throwable t) {
-                            // Log error here since request failed
-                            Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
-                            Log.e(TAG, t.toString());
                         }
                     });
                 }else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
@@ -126,7 +123,6 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         @Override
                         public void onResponse(Call<Task> call, Response<Task> response) {
                             if ( response.isSuccessful() ) {
-                                Toast.makeText(getContext(), "RISA", Toast.LENGTH_LONG).show();
                                 List<Datum> items = response.body().getData();
                                 jumlah_pengajuan.setText(Integer.toString(items.size()));
                                 tasks.clear();
@@ -134,19 +130,12 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
                                 taskAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(taskAdapter);
-
-
-                            } else {
-                                Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                             }
 
                         }
 
                         @Override
                         public void onFailure(Call<Task> call, Throwable t) {
-                            // Log error here since request failed
-                            Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
-                            Log.e(TAG, t.toString());
                         }
                     });
                 }else{
@@ -192,7 +181,6 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                 @Override
                 public void onResponse(Call<Task> call, Response<Task> response) {
                     if ( response.isSuccessful() ) {
-                        Toast.makeText(getContext(), "RISA", Toast.LENGTH_LONG).show();
                         List<Datum> items = response.body().getData();
                         jumlah_pengajuan.setText(Integer.toString(items.size()));
                         tasks.clear();
@@ -202,25 +190,17 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         recyclerView.setAdapter(taskAdapter);
 
 
-                    } else {
-                        Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<Task> call, Throwable t) {
-                    // Log error here since request failed
-                    Toast.makeText(getContext(), "Koneksi Internet Tidak Ditemukan", Toast.LENGTH_LONG).show();
-                    Log.e(TAG, t.toString());
                 }
             });
-        }else{
-
         }
 
         SearchView search = view.findViewById(R.id.search);
-
         search.setActivated(true);
         search.setQueryHint("Ketik disini untuk mencari");
         search.onActionViewExpanded();

@@ -65,7 +65,7 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
         holder.tanggal.setText(requestProgresses.get(position).getCreatedAt());
         holder.status.setText(requestProgresses.get(position).getStatus());
         holder.harga_resi.setText(requestProgresses.get(position).getAmount().toString());
-        holder.detail_resi.setText(requestProgresses.get(position).getColleteral());
+        holder.detail_resi.setText(requestProgresses.get(position).getClient_name());
         holder.nama_resi.setText(requestProgresses.get(position).getProgram());
         switch(requestProgresses.get(position).getStatus()) {
             case "Terkirim":
