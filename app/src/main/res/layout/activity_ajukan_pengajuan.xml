@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -54,32 +56,38 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pembiayaan Dana Multiguna"
-                            android:layout_marginRight="10dp"/>
+                            android:layout_marginRight="10dp"
+                            android:checked="true"/>
                         <RadioButton
                             android:id="@+id/radio2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Edukasi"/>
+                            android:text="Maxi Edukasi"
+                            android:enabled="false"/>
                         <RadioButton
                             android:id="@+id/radio3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Sehat"/>
+                            android:text="Maxi Sehat"
+                            android:enabled="false"/>
                         <RadioButton
                             android:id="@+id/radio4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi ExtraGuna"/>
+                            android:text="Maxi ExtraGuna"
+                            android:enabled="false"/>
                         <RadioButton
                             android:id="@+id/radio5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Travel"/>
+                            android:text="Maxi Travel"
+                            android:enabled="false"/>
                         <RadioButton
                             android:id="@+id/radio6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Usaha"/>
+                            android:text="Maxi Usaha"
+                            android:enabled="false"/>
                     </RadioGroup>
                 </LinearLayout>
 

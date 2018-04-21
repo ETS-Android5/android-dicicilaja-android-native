@@ -191,8 +191,6 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                             alertDialog.show();
                         }
                     });
-                }else{
-
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
             }

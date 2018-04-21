@@ -379,10 +379,32 @@
                                         android:layout_height="wrap_content"
                                         android:text="Berdasarkan hasil credit analyst"/>
                                     <RelativeLayout
+                                        android:id="@+id/hasil_ammount"
+                                        android:layout_below="@+id/title_credit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp">
+                                        <TextView
+                                            android:id="@+id/title_rp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="17sp"
+                                            android:layout_marginRight="5dp"
+                                            android:text="Rp"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/title_rp"
+                                            android:id="@+id/final_ammount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="10.000.000"
+                                            android:textSize="17sp"/>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
                                         android:id="@+id/layout_catatan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/title_credit">
+                                        android:layout_below="@+id/hasil_ammount">
                                         <com.rengwuxian.materialedittext.MaterialEditText
                                             android:id="@+id/input_catatan_pinjaman"
                                             android:layout_width="match_parent"

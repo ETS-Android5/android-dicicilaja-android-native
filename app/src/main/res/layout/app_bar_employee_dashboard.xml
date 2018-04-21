@@ -32,6 +32,7 @@
             app:titleTextColor="@color/colorWhite"
             android:tabStripEnabled="true"
             app:tabIndicatorColor="@color/colorWhite"
+            app:tabIndicatorHeight="2dp"
             app:tabSelectedTextColor="@color/colorWhite"
             app:tabTextColor="@color/colorTab"
             >

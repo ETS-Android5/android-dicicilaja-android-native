@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,8 @@ public class TaskCRHFragment extends Fragment {
     Integer keputusan_survey;
     LinearLayout layout_title_penugasan, layout_title_tugas, layout_title_nilai, layout_title_keputusan;
     CardView card_pengajuan, card_tugas, card_nilai, card_keputusan;
+    RelativeLayout hasil_ammount, layout_catatan;
+    TextView final_ammount, title_rp;
     public TaskCRHFragment() {
         // Required empty public constructor
     }
@@ -110,12 +113,20 @@ public class TaskCRHFragment extends Fragment {
         card_nilai = view.findViewById(R.id.card_nilai);
         layout_title_keputusan = view.findViewById(R.id.layout_title_keputusan);
         card_keputusan = view.findViewById(R.id.card_keputusan);
+        hasil_ammount = view.findViewById(R.id.hasil_ammount);
+        layout_catatan = view.findViewById(R.id.layout_catatan);
+        final_ammount = view.findViewById(R.id.final_ammount);
+        title_rp = view.findViewById(R.id.title_rp);
+
+        hasil_ammount.setVisibility(View.GONE);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
+        final_ammount.setTypeface(opensans_semibold);
+        title_rp.setTypeface(opensans_semibold);
         title_penugasan.setTypeface(opensans_bold);
         title_tugas.setTypeface(opensans_bold);
         title_nilai.setTypeface(opensans_bold);
@@ -297,8 +308,8 @@ public class TaskCRHFragment extends Fragment {
                         String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                         String assigned_id = session.getUserId();
                         String notes = "-";
-                        String amount = input_catatan_pinjaman.getText().toString();
-//                        Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
+                        String amount = input_catatan_pinjaman.getText().toString().replace(".","");
+                        //Toast.makeText(getContext(),"amount : " + amount,Toast.LENGTH_LONG).show();
                         nilaiPinjaman(apiKey, transaction_id, assigned_id, notes, amount);
 //                        input_catatan_pinjaman.setEnabled(false);
 //                        button_pinjaman.setEnabled(false);
@@ -390,9 +401,13 @@ public class TaskCRHFragment extends Fragment {
 //            input_catatan_survey.setVisibility(View.GONE);
 //            button_survey.setEnabled(false);
 
-            input_catatan_pinjaman.setEnabled(false);
-            input_catatan_pinjaman.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));
-            button_pinjaman.setEnabled(false);
+//            input_catatan_pinjaman.setEnabled(false);
+//            hasil_ammount.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));
+
+            hasil_ammount.setVisibility(View.VISIBLE);
+            final_ammount.setText(getActivity().getIntent().getStringExtra("FINAL_AMOUNT"));
+            layout_catatan.setVisibility(View.GONE);
+            button_pinjaman.setVisibility(View.GONE);
 
             pencairan.setEnabled(true);
             pending.setEnabled(true);
