@@ -1,5 +1,7 @@
 package id.variable.dicicilaja.Fragment;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -92,10 +94,12 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         tasks = new ArrayList<>();
         requestAdapter = new RequestAdapter(getContext(), requests, this);
         taskAdapter = new TaskAdapter(getContext(), tasks, this);
+
         search = view.findViewById(R.id.search);
         search_toggle = view.findViewById(R.id.search_toggle);
         top_attribut = view.findViewById(R.id.top_attribut);
         search.setVisibility(View.GONE);
+
         search_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +112,11 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                 }
             }
         });
+        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -128,11 +137,22 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                                 requestAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(requestAdapter);
 
+                                progress.dismiss();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Request> call, Throwable t) {
+                            progress.dismiss();
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                            alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            alertDialog.show();
                         }
                     });
                 }else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
@@ -151,12 +171,24 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
                                 taskAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(taskAdapter);
+
+                                progress.dismiss();
                             }
 
                         }
 
                         @Override
                         public void onFailure(Call<Task> call, Throwable t) {
+                            progress.dismiss();
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                            alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            alertDialog.show();
                         }
                     });
                 }else{
@@ -183,13 +215,23 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         requestAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(requestAdapter);
 
+                        progress.dismiss();
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<Request> call, Throwable t) {
+                    progress.dismiss();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
                 }
             });
         }
@@ -210,13 +252,23 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         taskAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(taskAdapter);
 
-
+                        progress.dismiss();
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<Task> call, Throwable t) {
+                    progress.dismiss();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+//
+                        }
+                    });
+                    alertDialog.show();
                 }
             });
         }
@@ -250,21 +302,6 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
             }
         });
         return view;
-    }
-
-    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
-        call.enqueue(new Callback<ResRequestProcess>() {
-            @Override
-            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-//                Toast.makeText(getContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override

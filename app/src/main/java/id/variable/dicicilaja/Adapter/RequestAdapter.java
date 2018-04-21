@@ -31,6 +31,7 @@ import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Remote.ClaimProcess;
 import id.variable.dicicilaja.Remote.RequestProcess;
 import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -49,7 +50,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     private List<Datum> requests;
     private List<Datum> dataListFiltered;
     private RequestAdapterListener listener;
-    RequestProcess interfaceTCProcess;
+    ClaimProcess claimProcess;
     String apiKey;
 
     public class RequestViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +76,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 @Override
                 public void onClick(View view) {
                     listener.onDataSelected(dataListFiltered.get(getAdapterPosition()));
-                    interfaceTCProcess = ApiUtils.getRequestService();
+                    claimProcess = ApiUtils.getClaim();
 
                     final SessionManager session = new SessionManager(context);
                     apiKey = "Bearer " + session.getToken();
@@ -96,8 +97,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                                 String transaction_id = dataListFiltered.get(getAdapterPosition()).getId().toString();
                                 String assigned_id = session.getUserId();
                                 String notes = "-";
+                                String claim = "1";
 //                                            Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                                doProcess(apiKey, transaction_id, assigned_id, notes);
+                                doProcess(apiKey, transaction_id, assigned_id, notes, claim);
                                 Intent intent = new Intent(context, DetailRequestActivity.class);
 
                                 intent.putExtra("EXTRA_REQUEST_ID", dataListFiltered.get(getAdapterPosition()).getId().toString());
@@ -223,8 +225,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         void onDataSelected(Datum datum);
     }
 
-    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
+    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
+        Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {

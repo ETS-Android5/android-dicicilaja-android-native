@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import id.variable.dicicilaja.Activity.DetailRequestActivity;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Remote.ClaimProcess;
 import id.variable.dicicilaja.Remote.RequestProcess;
 import id.variable.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -39,7 +41,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private List<Datum> tasks;
     private List<Datum> dataListFiltered;
     private TaskAdapterListener listener;
-    RequestProcess interfaceTCProcess;
+    ClaimProcess claimProcess;
     String apiKey;
 
     public class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +69,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 @Override
                 public void onClick(View view) {
                     listener.onDataSelected(dataListFiltered.get(getAdapterPosition()));
-                    interfaceTCProcess = ApiUtils.getRequestService();
+                    claimProcess = ApiUtils.getClaim();
 
                     final SessionManager session = new SessionManager(context);
                     apiKey = "Bearer " + session.getToken();
@@ -84,10 +86,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                     // Setting Positive "Yes" Button
                     alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            String transaction_id = dataListFiltered.get(getAdapterPosition()).getId().toString();
-                            String assigned_id = session.getUserId();
-                            String notes = "-";
-                            doProcess(apiKey, transaction_id, assigned_id, notes);
+//                            String transaction_id = dataListFiltered.get(getAdapterPosition()).getTransactionId().toString();
+//                            String assigned_id = session.getUserId();
+//                            String notes = "-";
+
+//                            doProcess(apiKey, transaction_id, assigned_id, notes, claim);
                             Intent intent = new Intent(context, DetailRequestActivity.class);
                             intent.putExtra("EXTRA_REQUEST_ID", dataListFiltered.get(getAdapterPosition()).getTransactionId().toString());
                             ((Activity) context).startActivity(intent);
@@ -204,8 +207,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         void onDataSelected(Datum datum);
     }
 
-    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
+    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
+        Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {

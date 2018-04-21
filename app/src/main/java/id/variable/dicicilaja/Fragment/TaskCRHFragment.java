@@ -294,20 +294,20 @@ public class TaskCRHFragment extends Fragment {
                     // Setting Positive "Yes" Button
                     alertDialog.setPositiveButton("Saya sudah menghubungi pemohon", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-//                            String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-//                            String assigned_id = session.getUserId();
-//                            String notes = "-";
-//                            String amount = input_catatan_pinjaman.getText().toString();
-////                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
-//                            nilaiPinjaman(apiKey, transaction_id, assigned_id, notes, amount);
-                            input_catatan_pinjaman.setEnabled(false);
-                            button_pinjaman.setEnabled(false);
-                            pencairan.setEnabled(true);
-                            pending.setEnabled(true);
-                            ditolak.setEnabled(true);
-                            input_no_pk.setVisibility(View.GONE);
-                            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
-                            button_selesai.setEnabled(true);
+                        String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                        String assigned_id = session.getUserId();
+                        String notes = "-";
+                        String amount = input_catatan_pinjaman.getText().toString();
+//                        Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
+                        nilaiPinjaman(apiKey, transaction_id, assigned_id, notes, amount);
+//                        input_catatan_pinjaman.setEnabled(false);
+//                        button_pinjaman.setEnabled(false);
+//                        pencairan.setEnabled(true);
+//                        pending.setEnabled(true);
+//                        ditolak.setEnabled(true);
+//                        input_no_pk.setVisibility(View.GONE);
+//                        input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
+//                        button_selesai.setEnabled(true);
                         }
                     });
 
@@ -443,7 +443,7 @@ public class TaskCRHFragment extends Fragment {
                     String pk_number = input_no_pk.getText().toString();
                     String notes = input_catatan_keputusan_pinjaman.getText().toString();
                     String amount = input_catatan_pinjaman.getText().toString();
-                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + input_catatan_keputusan_pinjaman.getText() + " decision : " + decision + "amount : " + input_catatan_pinjaman.getText(),Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + input_catatan_keputusan_pinjaman.getText() + " decision : " + decision + "amount : " + input_catatan_pinjaman.getText(),Toast.LENGTH_LONG).show();
                     keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number,amount);
                 }
             });

@@ -32,6 +32,9 @@ public class Datum {
     @SerializedName("program")
     @Expose
     private String program;
+    @SerializedName("branch")
+    @Expose
+    private String branch;
 
     public Integer getId() {
         return id;
@@ -95,5 +98,13 @@ public class Datum {
 
     public void setClient_name(String client_name) {
         this.client_name = client_name;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }

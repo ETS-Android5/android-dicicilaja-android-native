@@ -66,7 +66,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                     case R.id.navbar_request:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), CreateRequestActivity.class);
+                        intent = new Intent(getBaseContext(), AjukanPengajuanActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_cek:

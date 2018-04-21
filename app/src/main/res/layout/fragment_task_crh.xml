@@ -390,6 +390,7 @@
                                             android:fontFamily="sans-serif"
                                             android:hint="Nilai pinjaman setelah proses review"
                                             android:textColor="#000000"
+                                            android:inputType="number"
                                             android:textColorHighlight="@color/colorAccent"
                                             android:textSize="14sp"
                                             app:met_baseColor="@color/colorAccent"

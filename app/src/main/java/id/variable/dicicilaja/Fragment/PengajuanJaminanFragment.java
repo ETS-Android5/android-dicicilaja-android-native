@@ -103,6 +103,7 @@ public class PengajuanJaminanFragment extends Fragment {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
+//        Toast.makeText(getContext(),"ID : " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")),Toast.LENGTH_SHORT).show();
         InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
         Call<DetailRequest> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));

@@ -181,24 +181,24 @@ public class SPGDashboardActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
                 if ( response.isSuccessful() ) {
-                    requests = response.body().getData();
-                    jumlah_pengajuan.setText(Integer.toString(requests.size()));
-                    recyclerView.setAdapter(new RequestProgressAdapter(requests, R.layout.card_pengajuan, getBaseContext()));
-
-
-                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                        @Override
-                        public void onClick(View view, int position) {
-                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                            intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
-                            intent.putExtra("STATUS", true);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onLongClick(View view, int position) {
-                        }
-                    }));
+//                    requests = response.body().getData();
+//                    jumlah_pengajuan.setText(Integer.toString(requests.size()));
+//                    recyclerView.setAdapter(new RequestProgressAdapter(requests, R.layout.card_pengajuan, getBaseContext()));
+//
+//
+//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+//                        @Override
+//                        public void onClick(View view, int position) {
+//                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+//                            intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
+//                            intent.putExtra("STATUS", true);
+//                            startActivity(intent);
+//                        }
+//
+//                        @Override
+//                        public void onLongClick(View view, int position) {
+//                        }
+//                    }));
 
 
                 }

@@ -21,6 +21,10 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
     }
 
+    public static ClaimProcess getClaim() {
+        return RetrofitClient.getClient(BASE_URL).create(ClaimProcess.class);
+    }
+
     public static UserFirebase getUserFirebase() {
         return RetrofitClient.getClient(BASE_URL).create(UserFirebase.class);
     }
