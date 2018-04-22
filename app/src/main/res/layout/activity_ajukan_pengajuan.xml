@@ -40,7 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pilih Program Cicilan"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:textColor="@color/colorAccent"
                     android:layout_marginBottom="5dp"/>
 
@@ -103,9 +104,8 @@
                         android:layout_height="wrap_content"
                         android:hint="AXI ID Referal"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/inputEmail"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -127,10 +127,10 @@
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area"
+                        app:ms_hint="Pilih Jaminan"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area"
+                        app:ms_floatingLabelText="Pilih Jaminan"
                         app:ms_baseColor="@color/colorBlack"
                         app:ms_highlightColor="@color/colorPrimaryDark"
                         app:ms_errorColor="@color/colorPrimaryDark"
@@ -148,7 +148,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutMerk"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
                     <EditText
                         android:id="@+id/inputMerk"
@@ -157,8 +158,7 @@
                         android:hint="Merk"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/inputEmail"
+                        android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -180,10 +180,10 @@
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area"
+                        app:ms_hint="Pilih Tahun"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area"
+                        app:ms_floatingLabelText="Pilih Tahun"
                         app:ms_baseColor="@color/colorBlack"
                         app:ms_highlightColor="@color/colorPrimaryDark"
                         app:ms_errorColor="@color/colorPrimaryDark"
@@ -201,7 +201,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutWaktu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:layout_marginTop="10dp"
@@ -214,7 +215,7 @@
                         app:ms_hint="Jangka Waktu"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area"
+                        app:ms_floatingLabelText="Jangka Waktu"
                         app:ms_baseColor="@color/colorBlack"
                         app:ms_highlightColor="@color/colorPrimaryDark"
                         app:ms_errorColor="@color/colorPrimaryDark"
@@ -232,7 +233,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutPinjaman"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
                     <EditText
                         android:id="@+id/inputPinjaman"
@@ -240,9 +242,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Pinjaman"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/inputEmail"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -264,7 +265,7 @@
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Jangka Waktu"
+                        app:ms_hint="Pilih Area"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
                         app:ms_floatingLabelText="Pilih Area"
@@ -285,7 +286,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutCabang"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:layout_marginTop="10dp"
@@ -295,10 +297,10 @@
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Jangka Waktu"
+                        app:ms_hint="Pilih Cabang"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area"
+                        app:ms_floatingLabelText="Pilih Cabang"
                         app:ms_baseColor="@color/colorBlack"
                         app:ms_highlightColor="@color/colorPrimaryDark"
                         app:ms_errorColor="@color/colorPrimaryDark"
@@ -314,6 +316,7 @@
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <Button
+                android:id="@+id/next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Next"

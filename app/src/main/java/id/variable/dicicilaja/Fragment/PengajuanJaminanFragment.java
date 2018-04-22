@@ -66,6 +66,7 @@ public class PengajuanJaminanFragment extends Fragment {
         TextView title_informasi = view.findViewById(R.id.title_informasi);
         TextView title_informasi_jaminan = view.findViewById(R.id.title_informasi_jaminan);
         final TextView api_program = view.findViewById(R.id.api_program);
+        final TextView api_program_no = view.findViewById(R.id.api_program_no);
         final TextView api_product = view.findViewById(R.id.api_product);
         final TextView api_channel = view.findViewById(R.id.api_channel);
         final TextView api_specification = view.findViewById(R.id.api_specification);
@@ -117,6 +118,7 @@ public class PengajuanJaminanFragment extends Fragment {
                     nikCrh = response.body().getResponsibleCrh();
 
                     api_program.setText(detailRequests.get(0).getProgram());
+                    api_program_no.setText(detailRequests.get(0).getTracking().toString());
                     api_channel.setText(detailRequests.get(0).getChannel());
                     api_colleteral.setText(detailRequests.get(0).getColleteral());
                     api_manufacturer.setText(detailRequests.get(0).getManufacturer());

@@ -237,8 +237,16 @@
             android:name=".Activity.SPGDashboardActivity"
             android:label="@string/title_activity_spgdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.AjukanPengajuanActivity"
-            android:label="Ajukan Pengajuan"
+        <activity
+            android:name=".Activity.AjukanPengajuanActivity"
+            android:label="Buat Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.AjukanPengajuan2Activity"
+            android:label="Buat Pengajuan - Step 2"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

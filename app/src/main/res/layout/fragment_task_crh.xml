@@ -95,8 +95,6 @@
                                         android:layout_centerVertical="true"
                                         android:clickable="true"
                                         android:elevation="1dp"
-                                        android:backgroundTint="@color/colorAccent"
-                                        android:textColor="@color/colorWhite"
                                         android:text="LIHAT DATABASE"
                                         android:textSize="10sp" />
                                 </RelativeLayout>

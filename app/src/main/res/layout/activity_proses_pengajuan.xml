@@ -29,6 +29,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
             <LinearLayout
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <RelativeLayout
@@ -187,9 +189,7 @@
                                         android:elevation="1dp"
                                         android:foreground="?android:attr/selectableItemBackground"
                                         android:text="LIHAT DATABASE"
-                                        android:textSize="12sp"
-                                        android:backgroundTint="@color/colorAccent"
-                                        android:textColor="@color/colorWhite"/>
+                                        android:textSize="12sp"/>
                                 </RelativeLayout>
 
                                 <RelativeLayout
