@@ -65,19 +65,19 @@ public class LoginActivity extends AppCompatActivity {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
             }
-            judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
-            judulButuhBantuan = (TextView) findViewById(R.id.judulButuhBantuan);
-            daftarAkun = (TextView) findViewById(R.id.daftarAkun);
-            butuhBantuan = (TextView) findViewById(R.id.butuhBantuan);
-            inputLayoutEmailID = (TextInputLayout) findViewById(R.id.inputLayoutEmailID);
-            inputLayoutPassword = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
-            inputEmailID = (EditText) findViewById(R.id.inputEmailID);
-            inputPassword = (EditText) findViewById(R.id.inputPassword);
-            btnLogin = (Button) findViewById(R.id.btnLogin);
+            judulDaftarAkun = findViewById(R.id.judulDaftarAkun);
+            judulButuhBantuan = findViewById(R.id.judulButuhBantuan);
+            daftarAkun = findViewById(R.id.daftarAkun);
+            butuhBantuan = findViewById(R.id.butuhBantuan);
+            inputLayoutEmailID = findViewById(R.id.inputLayoutEmailID);
+            inputLayoutPassword = findViewById(R.id.inputLayoutPassword);
+            inputEmailID = findViewById(R.id.inputEmailID);
+            inputPassword = findViewById(R.id.inputPassword);
+            btnLogin = findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
-            powered = (TextView) findViewById(R.id.powered);
-            lewati = (TextView) findViewById(R.id.lewati);
-            tvForgot = (TextView) findViewById(R.id.tvForgot);
+            powered = findViewById(R.id.powered);
+            lewati = findViewById(R.id.lewati);
+            tvForgot = findViewById(R.id.tvForgot);
 
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));

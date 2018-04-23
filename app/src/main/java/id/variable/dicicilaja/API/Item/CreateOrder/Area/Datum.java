@@ -10,12 +10,12 @@ import com.google.gson.annotations.SerializedName;
 public class Datum {
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -1,6 +1,10 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +46,9 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
     MaterialSpinner spinnerJaminan, spinnerTahun, spinnerArea, spinnerCabang, spinnerTenor;
     EditText inputId, inputMerk, inputPinjaman;
     Button next;
+    TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
+    String merk, pinjam, jaminan, tahun, waktu, area;
+    int cabang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +76,25 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
         inputPinjaman = findViewById(R.id.inputPinjaman);
         spinnerArea = findViewById(R.id.spinnerArea);
         spinnerCabang = findViewById(R.id.spinnerCabang);
+        inputLayoutMerk = findViewById(R.id.inputLayoutMerk);
+        inputLayoutPinjaman = findViewById(R.id.inputLayoutPinjaman);
+        inputLayoutJaminan = findViewById(R.id.inputLayoutJaminan);
+
+        inputMerk.addTextChangedListener(new AjukanPengajuanActivity.MyTextWatcher(inputMerk));
+        inputPinjaman.addTextChangedListener(new AjukanPengajuanActivity.MyTextWatcher(inputPinjaman));
 
         setCurrency(inputPinjaman);
 
         final List<String> JAMINAN_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> JAMINAN_DATA = new HashMap<Integer, String>();
+        final HashMap<Integer, String> JAMINAN_MAP = new HashMap<Integer, String>();
 
         final List<String> AREA_ITEMS = new ArrayList<>();;
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
 
         final List<String> CABANG_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
+        final HashMap<String, String> CABANG_MAP = new HashMap<String, String>();
 
-        final InterfaceCreateOrder apiServiceColleteral =
-                RetrofitClient.getClient().create(InterfaceCreateOrder.class);
+        InterfaceAreaBranch apiServiceColleteral = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
         Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
         callcolleteral.enqueue(new Callback<Colleteral>() {
@@ -89,17 +102,17 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
             public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
 
                 JAMINAN_ITEMS.clear();
-                JAMINAN_DATA.clear();
+                JAMINAN_MAP.clear();
 
                 for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    JAMINAN_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
+                    JAMINAN_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
                     JAMINAN_ITEMS.add(response.body().getData().get(i).getName());
                 }
             }
 
             @Override
             public void onFailure(Call<Colleteral> call, Throwable t) {
-                JAMINAN_DATA.clear();
+                JAMINAN_MAP.clear();
                 JAMINAN_ITEMS.clear();
                 Log.e("Error", t.getMessage());
             }
@@ -209,13 +222,9 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                 AREA_ITEMS.clear();
 
                 for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
+                    AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
                     AREA_ITEMS.add(response.body().getData().get(i).getName());
-                    Log.d("Area Loop", "Masuk Loop");
                 }
-
-                Log.d("Area ", Arrays.asList(AREA_MAP).toString());
-                Log.d("Area Result ", String.valueOf(response.body().getData().size()));
             }
 
             @Override
@@ -239,7 +248,6 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //Log.d("Area 2", );
 
                 InterfaceAreaBranch apiServiceBranch = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
@@ -248,16 +256,13 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                 callBranch.enqueue(new Callback<Branch>() {
                     @Override
                     public void onResponse(Call<Branch> call, Response<Branch> response) {
-
                         CABANG_MAP.clear();
                         CABANG_ITEMS.clear();
 
                         for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                            CABANG_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
+                            CABANG_MAP.put(response.body().getData().get(0).getId(), response.body().getData().get(i).getId());
                             CABANG_ITEMS.add(response.body().getData().get(i).getName());
                         }
-
-                        Log.d("Area ", Arrays.asList(CABANG_MAP).toString());
 
                         ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
                         branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -293,29 +298,214 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("ajukanpengajuan","program_id:" + "1");
                 Log.d("ajukanpengajuan","axi_referral:" + inputId.getText().toString());
-                Log.d("ajukanpengajuan","colleteral_id:" + "1");
+                Log.d("ajukanpengajuan","colleteral_id:" + JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan","manufacturer:" + inputMerk.getText().toString());
-                Log.d("ajukanpengajuan","year:" + spinnerTahun.getSelectedItem().toString());
+                Log.d("ajukanpengajuan","year:" + spinnerTahun.getSelectedItem());
                 Log.d("ajukanpengajuan","tenor:" + TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan","amount:" + inputPinjaman.getText().toString().replace(".",""));
                 Log.d("ajukanpengajuan","area_id:" + AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                Log.d("ajukanpengajuan","branch_id:" + CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan","branch_id:" + spinnerCabang.getSelectedItemPosition());
 
-                Intent intent = new Intent(getBaseContext(), AjukanPengajuan2Activity.class);
-                intent.putExtra("program_id","1");
-                intent.putExtra("axi_referral",inputId.getText().toString());
-                intent.putExtra("colleteral_id","1");
-                intent.putExtra("manufacturer", inputMerk.getText().toString());
-                intent.putExtra("year", spinnerTahun.getSelectedItem().toString());
-                intent.putExtra("tenor", TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
-                intent.putExtra("ammount", inputPinjaman.getText().toString().replace(".",""));
-                intent.putExtra("area_id", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                intent.putExtra("branch_id", CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
+                try {
+                    merk = inputMerk.getText().toString();
+                    pinjam = inputPinjaman.getText().toString().replace(".","");
+                    jaminan = JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition());
+                    tahun = spinnerTahun.getSelectedItem().toString();
+                    waktu = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
+                    area = AREA_MAP.get(spinnerArea.getSelectedItemPosition());
+                    cabang = spinnerCabang.getSelectedItemPosition();
+                } catch (Exception ex) {
 
-                startActivity(intent);
+                }
+
+                if(validateForm(merk, pinjam, jaminan, tahun, waktu, area, cabang)) {
+                    Intent intent = new Intent(getBaseContext(), AjukanPengajuan2Activity.class);
+                    intent.putExtra("program_id","1");
+                    intent.putExtra("axi_referral",inputId.getText().toString());
+                    intent.putExtra("colleteral_id",JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
+                    intent.putExtra("manufacturer", inputMerk.getText().toString());
+                    intent.putExtra("year", spinnerTahun.getSelectedItem().toString());
+                    intent.putExtra("tenor", TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
+                    intent.putExtra("ammount", inputPinjaman.getText().toString().replace(".",""));
+                    intent.putExtra("area_id", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+                    intent.putExtra("branch_id", spinnerCabang.getSelectedItemPosition());
+                    startActivity(intent);
+                }
             }
         });
 
+    }
+
+
+    private boolean validateForm(String merk, String pinjam, String jaminan, String tahun, String waktu, String area, int cabang) {
+        if(jaminan == null || jaminan.trim().length() == 0 || jaminan.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Pilih jaminan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerJaminan);
+                    spinnerJaminan.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(merk == null || merk.trim().length() == 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Masukan merk kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputMerk);
+                    hideSoftKeyboard(inputMerk);
+                    showSoftKeyboard(inputMerk);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(tahun == null || tahun.trim().length() == 0 || tahun.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Pilih tahun kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerTahun);
+                    spinnerTahun.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(waktu == null || waktu.trim().length() == 0 || waktu.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Pilih jangka waktu");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerTenor);
+                    spinnerTenor.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(pinjam == null || pinjam.trim().length() == 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Masukan nilai pinjaman");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputPinjaman);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(area == null || area.trim().length() == 0 || area.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Pilih area pengajuan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerArea);
+                    spinnerArea.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(cabang == 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
+            alertDialog.setMessage("Pilih cabang pengajuan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerCabang);
+                    spinnerCabang.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateMerk() {
+        if (inputMerk.getText().toString().trim().isEmpty()) {
+            inputLayoutMerk.setError("Masukan merk produk");
+            requestFocus(inputMerk);
+            return false;
+        } else {
+            inputLayoutMerk.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validatePinjam() {
+        if (inputPinjaman.getText().toString().trim().isEmpty()) {
+            inputLayoutPinjaman.setError("Masukan nilai pinjaman Anda");
+            requestFocus(inputPinjaman);
+            return false;
+        } else {
+            inputLayoutPinjaman.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.inputMerk:
+                    validateMerk();
+                    break;
+
+                case R.id.inputPinjaman:
+                    validatePinjam();
+                    break;
+            }
+        }
     }
 
     private void setCurrency(final EditText edt) {

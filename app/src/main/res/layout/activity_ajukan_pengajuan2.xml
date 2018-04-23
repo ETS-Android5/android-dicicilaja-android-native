@@ -124,7 +124,6 @@
                         android:id="@+id/inputAlamat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="60dp"
                         android:hint="Alamat"
                         android:layout_centerHorizontal="true"
                         android:inputType="textMultiLine"
