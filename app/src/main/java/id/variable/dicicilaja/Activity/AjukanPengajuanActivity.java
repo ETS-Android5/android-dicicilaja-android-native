@@ -3,13 +3,19 @@ package id.variable.dicicilaja.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
@@ -47,8 +54,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
     EditText inputId, inputMerk, inputPinjaman;
     Button next;
     TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
-    String merk, pinjam, jaminan, tahun, waktu, area;
-    int cabang;
+    String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,42 +299,57 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
 
         });
 
+//        inputMerk.setHint(Html.fromHtml("Merk <font color='#ff0000'>*</font>"));
+//        inputLayoutMerk.setHint(Html.fromHtml("Merk <font color='#ff0000'>*</font>"));
+//        spinnerJaminan.setHint(Html.fromHtml("Pilih Jaminan <font color='#ff0000'>*</font>"));
+//        spinnerTahun.setHint(Html.fromHtml("Pilih Tahun <font color='#ff0000'>*</font>"));
+//        spinnerTenor.setHint(Html.fromHtml("Jangka Waktu <font color='#ff0000'>*</font>"));
+//        inputPinjaman.setHint(Html.fromHtml("Nilai Pinjaman <font color='#ff0000'>*</font>"));
+//        spinnerArea.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
+//        spinnerCabang.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("ajukanpengajuan","program_id:" + "1");
-                Log.d("ajukanpengajuan","axi_referral:" + inputId.getText().toString());
-                Log.d("ajukanpengajuan","colleteral_id:" + JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
-                Log.d("ajukanpengajuan","manufacturer:" + inputMerk.getText().toString());
-                Log.d("ajukanpengajuan","year:" + spinnerTahun.getSelectedItem());
-                Log.d("ajukanpengajuan","tenor:" + TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
-                Log.d("ajukanpengajuan","amount:" + inputPinjaman.getText().toString().replace(".",""));
-                Log.d("ajukanpengajuan","area_id:" + AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                Log.d("ajukanpengajuan","branch_id:" + spinnerCabang.getSelectedItemPosition());
+
 
                 try {
+                    axi_id = inputId.getText().toString();
+                    if(axi_id == null || axi_id.trim().length() == 0 || axi_id.equals("")) {
+                        axi_id = null;
+                    }
                     merk = inputMerk.getText().toString();
                     pinjam = inputPinjaman.getText().toString().replace(".","");
                     jaminan = JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition());
                     tahun = spinnerTahun.getSelectedItem().toString();
                     waktu = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
                     area = AREA_MAP.get(spinnerArea.getSelectedItemPosition());
-                    cabang = spinnerCabang.getSelectedItemPosition();
+                    cabang = String.valueOf(spinnerCabang.getSelectedItemPosition());
                 } catch (Exception ex) {
 
                 }
+                Log.d("ajukanpengajuan","program_id:" + "1");
+                Log.d("ajukanpengajuan","axi_referral:" + axi_id);
+                Log.d("ajukanpengajuan","colleteral_id:" + JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan","manufacturer:" + inputMerk.getText().toString());
+                Log.d("ajukanpengajuan","year:" + spinnerTahun.getSelectedItem());
+                Log.d("ajukanpengajuan","tenor:" + TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan","amount:" + inputPinjaman.getText().toString().replace(".",""));
+                Log.d("ajukanpengajuan","area_id:" + AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan","branch_id:" + String.valueOf(spinnerCabang.getSelectedItemPosition()));
+
 
                 if(validateForm(merk, pinjam, jaminan, tahun, waktu, area, cabang)) {
                     Intent intent = new Intent(getBaseContext(), AjukanPengajuan2Activity.class);
                     intent.putExtra("program_id","1");
-                    intent.putExtra("axi_referral",inputId.getText().toString());
+                    intent.putExtra("axi_referral",axi_id);
                     intent.putExtra("colleteral_id",JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
                     intent.putExtra("manufacturer", inputMerk.getText().toString());
                     intent.putExtra("year", spinnerTahun.getSelectedItem().toString());
                     intent.putExtra("tenor", TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
                     intent.putExtra("ammount", inputPinjaman.getText().toString().replace(".",""));
                     intent.putExtra("area_id", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                    intent.putExtra("branch_id", spinnerCabang.getSelectedItemPosition());
+                    intent.putExtra("branch_id", String.valueOf(spinnerCabang.getSelectedItemPosition()));
                     startActivity(intent);
                 }
             }
@@ -337,7 +358,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateForm(String merk, String pinjam, String jaminan, String tahun, String waktu, String area, int cabang) {
+    private boolean validateForm(String merk, String pinjam, String jaminan, String tahun, String waktu, String area, String cabang) {
         if(jaminan == null || jaminan.trim().length() == 0 || jaminan.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
             alertDialog.setMessage("Pilih jaminan");
@@ -352,7 +373,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
             return false;
         }
 
-        if(merk == null || merk.trim().length() == 0) {
+        if(merk == null || merk.trim().length() == 0 || merk.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
             alertDialog.setMessage("Masukan merk kendaraan");
 
@@ -395,7 +416,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
             return false;
         }
 
-        if(pinjam == null || pinjam.trim().length() == 0) {
+        if(pinjam == null || pinjam.trim().length() == 0 || pinjam.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
             alertDialog.setMessage("Masukan nilai pinjaman");
 
@@ -422,7 +443,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
             return false;
         }
 
-        if(cabang == 0) {
+        if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanActivity.this);
             alertDialog.setMessage("Pilih cabang pengajuan");
 

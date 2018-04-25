@@ -54,11 +54,15 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new SessionManager(LoginActivity.this);
 
-        if (session.isLoggedIn() == TRUE) {
+        if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
             startActivity(intent);
             finish();
-        } else {
+        }else {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -175,8 +179,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
                         if(resObj.getRole().equals("spg")) {
-                            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                            startActivity(intent);
+                            Intent intent1 = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                            startActivity(intent1);
                             finish();
                         }else{
                             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);

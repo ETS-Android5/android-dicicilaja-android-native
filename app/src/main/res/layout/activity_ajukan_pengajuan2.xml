@@ -28,6 +28,7 @@
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorSection"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,9 +55,9 @@
 
                     <EditText
                         android:id="@+id/inputNama"
+                        android:hint="Nama Nasabah *"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Nasabah"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
@@ -79,7 +80,7 @@
                         android:id="@+id/inputEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="Email *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
@@ -102,10 +103,11 @@
                         android:id="@+id/inputHp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="No. handphone"
+                        android:hint="No. handphone *"
                         android:layout_centerHorizontal="true"
                         android:inputType="phone"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputAlamat"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -124,10 +126,11 @@
                         android:id="@+id/inputAlamat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Alamat"
+                        android:hint="Alamat *"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textMultiLine"
-                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine|textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputProvinsi"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -146,7 +149,7 @@
                         android:id="@+id/inputProvinsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Provinsi"
+                        android:hint="Nama Provinsi *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
@@ -169,7 +172,7 @@
                         android:id="@+id/inputKota"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Kota"
+                        android:hint="Nama Kota *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
@@ -192,10 +195,11 @@
                         android:id="@+id/inputKecamatan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Kecamatan"
+                        android:hint="Nama Kecamatan *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/check"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -203,6 +207,73 @@
                         android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unggah berkas dalam bentuk foto atau hasil scan :"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="15dp"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/border_bottom"
+                    android:paddingBottom="15dp">
+                    <TextView
+                        android:id="@+id/title_scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan KTP"
+                        android:layout_marginLeft="3dp"/>
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/title_scan"
+                        android:text="Pilih File"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textColor="@color/colorWhite"
+                        android:layout_margin="5dp"
+                        android:textSize="11sp"/>
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="60dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/image_not_found_1x"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_bottom"
+                    android:paddingBottom="15dp">
+                    <TextView
+                        android:id="@+id/title_bpkb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan BPKB"
+                        android:layout_marginLeft="3dp"/>
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/title_bpkb"
+                        android:text="Pilih File"
+                        android:layout_margin="5dp"
+                        android:backgroundTint="@color/colorAccent"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="11sp"/>
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="60dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/image_not_found_1x"/>
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/confirm"
                     android:layout_width="match_parent"
@@ -211,13 +282,17 @@
                     <CheckBox
                         android:id="@+id/check"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"/>
                     <TextView
                         android:id="@+id/textCheck"
+                        android:labelFor="@id/check"
                         android:layout_toRightOf="@+id/check"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
                         android:text="Dengan ini saya menyatakan data yang saya berikan benar adanya dan bersedia di proses."/>
                 </RelativeLayout>
             </LinearLayout>
@@ -228,8 +303,8 @@
                 android:text="Ajukan Cicilan"
                 android:backgroundTint="@color/colorAccent"
                 android:textColor="@color/colorWhite"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginBottom="16dp"/>
         </LinearLayout>
     </ScrollView>

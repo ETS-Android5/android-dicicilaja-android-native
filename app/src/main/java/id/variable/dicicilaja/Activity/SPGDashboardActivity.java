@@ -1,15 +1,19 @@
 package id.variable.dicicilaja.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,13 +24,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,29 +55,58 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SPGDashboardActivity extends AppCompatActivity {
+public class SPGDashboardActivity extends AppCompatActivity implements RequestProgressAdapter.RequestProgressAdapterListener {
 
     SessionManager session;
     private static final String TAG = SPGDashboardActivity.class.getSimpleName();
-    List<Datum> requests;
+    List<Datum> requestProgress;
+    RequestProgressAdapter requestProgressAdapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    RelativeLayout top_attribut;
+    SearchView search;
+    String apiKey;
+    CardView search_toggle;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spgdashboard);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         session = new SessionManager(getApplicationContext());
-        String apiKey = "Bearer " + session.getToken();
+        apiKey = "Bearer " + session.getToken();
 
-
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        search = findViewById(R.id.search);
+        search_toggle = findViewById(R.id.search_toggle);
+        top_attribut = findViewById(R.id.top_attribut);
+        search.setVisibility(View.GONE);
+        search_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (search.getVisibility() == View.GONE) {
+                    top_attribut.setVisibility(View.GONE);
+                    search.setVisibility(View.VISIBLE);
+                    search.requestFocus();
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    InputMethodManager imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
+                }else {
+                    top_attribut.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.GONE);
+                    search.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+                }
+            }
+        });
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view1);
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -145,7 +182,6 @@ public class SPGDashboardActivity extends AppCompatActivity {
         TextView name = navbarView.findViewById(R.id.nameView);
         TextView profile = navbarView.findViewById(R.id.textView);
 
-        branch.setText(session.getBranch());
         area.setText(session.getArea());
         String imageUrl = session.getPhoto().toString();
         Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
@@ -170,8 +206,91 @@ public class SPGDashboardActivity extends AppCompatActivity {
         title_pengumuman.setTypeface(opensans_bold);
         jumlah_pengajuan.setTypeface(opensans_bold);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        requestProgress = new ArrayList<>();
+        requestProgressAdapter = new RequestProgressAdapter(getBaseContext(), requestProgress, this);
+
+        search = findViewById(R.id.search);
+        search_toggle = findViewById(R.id.search_toggle);
+        top_attribut = findViewById(R.id.top_attribut);
+        search.setVisibility(View.GONE);
+
+        search_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (search.getVisibility() == View.GONE) {
+                    top_attribut.setVisibility(View.GONE);
+                    search.setVisibility(View.VISIBLE);
+                    search.requestFocus();
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    InputMethodManager imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
+                }else {
+                    top_attribut.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.GONE);
+                    search.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+                }
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                InterfaceRequestProgress apiService =
+                        RetrofitClient.getClient().create(InterfaceRequestProgress.class);
+
+                Call<RequestProgress> call = apiService.getRequestProgress(apiKey);
+                call.enqueue(new Callback<RequestProgress>() {
+                    @Override
+                    public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
+                        if ( response.isSuccessful() ) {
+                            List<Datum> items = response.body().getData();
+                            jumlah_pengajuan.setText(Integer.toString(items.size()));
+                            requestProgress.clear();
+                            requestProgress.addAll(items);
+
+                            requestProgressAdapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(requestProgressAdapter);
+
+//                            requestProgress = response.body().getData();
+//                            jumlah_pengajuan.setText(Integer.toString(requestProgress.size()));
+//                            recyclerView.setAdapter(new RequestProgressAdapter(requestProgress, R.layout.card_pengajuan, getContext()));
+//
+//
+//                            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+//                                @Override
+//                                public void onClick(View view, int position) {
+//                                    Intent intent = new Intent(getContext(), DetailRequestActivity.class);
+//                                    intent.putExtra("EXTRA_REQUEST_ID", requestProgress.get(position).getId().toString());
+//                                    intent.putExtra("STATUS", true);
+//                                    startActivity(intent);
+//                                }
+//
+//                                @Override
+//                                public void onLongClick(View view, int position) {
+//                                }
+//                            }));
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RequestProgress> call, Throwable t) {
+
+                    }
+                });
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         InterfaceRequestProgress apiService =
                 RetrofitClient.getClient().create(InterfaceRequestProgress.class);
@@ -181,16 +300,25 @@ public class SPGDashboardActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
                 if ( response.isSuccessful() ) {
-//                    requests = response.body().getData();
-//                    jumlah_pengajuan.setText(Integer.toString(requests.size()));
-//                    recyclerView.setAdapter(new RequestProgressAdapter(requests, R.layout.card_pengajuan, getBaseContext()));
+                    List<Datum> items = response.body().getData();
+                    jumlah_pengajuan.setText(Integer.toString(items.size()));
+                    requestProgress.clear();
+                    requestProgress.addAll(items);
+
+                    requestProgressAdapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(requestProgressAdapter);
+
+
+//                    requestProgress = response.body().getData();
+//                    jumlah_pengajuan.setText(Integer.toString(requestProgress.size()));
+//                    recyclerView.setAdapter(new RequestProgressAdapter(requestProgress, R.layout.card_pengajuan, getContext()));
 //
 //
-//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
 //                        @Override
 //                        public void onClick(View view, int position) {
-//                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-//                            intent.putExtra("EXTRA_REQUEST_ID", requests.get(position).getId().toString());
+//                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
+//                            intent.putExtra("EXTRA_REQUEST_ID", requestProgress.get(position).getId().toString());
 //                            intent.putExtra("STATUS", true);
 //                            startActivity(intent);
 //                        }
@@ -207,13 +335,35 @@ public class SPGDashboardActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RequestProgress> call, Throwable t) {
+
+            }
+        });
+
+        SearchView search = findViewById(R.id.search);
+        search.setActivated(true);
+        search.setQueryHint("Ketik disini untuk mencari");
+        search.onActionViewExpanded();
+        search.setIconified(false);
+        search.clearFocus();
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                requestProgressAdapter.getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                requestProgressAdapter.getFilter().filter(query);
+                return true;
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -236,12 +386,17 @@ public class SPGDashboardActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.notif) {
+        if (id == R.id.notif1) {
             Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
             startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDataSelected(Datum datum) {
+
     }
 }

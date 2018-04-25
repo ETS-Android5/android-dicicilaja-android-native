@@ -74,10 +74,10 @@ public class NotificationActivity extends AppCompatActivity {
         final RecyclerView recyclerView =  findViewById(R.id.recycler_notif);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-//        final ProgressDialog progress = new ProgressDialog(getBaseContext());
-//        progress.setMessage("Sedang memuat data...");
-//        progress.setCanceledOnTouchOutside(false);
-//        progress.show();
+        final ProgressDialog progress = new ProgressDialog(getBaseContext());
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -90,6 +90,7 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Notification> call, Response<Notification> response) {
                         if ( response.isSuccessful() ) {
+                            progress.dismiss();
                             notifs = response.body().getData();
                             recyclerView.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
 
@@ -108,14 +109,14 @@ public class NotificationActivity extends AppCompatActivity {
                                 public void onLongClick(View view, int position) {
                                 }
                             }));
-//                            progress.dismiss();
+                            progress.dismiss();
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<Notification> call, Throwable t) {
-//                        progress.dismiss();
+                        progress.dismiss();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
                         alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
@@ -157,14 +158,14 @@ public class NotificationActivity extends AppCompatActivity {
                         public void onLongClick(View view, int position) {
                         }
                     }));
-//                    progress.dismiss();
+                    progress.dismiss();
                 }
 
             }
 
             @Override
             public void onFailure(Call<Notification> call, Throwable t) {
-//                progress.dismiss();
+                progress.dismiss();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 

@@ -2,13 +2,18 @@ package id.variable.dicicilaja.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -16,6 +21,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -61,7 +69,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
     RelativeLayout top_attribut;
     SearchView search;
-    ImageView search_toggle;
+    CardView search_toggle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,15 +108,36 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         top_attribut = view.findViewById(R.id.top_attribut);
         search.setVisibility(View.GONE);
 
+        EditText searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox.setTextSize(14);
+        searchBox.setTextColor(Color.parseColor("#000000"));
+        searchBox.setCursorVisible(false);
+
+        ImageView searchButton =search.findViewById (android.support.v7.appcompat.R.id.search_button);
+        searchButton.setColorFilter (Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
+        searchButton.setImageResource(R.drawable.ic_notifications);
+
+        ImageView searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
+        searchClose.setImageResource(R.drawable.ic_close);
+
         search_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (search.getVisibility() == View.GONE) {
                     top_attribut.setVisibility(View.GONE);
                     search.setVisibility(View.VISIBLE);
+                    search.requestFocus();
+                    getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    InputMethodManager imm = (InputMethodManager)
+                            getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
                 }else {
                     top_attribut.setVisibility(View.VISIBLE);
                     search.setVisibility(View.GONE);
+                    search.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
             }
         });

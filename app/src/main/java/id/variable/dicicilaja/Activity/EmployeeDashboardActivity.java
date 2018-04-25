@@ -33,7 +33,6 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
 
     SessionManager session;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +130,6 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
-        branch.setText(session.getBranch());
         area.setText(session.getArea());
         String imageUrl = session.getPhoto().toString();
         Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);

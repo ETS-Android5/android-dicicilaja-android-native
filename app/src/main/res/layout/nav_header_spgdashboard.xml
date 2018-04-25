@@ -22,7 +22,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_picture_user"
             android:layout_width="80dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:src="@drawable/user"
             app:civ_border_color="#ecf0f1"
             app:civ_border_width="0.5dp" />
@@ -39,27 +39,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
-            android:id="@+id/branch"
+            android:id="@+id/area"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/profile_picture_user"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tebet"/>
-        <TextView
-            android:id="@+id/coma"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@+id/branch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=", "/>
-        <TextView
-            android:id="@+id/area"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@+id/coma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jabodetabekser" />
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 
