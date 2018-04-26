@@ -358,8 +358,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.PointRewardActivity"
+        <activity
+            android:name=".Activity.PointRewardActivity"
             android:label="Point Reward"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.PointTripActivity"
+            android:label="Point Trip"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.InsentifMcyActivity"
+            android:label="Insentif Motorcycle"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

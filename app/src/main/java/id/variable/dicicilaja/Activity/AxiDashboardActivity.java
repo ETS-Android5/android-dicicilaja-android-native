@@ -56,7 +56,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
-    LinearLayout insentif_car, point_reward;
+    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -130,7 +130,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_box6 = findViewById(R.id.title_box6);
         content_box6 = findViewById(R.id.content_box6);
         insentif_car = findViewById(R.id.insentif_car);
+        insentif_mcy = findViewById(R.id.insentif_mcy);
         point_reward = findViewById(R.id.point_reward);
+        point_trip= findViewById(R.id.point_trip);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -167,6 +169,22 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),PointRewardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        point_trip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),PointTripActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        insentif_mcy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),InsentifMcyActivity.class);
                 startActivity(intent);
             }
         });
@@ -246,7 +264,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         session = new SessionManager(getApplicationContext());
 
-        String imageUrl = session.getPhoto().toString();
+        String imageUrl = session.getPhoto();
         Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
 
         name.setText(session.getName());

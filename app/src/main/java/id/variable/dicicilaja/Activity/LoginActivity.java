@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             userFirebase = ApiUtils.getUserFirebase();
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-            Log.i("firebase_login", "token : "  + refreshedToken.toString());
+            Log.i("firebase_login", "token : "  + refreshedToken);
 
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
