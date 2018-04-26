@@ -109,13 +109,9 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         search.setVisibility(View.GONE);
 
         EditText searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
-        searchBox.setTextSize(14);
+        searchBox.setTextSize(16);
         searchBox.setTextColor(Color.parseColor("#000000"));
         searchBox.setCursorVisible(false);
-
-        ImageView searchButton =search.findViewById (android.support.v7.appcompat.R.id.search_button);
-        searchButton.setColorFilter (Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
-        searchButton.setImageResource(R.drawable.ic_notifications);
 
         ImageView searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
@@ -141,6 +137,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                 }
             }
         });
+
         final ProgressDialog progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);

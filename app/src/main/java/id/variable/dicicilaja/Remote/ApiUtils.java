@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Remote;
 
+import id.variable.dicicilaja.API.Interface.InterfaceCreateRequest;
 import id.variable.dicicilaja.API.Interface.InterfaceDraft;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceKeputusanSurvey;
@@ -8,6 +9,7 @@ import id.variable.dicicilaja.API.Interface.InterfaceNilaiPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
+import id.variable.dicicilaja.API.Item.CreateRequest.CreateRequest;
 
 /**
  * Created by ziterz on 11/29/2017.
@@ -19,6 +21,10 @@ public class ApiUtils {
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
+    }
+
+    public static InterfaceCreateRequest getCreateRequest() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceCreateRequest.class);
     }
 
     public static ClaimProcess getClaim() {

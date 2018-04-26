@@ -98,7 +98,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
 
         final List<String> CABANG_ITEMS = new ArrayList<>();
-        final HashMap<String, String> CABANG_MAP = new HashMap<String, String>();
+        final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
 
         InterfaceAreaBranch apiServiceColleteral = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
@@ -266,7 +266,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                         CABANG_ITEMS.clear();
 
                         for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                            CABANG_MAP.put(response.body().getData().get(0).getId(), response.body().getData().get(i).getId());
+                            CABANG_MAP.put(i+1, response.body().getData().get(i).getId());
                             CABANG_ITEMS.add(response.body().getData().get(i).getName());
                         }
 
@@ -324,7 +324,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                     tahun = spinnerTahun.getSelectedItem().toString();
                     waktu = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
                     area = AREA_MAP.get(spinnerArea.getSelectedItemPosition());
-                    cabang = String.valueOf(spinnerCabang.getSelectedItemPosition());
+                    cabang = CABANG_MAP.get(spinnerCabang.getSelectedItemPosition());
                 } catch (Exception ex) {
 
                 }
@@ -336,7 +336,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                 Log.d("ajukanpengajuan","tenor:" + TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan","amount:" + inputPinjaman.getText().toString().replace(".",""));
                 Log.d("ajukanpengajuan","area_id:" + AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                Log.d("ajukanpengajuan","branch_id:" + String.valueOf(spinnerCabang.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan","branch_id:" + CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
 
 
                 if(validateForm(merk, pinjam, jaminan, tahun, waktu, area, cabang)) {
@@ -349,7 +349,7 @@ public class AjukanPengajuanActivity extends AppCompatActivity {
                     intent.putExtra("tenor", TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
                     intent.putExtra("ammount", inputPinjaman.getText().toString().replace(".",""));
                     intent.putExtra("area_id", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                    intent.putExtra("branch_id", String.valueOf(spinnerCabang.getSelectedItemPosition()));
+                    intent.putExtra("branch_id", CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
                     startActivity(intent);
                 }
             }

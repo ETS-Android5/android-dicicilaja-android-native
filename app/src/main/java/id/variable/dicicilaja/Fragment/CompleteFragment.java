@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,6 +91,15 @@ public class CompleteFragment extends Fragment implements RequestProgressAdapter
         search_toggle = view.findViewById(R.id.search_toggle);
         top_attribut = view.findViewById(R.id.top_attribut);
         search.setVisibility(View.GONE);
+
+        EditText searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox.setTextSize(16);
+        searchBox.setTextColor(Color.parseColor("#000000"));
+        searchBox.setCursorVisible(false);
+
+        ImageView searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
+        searchClose.setImageResource(R.drawable.ic_close);
 
         search_toggle.setOnClickListener(new View.OnClickListener() {
             @Override

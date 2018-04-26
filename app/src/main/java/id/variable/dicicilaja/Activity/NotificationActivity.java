@@ -74,7 +74,7 @@ public class NotificationActivity extends AppCompatActivity {
         final RecyclerView recyclerView =  findViewById(R.id.recycler_notif);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        final ProgressDialog progress = new ProgressDialog(getBaseContext());
+        final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -90,7 +90,6 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Notification> call, Response<Notification> response) {
                         if ( response.isSuccessful() ) {
-                            progress.dismiss();
                             notifs = response.body().getData();
                             recyclerView.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
 

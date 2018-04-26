@@ -62,7 +62,7 @@ public class TaskCROFragment extends Fragment {
     InterfaceRequestSurvey interfaceRequestSurvey;
     InterfaceDraft interfaceDraft;
     InterfaceSurveyFinish interfaceSurveyFinish;
-    String nik_crh, reschedule_date1;
+    String apiKey, nik_crh, reschedule_date1;
     String date_post, time_post;
     public TaskCROFragment() {
         // Required empty public constructor
@@ -95,7 +95,7 @@ public class TaskCROFragment extends Fragment {
         myCalendar = Calendar.getInstance();
 
         final SessionManager session = new SessionManager(getContext());
-        final String apiKey = "Bearer " + session.getToken();
+        apiKey = "Bearer " + session.getToken();
 
         TextView title_tugas = view.findViewById(R.id.title_tugas);
         TextView title_lampiran = view.findViewById(R.id.title_lampiran);

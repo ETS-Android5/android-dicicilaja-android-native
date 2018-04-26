@@ -18,17 +18,32 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.util.List;
+
+import id.variable.dicicilaja.API.Interface.InterfaceCreateRequest;
+import id.variable.dicicilaja.API.Item.CreateRequest.CreateRequest;
+import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Remote.ApiUtils;
+import id.variable.dicicilaja.Session.SessionManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Field;
+import retrofit2.http.Header;
 
 public class AjukanPengajuan2Activity extends AppCompatActivity {
 
     Button ajukan;
     EditText inputNama, inputHp, inputAlamat, inputProvinsi, inputKota, inputKecamatan, inputEmail;
-    Integer channel_id, qty;
+    String channel_id, qty;
     TextInputLayout inputLayoutNama, inputLayoutEmail, inputLayoutHp, inputLayoutAlamat, inputLayoutProvinsi, inputLayoutKota,inputLayoutKecamatan;
     String nama, email, hp, alamat, provinsi, kota, kecamatan;
+    String axi, axi_referral, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, area_id, branch_id, client_name, address, district, city, province, ktp_image, colleteral_image;
     CheckBox check;
+    InterfaceCreateRequest interfaceCreateRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +60,9 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+
+        final SessionManager session = new SessionManager(getBaseContext());
+        final String apiKey = "Bearer " + session.getToken();
 
         inputNama = findViewById(R.id.inputNama);
         inputHp = findViewById(R.id.inputHp);
@@ -63,8 +81,9 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
         inputLayoutKecamatan = findViewById(R.id.inputLayoutKecamatan);
         check = findViewById(R.id.check);
 
-        channel_id = 1;
-        qty = 1;
+        channel_id = "1";
+        qty = "1";
+        interfaceCreateRequest = ApiUtils.getCreateRequest();
 
         inputNama.addTextChangedListener(new AjukanPengajuan2Activity.MyTextWatcher(inputNama));
         inputEmail.addTextChangedListener(new AjukanPengajuan2Activity.MyTextWatcher(inputEmail));
@@ -82,11 +101,13 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
 //        inputKota.setHint(Html.fromHtml("Nama Kota <font color='#ff0000'>*</font>"));
 //        inputKecamatan.setHint(Html.fromHtml("Nama Kecamatan <font color='#ff0000'>*</font>"));
 
+
         ajukan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 try {
+                    axi_referral = getIntent().getStringExtra("axi_referral");
                     nama = inputNama.getText().toString();
                     email = inputEmail.getText().toString();
                     hp = inputHp.getText().toString();
@@ -94,55 +115,109 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
                     provinsi = inputProvinsi.getText().toString();
                     kota = inputKota.getText().toString();
                     kecamatan = inputKecamatan.getText().toString();
+                    program_id = getIntent().getStringExtra("program_id");
+                    colleteral_id = getIntent().getStringExtra("colleteral_id");
+                    status_id = "4";
+                    manufacturer = getIntent().getStringExtra("manufacturer");
+                    year = getIntent().getStringExtra("year");
+                    tenor = getIntent().getStringExtra("tenor");
+                    amount = getIntent().getStringExtra("ammount");
+                    area_id = getIntent().getStringExtra("area_id");
+                    branch_id = getIntent().getStringExtra("branch_id");
+                    client_name = inputNama.getText().toString();
+                    address = inputAlamat.getText().toString();
+                    district = inputKecamatan.getText().toString();
+                    city = inputKota.getText().toString();
+                    province = inputProvinsi.getText().toString();
+                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    if (axi_referral == null || axi_referral.trim().length() == 0 || axi_referral.equals("0")) {
+                        axi = null;
+                    }
+
+                    if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
+                        if(check.isChecked()) {
+                            Log.d("ajukanpengajuan","apiKey:" + apiKey);
+                            Log.d("ajukanpengajuan","program_id:" + program_id);
+                            Log.d("ajukanpengajuan","axi_referral:" + axi_referral);
+                            Log.d("ajukanpengajuan","colleteral_id:" + colleteral_id);
+                            Log.d("ajukanpengajuan","status_id:" + status_id);
+                            Log.d("ajukanpengajuan","manufacturer:" + manufacturer);
+                            Log.d("ajukanpengajuan","year:" + year);
+                            Log.d("ajukanpengajuan","tenor:" + tenor);
+                            Log.d("ajukanpengajuan","ammount:" + amount);
+                            Log.d("ajukanpengajuan","area_id:" + area_id);
+                            Log.d("ajukanpengajuan","branch_id:" + branch_id);
+                            Log.d("ajukanpengajuan","email:" + email);
+                            Log.d("ajukanpengajuan","qty:" + qty);
+                            Log.d("ajukanpengajuan","channel_id:" + channel_id);
+                            Log.d("ajukanpengajuan","client_name:" + client_name);
+                            Log.d("ajukanpengajuan","hp:" + hp);
+                            Log.d("ajukanpengajuan","address:" + address);
+                            Log.d("ajukanpengajuan","province:" + province);
+                            Log.d("ajukanpengajuan","city:" + city);
+                            Log.d("ajukanpengajuan","district:" + district);
+                            Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
+                            Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
+
+                            doRequest(apiKey, axi, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                        }else {
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
+                            alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestFocus(check);
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
                 }catch (Exception ex) {
 
                 }
-                String ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                String colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                if(validateForm(nama, email, hp, alamat, provinsi, kota, kecamatan)) {
-                    if(check.isChecked()) {
-//                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-//                        startActivity(intent);
-                        Log.d("ajukanpengajuan","program_id:" + getIntent().getStringExtra("program_id"));
-                        Log.d("ajukanpengajuan","axi_referral:" + getIntent().getStringExtra("axi_referral"));
-                        Log.d("ajukanpengajuan","colleteral_id:" + getIntent().getStringExtra("colleteral_id"));
-                        Log.d("ajukanpengajuan","manufacturer:" + getIntent().getStringExtra("manufacturer"));
-                        Log.d("ajukanpengajuan","year:" + getIntent().getStringExtra("year"));
-                        Log.d("ajukanpengajuan","tenor:" + getIntent().getStringExtra("tenor"));
-                        Log.d("ajukanpengajuan","ammount:" + getIntent().getStringExtra("ammount"));
-                        Log.d("ajukanpengajuan","area_id:" + getIntent().getStringExtra("area_id"));
-                        Log.d("ajukanpengajuan","branch_id:" + getIntent().getStringExtra("branch_id"));
-                        Log.d("ajukanpengajuan","email:" + inputEmail.getText());
-                        Log.d("ajukanpengajuan","qty:" + qty);
-                        Log.d("ajukanpengajuan","channel_id:" + channel_id);
-                        Log.d("ajukanpengajuan","client_name:" + inputNama.getText());
-                        Log.d("ajukanpengajuan","hp:" + inputHp.getText());
-                        Log.d("ajukanpengajuan","address:" + inputAlamat.getText());
-                        Log.d("ajukanpengajuan","province:" + inputProvinsi.getText());
-                        Log.d("ajukanpengajuan","city:" + inputKota.getText());
-                        Log.d("ajukanpengajuan","district:" + inputKecamatan.getText());
-                        Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
-                        Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
-
-                    }else {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
-                        alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                requestFocus(check);
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                }
-
-
 
             }
         });
 
     }
+    private void doRequest(final String apiKey, final String axi_referral, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
+        Call<CreateRequest> call = interfaceCreateRequest.assign(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+        call.enqueue(new Callback<CreateRequest>() {
+            @Override
+            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+                CreateRequest createRequest = response.body();
+
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                startActivity(intent);
+                finish();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
+                alertDialog.setTitle("Selamat! Pengajuan Anda terkirim");
+                alertDialog.setMessage("No. Pengajuan #" + createRequest.getTrackingId().toString() + " \n Petugas kami akan menghubungi Anda dalam waktu dekat.\n Konfirmasi persetujuan pengajuan akan dikirim melalui email.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+
+            @Override
+            public void onFailure(Call<CreateRequest> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
+                alertDialog.setMessage("Message : " + t.getMessage());
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+    }
+
     private boolean validateForm(String nama, String email, String hp, String alamat, String provinsi, String kota, String kecamatan) {
         if(nama == null || nama.trim().length() == 0 || nama.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
