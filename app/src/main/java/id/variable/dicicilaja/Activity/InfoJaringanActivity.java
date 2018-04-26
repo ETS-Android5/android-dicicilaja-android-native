@@ -7,22 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 
-public class PointRewardActivity extends AppCompatActivity {
+public class InfoJaringanActivity extends AppCompatActivity {
 
-    TextView title_point, value_point;
-    ImageView reward;
+    TextView title_info, title_rb, value_rb, title_jaringan, value_jaringan, title_daftar, value_daftar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_point_reward);
+        setContentView(R.layout.activity_info_jaringan);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,20 +32,26 @@ public class PointRewardActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        title_point = findViewById(R.id.title_point);
-        value_point = findViewById(R.id.value_point);
+        title_info = findViewById(R.id.title_info);
+        title_rb = findViewById(R.id.title_rb);
+        value_rb = findViewById(R.id.value_rb);
+        title_jaringan = findViewById(R.id.title_jaringan);
+        value_jaringan = findViewById(R.id.value_jaringan);
+        title_daftar = findViewById(R.id.title_daftar);
+        value_daftar = findViewById(R.id.value_daftar);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_point.setTypeface(opensans_bold);
-        value_point.setTypeface(opensans_bold);
-
-        ImageView reward = findViewById(R.id.reward);
-        String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.png";
-        Picasso.with(getApplicationContext()).load(imageUrl).into(reward);
+        title_info.setTypeface(opensans_bold);
+        title_rb.setTypeface(opensans_bold);
+        value_rb.setTypeface(opensans_bold);
+        title_jaringan.setTypeface(opensans_bold);
+        value_jaringan.setTypeface(opensans_bold);
+        title_daftar.setTypeface(opensans_bold);
+        value_daftar.setTypeface(opensans_bold);
     }
 
     @Override

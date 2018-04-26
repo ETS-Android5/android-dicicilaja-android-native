@@ -374,12 +374,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.InsentifMcyActivity"
+        <activity
+            android:name=".Activity.InsentifMcyActivity"
             android:label="Insentif Motorcycle"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" /></activity>
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.InfoJaringanActivity"
+            android:label="Info Jaringan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.RekanBisnisActivity"></activity>
     </application>
 
 </manifest>

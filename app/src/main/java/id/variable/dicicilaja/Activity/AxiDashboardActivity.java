@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -56,7 +57,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
-    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip;
+    RelativeLayout alljaringan;
+    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -133,6 +135,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         insentif_mcy = findViewById(R.id.insentif_mcy);
         point_reward = findViewById(R.id.point_reward);
         point_trip= findViewById(R.id.point_trip);
+        alljaringan = findViewById(R.id.alljaringan);
+        button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
+        button_rb = findViewById(R.id.button_rb);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -185,6 +190,27 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsentifMcyActivity.class);
+                startActivity(intent);
+            }
+        });
+        alljaringan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                startActivity(intent);
+            }
+        });
+        button_rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                startActivity(intent);
+            }
+        });
+        button_kedalaman_rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
                 startActivity(intent);
             }
         });

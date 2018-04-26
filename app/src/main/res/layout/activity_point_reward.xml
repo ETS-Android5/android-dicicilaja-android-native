@@ -20,85 +20,92 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_above="@+id/button_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@color/colorPrimary">
+            android:fillViewport="true">
             <RelativeLayout
-                android:id="@+id/bar_point"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:layout_marginBottom="16dp">
-                <TextView
-                    android:id="@+id/title_point"
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@color/colorPrimary">
+                <RelativeLayout
+                    android:id="@+id/bar_point"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Point Anda"/>
-                <TextView
-                    android:id="@+id/value_point"
-                    android:layout_width="wrap_content"
+                    android:padding="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorWhite"
+                    android:layout_marginBottom="16dp">
+                    <TextView
+                        android:id="@+id/title_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Point Anda"/>
+                    <TextView
+                        android:id="@+id/value_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/capsule_value"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/colorWhite"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:text="6.000.000"/>
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/reward"
+                    android:layout_below="@+id/bar_point"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/capsule_value"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/colorWhite"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="6.000.000"/>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:scaleType="fitXY"/>
+
             </RelativeLayout>
-            <ImageView
-                android:layout_below="@+id/bar_point"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/slider_1"
-                android:scaleType="fitXY"/>
-            <LinearLayout
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
+        </ScrollView>
+        <LinearLayout
+            android:id="@+id/button_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:background="@color/colorAccent"
+                android:text="Download Catalog"
+                android:padding="16dp"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+
+                android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:background="@color/colorAccent"
-                    android:text="Download Catalog"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="0dp"
+                android:background="@color/colorAccent2"
+                android:text="Redeem Point"
+                android:padding="16dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
 
-                    android:textColor="@color/colorWhite"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:background="@color/colorAccent2"
-                    android:text="Redeem Point"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorWhite"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

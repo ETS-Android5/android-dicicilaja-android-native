@@ -7,13 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import id.variable.dicicilaja.R;
 
 public class PointTripActivity extends AppCompatActivity {
 
     TextView title_point, value_point;
+    ImageView trip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,10 @@ public class PointTripActivity extends AppCompatActivity {
 
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
+
+        ImageView trip = findViewById(R.id.trip);
+        String imageUrl = "https://dicicilaja.com/uploads/mitramaxi/program/1502268891-promo-umroh-awal-tahun-2018-paket-9-hari.jpg";
+        Picasso.with(getApplicationContext()).load(imageUrl).into(trip);
     }
 
     @Override
