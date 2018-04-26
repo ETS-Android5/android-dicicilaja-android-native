@@ -53,10 +53,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     SessionManager session;
     String token;
     SliderLayout mDemoSlider;
-
     TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
+    LinearLayout insentif_car, point_reward;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -129,6 +129,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         content_box5 = findViewById(R.id.content_box5);
         title_box6 = findViewById(R.id.title_box6);
         content_box6 = findViewById(R.id.content_box6);
+        insentif_car = findViewById(R.id.insentif_car);
+        point_reward = findViewById(R.id.point_reward);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -153,6 +155,22 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_box6.setTypeface(opensans_bold);
         content_box6.setTypeface(opensans_reguler);
 
+        insentif_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),InsentifCarActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        point_reward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),PointRewardActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -160,33 +178,27 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view1);
         navigationView.getMenu().getItem(0).setChecked(true);
-        navigationView.setCheckedItem(R.id.navbar_request);
+        navigationView.setCheckedItem(R.id.navbar_dashboard);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Intent intent;
                 switch( menuItem.getItemId() ) {
-                    case R.id.navbar_request:
+                    case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
                         intent = new Intent(getBaseContext(), CreateRequestActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.navbar_cek:
-                        intent = new Intent(getBaseContext(), CekStatusActivity.class);
-                        startActivity(intent);
+                    case R.id.navbar_poin:
                         break;
-                    case R.id.navbar_simulation:
-                        intent = new Intent(getBaseContext(), SimulationActivity.class);
-                        startActivity(intent);
+                    case R.id.navbar_jaringan:
                         break;
-                    case R.id.navbar_statistics:
+                    case R.id.navbar_news:
                         break;
-                    case R.id.navbar_profile:
-                        intent = new Intent(getBaseContext(), ProfileActivity.class);
-                        startActivity(intent);
+                    case R.id.navbar_materi:
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
