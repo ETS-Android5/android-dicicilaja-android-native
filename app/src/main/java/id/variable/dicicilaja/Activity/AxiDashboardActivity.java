@@ -54,6 +54,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     String token;
     SliderLayout mDemoSlider;
 
+    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
+    TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -109,7 +112,46 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        title_info = findViewById(R.id.title_info);
+        title_info_jaringan = findViewById(R.id.title_info_jaringan);
+        title_replika = findViewById(R.id.title_replika);
+        title_status = findViewById(R.id.title_status);
+        total_view = findViewById(R.id.total_view);
+        title_box1 = findViewById(R.id.title_box1);
+        content_box1 = findViewById(R.id.content_box1);
+        title_box2 = findViewById(R.id.title_box2);
+        content_box2 = findViewById(R.id.content_box2);
+        title_box3 = findViewById(R.id.title_box3);
+        content_box3 = findViewById(R.id.content_box3);
+        title_box4 = findViewById(R.id.title_box4);
+        content_box4 = findViewById(R.id.content_box4);
+        title_box5 = findViewById(R.id.title_box5);
+        content_box5 = findViewById(R.id.content_box5);
+        title_box6 = findViewById(R.id.title_box6);
+        content_box6 = findViewById(R.id.content_box6);
 
+        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+
+        title_info.setTypeface(opensans_bold);
+        title_status.setTypeface(opensans_bold);
+        title_info_jaringan.setTypeface(opensans_bold);
+        title_replika.setTypeface(opensans_bold);
+        total_view.setTypeface(opensans_bold);
+        title_box1.setTypeface(opensans_bold);
+        content_box1.setTypeface(opensans_reguler);
+        title_box2.setTypeface(opensans_bold);
+        content_box2.setTypeface(opensans_reguler);
+        title_box3.setTypeface(opensans_bold);
+        content_box3.setTypeface(opensans_reguler);
+        title_box4.setTypeface(opensans_bold);
+        content_box4.setTypeface(opensans_reguler);
+        title_box5.setTypeface(opensans_bold);
+        content_box5.setTypeface(opensans_reguler);
+        title_box6.setTypeface(opensans_bold);
+        content_box6.setTypeface(opensans_reguler);
 
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -206,11 +248,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         final HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
-        file_maps.put(1,"https://dicicilaja.com/uploads/banner/1523528108Homebanner%20Tasya.jpg");
-        file_maps.put(2,"https://dicicilaja.com/uploads/banner/banner-dana-tunai.jpg");
+        file_maps.put(1,"https://dicicilaja.com/uploads/banner/1524290702banner%20campaign.jpg");
+        file_maps.put(2,"https://dicicilaja.com/uploads/banner/1523528108Homebanner%20Tasya.jpg");
 
 
-        for(Integer name1 : file_maps.keySet()){
+        for(Integer name1 : file_maps.keySet()) {
             final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
             // initialize a SliderLayout
             sliderView
@@ -219,13 +261,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             sliderView.setOnSliderClickListener(this);
             sliderView.bundle(new Bundle());
             sliderView.getBundle()
-                    .putString("extra",name1.toString());
+                    .putString("extra", name1.toString());
             mDemoSlider.addSlider(sliderView);
         }
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
         mDemoSlider.setDuration(4000);
-        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
+//        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
         mDemoSlider.addOnPageChangeListener(this);
     }
 

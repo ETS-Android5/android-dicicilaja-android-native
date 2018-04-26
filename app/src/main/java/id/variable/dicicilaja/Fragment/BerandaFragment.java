@@ -1,7 +1,6 @@
 package id.variable.dicicilaja.Fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,18 +41,14 @@ import id.variable.dicicilaja.API.Interface.InterfacePromo;
 import id.variable.dicicilaja.API.Interface.InterfaceRecommend;
 import id.variable.dicicilaja.API.Interface.InterfaceSimulation;
 import id.variable.dicicilaja.API.Interface.InterfaceSimulationProcess;
-import id.variable.dicicilaja.API.Interface.InterfaceSlider;
 import id.variable.dicicilaja.API.Item.AreaRequest.AreaRequest;
 import id.variable.dicicilaja.API.Item.Colleteral.Colleteral;
 import id.variable.dicicilaja.API.Item.Promo.Datum;
 import id.variable.dicicilaja.API.Item.Promo.Promo;
 import id.variable.dicicilaja.API.Item.Recommend.Recommend;
 import id.variable.dicicilaja.API.Item.Simulation.Simulation;
-import id.variable.dicicilaja.API.Item.Slider.Slider;
-import id.variable.dicicilaja.Activity.AjukanPengajuanActivity;
 import id.variable.dicicilaja.Activity.AllPartnerActivity;
 import id.variable.dicicilaja.Activity.AllPromoActivity;
-import id.variable.dicicilaja.Activity.EmployeeDashboardActivity;
 import id.variable.dicicilaja.Activity.ProductCategoryActivity;
 import id.variable.dicicilaja.Activity.PromoActivity;
 import id.variable.dicicilaja.Activity.SimulasiActivity;
@@ -63,11 +58,7 @@ import id.variable.dicicilaja.Adapter.ListRekomendasiAdapter;
 import id.variable.dicicilaja.Content.PartnerModel;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.Content.RekomendasiModel;
-import id.variable.dicicilaja.Model.Area;
-import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
-import id.variable.dicicilaja.Remote.ApiUtils;
-import id.variable.dicicilaja.Remote.AreaService;
 import id.variable.dicicilaja.WebView.AboutAxiMarketplaceActivity;
 import id.variable.dicicilaja.WebView.AboutMaxiMarketplaceActivity;
 import retrofit2.Call;
@@ -140,14 +131,6 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         program_axi.setTypeface(opensans_semibold);
         simulasi_title.setTypeface(opensans_semibold);
         simulasi_subtitle.setTypeface(opensans_reguler);
-
-        dana_multiguna.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AjukanPengajuanActivity.class);
-                startActivity(intent);
-            }
-        });
 
         webview_axi.setOnClickListener(new View.OnClickListener() {
             @Override
