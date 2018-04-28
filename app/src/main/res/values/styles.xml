@@ -32,6 +32,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme1" parent="Theme.AppCompat.Light">

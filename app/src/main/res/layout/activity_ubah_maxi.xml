@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="id.variable.dicicilaja.Activity.UbahMaxiActivity"
+    android:orientation="vertical"
+    android:background="@color/colorSection">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Informasi Perusahaan"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="5dp"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaPerusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Perusahaan"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputNamaPerusahaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputAlamatPerusahaan"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAlamatPerusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Perusahaan"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputAlamatPerusahaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords|textMultiLine"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNPWPPerusahaan"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNPWPPerusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="NPWP Perusahaan"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputNPWPPerusahaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number|text"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNamaPemilik"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Informasi Pemilik"
+                    android:layout_marginTop="15dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="5dp"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaPemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Pemilik"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputNamaPemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutJenisKelamin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerWaktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Jenis Kelamin"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Jenis Kelamin"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/inputAlamatEmail"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAlamatEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Email"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputAlamatEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputTelephone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTelephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Telp / Handphone"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputTelephone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputAlamatPemilik"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAlamatPemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Pemilik"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputAlamatPemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords|textMultiLine"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKTPPemilik"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKTPPemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="KTP Pemilik"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputKTPPemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNPWPPemilik"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNPWPPemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="NPWP Pemilik"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputNPWPPemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number|text"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNamaProgram"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaProgram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Program"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputNamaProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords|number"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputTipeProgram"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTipeProgram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tipe Program"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputTipeProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

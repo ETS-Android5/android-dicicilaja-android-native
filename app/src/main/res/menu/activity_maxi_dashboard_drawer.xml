@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/main_navbar">
+        <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/navbar_dashboard"
+                android:title="DASHBOARD"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/navbar_program"
+                android:title="PROGRAM ANDA"/>
+            <item
+                android:id="@+id/navbar_status"
+                android:title="STATUS PENGAJUAN"/>
+            <item
+                android:id="@+id/navbar_pengaturan"
+                android:title="PENGATURAN"/>
+            <item
+                android:id="@+id/navbar_exit"
+                android:title="KELUAR"/>
+        </menu>
+    </item>
+
+</menu>

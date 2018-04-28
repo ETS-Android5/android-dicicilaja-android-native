@@ -81,13 +81,7 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -390,7 +384,39 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.RekanBisnisActivity"></activity>
+        <activity android:name=".Activity.RekanBisnisActivity" />
+        <activity
+            android:name=".Activity.MaxiDashboardActivity"
+            android:label="@string/title_activity_maxi_dashboard"
+            android:theme="@style/MyMaterialTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.ProfileMaxiActivity"
+            android:label="Akun Saya"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.UbahMaxiActivity"
+            android:label="Ubah Profil"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.UbahPasswordMaxiActivity"
+            android:label="Ubah Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" /></activity>
     </application>
 
 </manifest>
