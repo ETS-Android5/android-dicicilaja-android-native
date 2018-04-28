@@ -8,64 +8,24 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Applicant {
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("user_id")
-    @Expose
-    private Integer userId;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("photo")
-    @Expose
-    private String photo;
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("area_id")
+    @SerializedName("axi_id")
     @Expose
-    private Integer areaId;
-    @SerializedName("branch_id")
-    @Expose
-    private Integer branchId;
-    @SerializedName("province")
-    @Expose
-    private String province;
-    @SerializedName("city")
-    @Expose
-    private String city;
+    private String axiId;
     @SerializedName("district")
     @Expose
     private String district;
-    @SerializedName("subdistrict")
+    @SerializedName("city")
     @Expose
-    private String subdistrict;
-    @SerializedName("created_at")
-    @Expose
-    private Object createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private Object updatedAt;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    private String city;
 
     public String getName() {
         return name;
@@ -83,14 +43,6 @@ public class Applicant {
         this.email = email;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -99,36 +51,12 @@ public class Applicant {
         this.phone = phone;
     }
 
-    public Integer getAreaId() {
-        return areaId;
+    public String getAxiId() {
+        return axiId;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
-    }
-
-    public Integer getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Integer branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setAxiId(String axiId) {
+        this.axiId = axiId;
     }
 
     public String getDistrict() {
@@ -139,28 +67,12 @@ public class Applicant {
         this.district = district;
     }
 
-    public String getSubdistrict() {
-        return subdistrict;
+    public String getCity() {
+        return city;
     }
 
-    public void setSubdistrict(String subdistrict) {
-        this.subdistrict = subdistrict;
-    }
-
-    public Object getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Object createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Object getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Object updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }

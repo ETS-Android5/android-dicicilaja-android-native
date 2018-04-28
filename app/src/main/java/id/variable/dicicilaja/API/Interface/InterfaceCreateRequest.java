@@ -19,7 +19,7 @@ public interface InterfaceCreateRequest {
     @POST("request")
     @FormUrlEncoded
     Call<CreateRequest> assign(@Header("Authorization") String apiKey,
-                               @Field("axi_referral") String axi_referral,
+                               @Field("axi_id") String axi_id,
                                @Field("channel_id") String channel_id,
                                @Field("program_id") String program_id,
                                @Field("colleteral_id") String colleteral_id,

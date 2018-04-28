@@ -223,7 +223,7 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
 
@@ -241,7 +241,7 @@ public class PengajuanJaminanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }
@@ -276,7 +276,7 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         intent.putExtra("NIK_CRH", nikCrh.toString());
@@ -295,7 +295,7 @@ public class PengajuanJaminanFragment extends Fragment {
                             intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }

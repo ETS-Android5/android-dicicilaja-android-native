@@ -131,9 +131,6 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
                     province = inputProvinsi.getText().toString();
                     ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
                     colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                    if (axi_referral == null || axi_referral.trim().length() == 0 || axi_referral.equals("0")) {
-                        axi = null;
-                    }
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
@@ -160,7 +157,7 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
                             Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
                             Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
 
-                            doRequest(apiKey, axi, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            doRequest(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -181,19 +178,17 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
         });
 
     }
-    private void doRequest(final String apiKey, final String axi_referral, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
-        Call<CreateRequest> call = interfaceCreateRequest.assign(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+    private void doRequest(final String apiKey, final String applicant_id, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
+        Call<CreateRequest> call = interfaceCreateRequest.assign(apiKey, applicant_id, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
                 CreateRequest createRequest = response.body();
 
-                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                startActivity(intent);
-                finish();
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
                 alertDialog.setTitle("Selamat! Pengajuan Anda terkirim");
-                alertDialog.setMessage("No. Pengajuan #" + createRequest.getTrackingId().toString() + " \n Petugas kami akan menghubungi Anda dalam waktu dekat.\n Konfirmasi persetujuan pengajuan akan dikirim melalui email.");
+                alertDialog.setMessage("No. Pengajuan #" + createRequest.getTrackingId() + " \n Petugas kami akan menghubungi Anda dalam waktu dekat.\n Konfirmasi persetujuan pengajuan akan dikirim melalui email.");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -201,6 +196,9 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
                     }
                 });
                 alertDialog.show();
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
