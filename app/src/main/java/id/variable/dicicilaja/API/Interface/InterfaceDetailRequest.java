@@ -2,6 +2,7 @@ package id.variable.dicicilaja.API.Interface;
 
 import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import id.variable.dicicilaja.API.Item.RequestDetail.RequestDetail;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -17,5 +18,5 @@ public interface InterfaceDetailRequest {
             "Accept: application/json",
     })
     @GET("request/{id}")
-    Call<DetailRequest> getDetailRequest(@Header("Authorization") String apiKey, @Path("id") int id);
+    Call<RequestDetail> getDetailRequest(@Header("Authorization") String apiKey, @Path("id") int id);
 }

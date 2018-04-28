@@ -63,9 +63,7 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         title_profile = findViewById(R.id.title_profile);
         title_status = findViewById(R.id.title_status);
         title_pemilik = findViewById(R.id.title_pemilik);
-        ubah_text = findViewById(R.id.ubah_text);
         changePassword = findViewById(R.id.changePassword);
-        ubah = findViewById(R.id.ubah);
         ganti = findViewById(R.id.ganti);
 
 //        TextView title_status = findViewById(R.id.title_status);
@@ -96,7 +94,6 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         title_profile.setTypeface(opensans_bold);
         title_status.setTypeface(opensans_bold);
         title_pemilik.setTypeface(opensans_bold);
-        ubah.setTypeface(opensans_semibold);
         ganti.setTypeface(opensans_semibold);
 //        title_status.setTypeface(opensans_bold);
 //        title_profile.setTypeface(opensans_bold);
@@ -143,13 +140,6 @@ public class ProfileMaxiActivity extends AppCompatActivity {
 //
 //            }
 //        });
-        ubah_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), UbahMaxiActivity.class);
-                startActivity(intent);
-            }
-        });
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,12 +150,30 @@ public class ProfileMaxiActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                super.finish();
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.maxi_profile, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.ubah) {
+            Intent intent = new Intent(getBaseContext(), UbahMaxiActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.home) {
+            super.finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void doLogout(final String apiKey) {

@@ -28,6 +28,7 @@ import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
 import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import id.variable.dicicilaja.API.Item.DetailRequest.Progress;
 import id.variable.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
+import id.variable.dicicilaja.API.Item.RequestDetail.RequestDetail;
 import id.variable.dicicilaja.API.Item.Status;
 import id.variable.dicicilaja.API.Item.StatusDetail;
 import id.variable.dicicilaja.API.Item.Transaction;
@@ -48,9 +49,9 @@ import retrofit2.Response;
 public class RiwayatPengajuanFragment extends Fragment {
 
     private static final String TAG = RiwayatPengajuanFragment.class.getSimpleName();
-    List<Datum> detailRequests;
-    List<Progress> progress;
-    List<SurveyChecklist> surveyChecklists;
+    List<id.variable.dicicilaja.API.Item.RequestDetail.Datum> detailRequests;
+    List<id.variable.dicicilaja.API.Item.RequestDetail.Progress> progress;
+    List<id.variable.dicicilaja.API.Item.RequestDetail.SurveyChecklist> surveyChecklists;
     String nikCrh;
     RelativeLayout terkirimCard, verifikasiCard, prosesCard, surveyCard, survey1Card, survey2Card, pendingCard, analisaCard, ditolakCard, pencairanCard;
     TextView titleTerkirim, namaTerkirim, durasiTerkirim, titleVerifikasi, namaVerifikasi, durasiVerifikasi, titleProses, namaProses, durasiProses, titleSurvey, namaSurvey, durasiSurvey, titleSurvey1, namaSurvey1, durasiSurvey1, titleSurvey2, namaSurvey2, durasiSurvey2, titlePending, namaPending, durasiPending, titleAnalisa, namaAnalisa, durasiAnalisa, titleDitolak, namaDitolak, durasiDitolak, titlePencairan, namaPencairan, durasiPencairan;
@@ -136,10 +137,10 @@ public class RiwayatPengajuanFragment extends Fragment {
 
         InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-        Call<DetailRequest> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<DetailRequest>() {
+        Call<RequestDetail> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<RequestDetail>() {
             @Override
-            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+            public void onResponse(Call<RequestDetail> call, Response<RequestDetail> response) {
                 try {
                     detailRequests = response.body().getData();
                     progress = response.body().getProgress();
@@ -225,7 +226,7 @@ public class RiwayatPengajuanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DetailRequest> call, Throwable t) {
+            public void onFailure(Call<RequestDetail> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, t.toString());
@@ -257,7 +258,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         try {
@@ -274,7 +275,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }
@@ -293,7 +294,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         intent.putExtra("NIK_CRH", nikCrh.toString());
@@ -314,7 +315,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }

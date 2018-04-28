@@ -29,6 +29,7 @@ import id.variable.dicicilaja.API.Item.DetailPengajuanResponse;
 import id.variable.dicicilaja.API.Item.DetailRequest.Datum;
 import id.variable.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import id.variable.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
+import id.variable.dicicilaja.API.Item.RequestDetail.RequestDetail;
 import id.variable.dicicilaja.Activity.ProsesPengajuan2Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuan3Activity;
 import id.variable.dicicilaja.Activity.ProsesPengajuanActivity;
@@ -48,7 +49,7 @@ public class PengajuanJaminanFragment extends Fragment {
     List<SurveyChecklist> surveyChecklists;
     String nikCrh;
     private static final String TAG = PengajuanJaminanFragment.class.getSimpleName();
-    List<Datum> detailRequests;
+    List<id.variable.dicicilaja.API.Item.RequestDetail.Datum> detailRequests;
 
     public PengajuanJaminanFragment() {
         // Required empty public constructor
@@ -104,15 +105,14 @@ public class PengajuanJaminanFragment extends Fragment {
 
         InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-        Call<DetailRequest> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<DetailRequest>() {
+        Call<RequestDetail> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<RequestDetail>() {
             @Override
-            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+            public void onResponse(Call<RequestDetail> call, Response<RequestDetail> response) {
 
                 if ( response.isSuccessful() ) {
 
                     detailRequests = response.body().getData();
-                    surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();
 
                     api_program.setText(detailRequests.get(0).getProgram());
@@ -140,8 +140,8 @@ public class PengajuanJaminanFragment extends Fragment {
                         api_product.setVisibility(View.VISIBLE);
                         api_specification.setVisibility(View.VISIBLE);
 
-                        api_product.setText(detailRequests.get(0).getProduct().toString());
-                        api_specification.setText(detailRequests.get(0).getSpecification().toString());
+                        api_product.setText(detailRequests.get(0).getProduct());
+                        api_specification.setText(detailRequests.get(0).getSpecification());
                     } catch (Exception ex) {
                         title_of_product.setVisibility(View.GONE);
                         title_of_spec.setVisibility(View.GONE);
@@ -156,7 +156,7 @@ public class PengajuanJaminanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DetailRequest> call, Throwable t) {
+            public void onFailure(Call<RequestDetail> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, t.toString());
@@ -188,7 +188,7 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
 
@@ -206,7 +206,7 @@ public class PengajuanJaminanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }
@@ -225,7 +225,7 @@ public class PengajuanJaminanFragment extends Fragment {
                         intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatus_survey().toString());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 
                         intent.putExtra("NIK_CRH", nikCrh.toString());
@@ -244,7 +244,7 @@ public class PengajuanJaminanFragment extends Fragment {
                             intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinal_amount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
                         } catch (Exception ex) {
 
                         }
