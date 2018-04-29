@@ -245,12 +245,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.AjukanPengajuan2Activity"
+        <activity
+            android:name=".Activity.AjukanPengajuan2Activity"
             android:label="Buat Pengajuan - Step 2"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" /></activity>
+                android:value=".Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.SalesUbahActivity"></activity>
     </application>
 
 </manifest>

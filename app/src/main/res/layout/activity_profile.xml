@@ -86,38 +86,37 @@
                             android:layout_toRightOf="@+id/profile_picture_page">
                             <TextView
                                 android:id="@+id/name_user"
-                                android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="@dimen/nav_header_vertical_spacing"
-                                android:text="Muhammad Rienaldi"
+                                android:textSize="15sp"
+                                android:layout_marginBottom="3dp"
+                                android:text="User"
                                 android:textStyle="bold"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical">
-                                <TextView
-                                    android:id="@+id/branch"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_toRightOf="@+id/profile_picture_user"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tebet"/>
-                                <TextView
-                                    android:id="@+id/coma"
-                                    android:layout_toRightOf="@+id/branch"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=", "/>
-                                <TextView
-                                    android:id="@+id/area"
-                                    android:layout_toRightOf="@+id/coma"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Jabodetabekser" />
-                            </RelativeLayout>
+                            <!--<RelativeLayout-->
+                                <!--android:id="@+id/changePassword"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="3dp"-->
+                                <!--android:gravity="center_vertical">-->
+                                <!--<ImageView-->
+                                    <!--android:id="@+id/image_lock"-->
+                                    <!--android:layout_width="15dp"-->
+                                    <!--android:layout_height="15dp"-->
+                                    <!--android:layout_centerVertical="true"-->
+                                    <!--android:src="@drawable/ic_lock_password"/>-->
+                                <!--<TextView-->
+                                    <!--android:layout_toRightOf="@+id/image_lock"-->
+                                    <!--android:id="@+id/ganti"-->
+                                    <!--android:textSize="12sp"-->
+                                    <!--android:layout_marginLeft="2dp"-->
+                                    <!--android:textAllCaps="true"-->
+                                    <!--android:textColor="@color/colorAccent2"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="Ganti Kata Sandi"/>-->
+                            <!--</RelativeLayout>-->
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -388,13 +387,13 @@
             <Button
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/capsule_button"
+                android:backgroundTint="@color/colorAccent"
                 android:text="Keluar"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp" />

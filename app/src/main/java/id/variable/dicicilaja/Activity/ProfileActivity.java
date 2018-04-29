@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -59,8 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
         TextView title_profile = findViewById(R.id.title_profile);
         Button btnLogout = findViewById(R.id.btnLogout);
         TextView name_user = findViewById(R.id.name_user);
-        TextView branch = findViewById(R.id.branch);
-        TextView area = findViewById(R.id.area);
 
         TextView api_nik = findViewById(R.id.api_nik);
         TextView api_jabatan = findViewById(R.id.api_jabatan);
@@ -84,8 +83,6 @@ public class ProfileActivity extends AppCompatActivity {
         title_status.setTypeface(opensans_bold);
         title_profile.setTypeface(opensans_bold);
         name_user.setTypeface(opensans_bold);
-        branch.setText(session.getBranch());
-        area.setText(session.getArea());
         name_user.setText(session.getName());
         String imageUrl = session.getPhoto().toString();
 
@@ -129,13 +126,32 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.sales_profile, menu);
+//        return true;
+//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                super.finish();
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.ubah) {
+//            Intent intent = new Intent(getBaseContext(), SalesUbahActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
+        if (id == R.id.home) {
+            super.finish();
+            return true;
         }
-        return true;
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void doLogout(final String apiKey) {
