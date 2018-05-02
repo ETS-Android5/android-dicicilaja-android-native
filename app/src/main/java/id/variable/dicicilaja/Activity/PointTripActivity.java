@@ -45,6 +45,7 @@ public class PointTripActivity extends AppCompatActivity {
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
 
+        value_point.setText(getIntent().getStringExtra("POINT_TRIP"));
         ImageView trip = findViewById(R.id.trip);
         String imageUrl = "https://dicicilaja.com/uploads/mitramaxi/program/1502268891-promo-umroh-awal-tahun-2018-paket-9-hari.jpg";
         Picasso.with(getApplicationContext()).load(imageUrl).into(trip);

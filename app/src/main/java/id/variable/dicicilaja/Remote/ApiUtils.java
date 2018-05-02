@@ -9,6 +9,8 @@ import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceSimulation;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxiDetail.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceMarketplace.LoginMarketplace;
 
 /**
  * Created by ziterz on 11/29/2017.
@@ -16,10 +18,18 @@ import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "https://api.dicicilaja.com/";
+    public static final String BASE_URL = "https://sandbox.dicicilaja.com/";
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
+    }
+
+    public static InterfaceAxiDetail getAxiDetail() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceAxiDetail.class);
+    }
+
+    public static LoginMarketplace getLogin() {
+        return RetrofitClient.getClient(BASE_URL).create(LoginMarketplace.class);
     }
 
     public static UserFirebase getUserFirebase() {

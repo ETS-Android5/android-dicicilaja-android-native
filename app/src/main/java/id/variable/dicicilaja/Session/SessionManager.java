@@ -31,22 +31,26 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String token, String role, String user, String photo_profile_url, String area, String branch, String zipcode, String firebase_token){
+    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString("user_id", user_id);
-        editor.putString("token", token);
+        editor.putString("axi_id", user_id);
+        editor.putString("name", name);
         editor.putString("role", role);
-        editor.putString("name", user);
         editor.putString("photo", photo_profile_url);
-        editor.putString("area", area);
         editor.putString("branch", branch);
+        editor.putString("area", area);
         editor.putString("zipcode", zipcode);
-        editor.putString("firebase_token", firebase_token);
+        editor.putString("token", token);
         editor.commit();
     }
 
     public String getUserId() {
         return pref.getString("user_id", null);
+    }
+
+    public String getAxiId() {
+        return pref.getString("axi_id", null);
     }
 
     public String getToken() {
@@ -65,21 +69,18 @@ public class SessionManager {
         return pref.getString("photo", null);
     }
 
-    public String getArea() {
-        return pref.getString("area", null);
-    }
-
     public String getBranch() {
         return pref.getString("branch", null);
+    }
+
+    public String getArea() {
+        return pref.getString("area", null);
     }
 
     public String getZipCode() {
         return pref.getString("zipcode", null);
     }
 
-    public String getFirebaseToken() {
-        return pref.getString("firebase_token", null);
-    }
 
 
     /**

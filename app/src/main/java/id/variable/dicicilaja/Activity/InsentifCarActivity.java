@@ -60,6 +60,12 @@ public class InsentifCarActivity extends AppCompatActivity {
         title_layout.setTypeface(opensans_bold);
         value_layout.setTypeface(opensans_bold);
 
+        value_mentor.setText(getIntent().getStringExtra("MENTOR"));
+        value_bulanan.setText(getIntent().getStringExtra("EXTRA_BULANAN"));
+        value_group.setText(getIntent().getStringExtra("GROUP"));
+        value_tahunan.setText(getIntent().getStringExtra("BONUS_TAHUNAN"));
+        value_layout.setText(getIntent().getStringExtra("BONUS_LAYOUT"));
+
     }
 
     @Override

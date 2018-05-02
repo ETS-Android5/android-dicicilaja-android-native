@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -18,6 +19,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import id.variable.dicicilaja.Fragment.BerandaFragment;
 import id.variable.dicicilaja.Fragment.PengajuanFragment;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
+import id.variable.dicicilaja.WebView.CreateRequestActivity;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -89,14 +92,71 @@ public class MarketplaceActivity extends AppCompatActivity
 //        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.setCheckedItem(R.id.navbar_dashboard);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                Intent intent;
+                switch( menuItem.getItemId() ) {
+//                    case R.id.navbar_dashboard:
+//                        break;
+//                    case R.id.navbar_create_request:
+//                        intent = new Intent(getBaseContext(), CreateRequestActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    case R.id.navbar_poin:
+//                        break;
+//                    case R.id.navbar_jaringan:
+//                        break;
+//                    case R.id.navbar_news:
+//                        break;
+//                    case R.id.navbar_materi:
+//                        break;
+                    case R.id.navbar_keluar:
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MarketplaceActivity.this);
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Konfirmasi");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+
+
+                        // Setting Positive "Yes" Button
+                        alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+                        // Setting Negative "NO" Button
+                        alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+                        break;
+                }
+                drawer.closeDrawers();
+                return true;
+
+            }
+
+        });
 //
 //        viewPager = findViewById(R.id.pager);
 //        viewPager.setAdapter(new MarketplacePagerAdapter(getSupportFragmentManager(), 4));

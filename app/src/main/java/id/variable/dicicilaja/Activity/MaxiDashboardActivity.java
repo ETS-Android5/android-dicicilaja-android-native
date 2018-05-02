@@ -48,7 +48,6 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
     TextView title_info, title_pengumuman, title_replika, total_view, title_status, title_program;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
-    RelativeLayout alljaringan;
     LinearLayout insentif_car, insentif_mcy, jumlah_program, total_pengajuan, button_rb, button_kedalaman_rb;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,7 +112,6 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         content_box1 = findViewById(R.id.content_box1);
         title_box2 = findViewById(R.id.title_box2);
         content_box2 = findViewById(R.id.content_box2);
-        alljaringan = findViewById(R.id.alljaringan);
         button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
         button_rb = findViewById(R.id.button_rb);
         title_info = findViewById(R.id.title_info);
@@ -215,7 +213,11 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         session = new SessionManager(getApplicationContext());
 
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        try {
+            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        } catch (Exception ex) {
+
+        }
 
         name.setText(session.getName());
 

@@ -58,23 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView title_status = findViewById(R.id.title_status);
         TextView title_profile = findViewById(R.id.title_profile);
         Button btnLogout = findViewById(R.id.btnLogout);
-        TextView name_user = findViewById(R.id.name_user);
-        TextView branch = findViewById(R.id.branch);
-        TextView area = findViewById(R.id.area);
 
-        TextView api_nik = findViewById(R.id.api_nik);
-        TextView api_jabatan = findViewById(R.id.api_jabatan);
-        TextView api_kode_cabang = findViewById(R.id.api_kode_cabang);
-        TextView api_laporan_area = findViewById(R.id.api_laporan_area);
-        TextView api_area = findViewById(R.id.api_area);
-        TextView api_cabang = findViewById(R.id.api_cabang);
-        TextView api_hp1 = findViewById(R.id.api_hp1);
-        TextView api_hp2 = findViewById(R.id.api_hp2);
-
-        api_nik.setText(session.getUserId().toString());
-        api_jabatan.setText(session.getRole().toString());
-        api_cabang.setText(session.getBranch().toString());
-        api_area.setText(session.getArea().toString());
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -83,14 +67,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         title_status.setTypeface(opensans_bold);
         title_profile.setTypeface(opensans_bold);
-        name_user.setTypeface(opensans_bold);
-        branch.setText(session.getBranch());
-        area.setText(session.getArea());
-        name_user.setText(session.getName());
+
         String imageUrl = session.getPhoto().toString();
 
         CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
-        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        try {
+            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        } catch (Exception ex) {
+
+        }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

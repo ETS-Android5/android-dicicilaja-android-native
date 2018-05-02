@@ -22,6 +22,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceMarketplace.LoginMarketplace;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemMarketplace.LoginObj;
 import id.variable.dicicilaja.Model.ResObj;
 import id.variable.dicicilaja.Model.ResRequestProcess;
 import id.variable.dicicilaja.R;
@@ -44,12 +46,16 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     RelativeLayout lewati;
 
+    String apiKey;
+
     InterfaceNotifToken interfaceNotifToken;
 
     SessionManager session;
 
     UserService userService;
     UserFirebase userFirebase;
+    String photo, zipcode, area;
+    LoginMarketplace loginMarketplace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +63,16 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new SessionManager(LoginActivity.this);
 
-        if (session.isLoggedIn() == TRUE) {
-            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+        if (session.isLoggedIn() == TRUE && session.getRole().equals("AXI")) {
+            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("Mitra MAXI")) {
+            Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE) {
+            Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -85,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
             userService = ApiUtils.getUserService();
             userFirebase = ApiUtils.getUserFirebase();
+            loginMarketplace = ApiUtils.getLogin();
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.i("firebase_login", "token : "  + refreshedToken);
@@ -108,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     String username = inputEmailID.getText().toString();
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
-                        doLogin(username, password, refreshedToken);
+                        doLogin(username, password);
                     }
                 }
             });
@@ -150,46 +165,49 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void doLogin(final String username, final String password, final String firebase_token) {
-        Call<ResObj> call = userFirebase.login_token(username, password, firebase_token);
-        call.enqueue(new Callback<ResObj>() {
+    private void doLogin(final String username, final String password) {
+        Call<LoginObj> call = loginMarketplace.login(username, password);
+        call.enqueue(new Callback<LoginObj>() {
             @Override
-            public void onResponse(Call<ResObj> call, Response<ResObj> response) {
+            public void onResponse(Call<LoginObj> call, Response<LoginObj> response) {
                 if(response.isSuccessful()) {
-                    ResObj resObj = response.body();
+
+                    LoginObj resObj = response.body();
 
                     try {
-                        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
-                        session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), resObj.getPhoto(), resObj.getArea(), resObj.getBranch(), resObj.getZipcode(), refreshedToken);
-
-                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                        startActivity(intent);
-                        finish();
-//                        if(resObj.getRole().equals("axi")) {
-//                            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }else {
-//                            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-
-                    } catch(Exception ex) {
-                        Log.w("Login Exception:", ex.getMessage());
-                        Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+                        photo = resObj.getPhoto().toString();
+                        zipcode = resObj.getZipcode().toString();
+                        area = resObj.getArea().toString();
+                    }catch (Exception ex) {
+                        photo = "";
+                        zipcode = "";
+                        area = "";
                     }
 
+                    session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), photo, resObj.getBranch(), area, zipcode);
 
-                } else {
+                    if (resObj.getRole().equals("AXI")) {
+                        Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("Mitra MAXI")) {
+                        Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
-            public void onFailure(Call<ResObj> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<LoginObj> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -264,5 +282,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+//    private void doAxi(final String apiKey) {
+//        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
+//        call.enqueue(new Callback<ResRequestProcess>() {
+//            @Override
+//            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
+////                Toast.makeText(getContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
 }

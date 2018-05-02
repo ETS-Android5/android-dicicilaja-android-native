@@ -1,8 +1,13 @@
 package id.variable.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,6 +19,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -33,9 +41,19 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
+import id.variable.dicicilaja.API.Client.RetrofitClient;
+import id.variable.dicicilaja.API.Interface.InterfacePengajuanAxi;
+import id.variable.dicicilaja.API.Interface.InterfaceRequest;
+import id.variable.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxiDetail.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail.AXIDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail.Datum;
 import id.variable.dicicilaja.Adapter.EmployeeDashboardPagerAdapter;
+import id.variable.dicicilaja.Adapter.PengajuanAxiAdapter;
 import id.variable.dicicilaja.Fragment.AxiAjukanFragment;
 import id.variable.dicicilaja.Fragment.AxiAkunFragment;
 import id.variable.dicicilaja.Fragment.AxiHomeFragment;
@@ -43,22 +61,34 @@ import id.variable.dicicilaja.Fragment.AxiJaringanFragment;
 import id.variable.dicicilaja.Fragment.AxiPengajuanFragment;
 import id.variable.dicicilaja.Fragment.HomeFragment;
 import id.variable.dicicilaja.Fragment.ProfileFragment;
+import id.variable.dicicilaja.Listener.ClickListener;
+import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
+import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Session.SessionManager;
 import id.variable.dicicilaja.WebView.CekStatusActivity;
 import id.variable.dicicilaja.WebView.CreateRequestActivity;
 import id.variable.dicicilaja.WebView.SimulationActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SessionManager session;
     String token;
+    List<id.variable.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
+    List<Datum> itemDetail;
+
+    InterfaceAxiDetail interfaceAxiDetail;
     SliderLayout mDemoSlider;
+    ImageView icon1_web, icon2_web, copy_link;
+    TextView link_web;
     TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
-    RelativeLayout alljaringan;
-    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb;
+    String apiKey;
+    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -109,11 +139,16 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
 
-        String token = session.getToken();
+        final SessionManager session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        icon2_web = findViewById(R.id.icon2_web);
+        copy_link = findViewById(R.id.copy_link);
+        icon1_web = findViewById(R.id.icon1_web);
+        link_web = findViewById(R.id.link_web);
         title_info = findViewById(R.id.title_info);
         title_info_jaringan = findViewById(R.id.title_info_jaringan);
         title_replika = findViewById(R.id.title_replika);
@@ -135,9 +170,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         insentif_mcy = findViewById(R.id.insentif_mcy);
         point_reward = findViewById(R.id.point_reward);
         point_trip= findViewById(R.id.point_trip);
-        alljaringan = findViewById(R.id.alljaringan);
         button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
         button_rb = findViewById(R.id.button_rb);
+        footer_item_1 = findViewById(R.id.footer_item_1);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -162,10 +197,107 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_box6.setTypeface(opensans_bold);
         content_box6.setTypeface(opensans_reguler);
 
+        InterfacePengajuanAxi apiService =
+                NewRetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+
+        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey);
+        call2.enqueue(new Callback<PengajuanAxi>() {
+            @Override
+            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+                pengajuan = response.body().getData();
+                recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
+
+
+            }
+
+            @Override
+            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
+
+            }
+        });
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+        link_web.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
+                startActivity(browserIntent);
+            }
+        });
+        icon1_web.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
+                startActivity(browserIntent);
+            }
+        });
+        icon2_web.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Temukan solusi kebutuhan Anda disini "+link_web.getText().toString());
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Link web replika");
+                startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
+            }
+        });
+        copy_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("link",link_web.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getBaseContext(),"Berhasil menyalin link web replika",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        interfaceAxiDetail = ApiUtils.getAxiDetail();
+        Call<AXIDetail> call = interfaceAxiDetail.getDetail(apiKey);
+        call.enqueue(new Callback<AXIDetail>() {
+            @Override
+            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
+                itemDetail = response.body().getData();
+
+                content_box1.setText(itemDetail.get(0).getPointReward().toString());
+                content_box2.setText(itemDetail.get(0).getPointTrip().toString());
+                content_box3.setText(itemDetail.get(0).getIncentiveCar().toString());
+                content_box4.setText(itemDetail.get(0).getIncentiveMcy().toString());
+                content_box5.setText(itemDetail.get(0).getRbCount().toString());
+                content_box6.setText(itemDetail.get(0).getRbLevel().toString());
+                link_web.setText(itemDetail.get(0).getReplicaWebLink().toString());
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<AXIDetail> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
         insentif_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsentifCarActivity.class);
+                intent.putExtra("MENTOR", itemDetail.get(0).getIncentiveCarMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.get(0).getIncentiveCarExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.get(0).getIncentiveCarGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.get(0).getIncentiveCarBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.get(0).getIncentiveCarBonusLayout().toString());
                 startActivity(intent);
             }
         });
@@ -174,6 +306,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),PointRewardActivity.class);
+                intent.putExtra("POINT_REWARD", itemDetail.get(0).getPointReward().toString());
                 startActivity(intent);
             }
         });
@@ -182,6 +315,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),PointTripActivity.class);
+                intent.putExtra("POINT_TRIP", itemDetail.get(0).getPointTrip().toString());
                 startActivity(intent);
             }
         });
@@ -190,13 +324,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsentifMcyActivity.class);
-                startActivity(intent);
-            }
-        });
-        alljaringan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                intent.putExtra("MENTOR", itemDetail.get(0).getIncentiveMcyMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.get(0).getIncentiveMcyExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.get(0).getIncentiveMcyGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.get(0).getIncentiveMcyBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.get(0).getIncentiveMcyBonusLayout().toString());
                 startActivity(intent);
             }
         });
@@ -211,6 +343,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                startActivity(intent);
+            }
+        });
+        footer_item_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),MarketplaceActivity.class);
                 startActivity(intent);
             }
         });
@@ -235,8 +374,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_create_request:
                         intent = new Intent(getBaseContext(), CreateRequestActivity.class);
                         startActivity(intent);
-                        break;
-                    case R.id.navbar_poin:
                         break;
                     case R.id.navbar_jaringan:
                         break;
@@ -288,10 +425,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
 
-        session = new SessionManager(getApplicationContext());
-
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        try {
+            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        } catch (Exception ex) {
+
+        }
 
         name.setText(session.getName());
 

@@ -21,7 +21,13 @@
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -81,7 +87,8 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -389,11 +396,7 @@
             android:name=".Activity.MaxiDashboardActivity"
             android:label="@string/title_activity_maxi_dashboard"
             android:theme="@style/MyMaterialTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.ProfileMaxiActivity"

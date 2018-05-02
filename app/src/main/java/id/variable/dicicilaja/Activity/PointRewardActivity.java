@@ -46,6 +46,7 @@ public class PointRewardActivity extends AppCompatActivity {
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
 
+        value_point.setText(getIntent().getStringExtra("POINT_REWARD"));
         ImageView reward = findViewById(R.id.reward);
         String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.png";
         Picasso.with(getApplicationContext()).load(imageUrl).into(reward);
