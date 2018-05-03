@@ -253,7 +253,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.SalesUbahActivity"></activity>
+        <activity android:name=".Activity.SalesUbahActivity" />
+        <activity android:name=".Activity.StatisticActivity"
+            android:label="Statistik"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.EmployeeDashboardActivity" /></activity>
     </application>
 
 </manifest>

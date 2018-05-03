@@ -77,6 +77,8 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.navbar_statistics:
+                        intent = new Intent(getBaseContext(), StatisticActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_profile:
                         intent = new Intent(getBaseContext(), ProfileActivity.class);
@@ -84,15 +86,8 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeDashboardActivity.this);
-
-                        // Setting Dialog Title
                         alertDialog.setTitle("Konfirmasi");
-
-                        // Setting Dialog Message
                         alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
-
-
-                        // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
@@ -101,15 +96,11 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
-
-                        // Setting Negative "NO" Button
                         alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
-
-                        // Showing Alert Message
                         alertDialog.show();
                         break;
                 }
