@@ -21,11 +21,8 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
-import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceMarketplace.LoginMarketplace;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemMarketplace.LoginObj;
-import id.variable.dicicilaja.Model.ResObj;
-import id.variable.dicicilaja.Model.ResRequestProcess;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.LoginMarketplace;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemMarketplace.LoginObj;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Remote.UserFirebase;

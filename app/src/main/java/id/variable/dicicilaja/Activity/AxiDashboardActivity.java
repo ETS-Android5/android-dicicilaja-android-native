@@ -12,9 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -37,7 +34,6 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -45,30 +41,20 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.API.Client.NewRetrofitClient;
-import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfacePengajuanAxi;
-import id.variable.dicicilaja.API.Interface.InterfaceRequest;
 import id.variable.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxiDetail.InterfaceAxiDetail;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail.AXIDetail;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail.Datum;
-import id.variable.dicicilaja.Adapter.EmployeeDashboardPagerAdapter;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.Datum;
 import id.variable.dicicilaja.Adapter.PengajuanAxiAdapter;
-import id.variable.dicicilaja.Fragment.AxiAjukanFragment;
-import id.variable.dicicilaja.Fragment.AxiAkunFragment;
 import id.variable.dicicilaja.Fragment.AxiHomeFragment;
-import id.variable.dicicilaja.Fragment.AxiJaringanFragment;
 import id.variable.dicicilaja.Fragment.AxiPengajuanFragment;
-import id.variable.dicicilaja.Fragment.HomeFragment;
-import id.variable.dicicilaja.Fragment.ProfileFragment;
 import id.variable.dicicilaja.Listener.ClickListener;
 import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
 import id.variable.dicicilaja.Session.SessionManager;
-import id.variable.dicicilaja.WebView.CekStatusActivity;
 import id.variable.dicicilaja.WebView.CreateRequestActivity;
-import id.variable.dicicilaja.WebView.SimulationActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,6 +66,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     List<id.variable.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
     List<Datum> itemDetail;
 
+    RelativeLayout allpengajuan;
     InterfaceAxiDetail interfaceAxiDetail;
     SliderLayout mDemoSlider;
     ImageView icon1_web, icon2_web, copy_link;
@@ -173,6 +160,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
         button_rb = findViewById(R.id.button_rb);
         footer_item_1 = findViewById(R.id.footer_item_1);
+        allpengajuan = findViewById(R.id.allpengajuan);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -197,6 +185,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_box6.setTypeface(opensans_bold);
         content_box6.setTypeface(opensans_reguler);
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
         InterfacePengajuanAxi apiService =
                 NewRetrofitClient.getClient().create(InterfacePengajuanAxi.class);
 
@@ -210,7 +203,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 pengajuan = response.body().getData();
                 recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
 
+                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                    @Override
+                    public void onClick(View view, final int position) {
+                        Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                        intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+                        startActivity(intent);
 
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                    }
+                }));
+                progress.dismiss();
             }
 
             @Override
@@ -219,10 +225,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        final ProgressDialog progress = new ProgressDialog(this);
-        progress.setMessage("Sedang memuat data...");
-        progress.setCanceledOnTouchOutside(false);
-        progress.show();
+
         link_web.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -254,6 +257,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 ClipData clip = ClipData.newPlainText("link",link_web.getText().toString());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getBaseContext(),"Berhasil menyalin link web replika",Toast.LENGTH_SHORT).show();
+            }
+        });
+        allpengajuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -1,7 +1,6 @@
-package id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceMarketplace;
+package id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi;
 
-import id.variable.dicicilaja.Activity.RemoteMarketplace.ItemMarketplace.LoginObj;
-import id.variable.dicicilaja.Model.ResObj;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemMarketplace.LoginObj;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

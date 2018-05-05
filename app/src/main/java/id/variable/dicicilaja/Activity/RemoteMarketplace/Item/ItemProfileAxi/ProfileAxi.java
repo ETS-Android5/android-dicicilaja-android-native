@@ -1,21 +1,19 @@
-package id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail;
+package id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProfileAxi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
- * Created by fawazrifqi on 29/04/18.
+ * Created by fawazrifqi on 05/05/18.
  */
 
-public class AXIDetail {
+public class ProfileAxi {
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private Data data;
 
     public String getStatus() {
         return status;
@@ -25,11 +23,12 @@ public class AXIDetail {
         this.status = status;
     }
 
-    public List<Datum> getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(Data data) {
         this.data = data;
     }
+
 }

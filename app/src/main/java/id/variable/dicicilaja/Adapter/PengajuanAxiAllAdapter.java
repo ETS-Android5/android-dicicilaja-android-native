@@ -1,32 +1,28 @@
 package id.variable.dicicilaja.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import id.variable.dicicilaja.API.Item.PengajuanAxi.Datum;
-import id.variable.dicicilaja.Activity.DetailRequestActivity;
 import id.variable.dicicilaja.R;
 
 /**
- * Created by fawazrifqi on 29/04/18.
+ * Created by fawazrifqi on 03/05/18.
  */
 
-public class PengajuanAxiAdapter extends RecyclerView.Adapter<PengajuanAxiAdapter.RequestViewHolder> {
+public class PengajuanAxiAllAdapter extends RecyclerView.Adapter<PengajuanAxiAllAdapter.RequestViewHolder>  {
     private List<Datum> pengajuan;
     private int rowLayout;
     private Context context;
 
-    public class RequestViewHolder extends RecyclerView.ViewHolder {
+    public static class RequestViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout card_pengajuan;
         TextView resi;
         TextView tanggal;
@@ -47,20 +43,20 @@ public class PengajuanAxiAdapter extends RecyclerView.Adapter<PengajuanAxiAdapte
         }
     }
 
-    public PengajuanAxiAdapter(List<Datum> requests, int rowLayout, Context context) {
+    public PengajuanAxiAllAdapter(List<Datum> requests, int rowLayout, Context context) {
         this.pengajuan = requests;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @Override
-    public PengajuanAxiAdapter.RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PengajuanAxiAllAdapter.RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new PengajuanAxiAdapter.RequestViewHolder(view);
+        return new PengajuanAxiAllAdapter.RequestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PengajuanAxiAdapter.RequestViewHolder holder, int position) {
+    public void onBindViewHolder(PengajuanAxiAllAdapter.RequestViewHolder holder, int position) {
         holder.resi.setText("#" + pengajuan.get(position).getTrackingId().toString());
         holder.tanggal.setText(pengajuan.get(position).getCreatedAt());
         holder.status.setText(pengajuan.get(position).getStatus());
@@ -100,6 +96,7 @@ public class PengajuanAxiAdapter extends RecyclerView.Adapter<PengajuanAxiAdapte
 
     @Override
     public int getItemCount() {
-        return 2;
+        return pengajuan.size();
     }
+
 }

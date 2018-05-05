@@ -113,92 +113,92 @@ public class RegisterAxiFragment extends Fragment {
 
         // btnLanjut.setEnabled(false);
 
-        final List<String> AREA_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
-
-        final List<String> CABANG_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
-
-        AreaService = ApiUtils.getAreaService();
-
-        Call<List<Area>> call = AreaService.getArea();
-        call.enqueue(new Callback<List<Area>>() {
-            @Override
-            public void onResponse(Call<List<Area>> call, Response<List<Area>> response) {
-
-                AREA_MAP.clear();
-                AREA_ITEMS.clear();
-
-                for ( int i = 0; i < response.body().size(); i++ ) {
-                    AREA_MAP.put(response.body().get(i).getId(), response.body().get(i).getId().toString());
-                    AREA_ITEMS.add(response.body().get(i).getName());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Area>> call, Throwable t) {
-                AREA_MAP.clear();
-                AREA_ITEMS.clear();
-                Log.e("Error", t.getMessage());
-            }
-        });
-
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerArea = (MaterialSpinner) view.findViewById(R.id.spinnerArea);
-        spinnerArea.setAdapter(area_adapter);
-        spinnerArea.setTypeface(opensans_semibold);
-
-        spinnerCabang = (MaterialSpinner) view.findViewById(R.id.spinnerCabang);
-        spinnerCabang.setEnabled(false);
-
-        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Call<List<Branch>> callBranch = AreaService.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                callBranch.enqueue(new Callback<List<Branch>>() {
-                    @Override
-                    public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-
-                        CABANG_MAP.clear();
-                        CABANG_ITEMS.clear();
-
-                        for ( int i = 0; i < response.body().size(); i++ ) {
-                            CABANG_MAP.put(response.body().get(i).getId(), response.body().get(i).getName());
-                            CABANG_ITEMS.add(response.body().get(i).getName());
-                        }
-
-                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
-                        branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        spinnerCabang.setEnabled(true);
-                        spinnerCabang.setAdapter(branch_adapter);
-                        spinnerCabang.setTypeface(opensans_semibold);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Branch>> call, Throwable t) {
-                        CABANG_MAP.clear();
-                        CABANG_ITEMS.clear();
-                        spinnerCabang.setEnabled(false);
-                    }
-                });
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                AREA_ITEMS.clear();
-                AREA_MAP.clear();
-                CABANG_MAP.clear();
-                CABANG_ITEMS.clear();
-                spinnerCabang.setEnabled(false);
-            }
-
-        });
+//        final List<String> AREA_ITEMS = new ArrayList<>();
+//        final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
+//
+//        final List<String> CABANG_ITEMS = new ArrayList<>();
+//        final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
+//
+//        AreaService = ApiUtils.getAreaService();
+//
+//        Call<List<Area>> call = AreaService.getArea();
+//        call.enqueue(new Callback<List<Area>>() {
+//            @Override
+//            public void onResponse(Call<List<Area>> call, Response<List<Area>> response) {
+//
+//                AREA_MAP.clear();
+//                AREA_ITEMS.clear();
+//
+//                for ( int i = 0; i < response.body().size(); i++ ) {
+//                    AREA_MAP.put(response.body().get(i).getId(), response.body().get(i).getId().toString());
+//                    AREA_ITEMS.add(response.body().get(i).getName());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Area>> call, Throwable t) {
+//                AREA_MAP.clear();
+//                AREA_ITEMS.clear();
+//                Log.e("Error", t.getMessage());
+//            }
+//        });
+//
+//        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+//        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinnerArea = (MaterialSpinner) view.findViewById(R.id.spinnerArea);
+//        spinnerArea.setAdapter(area_adapter);
+//        spinnerArea.setTypeface(opensans_semibold);
+//
+//        spinnerCabang = (MaterialSpinner) view.findViewById(R.id.spinnerCabang);
+//        spinnerCabang.setEnabled(false);
+//
+//        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                Call<List<Branch>> callBranch = AreaService.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+//                callBranch.enqueue(new Callback<List<Branch>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
+//
+//                        CABANG_MAP.clear();
+//                        CABANG_ITEMS.clear();
+//
+//                        for ( int i = 0; i < response.body().size(); i++ ) {
+//                            CABANG_MAP.put(response.body().get(i).getId(), response.body().get(i).getName());
+//                            CABANG_ITEMS.add(response.body().get(i).getName());
+//                        }
+//
+//                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
+//                        branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                        spinnerCabang.setEnabled(true);
+//                        spinnerCabang.setAdapter(branch_adapter);
+//                        spinnerCabang.setTypeface(opensans_semibold);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Branch>> call, Throwable t) {
+//                        CABANG_MAP.clear();
+//                        CABANG_ITEMS.clear();
+//                        spinnerCabang.setEnabled(false);
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                AREA_ITEMS.clear();
+//                AREA_MAP.clear();
+//                CABANG_MAP.clear();
+//                CABANG_ITEMS.clear();
+//                spinnerCabang.setEnabled(false);
+//            }
+//
+//        });
 
         return view;
     }

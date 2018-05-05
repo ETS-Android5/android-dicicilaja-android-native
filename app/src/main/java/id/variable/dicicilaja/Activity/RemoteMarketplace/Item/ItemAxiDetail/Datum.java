@@ -1,4 +1,4 @@
-package id.variable.dicicilaja.Activity.RemoteMarketplace.ItemAxiDetail;
+package id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -7,10 +7,9 @@ import id.variable.dicicilaja.API.Interface.InterfaceLogout;
 import id.variable.dicicilaja.API.Interface.InterfaceNilaiPinjaman;
 import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
-import id.variable.dicicilaja.API.Interface.InterfaceSimulation;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxiDetail.InterfaceAxiDetail;
-import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceMarketplace.LoginMarketplace;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.LoginMarketplace;
 
 /**
  * Created by ziterz on 11/29/2017.

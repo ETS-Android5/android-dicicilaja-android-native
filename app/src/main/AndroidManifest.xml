@@ -87,8 +87,7 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -361,7 +360,7 @@
         </activity>
         <activity
             android:name=".Activity.PointRewardActivity"
-            android:label="Point Reward"
+            android:label="Poin Reward"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -369,7 +368,7 @@
         </activity>
         <activity
             android:name=".Activity.PointTripActivity"
-            android:label="Point Trip"
+            android:label="Poin Trip"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -395,9 +394,7 @@
         <activity
             android:name=".Activity.MaxiDashboardActivity"
             android:label="@string/title_activity_maxi_dashboard"
-            android:theme="@style/MyMaterialTheme">
-
-        </activity>
+            android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".Activity.ProfileMaxiActivity"
             android:label="Akun Saya"
@@ -412,14 +409,33 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllPengajuanAxiActivity"
+            android:label="Semua Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.UbahPasswordMaxiActivity"
+        <activity
+            android:name=".Activity.UbahPasswordAxiActivity"
             android:label="Ubah Kata Sandi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" /></activity>
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.UbahAxiActivity"
+            android:label="Ubah Profil"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.UbahPasswordMaxiActivity"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UbahPasswordMaxiActivity extends AppCompatActivity {
+public class UbahPasswordAxiActivity extends AppCompatActivity {
 
     Button save;
     String apiKey;
@@ -33,7 +33,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubah_password_maxi);
+        setContentView(R.layout.activity_ubah_password_axi);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,7 +67,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
 
                 if(validateForm(katasandi, katasandibaru, katasandibaru2)) {
                     if(!katasandibaru.equals(katasandibaru2)) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordMaxiActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordAxiActivity.this);
                         alertDialog.setMessage("Kata sandi baru yang Anda masukan berbeda");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -86,7 +86,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
 
     private boolean validateForm(String katasandi, String katasandibaru, String katasandibaru2) {
         if(katasandi == null || katasandi.trim().length() == 0 || katasandi.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordMaxiActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordAxiActivity.this);
             alertDialog.setMessage("Masukan kata sandi lama");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -99,7 +99,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
         }
 
         if(katasandibaru == null || katasandibaru.trim().length() == 0 || katasandibaru.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordMaxiActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordAxiActivity.this);
             alertDialog.setMessage("Masukan kata sandi baru");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -112,7 +112,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
         }
 
         if(katasandibaru2 == null || katasandibaru2.trim().length() == 0 || katasandibaru2.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordMaxiActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahPasswordAxiActivity.this);
             alertDialog.setMessage("Ulangi kata sandi baru");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -158,7 +158,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
                     finish();
                 } catch(Exception ex) {
                     Log.w("Process Exception :", ex.getMessage());
-                    Toast.makeText(getBaseContext(), "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Gagal mengubah kata sandi", Toast.LENGTH_SHORT).show();
                 }
             }
 
