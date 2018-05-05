@@ -77,17 +77,17 @@ public class StatisticActivity extends AppCompatActivity {
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         title_point.setTypeface(opensans_bold);
-        title_pengajuan_masuk.setTypeface(opensans_bold);
-        title_pengajuan_diproses.setTypeface(opensans_bold);
+        title_pengajuan_masuk.setTypeface(opensans_semibold);
+        title_pengajuan_diproses.setTypeface(opensans_semibold);
         title_semua_pengajuan.setTypeface(opensans_bold);
-        title_terkirim.setTypeface(opensans_bold);
-        title_verifikasi.setTypeface(opensans_bold);
-        title_proses.setTypeface(opensans_bold);
-        title_survey.setTypeface(opensans_bold);
-        title_pending.setTypeface(opensans_bold);
-        title_analisa_kredit.setTypeface(opensans_bold);
-        title_ditolak.setTypeface(opensans_bold);
-        title_pencairan.setTypeface(opensans_bold);
+        title_terkirim.setTypeface(opensans_semibold);
+        title_verifikasi.setTypeface(opensans_semibold);
+        title_proses.setTypeface(opensans_semibold);
+        title_survey.setTypeface(opensans_semibold);
+        title_pending.setTypeface(opensans_semibold);
+        title_analisa_kredit.setTypeface(opensans_semibold);
+        title_ditolak.setTypeface(opensans_semibold);
+        title_pencairan.setTypeface(opensans_semibold);
 
         jumlah_pengajuan_masuk.setTypeface(opensans_bold);
         jumlah_pengajuan_diproses.setTypeface(opensans_bold);
@@ -113,6 +113,7 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Statistics> call, Response<Statistics> response) {
                 statistics = response.body().getData();
+
                 jumlah_pengajuan_masuk.setText(statistics.getOrderIn());
                 jumlah_pengajuan_diproses.setText(statistics.getOrderProcess());
                 jumlah_terkirim.setText(statistics.getTerkirim());

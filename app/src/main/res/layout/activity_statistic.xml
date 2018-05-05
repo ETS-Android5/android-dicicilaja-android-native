@@ -127,7 +127,7 @@
                                     android:id="@+id/title_pengajuan_masuk"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Pengajuan Masuk"/>
                                 <TextView
                                     android:id="@+id/jumlah_pengajuan_masuk"
@@ -155,7 +155,7 @@
                                     android:id="@+id/title_pengajuan_diproses"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Pengajuan Diproses"/>
                                 <TextView
                                     android:id="@+id/jumlah_pengajuan_diproses"
@@ -222,7 +222,7 @@
                                     android:id="@+id/title_terkirim"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Terkirim"/>
                                 <TextView
                                     android:id="@+id/jumlah_terkirim"
@@ -251,7 +251,7 @@
                                     android:id="@+id/title_verifikasi"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Verifikasi"/>
                                 <TextView
                                     android:id="@+id/jumlah_verifikasi"
@@ -280,7 +280,7 @@
                                     android:id="@+id/title_proses"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Proses"/>
                                 <TextView
                                     android:id="@+id/jumlah_proses"
@@ -309,7 +309,7 @@
                                     android:id="@+id/title_survey"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Survey"/>
 
                                 <TextView
@@ -338,7 +338,7 @@
                                 <TextView
                                     android:id="@+id/title_pending"
                                     android:layout_width="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:layout_height="wrap_content"
                                     android:text="Pending"/>
                                 <TextView
@@ -368,7 +368,7 @@
                                     android:id="@+id/title_analisa_kredit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Analisa Kredit"/>
                                 <TextView
                                     android:id="@+id/jumlah_analisa_kredit"
@@ -397,7 +397,7 @@
                                     android:id="@+id/title_ditolak"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Ditolak"/>
                                 <TextView
                                     android:id="@+id/jumlah_ditolak"
@@ -425,7 +425,7 @@
                                     android:id="@+id/title_pencairan"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="Pencairan"/>
                                 <TextView
                                     android:id="@+id/jumlah_pencairan"

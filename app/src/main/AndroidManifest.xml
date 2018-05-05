@@ -247,7 +247,7 @@
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuan2Activity"
-            android:label="Buat Pengajuan - Step 2"
+            android:label="Buat Pengajuan - Langkah 2"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
