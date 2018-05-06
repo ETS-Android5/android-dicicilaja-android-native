@@ -276,7 +276,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value=".Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.RutePerjalananActivity"
@@ -390,16 +390,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.RekanBisnisActivity"
+        <activity
+            android:name=".Activity.RekanBisnisActivity"
             android:label="Rekan Bisnis"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" /></activity>
+                android:value=".Activity.AxiDashboardActivity" />
+        </activity>
         <activity
             android:name=".Activity.MaxiDashboardActivity"
             android:label="@string/title_activity_maxi_dashboard"
-            android:theme="@style/MyMaterialTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ProfileMaxiActivity"
             android:label="Akun Saya"
@@ -440,7 +442,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.UbahPasswordMaxiActivity"></activity>
+        <activity android:name=".Activity.UbahPasswordMaxiActivity" />
+        <activity
+            android:name=".Activity.AllPengajuanMaxiActivity"
+            android:label="Semua Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllProgramMaxiActivity"
+            android:label="Semua Program"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ProductMaxiActivity"
+            android:label="@string/title_activity_product_maxi"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" /></activity>
     </application>
 
 </manifest>

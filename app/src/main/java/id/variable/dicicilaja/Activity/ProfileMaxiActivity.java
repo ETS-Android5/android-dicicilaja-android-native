@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,7 +23,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceLogout;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileAxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileMaxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProfileAxi.ProfileAxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProfileMaxi.Data;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProfileMaxi.ProfileMaxi;
 import id.variable.dicicilaja.Model.Logout;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Remote.ApiUtils;
@@ -39,6 +47,8 @@ public class ProfileMaxiActivity extends AppCompatActivity {
     TextView title_profile, title_status, title_pemilik, ubah, ganti;
     RelativeLayout changePassword;
     LinearLayout ubah_text;
+    Data dataMaxi;
+    TextView name_user, api_name, api_alamat, api_email, api_npwp, api_name_user, api_kelamin, api_email_user, api_telp, api_handphone, api_alamat_pemilik, api_kelurahan, api_kota, api_ktp, api_npwp_pemilik;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +76,7 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         changePassword = findViewById(R.id.changePassword);
         ganti = findViewById(R.id.ganti);
 
-//        TextView title_status = findViewById(R.id.title_status);
-//        TextView title_profile = findViewById(R.id.title_profile);
-//        Button btnLogout = findViewById(R.id.btnLogout);
+        Button btnLogout = findViewById(R.id.btnLogout);
 //        TextView name_user = findViewById(R.id.name_user);
 //        TextView branch = findViewById(R.id.branch);
 //        TextView area = findViewById(R.id.area);
@@ -87,6 +95,21 @@ public class ProfileMaxiActivity extends AppCompatActivity {
 //        api_cabang.setText(session.getBranch().toString());
 //        api_area.setText(session.getArea().toString());
 
+        name_user = findViewById(R.id.name_user);
+        api_npwp = findViewById(R.id.api_npwp);
+        api_name = findViewById(R.id.api_name);
+        api_alamat = findViewById(R.id.api_alamat);
+        api_name_user = findViewById(R.id.api_name_user);
+        api_kelamin = findViewById(R.id.api_kelamin);
+        api_email_user = findViewById(R.id.api_email_user);
+        api_telp = findViewById(R.id.api_telp);
+        api_handphone = findViewById(R.id.api_handphone);
+        api_alamat_pemilik = findViewById(R.id.api_alamat_pemilik);
+        api_kelurahan = findViewById(R.id.api_kelurahan);
+        api_kota = findViewById(R.id.api_kota);
+        api_ktp = findViewById(R.id.api_ktp);
+        api_npwp_pemilik = findViewById(R.id.api_npwp_pemilik);
+
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -95,6 +118,16 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         title_status.setTypeface(opensans_bold);
         title_pemilik.setTypeface(opensans_bold);
         ganti.setTypeface(opensans_semibold);
+
+        String imageUrl = session.getPhoto().toString();
+
+        CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
+        try {
+            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        } catch (Exception ex) {
+
+        }
+
 //        title_status.setTypeface(opensans_bold);
 //        title_profile.setTypeface(opensans_bold);
 //        name_user.setTypeface(opensans_bold);
@@ -106,40 +139,85 @@ public class ProfileMaxiActivity extends AppCompatActivity {
 //        CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
 //        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
 
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileMaxiActivity.this);
-//
-//                // Setting Dialog Title
-//                alertDialog.setTitle("Konfirmasi");
-//
-//                // Setting Dialog Message
-//                alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
-//
-//                // Setting Positive "Yes" Button
-//                alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-////                        doLogout(apiKey);
-//                        session.logoutUser();
-//                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                });
-//
-//                // Setting Negative "NO" Button
-//                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                // Showing Alert Message
-//                alertDialog.show();
-//
-//            }
-//        });
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+        InterfaceProfileMaxi apiService =
+                NewRetrofitClient.getClient().create(InterfaceProfileMaxi.class);
+
+        Call<ProfileMaxi> callProfile = apiService.getProfile(apiKey);
+        callProfile.enqueue(new Callback<ProfileMaxi>() {
+            @Override
+            public void onResponse(Call<ProfileMaxi> call, Response<ProfileMaxi> response) {
+                dataMaxi = response.body().getData();
+
+                name_user.setText(dataMaxi.getNamaPerusahaan());
+                api_npwp.setText(dataMaxi.getNpwpPerusahaan());
+                api_name.setText(dataMaxi.getNamaPerusahaan());
+                api_alamat.setText(dataMaxi.getAlamatPerusahaan());
+                api_name_user.setText(dataMaxi.getNamaPemilik());
+                api_kelamin.setText(dataMaxi.getJenisKelamin());
+                api_email_user.setText(dataMaxi.getEmail());
+                api_telp.setText(dataMaxi.getTelp());
+                api_handphone.setText(dataMaxi.getHandphone());
+                api_alamat_pemilik.setText(dataMaxi.getAlamatPemilik());
+                api_kelurahan.setText(dataMaxi.getKelurahan());
+                api_kota.setText(dataMaxi.getKota());
+                api_ktp.setText(dataMaxi.getKtp());
+                api_npwp_pemilik.setText(dataMaxi.getNpwpPemilik());
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ProfileMaxi> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileMaxiActivity.this);
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Konfirmasi");
+
+                // Setting Dialog Message
+                alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+
+                // Setting Positive "Yes" Button
+                alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//                        doLogout(apiKey);
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+                // Setting Negative "NO" Button
+                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
+
+            }
+        });
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,6 +244,43 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.ubah) {
             Intent intent = new Intent(getBaseContext(), UbahMaxiActivity.class);
+
+            name_user.setText(dataMaxi.getNamaPerusahaan());
+            api_npwp.setText(dataMaxi.getNpwpPerusahaan());
+            api_name.setText(dataMaxi.getNamaPerusahaan());
+            api_alamat.setText(dataMaxi.getAlamatPerusahaan());
+            api_name_user.setText(dataMaxi.getNamaPemilik());
+            api_kelamin.setText(dataMaxi.getJenisKelamin());
+            api_email_user.setText(dataMaxi.getEmail());
+            api_telp.setText(dataMaxi.getTelp());
+            api_handphone.setText(dataMaxi.getHandphone());
+            api_alamat_pemilik.setText(dataMaxi.getAlamatPemilik());
+            api_kelurahan.setText(dataMaxi.getKelurahan());
+            api_kota.setText(dataMaxi.getKota());
+            api_ktp.setText(dataMaxi.getKtp());
+            api_npwp_pemilik.setText(dataMaxi.getNpwpPemilik());
+
+            intent.putExtra("api_npwp",api_npwp.getText().toString());
+            intent.putExtra("api_name",api_name.getText().toString());
+            intent.putExtra("api_alamat",api_alamat.getText().toString());
+            intent.putExtra("api_name_user",api_name_user.getText().toString());
+            intent.putExtra("api_email_user",api_email_user.getText().toString());
+            intent.putExtra("api_telp",api_telp.getText().toString());
+            intent.putExtra("api_handphone",api_handphone.getText().toString());
+            intent.putExtra("api_alamat_pemilik",api_alamat_pemilik.getText().toString());
+            intent.putExtra("api_kelurahan",api_kelurahan.getText().toString());
+            intent.putExtra("api_kota",api_kota.getText().toString());
+            intent.putExtra("api_ktp",api_ktp.getText().toString());
+            intent.putExtra("api_npwp_pemilik",api_npwp_pemilik.getText().toString());
+
+            String jk = api_kelamin.getText().toString();
+            if(jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
+                intent.putExtra("api_jk","1");
+            }else if(jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")){
+                intent.putExtra("api_jk","2");
+            }else{
+                intent.putExtra("api_jk","0");
+            }
             startActivity(intent);
             return true;
         } else if (id == R.id.home) {

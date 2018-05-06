@@ -10,7 +10,7 @@
     tools:showIn="@layout/app_bar_axi_dashboard"
     android:background="@color/colorSection"
     android:orientation="vertical">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -434,5 +434,5 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

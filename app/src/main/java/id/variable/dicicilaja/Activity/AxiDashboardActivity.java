@@ -216,7 +216,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
 
                 recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
-
+                recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {

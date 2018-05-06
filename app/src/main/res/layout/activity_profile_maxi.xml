@@ -216,7 +216,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -247,7 +246,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -272,13 +270,12 @@
                                 android:text=":"
                                 android:textIsSelectable="true"/>
                             <TextView
-                                android:id="@+id/api_email"
+                                android:id="@+id/api_npwp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -357,7 +354,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -388,7 +384,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -419,7 +414,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -450,7 +444,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -481,7 +474,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -512,7 +504,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -543,7 +534,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -574,7 +564,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -588,7 +577,7 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="KTP"
+                                android:text="KTP Pemilik"
                                 android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
@@ -605,7 +594,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
@@ -636,7 +624,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                     </LinearLayout>

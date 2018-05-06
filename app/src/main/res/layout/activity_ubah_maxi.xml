@@ -50,12 +50,13 @@
                     android:id="@+id/inputLayoutNamaPerusahaan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Perusahaan"
+                    android:hint="Nama Perusahaan *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputNamaPerusahaan"
                         android:layout_width="match_parent"
+                        app:met_helperText="Masukan nama perusahaan Anda"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
@@ -73,14 +74,15 @@
                     android:id="@+id/inputLayoutAlamatPerusahaan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alamat Perusahaan"
+                    android:hint="Alamat Perusahaan *"
                     android:layout_marginTop="16dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputAlamatPerusahaan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        app:met_helperText="Contoh: Jl. Jend. Sudirman, Kavling 1"
                         android:inputType="textPersonName|textCapWords|textMultiLine"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNPWPPerusahaan"
@@ -96,15 +98,16 @@
                     android:id="@+id/inputLayoutNPWPPerusahaan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="NPWP Perusahaan"
+                    android:hint="NPWP Perusahaan *"
                     android:layout_marginTop="16dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputNPWPPerusahaan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: 00.000.000.0-000.000"
                         android:layout_centerHorizontal="true"
-                        android:inputType="number|text"
+                        android:inputType="text"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNamaPemilik"
                         android:layout_marginLeft="5dp"
@@ -129,13 +132,14 @@
                     android:id="@+id/inputLayoutNamaPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Pemilik"
+                    android:hint="Nama Pemilik *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputNamaPemilik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Sesuai Akta Perusahaan"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionDone"
@@ -155,13 +159,13 @@
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerWaktu"
+                        android:id="@+id/spinnerJenisKelamin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Jenis Kelamin"
+                        app:ms_hint="Jenis Kelamin *"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
                         app:ms_floatingLabelText="Jenis Kelamin"
@@ -183,13 +187,14 @@
                     android:id="@+id/inputLayoutAlamatEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alamat Email"
+                    android:hint="Alamat Email *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputAlamatEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Pastikan email Aktif"
                         android:layout_centerHorizontal="true"
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
@@ -206,13 +211,38 @@
                     android:id="@+id/inputLayoutTelephone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Telp / Handphone"
+                    android:hint="Telp *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputTelephone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: (021) 52963322"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputHandphone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutHandphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Handphone *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputHandphone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: 08111465005"
                         android:layout_centerHorizontal="true"
                         android:inputType="phone"
                         android:imeOptions="actionNext"
@@ -228,17 +258,18 @@
                     android:id="@+id/inputLayoutAlamatPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alamat Pemilik"
+                    android:hint="Alamat Pemilik *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputAlamatPemilik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Sesuai yang tertera di KTP"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords|textMultiLine"
                         android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputKTPPemilik"
+                        android:nextFocusDown="@id/inputKelurahan"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -246,19 +277,45 @@
                         android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
+
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutKTPPemilik"
+                    android:id="@+id/inputLayoutKelurahan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="KTP Pemilik"
+                    android:hint="Kelurahan *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
-                        android:id="@+id/inputKTPPemilik"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKelurahan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: Setiabudi"
                         android:layout_centerHorizontal="true"
-                        android:inputType="number"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKota"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kota *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: Jakarta Selatan"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNPWPPemilik"
                         android:layout_marginLeft="5dp"
@@ -270,64 +327,42 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKTPPemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="KTP Pemilik *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKTPPemilik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: 3173050529119012"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNPWPPemilik"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutNPWPPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="NPWP Pemilik"
+                    android:hint="NPWP Pemilik *"
                     android:layout_marginTop="16dp">
 
-                    <EditText
+                    <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputNPWPPemilik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:met_helperText="Contoh: 00.000.000.0-000.000"
                         android:layout_centerHorizontal="true"
-                        android:inputType="number|text"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputNamaProgram"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutNamaProgram"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Program"
-                    android:layout_marginTop="16dp">
-
-                    <EditText
-                        android:id="@+id/inputNamaProgram"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords|number"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputTipeProgram"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutTipeProgram"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tipe Program"
-                    android:layout_marginTop="16dp">
-
-                    <EditText
-                        android:id="@+id/inputTipeProgram"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
+                        android:inputType="text"
                         android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"

@@ -1,5 +1,6 @@
 package id.variable.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,6 +10,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,24 +34,48 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
+import id.variable.dicicilaja.API.Interface.InterfacePengajuanAxi;
+import id.variable.dicicilaja.API.Interface.InterfacePengajuanMaxi;
+import id.variable.dicicilaja.API.Item.PengajuanAxi.Datum;
+import id.variable.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
+import id.variable.dicicilaja.API.Item.PengajuanMaxi.PengajuanMaxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
+import id.variable.dicicilaja.Adapter.PengajuanAxiAdapter;
+import id.variable.dicicilaja.Adapter.PengajuanMaxiAdapter;
+import id.variable.dicicilaja.Adapter.ProgramMaxiAdapter;
 import id.variable.dicicilaja.Fragment.AxiHomeFragment;
 import id.variable.dicicilaja.Fragment.AxiPengajuanFragment;
+import id.variable.dicicilaja.Listener.ClickListener;
+import id.variable.dicicilaja.Listener.RecyclerTouchListener;
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 import id.variable.dicicilaja.WebView.CreateRequestActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MaxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SessionManager session;
+    List<id.variable.dicicilaja.API.Item.PengajuanMaxi.Datum> pengajuan;
+    List<Data> programMaxi;
     String token;
     SliderLayout mDemoSlider;
     TextView title_info, title_pengumuman, title_replika, total_view, title_status, title_program;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
+    String apiKey;
     LinearLayout insentif_car, insentif_mcy, jumlah_program, total_pengajuan, button_rb, button_kedalaman_rb;
+
+    RelativeLayout allpengajuan, allprogram;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -100,11 +127,14 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
 
-        String token = session.getToken();
+        final SessionManager session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        allprogram = findViewById(R.id.allprogram);
+        allpengajuan = findViewById(R.id.allpengajuan);
         jumlah_program = findViewById(R.id.jumlah_program);
         total_pengajuan = findViewById(R.id.total_pengajuan);
         title_status = findViewById(R.id.title_status);
@@ -133,14 +163,128 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         jumlah_program.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
+                startActivity(intent);
             }
         });
 
         total_pengajuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),AllPengajuanMaxiActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        allpengajuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),AllPengajuanMaxiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        allprogram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
+        InterfaceProgramMaxi apiService3 =
+                NewRetrofitClient.getClient().create(InterfaceProgramMaxi.class);
+
+        final RecyclerView recyclerView2 =  findViewById(R.id.recycler_program);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        Call<ProgramMaxi> call5 = apiService3.getProgramMaxi(apiKey);
+        call5.enqueue(new Callback<ProgramMaxi>() {
+            @Override
+            public void onResponse(Call<ProgramMaxi> call, Response<ProgramMaxi> response) {
+                programMaxi = response.body().getData();
+
+                recyclerView2.setAdapter(new ProgramMaxiAdapter(programMaxi, R.layout.card_program, getBaseContext()));
+                recyclerView2.setNestedScrollingEnabled(false);
+                recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView2, new ClickListener() {
+                    @Override
+                    public void onClick(View view, final int position) {
+                        Intent intent = new Intent(getBaseContext(), ProductActivity.class);
+                        intent.putExtra("EXTRA_REQUEST_ID", programMaxi.get(position).getId().toString());
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                    }
+                }));
+
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ProgramMaxi> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        InterfacePengajuanMaxi apiService =
+                NewRetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
+
+        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        Call<PengajuanMaxi> call2 = apiService.getPengajuanMaxi(apiKey);
+        call2.enqueue(new Callback<PengajuanMaxi>() {
+            @Override
+            public void onResponse(Call<PengajuanMaxi> call, Response<PengajuanMaxi> response) {
+                pengajuan = response.body().getData();
+
+                recyclerView.setAdapter(new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
+                recyclerView.setNestedScrollingEnabled(false);
+                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                    @Override
+                    public void onClick(View view, final int position) {
+                        Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                        intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                    }
+                }));
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<PengajuanMaxi> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -160,11 +304,14 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                 switch( menuItem.getItemId() ) {
                     case R.id.navbar_dashboard:
                         break;
+
                     case R.id.navbar_program:
+                        Intent intent1 = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
+                        startActivity(intent1);
                         break;
                     case R.id.navbar_status:
-                        break;
-                    case R.id.navbar_pengaturan:
+                        Intent intent2 = new Intent(getBaseContext(),AllPengajuanMaxiActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MaxiDashboardActivity.this);
@@ -209,8 +356,6 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
-
-        session = new SessionManager(getApplicationContext());
 
         String imageUrl = session.getPhoto();
         try {

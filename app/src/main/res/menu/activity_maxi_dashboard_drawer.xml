@@ -16,9 +16,6 @@
                 android:id="@+id/navbar_status"
                 android:title="STATUS PENGAJUAN"/>
             <item
-                android:id="@+id/navbar_pengaturan"
-                android:title="PENGATURAN"/>
-            <item
                 android:id="@+id/navbar_exit"
                 android:title="KELUAR"/>
         </menu>

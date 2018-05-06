@@ -83,21 +83,21 @@ public class ProductActivity extends AppCompatActivity {
         });
 
 
-        InterfaceDetailProduct apiService = NewRetrofitClient.getClient().create(InterfaceDetailProduct.class);
-
-        Call<DetailProduct> call = apiService.getDetailProduct(Integer.parseInt(getIntent().getStringExtra("ID")));
-        call.enqueue(new Callback<DetailProduct>() {
-            @Override
-            public void onResponse(Call<DetailProduct> call, Response<DetailProduct> response) {
-                detailProducts = response.body().getData();
-                Picasso.with(getBaseContext()).load(detailProducts.get(0).getImage().toString()).into(head_image);
-            }
-
-            @Override
-            public void onFailure(Call<DetailProduct> call, Throwable t) {
-
-            }
-        });
+//        InterfaceDetailProduct apiService = NewRetrofitClient.getClient().create(InterfaceDetailProduct.class);
+//
+//        Call<DetailProduct> call = apiService.getDetailProduct(Integer.parseInt(getIntent().getStringExtra("ID")));
+//        call.enqueue(new Callback<DetailProduct>() {
+//            @Override
+//            public void onResponse(Call<DetailProduct> call, Response<DetailProduct> response) {
+//                detailProducts = response.body().getData();
+//                Picasso.with(getBaseContext()).load(detailProducts.get(0).getImage().toString()).into(head_image);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DetailProduct> call, Throwable t) {
+//
+//            }
+//        });
 
         final RecyclerView recyclerPromo = (RecyclerView) findViewById(R.id.recycler_related);
         recyclerPromo.setHasFixedSize(true);

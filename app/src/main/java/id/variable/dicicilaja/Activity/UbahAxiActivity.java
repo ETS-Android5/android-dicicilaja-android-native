@@ -176,7 +176,6 @@ public class UbahAxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {
                 try {
-                    Toast.makeText(getBaseContext(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
                     finish();
                 } catch(Exception ex) {

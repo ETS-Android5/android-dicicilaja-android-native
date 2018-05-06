@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Activity.NotificationActivity"
+    tools:context="id.variable.dicicilaja.Activity.AllProgramMaxiActivity"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,11 +21,12 @@
 
     </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_notif"
+        android:id="@+id/recycler_program"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

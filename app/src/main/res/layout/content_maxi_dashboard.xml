@@ -10,7 +10,7 @@
     tools:showIn="@layout/app_bar_maxi_dashboard"
     android:background="@color/colorWhite"
     android:orientation="vertical">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -76,12 +76,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
+                android:background="@color/colorAccent"
                 android:padding="16dp">
                 <TextView
                     android:id="@+id/title_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
                     android:text="Info MAXI"/>
                 <LinearLayout
                     android:id="@+id/card1"
@@ -105,7 +106,7 @@
                             android:id="@+id/title_box1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="JUMLAH PROGRAM"
+                            android:text="TOTAL PROGRAM"
                             android:layout_marginTop="16dp"
                             android:textAlignment="center"/>
                         <TextView
@@ -132,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="TOTAL PENGAJUAN"
+                            android:text="PENGAJUAN"
                             android:textAlignment="center"/>
                         <TextView
                             android:id="@+id/content_box2"
@@ -149,12 +150,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:padding="16dp">
+                android:background="@color/colorPrimary">
                 <RelativeLayout
                     android:id="@+id/top_program"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp">
                     <TextView
                         android:id="@+id/title_program"
                         android:layout_width="wrap_content"
@@ -188,7 +192,8 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_program"
-                    android:layout_marginTop="10dp"
+                    android:paddingBottom="8dp"
+                    android:clipToPadding="false"
                     android:layout_below="@+id/top_program"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -197,12 +202,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:padding="16dp">
+                android:background="@color/colorPrimary"
+                >
                 <RelativeLayout
                     android:id="@+id/top_pengajuan"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/title_status"
                         android:layout_width="wrap_content"
@@ -236,12 +245,13 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_pengajuan"
-                    android:layout_marginTop="10dp"
+                    android:paddingBottom="8dp"
+                    android:clipToPadding="false"
                     android:layout_below="@+id/top_pengajuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </android.support.v7.widget.RecyclerView>
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
