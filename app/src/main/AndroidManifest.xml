@@ -390,7 +390,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.RekanBisnisActivity" />
+        <activity android:name=".Activity.RekanBisnisActivity"
+            android:label="Rekan Bisnis"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.AxiDashboardActivity" /></activity>
         <activity
             android:name=".Activity.MaxiDashboardActivity"
             android:label="@string/title_activity_maxi_dashboard"

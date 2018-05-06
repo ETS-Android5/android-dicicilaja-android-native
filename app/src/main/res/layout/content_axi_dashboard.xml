@@ -219,7 +219,7 @@
                         android:id="@+id/title_info_jaringan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Info Jaringan"
+                        android:text="Ringkasan"
                         android:textColor="@color/colorWhite"
                         android:layout_centerVertical="true"/>
                 </RelativeLayout>
@@ -244,7 +244,7 @@
                             android:id="@+id/title_box5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="TOTAL RB"
+                            android:text="REKAN BISNIS"
                             android:textAlignment="center"/>
                         <TextView
                             android:id="@+id/content_box5"
@@ -260,7 +260,8 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.5"
                         android:layout_height="wrap_content"
-                        android:padding="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
                         android:layout_marginLeft="8dp"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
@@ -270,14 +271,14 @@
                             android:id="@+id/title_box6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="KEDALAMAN RB"
+                            android:text="PENGAJUAN"
                             android:textAlignment="center"/>
                         <TextView
                             android:id="@+id/content_box6"
                             android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="RB 0"
+                            android:text="0"
                             android:textAlignment="center"/>
                     </LinearLayout>
                 </LinearLayout>

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 import id.variable.dicicilaja.R;
 
 public class PointTripActivity extends AppCompatActivity {
@@ -45,7 +47,9 @@ public class PointTripActivity extends AppCompatActivity {
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
 
-        value_point.setText(getIntent().getStringExtra("POINT_TRIP"));
+        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+        value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_TRIP")))).replace(",","."));
         ImageView trip = findViewById(R.id.trip);
         String imageUrl = "https://dicicilaja.com/uploads/mitramaxi/program/1502268891-promo-umroh-awal-tahun-2018-paket-9-hari.jpg";
         Picasso.with(getApplicationContext()).load(imageUrl).into(trip);

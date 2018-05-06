@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuan;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuan;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
@@ -100,10 +101,7 @@ public class PengajuanJaminanFragment extends Fragment {
         title_informasi.setTypeface(opensans_bold);
         title_informasi_jaminan.setTypeface(opensans_bold);
 
-
-
-
-        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
+        InterfaceDetailRequest apiService = NewRetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
         Call<RequestDetail> call = apiService.getDetailRequest(apiKey,Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
         call.enqueue(new Callback<RequestDetail>() {

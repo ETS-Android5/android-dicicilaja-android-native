@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Client.ClientDetailPengajuanStatus;
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailPengajuanStatus;
 import id.variable.dicicilaja.API.Interface.InterfaceDetailRequest;
@@ -135,7 +136,7 @@ public class RiwayatPengajuanFragment extends Fragment {
         title_jejak.setTypeface(opensans_bold);
         title_penanggung_jawab.setTypeface(opensans_bold);
 
-        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
+        InterfaceDetailRequest apiService = NewRetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
         Call<RequestDetail> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
         call.enqueue(new Callback<RequestDetail>() {

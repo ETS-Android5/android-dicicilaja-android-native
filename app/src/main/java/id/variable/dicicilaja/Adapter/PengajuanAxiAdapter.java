@@ -100,6 +100,6 @@ public class PengajuanAxiAdapter extends RecyclerView.Adapter<PengajuanAxiAdapte
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

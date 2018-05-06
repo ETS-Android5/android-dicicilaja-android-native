@@ -9,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import id.variable.dicicilaja.R;
 
 public class InsentifMcyActivity extends AppCompatActivity {
@@ -59,11 +61,12 @@ public class InsentifMcyActivity extends AppCompatActivity {
         title_layout.setTypeface(opensans_bold);
         value_layout.setTypeface(opensans_bold);
 
-        value_mentor.setText(getIntent().getStringExtra("MENTOR"));
-        value_bulanan.setText(getIntent().getStringExtra("EXTRA_BULANAN"));
-        value_group.setText(getIntent().getStringExtra("GROUP"));
-        value_tahunan.setText(getIntent().getStringExtra("BONUS_TAHUNAN"));
-        value_layout.setText(getIntent().getStringExtra("BONUS_LAYOUT"));
+        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+        value_mentor.setText(formatter.format(Integer.parseInt(getIntent().getStringExtra("MENTOR"))).replace(",","."));
+        value_bulanan.setText(formatter.format(Integer.parseInt(getIntent().getStringExtra("EXTRA_BULANAN"))).replace(",","."));
+        value_group.setText(formatter.format(Integer.parseInt(getIntent().getStringExtra("GROUP"))).replace(",","."));
+        value_tahunan.setText(formatter.format(Integer.parseInt(getIntent().getStringExtra("BONUS_TAHUNAN"))).replace(",","."));
+        value_layout.setText(formatter.format(Integer.parseInt(getIntent().getStringExtra("BONUS_LAYOUT"))).replace(",","."));
     }
 
     @Override

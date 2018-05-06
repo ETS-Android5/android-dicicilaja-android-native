@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.SessionManager;
 
@@ -46,7 +48,9 @@ public class PointRewardActivity extends AppCompatActivity {
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
 
-        value_point.setText(getIntent().getStringExtra("POINT_REWARD"));
+        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+        value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_REWARD")))).replace(",","."));
         ImageView reward = findViewById(R.id.reward);
         String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.png";
         Picasso.with(getApplicationContext()).load(imageUrl).into(reward);

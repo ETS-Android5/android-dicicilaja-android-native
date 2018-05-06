@@ -25,12 +25,16 @@ import android.view.WindowManager;
 
 import java.util.List;
 
+import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Client.RetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfaceNotification;
 import id.variable.dicicilaja.API.Interface.InterfaceRequest;
 import id.variable.dicicilaja.API.Item.Notification.Notification;
 import id.variable.dicicilaja.API.Item.Request.Datum;
 import id.variable.dicicilaja.API.Item.Request.Request;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceNotificationAxi;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemNotificationAxi.Data;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemNotificationAxi.NotificationAxi;
 import id.variable.dicicilaja.Adapter.NotifAdapter;
 import id.variable.dicicilaja.Adapter.RequestAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -43,7 +47,7 @@ import retrofit2.Response;
 
 
 public class NotificationActivity extends AppCompatActivity {
-    List<id.variable.dicicilaja.API.Item.Notification.Datum> notifs;
+    List<Data> notifs;
     String apiKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +71,13 @@ public class NotificationActivity extends AppCompatActivity {
         final RecyclerView recyclerView =  findViewById(R.id.recycler_notif);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        InterfaceNotification apiService =
-                RetrofitClient.getClient().create(InterfaceNotification.class);
+        InterfaceNotificationAxi apiService =
+                NewRetrofitClient.getClient().create(InterfaceNotificationAxi.class);
 
-        Call<Notification> call = apiService.getNotification(apiKey);
-        call.enqueue(new Callback<Notification>() {
+        Call<NotificationAxi> call = apiService.getNotif(apiKey);
+        call.enqueue(new Callback<NotificationAxi>() {
             @Override
-            public void onResponse(Call<Notification> call, Response<Notification> response) {
+            public void onResponse(Call<NotificationAxi> call, Response<NotificationAxi> response) {
                 if ( response.isSuccessful() ) {
                     notifs = response.body().getData();
                     recyclerView.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
@@ -83,7 +87,7 @@ public class NotificationActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view, final int position) {
                             Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                            intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransaction_id().toString());
+                            intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransactionId().toString());
                             intent.putExtra("STATUS", true);
                             startActivity(intent);
 
@@ -102,7 +106,7 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Notification> call, Throwable t) {
+            public void onFailure(Call<NotificationAxi> call, Throwable t) {
 
             }
         });

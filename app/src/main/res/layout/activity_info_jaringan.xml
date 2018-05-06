@@ -20,7 +20,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -67,9 +67,10 @@
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"
-                        android:text="1.123.230"/>
+                        android:text="0"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -110,13 +111,15 @@
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_height="wrap_content"
-                    android:text="1"/>
+                    android:text="0"/>
             </RelativeLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_rb"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:clipToPadding="false">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -36,17 +36,25 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfacePengajuanAxi;
 import id.variable.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.Datum;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
+import id.variable.dicicilaja.Adapter.InfoJaringanAxiAdapter;
 import id.variable.dicicilaja.Adapter.PengajuanAxiAdapter;
+import id.variable.dicicilaja.Adapter.PengajuanAxiAllAdapter;
 import id.variable.dicicilaja.Fragment.AxiHomeFragment;
 import id.variable.dicicilaja.Fragment.AxiPengajuanFragment;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -64,6 +72,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     SessionManager session;
     String token;
     List<id.variable.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
+    List<id.variable.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan2;
     List<Datum> itemDetail;
 
     RelativeLayout allpengajuan;
@@ -71,6 +80,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     SliderLayout mDemoSlider;
     ImageView icon1_web, icon2_web, copy_link;
     TextView link_web;
+    List<Data> infoJaringan;
     TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
@@ -201,6 +211,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
                 pengajuan = response.body().getData();
+                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
+
                 recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
 
                 recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
@@ -274,13 +288,16 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
                 itemDetail = response.body().getData();
 
-                content_box1.setText(itemDetail.get(0).getPointReward().toString());
-                content_box2.setText(itemDetail.get(0).getPointTrip().toString());
-                content_box3.setText(itemDetail.get(0).getIncentiveCar().toString());
-                content_box4.setText(itemDetail.get(0).getIncentiveMcy().toString());
-                content_box5.setText(itemDetail.get(0).getRbCount().toString());
-                content_box6.setText(itemDetail.get(0).getRbLevel().toString());
-                link_web.setText(itemDetail.get(0).getReplicaWebLink().toString());
+                Locale localeID = new Locale("in", "ID");
+                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.get(0).getPointReward()))).replace(",","."));
+                content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.get(0).getPointTrip()))).replace(",","."));
+                content_box3.setText(formatRupiah.format((double)Integer.parseInt(itemDetail.get(0).getIncentiveCar().toString())));
+                content_box4.setText(formatRupiah.format((double)Integer.parseInt(itemDetail.get(0).getIncentiveMcy().toString())));
+                link_web.setText(itemDetail.get(0).getReplicaWebLink());
                 progress.dismiss();
             }
 
@@ -296,6 +313,27 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     }
                 });
                 alertDialog.show();
+            }
+        });
+
+        InterfaceInfoJaringan apiService4 =
+                NewRetrofitClient.getClient().create(InterfaceInfoJaringan.class);
+
+        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
+        call4.enqueue(new Callback<InfoJaringan>() {
+            @Override
+            public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
+//                progress.dismiss();
+                infoJaringan = response.body().getData();
+                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                content_box5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",","."));
+
+            }
+
+            @Override
+            public void onFailure(Call<InfoJaringan> call, Throwable t) {
+
             }
         });
 
@@ -346,13 +384,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                intent.putExtra("total_rb", content_box5.getText().toString());
                 startActivity(intent);
             }
         });
         button_kedalaman_rb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
+                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
                 startActivity(intent);
             }
         });

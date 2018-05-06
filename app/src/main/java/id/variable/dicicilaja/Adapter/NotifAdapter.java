@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import id.variable.dicicilaja.API.Item.Request.Datum;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemNotificationAxi.Data;
 import id.variable.dicicilaja.R;
 
 /**
@@ -19,7 +20,7 @@ import id.variable.dicicilaja.R;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> {
 
-    private List<id.variable.dicicilaja.API.Item.Notification.Datum> notifs;
+    private List<Data> notifs;
     private int rowLayout;
     private Context context;
 
@@ -40,7 +41,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
         }
     }
 
-    public NotifAdapter(List<id.variable.dicicilaja.API.Item.Notification.Datum> notifs, int rowLayout, Context context) {
+    public NotifAdapter(List<Data> notifs, int rowLayout, Context context) {
         this.notifs = notifs;
         this.rowLayout = rowLayout;
         this.context = context;

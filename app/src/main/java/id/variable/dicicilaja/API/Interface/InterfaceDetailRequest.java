@@ -17,6 +17,6 @@ public interface InterfaceDetailRequest {
     @Headers({
             "Accept: application/json",
     })
-    @GET("request/{id}")
+    @GET("jodi/detailpengajuan/{id}")
     Call<RequestDetail> getDetailRequest(@Header("Authorization") String apiKey, @Path("id") int id);
 }
