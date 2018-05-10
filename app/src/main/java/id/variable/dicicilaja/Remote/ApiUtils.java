@@ -9,6 +9,7 @@ import id.variable.dicicilaja.API.Interface.InterfaceNotifToken;
 import id.variable.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import id.variable.dicicilaja.API.Interface.InterfaceSurveyFinish;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateRequest;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.LoginMarketplace;
 
 /**
@@ -21,6 +22,10 @@ public class ApiUtils {
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
+    }
+
+    public static InterfaceCreateRequest getCreateRequest() {
+        return RetrofitClient.getClient(BASE_URL).create(InterfaceCreateRequest.class);
     }
 
     public static InterfaceAxiDetail getAxiDetail() {

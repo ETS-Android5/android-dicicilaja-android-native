@@ -56,15 +56,16 @@ public class RutePerjalananActivity extends AppCompatActivity {
     }
 
     private void createDummyData() {
-        for (int j = 1; j <= 2; j++) {
-            rute.add(new RuteModel("1",
-                    "DAY 2",
-                    "Judul Rute",
-                    "Deskripsi Rute"));
-        }
-
-        rute.add(new RuteModel("3","DAY 3","Judul Rute 3","Deskripsi Rute 3"));
-
+//        for (int j = 1; j <= 2; j++) {
+//            rute.add(new RuteModel("1",
+//                    "DAY 2",
+//                    "Judul Rute",
+//                    "Deskripsi Rute"));
+//        }
+        rute.add(new RuteModel("1   ","DAY 1","JAKARTA - INCHEON","Para peserta berkumpul dibandara international Soekarno-Hatta untuk bersama-sama berangkat menuju ibukota Korea - Seoul. Bermalam dipesawat."));
+        rute.add(new RuteModel("2   ","DAY 2","INCHEON - SEOUL - GEMPO","Pagi in setibanya di Incheon, Anda akan diajak ke Seoul untuk mengunjungi Geyoengbok Palace, National Falk Museum [Setiap hari Selasa tutup, Maka akan digantikan ke Changdeok Palace] & melewati The Blue House. "));
+        rute.add(new RuteModel("3   ","DAY 3","JEJU ISLAND"," Pagi ini Anda akan diajak untuk mengunjungi Seongson Sunrise Peak - gunung berapi yang dari dasar laut. Dilanjutkan menuju desa tradisional - Jeju Falk Village. Lalu Anda akan diajak melihat keindahan air terjun yang ada di Pulau Jeju."));
+        rute.add(new RuteModel("4   ","DAY 4","INCHEON - JAKARTA"," Hari ini Anda akan diajak mengunjungi Red Pine Tree Shop. Setelah itu menuju Grocery Market untuk berbelanja oleh-oleh snack Korea atau makan siang. Kemuadian anda akan diantar menuju Airpot untuk melakukan penerbangan kembali ke Tanah Air."));
     }
 
     @Override

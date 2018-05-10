@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="id.variable.dicicilaja.Activity.ProductMaxiActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/fav"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_favorite_border_white"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_share_white"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
 </menu>

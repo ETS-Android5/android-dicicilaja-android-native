@@ -421,10 +421,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), CreateRequestActivity.class);
+                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_jaringan:
+                        intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_news:
                         break;

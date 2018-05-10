@@ -44,12 +44,6 @@
                     android:text="Mitra : PT. MUAMALAT"
                     android:textSize="14dp"
                     android:layout_toLeftOf="@+id/more_vert"/>
-                <ImageView
-                    android:id="@+id/more_vert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_more_vert"
-                    android:layout_alignParentRight="true"/>
                 <TextView
                     android:id="@+id/tv_harga"
                     android:layout_below="@+id/tv_mitra"
@@ -66,7 +60,6 @@
                     android:layout_below="@+id/tv_harga"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cicilan"
                     android:layout_toLeftOf="@+id/spinner_bulan"/>
                 <LinearLayout
                     android:layout_below="@+id/tv_mitra"
@@ -81,7 +74,7 @@
                         android:layout_height="wrap_content"
                         app:ms_multiline="false"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area"
+                        app:ms_hint="Pilih Tenor"
                         app:ms_enableFloatingLabel="false"
                         app:ms_enableErrorLabel="false"
                         app:ms_baseColor="@color/colorBlack"
@@ -99,7 +92,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_tenor"
                     android:layout_marginTop="5dp"
-                    android:text="detail cicilan" />
+                    android:textSize="10sp"
+                    android:layout_toLeftOf="@+id/spinner_bulan"
+                    android:text="Harga diatas merupakan simulasi, akan disesuaikan dengan nilai jaminan dan area pengajuan." />
             </RelativeLayout>
             <LinearLayout
                 android:layout_marginTop="10dp"

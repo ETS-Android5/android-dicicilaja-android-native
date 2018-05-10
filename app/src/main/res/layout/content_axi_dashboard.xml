@@ -103,7 +103,7 @@
                         android:orientation="vertical"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:background="@drawable/axi_box_radius">
+                        android:background="@drawable/axi_box_radius2">
                         <TextView
                             android:id="@+id/title_box1"
                             android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                         android:orientation="vertical"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:background="@drawable/axi_box_radius">
+                        android:background="@drawable/axi_box_radius2">
                         <TextView
                             android:id="@+id/title_box2"
                             android:layout_width="match_parent"
@@ -161,7 +161,7 @@
                         android:orientation="vertical"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:background="@drawable/axi_box_radius">
+                        android:background="@drawable/axi_box_radius2">
                         <TextView
                             android:id="@+id/title_box3"
                             android:layout_width="match_parent"
@@ -186,7 +186,7 @@
                         android:orientation="vertical"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:background="@drawable/axi_box_radius">
+                        android:background="@drawable/axi_box_radius2">
                         <TextView
                             android:id="@+id/title_box4"
                             android:layout_width="match_parent"

@@ -465,7 +465,26 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" /></activity>
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AjukanPengajuanMaxiActivity"
+            android:label="Buat Pengajuan"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AjukanPengajuanMaxi2Activity"
+            android:label="Buat Pengajuan - Langkah 2"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MaxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.AjukanPengajuanAxiActivity" />
+        <activity android:name=".Activity.AjukanPengajuanAxi2Activity"></activity>
     </application>
 
 </manifest>

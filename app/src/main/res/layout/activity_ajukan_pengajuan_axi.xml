@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="id.variable.dicicilaja.Activity.AjukanPengajuanAxiActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorSection"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih Program Cicilan"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pembiayaan Dana Multiguna"
+                            android:layout_marginRight="10dp"
+                            android:checked="true"/>
+                        <RadioButton
+                            android:id="@+id/radio2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Edukasi"
+                            android:enabled="false"/>
+                        <RadioButton
+                            android:id="@+id/radio3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Sehat"
+                            android:enabled="false"/>
+                        <RadioButton
+                            android:id="@+id/radio4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi ExtraGuna"
+                            android:enabled="false"/>
+                        <RadioButton
+                            android:id="@+id/radio5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Travel"
+                            android:enabled="false"/>
+                        <RadioButton
+                            android:id="@+id/radio6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Usaha"
+                            android:enabled="false"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/inputId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="AXI ID Referal"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutJaminan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerJaminan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Jaminan *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Jaminan *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutMerk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Merk *"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputMerk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTahun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerTahun"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Tahun *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Tahun *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutWaktu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerWaktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Jangka Waktu *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Jangka Waktu *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutPinjaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nilai Pinjaman *"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/inputPinjaman"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Area *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Area *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutCabang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerCabang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Cabang *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Cabang *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

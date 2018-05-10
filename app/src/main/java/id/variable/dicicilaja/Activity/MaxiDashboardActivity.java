@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import fr.ganfra.materialspinner.MaterialSpinner;
 import id.variable.dicicilaja.API.Client.NewRetrofitClient;
 import id.variable.dicicilaja.API.Interface.InterfacePengajuanAxi;
 import id.variable.dicicilaja.API.Interface.InterfacePengajuanMaxi;
@@ -214,7 +215,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                 recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView2, new ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getBaseContext(), ProductActivity.class);
+                        Intent intent = new Intent(getBaseContext(), ProductMaxiActivity.class);
                         intent.putExtra("EXTRA_REQUEST_ID", programMaxi.get(position).getId().toString());
                         startActivity(intent);
 
