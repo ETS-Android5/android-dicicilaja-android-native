@@ -35,6 +35,7 @@ import java.util.List;
 
 import id.variable.dicicilaja.Adapter.EmployeeDashboardPagerAdapter;
 import id.variable.dicicilaja.Adapter.MarketplacePagerAdapter;
+import id.variable.dicicilaja.Adapter.ViewPagerAdapter;
 import id.variable.dicicilaja.Fragment.AkunFragment;
 import id.variable.dicicilaja.Fragment.BantuanFragment;
 import id.variable.dicicilaja.Fragment.BerandaFragment;
@@ -53,32 +54,106 @@ public class MarketplaceActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     SessionManager session;
-
-//    private int[] tabIcons = {
-//            R.drawable.ic_home,
-//            R.drawable.ic_access_time,
-//            R.drawable.ic_date_range,
-//            R.drawable.ic_add_box
-//    };
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marketplace);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
         tabLayout = findViewById(R.id.tab_marketplace);
-
+        viewPager = findViewById(R.id.viewpager);
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), 4));
         session = new SessionManager(getApplicationContext());
 
-        tabLayout.setupWithViewPager(viewPager);
+        final TabLayout.Tab beranda = tabLayout.newTab();
+        final TabLayout.Tab pengajuan = tabLayout.newTab();
+        final TabLayout.Tab bantuan = tabLayout.newTab();
+        final TabLayout.Tab akun = tabLayout.newTab();
 
+        beranda.setIcon(R.drawable.tab_home_active);
+        beranda.setText("BERANDA");
+
+        pengajuan.setIcon(R.drawable.tab_order);
+        pengajuan.setText("PENGAJUAN");
+
+        bantuan.setIcon(R.drawable.tab_help);
+        bantuan.setText("BANTUAN");
+
+        akun.setIcon(R.drawable.tab_account);
+        akun.setText("AKUN SAYA");
+
+        tabLayout.addTab(beranda, 0);
+        tabLayout.addTab(pengajuan, 1);
+        tabLayout.addTab(bantuan, 2);
+        tabLayout.addTab(akun, 3);
+
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAccent));
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position){
+                    case 0:
+                        beranda.setIcon(R.drawable.tab_home_active);
+                        pengajuan.setIcon(R.drawable.tab_order);
+                        bantuan.setIcon(R.drawable.tab_help);
+                        akun.setIcon(R.drawable.tab_account);
+                        break;
+                    case 1:
+                        beranda.setIcon(R.drawable.tab_home);
+                        pengajuan.setIcon(R.drawable.tab_order_active);
+                        bantuan.setIcon(R.drawable.tab_help);
+                        akun.setIcon(R.drawable.tab_account);
+                        break;
+                    case 2:
+                        beranda.setIcon(R.drawable.tab_home);
+                        pengajuan.setIcon(R.drawable.tab_order);
+                        bantuan.setIcon(R.drawable.tab_help_active);
+                        akun.setIcon(R.drawable.tab_account);
+                        break;
+                    case 3:
+                        beranda.setIcon(R.drawable.tab_home);
+                        pengajuan.setIcon(R.drawable.tab_order);
+                        bantuan.setIcon(R.drawable.tab_help);
+                        akun.setIcon(R.drawable.tab_account_active);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 //        tabLayout.addTab(tabLayout.newTab().setText("BERANDA"));
 //        tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN"));
 //        tabLayout.addTab(tabLayout.newTab().setText("BANTUAN"));
@@ -162,122 +237,131 @@ public class MarketplaceActivity extends AppCompatActivity
 //        viewPager.setAdapter(new MarketplacePagerAdapter(getSupportFragmentManager(), 4));
 //
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-
-                if(tab.getPosition() == 3) {
-                    Intent intent = new Intent(getBaseContext(), GuestActivity.class);
-                    startActivity(intent);
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        setupTabIcons();
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BerandaFragment(), "Beranda");
-        adapter.addFragment(new PengajuanFragment(), "Pengajuan");
-        adapter.addFragment(new BantuanFragment(), "Bantuan");
-        adapter.addFragment(new AkunFragment(), "Akun Saya");
-        viewPager.setAdapter(adapter);
-
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-    private void setupTabIcons() {
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("Beranda");
-        tabOne.setTextSize(12);
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_home, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabOne);
-
-        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setText("Pengajuan");
-        tabTwo.setTextSize(12);
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_order, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
-
-        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setText("Bantuan");
-        tabThree.setTextSize(12);
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_help, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
+//        setupTabIcons();
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
 //
-        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabFour.setText("Akun Saya");
-        tabFour.setTextSize(12);
-        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_account, 0, 0);
-        tabLayout.getTabAt(3).setCustomView(tabFour);
-
-//        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-//        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+//                if(tab.getPosition() == 0) {
+//                    tabLayout.getTabAt(tab.getPosition()).getCustomView().setSelected(true);
+//                }else if(tab.getPosition() == 1) {
+//                } else if(tab.getPosition() == 2) {
+//                }else if(tab.getPosition() == 3) {
+//
+//                    Intent intent = new Intent(getBaseContext(), GuestActivity.class);
+//                    startActivity(intent);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
-    public void setCustomFont() {
+//    private void setupViewPager(ViewPager viewPager) {
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+//        adapter.addFragment(new BerandaFragment(), "Beranda");
+//        adapter.addFragment(new PengajuanFragment(), "Pengajuan");
+//        adapter.addFragment(new BantuanFragment(), "Bantuan");
+//        adapter.addFragment(new AkunFragment(), "Akun Saya");
+//        viewPager.setAdapter(adapter);
+//
+//    }
 
-        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
-        int tabsCount = vg.getChildCount();
+//    class ViewPagerAdapter extends FragmentPagerAdapter {
+//        private final List<Fragment> mFragmentList = new ArrayList<>();
+//        private final List<String> mFragmentTitleList = new ArrayList<>();
+//
+//        public ViewPagerAdapter(FragmentManager manager) {
+//            super(manager);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragmentList.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragmentList.size();
+//        }
+//
+//        public void addFragment(Fragment fragment, String title) {
+//            mFragmentList.add(fragment);
+//            mFragmentTitleList.add(title);
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return mFragmentTitleList.get(position);
+//        }
+//    }
 
-        for (int j = 0; j < tabsCount; j++) {
-            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
-
-            int tabChildsCount = vgTab.getChildCount();
-
-            for (int i = 0; i < tabChildsCount; i++) {
-                View tabViewChild = vgTab.getChildAt(i);
-                if (tabViewChild instanceof TextView) {
-                    //Put your font in assests folder
-                    //assign name of the font here (Must be case sensitive)
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf"));
-                    ((TextView) tabViewChild).setTextSize(55);
-                }
-            }
-        }
-    }
+//    private void setupTabIcons() {
+//        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        tabOne.setText("Beranda");
+//        tabOne.setAllCaps(true);
+//        tabOne.setTextSize(12);
+//        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_home, 0, 0);
+//        tabLayout.getTabAt(0).setCustomView(tabOne);
+//
+//        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        tabTwo.setText("Pengajuan");
+//        tabTwo.setAllCaps(true);
+//        tabTwo.setTextSize(12);
+//        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_order, 0, 0);
+//        tabLayout.getTabAt(1).setCustomView(tabTwo);
+//
+//        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        tabThree.setText("Bantuan");
+//        tabThree.setAllCaps(true);
+//        tabThree.setTextSize(12);
+//        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_help, 0, 0);
+//        tabLayout.getTabAt(2).setCustomView(tabThree);
+//
+//        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+//        tabFour.setText("Akun Saya");
+//        tabFour.setAllCaps(true);
+//        tabFour.setTextSize(12);
+//        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.tab_account, 0, 0);
+//        tabLayout.getTabAt(3).setCustomView(tabFour);
+//
+////        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+////        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+////        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+////        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+//    }
+//
+//    public void setCustomFont() {
+//
+//        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+//        int tabsCount = vg.getChildCount();
+//
+//        for (int j = 0; j < tabsCount; j++) {
+//            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+//
+//            int tabChildsCount = vgTab.getChildCount();
+//
+//            for (int i = 0; i < tabChildsCount; i++) {
+//                View tabViewChild = vgTab.getChildAt(i);
+//                if (tabViewChild instanceof TextView) {
+//                    //Put your font in assests folder
+//                    //assign name of the font here (Must be case sensitive)
+//                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf"));
+//                    ((TextView) tabViewChild).setTextSize(55);
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void onBackPressed() {

@@ -26,22 +26,14 @@
                 />
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
-            android:layout_width="match_parent"
             android:id="@+id/tab_marketplace"
+            android:layout_width="match_parent"
             android:background="@color/colorWhite"
-            app:titleTextColor="@color/colorTab"
-            android:tabStripEnabled="true"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorTab"
             android:layout_height="?attr/actionBarSize"
-            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            style="@style/MyTabLayout"
             app:tabGravity="fill"
-            app:tabPaddingStart="-1dp"
-            app:tabPaddingEnd="-1dp"
-            >
-
-        </android.support.design.widget.TabLayout>
+            app:tabMode="fixed"/>
 
     </android.support.design.widget.AppBarLayout>
 
