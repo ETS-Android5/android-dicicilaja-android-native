@@ -1,5 +1,8 @@
 package id.variable.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -50,6 +53,11 @@ public class AllPromoActivity extends AppCompatActivity {
         InterfaceSlider apiService =
                 NewRetrofitClient.getClient().create(InterfaceSlider.class);
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
         Call<Slider> call = apiService.getSlider();
         call.enqueue(new Callback<Slider>() {
             @Override
@@ -57,11 +65,21 @@ public class AllPromoActivity extends AppCompatActivity {
                 final List<id.variable.dicicilaja.API.Item.Slider.Datum> promos = response.body().getData();
 
                 promo.setAdapter(new ListSliderAdapter(promos, getBaseContext()));
+                progress.dismiss();
             }
 
             @Override
             public void onFailure(Call<Slider> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
     }
