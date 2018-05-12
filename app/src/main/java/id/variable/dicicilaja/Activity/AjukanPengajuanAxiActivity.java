@@ -47,6 +47,8 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
     String apiKey;
     TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
+
+    String s_area, s_jaminan, s_tenor, s_harga;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,16 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                     JAMINAN_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
                     JAMINAN_ITEMS.add(response.body().getData().get(i).getName());
                 }
+
+                ArrayAdapter<String> jaminan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JAMINAN_ITEMS);
+                jaminan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerJaminan.setAdapter(jaminan_adapter);
+                try {
+                    s_jaminan = getIntent().getStringExtra("spinner_jaminan");
+                    spinnerJaminan.setSelection(1);
+                }catch (Exception ex) {
+
+                }
             }
 
             @Override
@@ -119,11 +131,6 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                 Log.e("Error", t.getMessage());
             }
         });
-
-        ArrayAdapter<String> jaminan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JAMINAN_ITEMS);
-        jaminan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerJaminan.setAdapter(jaminan_adapter);
-
         //=============================================================================================//
 
         final List<String> TAHUN_MOBIL_ITEMS = new ArrayList<>();
@@ -227,6 +234,20 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                     AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
                     AREA_ITEMS.add(response.body().getData().get(i).getName());
                 }
+
+                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+                area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerArea.setAdapter(area_adapter);
+                spinnerCabang.setEnabled(false);
+                try {
+                    s_tenor = getIntent().getStringExtra("spinner_tenor");
+                    s_area = getIntent().getStringExtra("spinner_area");
+                    spinnerTenor.setSelection(1);
+                    spinnerArea.setSelection(1);
+                }catch (Exception ex) {
+
+                }
             }
 
             @Override
@@ -236,13 +257,6 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                 Log.e("Area Error", t.getMessage());
             }
         });
-
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerArea.setAdapter(area_adapter);
-        spinnerCabang.setEnabled(false);
-
 
 
 
@@ -303,6 +317,13 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 //        inputPinjaman.setHint(Html.fromHtml("Nilai Pinjaman <font color='#ff0000'>*</font>"));
 //        spinnerArea.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
 //        spinnerCabang.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
+
+        try {
+            s_harga = getIntent().getStringExtra("text_harga");
+            inputPinjaman.setText(s_harga);
+        }catch (Exception ex) {
+
+        }
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

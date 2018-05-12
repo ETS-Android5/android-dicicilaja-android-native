@@ -50,133 +50,139 @@
                         android:textAllCaps="true"
                         android:paddingLeft="16dp"
                         android:paddingTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:paddingRight="16dp"
                         android:textColor="@color/colorAccent"
                         android:text="Pembiayaan Dana Multiguna"/>
-                    <TextView
-                        android:id="@+id/simulasi_subtitle"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/colorAccent"
-                        android:text="Isi Jumlah Pembiayaan yang Anda butuhkan"/>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginLeft="32dp"
-                        android:layout_marginRight="32dp">
-                        <EditText
+                        android:orientation="horizontal">
+                        <TextView
+                            android:width="120dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:text="Jumlah Pinjaman"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text=":"
+                            android:textIsSelectable="true"/>
+                        <TextView
                             android:id="@+id/harga_simulasi"
-                            android:layout_width="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="12sp"
-                            android:background="@drawable/input_style"/>
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="32dp"
-                        android:weightSum="2">
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:layout_marginRight="2.5dp"
-                            android:background="@drawable/input_style">
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/jaminan"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ms_multiline="false"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Jaminan"
-                                app:ms_enableFloatingLabel="false"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                app:ms_thickness="0dp"
-                                app:ms_alignLabels="true"
-                                android:textSize="12sp"
-                                app:ms_arrowSize="10dp"
-                                app:ms_hintTextSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:layout_marginLeft="2.5dp"
-                            android:background="@drawable/input_style">
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/tenor"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="0dp"
-                                android:layout_margin="0dp"
-                                app:ms_multiline="false"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Tenor"
-                                app:ms_enableFloatingLabel="false"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                app:ms_thickness="0dp"
-                                app:ms_alignLabels="true"
-                                android:textSize="12sp"
-                                app:ms_arrowSize="10dp"
-                                app:ms_hintTextSize="12sp"/>
-                        </LinearLayout>
+                            android:textSize="14sp"
+                            android:text="-"
+                            android:textIsSelectable="true"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
-                        android:layout_marginRight="32dp"
-                        android:layout_marginTop="5dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:width="120dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:layout_marginRight="2.5dp"
-                            android:background="@drawable/input_style">
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:id="@+id/arearequest"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ms_multiline="false"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Area"
-                                app:ms_enableFloatingLabel="false"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                app:ms_thickness="0dp"
-                                app:ms_alignLabels="true"
-                                android:textSize="12sp"
-                                app:ms_arrowSize="10dp"
-                                app:ms_hintTextSize="12sp"/>
-                        </LinearLayout>
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:text="Jaminan"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text=":"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:id="@+id/jaminan"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="-"
+                            android:textIsSelectable="true"/>
                     </LinearLayout>
-                    <Button
-                        android:id="@+id/btn_hitung"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/regis_layout"
-                        android:layout_centerHorizontal="true"
-                        android:backgroundTint="@color/colorAccent"
                         android:layout_marginLeft="32dp"
-                        android:layout_marginRight="32dp"
-                        android:text="Hitung"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="12sp" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:width="120dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:text="Area Pengajuan"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text=":"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:id="@+id/arearequest"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="-"
+                            android:textIsSelectable="true"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:width="120dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:text="Jangka Waktu"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text=":"
+                            android:textIsSelectable="true"/>
+                        <TextView
+                            android:id="@+id/tenor"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="-"
+                            android:textIsSelectable="true"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -202,7 +208,7 @@
                             android:id="@+id/hasil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rp 433.000"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_alignParentRight="true"/>
@@ -218,6 +224,7 @@
                     <Button
                         android:id="@+id/btn_download"
                         android:layout_width="200dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:text="Download PDF"
                         android:layout_marginTop="10dp"
@@ -228,6 +235,7 @@
                         android:layout_centerHorizontal="true"/>
                     <Button
                         android:id="@+id/btn_send"
+                        android:visibility="gone"
                         android:layout_below="@+id/btn_download"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
@@ -239,6 +247,7 @@
                         android:layout_centerHorizontal="true"/>
                     <Button
                         android:id="@+id/btn_order"
+                        android:layout_marginTop="10dp"
                         android:layout_below="@id/btn_send"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

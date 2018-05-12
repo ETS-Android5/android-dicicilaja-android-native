@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 
 public interface InterfaceSimulationProcess {
 
-    @POST("simulation")
+    @POST("jodi/simulation")
     @FormUrlEncoded
     Call<Simulation> assign(@Field("area") String area,
                             @Field("colleteral") String colleteral,
