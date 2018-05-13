@@ -31,6 +31,8 @@ import id.variable.dicicilaja.API.Item.Recommend.Recommend;
 import id.variable.dicicilaja.API.Item.Request.Datum;
 import id.variable.dicicilaja.API.Item.Request.Request;
 import id.variable.dicicilaja.Activity.DetailRequestActivity;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRecommendation;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
 import id.variable.dicicilaja.Adapter.ListRekomendasiAdapter;
 import id.variable.dicicilaja.Adapter.RequestAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -70,14 +72,14 @@ public class PengajuanFragment extends Fragment {
         recyclerPengajuan.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-        InterfaceRecommend apiService2 =
-                NewRetrofitClient.getClient().create(InterfaceRecommend.class);
+        InterfaceRecommendation apiService2 =
+                NewRetrofitClient.getClient().create(InterfaceRecommendation.class);
 
-        Call<Recommend> call2 = apiService2.getRecommend();
-        call2.enqueue(new Callback<Recommend>() {
+        Call<Recommendation> call2 = apiService2.getRecommend();
+        call2.enqueue(new Callback<Recommendation>() {
             @Override
-            public void onResponse(Call<Recommend> call, Response<Recommend> response) {
-                final List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends = response.body().getData();
+            public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
 
                 if(response.body().getData().size() == 0) {
                     recyclerPengajuan.setVisibility(View.GONE);
@@ -88,10 +90,11 @@ public class PengajuanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Recommend> call, Throwable t) {
+            public void onFailure(Call<Recommendation> call, Throwable t) {
 
             }
         });
+
 
         return view;
     }

@@ -59,26 +59,6 @@ public class AkunFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
-        snapHelperPromo.attachToRecyclerView(recyclerPromo);
-
-        InterfacePromo apiService2 =
-                NewRetrofitClient.getClient().create(InterfacePromo.class);
-
-        Call<Promo> call2 = apiService2.getPromo();
-        call2.enqueue(new Callback<Promo>() {
-            @Override
-            public void onResponse(Call<Promo> call, Response<Promo> response) {
-                final List<Datum> promos = response.body().getData();
-
-                recyclerPromo.setAdapter(new ListPromoAdapter(promos, getContext()));
-            }
-
-            @Override
-            public void onFailure(Call<Promo> call, Throwable t) {
-
-            }
-        });
 
         return view;
     }

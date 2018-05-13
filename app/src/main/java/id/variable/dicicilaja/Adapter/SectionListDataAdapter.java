@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import id.variable.dicicilaja.API.Item.Product.SingleItemModel;
@@ -37,7 +39,11 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
         SingleItemModel itemModel = itemModels.get(position);
-        holder.tvTitle.setText(itemModel.getName());
+        holder.tv_title.setText(itemModel.getTv_title());
+        Picasso.with(mContext).load(itemModel.getImage()).into(holder.image);
+        holder.tv_mitra.setText(itemModel.getTv_mitra());
+        holder.tv_harga.setText(itemModel.getTv_harga());
+        holder.tv_tenor.setText(itemModel.getTv_tenor());
     }
 
     @Override
@@ -47,17 +53,23 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView tvTitle;
-        protected ImageView itemImage;
+        protected TextView tv_title;
+        protected ImageView image;
+        protected TextView tv_mitra;
+        protected TextView tv_harga;
+        protected TextView tv_tenor;
 
         public SingleItemRowHolder(View itemView) {
             super(itemView);
-            this.tvTitle = itemView.findViewById(R.id.tvTitle);
-            this.itemImage = itemView.findViewById(R.id.itemImage);
+            this.tv_title = itemView.findViewById(R.id.tv_title);
+            this.image = itemView.findViewById(R.id.image);
+            this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
+            this.tv_harga = itemView.findViewById(R.id.tv_harga);
+            this.tv_tenor = itemView.findViewById(R.id.tv_tenor);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), tv_title.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

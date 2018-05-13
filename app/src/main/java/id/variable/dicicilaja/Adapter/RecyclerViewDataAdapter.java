@@ -1,6 +1,7 @@
 package id.variable.dicicilaja.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -48,36 +49,48 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
     public void onBindViewHolder(ItemRowHolder holder, int position) {
         final String sectionName = dataList.get(position).getHeaderTitle();
         ArrayList singleSectionItems = dataList.get(position).getAllItemInSection();
-        holder.itemTitle.setText(sectionName);
         SectionListDataAdapter adapter = new SectionListDataAdapter(singleSectionItems, mContext);
+        Typeface opensans_extrabold = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Regular.ttf");
+
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        adapter.notifyDataSetChanged();
         holder.recyclerView.setAdapter(adapter);
+        holder.title_program1.setText(sectionName);
+        holder.title_program1.setTypeface(opensans_bold);
         holder.recyclerView.setRecycledViewPool(recycledViewPool);
         snapHelper.attachToRecyclerView(holder.recyclerView);
         holder.show_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Button More Clicked!" + sectionName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Lihat semua kategori " + sectionName, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return (null != dataList ? dataList.size() : 0);
+        return dataList.size();
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
-        protected TextView itemTitle;
         protected RecyclerView recyclerView;
         protected RelativeLayout show_all;
+        protected TextView title_program1;
 
         public ItemRowHolder(View itemView) {
             super(itemView);
-            this.itemTitle = itemView.findViewById(R.id.itemTitle);
             this.recyclerView = itemView.findViewById(R.id.recycler_view_list);
             this.show_all = itemView.findViewById(R.id.show_all);
+            this.title_program1 = itemView.findViewById(R.id.title_program1);
         }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }

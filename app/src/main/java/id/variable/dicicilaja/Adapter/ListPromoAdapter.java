@@ -27,10 +27,10 @@ import id.variable.dicicilaja.R;
  */
 
 public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.SingleItemRowHolder> {
-    private List<Datum> promos;
+    private List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos;
     private Context mContext;
 
-    public ListPromoAdapter(List<Datum> promos, Context mContext) {
+    public ListPromoAdapter(List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos, Context mContext) {
         this.promos = promos;
         this.mContext = mContext;
     }
@@ -44,16 +44,16 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
         Typeface opensans_semibold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
         TextView tv_title = v.findViewById(R.id.tv_title);
-        tv_title.setTypeface(opensans_semibold);
+        tv_title.setTypeface(opensans_bold);
         return singleItemRowHolder;
     }
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
-        final Datum itemModel = promos.get(position);
-        holder.discount.setText("10%");
+        final id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum itemModel = promos.get(position);
+        holder.discount.setText(itemModel.getDiscount()+"%");
         holder.tv_title.setText(itemModel.getName());
-        holder.tv_mitra.setText(itemModel.getMerchant().getCompany());
+        holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(itemModel.getPrice());
         Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
         holder.tv_tenor.setText(itemModel.getExcerpt());

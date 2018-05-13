@@ -107,20 +107,20 @@ public class ProductActivity extends AppCompatActivity {
         SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
         snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
-        InterfacePromo apiService2 =
-                NewRetrofitClient.getClient().create(InterfacePromo.class);
+        id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService2 =
+                NewRetrofitClient.getClient().create(id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
 
-        Call<Promo> call2 = apiService2.getPromo();
-        call2.enqueue(new Callback<Promo>() {
+        Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call2 = apiService2.getPromo();
+        call2.enqueue(new Callback<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
             @Override
-            public void onResponse(Call<Promo> call, Response<Promo> response) {
-                final List<id.variable.dicicilaja.API.Item.Promo.Datum> promos = response.body().getData();
+            public void onResponse(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
 
                 recyclerPromo.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
             }
 
             @Override
-            public void onFailure(Call<Promo> call, Throwable t) {
+            public void onFailure(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
 
             }
         });
@@ -131,7 +131,8 @@ public class ProductActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.finish();
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }

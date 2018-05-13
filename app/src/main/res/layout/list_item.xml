@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?android:selectableItemBackground"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:layout_marginBottom="16dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
             android:layout_margin="16dp">
 
             <TextView
-                android:id="@+id/title_program_agen"
+                android:id="@+id/title_program1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Religi"
@@ -43,6 +44,7 @@
                     android:id="@+id/show_more"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/itemTitle"
                     android:src="@drawable/ic_show_more"/>
             </RelativeLayout>
@@ -51,7 +53,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_list"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="vertical" />
 

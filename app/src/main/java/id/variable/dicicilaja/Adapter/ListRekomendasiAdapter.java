@@ -29,10 +29,10 @@ import id.variable.dicicilaja.R;
  */
 
 public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasiAdapter.SingleItemRowHolder> {
-    private List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends;
+    private List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends;
     private Context mContext;
 
-    public ListRekomendasiAdapter(List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends, Context mContext) {
+    public ListRekomendasiAdapter(List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends, Context mContext) {
         this.recommends = recommends;
         this.mContext = mContext;
     }
@@ -47,15 +47,15 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
         Typeface opensans_reguler = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
         TextView tv_title = v.findViewById(R.id.tv_title);
 
-        tv_title.setTypeface(opensans_semibold);
+        tv_title.setTypeface(opensans_bold);
         return singleItemRowHolder;
     }
 
     @Override
     public void onBindViewHolder(final SingleItemRowHolder holder, final int position) {
-        id.variable.dicicilaja.API.Item.Recommend.Datum itemModel = recommends.get(position);
+        id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum itemModel = recommends.get(position);
         holder.tv_title.setText(itemModel.getName());
-        holder.tv_mitra.setText(itemModel.getMerchant().getCompany());
+        holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(itemModel.getPrice());
         Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
         holder.tv_tenor.setText(itemModel.getExcerpt());

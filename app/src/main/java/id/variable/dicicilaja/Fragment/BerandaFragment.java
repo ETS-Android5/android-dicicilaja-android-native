@@ -62,7 +62,11 @@ import id.variable.dicicilaja.Activity.ProductCategoryActivity;
 import id.variable.dicicilaja.Activity.PromoActivity;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.Client.RetrofitClient;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAreaBranch;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePartner;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRecommendation;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPartner.Partner;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
 import id.variable.dicicilaja.Activity.SimulasiActivity;
 import id.variable.dicicilaja.Adapter.ListPartnerAdapter;
 import id.variable.dicicilaja.Adapter.ListPromoAdapter;
@@ -94,8 +98,9 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
-    LinearLayout maxi_travel, webview_axi, webview_maxi;
+    LinearLayout webview_axi, webview_maxi;
     RelativeLayout show_all_partner, allpromo;
+    ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_griya, maxi_extraguna;
 
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
@@ -129,6 +134,11 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         simulasi_subtitle = view.findViewById(R.id.simulasi_subtitle);
         btn_hitung = view.findViewById(R.id.btn_hitung);
         maxi_travel = view.findViewById(R.id.maxi_travel);
+        maxi_edukasi = view.findViewById(R.id.maxi_edukasi);
+        maxi_usaha = view.findViewById(R.id.maxi_usaha);
+        maxi_sehat = view.findViewById(R.id.maxi_sehat);
+        maxi_griya = view.findViewById(R.id.maxi_griya);
+        maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
         show_all_partner = view.findViewById(R.id.show_all_partner);
         allpromo = view.findViewById(R.id.allpromo);
         webview_axi = view.findViewById(R.id.webview_axi);
@@ -298,20 +308,20 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
         snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
-        InterfacePromo apiService =
-                NewRetrofitClient.getClient().create(InterfacePromo.class);
+        id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+                NewRetrofitClient.getClient().create(id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
 
-        Call<Promo> call = apiService.getPromo();
-        call.enqueue(new Callback<Promo>() {
+        Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+        call.enqueue(new Callback<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
             @Override
-            public void onResponse(Call<Promo> call, Response<Promo> response) {
-                final List<Datum> promos = response.body().getData();
+            public void onResponse(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
 
                 recyclerPromo.setAdapter(new ListPromoAdapter(promos, getContext()));
             }
 
             @Override
-            public void onFailure(Call<Promo> call, Throwable t) {
+            public void onFailure(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
 
             }
         });
@@ -324,33 +334,50 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         SnapHelper snapHelperRekomendasi = new GravitySnapHelper(Gravity.START);
         snapHelperRekomendasi.attachToRecyclerView(recyclerRekomendasi);
 
-        InterfaceRecommend apiService2 =
-                NewRetrofitClient.getClient().create(InterfaceRecommend.class);
+        InterfaceRecommendation apiService2 =
+                NewRetrofitClient.getClient().create(InterfaceRecommendation.class);
 
-        Call<Recommend> call2 = apiService2.getRecommend();
-        call2.enqueue(new Callback<Recommend>() {
+        Call<Recommendation> call2 = apiService2.getRecommend();
+        call2.enqueue(new Callback<Recommendation>() {
             @Override
-            public void onResponse(Call<Recommend> call, Response<Recommend> response) {
-                final List<id.variable.dicicilaja.API.Item.Recommend.Datum> recommends = response.body().getData();
+            public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
 
                 recyclerRekomendasi.setAdapter(new ListRekomendasiAdapter(recommends, getContext()));
             }
 
             @Override
-            public void onFailure(Call<Recommend> call, Throwable t) {
+            public void onFailure(Call<Recommendation> call, Throwable t) {
 
             }
         });
 
-        RecyclerView recyclerPartner = (RecyclerView) view.findViewById(R.id.recycler_partner);
+        final RecyclerView recyclerPartner = (RecyclerView) view.findViewById(R.id.recycler_partner);
         recyclerRekomendasi.setHasFixedSize(true);
-        ListPartnerAdapter adapterPartner = new ListPartnerAdapter(partnerData, getContext());
+
         recyclerPartner.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
 
         SnapHelper snapHelperPartner = new GravitySnapHelper(Gravity.START);
         snapHelperPartner.attachToRecyclerView(recyclerPartner);
-        recyclerPartner.setAdapter(adapterPartner);
+
+        InterfacePartner apiService3 =
+                NewRetrofitClient.getClient().create(InterfacePartner.class);
+
+        Call<Partner> call3 = apiService3.getPartner();
+        call3.enqueue(new Callback<Partner>() {
+            @Override
+            public void onResponse(Call<Partner> call, Response<Partner> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPartner.Datum> partners = response.body().getData();
+
+                recyclerPartner.setAdapter(new ListPartnerAdapter(partners, getContext()));
+            }
+
+            @Override
+            public void onFailure(Call<Partner> call, Throwable t) {
+
+            }
+        });
 
 
         final HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
@@ -443,6 +470,53 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Travel");
+                intent.putExtra("content","maxi_travel");
+                startActivity(intent);
+            }
+        });
+
+        maxi_edukasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
+                intent.putExtra("title","MAXI Edukasi");
+                intent.putExtra("content","maxi_edukasi");
+                startActivity(intent);
+            }
+        });
+        maxi_usaha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
+                intent.putExtra("title","MAXI Usaha");
+                intent.putExtra("content","maxi_usaha");
+                startActivity(intent);
+            }
+        });
+        maxi_sehat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
+                intent.putExtra("title","MAXI Sehat");
+                intent.putExtra("content","maxi_sehat");
+                startActivity(intent);
+            }
+        });
+        maxi_griya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
+                intent.putExtra("title","MAXI Griya");
+                intent.putExtra("content","maxi_griya");
+                startActivity(intent);
+            }
+        });
+        maxi_extraguna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
+                intent.putExtra("title","MAXI Extraguna");
+                intent.putExtra("content","maxi_extraguna");
                 startActivity(intent);
             }
         });

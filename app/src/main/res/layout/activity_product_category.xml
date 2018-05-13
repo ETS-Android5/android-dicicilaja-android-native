@@ -25,10 +25,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,35 +35,8 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorWhite">
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginLeft="10dp"
-                            android:hint="Cari program pilihanmu"
-                            android:imeOptions="actionSearch"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:layout_marginRight="10dp"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:background="@android:color/transparent"/>
-                    </LinearLayout>
-                </LinearLayout>
-
                 <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/slider"
+                    android:id="@+id/slider_product"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginLeft="16dp"
@@ -78,15 +50,14 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp">
                     <com.daimajia.slider.library.Indicators.PagerIndicator
-                        android:id="@+id/custom_indicator"
+                        android:id="@+id/custom_indicator_product"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         card_view:selected_color="@color/colorAccent"
                         card_view:unselected_color="@color/colorWhite"
                         android:layout_alignParentLeft="true"
-                        android:gravity="center"
-                        />
+                        android:gravity="center"/>
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -110,12 +81,11 @@
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/my_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scrollbars="none" />
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
 
                 <!--<LinearLayout-->
@@ -178,6 +148,6 @@
                     <!--</LinearLayout>-->
                 <!--</LinearLayout>-->
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
 </LinearLayout>

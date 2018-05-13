@@ -23,7 +23,7 @@
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="140dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"/>
@@ -53,7 +53,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="Lihat Semua Produk"
+                            android:text="Lihat Semua Promo"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorAccent"/>
                         <ImageView
@@ -314,93 +314,109 @@
                         android:layout_centerHorizontal="true"
                         android:textSize="16sp" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
+                    android:orientation="vertical"
                     android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:orientation="vertical">
+                    android:paddingRight="32dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="25dp">
+
+                        <ImageView
+                            android:id="@+id/dana_multiguna"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/dana_multiguna" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp">
+                        android:weightSum="2">
+
                         <ImageView
-                            android:id="@+id/dana_multiguna"
-                            android:layout_width="match_parent"
+                            android:id="@+id/maxi_travel"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:scaleType="fitCenter"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/dana_multiguna"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/maxi_travel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="2"
-                        android:layout_marginBottom="10dp">
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_travel" />
+
                         <ImageView
+                            android:id="@+id/maxi_edukasi"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_travel"
-                            android:scaleType="fitCenter"
-                            android:layout_marginRight="5dp"
-                            android:adjustViewBounds="true"/>
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_edukasi"
-                            android:scaleType="fitCenter"
                             android:layout_marginLeft="5dp"
-                            android:adjustViewBounds="true"/>
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_edukasi" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="2"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:weightSum="2">
+
                         <ImageView
+                            android:id="@+id/maxi_usaha"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_usaha"
-                            android:scaleType="fitCenter"
                             android:layout_marginRight="5dp"
-                            android:adjustViewBounds="true"/>
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_usaha" />
+
                         <ImageView
+                            android:id="@+id/maxi_sehat"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_usaha"
-                            android:scaleType="fitCenter"
                             android:layout_marginLeft="5dp"
-                            android:adjustViewBounds="true"/>
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_sehat" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="2"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginBottom="25dp"
+                        android:weightSum="2">
+
                         <ImageView
+                            android:id="@+id/maxi_griya"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_griya"
-                            android:scaleType="fitCenter"
                             android:layout_marginRight="5dp"
-                            android:adjustViewBounds="true"/>
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_griya" />
+
                         <ImageView
+                            android:id="@+id/maxi_extraguna"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:src="@drawable/maxi_extraguna"
-                            android:scaleType="fitCenter"
                             android:layout_marginLeft="5dp"
-                            android:adjustViewBounds="true"/>
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/maxi_extraguna" />
                     </LinearLayout>
                 </LinearLayout>
                 <RelativeLayout
@@ -597,7 +613,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="Didukung oleh"
+                            android:text="Oleh"
                             android:textColor="@color/colorWhite"
                             android:textSize="12sp" />
                         <ImageView

@@ -52,20 +52,20 @@ public class ProductPartnerActivity extends AppCompatActivity {
         recyclerPromo.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
         snapHelper.attachToRecyclerView(recyclerPromo);
 
-        InterfacePromo apiService =
-                NewRetrofitClient.getClient().create(InterfacePromo.class);
+        id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+                NewRetrofitClient.getClient().create(id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
 
-        Call<Promo> call = apiService.getPromo();
-        call.enqueue(new Callback<Promo>() {
+        Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+        call.enqueue(new Callback<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
             @Override
-            public void onResponse(Call<Promo> call, Response<Promo> response) {
-                final List<Datum> promos = response.body().getData();
+            public void onResponse(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
 
                 recyclerPromo.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
             }
 
             @Override
-            public void onFailure(Call<Promo> call, Throwable t) {
+            public void onFailure(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
 
             }
         });
