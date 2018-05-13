@@ -73,6 +73,7 @@ public class SimulasiActivity extends AppCompatActivity {
                 intent.putExtra("spinner_jaminan",getIntent().getStringExtra("spinner_jaminan"));
                 intent.putExtra("spinner_tenor",getIntent().getStringExtra("spinner_tenor"));
                 intent.putExtra("spinner_area",getIntent().getStringExtra("spinner_area"));
+//                Toast.makeText(getBaseContext()," kode_area : " + getIntent().getStringExtra("spinner_area"),Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

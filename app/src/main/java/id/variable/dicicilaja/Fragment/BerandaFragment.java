@@ -54,11 +54,15 @@ import id.variable.dicicilaja.API.Item.Promo.Datum;
 import id.variable.dicicilaja.API.Item.Promo.Promo;
 import id.variable.dicicilaja.API.Item.Recommend.Recommend;
 import id.variable.dicicilaja.API.Item.Simulation.Simulation;
+import id.variable.dicicilaja.Activity.AjukanPengajuanAxi2Activity;
 import id.variable.dicicilaja.Activity.AjukanPengajuanAxiActivity;
 import id.variable.dicicilaja.Activity.AllPartnerActivity;
 import id.variable.dicicilaja.Activity.AllPromoActivity;
 import id.variable.dicicilaja.Activity.ProductCategoryActivity;
 import id.variable.dicicilaja.Activity.PromoActivity;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Client.RetrofitClient;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAreaBranch;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
 import id.variable.dicicilaja.Activity.SimulasiActivity;
 import id.variable.dicicilaja.Adapter.ListPartnerAdapter;
 import id.variable.dicicilaja.Adapter.ListPromoAdapter;
@@ -92,7 +96,6 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     LinearLayout maxi_travel, webview_axi, webview_maxi;
     RelativeLayout show_all_partner, allpromo;
-    ImageView dana_multiguna;
 
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
@@ -104,6 +107,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     HashMap<Integer, String> JAMINAN_DATA;
     HashMap<Integer, String> TENOR_DATA;
     HashMap<Integer, String> AREA_DATA;
+
+    ImageView dana_multiguna;
 
     String s_area, s_jaminan, s_tenor, s_harga;
     public BerandaFragment() {
@@ -162,6 +167,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
+        dana_multiguna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AjukanPengajuanAxiActivity.class);
+                startActivity(intent);
+            }
+        });
         promoData = new ArrayList<>();
         rekomendasiData = new ArrayList<>();
         partnerData = new ArrayList<>();
@@ -207,13 +219,16 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         final List<String> AREA_ITEMS = new ArrayList<>();
         AREA_DATA = new HashMap<Integer, String>();
 
-        InterfaceSimulation apiServiceArea =
-                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
+//        InterfaceSimulation apiServiceArea =
+//                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
 
-        Call<AreaRequest> callarea = apiServiceArea.getAreaRequest();
-        callarea.enqueue(new Callback<AreaRequest>() {
+
+        InterfaceAreaBranch apiServiceArea1 = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+
+        Call<Area> callarea = apiServiceArea1.getArea();
+        callarea.enqueue(new Callback<Area>() {
             @Override
-            public void onResponse(Call<AreaRequest> call, Response<AreaRequest> response) {
+            public void onResponse(Call<Area> call, Response<Area> response) {
 
                 AREA_ITEMS.clear();
                 AREA_DATA.clear();
@@ -227,7 +242,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             }
 
             @Override
-            public void onFailure(Call<AreaRequest> call, Throwable t) {
+            public void onFailure(Call<Area> call, Throwable t) {
                 AREA_DATA.clear();
                 AREA_ITEMS.clear();
                 Log.e("Error", t.getMessage());
@@ -639,9 +654,10 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 intent.putExtra("HASIL",simulation.getInstallmentAmount().toString());
 
                 intent.putExtra("text_harga", harga_simulasi.getText().toString().replace(".",""));
-                intent.putExtra("spinner_jaminan",spinnerJaminan.getSelectedItemPosition());
-                intent.putExtra("spinner_tenor",spinnerTenor.getSelectedItemPosition());
-                intent.putExtra("spinner_area",spinnerArea.getSelectedItemPosition());
+                intent.putExtra("spinner_jaminan",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
+                intent.putExtra("spinner_tenor",String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                intent.putExtra("spinner_area",String.valueOf(spinnerArea.getSelectedItemPosition()));
+//                Toast.makeText(getContext(),"area : " + AREA_DATA.get(area_value) + " kode_area : " + spinnerArea.getSelectedItemPosition(),Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
 

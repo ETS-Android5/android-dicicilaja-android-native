@@ -88,7 +88,6 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         setCurrency(inputPinjaman);
 
-
         final List<String> JAMINAN_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> JAMINAN_MAP = new HashMap<Integer, String>();
 
@@ -118,7 +117,10 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                 spinnerJaminan.setAdapter(jaminan_adapter);
                 try {
                     s_jaminan = getIntent().getStringExtra("spinner_jaminan");
-                    spinnerJaminan.setSelection(1);
+                    if(s_jaminan != null) {
+                        spinnerJaminan.setSelection(Integer.parseInt(s_jaminan));
+
+                    }
                 }catch (Exception ex) {
 
                 }
@@ -243,8 +245,11 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                 try {
                     s_tenor = getIntent().getStringExtra("spinner_tenor");
                     s_area = getIntent().getStringExtra("spinner_area");
-                    spinnerTenor.setSelection(1);
-                    spinnerArea.setSelection(1);
+                    if(s_tenor != null && s_area != null){
+                        spinnerTenor.setSelection(Integer.parseInt(s_tenor));
+                        spinnerArea.setSelection(Integer.parseInt(s_area));
+                    }
+
                 }catch (Exception ex) {
 
                 }
@@ -320,7 +325,9 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         try {
             s_harga = getIntent().getStringExtra("text_harga");
-            inputPinjaman.setText(s_harga);
+            if(s_harga != null){
+                inputPinjaman.setText(s_harga);
+            }
         }catch (Exception ex) {
 
         }
