@@ -43,8 +43,6 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
         SingleItemRowHolder singleItemRowHolder = new SingleItemRowHolder(v);
         Typeface opensans_extrabold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
-        Typeface opensans_reguler = Typeface.createFromAsset(parent.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
         TextView tv_title = v.findViewById(R.id.tv_title);
 
         tv_title.setTypeface(opensans_bold);
