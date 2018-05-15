@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.variable.dicicilaja.R;
 import id.variable.dicicilaja.Session.PrefManager;
@@ -39,12 +40,13 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        // Checking for first time launch - before calling setContentView()
+         //Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }
+//        Toast.makeText(getBaseContext(),"code : "+ prefManager.isFirstTimeLaunch(),Toast.LENGTH_SHORT).show();
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
