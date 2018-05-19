@@ -151,7 +151,7 @@
                         android:id="@+id/title_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bonus Layout"/>
+                        android:text="Bonus Loyalty"/>
                     <TextView
                         android:id="@+id/value_layout"
                         android:layout_width="wrap_content"

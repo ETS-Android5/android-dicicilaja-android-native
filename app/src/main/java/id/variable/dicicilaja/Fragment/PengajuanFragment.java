@@ -31,8 +31,10 @@ import id.variable.dicicilaja.API.Item.Recommend.Recommend;
 import id.variable.dicicilaja.API.Item.Request.Datum;
 import id.variable.dicicilaja.API.Item.Request.Request;
 import id.variable.dicicilaja.Activity.DetailRequestActivity;
+import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePengajuanMarketplace;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRecommendation;
 import id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
+import id.variable.dicicilaja.Adapter.ListPengajuanAdapter;
 import id.variable.dicicilaja.Adapter.ListRekomendasiAdapter;
 import id.variable.dicicilaja.Adapter.RequestAdapter;
 import id.variable.dicicilaja.Listener.ClickListener;
@@ -72,25 +74,25 @@ public class PengajuanFragment extends Fragment {
         recyclerPengajuan.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-        InterfaceRecommendation apiService2 =
-                NewRetrofitClient.getClient().create(InterfaceRecommendation.class);
+        InterfacePengajuanMarketplace apiService2 =
+                NewRetrofitClient.getClient().create(InterfacePengajuanMarketplace.class);
 
-        Call<Recommendation> call2 = apiService2.getRecommend();
-        call2.enqueue(new Callback<Recommendation>() {
+        Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation> call2 = apiService2.getRecommend();
+        call2.enqueue(new Callback<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation>() {
             @Override
-            public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
-                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
+            public void onResponse(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation> call, Response<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation> response) {
+                final List<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Datum> recommends = response.body().getData();
 
                 if(response.body().getData().size() == 0) {
                     recyclerPengajuan.setVisibility(View.GONE);
                     search.setVisibility(View.GONE);
                     order.setVisibility(View.VISIBLE);
                 }
-                recyclerPengajuan.setAdapter(new ListRekomendasiAdapter(recommends, getContext()));
+                recyclerPengajuan.setAdapter(new ListPengajuanAdapter(recommends, getContext()));
             }
 
             @Override
-            public void onFailure(Call<Recommendation> call, Throwable t) {
+            public void onFailure(Call<id.variable.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation> call, Throwable t) {
 
             }
         });

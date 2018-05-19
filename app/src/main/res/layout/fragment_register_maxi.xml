@@ -39,7 +39,7 @@
                         android:textColor="@color/colorTextSection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MAXI"
+                        android:text="Mitra"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
                     <TextView
@@ -50,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
-                        android:text="Sebutan untuk mitra bisnis, Kami ingin membantu pemilik usaha untuk bisa menyebarluaskan potensi bisnisnya."/>
+                        android:text="Kami ingin membantu pemilik usaha untuk bisa menyebarluaskan potensi bisnisnya."/>
                     <TextView
                         android:textColor="@color/colorTextSection"
                         android:id="@+id/detailSection"

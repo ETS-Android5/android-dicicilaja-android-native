@@ -1,10 +1,13 @@
 package id.variable.dicicilaja.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -19,7 +22,7 @@ import id.variable.dicicilaja.Session.SessionManager;
 
 public class PointRewardActivity extends AppCompatActivity {
 
-    TextView title_point, value_point;
+    TextView title_point, value_point, redeem_point, download_katalog;
     ImageView reward;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class PointRewardActivity extends AppCompatActivity {
 
         title_point = findViewById(R.id.title_point);
         value_point = findViewById(R.id.value_point);
+        redeem_point = findViewById(R.id.redeem_point);
+        download_katalog = findViewById(R.id.download_katalog);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -47,6 +52,22 @@ public class PointRewardActivity extends AppCompatActivity {
 
         title_point.setTypeface(opensans_bold);
         value_point.setTypeface(opensans_bold);
+
+        download_katalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                startActivity(browserIntent);
+            }
+        });
+
+        redeem_point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                startActivity(browserIntent);
+            }
+        });
 
         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
+        android:id="@+id/card_pengajuan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
@@ -15,11 +16,11 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="12dp">
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:src="@drawable/illustration_1_02"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,6 +29,7 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TRIP TURKEY 10 HARI"
@@ -35,12 +37,14 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorAccent2"/>
                 <TextView
+                    android:id="@+id/tv_mitra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
                     android:text="Mitra Usaha : Kurnia tour dan travel"
                     android:textColor="@color/colorAccent2"/>
                 <TextView
+                    android:id="@+id/tv_harga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp 19.000.000"
@@ -49,6 +53,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"/>
                 <TextView
+                    android:id="@+id/tv_tenor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"

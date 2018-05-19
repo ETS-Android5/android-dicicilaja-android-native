@@ -85,6 +85,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
     String apiKey;
+    RelativeLayout allpromo;
     LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -171,6 +172,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         button_rb = findViewById(R.id.button_rb);
         footer_item_1 = findViewById(R.id.footer_item_1);
         allpengajuan = findViewById(R.id.allpengajuan);
+        allpromo = findViewById(R.id.allpromo);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -194,6 +196,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         content_box5.setTypeface(opensans_reguler);
         title_box6.setTypeface(opensans_bold);
         content_box6.setTypeface(opensans_reguler);
+
+        allpromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");

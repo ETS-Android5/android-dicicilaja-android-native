@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_register);
         tabLayout.addTab(tabLayout.newTab().setText("Nasabah"));
         tabLayout.addTab(tabLayout.newTab().setText("AXI"));
-        tabLayout.addTab(tabLayout.newTab().setText("MAXI"));
+        tabLayout.addTab(tabLayout.newTab().setText("Mitra"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

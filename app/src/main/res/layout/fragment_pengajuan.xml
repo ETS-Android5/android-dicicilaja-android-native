@@ -38,7 +38,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
                             android:layout_marginLeft="10dp"
-                            android:hint="Cari program pilihanmu"
+                            android:hint="Cari pengajuan"
                             android:imeOptions="actionSearch"
                             android:drawableLeft="@drawable/ic_search"
                             android:layout_marginRight="10dp"

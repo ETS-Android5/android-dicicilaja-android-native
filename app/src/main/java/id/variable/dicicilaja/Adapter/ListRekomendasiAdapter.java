@@ -20,6 +20,7 @@ import java.util.List;
 
 import id.variable.dicicilaja.API.Item.Promo.Datum;
 import id.variable.dicicilaja.Activity.ProductActivity;
+import id.variable.dicicilaja.Activity.ProductMaxiActivity;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.Content.RekomendasiModel;
 import id.variable.dicicilaja.R;
@@ -61,7 +62,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,"ID : " + position,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext,ProductActivity.class);
+                Intent intent = new Intent(mContext,ProductMaxiActivity.class);
                 intent.putExtra("ID", position);
                 view.getContext().startActivity(intent);
 

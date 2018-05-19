@@ -19,6 +19,7 @@ import java.util.List;
 
 import id.variable.dicicilaja.API.Item.Promo.Datum;
 import id.variable.dicicilaja.Activity.ProductActivity;
+import id.variable.dicicilaja.Activity.ProductMaxiActivity;
 import id.variable.dicicilaja.Content.PromoModel;
 import id.variable.dicicilaja.R;
 
@@ -61,7 +62,7 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
             @Override
             public void onClick(View view) {
 //                Toast.makeText(mContext,"ID : " + itemModel.getId(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext,ProductActivity.class);
+                Intent intent = new Intent(mContext,ProductMaxiActivity.class);
                 intent.putExtra("ID", itemModel.getId().toString());
                 view.getContext().startActivity(intent);
             }
