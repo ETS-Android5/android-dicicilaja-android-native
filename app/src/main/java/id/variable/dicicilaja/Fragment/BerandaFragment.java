@@ -100,7 +100,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     LinearLayout webview_axi, webview_maxi;
     RelativeLayout show_all_partner, allpromo;
-    ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_griya, maxi_extraguna;
+    ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_extraguna, maxi_asuransi;
 
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
@@ -137,8 +137,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_edukasi = view.findViewById(R.id.maxi_edukasi);
         maxi_usaha = view.findViewById(R.id.maxi_usaha);
         maxi_sehat = view.findViewById(R.id.maxi_sehat);
-        maxi_griya = view.findViewById(R.id.maxi_griya);
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
+        maxi_asuransi = view.findViewById(R.id.maxi_asuransi);
         show_all_partner = view.findViewById(R.id.show_all_partner);
         allpromo = view.findViewById(R.id.allpromo);
         webview_axi = view.findViewById(R.id.webview_axi);
@@ -502,7 +502,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
-        maxi_griya.setOnClickListener(new View.OnClickListener() {
+        maxi_asuransi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);

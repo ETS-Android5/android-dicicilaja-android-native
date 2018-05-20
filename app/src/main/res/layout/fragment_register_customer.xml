@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
-                        android:text="Nasabah atau calon nasabah yang ingin atau sedang mengajukan pinjam atau hanya sekedar."/>
+                        android:text="Jika Anda ingin bisa memantau atau mengajukan pinjaman dana multiguna &amp; beraga produk/jasa menarik lainnya, silakan lengkapi formulir berikut. GRATIS!"/>
 
                 </RelativeLayout>
             </LinearLayout>

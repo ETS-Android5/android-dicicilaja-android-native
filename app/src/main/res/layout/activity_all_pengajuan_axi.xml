@@ -27,5 +27,41 @@
         android:paddingBottom="8dp"
         android:clipToPadding="false"
         android:layout_height="wrap_content">
+
     </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:id="@+id/order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/no_order"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/no_request"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Belum Ada Pengajuan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:text="Semua Pengajuan Pembiayaan dana multiguna akan muncul disini supaya Anda bisa mengecek dengan mudah dan kapanpun."/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Ajukan Pengajuan"/>
+    </LinearLayout>
 </LinearLayout>

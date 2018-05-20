@@ -141,9 +141,10 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:textColor="@color/colorAccent"
-                                android:text="Daftar Rekan Bisnis"
+                                android:text="Daftar Kemitraan"
                                 android:paddingTop="8dp"/>
                         </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -399,14 +400,14 @@
                         android:weightSum="2">
 
                         <ImageView
-                            android:id="@+id/maxi_griya"
+                            android:id="@+id/maxi_asuransi"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/maxi_griya" />
+                            android:src="@drawable/maxi_asuransi" />
 
                         <ImageView
                             android:id="@+id/maxi_extraguna"

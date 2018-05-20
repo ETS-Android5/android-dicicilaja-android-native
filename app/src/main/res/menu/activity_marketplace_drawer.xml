@@ -3,33 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/main_navbar">
+    <item>
         <menu android:checkableBehavior="single">
             <item
-                android:id="@+id/navbar_axi"
-                android:title="Axi"
-                android:checkable="true"/>
+                android:id="@+id/navbar_home"
+                android:title="Home"
+                android:checked="true"/>
             <item
-                android:id="@+id/navbar_rekan_bisnis"
-                android:title="Rekan Bisnis"/>
+                android:id="@+id/navbar_axi"
+                android:title="Ayo jadi AXI"/>
             <item
                 android:id="@+id/navbar_mitra_maxiZ"
-                android:title="Mitra Maxi"/>
-            <item
-                android:id="@+id/navbar_home"
-                android:title="Home"/>
+                android:title="Daftar Kemitraan"/>
+
             <item
                 android:id="@+id/navbar_simulasi"
                 android:title="Simulasi"/>
             <item
                 android:id="@+id/navbar_semua_produk"
                 android:title="Semua Produk Pembiayaan"/>
-            <item
-                android:id="@+id/navbar_bookmark"
-                android:title="Book mark"/>
-            <item
-                android:id="@+id/navbar_pengajuan"
-                android:title="Pengajuan"/>
             <item
                 android:id="@+id/navbar_gudang_info"
                 android:title="Gudang Info"/>

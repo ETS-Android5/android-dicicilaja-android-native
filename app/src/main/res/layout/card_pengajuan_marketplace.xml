@@ -53,15 +53,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"/>
                 <TextView
-                    android:id="@+id/tv_tenor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:layout_marginBottom="15dp"
-                    android:text="Cicilan 60 bulan Rp 652.200/bulan"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="Status Order Proses"
                     android:textSize="10sp"/>
                 <LinearLayout

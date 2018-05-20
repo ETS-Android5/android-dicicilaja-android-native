@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -35,14 +36,18 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
 
     List<Datum> pengajuan;
     String apiKey;
+    LinearLayout order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_pengajuan_axi);
 
+        order = findViewById(R.id.order);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        order.setVisibility(View.GONE);
 
         final SessionManager session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
@@ -69,6 +74,10 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
                 pengajuan = response.body().getData();
+                if(response.body().getData().size() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    order.setVisibility(View.VISIBLE);
+                }
                 recyclerView.setAdapter(new PengajuanAxiAllAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
                 recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
                     @Override

@@ -53,6 +53,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
                 <LinearLayout
+                    android:id="@+id/share_app"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -69,22 +70,7 @@
                         android:text="Share Aplikasi"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="7dp">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/pengaturan_akun"
-                        android:layout_marginRight="10dp"/>
-                    <TextView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pengatuan Akun"/>
-                </LinearLayout>
-                <LinearLayout
+                    android:id="@+id/nilai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

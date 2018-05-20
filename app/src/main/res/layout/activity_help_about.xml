@@ -232,7 +232,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/logo_maxi6"
-                                android:text="Elektronik"
+                                android:text="Asuransi"
                                 android:textSize="16sp"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="4dp"/>
@@ -337,7 +337,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="Didukung oleh"
+                            android:text="Oleh"
                             android:textColor="@color/colorWhite"
                             android:textSize="12sp" />
                         <ImageView

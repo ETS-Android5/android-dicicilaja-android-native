@@ -48,7 +48,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/image_about"
-                                android:text="Tentang Dicicilaja.com"
+                                android:text="Tentang Dicicilaja"
                                 android:layout_marginLeft="10dp"
                                 android:layout_centerVertical="true"/>
                             <ImageView
