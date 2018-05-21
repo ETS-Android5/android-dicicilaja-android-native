@@ -2,17 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'dicicilaja'
-            keyPassword 'dicicilaja'
-            storeFile file('/Users/fawazrifqi/AndroidStudioProjects/DicicilAja/keystore')
-            storePassword 'dicicilaja'
-        }
     }
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "id.variable.dicicilaja"
+        applicationId "com.dicicilaja.dicicilaja"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 2
@@ -23,7 +17,6 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
     lintOptions {

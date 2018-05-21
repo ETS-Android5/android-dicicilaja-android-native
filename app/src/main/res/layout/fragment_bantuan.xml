@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Fragment.BantuanFragment"
+    tools:context="com.dicicilaja.dicicilaja.Fragment.BantuanFragment"
     android:background="@color/colorSection">
 
     <RelativeLayout
@@ -43,7 +43,7 @@
                                 android:id="@+id/image_about"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_language"/>
+                                android:src="@drawable/tentang_dicicilaja"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                                 android:id="@+id/image_email"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_language"/>
+                                android:src="@drawable/cs_email"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                                 android:id="@+id/image_call"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_language"/>
+                                android:src="@drawable/phone"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                                 android:id="@+id/image_wa"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_language"/>
+                                android:src="@drawable/chat"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                                 android:id="@+id/image_ask"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_language"/>
+                                android:src="@drawable/whatsapp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

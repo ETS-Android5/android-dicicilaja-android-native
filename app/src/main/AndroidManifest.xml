@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.variable.dicicilaja">
+    package="com.dicicilaja.dicicilaja">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,480 +26,480 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity">
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.LoginActivity">
 
         </activity>
         <activity
-            android:name=".Activity.ForgotPasswordActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.LoginActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name=".Activity.HelpActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.HelpActivity"
             android:label="Bantuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.LoginActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterActivity"
             android:label="Daftar"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.LoginActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterAxi2Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterAxi3Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterAxi2Activity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterAxi4Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi4Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterAxi3Activity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterAxi5Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi5Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterAxi4Activity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi4Activity" />
         </activity>
         <activity
-            android:name=".Activity.AxiDashboardActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.EmployeeDashboardActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.DetailRequestActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity"
             android:label="Detail Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProfileActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProfileActivity"
             android:label="Akun Saya"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.NotificationActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.NotificationActivity"
             android:label="Notifikasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProsesPengajuanActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name=".Activity.LihatDatabaseEmployeeActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.LihatDatabaseEmployeeActivity"
             android:label="Database"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ProsesPengajuanActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProsesPengajuan2Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan2Activity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProsesPengajuan3Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan3Activity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name=".WebView.ChatActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".WebView.AboutAxiActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.AboutAxiActivity"
             android:label="Tentang AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".WebView.AboutMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.AboutMaxiActivity"
             android:label="Tentang MAXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".WebView.CreateRequestActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.CreateRequestActivity"
             android:label="Buat Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".WebView.SimulationActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".WebView.CekStatusActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.CekStatusActivity"
             android:label="Cek Status"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.ConfirmRequestActivity" />
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.ConfirmRequestActivity" />
         <activity
-            android:name=".Activity.RequestProcessActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RequestProcessActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
 
-        <service android:name=".Notification.MyFirebaseMessagingService">
+        <service android:name="com.dicicilaja.dicicilaja.Notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Notification.MyFirebaseInstanceIDService">
+        <service android:name="com.dicicilaja.dicicilaja.Notification.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name=".Activity.IntroActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.OnBoardingActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.OnBoardingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.MarketplaceActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity"
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.SimulasiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.SimulasiActivity"
             android:label="Simulasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.GuestActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.GuestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.HelpAboutActivity"
-            android:label="Tentang dICICILAJA"
+            android:name="com.dicicilaja.dicicilaja.Activity.HelpAboutActivity"
+            android:label="Tentang Dicicilaja"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProductCategoryActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProductCategoryActivity"
             android:label="Product"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterMaxi2Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterMaxi2Activity"
             android:label="Pendaftaran MAXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterMaxi3Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterMaxi3Activity"
             android:label="Pendaftaran MAXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".Activity.RegisterMaxi4Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RegisterMaxi4Activity"
             android:label="Pendaftaran MAXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.RegisterActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterMaxi5Activity" />
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.RegisterMaxi5Activity" />
         <activity
-            android:name=".Activity.ProductActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProductActivity"
             android:label="@string/title_activity_product"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.RutePerjalananActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RutePerjalananActivity"
             android:label="Rute Perjalanan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ProductActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.ProductActivity" />
         </activity>
         <activity
-            android:name=".Activity.SyaratKetentuanActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.SyaratKetentuanActivity"
             android:label="Syarat &amp; Ketentuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ProductActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.ProductActivity" />
         </activity>
         <activity
-            android:name=".Activity.SearchActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.SearchActivity"
             android:label="Pencarian"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.AllPartnerActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AllPartnerActivity"
             android:label="Semua Produk Partner"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.AllPromoActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AllPromoActivity"
             android:label="Semua Promo"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.PromoActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.PromoActivity"
             android:label="Info Promo"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".WebView.AboutAxiMarketplaceActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.AboutAxiMarketplaceActivity"
             android:label="Ayo jadi AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".WebView.AboutMaxiMarketplaceActivity"
+            android:name="com.dicicilaja.dicicilaja.WebView.AboutMaxiMarketplaceActivity"
             android:label="Daftar Rekan Bisnis"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProductPartnerActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProductPartnerActivity"
             android:label="Produk Partner"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.InsentifCarActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.InsentifCarActivity"
             android:label="Insentif Car"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.PointRewardActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.PointRewardActivity"
             android:label="Poin Reward"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.PointTripActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.PointTripActivity"
             android:label="Poin Trip"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.InsentifMcyActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.InsentifMcyActivity"
             android:label="Insentif Motorcycle"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.InfoJaringanActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.InfoJaringanActivity"
             android:label="Info Jaringan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.RekanBisnisActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.RekanBisnisActivity"
             android:label="Rekan Bisnis"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.MaxiDashboardActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity"
             android:label="@string/title_activity_maxi_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.ProfileMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProfileMaxiActivity"
             android:label="Akun Saya"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.UbahMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.UbahMaxiActivity"
             android:label="Ubah Profil"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.AllPengajuanAxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AllPengajuanAxiActivity"
             android:label="Semua Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.UbahPasswordAxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.UbahPasswordAxiActivity"
             android:label="Ubah Kata Sandi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.UbahAxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.UbahAxiActivity"
             android:label="Ubah Profil"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.UbahPasswordMaxiActivity" />
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.UbahPasswordMaxiActivity" />
         <activity
-            android:name=".Activity.AllPengajuanMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AllPengajuanMaxiActivity"
             android:label="Semua Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.AllProgramMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AllProgramMaxiActivity"
             android:label="Semua Program"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProductMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.ProductMaxiActivity"
             android:label="@string/title_activity_product_maxi"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.AjukanPengajuanMaxiActivity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuanMaxiActivity"
             android:label="Buat Pengajuan"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.AjukanPengajuanMaxi2Activity"
+            android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuanMaxi2Activity"
             android:label="Buat Pengajuan - Langkah 2"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.AjukanPengajuanAxiActivity"
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuanAxiActivity"
             android:label="Buat Pengajuan"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" /></activity>
-        <activity android:name=".Activity.AjukanPengajuanAxi2Activity"
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" /></activity>
+        <activity android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuanAxi2Activity"
             android:label="Buat Pengajuan - Langkah 2"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MaxiDashboardActivity" /></activity>
+                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" /></activity>
     </application>
 
 </manifest>

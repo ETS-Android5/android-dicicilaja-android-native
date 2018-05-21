@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Fragment.AxiHomeFragment"
+    tools:context="com.dicicilaja.dicicilaja.Fragment.AxiHomeFragment"
     android:orientation="vertical">
 
     <ScrollView

@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item>
-        <menu android:checkableBehavior="single">
             <item
                 android:id="@+id/navbar_home"
                 android:title="Home"
-                android:checked="true"/>
+                android:checkable="true"/>
             <item
                 android:id="@+id/navbar_axi"
                 android:title="Ayo jadi AXI"/>
@@ -37,9 +35,7 @@
             <item
                 android:id="@+id/navbar_keluar"
                 android:title="Keluar"/>
-        </menu>
 
-    </item>
 
 
 </menu>

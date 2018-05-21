@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="id.variable.dicicilaja.Activity.LoginActivity">
+    tools:context="com.dicicilaja.dicicilaja.Activity.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
