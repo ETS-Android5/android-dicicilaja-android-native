@@ -142,26 +142,16 @@ public class UbahPasswordAxiActivity extends AppCompatActivity {
         return true;
     }
 
-    private void changePassword(final String apiKey, final String old_password, final String new_password, final String second_new_password) {
+    private void changePassword(final String apiKey, final String oldPassword, final String newPassword, final String secondNewPassword) {
         InterfaceUbahPassword apiService =
                 NewRetrofitClient.getClient().create(InterfaceUbahPassword.class);
-
-        Call<UbahPassword> call = apiService.change(apiKey, old_password, new_password, second_new_password);
+        Call<UbahPassword> call = apiService.change(apiKey, oldPassword, newPassword, secondNewPassword);
         call.enqueue(new Callback<UbahPassword>() {
             @Override
             public void onResponse(Call<UbahPassword> call, Response<UbahPassword> response) {
-                try {
-                    Toast.makeText(getBaseContext(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-//                    startActivity(intent);
-                    finish();
-                } catch(Exception ex) {
-                    Log.w("Process Exception :", ex.getMessage());
-                    Toast.makeText(getBaseContext(), "Gagal mengubah kata sandi", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
+                finish();
             }
-
             @Override
             public void onFailure(Call<UbahPassword> call, Throwable t) {
 

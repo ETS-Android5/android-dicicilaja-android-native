@@ -165,21 +165,16 @@ public class UbahAxiActivity extends AppCompatActivity {
             }
         });
     }
-    private void ubahAxi(final String apiKey, final String namaLengkap, final String tempatLahir, final String tanggal, final String noHp, final String email, final String alamat, final String rtRw, final String kelurahan, final String kecamatan, final String provinsi, final String kodepos, final String jk, final String NPWP, final String namaBank, final String cabang, final String rekening, final String AN, final String kotaBank) {
+    private void ubahAxi(final String apiKey, final String namaLengkap, final String tempatLahir, final String tanggal, final String noHp, final String email, final String alamat, final String rtRw, final String kelurahan, final String kecamatan, final String provinsi, final String kodepos, final String jk, final String noNpwp, final String namaBank, final String cabangBank, final String noRekening, final String anRekening, final String kotaBank) {
         InterfaceUbahAxi apiService =
                 NewRetrofitClient.getClient().create(InterfaceUbahAxi.class);
 
-        Call<UbahAxi> call = apiService.change(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
+        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank);
         call.enqueue(new Callback<UbahAxi>() {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {
-                try {
-                    Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-                    finish();
-                } catch(Exception ex) {
-                    Log.w("Process Exception :", ex.getMessage());
-                    Toast.makeText(getBaseContext(), "Gagal mengubah data", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

@@ -16,10 +16,10 @@ public interface InterfaceUbahPassword {
     @Headers({
             "Accept: application/json",
     })
-    @POST("jodi/changepassword")
+    @POST("/changepassword")
     @FormUrlEncoded
     Call<UbahPassword> change(@Header("Authorization") String apiKey,
-                              @Field("old_password") String old_password,
-                              @Field("new_password") String new_password,
-                              @Field("second_new_password") String second_new_password);
+                              @Field("oldPassword") String oldPassword,
+                              @Field("newPassword") String newPassword,
+                              @Field("secondNewPassword") String secondNewPassword);
 }

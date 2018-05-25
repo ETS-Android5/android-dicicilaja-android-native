@@ -16,25 +16,25 @@ public interface InterfaceUbahAxi {
     @Headers({
             "Accept: application/json",
     })
-    @POST("jodi/changeaxi")
+    @POST("axi/changedata")
     @FormUrlEncoded
     Call<UbahAxi> change(@Header("Authorization") String apiKey,
-                         @Field("nama_lengkap") String nama_lengkap,
-                         @Field("tempat_lahir") String tempat_lahir,
-                         @Field("tanggal_lahir") String tanggal_lahir,
-                         @Field("no_hp") String no_hp,
+                         @Field("namaLengkap") String namaLengkap,
+                         @Field("tempatLahir") String tempatLahir,
+                         @Field("tanggal") String tanggal,
+                         @Field("noHp") String noHp,
                          @Field("email") String email,
-                         @Field("alamat_ktp") String alamat_ktp,
-                         @Field("rt_rw_ktp") String rt_rw_ktp,
-                         @Field("kelurahan_ktp") String kelurahan_ktp,
-                         @Field("kecamatan_ktp") String kecamatan_ktp,
-                         @Field("provinsi_ktp") String provinsi_ktp,
-                         @Field("kodepos_ktp") String kodepos_ktp,
-                         @Field("jenis_kelamin") String jenis_kelamin,
-                         @Field("no_npwp") String no_npwp,
-                         @Field("nama_bank") String nama_bank,
-                         @Field("no_rekening") String no_rekening,
-                         @Field("cabang_bank") String cabang_bank,
-                         @Field("an_rekening") String an_rekening,
-                         @Field("kota_bank") String kota_bank);
+                         @Field("alamat") String alamat,
+                         @Field("rtRw") String rtRw,
+                         @Field("kelurahan") String kelurahan,
+                         @Field("kecamatan") String kecamatan,
+                         @Field("provinsi") String provinsi,
+                         @Field("kodepos") String kodepos,
+                         @Field("jk") String jk,
+                         @Field("noNpwp") String noNpwp,
+                         @Field("namaBank") String namaBank,
+                         @Field("cabangBank") String cabangBank,
+                         @Field("noRekening") String noRekening,
+                         @Field("anRekening") String anRekening,
+                         @Field("kotaBank") String kotaBank);
 }
