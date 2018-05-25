@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.dicicilaja.dicicilaja.Activity.LoginActivity;
+import com.dicicilaja.dicicilaja.Activity.OnBoardingActivity;
 
 /**
  * Created by ziterz on 12/9/2017.

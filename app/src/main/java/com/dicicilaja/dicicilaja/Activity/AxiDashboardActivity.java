@@ -49,7 +49,6 @@ import com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.Datum;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
 import com.dicicilaja.dicicilaja.Adapter.PengajuanAxiAdapter;
@@ -58,7 +57,6 @@ import com.dicicilaja.dicicilaja.Fragment.AxiPengajuanFragment;
 import com.dicicilaja.dicicilaja.Listener.ClickListener;
 import com.dicicilaja.dicicilaja.Listener.RecyclerTouchListener;
 import com.dicicilaja.dicicilaja.R;
-import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +68,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     String token;
     List<com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
     List<com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan2;
-    List<Datum> itemDetail;
+    com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
     RelativeLayout allpengajuan;
     InterfaceAxiDetail interfaceAxiDetail;
@@ -197,7 +195,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         allpromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
+                Intent intent = new Intent(getBaseContext(),AllPromoActivity.class);
                 startActivity(intent);
             }
         });
@@ -217,32 +215,35 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call2.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                pengajuan = response.body().getData();
-                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                if(response.code() == 401) {
+                    session.logoutUser();
+                }else{
+                    pengajuan = response.body().getData();
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
+                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
 
-                recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
-                recyclerView.setNestedScrollingEnabled(false);
-                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                    @Override
-                    public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                        intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-                        startActivity(intent);
+                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
+                    recyclerView.setNestedScrollingEnabled(false);
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+                            startActivity(intent);
 
-                    }
+                        }
 
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
+                }
                 progress.dismiss();
             }
 
             @Override
             public void onFailure(Call<PengajuanAxi> call, Throwable t) {
-
             }
         });
 
@@ -288,38 +289,33 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        interfaceAxiDetail = ApiUtils.getAxiDetail();
-        Call<AXIDetail> call = interfaceAxiDetail.getDetail(apiKey);
-        call.enqueue(new Callback<AXIDetail>() {
+        InterfaceAxiDetail apiService5 =
+                NewRetrofitClient.getClient().create(InterfaceAxiDetail.class);
+
+        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
+        callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                itemDetail = response.body().getData();
+                if(response.code() == 401) {
+                    session.logoutUser();
+                }else {
+                    itemDetail = response.body().getData();
 
-                Locale localeID = new Locale("in", "ID");
-                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                    Locale localeID = new Locale("in", "ID");
+                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.get(0).getPointReward()))).replace(",","."));
-                content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.get(0).getPointTrip()))).replace(",","."));
-                content_box3.setText(formatRupiah.format((double)Integer.parseInt(itemDetail.get(0).getIncentiveCar().toString())));
-                content_box4.setText(formatRupiah.format((double)Integer.parseInt(itemDetail.get(0).getIncentiveMcy().toString())));
-                link_web.setText(itemDetail.get(0).getReplicaWebLink());
-                progress.dismiss();
+                    content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+                    content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
+                    content_box3.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveCar())));
+                    content_box4.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveMcy())));
+                    link_web.setText(itemDetail.getReplicaWebLink());
+                }
             }
 
             @Override
             public void onFailure(Call<AXIDetail> call, Throwable t) {
-                progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
             }
         });
 
@@ -330,7 +326,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-//                progress.dismiss();
                 infoJaringan = response.body().getData();
                 DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -340,7 +335,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
             @Override
             public void onFailure(Call<InfoJaringan> call, Throwable t) {
-
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
+                alertDialog.setMessage(t.getMessage());
+                alertDialog.show();
             }
         });
 
@@ -348,11 +345,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.get(0).getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.get(0).getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.get(0).getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.get(0).getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.get(0).getIncentiveCarBonusLayout().toString());
+                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
                 startActivity(intent);
             }
         });
@@ -361,7 +358,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),PointRewardActivity.class);
-                intent.putExtra("POINT_REWARD", itemDetail.get(0).getPointReward().toString());
+                intent.putExtra("POINT_REWARD", String.valueOf(itemDetail.getPointReward()));
                 startActivity(intent);
             }
         });
@@ -370,7 +367,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),PointTripActivity.class);
-                intent.putExtra("POINT_TRIP", itemDetail.get(0).getPointTrip().toString());
+                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
                 startActivity(intent);
             }
         });
@@ -379,11 +376,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.get(0).getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.get(0).getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.get(0).getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.get(0).getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.get(0).getIncentiveMcyBonusLayout().toString());
+                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
                 startActivity(intent);
             }
         });
@@ -433,6 +430,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         break;
                     case R.id.navbar_jaringan:
                         intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
+                        intent.putExtra("total_rb", content_box5.getText().toString());
                         startActivity(intent);
                         break;
                     case R.id.navbar_news:

@@ -182,7 +182,7 @@ public class MarketplaceActivity extends AppCompatActivity
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
-                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                Intent intent = new Intent(getBaseContext(), OnBoardingActivity.class);
                                 startActivity(intent);
                                 finish();
                             }

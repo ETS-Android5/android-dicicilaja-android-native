@@ -14,9 +14,6 @@ public class Datum {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("discount")
-    @Expose
-    private Integer discount;
     @SerializedName("slug")
     @Expose
     private String slug;
@@ -50,14 +47,6 @@ public class Datum {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Integer discount) {
-        this.discount = discount;
     }
 
     public String getSlug() {

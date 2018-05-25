@@ -47,7 +47,6 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum itemModel = promos.get(position);
-        holder.discount.setText(itemModel.getDiscount()+"%");
         holder.tv_title.setText(itemModel.getName());
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(itemModel.getPrice());
@@ -76,7 +75,6 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
         protected TextView tv_mitra;
         protected TextView tv_harga;
         protected TextView tv_tenor;
-        protected TextView discount;
         protected CardView card_promo;
 
 
@@ -87,7 +85,6 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
             this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_tenor = itemView.findViewById(R.id.tv_tenor);
-            this.discount = itemView.findViewById(R.id.discount);
             this.card_promo = itemView.findViewById(R.id.card_promo);
             this.discount_image = itemView.findViewById(R.id.discount_image);
         }

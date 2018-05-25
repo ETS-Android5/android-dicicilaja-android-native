@@ -14,6 +14,6 @@ public interface InterfaceProgramMaxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/program/maxi")
+    @GET("product")
     Call<ProgramMaxi> getProgramMaxi(@Header("Authorization") String apiKey);
 }

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.PrefManager;
+import com.dicicilaja.dicicilaja.Session.SessionManager;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -33,6 +34,8 @@ public class IntroActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnBack, btnNext;
     private PrefManager prefManager;
+
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

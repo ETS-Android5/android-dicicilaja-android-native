@@ -95,6 +95,10 @@ public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdap
 
     @Override
     public int getItemCount() {
-        return 3;
+        if(pengajuan.size() > 2){
+            return 3;
+        }else{
+            return pengajuan.size();
+        }
     }
 }

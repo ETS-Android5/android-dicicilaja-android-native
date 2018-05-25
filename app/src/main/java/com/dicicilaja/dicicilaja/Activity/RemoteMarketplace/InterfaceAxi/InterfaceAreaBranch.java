@@ -13,7 +13,7 @@ import retrofit2.http.Path;
  */
 
 public interface InterfaceAreaBranch {
-    @GET("request/colleteral")
+    @GET("coleteral")
     Call<Colleteral> getColleteral();
 
     @GET("area")

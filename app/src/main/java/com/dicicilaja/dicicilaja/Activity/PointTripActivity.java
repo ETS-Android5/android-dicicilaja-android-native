@@ -57,7 +57,7 @@ public class PointTripActivity extends AppCompatActivity {
         download_brosur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://dl.dropbox.com/s/7uiwbvyqk52ppq5/Katalog%20AXI%202018.pdf?dl=0"));
                 startActivity(browserIntent);
             }
         });
@@ -65,14 +65,14 @@ public class PointTripActivity extends AppCompatActivity {
         redeem_point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://goo.gl/forms/QcTEpsHnlAC97uI42"));
                 startActivity(browserIntent);
             }
         });
 
         value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_TRIP")))).replace(",","."));
         ImageView trip = findViewById(R.id.trip);
-        String imageUrl = "https://dicicilaja.com/uploads/mitramaxi/program/trip.jpg";
+        String imageUrl = "https://dicicilaja.com/uploads/trip/trips.jpg";
         Picasso.with(getApplicationContext()).load(imageUrl).into(trip);
     }
 

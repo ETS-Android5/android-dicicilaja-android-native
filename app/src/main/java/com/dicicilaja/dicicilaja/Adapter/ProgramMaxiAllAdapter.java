@@ -62,7 +62,7 @@ public class ProgramMaxiAllAdapter extends RecyclerView.Adapter<ProgramMaxiAllAd
 
     @Override
     public int getItemCount() {
-        return 3;
+        return program.size();
     }
 }
 

@@ -55,7 +55,7 @@ public class PointRewardActivity extends AppCompatActivity {
         download_katalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://dl.dropbox.com/s/7uiwbvyqk52ppq5/Katalog%20AXI%202018.pdf?dl=0"));
                 startActivity(browserIntent);
             }
         });
@@ -63,7 +63,7 @@ public class PointRewardActivity extends AppCompatActivity {
         redeem_point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://goo.gl/forms/bQLGvEJ9weGkjdOf2"));
                 startActivity(browserIntent);
             }
         });
@@ -72,7 +72,7 @@ public class PointRewardActivity extends AppCompatActivity {
 
         value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_REWARD")))).replace(",","."));
         ImageView reward = findViewById(R.id.reward);
-        String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.png";
+        String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.jpg";
         Picasso.with(getApplicationContext()).load(imageUrl).into(reward);
     }
 
