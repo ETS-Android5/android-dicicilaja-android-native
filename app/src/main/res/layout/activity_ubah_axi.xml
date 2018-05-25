@@ -15,8 +15,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorAccent"
             app:titleTextColor="@color/colorWhite">
         </android.support.v7.widget.Toolbar>
 
@@ -84,8 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputTanggal"
+                        android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"

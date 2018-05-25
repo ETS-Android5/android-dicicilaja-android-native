@@ -19,7 +19,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateRequest;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahAxi;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
@@ -171,7 +173,10 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
 
     }
     private void doRequest(final String apiKey, final String applicant_id, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
-        Call<CreateRequest> call = interfaceCreateRequest.assign(apiKey, applicant_id, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+        InterfaceCreateRequest apiService =
+                NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
+
+        Call<CreateRequest> call = apiService.assign(apiKey, applicant_id, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
