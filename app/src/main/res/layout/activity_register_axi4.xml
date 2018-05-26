@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorPrimary"
             app:titleTextColor="@color/colorBlack">
         </android.support.v7.widget.Toolbar>
 
@@ -25,19 +25,14 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:weightSum="5">
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -130,94 +125,139 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Informasi NPWP"/>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:paddingBottom="16dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="25dp"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/inputNo"
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Informasi NPWP"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="No. NPWP"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputStatus"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:layout_marginTop="16dp">
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNPWP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Isi dengan 0000 jika tidak memiliki NPWP"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNamaNPWP"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
 
-                <EditText
-                    android:id="@+id/inputStatus"
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Status NPWP"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputPkp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:hint="Nama NPWP"
+                    android:layout_marginTop="16dp">
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutPkp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaNPWP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Nama sesuai NPWP"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/spinnerStatusNPWP"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
 
-                <EditText
-                    android:id="@+id/inputPkp"
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutStatusNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="PKP Status"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionDone"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerStatusNPWP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Status NPWP"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Status NPWP"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerPKPStatus"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutPKPStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerPKPStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="PKP Status"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="PKP Status"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionDone"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLanjut"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <Button
-                android:id="@+id/btnLanjut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Lanjut"
-                android:textColor="@color/colorWhite"
-                android:paddingLeft="25dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:paddingRight="25dp"
-                android:textSize="14sp" />
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Lanjut"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

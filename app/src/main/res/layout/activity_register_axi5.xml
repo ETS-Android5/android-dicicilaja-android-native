@@ -28,16 +28,11 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:weightSum="5">
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -130,118 +125,129 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload Dokumen"/>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputFotoKTP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Unggah Foto KTP"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/uploadKTP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/gambarKTP"
-                        android:src="@drawable/illustration_1_02"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp" />
-                </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputFotoNPWP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Unggah Foto NPWP"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/uploadNPWP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/gambarNPWP"
-                        android:src="@drawable/illustration_1_02"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp" />
-                </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputFotoCover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Unggah Foto Cover Tabungan"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/uploadCover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah"
-                        android:layout_centerVertical="true"/>
-                    <ImageView
-                        android:id="@+id/gambarCover"
-                        android:src="@drawable/illustration_1_02"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp" />
-                </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
-            <RelativeLayout
-                android:id="@+id/confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-                <CheckBox
-                    android:id="@+id/check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/textCheck"
-                    android:layout_toRightOf="@+id/check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saya setuju dengan syarat dan ketentuan yang berlaku"/>
-            </RelativeLayout>
-            <Button
-                android:id="@+id/btnDaftar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Daftar"
-                android:textColor="@color/colorWhite"
+                android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:paddingRight="25dp"
-                android:textSize="14sp" />
+                android:paddingTop="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Upload Dokumen"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputFotoKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah Foto KTP"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/uploadKTP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:text="Unggah"
+                            android:layout_centerVertical="true"/>
+                        <ImageView
+                            android:id="@+id/gambarKTP"
+                            android:src="@drawable/illustration_1_02"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp" />
+                    </RelativeLayout>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputFotoNPWP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah Foto NPWP"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/uploadNPWP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Unggah"
+                            android:enabled="false"
+                            android:layout_centerVertical="true"/>
+                        <ImageView
+                            android:id="@+id/gambarNPWP"
+                            android:src="@drawable/illustration_1_02"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp" />
+                    </RelativeLayout>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputFotoCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah Foto Cover Tabungan"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/uploadCover"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Unggah"
+                            android:enabled="false"
+                            android:layout_centerVertical="true"/>
+                        <ImageView
+                            android:id="@+id/gambarCover"
+                            android:src="@drawable/illustration_1_02"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp" />
+                    </RelativeLayout>
+                </android.support.design.widget.TextInputLayout>
+                <RelativeLayout
+                    android:id="@+id/confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <CheckBox
+                        android:id="@+id/check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textCheck"
+                        android:layout_toRightOf="@+id/check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saya setuju dengan syarat dan ketentuan yang berlaku"/>
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/btnDaftar"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Daftar"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

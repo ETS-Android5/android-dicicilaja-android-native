@@ -319,7 +319,7 @@
             <Button
                 android:id="@+id/next"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="Next"
                 android:backgroundTint="@color/colorAccent"
                 android:textColor="@color/colorWhite"

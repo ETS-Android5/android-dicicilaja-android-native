@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorPrimary"
             app:titleTextColor="@color/colorBlack">
         </android.support.v7.widget.Toolbar>
 
@@ -25,19 +25,14 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:weightSum="5">
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -130,139 +125,145 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Informasi Rekening"/>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutNamaBank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputNamaBank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Bank"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputRekening"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutRekening"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputRekening"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="No. Rekening"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputCabang"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutCabang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputCabang"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Cabang Bank"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputANRekening"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutANRekening"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputANRekening"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="A/N Rekening"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputKodePos"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutKota"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputKota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kota Bank"
-                    android:inputType="number"
-                    android:imeOptions="actionDone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnLanjut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Lanjut"
-                android:textColor="@color/colorWhite"
+                android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:paddingRight="25dp"
-                android:textSize="14sp" />
+                android:paddingTop="25dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Informasi Rekening"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Bank *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaBank"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : BTPN"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNoRekening"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNoRekening"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="No. Rekening *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNoRekening"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : 073652642"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputCabangBank"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutCabangBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cabang Bank *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputCabangBank"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : Jakarta Selatan"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputANRekening"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutANRekening"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="A/N Rekening *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputANRekening"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Sesuai pada buku rekening"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKotaBank"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKotaBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kota Bank *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKotaBank"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : DKI Jakarta"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLanjut"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Lanjut"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

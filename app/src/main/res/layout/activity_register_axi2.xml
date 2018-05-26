@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorPrimary"
             app:titleTextColor="@color/colorBlack">
         </android.support.v7.widget.Toolbar>
 
@@ -25,19 +25,14 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:weightSum="5">
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -130,364 +125,329 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Informasi KTP"/>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKtp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputKtp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="No. KTP"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputTempat"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutTempat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputTempat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tempat Lahir"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionDone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutTanggal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <EditText
-                    android:id="@+id/inputTanggal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tanggal Lahir"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutJk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Kelamin"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="5dp"/>
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <RadioButton
-                                    android:id="@+id/radioL"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Laki-laki"
-                                    android:layout_marginRight="10dp"/>
-                                <RadioButton
-                                    android:id="@+id/radioP"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Perempuan"/>
-                            </LinearLayout>
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-                </RadioGroup>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutAlamat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputAlamat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alamat KTP"
-                    android:inputType="textMultiLine"
-                    android:imeOptions="actionDone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutRtRw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputRtRw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="RT/RW KTP"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutPerkawinan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Status Perkawinan"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="5dp"/>
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <RadioButton
-                                    android:id="@+id/radioSudah"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Sudah Menikah"
-                                    android:layout_marginRight="10dp"/>
-                                <RadioButton
-                                    android:id="@+id/radioBelum"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Belum Menikah"/>
-                            </LinearLayout>
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-                </RadioGroup>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutProvinsi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/spinnerProvinsi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ms_multiline="false"
-                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                    app:ms_hintView="@layout/hint_item"
-                    app:ms_hint="Pilih Provinsi"
-                    app:ms_enableFloatingLabel="true"
-                    app:ms_enableErrorLabel="false"
-                    app:ms_floatingLabelText="Pilih Provinsi"
-                    app:ms_baseColor="@color/colorBlack"
-                    app:ms_highlightColor="@color/colorPrimaryDark"
-                    app:ms_errorColor="@color/colorPrimaryDark"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    app:ms_alignLabels="true"
-                    android:textSize="14sp"
-                    app:ms_hintTextSize="14sp"
-                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutKotaKab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/spinnerKotaKab"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ms_multiline="false"
-                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                    app:ms_hintView="@layout/hint_item"
-                    app:ms_hint="Pilih Kota/Kabupaten"
-                    app:ms_enableFloatingLabel="true"
-                    app:ms_enableErrorLabel="false"
-                    app:ms_floatingLabelText="Pilih Kota/Kabupaten"
-                    app:ms_baseColor="@color/colorBlack"
-                    app:ms_highlightColor="@color/colorPrimaryDark"
-                    app:ms_errorColor="@color/colorPrimaryDark"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    app:ms_alignLabels="true"
-                    android:textSize="14sp"
-                    app:ms_hintTextSize="14sp"
-                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutKecamatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/spinnerKecamatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ms_multiline="false"
-                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                    app:ms_hintView="@layout/hint_item"
-                    app:ms_hint="Pilih Kecamatan"
-                    app:ms_enableFloatingLabel="true"
-                    app:ms_enableErrorLabel="false"
-                    app:ms_floatingLabelText="Pilih Kecamatan"
-                    app:ms_baseColor="@color/colorBlack"
-                    app:ms_highlightColor="@color/colorPrimaryDark"
-                    app:ms_errorColor="@color/colorPrimaryDark"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    app:ms_alignLabels="true"
-                    android:textSize="14sp"
-                    app:ms_hintTextSize="14sp"
-                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutKelurahan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/spinnerKelurahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ms_multiline="false"
-                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                    app:ms_hintView="@layout/hint_item"
-                    app:ms_hint="Pilih Kelurahan"
-                    app:ms_enableFloatingLabel="true"
-                    app:ms_enableErrorLabel="false"
-                    app:ms_floatingLabelText="Pilih Provinsi"
-                    app:ms_baseColor="@color/colorBlack"
-                    app:ms_highlightColor="@color/colorPrimaryDark"
-                    app:ms_errorColor="@color/colorPrimaryDark"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    app:ms_alignLabels="true"
-                    android:textSize="14sp"
-                    app:ms_hintTextSize="14sp"
-                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKodePos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/inputKodePos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kode Pos"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:inputType="number"
-                    android:imeOptions="actionDone"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:id="@+id/btnLanjut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Lanjut"
-
-                android:textColor="@color/colorWhite"
+                android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:paddingRight="25dp"
-                android:textSize="14sp" />
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp">-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:text="Step 2 dari 5"/>-->
-            <!--</RelativeLayout>-->
+                android:paddingTop="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Informasi KTP"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="No.KTP *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKtp"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : 3274050000000000"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputTempatLahir"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTempatLahir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tempat Lahir *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputTempatLahir"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : Cirebon"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputTanggal"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tanggal Lahir *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputTanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : 17/08/1945"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:focusableInTouchMode="false"
+                        android:cursorVisible="false"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutJenisKelamin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerJenisKelamin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Jenis Kelamin *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Jenis Kelamin"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/inputAlamat"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputAlamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Jl. Jend. Sudirman"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textMultiLine|textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputRtRw"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutRtRw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="RT/RW KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputRtRw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : 007/009"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="date"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Status Perkawinan *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Status Perkawinan"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/inputKelurahan"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKelurahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kelurahan KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKelurahan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Kuningan Timur"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKecamatan"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKecamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kecamatan KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKecamatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Setiabudi"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKota"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kota KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Bandung"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputProvinsi"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutProvinsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Provinsi KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputProvinsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : DKI Jakarta"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputEmail"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKodepos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kode Pos KTP *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKodepos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : 12920"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLanjut"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Lanjut"
+
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -180,36 +180,15 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-                CreateRequest createRequest = response.body();
-
-
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
-//                alertDialog.setTitle("Selamat! Pengajuan Anda terkirim");
-//                alertDialog.setMessage("No. Pengajuan #" + createRequest.getTrackingId() + " \n Petugas kami akan menghubungi Anda dalam waktu dekat.\n Konfirmasi persetujuan pengajuan akan dikirim melalui email.");
-//
-//                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                alertDialog.show();
-                Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda terkirim",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
 
             @Override
             public void onFailure(Call<CreateRequest> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
-                alertDialog.setMessage("Message : " + t.getMessage());
-
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
             }
         });
     }
