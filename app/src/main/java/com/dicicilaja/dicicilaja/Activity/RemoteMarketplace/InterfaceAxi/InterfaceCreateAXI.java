@@ -14,7 +14,7 @@ public interface InterfaceCreateAXI {
     @Headers({
             "Accept: application/json",
     })
-    @POST("/axi/register")
+    @POST("axi/register")
     @FormUrlEncoded
     Call<CreateAXI> create(@Header("Authorization") String apiKey,
                            @Field("areaId") String areaId,

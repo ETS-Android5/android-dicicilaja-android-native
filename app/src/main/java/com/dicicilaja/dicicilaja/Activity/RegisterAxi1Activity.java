@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -201,7 +200,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
                 }
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
                 alertDialog.setMessage("axi_id: " + axi_id + "\n" + "nama: " + nama + "\n" + "email: " + email + "\n" + "hp: " + hp + "\n" + "namaibu: " + namaibu + "\n" + "area: " + area + "\n" + "cabang: " + cabang);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -234,7 +233,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
     private boolean validateForm(String nama, String email, String hp, String namaibu, String area, String cabang) {
         if(area == null || area.trim().length() == 0 || area.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Pilih area pengajuan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -248,7 +247,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         }
 
         if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Pilih cabang pengajuan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -261,7 +260,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
             return false;
         }
         if(nama == null || nama.trim().length() == 0 || nama.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -274,7 +273,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         }
 
         if(email == null || email.trim().length() == 0 || email.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Masukan email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -287,7 +286,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         }
 
         if(hp == null || hp.trim().length() == 0 || hp.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Masukan no.handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -300,7 +299,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         }
 
         if(namaibu == null || namaibu.trim().length() == 0 || namaibu.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog.setMessage("Masukan nama ibu");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
