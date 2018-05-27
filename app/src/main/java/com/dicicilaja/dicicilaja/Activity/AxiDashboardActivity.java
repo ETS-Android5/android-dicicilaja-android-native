@@ -437,6 +437,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         break;
                     case R.id.navbar_materi:
                         break;
+                    case R.id.navbar_add:
+                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+                        startActivity(intent2);
+                        break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
 

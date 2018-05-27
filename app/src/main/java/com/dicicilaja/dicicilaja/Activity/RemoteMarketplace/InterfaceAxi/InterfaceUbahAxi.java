@@ -16,7 +16,7 @@ public interface InterfaceUbahAxi {
     @Headers({
             "Accept: application/json",
     })
-    @POST("axi/changedata")
+    @POST("axi/edit")
     @FormUrlEncoded
     Call<UbahAxi> change(@Header("Authorization") String apiKey,
                          @Field("namaLengkap") String namaLengkap,

@@ -1,105 +1,101 @@
-package com.dicicilaja.dicicilaja.Fragment;
+package com.dicicilaja.dicicilaja.Activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import com.dicicilaja.dicicilaja.Activity.AjukanPengajuanAxi2Activity;
-import com.dicicilaja.dicicilaja.Activity.AjukanPengajuanAxiActivity;
-import com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity;
-import com.dicicilaja.dicicilaja.Activity.LoginActivity;
-import com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAreaBranch;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch.Branch;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.AreaService;
+import com.dicicilaja.dicicilaja.Session.SessionManager;
 import com.dicicilaja.dicicilaja.WebView.AboutAxiActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
-  */
-public class RegisterAxiFragment extends Fragment {
+import static java.lang.Boolean.TRUE;
 
-    TextView titleSection, bodySection, detailSection, sudahPunyaAkun, judulSudahPunyaAkun;
+public class RegisterAxi1Activity extends AppCompatActivity {
+
+    TextView titleSection, bodySection, detailSection;
     EditText inputAxiRefferal, inputNamaLengkap, inputEmail, inputNoHp, inputNamaIbu;
     Button btnLanjut, btnDaftar;
     MaterialSpinner spinnerArea, spinnerCabang;
-    AreaService AreaService;
-    String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
+    com.dicicilaja.dicicilaja.Remote.AreaService AreaService;
+    String axi_id, nama, email, hp, namaibu, area, cabang;
     TextInputLayout inputLayoutNamaLengkap, inputLayoutEmail, inputLayoutNoHp, inputLayoutNamaIbu;
-    public RegisterAxiFragment() {
-        // Required empty public constructor
-    }
 
-
+    SessionManager session;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_register_axi, container, false);
-        inputNamaLengkap = view.findViewById(R.id.inputNamaLengkap);
-        inputEmail = view.findViewById(R.id.inputEmail);
-        inputNamaIbu = view.findViewById(R.id.inputNamaIbu);
-        inputAxiRefferal = view.findViewById(R.id.inputAxiRefferal);
-        inputNoHp = (EditText) view.findViewById(R.id.inputNoHp);
-        sudahPunyaAkun = (TextView) view.findViewById(R.id.sudahPunyaAkun);
-        judulSudahPunyaAkun = (TextView) view.findViewById(R.id.judulSudahPunyaAkun);
-        titleSection = (TextView) view.findViewById(R.id.titleSection);
-        bodySection = (TextView) view.findViewById(R.id.bodySection);
-        detailSection = (TextView) view.findViewById(R.id.detailSection);
-        btnLanjut = view.findViewById(R.id.btnLanjut);
-        btnDaftar = view.findViewById(R.id.btnDaftar);
-        spinnerArea = view.findViewById(R.id.spinnerArea);
-        spinnerCabang = view.findViewById(R.id.spinnerCabang);
-
-        inputLayoutNamaLengkap = view.findViewById(R.id.inputLayoutNamaLengkap);
-        inputLayoutEmail = view.findViewById(R.id.inputLayoutEmail);
-        inputLayoutNoHp = view.findViewById(R.id.inputLayoutNoHp);
-        inputLayoutNamaIbu = view.findViewById(R.id.inputLayoutNamaIbu);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_axi1);
 
 
-        Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
-        Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
-        Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        session = new SessionManager(RegisterAxi1Activity.this);
+        if(session.isLoggedIn() == TRUE){
+            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+        }
 
-        judulSudahPunyaAkun.setTypeface(opensans_reguler);
-        sudahPunyaAkun.setTypeface(opensans_semibold);
+        inputNamaLengkap = findViewById(R.id.inputNamaLengkap);
+        inputEmail = findViewById(R.id.inputEmail);
+        inputNamaIbu = findViewById(R.id.inputNamaIbu);
+        inputAxiRefferal = findViewById(R.id.inputAxiRefferal);
+        inputNoHp = findViewById(R.id.inputNoHp);
+        titleSection = findViewById(R.id.titleSection);
+        bodySection = findViewById(R.id.bodySection);
+        detailSection = findViewById(R.id.detailSection);
+        btnLanjut = findViewById(R.id.btnLanjut);
+        btnDaftar = findViewById(R.id.btnDaftar);
+        spinnerArea = findViewById(R.id.spinnerArea);
+        spinnerCabang = findViewById(R.id.spinnerCabang);
+
+        inputLayoutNamaLengkap = findViewById(R.id.inputLayoutNamaLengkap);
+        inputLayoutEmail = findViewById(R.id.inputLayoutEmail);
+        inputLayoutNoHp = findViewById(R.id.inputLayoutNoHp);
+        inputLayoutNamaIbu = findViewById(R.id.inputLayoutNamaIbu);
+
+        try {
+            inputAxiRefferal.setText(session.getAxiId());
+        }catch (Exception ex){
+
+        }
+
+        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+
         titleSection.setTypeface(opensans_bold);
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);
         btnLanjut.setTypeface(opensans_bold);
-        apiKey = "null";
 
         final List<String> AREA_ITEMS = new ArrayList<>();;
         final HashMap<Integer, String> AREA_MAP = new HashMap<Integer, String>();
@@ -123,7 +119,7 @@ public class RegisterAxiFragment extends Fragment {
                     AREA_ITEMS.add(response.body().getData().get(i).getName());
                 }
 
-                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
                 area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 spinnerArea.setAdapter(area_adapter);
@@ -160,7 +156,7 @@ public class RegisterAxiFragment extends Fragment {
                             CABANG_ITEMS.add(response.body().getData().get(i).getName());
                         }
 
-                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
+                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
                         branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         spinnerCabang.setEnabled(true);
@@ -189,12 +185,6 @@ public class RegisterAxiFragment extends Fragment {
 
         });
 
-        sudahPunyaAkun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
 
         btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +201,12 @@ public class RegisterAxiFragment extends Fragment {
 
                 }
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setMessage("apiKey: " + apiKey + "\n" + "axi_id: " + axi_id + "\n" + "nama: " + nama + "\n" + "email: " + email + "\n" + "hp: " + hp + "\n" + "namaibu: " + namaibu + "\n" + "area: " + area + "\n" + "cabang: " + cabang);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("axi_id: " + axi_id + "\n" + "nama: " + nama + "\n" + "email: " + email + "\n" + "hp: " + hp + "\n" + "namaibu: " + namaibu + "\n" + "area: " + area + "\n" + "cabang: " + cabang);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(nama, email, hp, namaibu, area, cabang)) {
-                            Intent intent = new Intent(getContext(), RegisterAxi2Activity.class);
-                            intent.putExtra("apiKey",apiKey);
+                            Intent intent = new Intent(getBaseContext(), RegisterAxi2Activity.class);
                             intent.putExtra("axi_id",axi_id);
                             intent.putExtra("nama",nama);
                             intent.putExtra("email",email);
@@ -236,17 +225,16 @@ public class RegisterAxiFragment extends Fragment {
         detailSection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AboutAxiActivity.class);
+                Intent intent = new Intent(getBaseContext(), AboutAxiActivity.class);
                 startActivity(intent);
             }
         });
 
-        return view;
     }
 
     private boolean validateForm(String nama, String email, String hp, String namaibu, String area, String cabang) {
         if(area == null || area.trim().length() == 0 || area.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Pilih area pengajuan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -260,7 +248,7 @@ public class RegisterAxiFragment extends Fragment {
         }
 
         if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Pilih cabang pengajuan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -273,7 +261,7 @@ public class RegisterAxiFragment extends Fragment {
             return false;
         }
         if(nama == null || nama.trim().length() == 0 || nama.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -286,7 +274,7 @@ public class RegisterAxiFragment extends Fragment {
         }
 
         if(email == null || email.trim().length() == 0 || email.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Masukan email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -299,7 +287,7 @@ public class RegisterAxiFragment extends Fragment {
         }
 
         if(hp == null || hp.trim().length() == 0 || hp.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Masukan no.handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -312,7 +300,7 @@ public class RegisterAxiFragment extends Fragment {
         }
 
         if(namaibu == null || namaibu.trim().length() == 0 || namaibu.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
             alertDialog.setMessage("Masukan nama ibu");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -326,10 +314,18 @@ public class RegisterAxiFragment extends Fragment {
         return true;
     }
 
-    public void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.finish();
         }
+        return true;
     }
 
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
 }

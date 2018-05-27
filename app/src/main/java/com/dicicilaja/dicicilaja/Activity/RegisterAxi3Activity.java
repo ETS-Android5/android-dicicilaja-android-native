@@ -15,15 +15,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dicicilaja.dicicilaja.R;
+import com.dicicilaja.dicicilaja.Session.SessionManager;
+
+import static java.lang.Boolean.TRUE;
 
 public class RegisterAxi3Activity extends AppCompatActivity {
 
     Button btnLanjut;
     TextView title;
-
+    SessionManager session;
     EditText inputNamaBank, inputNoRekening, inputCabangBank, inputANRekening, inputKotaBank;
     TextInputLayout inputLayoutNamaBank, inputLayoutNoRekening, inputLayoutCabangBank, inputLayoutANRekening, inputLayoutKotaBank;
-    String axi_id, nama, email, hp, namaibu, area, cabang;
+    String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
     String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     @Override
@@ -33,6 +36,10 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        session = new SessionManager(RegisterAxi3Activity.this);
+        if(session.isLoggedIn() == TRUE){
+            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+        }
 
         title                   = findViewById(R.id.title);
         inputNamaBank           = findViewById(R.id.inputNamaBank);
@@ -46,6 +53,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         inputLayoutANRekening   = findViewById(R.id.inputLayoutANRekening);
         inputLayoutKotaBank     = findViewById(R.id.inputLayoutKotaBank);
 
+        apiKey          = getIntent().getStringExtra("apiKey");
         axi_id          = getIntent().getStringExtra("axi_id");
         nama            = getIntent().getStringExtra("nama");
         email           = getIntent().getStringExtra("email");
@@ -117,6 +125,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank)) {
                             Intent intent = new Intent(getBaseContext(), RegisterAxi4Activity.class);
+                            intent.putExtra("apiKey",apiKey);
                             intent.putExtra("axi_id",axi_id);
                             intent.putExtra("nama",nama);
                             intent.putExtra("email",email);

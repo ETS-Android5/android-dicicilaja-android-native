@@ -149,8 +149,14 @@ public class UbahPasswordAxiActivity extends AppCompatActivity {
         call.enqueue(new Callback<UbahPassword>() {
             @Override
             public void onResponse(Call<UbahPassword> call, Response<UbahPassword> response) {
-                Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-                finish();
+                if (response.code() == 200) {
+                    Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(getBaseContext(),"Gagal merubah kata sandi",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
             }
             @Override
             public void onFailure(Call<UbahPassword> call, Throwable t) {

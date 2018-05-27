@@ -31,6 +31,9 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 
 import com.dicicilaja.dicicilaja.Fragment.RegisterAxiFragment;
 import com.dicicilaja.dicicilaja.R;
+import com.dicicilaja.dicicilaja.Session.SessionManager;
+
+import static java.lang.Boolean.TRUE;
 
 public class RegisterAxi2Activity extends AppCompatActivity {
 
@@ -40,8 +43,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRtRw, inputLayoutKelurahan, inputLayoutKecamatan, inputLayoutKota,inputLayoutProvinsi, inputLayoutKodepos;
     MaterialSpinner spinnerJenisKelamin, spinnerStatus;
     TextView title;
-
-    String axi_id, nama, email, hp, namaibu, area, cabang;
+    SessionManager session;
+    String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
     String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        session = new SessionManager(RegisterAxi2Activity.this);
+        if(session.isLoggedIn() == TRUE){
+            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+        }
 
         btnLanjut               = findViewById(R.id.btnLanjut);
         inputKtp                = findViewById(R.id.inputKtp);
@@ -76,6 +83,12 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputTanggal            = findViewById(R.id.inputTanggal);
         title                   = findViewById(R.id.title);
 
+        try {
+            apiKey = getIntent().getStringExtra("apiKey");
+        }catch (Exception ex){
+            final SessionManager session = new SessionManager(getBaseContext());
+            apiKey = "Bearer " + session.getToken();
+        }
         axi_id  = getIntent().getStringExtra("axi_id");
         nama    = getIntent().getStringExtra("nama");
         email   = getIntent().getStringExtra("email");
@@ -186,6 +199,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status)) {
                             Intent intent = new Intent(getBaseContext(), RegisterAxi3Activity.class);
+                            intent.putExtra("apiKey",apiKey);
                             intent.putExtra("axi_id",axi_id);
                             intent.putExtra("nama",nama);
                             intent.putExtra("email",email);

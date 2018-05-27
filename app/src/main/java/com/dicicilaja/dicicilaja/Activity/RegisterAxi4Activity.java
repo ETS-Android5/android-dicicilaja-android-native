@@ -16,12 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dicicilaja.dicicilaja.R;
+import com.dicicilaja.dicicilaja.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
+
+import static java.lang.Boolean.TRUE;
 
 public class RegisterAxi4Activity extends AppCompatActivity {
 
@@ -30,8 +33,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
     TextInputLayout inputLayoutNPWP, inputLayoutStatusNPWP, inputLayoutPKPStatus;
     Button btnLanjut;
     TextView title;
-
-    String axi_id, nama, email, hp, namaibu, area, cabang;
+    SessionManager session;
+    String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
     String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     String npwp, nama_npwp, status_npwp, pkp_status;
@@ -42,6 +45,10 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        session = new SessionManager(RegisterAxi4Activity.this);
+        if(session.isLoggedIn() == TRUE){
+            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+        }
 
         title                   = findViewById(R.id.title);
         inputNPWP               = findViewById(R.id.inputNPWP);
@@ -52,6 +59,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         inputLayoutStatusNPWP   = findViewById(R.id.inputLayoutStatusNPWP);
         inputLayoutPKPStatus    = findViewById(R.id.inputLayoutPKPStatus);
 
+        apiKey          = getIntent().getStringExtra("apiKey");
         axi_id          = getIntent().getStringExtra("axi_id");
         nama            = getIntent().getStringExtra("nama");
         email           = getIntent().getStringExtra("email");
@@ -162,6 +170,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(npwp)) {
                             Intent intent = new Intent(getBaseContext(), RegisterAxi5Activity.class);
+                            intent.putExtra("apiKey",apiKey);
                             intent.putExtra("axi_id",axi_id);
                             intent.putExtra("nama",nama);
                             intent.putExtra("email",email);

@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.lang.Boolean.TRUE;
+
 public class RegisterAxi5Activity extends AppCompatActivity {
 
     Button upload, btnDaftar;
@@ -37,6 +39,7 @@ public class RegisterAxi5Activity extends AppCompatActivity {
     ImageView gambar;
     TextView title;
     String apiKey;
+    SessionManager session;
     String axi_id, nama, email, hp, namaibu, area, cabang;
     String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
@@ -49,14 +52,16 @@ public class RegisterAxi5Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        final SessionManager session = new SessionManager(getBaseContext());
-        apiKey = "Bearer " + session.getToken();
+        session = new SessionManager(RegisterAxi5Activity.this);
+        if(session.isLoggedIn() == TRUE){
+            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+        }
 
         title = findViewById(R.id.title);
         btnDaftar = findViewById(R.id.btnDaftar);
         check = findViewById(R.id.check);
 
+        apiKey          = getIntent().getStringExtra("apiKey");
         axi_id          = getIntent().getStringExtra("axi_id");
         nama            = getIntent().getStringExtra("nama");
         email           = getIntent().getStringExtra("email");
@@ -86,9 +91,9 @@ public class RegisterAxi5Activity extends AppCompatActivity {
         status_npwp     = getIntent().getStringExtra("status_npwp");
         pkp_status      = getIntent().getStringExtra("pkp_status");
 
-        imageKtp = "http://dicicilaja.com/";
-        imageNpwp = "http://dicicilaja.com/";
-        imageCover = "http://dicicilaja.com/";
+        imageKtp = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+        imageNpwp = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+        imageCover = "http://dicicilaja.com/public/assets/images/not-found.jpg";
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -173,8 +178,8 @@ public class RegisterAxi5Activity extends AppCompatActivity {
         call.enqueue(new Callback<CreateAXI>() {
             @Override
             public void onResponse(Call<CreateAXI> call, Response<CreateAXI> response) {
-                Toast.makeText(getBaseContext(),"Selamat! Akun AXI Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                Toast.makeText(getBaseContext(),"Pendaftaran berhasil. Kami akan lakukan verifikasi data Anda.",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

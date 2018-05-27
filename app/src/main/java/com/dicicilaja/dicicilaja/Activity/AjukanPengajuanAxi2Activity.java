@@ -128,30 +128,28 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
-                            Log.d("ajukanpengajuan","apiKey:" + apiKey);
                             Log.d("ajukanpengajuan","program_id:" + program_id);
-                            Log.d("ajukanpengajuan","axi_referral:" + axi_referral);
                             Log.d("ajukanpengajuan","colleteral_id:" + colleteral_id);
                             Log.d("ajukanpengajuan","status_id:" + status_id);
                             Log.d("ajukanpengajuan","manufacturer:" + manufacturer);
                             Log.d("ajukanpengajuan","year:" + year);
                             Log.d("ajukanpengajuan","tenor:" + tenor);
-                            Log.d("ajukanpengajuan","ammount:" + amount);
+                            Log.d("ajukanpengajuan","amount:" + amount);
+                            Log.d("ajukanpengajuan","qty:" + qty);
                             Log.d("ajukanpengajuan","area_id:" + area_id);
                             Log.d("ajukanpengajuan","branch_id:" + branch_id);
-                            Log.d("ajukanpengajuan","email:" + email);
-                            Log.d("ajukanpengajuan","qty:" + qty);
                             Log.d("ajukanpengajuan","channel_id:" + channel_id);
                             Log.d("ajukanpengajuan","client_name:" + client_name);
                             Log.d("ajukanpengajuan","hp:" + hp);
                             Log.d("ajukanpengajuan","address:" + address);
-                            Log.d("ajukanpengajuan","province:" + province);
-                            Log.d("ajukanpengajuan","city:" + city);
                             Log.d("ajukanpengajuan","district:" + district);
+                            Log.d("ajukanpengajuan","city:" + city);
+                            Log.d("ajukanpengajuan","province:" + province);
+                            Log.d("ajukanpengajuan","email:" + email);
                             Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
                             Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
 
-                            doRequest(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -172,23 +170,28 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
         });
 
     }
-    private void doRequest(final String apiKey, final String applicant_id, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
+    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
         InterfaceCreateRequest apiService =
                 NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
 
-        Call<CreateRequest> call = apiService.assign(apiKey, applicant_id, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-                Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+//                Toast.makeText(getBaseContext(),"code"+response.code(),Toast.LENGTH_SHORT).show();
+                if(response.code() == 200){
+                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
 
             @Override
             public void onFailure(Call<CreateRequest> call, Throwable t) {
+//                Toast.makeText(getBaseContext(),"code:"+t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }

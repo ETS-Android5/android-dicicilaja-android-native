@@ -81,7 +81,11 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
         inputLayoutPinjaman = findViewById(R.id.inputLayoutPinjaman);
         inputLayoutJaminan = findViewById(R.id.inputLayoutJaminan);
 
-        inputId.setText(session.getAxiId());
+        try {
+            inputId.setText(session.getAxiId());
+        }catch (Exception ex){
+
+        }
 
         inputMerk.addTextChangedListener(new AjukanPengajuanAxiActivity.MyTextWatcher(inputMerk));
         inputPinjaman.addTextChangedListener(new AjukanPengajuanAxiActivity.MyTextWatcher(inputPinjaman));
@@ -137,7 +141,6 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         final List<String> TAHUN_MOBIL_ITEMS = new ArrayList<>();
         final List<String> TAHUN_MOTOR_ITEMS = new ArrayList<>();
-
 
         spinnerTahun.setEnabled(false);
 

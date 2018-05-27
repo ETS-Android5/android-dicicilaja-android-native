@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dicicilaja.dicicilaja.Activity.RegisterAxi1Activity"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/colorBlack">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="20dp"
+                android:background="@color/colorSection">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_section_people"
+                    android:layout_marginRight="20dp"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/titleSection"
+                        android:textColor="@color/colorTextSection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rekan Bisnis"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/bodySection"
+                        android:textColor="@color/colorTextSection"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/titleSection"
+                        android:layout_width="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_height="wrap_content"
+                        android:text="Bangun jaringan Interaksi Anda, mulai rekrut Rekan Bisnis 1 sebanyak-banyaknya tanpa batas."/>
+                    <TextView
+                        android:textColor="@color/colorTextSection"
+                        android:id="@+id/detailSection"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/bodySection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Selengkapnya"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAxiRefferal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="AXI Refferal"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputAxiRefferal"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Masukan ID AXI jika ada"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat Pendaftaran"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="9dp"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Area *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Area *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutCabang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/spinnerCabang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_multiline="false"
+                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                        app:ms_hintView="@layout/hint_item"
+                        app:ms_hint="Pilih Cabang *"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_floatingLabelText="Pilih Cabang *"
+                        app:ms_baseColor="@color/colorBlack"
+                        app:ms_highlightColor="@color/colorPrimaryDark"
+                        app:ms_errorColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/spinnerCabang"
+                        app:ms_alignLabels="true"
+                        android:textSize="14sp"
+                        app:ms_hintTextSize="14sp"
+                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaLengkap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Lengkap *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaLengkap"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Sesuai yang tertera di KTP"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputEmail"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:met_helperText="Pastikan email Anda aktif."
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputNoHp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNoHp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="No. Handphone *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNoHp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:met_helperText="Contoh : 081234567890"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputEmail"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaIbu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Ibu Kandung *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaIbu"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Sesuai yang tertera di KTP"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLanjut"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Lanjut"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

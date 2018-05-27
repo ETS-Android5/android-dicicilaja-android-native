@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -173,8 +174,13 @@ public class UbahAxiActivity extends AppCompatActivity {
         call.enqueue(new Callback<UbahAxi>() {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {
-                Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-                finish();
+                if(response.code() == 200){
+                    Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
             @Override
