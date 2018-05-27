@@ -178,10 +178,12 @@ public class RegisterAxi5Activity extends AppCompatActivity {
         call.enqueue(new Callback<CreateAXI>() {
             @Override
             public void onResponse(Call<CreateAXI> call, Response<CreateAXI> response) {
-                Toast.makeText(getBaseContext(),"Pendaftaran berhasil. Kami akan lakukan verifikasi data Anda.",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                if(response.code() == 200){
+                    Toast.makeText(getBaseContext(),"Pendaftaran berhasil. Kami akan lakukan verifikasi data Anda.",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
 
             @Override
