@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="id.variable.dicicilaja.Activity.ProsesPengajuan2Activity">
+    tools:context="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan2Activity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

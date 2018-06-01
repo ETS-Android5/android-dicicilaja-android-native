@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="id.variable.dicicilaja.Activity.EmployeeDashboardActivity"
+    tools:context="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity"
     tools:showIn="@layout/app_bar_employee_dashboard"
     android:background="@color/colorPrimary">
     <android.support.v4.view.ViewPager

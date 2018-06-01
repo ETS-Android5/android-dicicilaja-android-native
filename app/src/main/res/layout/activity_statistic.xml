@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.variable.dicicilaja.Activity.StatisticActivity"
+    tools:context="com.dicicilaja.dicicilaja.Activity.StatisticActivity"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ScrollView
-            android:layout_above="@+id/button_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">

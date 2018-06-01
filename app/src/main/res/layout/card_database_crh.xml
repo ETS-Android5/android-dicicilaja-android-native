@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
         android:id="@+id/card_database"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    app:hint="Apta Samhitta Tusan" />
+                    android:hint="Apta Samhitta Tusan" />
 
                 <TextView
                     android:id="@+id/nik"
@@ -48,7 +48,7 @@
                     android:layout_below="@+id/nama"
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"
-                    app:hint="10051685" />
+                    android:hint="10051685" />
 
                 <TextView
                     android:id="@+id/div_nik"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_toRightOf="@id/div_nik"
                     android:textSize="12sp"
-                    app:hint="JABAR" />
+                    android:hint="JABAR" />
 
                 <Button
                     android:id="@+id/button_pilih"
