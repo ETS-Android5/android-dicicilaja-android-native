@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -33,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
     InterfaceLogout interfaceLogout;
     String apiKey;
 
+    TextView api_nik, api_jabatan, api_area, api_cabang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +61,10 @@ public class ProfileActivity extends AppCompatActivity {
         Button btnLogout = findViewById(R.id.btnLogout);
         TextView name_user = findViewById(R.id.name_user);
 
-        TextView api_nik = findViewById(R.id.api_nik);
-        TextView api_jabatan = findViewById(R.id.api_jabatan);
-        TextView api_kode_cabang = findViewById(R.id.api_kode_cabang);
-        TextView api_laporan_area = findViewById(R.id.api_laporan_area);
-        TextView api_area = findViewById(R.id.api_area);
-        TextView api_cabang = findViewById(R.id.api_cabang);
-        TextView api_hp1 = findViewById(R.id.api_hp1);
-        TextView api_hp2 = findViewById(R.id.api_hp2);
+        api_nik = findViewById(R.id.api_nik);
+        api_jabatan = findViewById(R.id.api_jabatan);
+        api_area = findViewById(R.id.api_area);
+        api_cabang = findViewById(R.id.api_cabang);
 
         api_nik.setText(session.getUserId().toString());
         api_jabatan.setText(session.getRole().toString());
@@ -124,13 +122,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.sales_profile, menu);
-//        return true;
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -139,11 +130,6 @@ public class ProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.ubah) {
-//            Intent intent = new Intent(getBaseContext(), SalesUbahActivity.class);
-//            startActivity(intent);
-//            return true;
-//        }
         if (id == R.id.home) {
             super.finish();
             return true;
