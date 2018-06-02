@@ -108,23 +108,90 @@
                     android:layout_height="wrap_content"
                     android:text="Detail Produk"
                     android:textSize="18sp"/>
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:background="@drawable/border_bottom">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Jadwal Keberangkatan"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="21 Maret 2018"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:background="@drawable/border_bottom">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Pesawat"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Asiana Air"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:background="@drawable/border_bottom">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Penginapan"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Hotel 3 Malam"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/rute"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:background="@drawable/border_bottom">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Rute Perjalanan"/>-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/ic_show_more"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/syarat"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:background="@drawable/border_bottom">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Syarat &amp; Ketentuan"/>-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/ic_show_more"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/border_bottom">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jadwal Keberangkatan"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="21 Maret 2018"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-                <RelativeLayout
+                    android:id="@+id/deskripsi_lengkap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -133,57 +200,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pesawat"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Asiana Air"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/border_bottom">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Penginapan"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hotel 3 Malam"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/rute"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/border_bottom">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rute Perjalanan"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_show_more"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/syarat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/border_bottom">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Syarat &amp; Ketentuan"/>
+                        android:text="Deskripsi Lengkap"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -511,8 +511,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.NasabahActivity"
+        <activity
+            android:name=".Activity.NasabahActivity"
             android:label="Pendaftaran Nasabah"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity android:name=".Activity.DeskripsiLengkapActivity"
+            android:label="Deskripsi Lengkap"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

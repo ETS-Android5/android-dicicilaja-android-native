@@ -244,23 +244,28 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         call2.enqueue(new Callback<PengajuanMaxi>() {
             @Override
             public void onResponse(Call<PengajuanMaxi> call, Response<PengajuanMaxi> response) {
-                pengajuan = response.body().getData();
+                if(response.isSuccessful()){
+                    pengajuan = response.body().getData();
 
-                recyclerView.setAdapter(new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
-                recyclerView.setNestedScrollingEnabled(false);
-                recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                    @Override
-                    public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                        intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-                        startActivity(intent);
+                    recyclerView.setAdapter(new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
+                    recyclerView.setNestedScrollingEnabled(false);
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+                            startActivity(intent);
 
-                    }
+                        }
 
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
+                }else{
+                    session.logoutUser();
+                }
+
                 progress.dismiss();
             }
 

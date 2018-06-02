@@ -40,7 +40,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
     List<Data> detailProducts;
     ImageView head_image;
-    RelativeLayout rute, syarat;
+    RelativeLayout rute, syarat, deskripsi_lengkap;
     String apiKey;
     MaterialSpinner spinnerJaminan;
     TextView tv_tenor, tv_title, tv_mitra, tv_harga;
@@ -73,21 +73,29 @@ public class ProductMaxiActivity extends AppCompatActivity {
         tv_mitra = findViewById(R.id.tv_mitra);
         tv_harga = findViewById(R.id.tv_harga);
         ajukan_produk = findViewById(R.id.ajukan_produk);
+        deskripsi_lengkap = findViewById(R.id.deskripsi_lengkap);
 
-        rute = findViewById(R.id.rute);
-        syarat = findViewById(R.id.syarat);
-        rute.setOnClickListener(new View.OnClickListener() {
+//        rute = findViewById(R.id.rute);
+//        syarat = findViewById(R.id.syarat);
+//        rute.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getBaseContext(), RutePerjalananActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+//        syarat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getBaseContext(), SyaratKetentuanActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        deskripsi_lengkap.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), RutePerjalananActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        syarat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), SyaratKetentuanActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), DeskripsiLengkapActivity.class);
                 startActivity(intent);
             }
         });
