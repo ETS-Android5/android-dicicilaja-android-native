@@ -27,7 +27,6 @@ import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 import com.dicicilaja.dicicilaja.WebView.CekStatusActivity;
 import com.dicicilaja.dicicilaja.WebView.CreateRequestActivity;
-import com.dicicilaja.dicicilaja.WebView.SimulationActivity;
 
 public class EmployeeDashboardActivity extends AppCompatActivity {
 

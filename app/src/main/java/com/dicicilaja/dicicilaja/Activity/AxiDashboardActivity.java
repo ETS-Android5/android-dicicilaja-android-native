@@ -428,6 +428,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
                         startActivity(intent);
                         break;
+                    case R.id.navbar_simulation:
+                        intent = new Intent(getBaseContext(), SimulationActivity.class);
+                        startActivity(intent);
+                        break;
                     case R.id.navbar_jaringan:
                         intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
                         intent.putExtra("total_rb", content_box5.getText().toString());

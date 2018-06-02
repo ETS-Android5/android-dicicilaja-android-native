@@ -16,6 +16,9 @@
                 android:id="@+id/navbar_add"
                 android:title="TAMBAH REKAN BISNIS"/>
             <item
+                android:id="@+id/navbar_simulation"
+                android:title="SIMULASI CICILAN"/>
+            <item
                 android:id="@+id/navbar_jaringan"
                 android:title="INFO JARINGAN"/>
             <item

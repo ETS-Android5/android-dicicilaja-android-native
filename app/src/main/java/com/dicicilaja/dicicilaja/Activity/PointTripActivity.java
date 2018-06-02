@@ -71,8 +71,8 @@ public class PointTripActivity extends AppCompatActivity {
         });
 
         value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_TRIP")))).replace(",","."));
-        ImageView trip = findViewById(R.id.trip);
-        String imageUrl = "https://dicicilaja.com/uploads/trip/trips.jpg";
+        trip = findViewById(R.id.trip);
+        String imageUrl = "https://dicicilaja.com/uploads/trip/trips.png";
         Picasso.with(getApplicationContext()).load(imageUrl).into(trip);
     }
 

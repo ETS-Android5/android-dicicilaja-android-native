@@ -63,11 +63,6 @@
             android:textColor="@color/colorWhite"
             android:text="Ajukan Cicilan"
             android:backgroundTint="@color/colorAccent"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Download PDF"
-            android:backgroundTint="@color/colorWhite"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

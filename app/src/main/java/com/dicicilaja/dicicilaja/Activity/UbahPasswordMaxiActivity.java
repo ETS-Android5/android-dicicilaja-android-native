@@ -151,7 +151,6 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UbahPassword> call, Response<UbahPassword> response) {
                 try {
-                    Toast.makeText(getBaseContext(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
 //                    startActivity(intent);

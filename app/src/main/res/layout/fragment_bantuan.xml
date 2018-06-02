@@ -21,7 +21,6 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
-                    android:src="@drawable/banner_help"
                     android:layout_marginBottom="16dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,8 +40,9 @@
                             android:padding="16dp">
                             <ImageView
                                 android:id="@+id/image_about"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/tentang_dicicilaja"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -70,8 +70,9 @@
                             android:padding="16dp">
                             <ImageView
                                 android:id="@+id/image_email"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/cs_email"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -99,8 +100,9 @@
                             android:padding="16dp">
                             <ImageView
                                 android:id="@+id/image_call"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/phone"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -128,8 +130,9 @@
                             android:padding="16dp">
                             <ImageView
                                 android:id="@+id/image_wa"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/chat"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -157,8 +160,9 @@
                             android:padding="16dp">
                             <ImageView
                                 android:id="@+id/image_ask"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/whatsapp"/>
                             <TextView
                                 android:layout_width="wrap_content"
