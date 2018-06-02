@@ -119,6 +119,8 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
             }
         });
 
+        qty = Integer.valueOf(value.getText().toString());
+
 
         try {
             id_program = getIntent().getStringExtra("id_program");
@@ -385,7 +387,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
                 if (validateForm(merk, pinjam, jaminan, tahun, waktu, area, cabang)) {
                     Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxi2Activity.class);
-                    intent.putExtra("qty", qty);
+                    intent.putExtra("qty", String.valueOf(qty));
                     intent.putExtra("program_id", id_program);
                     intent.putExtra("axi_referral", axi_id);
                     intent.putExtra("colleteral_id", JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));

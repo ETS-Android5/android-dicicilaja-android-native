@@ -10,9 +10,9 @@ import java.util.List;
  */
 
 public class Data {
-    @SerializedName("id_program")
+    @SerializedName("id")
     @Expose
-    private String idProgram;
+    private String id;
     @SerializedName("title_program")
     @Expose
     private String titleProgram;
@@ -32,12 +32,12 @@ public class Data {
     @Expose
     private List<Tenor> tenor = null;
 
-    public String getIdProgram() {
-        return idProgram;
+    public String getId() {
+        return id;
     }
 
-    public void setIdProgram(String idProgram) {
-        this.idProgram = idProgram;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitleProgram() {

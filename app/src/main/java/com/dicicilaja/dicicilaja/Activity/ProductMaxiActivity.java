@@ -38,7 +38,7 @@ import static java.lang.Boolean.FALSE;
 
 public class ProductMaxiActivity extends AppCompatActivity {
 
-    Data detailProducts;
+    List<Data> detailProducts;
     ImageView head_image;
     RelativeLayout rute, syarat;
     String apiKey;
@@ -103,10 +103,10 @@ public class ProductMaxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailProgramMaxi> call, Response<DetailProgramMaxi> response) {
                 detailProducts = response.body().getData();
-                Picasso.with(getBaseContext()).load(detailProducts.getImageUrl()).into(head_image);
-                tv_title.setText(detailProducts.getTitleProgram());
-                tv_mitra.setText(detailProducts.getPartner());
-                tv_harga.setText(detailProducts.getPrice());
+                Picasso.with(getBaseContext()).load(detailProducts.get(0).getImageUrl()).into(head_image);
+                tv_title.setText(detailProducts.get(0).getTitleProgram());
+                tv_mitra.setText(detailProducts.get(0).getPartner());
+                tv_harga.setText(detailProducts.get(0).getPrice());
 
                 TENOR_MAP.clear();
                 TENOR_ITEMS.clear();
@@ -118,8 +118,8 @@ public class ProductMaxiActivity extends AppCompatActivity {
                 TENOR_ITEMS.add("42");
                 TENOR_ITEMS.add("48");
 
-                for (int i = 0; i < response.body().getData().getTenor().size(); i++) {
-                    TENOR_MAP.put(response.body().getData().getTenor().get(i).getBulan(), response.body().getData().getTenor().get(i).getCicilan());
+                for (int i = 0; i < response.body().getData().get(0).getTenor().size(); i++) {
+                    TENOR_MAP.put(response.body().getData().get(0).getTenor().get(i).getBulan(), response.body().getData().get(0).getTenor().get(i).getCicilan());
                 }
 
                 ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
@@ -157,11 +157,11 @@ public class ProductMaxiActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
-                    intent.putExtra("id_program",detailProducts.getIdProgram());
-                    intent.putExtra("gambar", detailProducts.getImageUrl());
-                    intent.putExtra("title", detailProducts.getTitleProgram());
-                    intent.putExtra("mitra", detailProducts.getPartner());
-                    intent.putExtra("harga", detailProducts.getPrice());
+                    intent.putExtra("id_program",detailProducts.get(0).getId());
+                    intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
+                    intent.putExtra("title", detailProducts.get(0).getTitleProgram());
+                    intent.putExtra("mitra", detailProducts.get(0).getPartner());
+                    intent.putExtra("harga", detailProducts.get(0).getPrice());
                     intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
                     startActivity(intent);
                 }
