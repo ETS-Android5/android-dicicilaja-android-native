@@ -230,6 +230,7 @@
                         android:text="Scan KTP"
                         android:layout_marginLeft="3dp"/>
                     <Button
+                        android:id="@+id/upload_ktp"
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_below="@id/title_scan"
@@ -239,10 +240,12 @@
                         android:layout_margin="5dp"
                         android:textSize="11sp"/>
                     <ImageView
-                        android:layout_width="100dp"
+                        android:id="@+id/image_ktp"
+                        android:layout_width="130dp"
                         android:layout_marginRight="5dp"
+                        android:scaleType="centerCrop"
                         android:layout_centerVertical="true"
-                        android:layout_height="60dp"
+                        android:layout_height="80dp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/image_not_found_1x"/>
                 </RelativeLayout>
@@ -259,6 +262,7 @@
                         android:text="Scan BPKB"
                         android:layout_marginLeft="3dp"/>
                     <Button
+                        android:id="@+id/upload_colleteral"
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_below="@id/title_bpkb"
@@ -268,10 +272,12 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="11sp"/>
                     <ImageView
-                        android:layout_width="100dp"
+                        android:id="@+id/image_colleteral"
+                        android:layout_width="130dp"
                         android:layout_marginRight="5dp"
                         android:layout_centerVertical="true"
-                        android:layout_height="60dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/image_not_found_1x"/>
                 </RelativeLayout>
