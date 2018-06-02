@@ -164,7 +164,14 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
             }
 
         });
-
+        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_user);
+        TextView branch = navigationView.getHeaderView(0).findViewById(R.id.branch);
+        TextView area = navigationView.getHeaderView(0).findViewById(R.id.area);
+        View navbarView = navigationView.getHeaderView(0);
+        LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
+        ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
+        TextView name = navbarView.findViewById(R.id.nameView);
+        TextView profile = navbarView.findViewById(R.id.textView);
 
         area.setText(session.getArea());
         String imageUrl = session.getPhoto().toString();
