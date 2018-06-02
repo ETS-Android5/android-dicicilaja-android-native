@@ -125,7 +125,7 @@ public class StatisticActivity extends AppCompatActivity {
                 jumlah_verifikasi.setText(String.valueOf(statistics.get(0).getVerifikasi()));
                 jumlah_proses.setText(String.valueOf(statistics.get(0).getProses()));
                 jumlah_survey.setText(String.valueOf(statistics.get(0).getSurvey()));
-//                jumlah_pending.setText(String.valueOf(statistics.get(0).getPending()));
+                jumlah_pending.setText(String.valueOf(statistics.get(0).getPending()));
                 jumlah_analisa_kredit.setText(String.valueOf(statistics.get(0).getAnalisaKredit()));
                 jumlah_ditolak.setText(String.valueOf(statistics.get(0).getDitolak()));
                 jumlah_pencairan.setText(String.valueOf(statistics.get(0).getPencairan()));
