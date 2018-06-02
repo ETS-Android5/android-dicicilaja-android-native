@@ -117,19 +117,7 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Statistics> call, Response<Statistics> response) {
 
-                List<Data> statistics = response.body().getData();
 
-                jumlah_pengajuan_masuk.setText(String.valueOf(statistics.get(0).getPengajuanMasuk()));
-                jumlah_pengajuan_diproses.setText(String.valueOf(statistics.get(0).getPengajuanDiproses()));
-                jumlah_terkirim.setText(String.valueOf(statistics.get(0).getTerkirim()));
-                jumlah_verifikasi.setText(String.valueOf(statistics.get(0).getVerifikasi()));
-                jumlah_proses.setText(String.valueOf(statistics.get(0).getProses()));
-                jumlah_survey.setText(String.valueOf(statistics.get(0).getSurvey()));
-//                jumlah_pending.setText(String.valueOf(statistics.get(0).getPending()));
-                jumlah_analisa_kredit.setText(String.valueOf(statistics.get(0).getAnalisaKredit()));
-                jumlah_ditolak.setText(String.valueOf(statistics.get(0).getDitolak()));
-                jumlah_pencairan.setText(String.valueOf(statistics.get(0).getPencairan()));
-                progress.dismiss();
 
             }
 
