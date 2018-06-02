@@ -3,6 +3,8 @@ package com.dicicilaja.dicicilaja.API.Item.Statistics;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by fawazrifqi on 03/05/18.
  */
@@ -13,7 +15,7 @@ public class Statistics {
     private String status;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private List<Data> data = null;
 
     public String getStatus() {
         return status;
@@ -23,11 +25,11 @@ public class Statistics {
         this.status = status;
     }
 
-    public Data getData() {
+    public List<Data> getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(List<Data> data) {
         this.data = data;
     }
 }

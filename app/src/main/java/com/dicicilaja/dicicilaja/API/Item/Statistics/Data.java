@@ -8,114 +8,114 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Data {
-    @SerializedName("order_in")
+    @SerializedName("pengajuan_masuk")
     @Expose
-    private String orderIn;
-    @SerializedName("order_process")
+    private Integer pengajuanMasuk;
+    @SerializedName("pengajuan_diproses")
     @Expose
-    private String orderProcess;
+    private Integer pengajuanDiproses;
     @SerializedName("terkirim")
     @Expose
-    private String terkirim;
+    private Integer terkirim;
     @SerializedName("verifikasi")
     @Expose
-    private String verifikasi;
+    private Integer verifikasi;
     @SerializedName("proses")
     @Expose
-    private String proses;
-    @SerializedName("survey")
-    @Expose
-    private String survey;
+    private Integer proses;
     @SerializedName("pending")
     @Expose
-    private String pending;
+    private Integer pending;
+    @SerializedName("survey")
+    @Expose
+    private Integer survey;
     @SerializedName("analisa_kredit")
     @Expose
-    private String analisaKredit;
+    private Integer analisaKredit;
     @SerializedName("ditolak")
     @Expose
-    private String ditolak;
+    private Integer ditolak;
     @SerializedName("pencairan")
     @Expose
-    private String pencairan;
+    private Integer pencairan;
 
-    public String getOrderIn() {
-        return orderIn;
+    public Integer getPengajuanMasuk() {
+        return pengajuanMasuk;
     }
 
-    public void setOrderIn(String orderIn) {
-        this.orderIn = orderIn;
+    public void setPengajuanMasuk(Integer pengajuanMasuk) {
+        this.pengajuanMasuk = pengajuanMasuk;
     }
 
-    public String getOrderProcess() {
-        return orderProcess;
+    public Integer getPengajuanDiproses() {
+        return pengajuanDiproses;
     }
 
-    public void setOrderProcess(String orderProcess) {
-        this.orderProcess = orderProcess;
+    public void setPengajuanDiproses(Integer pengajuanDiproses) {
+        this.pengajuanDiproses = pengajuanDiproses;
     }
 
-    public String getTerkirim() {
+    public Integer getTerkirim() {
         return terkirim;
     }
 
-    public void setTerkirim(String terkirim) {
+    public void setTerkirim(Integer terkirim) {
         this.terkirim = terkirim;
     }
 
-    public String getVerifikasi() {
+    public Integer getVerifikasi() {
         return verifikasi;
     }
 
-    public void setVerifikasi(String verifikasi) {
+    public void setVerifikasi(Integer verifikasi) {
         this.verifikasi = verifikasi;
     }
 
-    public String getProses() {
+    public Integer getProses() {
         return proses;
     }
 
-    public void setProses(String proses) {
+    public void setProses(Integer proses) {
         this.proses = proses;
     }
 
-    public String getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(String survey) {
-        this.survey = survey;
-    }
-
-    public String getPending() {
+    public Integer getPending() {
         return pending;
     }
 
-    public void setPending(String pending) {
+    public void setPending(Integer pending) {
         this.pending = pending;
     }
 
-    public String getAnalisaKredit() {
+    public Integer getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Integer survey) {
+        this.survey = survey;
+    }
+
+    public Integer getAnalisaKredit() {
         return analisaKredit;
     }
 
-    public void setAnalisaKredit(String analisaKredit) {
+    public void setAnalisaKredit(Integer analisaKredit) {
         this.analisaKredit = analisaKredit;
     }
 
-    public String getDitolak() {
+    public Integer getDitolak() {
         return ditolak;
     }
 
-    public void setDitolak(String ditolak) {
+    public void setDitolak(Integer ditolak) {
         this.ditolak = ditolak;
     }
 
-    public String getPencairan() {
+    public Integer getPencairan() {
         return pencairan;
     }
 
-    public void setPencairan(String pencairan) {
+    public void setPencairan(Integer pencairan) {
         this.pencairan = pencairan;
     }
 }

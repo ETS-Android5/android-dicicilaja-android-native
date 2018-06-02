@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
     SessionManager session;
     InterfaceLogout interfaceLogout;
     String apiKey;
+
+    RelativeLayout changePassword;
 
     TextView api_nik, api_jabatan, api_area, api_cabang;
     @Override
@@ -56,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         interfaceLogout = ApiUtils.getLogout();
 
+        changePassword = findViewById(R.id.changePassword);
         TextView title_status = findViewById(R.id.title_status);
         TextView title_profile = findViewById(R.id.title_profile);
         Button btnLogout = findViewById(R.id.btnLogout);
@@ -67,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         api_cabang = findViewById(R.id.api_cabang);
 
         api_nik.setText(session.getUserId().toString());
-        api_jabatan.setText(session.getRole().toString());
+        api_jabatan.setText(session.getRole().toString().toUpperCase());
         api_cabang.setText(session.getBranch().toString());
         api_area.setText(session.getArea().toString());
 
@@ -84,6 +88,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
         Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), UbahPasswordEmployeeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

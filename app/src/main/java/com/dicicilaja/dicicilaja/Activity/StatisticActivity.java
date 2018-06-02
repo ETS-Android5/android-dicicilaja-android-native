@@ -13,11 +13,15 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dicicilaja.dicicilaja.API.Client.JodyRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceStatistics;
 import com.dicicilaja.dicicilaja.API.Item.Statistics.Data;
 import com.dicicilaja.dicicilaja.API.Item.Statistics.Statistics;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,24 +110,25 @@ public class StatisticActivity extends AppCompatActivity {
         progress.show();
 
         InterfaceStatistics apiService =
-                JodyRetrofitClient.getClient().create(InterfaceStatistics.class);
+                RetrofitClient.getClient().create(InterfaceStatistics.class);
 
         Call<Statistics> call2 = apiService.statistics(apiKey);
         call2.enqueue(new Callback<Statistics>() {
             @Override
             public void onResponse(Call<Statistics> call, Response<Statistics> response) {
-                statistics = response.body().getData();
 
-                jumlah_pengajuan_masuk.setText(statistics.getOrderIn());
-                jumlah_pengajuan_diproses.setText(statistics.getOrderProcess());
-                jumlah_terkirim.setText(statistics.getTerkirim());
-                jumlah_verifikasi.setText(statistics.getVerifikasi());
-                jumlah_proses.setText(statistics.getProses());
-                jumlah_survey.setText(statistics.getSurvey());
-                jumlah_pending.setText(statistics.getPending());
-                jumlah_analisa_kredit.setText(statistics.getAnalisaKredit());
-                jumlah_ditolak.setText(statistics.getDitolak());
-                jumlah_pencairan.setText(statistics.getPencairan());
+                List<Data> statistics = response.body().getData();
+
+                jumlah_pengajuan_masuk.setText(String.valueOf(statistics.get(0).getPengajuanMasuk()));
+                jumlah_pengajuan_diproses.setText(String.valueOf(statistics.get(0).getPengajuanDiproses()));
+                jumlah_terkirim.setText(String.valueOf(statistics.get(0).getTerkirim()));
+                jumlah_verifikasi.setText(String.valueOf(statistics.get(0).getVerifikasi()));
+                jumlah_proses.setText(String.valueOf(statistics.get(0).getProses()));
+                jumlah_survey.setText(String.valueOf(statistics.get(0).getSurvey()));
+//                jumlah_pending.setText(String.valueOf(statistics.get(0).getPending()));
+                jumlah_analisa_kredit.setText(String.valueOf(statistics.get(0).getAnalisaKredit()));
+                jumlah_ditolak.setText(String.valueOf(statistics.get(0).getDitolak()));
+                jumlah_pencairan.setText(String.valueOf(statistics.get(0).getPencairan()));
                 progress.dismiss();
 
             }
@@ -131,8 +136,8 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Statistics> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(StatisticActivity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan" + t.getMessage());
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

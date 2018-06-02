@@ -21,9 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceDetailRequest;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Datum;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Progress;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
@@ -41,16 +47,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TaskCRHFragment extends Fragment {
 
-    TextView title_penugasan, title_tugas, title_nilai, title_keputusan, inputReferal, inputCatatan;
+    List<Progress> detailRequests;
+    TextView title_penugasan, title_tugas, title_nilai, title_keputusan;
     Button simpan_nilai, analisa, ditolak1, pending1, button_survey, button_pinjaman, pencairan, ditolak, pending, button_selesai, lihat_database, button_penugasan;
-    MaterialEditText input_catatan_survey, input_catatan_pinjaman, input_no_pk, input_catatan_keputusan_pinjaman;
-    String id_database, decision, notes;
+    MaterialEditText inputReferal, inputCatatan, input_catatan_survey, input_catatan_pinjaman, input_no_pk, input_catatan_keputusan_pinjaman;
+    String id_database, decision;
     RequestProcess interfaceCRHProcess;
     InterfaceKeputusanSurvey interfaceKeputusanSurvey;
     InterfaceNilaiPinjaman interfaceNilaiPinjaman;
@@ -60,6 +68,8 @@ public class TaskCRHFragment extends Fragment {
     CardView card_pengajuan, card_tugas, card_nilai, card_keputusan;
     RelativeLayout hasil_ammount, layout_catatan;
     TextView final_ammount, title_rp;
+
+    String assigned_id_survey;
     public TaskCRHFragment() {
         // Required empty public constructor
     }
@@ -131,25 +141,8 @@ public class TaskCRHFragment extends Fragment {
         title_nilai.setTypeface(opensans_bold);
         title_keputusan.setTypeface(opensans_bold);
 
-        lihat_database.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), DatabaseCRO.class);
-                startActivityForResult(i, 1);
-            }
-        });
-
-        button_penugasan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-                String assigned_id = inputReferal.getText().toString();
-                String notes = inputCatatan.getText().toString();
-//                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                doProcess(apiKey, transaction_id, assigned_id, notes);
-            }
-        });
         Intent intent = getActivity().getIntent();
+
         if(getActivity().getIntent().getStringExtra("STATUS").equals("Proses")) {
 
             layout_title_penugasan.setVisibility(View.VISIBLE);
@@ -165,6 +158,25 @@ public class TaskCRHFragment extends Fragment {
             inputReferal.setEnabled(true);
             inputCatatan.setEnabled(true);
             button_penugasan.setEnabled(true);
+
+            lihat_database.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getContext(), DatabaseCRO.class);
+                    startActivityForResult(i, 1);
+                }
+            });
+
+            button_penugasan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                    String assigned_id = inputReferal.getText().toString();
+                    String notes = inputCatatan.getText().toString();
+//                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+                    doProcess(apiKey, transaction_id, assigned_id, notes);
+                }
+            });
 
 //            analisa.setEnabled(false);
 //            pending1.setEnabled(false);
@@ -220,7 +232,6 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.GONE);
                     button_survey.setEnabled(true);
                     decision = "analisa";
-                    notes = " ";
                 }
             });
             ditolak1.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +243,6 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.VISIBLE);
                     button_survey.setEnabled(true);
                     decision = "ditolak";
-                    notes = input_catatan_survey.getText().toString();
                 }
             });
             pending1.setOnClickListener(new View.OnClickListener() {
@@ -244,16 +254,44 @@ public class TaskCRHFragment extends Fragment {
                     input_catatan_survey.setVisibility(View.VISIBLE);
                     button_survey.setEnabled(true);
                     decision = "pending";
-                    notes = input_catatan_survey.getText().toString();
                 }
             });
+
+
             button_survey.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-                    String assigned_id = session.getUserId();
-//                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes + " decision : " + decision,Toast.LENGTH_LONG).show();
-                    keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
+                    InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
+
+                    Call<DetailRequest> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("TRANSACTION_ID")));
+                    call.enqueue(new Callback<DetailRequest>() {
+                        @Override
+                        public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+                            if(response.isSuccessful()) {
+                                detailRequests = response.body().getProgress();
+                                for (int i = 0; i < detailRequests.size(); i++){
+                                    if(detailRequests.get(i).getStatus().equals("Survey")) {
+                                        String assigned_id = detailRequests.get(i).getUser_id();
+                                        String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                                        String notes = input_catatan_survey.getText().toString();
+                                        Toast.makeText(getActivity(), "id : "
+                                                + transaction_id + "assign : "
+                                                + assigned_id + "notes : "
+                                                + notes + "decision : "
+                                                + decision, Toast.LENGTH_SHORT).show();
+                                        keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DetailRequest> call, Throwable t) {
+                            // Log error here since request failed
+                            Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, t.toString());
+                        }
+                    });
                 }
             });
         } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Analisa Kredit")) {
@@ -461,6 +499,15 @@ public class TaskCRHFragment extends Fragment {
                     keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number,amount);
                 }
             });
+        } else {
+            layout_title_penugasan.setVisibility(View.GONE);
+            card_pengajuan.setVisibility(View.GONE);
+            layout_title_tugas.setVisibility(View.GONE);
+            card_tugas.setVisibility(View.GONE);
+            layout_title_nilai.setVisibility(View.GONE);
+            card_nilai.setVisibility(View.GONE);
+            layout_title_keputusan.setVisibility(View.GONE);
+            card_keputusan.setVisibility(View.GONE);
         }
 
         return view;
@@ -528,6 +575,8 @@ public class TaskCRHFragment extends Fragment {
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     getActivity().finish();
                 } catch(Exception ex) {
@@ -548,11 +597,13 @@ public class TaskCRHFragment extends Fragment {
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-                try {
+                if(response.isSuccessful()){
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    getActivity().finish();
-                } catch(Exception ex) {
+                }else{
+                    Toast.makeText(getActivity(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -570,7 +621,10 @@ public class TaskCRHFragment extends Fragment {
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
                     getActivity().finish();
                 } catch(Exception ex) {
                 }
@@ -590,6 +644,8 @@ public class TaskCRHFragment extends Fragment {
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
                 try {
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     getActivity().finish();
                 } catch(Exception ex) {

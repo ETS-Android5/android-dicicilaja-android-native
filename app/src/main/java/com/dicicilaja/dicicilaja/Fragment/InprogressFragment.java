@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,9 +146,10 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                     call.enqueue(new Callback<Request>() {
                         @Override
                         public void onResponse(Call<Request> call, Response<Request> response) {
-                            if ( response.isSuccessful() ) {
+                            if (response.isSuccessful() ) {
                                 List<com.dicicilaja.dicicilaja.API.Item.Request.Datum> items = response.body().getData();
-                                jumlah_pengajuan.setText(Integer.toString(items.size()));
+                                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                                jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                                 requests.clear();
                                 requests.addAll(items);
 
@@ -155,6 +157,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                                 recyclerView.setAdapter(requestAdapter);
 
                                 progress.dismiss();
+                            } else {
+                                session.logoutUser();
                             }
                         }
 
@@ -172,7 +176,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                             alertDialog.show();
                         }
                     });
-                }else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
+                } else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
                     InterfaceTask apiService =
                             RetrofitClient.getClient().create(InterfaceTask.class);
 
@@ -182,7 +186,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         public void onResponse(Call<Task> call, Response<Task> response) {
                             if ( response.isSuccessful() ) {
                                 List<Datum> items = response.body().getData();
-                                jumlah_pengajuan.setText(Integer.toString(items.size()));
+                                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                                jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                                 tasks.clear();
                                 tasks.addAll(items);
 
@@ -190,6 +195,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                                 recyclerView.setAdapter(taskAdapter);
 
                                 progress.dismiss();
+                            } else {
+                                session.logoutUser();
                             }
 
                         }
@@ -221,9 +228,10 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
             call.enqueue(new Callback<Request>() {
                 @Override
                 public void onResponse(Call<Request> call, Response<Request> response) {
-                    if ( response.isSuccessful() ) {
+                    if (response.isSuccessful()) {
                         List<com.dicicilaja.dicicilaja.API.Item.Request.Datum> items = response.body().getData();
-                        jumlah_pengajuan.setText(Integer.toString(items.size()));
+                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                        jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                         requests.clear();
                         requests.addAll(items);
 
@@ -231,6 +239,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         recyclerView.setAdapter(requestAdapter);
 
                         progress.dismiss();
+                    } else {
+                        session.logoutUser();
                     }
 
                 }
@@ -249,8 +259,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                     alertDialog.show();
                 }
             });
-        }
-        else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
+        } else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
             InterfaceTask apiService =
                     RetrofitClient.getClient().create(InterfaceTask.class);
 
@@ -260,7 +269,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                 public void onResponse(Call<Task> call, Response<Task> response) {
                     if ( response.isSuccessful() ) {
                         List<Datum> items = response.body().getData();
-                        jumlah_pengajuan.setText(Integer.toString(items.size()));
+                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                        jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                         tasks.clear();
                         tasks.addAll(items);
 
@@ -268,6 +278,8 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                         recyclerView.setAdapter(taskAdapter);
 
                         progress.dismiss();
+                    } else {
+                        session.logoutUser();
                     }
 
                 }

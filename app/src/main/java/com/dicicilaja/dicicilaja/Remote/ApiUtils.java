@@ -16,7 +16,7 @@ import com.dicicilaja.dicicilaja.API.Interface.InterfaceSurveyFinish;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "https://api.dicicilaja.com/";
+    public static final String BASE_URL = "http://api.dicicilaja.com/";
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);

@@ -177,12 +177,22 @@ public class AjukanPengajuan2Activity extends AppCompatActivity {
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-                if(response.code() == 200){
+                if (response.isSuccessful()){
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
+                }else if(response.code() == 406){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuan2Activity.this);
+                    alertDialog.setMessage("Terjadi kesalahan, silahkan tekan kembali tombol ajukan");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
                 }
             }
 

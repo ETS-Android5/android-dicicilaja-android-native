@@ -75,12 +75,12 @@ public class PengajuanJaminanFragment extends Fragment {
         final TextView api_year = view.findViewById(R.id.api_year);
         final TextView api_tenor = view.findViewById(R.id.api_tenor);
         final TextView api_ammount = view.findViewById(R.id.api_ammount);
+        final TextView api_final_amount = view.findViewById(R.id.api_final_amount);
         final TextView api_area = view.findViewById(R.id.api_area);
         final TextView api_branch = view.findViewById(R.id.api_branch);
         final TextView api_zipcode = view.findViewById(R.id.api_zipcode);
         final ImageView api_ktp_image = view.findViewById(R.id.api_ktp_image);
         final ImageView api_colleteral_image = view.findViewById(R.id.api_colleteral_image);
-
         final TextView title_of_product = view.findViewById(R.id.title_of_product);
         final TextView title_of_spec = view.findViewById(R.id.title_of_spec);
 
@@ -124,6 +124,7 @@ public class PengajuanJaminanFragment extends Fragment {
                     api_year.setText(detailRequests.get(0).getYear().toString());
                     api_tenor.setText(detailRequests.get(0).getTenor().toString() + " bulan");
                     api_ammount.setText(detailRequests.get(0).getAmmount());
+                    api_final_amount.setText(detailRequests.get(0).getFinalAmount());
                     api_area.setText(detailRequests.get(0).getArea());
                     api_branch.setText(detailRequests.get(0).getBranch());
                     api_zipcode.setText(detailRequests.get(0).getZipcode());

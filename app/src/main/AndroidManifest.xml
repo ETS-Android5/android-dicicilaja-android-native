@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.HomeActivity"
+            android:name=".Activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,9 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.ForgotPasswordActivity"
+            android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,7 +37,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.HelpActivity"
+            android:name=".Activity.HelpActivity"
             android:label="Bantuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -45,7 +45,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RegisterActivity"
+            android:name=".Activity.RegisterActivity"
             android:label="Daftar"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -53,7 +53,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity"
+            android:name=".Activity.RegisterAxi2Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -61,7 +61,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity"
+            android:name=".Activity.RegisterAxi3Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -69,7 +69,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi4Activity"
+            android:name=".Activity.RegisterAxi4Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -77,7 +77,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RegisterAxi5Activity"
+            android:name=".Activity.RegisterAxi5Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -85,15 +85,15 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi4Activity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity"
+            android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity"
+            android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity"
+            android:name=".Activity.DetailRequestActivity"
             android:label="Detail Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -101,7 +101,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.ProfileActivity"
+            android:name=".Activity.ProfileActivity"
             android:label="Akun Saya"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -109,7 +109,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.NotificationActivity"
+            android:name=".Activity.NotificationActivity"
             android:label="Notifikasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -117,7 +117,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity"
+            android:name=".Activity.ProsesPengajuanActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -125,7 +125,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan2Activity"
+            android:name=".Activity.ProsesPengajuan2Activity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -133,7 +133,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan3Activity"
+            android:name=".Activity.ProsesPengajuan3Activity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -141,10 +141,10 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.ChatActivity"
+            android:name=".WebView.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.AboutAxiActivity"
+            android:name=".WebView.AboutAxiActivity"
             android:label="Tentang AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -152,7 +152,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.AboutMaxiActivity"
+            android:name=".WebView.AboutMaxiActivity"
             android:label="Tentang MAXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -160,7 +160,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.CreateRequestActivity"
+            android:name=".WebView.CreateRequestActivity"
             android:label="Buat Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -168,7 +168,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.SimulationActivity"
+            android:name=".WebView.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -176,16 +176,16 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.WebView.CekStatusActivity"
+            android:name=".WebView.CekStatusActivity"
             android:label="Cek Status"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name="com.dicicilaja.dicicilaja.Activity.ConfirmRequestActivity" />
+        <activity android:name=".Activity.ConfirmRequestActivity" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.RequestProcessActivity"
+            android:name=".Activity.RequestProcessActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -193,12 +193,12 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
 
-        <service android:name="com.dicicilaja.dicicilaja.Notification.MyFirebaseMessagingService">
+        <service android:name=".Notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.dicicilaja.dicicilaja.Notification.MyFirebaseInstanceIDService">
+        <service android:name=".Notification.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -209,7 +209,7 @@
             android:resource="@mipmap/ic_launcher_round" />
 
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.DatabaseCRH"
+            android:name=".Activity.DatabaseCRH"
             android:label="Database CRH"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -217,7 +217,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.DatabaseCRO"
+            android:name=".Activity.DatabaseCRO"
             android:label="Database CRO"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -225,7 +225,7 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.FullscreenActivity"
+            android:name=".Activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Lihat Foto"
             android:theme="@style/FullscreenTheme">
@@ -234,11 +234,11 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.SPGDashboardActivity"
+            android:name=".Activity.SPGDashboardActivity"
             android:label="@string/title_activity_spgdashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuanActivity"
+            android:name=".Activity.AjukanPengajuanActivity"
             android:label="Buat Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -246,20 +246,28 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name="com.dicicilaja.dicicilaja.Activity.AjukanPengajuan2Activity"
+            android:name=".Activity.AjukanPengajuan2Activity"
             android:label="Buat Pengajuan - Langkah 2"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name="com.dicicilaja.dicicilaja.Activity.SalesUbahActivity" />
-        <activity android:name="com.dicicilaja.dicicilaja.Activity.StatisticActivity"
+        <activity android:name=".Activity.SalesUbahActivity" />
+        <activity
+            android:name=".Activity.StatisticActivity"
             android:label="Statistik"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" /></activity>
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.UbahPasswordEmployeeActivity"
+            android:label="Ubah Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.ProfileActivity" /></activity>
     </application>
 
 </manifest>

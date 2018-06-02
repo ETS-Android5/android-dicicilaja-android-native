@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +124,8 @@ public class CompleteFragment extends Fragment implements RequestProgressAdapter
                     public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
                         if ( response.isSuccessful() ) {
                             List<Datum> items = response.body().getData();
-                            jumlah_pengajuan.setText(Integer.toString(items.size()));
+                            DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                            jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                             requestProgress.clear();
                             requestProgress.addAll(items);
 
@@ -172,7 +174,8 @@ public class CompleteFragment extends Fragment implements RequestProgressAdapter
             public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
                 if ( response.isSuccessful() ) {
                     List<Datum> items = response.body().getData();
-                    jumlah_pengajuan.setText(Integer.toString(items.size()));
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                    jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
                     requestProgress.clear();
                     requestProgress.addAll(items);
 

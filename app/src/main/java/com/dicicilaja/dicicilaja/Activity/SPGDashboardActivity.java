@@ -127,10 +127,6 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
                         break;
                     case R.id.navbar_statistics:
                         break;
-                    case R.id.navbar_profile:
-                        intent = new Intent(getBaseContext(), ProfileActivity.class);
-                        startActivity(intent);
-                        break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SPGDashboardActivity.this);
 

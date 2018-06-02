@@ -63,6 +63,7 @@ public class RiwayatPengajuanFragment extends Fragment {
         final LinearLayout responsiblePersonResponseTimeLayout = view.findViewById(R.id.responsible_person_response_time_layout);
         final LinearLayout responsiblePersonNoteLayout = view.findViewById(R.id.responsible_person_note_layout);
 
+
         terkirimCard = view.findViewById(R.id.terkirim_card);
         verifikasiCard = view.findViewById(R.id.verifikasi_card);
         prosesCard = view.findViewById(R.id.proses_card);
@@ -133,7 +134,6 @@ public class RiwayatPengajuanFragment extends Fragment {
                     progress = response.body().getProgress();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();
-
                     responsiblePersonName.setText(detailRequests.get(0).getResponsiblePerson().getName());
                     responsiblePersonRole.setText(detailRequests.get(0).getResponsiblePerson().getRole());
                     responsiblePersonId.setText(detailRequests.get(0).getResponsiblePerson().getUserId());
@@ -246,7 +246,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                         intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
                         intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
                         intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
-                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
+                        intent.putExtra("STATUS", detailRequests.get(0).getStatus());
 
                         try {
                             intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
@@ -262,7 +262,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                             intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
 
                             intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount());
                         } catch (Exception ex) {
 
                         }

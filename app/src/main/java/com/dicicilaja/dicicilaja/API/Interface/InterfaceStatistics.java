@@ -15,6 +15,6 @@ public interface InterfaceStatistics {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/statistics")
+    @GET("statistic")
     Call<Statistics> statistics(@Header("Authorization") String apiKey);
 }

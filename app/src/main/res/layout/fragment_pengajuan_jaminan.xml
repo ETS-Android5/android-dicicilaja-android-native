@@ -428,6 +428,37 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
+                                android:text="Pinjaman Disetujui"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_final_amount"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
                                 android:text="Area Pengajuan"
                                 android:textIsSelectable="true"/>
                             <TextView
