@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +56,7 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.Sing
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(mContext,"ID : " + itemModel.getId(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"ID : " + itemModel.getId(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext,ProductMaxiActivity.class);
                 intent.putExtra("ID", itemModel.getId().toString());
                 view.getContext().startActivity(intent);

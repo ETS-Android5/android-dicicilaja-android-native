@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.lang.Boolean.FALSE;
+
 public class ProductMaxiActivity extends AppCompatActivity {
 
     Data detailProducts;
@@ -150,14 +152,20 @@ public class ProductMaxiActivity extends AppCompatActivity {
         ajukan_produk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
-                intent.putExtra("id_program",detailProducts.getIdProgram());
-                intent.putExtra("gambar", detailProducts.getImageUrl());
-                intent.putExtra("title", detailProducts.getTitleProgram());
-                intent.putExtra("mitra", detailProducts.getPartner());
-                intent.putExtra("harga", detailProducts.getPrice());
-                intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
-                startActivity(intent);
+                if(session.isLoggedIn() == FALSE) {
+                    Intent intent = new Intent(getBaseContext(), GuestActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
+                    intent.putExtra("id_program",detailProducts.getIdProgram());
+                    intent.putExtra("gambar", detailProducts.getImageUrl());
+                    intent.putExtra("title", detailProducts.getTitleProgram());
+                    intent.putExtra("mitra", detailProducts.getPartner());
+                    intent.putExtra("harga", detailProducts.getPrice());
+                    intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
+                    startActivity(intent);
+                }
+
             }
         });
     }

@@ -178,13 +178,14 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-//                Toast.makeText(getBaseContext(),"code"+response.code(),Toast.LENGTH_SHORT).show();
-                if(response.code() == 200){
+                if(response.isSuccessful()){
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
+                }else{
+                    Toast.makeText(getBaseContext(),"code"+response.code(),Toast.LENGTH_SHORT).show();
                 }
 
             }

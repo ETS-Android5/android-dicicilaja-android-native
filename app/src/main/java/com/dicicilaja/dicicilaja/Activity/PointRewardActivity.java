@@ -22,7 +22,7 @@ import com.dicicilaja.dicicilaja.R;
 public class PointRewardActivity extends AppCompatActivity {
 
     TextView title_point, value_point, redeem_point, download_katalog;
-    ImageView reward;
+    ImageView reward1, reward2, reward3, reward4, reward5, reward6, reward7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +71,29 @@ public class PointRewardActivity extends AppCompatActivity {
         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
         value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_REWARD")))).replace(",","."));
-        ImageView reward = findViewById(R.id.reward);
-        String imageUrl = "https://dicicilaja.com/uploads/reward/rewards.jpg";
-        Picasso.with(getApplicationContext()).load(imageUrl).into(reward);
+        reward1 = findViewById(R.id.reward1);
+        reward2 = findViewById(R.id.reward2);
+        reward3 = findViewById(R.id.reward3);
+        reward4 = findViewById(R.id.reward4);
+        reward5 = findViewById(R.id.reward5);
+        reward6 = findViewById(R.id.reward6);
+        reward7 = findViewById(R.id.reward7);
+
+        String imageUrl1 = "https://dicicilaja.com/uploads/reward/reward1.jpg";
+        String imageUrl2 = "https://dicicilaja.com/uploads/reward/reward2.jpg";
+        String imageUrl3 = "https://dicicilaja.com/uploads/reward/reward3.jpg";
+        String imageUrl4 = "https://dicicilaja.com/uploads/reward/reward4.jpg";
+        String imageUrl5 = "https://dicicilaja.com/uploads/reward/reward5.jpg";
+        String imageUrl6 = "https://dicicilaja.com/uploads/reward/reward6.jpg";
+        String imageUrl7 = "https://dicicilaja.com/uploads/reward/reward7.jpg";
+
+        Picasso.with(getApplicationContext()).load(imageUrl1).into(reward1);
+        Picasso.with(getApplicationContext()).load(imageUrl2).into(reward2);
+        Picasso.with(getApplicationContext()).load(imageUrl3).into(reward3);
+        Picasso.with(getApplicationContext()).load(imageUrl4).into(reward4);
+        Picasso.with(getApplicationContext()).load(imageUrl5).into(reward5);
+        Picasso.with(getApplicationContext()).load(imageUrl6).into(reward6);
+        Picasso.with(getApplicationContext()).load(imageUrl7).into(reward7);
     }
 
     @Override

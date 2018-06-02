@@ -15,10 +15,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dicicilaja.dicicilaja.Adapter.ViewPagerAdapter;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static java.lang.Boolean.FALSE;
 
 public class MarketplaceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +50,7 @@ public class MarketplaceActivity extends AppCompatActivity
 
         tabLayout = findViewById(R.id.tab_marketplace);
         viewPager = findViewById(R.id.viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), 4));
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), 4,getBaseContext()));
         session = new SessionManager(getApplicationContext());
 
         final TabLayout.Tab beranda = tabLayout.newTab();
@@ -205,6 +215,50 @@ public class MarketplaceActivity extends AppCompatActivity
             }
 
         });
+
+        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_user);
+        TextView nameView = navigationView.getHeaderView(0).findViewById(R.id.nameView);
+        RelativeLayout logout = navigationView.getHeaderView(0).findViewById(R.id.logout);
+        RelativeLayout login = navigationView.getHeaderView(0).findViewById(R.id.login);
+        View navbarView = navigationView.getHeaderView(0);
+
+        session = new SessionManager(getApplicationContext());
+        logout.setVisibility(View.GONE);
+        login.setVisibility(View.VISIBLE);
+
+        if(session.isLoggedIn() == FALSE) {
+            login.setVisibility(View.GONE);
+            logout.setVisibility(View.VISIBLE);
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewPager.setCurrentItem(3);
+                    drawer.closeDrawers();
+//                    Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+//                    startActivity(intent);
+                }
+            });
+        }else{
+            try {
+
+            }catch (Exception ex){
+
+                nameView.setText(session.getName());
+                String imageUrl = session.getPhoto().toString();
+                Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+                login.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        viewPager.setCurrentItem(3);
+                        drawer.closeDrawers();
+//                    Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+//                    startActivity(intent);
+                    }
+                });
+            }
+        }
+
+
 //
 //        viewPager = findViewById(R.id.pager);
 //        viewPager.setAdapter(new MarketplacePagerAdapter(getSupportFragmentManager(), 4));
@@ -362,8 +416,14 @@ public class MarketplaceActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
-            startActivity(intent);
+            if(session.isLoggedIn() == FALSE){
+                Intent intent = new Intent(getBaseContext(), GuestActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                startActivity(intent);
+            }
+
             return true;
         }else if (id == R.id.search) {
             Intent intent = new Intent(getBaseContext(), SearchActivity.class);

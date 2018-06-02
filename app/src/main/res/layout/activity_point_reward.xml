@@ -61,14 +61,61 @@
                         android:text="0"/>
                 </RelativeLayout>
                 <ImageView
-                    android:id="@+id/reward"
+                    android:id="@+id/reward1"
                     android:layout_below="@+id/bar_point"
                     android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:scaleType="fitXY"/>
-
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward2"
+                    android:layout_below="@+id/reward1"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward3"
+                    android:layout_below="@+id/reward2"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward4"
+                    android:layout_below="@+id/reward3"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward5"
+                    android:layout_below="@+id/reward4"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward6"
+                    android:layout_below="@+id/reward5"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/reward7"
+                    android:layout_below="@+id/reward6"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
         </ScrollView>
         <LinearLayout

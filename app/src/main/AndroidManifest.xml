@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -176,12 +176,12 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".WebView.SimulationActivity"
+            android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".WebView.CekStatusActivity"
@@ -503,12 +503,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterAxi1Activity"
+        <activity
+            android:name=".Activity.RegisterAxi1Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" /></activity>
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.NasabahActivity"
+            android:label="Pendaftaran Nasabah"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" /></activity>
     </application>
 
 </manifest>

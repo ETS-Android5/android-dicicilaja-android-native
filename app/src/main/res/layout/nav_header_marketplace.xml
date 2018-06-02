@@ -6,19 +6,20 @@
     android:gravity="bottom"
     android:orientation="horizontal"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <ImageView
             android:id="@+id/gambar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/illustration_1_02"/>
         <RelativeLayout
+            android:id="@+id/login"
             android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gambar">
+            android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
 
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,8 +41,30 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorAccent"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/logout"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/key" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/login_user"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Masuk / Daftar"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>
