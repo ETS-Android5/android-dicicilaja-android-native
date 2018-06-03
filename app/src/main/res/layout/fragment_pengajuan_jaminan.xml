@@ -50,18 +50,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/top_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:orientation="vertical">
                         <LinearLayout
-                            android:id="@+id/title_of_card"
-                            android:layout_width="120dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
                             <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Nomor Pengajuan"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_program_no"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -70,7 +101,30 @@
                                 android:text="Program Pembiayaan"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_program"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
                                 android:id="@+id/title_of_product"
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -79,6 +133,30 @@
                                 android:text="Nama Produk"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:id="@+id/colon_of_product"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_product"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -87,7 +165,30 @@
                                 android:text="Channel Penjualan"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_channel"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
                                 android:id="@+id/title_of_spec"
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -95,78 +196,18 @@
                                 android:textSize="12sp"
                                 android:text="Informasi Tambahan"
                                 android:textIsSelectable="true"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/div_of_card"
-                            android:layout_toRightOf="@+id/title_of_card"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/colon_of_product"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/colon_of_spec"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:text=":"
-                                android:textIsSelectable="true"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/value_of_card"
-                            android:layout_toRightOf="@+id/div_of_card"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/api_program"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_product"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_channel"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_specification"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -174,7 +215,7 @@
                                 android:text="-"
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -214,18 +255,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/top_card_jaminan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:orientation="vertical">
                         <LinearLayout
-                            android:id="@+id/title_of_card_jaminan"
-                            android:layout_width="120dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
                             <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -234,6 +275,29 @@
                                 android:text="Kolateral"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_colleteral"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -242,6 +306,30 @@
                                 android:text="Merk"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+
+                            <TextView
+                                android:id="@+id/api_manufacturer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:text="-"
+                                android:textIsSelectable="true"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -250,6 +338,29 @@
                                 android:text="Tahun"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_year"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -258,6 +369,29 @@
                                 android:text="Tenor"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_tenor"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -266,6 +400,60 @@
                                 android:text="Jumlah Pinjaman"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_ammount"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Pinjaman Disetujui"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_final_amount"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -274,6 +462,29 @@
                                 android:text="Area Pengajuan"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_area"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -282,6 +493,29 @@
                                 android:text="Cabang Pengajuan"
                                 android:textIsSelectable="true"/>
                             <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <TextView
+                                android:id="@+id/api_branch"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="-"
+                                android:textIsSelectable="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -289,132 +523,17 @@
                                 android:textSize="12sp"
                                 android:text="Kode Pos Cabang"
                                 android:textIsSelectable="true"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/div_of_card_jaminan"
-                            android:layout_toRightOf="@+id/title_of_card_jaminan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
                             <TextView
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text=":"
-                                android:textIsSelectable="true"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/value_of_card_jaminan"
-                            android:layout_toRightOf="@+id/div_of_card_jaminan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/api_colleteral"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_manufacturer"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_year"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"/>
-                            <TextView
-                                android:id="@+id/api_tenor"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_ammount"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
-                                android:textIsSelectable="true"/>
-                            <TextView
-                                android:id="@+id/api_area"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"/>
-                            <TextView
-                                android:id="@+id/api_branch"
-                                android:layout_marginTop="5dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp"
-                                android:text="-"
                                 android:textIsSelectable="true"/>
                             <TextView
                                 android:id="@+id/api_zipcode"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -423,134 +542,91 @@
                                 android:textIsSelectable="true"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/foto_ktp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/title_of_card_jaminan">
-                            <LinearLayout
-                                android:id="@+id/title_of_card_jaminan_2"
-                                android:layout_below="@+id/title_of_card_jaminan"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:text="Foto KTP"
-                                    android:textIsSelectable="true"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/div_of_card_jaminan_2"
-                                android:layout_below="@+id/div_of_card_jaminan"
-                                android:layout_toRightOf="@+id/title_of_card_jaminan"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Foto KTP"
+                                android:textIsSelectable="true"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text=":"
-                                    android:textIsSelectable="true"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/value_of_card_jaminan_2"
-                                android:layout_below="@+id/value_of_card_jaminan"
-                                android:layout_toRightOf="@+id/div_of_card_jaminan"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <ImageView
+                                android:id="@+id/api_ktp_image"
+                                android:layout_width="140dp"
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <com.github.chrisbanes.photoview.PhotoView
-                                    android:id="@+id/api_ktp_image"
-                                    android:layout_width="140dp"
-                                    android:layout_height="90dp"
-                                    android:src="@drawable/image_not_found_1x"
-                                    android:layout_marginBottom="10dp"/>
-                            </LinearLayout>
+                                android:layout_height="90dp"
+                                android:src="@drawable/image_not_found_1x"
+                                android:layout_marginBottom="10dp"/>
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/foto_kolateral"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/foto_ktp">
-                            <LinearLayout
-                                android:id="@+id/title_of_card_jaminan_3"
-                                android:layout_below="@+id/title_of_card_jaminan"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textSize="12sp"
-                                    android:text="Foto Kolateral"
-                                    android:textIsSelectable="true"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/div_of_card_jaminan_3"
-                                android:layout_below="@+id/div_of_card_jaminan_2"
-                                android:layout_toRightOf="@+id/title_of_card_jaminan_3"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:width="120dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:text="Foto Kolateral"
+                                android:textIsSelectable="true"/>
+                            <TextView
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text=":"
-                                    android:textIsSelectable="true"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/value_of_card_jaminan_3"
-                                android:layout_below="@+id/value_of_card_jaminan_2"
-                                android:layout_toRightOf="@+id/div_of_card_jaminan_3"
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text=":"
+                                android:textIsSelectable="true"/>
+                            <ImageView
+                                android:id="@+id/api_colleteral_image"
+                                android:layout_width="140dp"
                                 android:layout_marginLeft="10dp"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:id="@+id/api_colleteral_image"
-                                    android:layout_width="140dp"
-                                    android:layout_height="90dp"
-                                    android:src="@drawable/image_not_found_1x"/>
-                            </LinearLayout>
+                                android:layout_height="90dp"
+                                android:src="@drawable/image_not_found_1x"/>
                         </LinearLayout>
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
         </RelativeLayout>
     </ScrollView>
+
     <RelativeLayout
         android:id="@+id/proses"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorAccent2"
         android:clickable="true"
         android:elevation="4dp"
-        android:paddingTop="5dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="5dp">
+
         <TextView
             android:id="@+id/title_proses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="PROSES PENGAJUAN"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent2"
-            android:layout_centerInParent="true"/>
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

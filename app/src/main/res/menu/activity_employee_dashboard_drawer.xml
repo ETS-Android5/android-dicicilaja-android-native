@@ -22,9 +22,6 @@
                 android:id="@+id/navbar_statistics"
                 android:title="STATISTICS"/>
             <item
-                android:id="@+id/navbar_profile"
-                android:title="PROFILE"/>
-            <item
                 android:id="@+id/navbar_exit"
                 android:title="KELUAR"/>
         </menu>

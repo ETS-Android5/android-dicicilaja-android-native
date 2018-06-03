@@ -266,19 +266,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-//    private void doAxi(final String apiKey) {
-//        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
-//        call.enqueue(new Callback<ResRequestProcess>() {
-//            @Override
-//            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-////                Toast.makeText(getContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
 }

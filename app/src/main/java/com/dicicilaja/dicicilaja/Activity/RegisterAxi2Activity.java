@@ -195,7 +195,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                         + "kodepos: " + kodepos + "\n"
                         + "jk: " + jk + "\n"
                         + "status: " + status + "\n");
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status)) {
                             Intent intent = new Intent(getBaseContext(), RegisterAxi3Activity.class);
@@ -428,4 +428,3 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     }
 
 }
-

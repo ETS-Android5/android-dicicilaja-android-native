@@ -2,7 +2,6 @@ package com.dicicilaja.dicicilaja.Remote;
 
 import java.util.List;
 
-import com.dicicilaja.dicicilaja.API.Item.AreaRequest.Datum;
 import com.dicicilaja.dicicilaja.Model.Area;
 import com.dicicilaja.dicicilaja.Model.Branch;
 import retrofit2.Call;
@@ -20,11 +19,5 @@ public interface AreaService {
 
     @GET("branch/{area_id}")
     Call<List<Branch>> getBranch(@Path("area_id") String area_id);
-
-    @GET("simulation/area_request")
-    Call<List<Datum>> getAreaRequest();
-
-    @GET("simulation/colleteral")
-    Call<List<com.dicicilaja.dicicilaja.API.Item.Colleteral.Datum>> getColleteral();
 
 }

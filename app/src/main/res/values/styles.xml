@@ -5,6 +5,7 @@
         <item name="colorPrimaryDark">@color/colorBackgroundDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorBlack</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="Accent" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -33,6 +34,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionMenuTextColor">@color/colorWhite</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="AppTheme1" parent="Theme.AppCompat.Light">
@@ -44,6 +46,7 @@
         <item name="android:editTextColor">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
 
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
@@ -81,4 +84,19 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
 </resources>

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dicicilaja.dicicilaja.Activity.ProsesPengajuan2Activity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/layout_title_penugasan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_penugasan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Penugasan"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_pengajuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_penugasan"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card_penugasan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="5dp"
+                                        android:width="120dp"
+                                        android:text="Pilih CRO"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold"
+                                        android:id="@+id/textView2" />
+
+                                    <Button
+                                        android:id="@+id/lihat_database"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBaseline="@+id/textView2"
+                                        android:layout_alignBottom="@+id/textView2"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:clickable="true"
+                                        android:elevation="1dp"
+                                        android:foreground="?android:attr/selectableItemBackground"
+                                        android:text="LIHAT DATABASE"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/inputReferal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignParentTop="true"
+                                        android:fontFamily="sans-serif"
+                                        android:hint="Ketik NIK CRO"
+                                        android:textColor="#000000"
+                                        android:textColorHighlight="@color/colorAccent"
+                                        android:textSize="14sp"
+                                        app:met_baseColor="@color/colorAccent"
+                                        app:met_errorColor="@color/colorRed"
+                                        app:met_floatingLabel="normal"
+                                        app:met_floatingLabelTextColor="@color/colorAccent"
+                                        app:met_helperTextColor="@color/colorAccentDark"
+                                        app:met_primaryColor="@color/colorAccent"
+                                        app:met_textColor="@color/colorBlack"
+                                        app:met_textColorHint="@color/colorAccent"
+                                        app:met_underlineColor="@color/colorAccent" />
+
+                                    <!--<ProgressBar-->
+                                        <!--android:id="@+id/input_progess_bar_referal"-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="wrap_content"-->
+                                        <!--style="?android:attr/progressBarStyleSmall"-->
+                                        <!--android:layout_alignTop="@id/inputReferal"-->
+                                        <!--android:layout_alignBottom="@id/inputReferal"-->
+                                        <!--android:layout_alignRight="@id/inputReferal"/>-->
+
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/inputCatatan"
+                                        android:layout_below="@+id/inputReferal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:hint="Catatan"
+                                        android:textColor="#000000"
+                                        android:textColorHighlight="@color/colorAccent"
+                                        android:textSize="14sp"
+                                        app:met_baseColor="@color/colorAccent"
+                                        app:met_errorColor="@color/colorRed"
+                                        app:met_floatingLabel="normal"
+                                        app:met_floatingLabelTextColor="@color/colorAccent"
+                                        app:met_primaryColor="@color/colorAccent"
+                                        app:met_textColor="@color/colorBlack"
+                                        app:met_textColorHint="@color/colorAccent"
+                                        app:met_underlineColor="@color/colorAccent" />
+
+                                </RelativeLayout>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:id="@+id/layout_title_tugas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_pengajuan"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_tugas"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Keputusan Survey"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_tugas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_tugas"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="10">
+                                    <Button
+                                        android:id="@+id/analisa"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="4"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Analisa Kredit"
+                                        android:textSize="10sp" />
+                                    <Button
+                                        android:id="@+id/ditolak1"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="3"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Ditolak"
+                                        android:textSize="10sp" />
+                                    <Button
+                                        android:id="@+id/pending1"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="3"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Pending"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:id="@+id/layout_title_nilai"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_tugas"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_nilai"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nilai Pinjaman"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_nilai"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_nilai"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card_nilai"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:id="@+id/title_credit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Berdasarkan hasil credit analyst"/>
+                                    <TextView
+                                        android:layout_below="@+id/title_credit"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="Nilai pinjaman setelah proses review"/>
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:id="@+id/layout_title_keputusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_nilai"
+                        android:fillViewport="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:id="@+id/title_keputusan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Keputusan Pinjaman"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_keputusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_title_keputusan"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/colorWhite"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="100dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/top_card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="3">
+                                    <Button
+                                        android:id="@+id/diterima"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Diterima"
+                                        android:textSize="10sp" />
+                                    <Button
+                                        android:id="@+id/ditolak"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Ditolak"
+                                        android:textSize="10sp" />
+                                    <Button
+                                        android:id="@+id/pending"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="10dp"
+                                        android:elevation="1dp"
+                                        android:text="Pending"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+        <RelativeLayout
+            android:id="@+id/proses"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/title_proses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="TERUSKAN PENGAJUAN"
+                android:textColor="@color/colorAccent2"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

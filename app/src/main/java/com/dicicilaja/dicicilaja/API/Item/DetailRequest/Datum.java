@@ -20,12 +20,6 @@ public class Datum {
     @SerializedName("program")
     @Expose
     private String program;
-    @SerializedName("product")
-    @Expose
-    private String product;
-    @SerializedName("specification")
-    @Expose
-    private String specification;
     @SerializedName("colleteral")
     @Expose
     private String colleteral;
@@ -49,7 +43,7 @@ public class Datum {
     private String ammount;
     @SerializedName("final_amount")
     @Expose
-    private String final_amount;
+    private String finalAmount;
     @SerializedName("quantity")
     @Expose
     private Integer quantity;
@@ -94,13 +88,19 @@ public class Datum {
     private Applicant applicant;
     @SerializedName("status_survey")
     @Expose
-    private String status_survey;
+    private Integer statusSurvey;
     @SerializedName("responsible_person")
     @Expose
     private ResponsiblePerson responsiblePerson;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("product")
+    @Expose
+    private String product;
+    @SerializedName("specification")
+    @Expose
+    private String specification;
 
     public Integer getId() {
         return id;
@@ -132,30 +132,6 @@ public class Datum {
 
     public void setProgram(String program) {
         this.program = program;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public String getStatus_survey() {
-        return status_survey;
-    }
-
-    public void setStatus_survey(String product) {
-        this.status_survey = status_survey;
-    }
-
-    public String getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(String specification) {
-        this.specification = specification;
     }
 
     public String getColleteral() {
@@ -214,12 +190,12 @@ public class Datum {
         this.ammount = ammount;
     }
 
-    public String getFinal_amount() {
-        return final_amount;
+    public String getFinalAmount() {
+        return finalAmount;
     }
 
-    public void setFinal_amount(String final_amount) {
-        this.final_amount = final_amount;
+    public void setFinalAmount(String finalAmount) {
+        this.finalAmount = finalAmount;
     }
 
     public Integer getQuantity() {
@@ -334,6 +310,14 @@ public class Datum {
         this.applicant = applicant;
     }
 
+    public Integer getStatusSurvey() {
+        return statusSurvey;
+    }
+
+    public void setStatusSurvey(Integer statusSurvey) {
+        this.statusSurvey = statusSurvey;
+    }
+
     public ResponsiblePerson getResponsiblePerson() {
         return responsiblePerson;
     }
@@ -348,5 +332,21 @@ public class Datum {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 }

@@ -37,4 +37,5 @@
         <item>@color/colorIndicator</item>
         <item>@color/colorIndicator</item>
     </array>
+    <color name="black_overlay">#66000000</color>
 </resources>

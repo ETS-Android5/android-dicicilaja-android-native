@@ -340,7 +340,7 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
                                 android:textSize="12sp"
-                                android:text="Nama Nasabah"
+                                android:text="Nama Pemohon"
                                 android:textIsSelectable="true"/>
                             <TextView
                                 android:layout_marginLeft="10dp"
@@ -574,7 +574,7 @@
         android:paddingTop="5dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite"
+        android:background="@color/colorAccent2"
         android:orientation="vertical">
         <TextView
             android:id="@+id/title_proses"
@@ -582,7 +582,7 @@
             android:layout_height="wrap_content"
             android:text="PROSES PENGAJUAN"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent2"
+            android:textColor="@color/colorWhite"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 

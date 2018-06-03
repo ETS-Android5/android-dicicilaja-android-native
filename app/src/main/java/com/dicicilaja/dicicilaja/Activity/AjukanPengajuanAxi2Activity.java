@@ -40,9 +40,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateRequest;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
+import com.dicicilaja.dicicilaja.API.Item.CreateRequest.CreateRequest;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahAxi;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;

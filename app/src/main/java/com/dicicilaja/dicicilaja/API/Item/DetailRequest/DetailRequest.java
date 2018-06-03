@@ -65,4 +65,5 @@ public class DetailRequest {
     public void setResponsibleCrh(String responsibleCrh) {
         this.responsibleCrh = responsibleCrh;
     }
+
 }

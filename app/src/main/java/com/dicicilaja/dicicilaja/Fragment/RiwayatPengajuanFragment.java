@@ -16,9 +16,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceDetailRequest;
-import com.dicicilaja.dicicilaja.API.Item.RequestDetail.RequestDetail;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Datum;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Progress;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
+import com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity;
+import com.dicicilaja.dicicilaja.Activity.RequestProcessActivity;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -31,9 +36,9 @@ import retrofit2.Response;
 public class RiwayatPengajuanFragment extends Fragment {
 
     private static final String TAG = RiwayatPengajuanFragment.class.getSimpleName();
-    List<com.dicicilaja.dicicilaja.API.Item.RequestDetail.Datum> detailRequests;
-    List<com.dicicilaja.dicicilaja.API.Item.RequestDetail.Progress> progress;
-    List<com.dicicilaja.dicicilaja.API.Item.RequestDetail.SurveyChecklist> surveyChecklists;
+    List<Datum> detailRequests;
+    List<Progress> progress;
+    List<SurveyChecklist> surveyChecklists;
     String nikCrh;
     RelativeLayout terkirimCard, verifikasiCard, prosesCard, surveyCard, survey1Card, survey2Card, pendingCard, analisaCard, ditolakCard, pencairanCard;
     TextView titleTerkirim, namaTerkirim, durasiTerkirim, titleVerifikasi, namaVerifikasi, durasiVerifikasi, titleProses, namaProses, durasiProses, titleSurvey, namaSurvey, durasiSurvey, titleSurvey1, namaSurvey1, durasiSurvey1, titleSurvey2, namaSurvey2, durasiSurvey2, titlePending, namaPending, durasiPending, titleAnalisa, namaAnalisa, durasiAnalisa, titleDitolak, namaDitolak, durasiDitolak, titlePencairan, namaPencairan, durasiPencairan;
@@ -57,6 +62,7 @@ public class RiwayatPengajuanFragment extends Fragment {
         final LinearLayout responsiblePersonIdLayout = view.findViewById(R.id.responsible_person_id_layout);
         final LinearLayout responsiblePersonResponseTimeLayout = view.findViewById(R.id.responsible_person_response_time_layout);
         final LinearLayout responsiblePersonNoteLayout = view.findViewById(R.id.responsible_person_note_layout);
+
 
         terkirimCard = view.findViewById(R.id.terkirim_card);
         verifikasiCard = view.findViewById(R.id.verifikasi_card);
@@ -117,18 +123,17 @@ public class RiwayatPengajuanFragment extends Fragment {
         title_jejak.setTypeface(opensans_bold);
         title_penanggung_jawab.setTypeface(opensans_bold);
 
-        InterfaceDetailRequest apiService = NewRetrofitClient.getClient().create(InterfaceDetailRequest.class);
+        InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-        Call<RequestDetail> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
-        call.enqueue(new Callback<RequestDetail>() {
+        Call<DetailRequest> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+        call.enqueue(new Callback<DetailRequest>() {
             @Override
-            public void onResponse(Call<RequestDetail> call, Response<RequestDetail> response) {
+            public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
                 try {
                     detailRequests = response.body().getData();
                     progress = response.body().getProgress();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();
-
                     responsiblePersonName.setText(detailRequests.get(0).getResponsiblePerson().getName());
                     responsiblePersonRole.setText(detailRequests.get(0).getResponsiblePerson().getRole());
                     responsiblePersonId.setText(detailRequests.get(0).getResponsiblePerson().getUserId());
@@ -208,7 +213,7 @@ public class RiwayatPengajuanFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<RequestDetail> call, Throwable t) {
+            public void onFailure(Call<DetailRequest> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, t.toString());
@@ -218,6 +223,95 @@ public class RiwayatPengajuanFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         if(intent.hasExtra("STATUS")) {
             proses.setVisibility(View.GONE);
+        }else{
+            if(session.getRole().equals("tc")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        startActivity(intent);
+                    }
+                });
+            }else if(session.getRole().equals("crh")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
+                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
+                        intent.putExtra("STATUS", detailRequests.get(0).getStatus());
+
+                        try {
+                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
+                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
+                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
+                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
+                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
+                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
+                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
+                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
+                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
+                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
+                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
+
+                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount());
+                        } catch (Exception ex) {
+
+                        }
+                        startActivity(intent);
+                    }
+                });
+            }else if(session.getRole().equals("cro")){
+                proses.setVisibility(View.VISIBLE);
+                proses.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
+                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
+                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                        intent.putExtra("ID", detailRequests.get(0).getResponsiblePerson().getUserId());
+                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
+                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
+                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
+
+                        intent.putExtra("NIK_CRH", nikCrh.toString());
+
+
+
+                        try {
+                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
+                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
+                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
+                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
+                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
+                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
+                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
+                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
+                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
+                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
+                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
+
+                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
+                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
+                        } catch (Exception ex) {
+
+                        }
+                        startActivity(intent);
+                    }
+                });
+            }else{
+                proses.setVisibility(View.GONE);
+            }
         }
 
         return view;

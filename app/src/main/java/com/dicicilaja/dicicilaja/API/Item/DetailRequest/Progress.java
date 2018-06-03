@@ -11,15 +11,15 @@ public class Progress {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("user_id")
+    @Expose
+    private String user_id;
     @SerializedName("responsible_person")
     @Expose
     private String responsiblePerson;
     @SerializedName("response_time")
     @Expose
     private String responseTime;
-    @SerializedName("response_date")
-    @Expose
-    private Object responseDate;
 
     public String getStatus() {
         return status;
@@ -27,6 +27,14 @@ public class Progress {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getResponsiblePerson() {
@@ -43,13 +51,5 @@ public class Progress {
 
     public void setResponseTime(String responseTime) {
         this.responseTime = responseTime;
-    }
-
-    public Object getResponseDate() {
-        return responseDate;
-    }
-
-    public void setResponseDate(Object responseDate) {
-        this.responseDate = responseDate;
     }
 }

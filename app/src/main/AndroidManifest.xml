@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +24,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.LoginActivity" />
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:label="Lupa Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.HelpActivity"
+            android:label="Bantuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+        </activity>
         <activity
             android:name=".Activity.RegisterActivity"
             android:label="Daftar"
@@ -68,6 +85,10 @@
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Activity.EmployeeDashboardActivity"
+            android:label="@string/title_activity_tcdashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Activity.DetailRequestActivity"
             android:label="Detail Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
@@ -78,14 +99,6 @@
         <activity
             android:name=".Activity.ProfileActivity"
             android:label="Akun Saya"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.NotificationActivity"
-            android:label="Notifikasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -439,7 +452,108 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" /></activity>
-    </application>
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.NotificationActivity"
+            android:label="Notifikasi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ProsesPengajuanActivity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WebView.SimulationActivity"
+            android:label="Simulasi Cicilan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.ConfirmRequestActivity" />
+        <activity
+            android:name=".Activity.RequestProcessActivity"
+            android:label="Proses Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+        </activity>
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher_round" />
+
+        <activity
+            android:name=".Activity.DatabaseCRH"
+            android:label="Database CRH"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.DatabaseCRO"
+            android:label="Database CRO"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Lihat Foto"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SPGDashboardActivity"
+            android:label="@string/title_activity_spgdashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.AjukanPengajuanActivity"
+            android:label="Buat Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AjukanPengajuan2Activity"
+            android:label="Buat Pengajuan - Langkah 2"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.SalesUbahActivity" />
+        <activity
+            android:name=".Activity.StatisticActivity"
+            android:label="Statistik"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.UbahPasswordEmployeeActivity"
+            android:label="Ubah Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.ProfileActivity" /></activity>
+    </application>
 </manifest>

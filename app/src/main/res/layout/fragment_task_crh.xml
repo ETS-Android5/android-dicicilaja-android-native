@@ -29,7 +29,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_penugasan"
@@ -51,6 +54,7 @@
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp">
 
                         <LinearLayout
@@ -91,7 +95,6 @@
                                         android:layout_centerVertical="true"
                                         android:clickable="true"
                                         android:elevation="1dp"
-                                        android:foreground="?android:attr/selectableItemBackground"
                                         android:text="LIHAT DATABASE"
                                         android:textSize="10sp" />
                                 </RelativeLayout>
@@ -107,6 +110,9 @@
                                         android:layout_alignParentEnd="true"
                                         android:layout_alignParentRight="true"
                                         android:layout_alignParentTop="true"
+                                        android:inputType="number"
+                                        android:imeOptions="actionNext"
+                                        android:nextFocusDown="@+id/inputCatatan"
                                         android:fontFamily="sans-serif"
                                         android:hint="Ketik NIK CRO"
                                         android:textColor="#000000"
@@ -138,6 +144,8 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="sans-serif"
                                         android:hint="Catatan"
+                                        android:inputType="textCapSentences"
+                                        android:imeOptions="actionDone"
                                         android:textColor="#000000"
                                         android:textColorHighlight="@color/colorAccent"
                                         android:textSize="14sp"
@@ -158,7 +166,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Teruskan Pengajuan"
-                                        android:textSize="10sp" />
+                                        android:textSize="10sp"
+                                        android:backgroundTint="@color/colorAccent"
+                                        android:textColor="@color/colorWhite"/>
                                 </RelativeLayout>
 
 
@@ -177,7 +187,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_tugas"
@@ -198,7 +211,9 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -216,25 +231,26 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
-                                    android:weightSum="10">
+                                    android:weightSum="3">
                                     <Button
                                         android:id="@+id/analisa"
                                         android:layout_width="0dp"
-                                        android:layout_weight="4"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
                                         android:layout_alignParentEnd="true"
                                         android:layout_marginBottom="10dp"
-                                        android:layout_marginLeft="16dp"
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Analisa Kredit"
+                                        android:backgroundTint="#03A9F4"
+                                        android:textColor="@color/colorWhite"
                                         android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/ditolak1"
                                         android:layout_width="0dp"
-                                        android:layout_weight="3"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
@@ -244,11 +260,13 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
+                                        android:backgroundTint="#FF0000"
+                                        android:textColor="@color/colorWhite"
                                         android:textSize="8sp" />
                                     <Button
                                         android:id="@+id/pending1"
                                         android:layout_width="0dp"
-                                        android:layout_weight="3"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
@@ -258,7 +276,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#818890"
+                                        android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText
                                     android:id="@+id/input_catatan_survey"
@@ -267,6 +287,8 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
                                     android:hint="Catatan"
+                                    android:inputType="textCapSentences"
+                                    android:imeOptions="actionDone"
                                     android:textColor="#000000"
                                     android:textColorHighlight="@color/colorAccent"
                                     android:textSize="14sp"
@@ -287,7 +309,9 @@
                                     android:layout_marginTop="10dp"
                                     android:elevation="1dp"
                                     android:text="Teruskan Pengajuan"
-                                    android:textSize="10sp" />
+                                    android:textSize="10sp"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:textColor="@color/colorWhite"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -303,7 +327,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_nilai"
@@ -324,9 +351,12 @@
                         android:layout_marginRight="16dp"
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
+                        app:cardElevation="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
 
                         <LinearLayout
+                            android:id="@+id/card_nilai_pinjaman"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -347,10 +377,32 @@
                                         android:layout_height="wrap_content"
                                         android:text="Berdasarkan hasil credit analyst"/>
                                     <RelativeLayout
+                                        android:id="@+id/hasil_ammount"
+                                        android:layout_below="@+id/title_credit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp">
+                                        <TextView
+                                            android:id="@+id/title_rp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="17sp"
+                                            android:layout_marginRight="5dp"
+                                            android:text="Rp"/>
+                                        <TextView
+                                            android:layout_toRightOf="@+id/title_rp"
+                                            android:id="@+id/final_ammount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="10.000.000"
+                                            android:textSize="17sp"/>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
                                         android:id="@+id/layout_catatan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/title_credit">
+                                        android:layout_below="@+id/hasil_ammount">
                                         <com.rengwuxian.materialedittext.MaterialEditText
                                             android:id="@+id/input_catatan_pinjaman"
                                             android:layout_width="match_parent"
@@ -358,6 +410,7 @@
                                             android:fontFamily="sans-serif"
                                             android:hint="Nilai pinjaman setelah proses review"
                                             android:textColor="#000000"
+                                            android:inputType="number"
                                             android:textColorHighlight="@color/colorAccent"
                                             android:textSize="14sp"
                                             app:met_baseColor="@color/colorAccent"
@@ -386,7 +439,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Konfirmasi Nilai Pinjaman"
-                                        android:textSize="10sp" />
+                                        android:textSize="10sp"
+                                        android:backgroundTint="@color/colorAccent"
+                                        android:textColor="@color/colorWhite"/>
                                 </RelativeLayout>
                             </LinearLayout>
 
@@ -403,7 +458,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="11dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
                             <TextView
                                 android:id="@+id/title_keputusan"
@@ -425,6 +483,7 @@
                         android:background="@color/colorWhite"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="100dp">
 
                         <LinearLayout
@@ -457,7 +516,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pencairan"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#2ECC71"
+                                        android:textColor="@color/colorWhite"/>
                                     <Button
                                         android:id="@+id/ditolak"
                                         android:layout_width="0dp"
@@ -471,7 +532,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Ditolak"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#FF0000"
+                                        android:textColor="@color/colorWhite"/>
                                     <Button
                                         android:id="@+id/pending"
                                         android:layout_width="0dp"
@@ -485,7 +548,9 @@
                                         android:layout_marginTop="10dp"
                                         android:elevation="1dp"
                                         android:text="Pending"
-                                        android:textSize="8sp" />
+                                        android:textSize="8sp"
+                                        android:backgroundTint="#818890"
+                                        android:textColor="@color/colorWhite"/>
                                 </LinearLayout>
                                 <com.rengwuxian.materialedittext.MaterialEditText
                                     android:id="@+id/input_no_pk"
@@ -493,6 +558,8 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
                                     android:hint="No. PK"
+                                    android:inputType="number"
+                                    android:imeOptions="actionDone"
                                     android:textColor="#000000"
                                     android:textColorHighlight="@color/colorAccent"
                                     android:textSize="14sp"
@@ -511,6 +578,8 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
                                     android:hint="Catatan"
+                                    android:inputType="textCapSentences"
+                                    android:imeOptions="actionDone"
                                     android:textColor="#000000"
                                     android:textColorHighlight="@color/colorAccent"
                                     android:textSize="14sp"
@@ -531,7 +600,9 @@
                                     android:layout_marginTop="10dp"
                                     android:elevation="1dp"
                                     android:text="Selesaikan Pengajuan"
-                                    android:textSize="10sp" />
+                                    android:textSize="10sp"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:textColor="@color/colorWhite"/>
                             </LinearLayout>
 
                         </LinearLayout>

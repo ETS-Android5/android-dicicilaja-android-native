@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Remote;
 
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceDraft;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceKeputusanSurvey;
@@ -9,7 +10,6 @@ import com.dicicilaja.dicicilaja.API.Interface.InterfaceNotifToken;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceSurveyFinish;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateRequest;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.LoginMarketplace;
 
 /**
@@ -19,18 +19,24 @@ import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.LoginMa
 public class ApiUtils {
 
     public static final String BASE_URL = "http://sandbox.dicicilaja.com/";
+    public static final String BASE_URL2 = "http://api.dicicilaja.com/";
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
     }
 
     public static InterfaceCreateRequest getCreateRequest() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceCreateRequest.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceCreateRequest.class);
     }
 
     public static InterfaceAxiDetail getAxiDetail() {
         return RetrofitClient.getClient(BASE_URL).create(InterfaceAxiDetail.class);
     }
+
+    public static ClaimProcess getClaim() {
+        return RetrofitClient.getClient(BASE_URL).create(ClaimProcess.class);
+    }
+
 
     public static LoginMarketplace getLogin() {
         return RetrofitClient.getClient(BASE_URL).create(LoginMarketplace.class);
