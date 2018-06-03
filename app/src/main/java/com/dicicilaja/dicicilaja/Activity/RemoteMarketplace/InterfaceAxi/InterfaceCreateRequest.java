@@ -3,11 +3,13 @@ package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
@@ -19,26 +21,26 @@ public interface InterfaceCreateRequest {
     @Headers({
             "Accept: application/json",
     })
+    @Multipart
     @POST("transaction")
-    @FormUrlEncoded
     Call<CreateRequest> assign(@Header("Authorization") String apiKey,
-                               @Field("program_id") String program_id,
-                               @Field("colleteral_id") String colleteral_id,
-                               @Field("status_id") String status_id,
-                               @Field("manufacturer") String manufacturer,
-                               @Field("year") String year,
-                               @Field("tenor") String tenor,
-                               @Field("amount") String amount,
-                               @Field("qty") String qty,
-                               @Field("area_id") String area_id,
-                               @Field("branch_id") String branch_id,
-                               @Field("client_name") String client_name,
-                               @Field("hp") String hp,
-                               @Field("address") String address,
-                               @Field("district") String district,
-                               @Field("city") String city,
-                               @Field("province") String province,
-                               @Field("email") String email,
-                               @Part MultipartBody.Part ktp_image,
-                               @Part MultipartBody.Part colleteral_image);
+                               @Part("program_id") String program_id,
+                               @Part("colleteral_id") String colleteral_id,
+                               @Part("status_id") String status_id,
+                               @Part("manufacturer") String manufacturer,
+                               @Part("year") String year,
+                               @Part("tenor") String tenor,
+                               @Part("amount") String amount,
+                               @Part("qty") String qty,
+                               @Part("area_id") String area_id,
+                               @Part("branch_id") String branch_id,
+                               @Part("client_name") String client_name,
+                               @Part("hp") String hp,
+                               @Part("address") String address,
+                               @Part("district") String district,
+                               @Part("city") String city,
+                               @Part("province") String province,
+                               @Part("email") String email,
+                               @Part MultipartBody.Part file_ktp,
+                               @Part MultipartBody.Part file_colleteral);
 }

@@ -1,6 +1,9 @@
 package com.dicicilaja.dicicilaja.Activity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +11,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -28,6 +34,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
@@ -38,13 +45,21 @@ import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
+public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     Button ajukan;
     EditText inputNama, inputHp, inputAlamat, inputProvinsi, inputKota, inputKecamatan, inputEmail;
     String channel_id, qty;
@@ -55,29 +70,24 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
     InterfaceCreateRequest interfaceCreateRequest;
     Button upload_ktp, upload_colleteral;
     ImageView image_ktp, image_colleteral;
-
-    //Image request code
-    private int PICK_IMAGE_KTP = 1;
-    private int PICK_IMAGE_COLLETERAL = 2;
-
-    //storage permission code
-    private static final int STORAGE_PERMISSION_CODE = 123;
-
-    //Bitmap to get image from gallery
+    TextView textCheck;
     private Bitmap bitmap;
-
-    //Uri to store the image uri
-    private Uri filePath;
+    private int PICK_IMAGE_KTP = 100;
+    private int PICK_IMAGE_COLLETERAL = 200;
+    private static final String TAG = AjukanPengajuanAxi2Activity.class.getSimpleName();
+    private static final int READ_REQUEST_CODE = 300;
+    private Uri uri;
+    MultipartBody.Part file_ktp, file_colleteral;
+    RequestBody ktp_desc, colleteral_desc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajukan_pengajuan_axi2);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        requestStoragePermission();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -109,15 +119,27 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
         image_ktp = findViewById(R.id.image_ktp);
         upload_colleteral = findViewById(R.id.upload_colleteral);
         image_colleteral = findViewById(R.id.image_colleteral);
+        textCheck = findViewById(R.id.textCheck);
+
+        textCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check.isChecked()) {
+                    check.setChecked(false);
+                }
+                else {
+                    check.setChecked(true);
+                }
+            }
+        });
 
         upload_ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih gambar"), PICK_IMAGE_KTP);
+                Intent openGalleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                openGalleryIntent.setType("image/*");
+                startActivityForResult(openGalleryIntent, PICK_IMAGE_KTP);
             }
         });
 
@@ -143,14 +165,6 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
         inputProvinsi.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputProvinsi));
         inputKota.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputKota));
         inputKecamatan.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputKecamatan));
-
-//        inputNama.setHint(Html.fromHtml("Nama Nasabah <font color='#ff0000'>*</font>"));
-//        inputEmail.setHint(Html.fromHtml("Email <font color='#ff0000'>*</font>"));
-//        inputHp.setHint(Html.fromHtml("No. Handphone <font color='#ff0000'>*</font>"));
-//        inputAlamat.setHint(Html.fromHtml("Alamat <font color='#ff0000'>*</font>"));
-//        inputProvinsi.setHint(Html.fromHtml("Nama Provinsi <font color='#ff0000'>*</font>"));
-//        inputKota.setHint(Html.fromHtml("Nama Kota <font color='#ff0000'>*</font>"));
-//        inputKecamatan.setHint(Html.fromHtml("Nama Kecamatan <font color='#ff0000'>*</font>"));
 
 
         ajukan.setOnClickListener(new View.OnClickListener() {
@@ -180,8 +194,6 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
                     district = inputKecamatan.getText().toString();
                     city = inputKota.getText().toString();
                     province = inputProvinsi.getText().toString();
-                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
@@ -203,17 +215,16 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
                             Log.d("ajukanpengajuan","city:" + city);
                             Log.d("ajukanpengajuan","province:" + province);
                             Log.d("ajukanpengajuan","email:" + email);
-                            Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
-                            Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
-
-                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            Log.d("ajukanpengajuan","ktp_image:" + file_ktp);
+                            Log.d("ajukanpengajuan","colleteral_image:" + file_colleteral);
+                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    requestFocus(check);
+
                                 }
                             });
                             alertDialog.show();
@@ -228,69 +239,11 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
 
     }
 
-    //Requesting permission
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            return;
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
-        }
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-    }
-
-    //This method will be called when the user will tap on allow or deny
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        //Checking the request code of our request
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-            } else {
-                //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    //handling the image chooser activity result
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_KTP && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                image_ktp.setImageBitmap(bitmap);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if(requestCode == PICK_IMAGE_COLLETERAL && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                image_colleteral.setImageBitmap(bitmap);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image) {
+    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final MultipartBody.Part file_ktp, final MultipartBody.Part file_colleteral) {
         InterfaceCreateRequest apiService =
                 NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
 
-        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
@@ -301,16 +254,207 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(getBaseContext(),"code"+response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<CreateRequest> call, Throwable t) {
-//                Toast.makeText(getBaseContext(),"code:"+t.getMessage(),Toast.LENGTH_SHORT).show();
+                Log.d("ajukanpengajuan","error :" + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    private String getRealPathFromURIPath(Uri uri, Activity activity) {
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(activity, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(activity, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{
+                        split[1]
+                };
+
+                return getDataColumn(activity, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return getDataColumn(activity, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+
+    private String getDataColumn(Context context, Uri uri, String selection,
+                                 String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    private boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    private boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    private boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    private boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+
+
+
+//        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
+//        if (cursor == null) {
+//            return contentURI.getPath();
+//        } else {
+//            cursor.moveToFirst();
+//            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+//            return cursor.getString(idx);
+//        }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK){
+            uri = data.getData();
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    image_ktp.setImageBitmap(bitmap);
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String filePath = getRealPathFromURIPath(uri, this);
+                File file = new File(filePath);
+                Log.d(TAG, "Filename " + file.getName());
+                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+            }else{
+                EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        } else if(requestCode == PICK_IMAGE_COLLETERAL && resultCode == Activity.RESULT_OK){
+            uri = data.getData();
+            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    image_colleteral.setImageBitmap(bitmap);
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String filePath = getRealPathFromURIPath(uri, this);
+                File file = new File(filePath);
+                Log.d(TAG, "Filename " + file.getName());
+//                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+            }else{
+                EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        if (requestCode == PICK_IMAGE_KTP) {
+            if(uri != null){
+                String filePath = getRealPathFromURIPath(uri,this);
+                File file = new File(filePath);
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+            }
+        } else if (requestCode == PICK_IMAGE_COLLETERAL) {
+            if(uri != null){
+                String filePath = getRealPathFromURIPath(uri,this);
+                File file = new File(filePath);
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+            }
+        }
+
+    }
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "Permission has been denied");
     }
 
     private boolean validateForm(String nama, String email, String hp, String alamat, String provinsi, String kota, String kecamatan) {
