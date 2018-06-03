@@ -153,6 +153,10 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         qty = getIntent().getStringExtra("qty");
         interfaceCreateRequest = ApiUtils.getCreateRequest();
 
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang mengirim data...");
+        progress.setCanceledOnTouchOutside(false);
+
         inputNama.addTextChangedListener(new AjukanPengajuanMaxi2Activity.MyTextWatcher(inputNama));
         inputEmail.addTextChangedListener(new AjukanPengajuanMaxi2Activity.MyTextWatcher(inputEmail));
         inputHp.addTextChangedListener(new AjukanPengajuanMaxi2Activity.MyTextWatcher(inputHp));
