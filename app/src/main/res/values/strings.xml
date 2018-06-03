@@ -188,4 +188,6 @@
     </string>
     <string name="title_activity_maxi_dashboard">MaxiDashboardActivity</string>
     <string name="title_activity_product_maxi">ProductMaxiActivity</string>
+    <string name="upload_image">UPLOAD IMAGE</string>
+    <string name="read_file">This app needs access to your file storage so that it can read photos.</string>
 </resources>

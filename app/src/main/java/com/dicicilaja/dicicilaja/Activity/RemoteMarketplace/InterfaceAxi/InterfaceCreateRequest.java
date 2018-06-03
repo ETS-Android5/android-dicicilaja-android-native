@@ -1,12 +1,15 @@
 package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi;
 
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
+
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by fawazrifqi on 11/05/18.
@@ -36,6 +39,6 @@ public interface InterfaceCreateRequest {
                                @Field("city") String city,
                                @Field("province") String province,
                                @Field("email") String email,
-                               @Field("ktp_image") String ktp_image,
-                               @Field("colleteral_image") String colleteral_image);
+                               @Part MultipartBody.Part ktp_image,
+                               @Part MultipartBody.Part colleteral_image);
 }
