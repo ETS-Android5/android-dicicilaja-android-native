@@ -164,20 +164,6 @@ public class MarketplaceActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Intent intent;
                 switch( menuItem.getItemId() ) {
-//                    case R.id.navbar_dashboard:
-//                        break;
-//                    case R.id.navbar_create_request:
-//                        intent = new Intent(getBaseContext(), CreateRequestActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case R.id.navbar_poin:
-//                        break;
-//                    case R.id.navbar_jaringan:
-//                        break;
-//                    case R.id.navbar_news:
-//                        break;
-//                    case R.id.navbar_materi:
-//                        break;
                     case R.id.navbar_keluar:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MarketplaceActivity.this);
 

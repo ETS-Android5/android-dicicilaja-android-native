@@ -20,8 +20,6 @@ import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceDetailRequest;
 import com.dicicilaja.dicicilaja.API.Item.DetailRequest.SurveyChecklist;
 import com.dicicilaja.dicicilaja.API.Item.RequestDetail.RequestDetail;
-import com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity;
-import com.dicicilaja.dicicilaja.Activity.RequestProcessActivity;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 import retrofit2.Call;
@@ -160,93 +158,6 @@ public class NasabahPemohonFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         if(intent.hasExtra("STATUS")) {
             proses.setVisibility(View.GONE);
-        }else{
-            if(session.getRole().equals("tc")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ProsesPengajuanActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        startActivity(intent);
-                    }
-                });
-            }else if(session.getRole().equals("crh")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
-                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
-                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
-                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
-                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
-
-                        try {
-                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
-                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
-                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
-                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
-                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
-                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
-                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
-                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
-                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
-                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
-                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
-
-                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount().toString());
-                        } catch (Exception ex) {
-
-                        }
-                        startActivity(intent);
-                    }
-                });
-            }else if(session.getRole().equals("cro")){
-                proses.setVisibility(View.VISIBLE);
-                proses.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), RequestProcessActivity.class);
-                        intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
-                        intent.putExtra("ID", detailRequests.get(0).getResponsiblePerson().getUserId());
-                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
-                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
-                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
-                        intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
-                        intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
-
-                        intent.putExtra("NIK_CRH", nikCrh.toString());
-
-
-                        try {
-                            intent.putExtra("KTP_SUAMI", surveyChecklists.get(0).getKtpSuami().toString());
-                            intent.putExtra("KTP_PENJAMIN", surveyChecklists.get(0).getKtpPenjamin().toString());
-                            intent.putExtra("SURAT_CERAI", surveyChecklists.get(0).getSuratCerai().toString());
-                            intent.putExtra("SURAT_KEMATIAN", surveyChecklists.get(0).getSuratKematian().toString());
-                            intent.putExtra("SURAT_DOMISILI", surveyChecklists.get(0).getSuratDomisili().toString());
-                            intent.putExtra("KARTU_KELUARGA", surveyChecklists.get(0).getKartuKeluarga().toString());
-                            intent.putExtra("BUKTI_KEPEMILIKAN_RUMAH", surveyChecklists.get(0).getBuktiKepemilikanRumah().toString());
-                            intent.putExtra("BUKTI_PENGHASILAN", surveyChecklists.get(0).getBuktiPenghasilan().toString());
-                            intent.putExtra("NO_RANGKA", surveyChecklists.get(0).getNoRangka().toString());
-                            intent.putExtra("STNK", surveyChecklists.get(0).getStnk().toString());
-                            intent.putExtra("BPKB", surveyChecklists.get(0).getBpkb().toString());
-                            intent.putExtra("RESCHEDULE_DATE", surveyChecklists.get(0).getRescheduleDate().toString());
-                            intent.putExtra("FINAL_AMOUNT", detailRequests.get(0).getFinalAmount());
-                        } catch (Exception ex) {
-
-                        }
-                        startActivity(intent);
-                    }
-                });
-            }else{
-                proses.setVisibility(View.GONE);
-            }
         }
         return view;
     }

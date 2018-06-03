@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,8 +41,6 @@ import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
 import com.dicicilaja.dicicilaja.Adapter.PengajuanMaxiAdapter;
 import com.dicicilaja.dicicilaja.Adapter.ProgramMaxiAdapter;
-import com.dicicilaja.dicicilaja.Fragment.AxiHomeFragment;
-import com.dicicilaja.dicicilaja.Fragment.AxiPengajuanFragment;
 import com.dicicilaja.dicicilaja.Listener.ClickListener;
 import com.dicicilaja.dicicilaja.Listener.RecyclerTouchListener;
 import com.dicicilaja.dicicilaja.R;
@@ -67,47 +63,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
     LinearLayout insentif_car, insentif_mcy, jumlah_program, total_pengajuan, button_rb, button_kedalaman_rb;
 
     RelativeLayout allpengajuan, allprogram;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    AxiHomeFragment axiHomeFragment = new AxiHomeFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiHomeFragment)
-                            .addToBackStack(null)
-                            .commit();
-                    return true;
-                case R.id.nav_pengajuan:
-                    AxiPengajuanFragment axiPengajuanFragment = new AxiPengajuanFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiPengajuanFragment)
-                            .addToBackStack(null)
-                            .commit();
-                    return true;
-//                case R.id.nav_ajukan:
-//                    AxiAjukanFragment axiAjukanFragment = new AxiAjukanFragment();
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiAjukanFragment)
-//                            .addToBackStack(null)
-//                            .commit();
-//                    return true;
-//                case R.id.nav_jaringan:
-//                    AxiJaringanFragment axiJaringanFragment = new AxiJaringanFragment();
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiJaringanFragment)
-//                            .addToBackStack(null)
-//                            .commit();
-//                    return true;
-//                case R.id.nav_akun:
-//                    AxiAkunFragment axiAkunFragment = new AxiAkunFragment();
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, axiAkunFragment)
-//                            .addToBackStack(null)
-//                            .commit();
-//                    return true;
-            }
-            return false;
-        }
-
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

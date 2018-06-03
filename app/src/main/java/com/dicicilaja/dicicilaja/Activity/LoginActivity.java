@@ -134,8 +134,6 @@ public class LoginActivity extends AppCompatActivity {
             tvForgot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
-                    startActivity(intent);
                 }
             });
             lewati.setOnClickListener(new View.OnClickListener() {
@@ -210,18 +208,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    private Intent getRoleActivity(String role) {
-//        switch( role ) {
-//            case "admin":
-//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-//                break;
-//            default:
-//                intent = new Intent(getBaseContext(), HomeActivity.class);
-//                break;
-//        }
-//
-//        return intent;
-//    }
 
     private boolean validateEmailID() {
         if (inputEmailID.getText().toString().trim().isEmpty()) {

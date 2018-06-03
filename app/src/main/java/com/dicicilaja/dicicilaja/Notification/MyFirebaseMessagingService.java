@@ -13,10 +13,10 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.dicicilaja.dicicilaja.Activity.MarketplaceActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity;
 import com.dicicilaja.dicicilaja.R;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -28,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d("firebase", "From: " + remoteMessage.getFrom());
         Log.d("firebase", "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
-        Intent intent = new Intent(this, EmployeeDashboardActivity.class);
+        Intent intent = new Intent(this, MarketplaceActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 

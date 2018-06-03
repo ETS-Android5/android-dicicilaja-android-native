@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name=".Activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -26,22 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.LoginActivity" />
-        <activity
-            android:name=".Activity.ForgotPasswordActivity"
-            android:label="Lupa Kata Sandi"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.HelpActivity"
-            android:label="Bantuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
-        </activity>
         <activity
             android:name=".Activity.RegisterActivity"
             android:label="Daftar"
@@ -87,10 +68,6 @@
             android:label="@string/title_activity_marketplace"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.EmployeeDashboardActivity"
-            android:label="@string/title_activity_tcdashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Activity.DetailRequestActivity"
             android:label="Detail Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
@@ -115,41 +92,6 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ProsesPengajuanActivity"
-            android:label="Proses Pengajuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.LihatDatabaseEmployeeActivity"
-            android:label="Database"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.ProsesPengajuan2Activity"
-            android:label="Proses Pengajuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.ProsesPengajuan3Activity"
-            android:label="Proses Pengajuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
-        </activity>
-        <activity
-            android:name=".WebView.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".WebView.AboutAxiActivity"
             android:label="Tentang AXI"
             android:theme="@style/AppTheme.NoActionBar">
@@ -166,37 +108,12 @@
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
         <activity
-            android:name=".WebView.CreateRequestActivity"
-            android:label="Buat Pengajuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
-        </activity>
-        <activity
             android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
-        </activity>
-        <activity
-            android:name=".WebView.CekStatusActivity"
-            android:label="Cek Status"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
-        </activity>
-        <activity android:name=".Activity.ConfirmRequestActivity" />
-        <activity
-            android:name=".Activity.RequestProcessActivity"
-            android:label="Proses Pengajuan"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
         </activity>
 
         <service android:name=".Notification.MyFirebaseMessagingService">
