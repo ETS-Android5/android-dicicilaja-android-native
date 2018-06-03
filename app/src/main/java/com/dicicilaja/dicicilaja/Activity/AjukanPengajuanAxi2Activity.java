@@ -2,6 +2,7 @@ package com.dicicilaja.dicicilaja.Activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -44,6 +46,7 @@ import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateReque
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +82,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     private Uri uri;
     MultipartBody.Part file_ktp, file_colleteral;
     RequestBody ktp_desc, colleteral_desc;
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +162,10 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         qty = "1";
         interfaceCreateRequest = ApiUtils.getCreateRequest();
 
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang mengirim data...");
+        progress.setCanceledOnTouchOutside(false);
+
         inputNama.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputNama));
         inputEmail.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputEmail));
         inputHp.addTextChangedListener(new AjukanPengajuanAxi2Activity.MyTextWatcher(inputHp));
@@ -217,6 +225,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                             Log.d("ajukanpengajuan","email:" + email);
                             Log.d("ajukanpengajuan","ktp_image:" + file_ktp);
                             Log.d("ajukanpengajuan","colleteral_image:" + file_colleteral);
+                            progress.show();
                             doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
@@ -248,12 +257,14 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
                 if(response.isSuccessful()){
+                    progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }else{
+                    progress.dismiss();
                     Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
                 }
 
@@ -261,6 +272,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
             @Override
             public void onFailure(Call<CreateRequest> call, Throwable t) {
+                progress.dismiss();
                 Log.d("ajukanpengajuan","error :" + t.getMessage());
             }
         });
@@ -393,7 +405,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_ktp.setImageBitmap(bitmap);
+                    image_ktp.setImageBitmap(getResizedBitmap(bitmap,350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -413,7 +425,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_colleteral.setImageBitmap(bitmap);
+                    image_colleteral.setImageBitmap(getResizedBitmap(bitmap,350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -429,6 +441,39 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
         }
+    }
+
+//    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+//        int width = bm.getWidth();
+//        int height = bm.getHeight();
+//        float scaleWidth = ((float) newWidth) / width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        // CREATE A MATRIX FOR THE MANIPULATION
+//        Matrix matrix = new Matrix();
+//        // RESIZE THE BIT MAP
+//        matrix.postScale(scaleWidth, scaleHeight);
+//
+//        // "RECREATE" THE NEW BITMAP
+//        Bitmap resizedBitmap = Bitmap.createBitmap(
+//                bm, 0, 0, width, height, matrix, false);
+//        bm.recycle();
+//        return resizedBitmap;
+//    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     @Override
