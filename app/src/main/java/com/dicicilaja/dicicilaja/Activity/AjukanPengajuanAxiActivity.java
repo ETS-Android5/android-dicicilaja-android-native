@@ -49,6 +49,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
 
     String s_area, s_jaminan, s_tenor, s_harga;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {

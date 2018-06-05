@@ -34,15 +34,31 @@ public class OnBoardingActivity extends AppCompatActivity {
 
 
 
-        if (session.isLoggedIn() == TRUE && session.getRole().equals("AXI")) {
+        if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
             Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
             startActivity(intent);
             finish();
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("Mitra MAXI")) {
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
             Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
             startActivity(intent);
             finish();
-        } else if (session.isLoggedIn() == TRUE) {
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
             Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
             startActivity(intent);
             finish();

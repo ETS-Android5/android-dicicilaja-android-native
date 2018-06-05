@@ -40,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.dicicilaja.API.Item.CreateRequest.CreateRequest;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahAxi;
@@ -83,6 +84,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     MultipartBody.Part file_ktp, file_colleteral;
     RequestBody ktp_desc, colleteral_desc;
     ProgressDialog progress;
+    String apiKey;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +103,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        final SessionManager session = new SessionManager(getBaseContext());
-        final String apiKey = "Bearer " + session.getToken();
+        session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
 
         inputNama = findViewById(R.id.inputNama);
         inputHp = findViewById(R.id.inputHp);
@@ -202,9 +205,12 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                     district = inputKecamatan.getText().toString();
                     city = inputKota.getText().toString();
                     province = inputProvinsi.getText().toString();
+                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
+                            Log.d("ajukanpengajuan","axi_referral:" + axi_referral);
                             Log.d("ajukanpengajuan","program_id:" + program_id);
                             Log.d("ajukanpengajuan","colleteral_id:" + colleteral_id);
                             Log.d("ajukanpengajuan","status_id:" + status_id);
@@ -223,10 +229,10 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                             Log.d("ajukanpengajuan","city:" + city);
                             Log.d("ajukanpengajuan","province:" + province);
                             Log.d("ajukanpengajuan","email:" + email);
-                            Log.d("ajukanpengajuan","ktp_image:" + file_ktp);
-                            Log.d("ajukanpengajuan","colleteral_image:" + file_colleteral);
+                            Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
+                            Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
                             progress.show();
-                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+                            doRequest(apiKey, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -248,21 +254,28 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
     }
 
-    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final MultipartBody.Part file_ktp, final MultipartBody.Part file_colleteral) {
+    private void doRequest(final String apiKey, final String axi_referral, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String file_ktp, final String file_colleteral) {
         InterfaceCreateRequest apiService =
-                NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
+                RetrofitClient.getClient().create(InterfaceCreateRequest.class);
 
-        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+        Call<CreateRequest> call = apiService.assign(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
                 if(response.isSuccessful()){
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
+                    if(session.getRole().equals("axi")) {
+                        Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else if(session.getRole().equals("tc") || session.getRole().equals("crh") || session.getRole().equals("cro")) {
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
                 }else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
@@ -385,18 +398,6 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
-
-
-
-//        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
-//        if (cursor == null) {
-//            return contentURI.getPath();
-//        } else {
-//            cursor.moveToFirst();
-//            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-//            return cursor.getString(idx);
-//        }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -442,23 +443,6 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             }
         }
     }
-
-//    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-//        int width = bm.getWidth();
-//        int height = bm.getHeight();
-//        float scaleWidth = ((float) newWidth) / width;
-//        float scaleHeight = ((float) newHeight) / height;
-//        // CREATE A MATRIX FOR THE MANIPULATION
-//        Matrix matrix = new Matrix();
-//        // RESIZE THE BIT MAP
-//        matrix.postScale(scaleWidth, scaleHeight);
-//
-//        // "RECREATE" THE NEW BITMAP
-//        Bitmap resizedBitmap = Bitmap.createBitmap(
-//                bm, 0, 0, width, height, matrix, false);
-//        bm.recycle();
-//        return resizedBitmap;
-//    }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();

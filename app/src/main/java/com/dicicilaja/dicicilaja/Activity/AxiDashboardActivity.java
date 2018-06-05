@@ -32,6 +32,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -162,7 +163,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         progress.show();
 
         InterfacePengajuanAxi apiService =
-                NewRetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
 
         final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

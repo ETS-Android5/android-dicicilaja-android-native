@@ -227,7 +227,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                             Log.d("ajukanpengajuan","ktp_image:" + file_ktp);
                             Log.d("ajukanpengajuan","colleteral_image:" + file_colleteral);
                             progress.show();
-                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+//                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanMaxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -248,35 +248,35 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         });
 
     }
-    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final MultipartBody.Part file_ktp, final MultipartBody.Part file_colleteral) {
-        InterfaceCreateRequest apiService =
-                NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
-
-        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
-        call.enqueue(new Callback<CreateRequest>() {
-            @Override
-            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-                if(response.isSuccessful()){
-                    progress.dismiss();
-                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    progress.dismiss();
-                    Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<CreateRequest> call, Throwable t) {
-                progress.dismiss();
-                Log.d("ajukanpengajuan","error :" + t.getMessage());
-            }
-        });
-    }
+//    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final MultipartBody.Part file_ktp, final MultipartBody.Part file_colleteral) {
+//        InterfaceCreateRequest apiService =
+//                NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
+//
+//        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+//        call.enqueue(new Callback<CreateRequest>() {
+//            @Override
+//            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+//                if(response.isSuccessful()){
+//                    progress.dismiss();
+//                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                    finish();
+//                }else{
+//                    progress.dismiss();
+//                    Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CreateRequest> call, Throwable t) {
+//                progress.dismiss();
+//                Log.d("ajukanpengajuan","error :" + t.getMessage());
+//            }
+//        });
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

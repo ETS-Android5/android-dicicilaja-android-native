@@ -62,7 +62,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                     case R.id.navbar_request:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), AjukanPengajuanActivity.class);
+                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_cek:
@@ -83,6 +83,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
                                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                             }

@@ -18,6 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceLogin;
+import com.dicicilaja.dicicilaja.API.Item.Login.Login;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceNotifToken;
@@ -52,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
     UserService userService;
     UserFirebase userFirebase;
     String photo, zipcode, area;
-    LoginMarketplace loginMarketplace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,15 +64,31 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new SessionManager(LoginActivity.this);
 
-        if (session.isLoggedIn() == TRUE && session.getRole().equals("AXI")) {
+        if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
             Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
             startActivity(intent);
             finish();
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("Mitra MAXI")) {
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
             Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
             startActivity(intent);
             finish();
-        } else if (session.isLoggedIn() == TRUE) {
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
             Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
             startActivity(intent);
             finish();
@@ -93,10 +113,6 @@ public class LoginActivity extends AppCompatActivity {
 
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
-
-            userService = ApiUtils.getUserService();
-            userFirebase = ApiUtils.getUserFirebase();
-            loginMarketplace = ApiUtils.getLogin();
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.i("firebase_login", "token : "  + refreshedToken);
@@ -161,13 +177,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin(final String username, final String password) {
-        Call<LoginObj> call = loginMarketplace.login(username, password);
-        call.enqueue(new Callback<LoginObj>() {
+        InterfaceLogin apiService =
+                RetrofitClient.getClient().create(InterfaceLogin.class);
+
+        Call<Login> call = apiService.login(username, password);
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(Call<LoginObj> call, Response<LoginObj> response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 if(response.isSuccessful()) {
 
-                    LoginObj resObj = response.body();
+                    Login resObj = response.body();
 
                     try {
                         photo = resObj.getPhoto().toString();
@@ -181,12 +200,32 @@ public class LoginActivity extends AppCompatActivity {
 
                     session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), photo, resObj.getBranch(), area, zipcode);
 
-                    if (resObj.getRole().equals("AXI")) {
+                    if (resObj.getRole().equals("axi")) {
                         Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (resObj.getRole().equals("Mitra MAXI")) {
+                    } else if (resObj.getRole().equals("channel")) {
                         Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("crh")) {
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("cro")) {
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("tc")) {
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("spg")) {
+                        Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (resObj.getRole().equals("basic")) {
+                        Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -195,14 +234,13 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                 }else {
-
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
-            public void onFailure(Call<LoginObj> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
             }
         });
