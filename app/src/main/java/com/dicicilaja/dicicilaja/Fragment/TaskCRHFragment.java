@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,10 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceDetailRequest;
 import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Datum;
 import com.dicicilaja.dicicilaja.API.Item.DetailRequest.DetailRequest;
 import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Progress;
+import com.dicicilaja.dicicilaja.Activity.LoginActivity;
+import com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.NumberFormat;
@@ -173,8 +177,11 @@ public class TaskCRHFragment extends Fragment {
                     String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                     String assigned_id = inputReferal.getText().toString();
                     String notes = inputCatatan.getText().toString();
-//                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                    doProcess(apiKey, transaction_id, assigned_id, notes);
+                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+
+                if(validateForm(assigned_id)){
+                        doProcess(apiKey, transaction_id, assigned_id, notes);
+                    }
                 }
             });
 
@@ -569,31 +576,41 @@ public class TaskCRHFragment extends Fragment {
     }
 
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceCRHProcess.assign(apiKey,transaction_id, assigned_id, notes);
+        RequestProcess process =
+                RetrofitClient.getClient().create(RequestProcess.class);
+
+        Call<ResRequestProcess> call = process.assign(apiKey,transaction_id, assigned_id, notes);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-                try {
+                if(response.isSuccessful()) {
                     Intent intent = new Intent(getContext(), EmployeeDashboardActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     getActivity().finish();
-                } catch(Exception ex) {
-                    Log.w("Process Exception :", ex.getMessage());
-                    Toast.makeText(getActivity(), "Tidak dapat memproses pengajuan", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
     }
 
     private void keputusanSurvey(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String decision) {
-        Call<ResRequestProcess> call = interfaceKeputusanSurvey.assign(apiKey,transaction_id, assigned_id, notes, decision);
+        InterfaceKeputusanSurvey survey =
+                RetrofitClient.getClient().create(InterfaceKeputusanSurvey.class);
+
+        Call<ResRequestProcess> call = survey.assign(apiKey,transaction_id, assigned_id, notes, decision);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
@@ -615,7 +632,10 @@ public class TaskCRHFragment extends Fragment {
     }
 
     private void keputusanPinjaman(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String decision, final String pk_number, final String amount) {
-        Call<ResRequestProcess> call = interfaceKeputusanPinjaman.assign(apiKey,transaction_id, assigned_id, notes, decision, pk_number, amount);
+        InterfaceKeputusanPinjaman pinjaman =
+                RetrofitClient.getClient().create(InterfaceKeputusanPinjaman.class);
+
+        Call<ResRequestProcess> call = pinjaman.assign(apiKey,transaction_id, assigned_id, notes, decision, pk_number, amount);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
@@ -638,7 +658,10 @@ public class TaskCRHFragment extends Fragment {
     }
 
     private void nilaiPinjaman(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String amount) {
-        Call<ResRequestProcess> call = interfaceNilaiPinjaman.assign(apiKey,transaction_id, assigned_id, notes, amount);
+        InterfaceNilaiPinjaman pinjaman =
+                RetrofitClient.getClient().create(InterfaceNilaiPinjaman.class);
+
+        Call<ResRequestProcess> call = pinjaman.assign(apiKey,transaction_id, assigned_id, notes, amount);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
@@ -657,6 +680,28 @@ public class TaskCRHFragment extends Fragment {
 
             }
         });
+    }
+
+    private boolean validateForm(String assigned_id) {
+        if (assigned_id == null || assigned_id.trim().length() == 0 || assigned_id.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setMessage("Masukan NIK CRH");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputReferal);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     @Override
