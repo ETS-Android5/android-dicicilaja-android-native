@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Remote;
 
+import com.dicicilaja.dicicilaja.API.Item.Login.Login;
 import com.dicicilaja.dicicilaja.Model.ResObj;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -14,8 +15,8 @@ public interface UserService {
 
     @POST("login")
     @FormUrlEncoded
-    Call<ResObj> login(@Field("username") String username,
-                        @Field("password") String password);
+    Call<Login> login(@Field("username") String username,
+                      @Field("password") String password);
 
 
 

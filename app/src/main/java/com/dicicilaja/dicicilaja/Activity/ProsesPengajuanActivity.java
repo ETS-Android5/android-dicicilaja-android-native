@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import com.dicicilaja.dicicilaja.Model.ResRequestProcess;
@@ -35,7 +37,6 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
     long last_text_edit;
     String id_database;
     MaterialEditText inputReferal;
-    RequestProcess interfaceTCProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         TextView title_penugasan = findViewById(R.id.title_penugasan);
 
         final Handler handler = new Handler();
-        interfaceTCProcess = ApiUtils.getRequestService();
 
 //        Toast.makeText(getBaseContext(),"ID PENGAJUAN : " + getIntent().getStringExtra("TRANSACTION_ID"),Toast.LENGTH_SHORT).show();
 
@@ -148,17 +148,40 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String transaction_id = getIntent().getStringExtra("TRANSACTION_ID");
                 String assigned_id = inputReferal.getText().toString();
                 String notes = inputCatatan.getText().toString();
 //                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
-                doProcess(apiKey, transaction_id, assigned_id, notes);
+
+                if(validateForm(assigned_id)){
+                    doProcess(apiKey, transaction_id, assigned_id, notes);
+                }
+
             }
         });
     }
 
+    private boolean validateForm(String assigned_id) {
+        if (assigned_id == null || assigned_id.trim().length() == 0 || assigned_id.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProsesPengajuanActivity.this);
+            alertDialog.setMessage("Masukan NIK CRH");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputReferal);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes) {
-        Call<ResRequestProcess> call = interfaceTCProcess.assign(apiKey,transaction_id, assigned_id, notes);
+        RequestProcess apiService =
+                RetrofitClient.getClient().create(RequestProcess.class);
+        Call<ResRequestProcess> call = apiService.assign(apiKey,transaction_id, assigned_id, notes);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
@@ -185,6 +208,12 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 super.finish();
         }
         return true;
+    }
+
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     @Override

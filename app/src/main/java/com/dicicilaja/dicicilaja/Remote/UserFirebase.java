@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Remote;
 
+import com.dicicilaja.dicicilaja.API.Item.Login.Login;
 import com.dicicilaja.dicicilaja.Model.ResObj;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -14,7 +15,7 @@ public interface UserFirebase {
 
     @POST("login")
     @FormUrlEncoded
-    Call<ResObj> login_token(@Field("username") String username,
-                             @Field("password") String password,
-                             @Field("firebase_token") String firebase_token);
+    Call<Login> login_token(@Field("username") String username,
+                            @Field("password") String password,
+                            @Field("firebase_token") String firebase_token);
 }

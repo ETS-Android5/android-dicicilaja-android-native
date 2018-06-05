@@ -83,7 +83,9 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
         inputLayoutJaminan = findViewById(R.id.inputLayoutJaminan);
 
         try {
-            inputId.setText(session.getAxiId());
+            if(session.getRole().equals("axi")){
+                inputId.setText(session.getAxiId());
+            }
         }catch (Exception ex){
 
         }

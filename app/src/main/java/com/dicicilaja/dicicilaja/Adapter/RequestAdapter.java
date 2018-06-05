@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     ClaimProcess claimProcess;
     String apiKey;
 
+    SessionManager session;
+
     public class RequestViewHolder extends RecyclerView.ViewHolder {
         CardView card_view;
         TextView resi;
@@ -66,7 +69,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     listener.onDataSelected(dataListFiltered.get(getAdapterPosition()));
                     claimProcess = ApiUtils.getClaim();
 
-                    final SessionManager session = new SessionManager(context);
+                    session = new SessionManager(context);
                     apiKey = "Bearer " + session.getToken();
 
                     if (dataListFiltered.get(getAdapterPosition()).getStatus().toString().equals("Terkirim")) {
@@ -79,6 +82,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                         alertDialog.setMessage("Dengan menekan tombol \"lanjutkan\" Anda bertanggung jawab untuk segera menindaklanjuti pengajuan ini.");
 
 
+
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("LANJUTKAN", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -88,6 +92,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                                 String claim = "1";
 //                                            Toast.makeText(getContext(),"api key : " + apiKey + " transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
                                 doProcess(apiKey, transaction_id, assigned_id, notes, claim);
+                                Log.i("firebase_login", "transaction_id : "  + transaction_id + "assigned_id" + assigned_id + "notes" + notes + "claim" + claim);
                                 Intent intent = new Intent(context, DetailRequestActivity.class);
 
                                 intent.putExtra("EXTRA_REQUEST_ID", dataListFiltered.get(getAdapterPosition()).getId().toString());

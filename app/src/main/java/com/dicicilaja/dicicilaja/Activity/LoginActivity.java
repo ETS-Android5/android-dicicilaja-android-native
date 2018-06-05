@@ -1,9 +1,11 @@
 package com.dicicilaja.dicicilaja.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -66,30 +68,37 @@ public class LoginActivity extends AppCompatActivity {
 
         if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
             Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
             Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
             Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
             Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else {
@@ -114,8 +123,11 @@ public class LoginActivity extends AppCompatActivity {
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
+            userService = ApiUtils.getUserService();
+            userFirebase = ApiUtils.getUserFirebase();
+
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-            Log.i("firebase_login", "token : "  + refreshedToken);
+            Log.i("firebase_login", "token : "  + refreshedToken.toString());
 
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -136,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                     String username = inputEmailID.getText().toString();
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
-                        doLogin(username, password);
+                        doLogin(username, password, refreshedToken);
                     }
                 }
             });
@@ -176,18 +188,16 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void doLogin(final String username, final String password) {
-        InterfaceLogin apiService =
-                RetrofitClient.getClient().create(InterfaceLogin.class);
+    private void doLogin(final String username, final String password, final String firebase_token) {
 
-        Call<Login> call = apiService.login(username, password);
+        Call<Login> call = userFirebase.login_token(username, password, firebase_token);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if(response.isSuccessful()) {
 
                     Login resObj = response.body();
-
+                    String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                     try {
                         photo = resObj.getPhoto().toString();
                         zipcode = resObj.getZipcode().toString();
@@ -198,38 +208,46 @@ public class LoginActivity extends AppCompatActivity {
                         area = "";
                     }
 
-                    session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), photo, resObj.getBranch(), area, zipcode);
+                    session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), photo, resObj.getBranch(), area, zipcode, refreshedToken);
 
                     if (resObj.getRole().equals("axi")) {
                         Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("channel")) {
                         Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("crh")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("cro")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("tc")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("spg")) {
                         Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else if (resObj.getRole().equals("basic")) {
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     } else {
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }
@@ -241,7 +259,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
     }

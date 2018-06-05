@@ -22,7 +22,7 @@ public class ApiUtils {
     public static final String BASE_URL2 = "http://api.dicicilaja.com/";
 
     public static UserService getUserService() {
-        return RetrofitClient.getClient(BASE_URL).create(UserService.class);
+        return RetrofitClient.getClient(BASE_URL2).create(UserService.class);
     }
 
     public static InterfaceCreateRequest getCreateRequest() {
@@ -43,7 +43,7 @@ public class ApiUtils {
     }
 
     public static UserFirebase getUserFirebase() {
-        return RetrofitClient.getClient(BASE_URL).create(UserFirebase.class);
+        return RetrofitClient.getClient(BASE_URL2).create(UserFirebase.class);
     }
 
     public static AreaService getAreaService() {

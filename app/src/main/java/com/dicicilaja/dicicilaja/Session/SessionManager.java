@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.dicicilaja.dicicilaja.Activity.LoginActivity;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 /**
  * Created by ziterz on 12/9/2017.
  */
@@ -28,7 +30,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode){
+    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode, String firebase_token){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString("user_id", user_id);
         editor.putString("axi_id", user_id);
@@ -39,6 +41,7 @@ public class SessionManager {
         editor.putString("area", area);
         editor.putString("zipcode", zipcode);
         editor.putString("token", token);
+        editor.putString("firebase_token", firebase_token);
         editor.commit();
     }
 
@@ -93,7 +96,7 @@ public class SessionManager {
         if( ! this.isLoggedIn() ){
             Intent i = new Intent(_context, LoginActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setFlags(FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(i);
         }
     }
@@ -106,8 +109,7 @@ public class SessionManager {
         editor.commit();
 
         Intent i = new Intent(_context, LoginActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         _context.startActivity(i);
     }
 
