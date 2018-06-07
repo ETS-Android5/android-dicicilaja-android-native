@@ -19,6 +19,7 @@ public interface InterfaceSurveyFinish {
     @POST("assign")
     @FormUrlEncoded
     Call<ResRequestProcess> assign(@Header("Authorization") String apiKey,
+                                   @Field("decision") String decision,
                                    @Field("transaction_id") String transaction_id,
                                    @Field("assigned_id") String assigned_id,
                                    @Field("notes") String notes,

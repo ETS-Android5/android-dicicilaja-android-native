@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -127,7 +128,7 @@ public class ProfileActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileAxi apiService =
-                NewRetrofitClient.getClient().create(InterfaceProfileAxi.class);
+                RetrofitClient.getClient().create(InterfaceProfileAxi.class);
 
         Call<ProfileAxi> callProfile = apiService.getProfile(apiKey);
         callProfile.enqueue(new Callback<ProfileAxi>() {

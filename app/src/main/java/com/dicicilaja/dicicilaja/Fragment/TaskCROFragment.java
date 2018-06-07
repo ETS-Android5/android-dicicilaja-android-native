@@ -26,10 +26,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceDetailRequest;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceDraft;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceKeputusanPinjaman;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceRequestSurvey;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceSurveyFinish;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.DetailRequest;
+import com.dicicilaja.dicicilaja.API.Item.DetailRequest.Progress;
 import com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity;
 import com.dicicilaja.dicicilaja.Model.ResRequestProcess;
 import com.dicicilaja.dicicilaja.R;
@@ -39,13 +45,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TaskCROFragment extends Fragment {
 
     Calendar myCalendar;
-
+    List<Progress> detailRequests;
     int year, month, day;
     ImageView date, time;
     EditText date_text, time_text;
@@ -113,6 +121,7 @@ public class TaskCROFragment extends Fragment {
 
 
         final String nik_crh = getActivity().getIntent().getStringExtra("NIK_CRH");
+
         String check_data_value1 = getActivity().getIntent().getStringExtra("KTP_SUAMI");
         String check_data_value2 = getActivity().getIntent().getStringExtra("KTP_PENJAMIN");
         String check_data_value3 = getActivity().getIntent().getStringExtra("SURAT_CERAI");
@@ -355,77 +364,105 @@ public class TaskCROFragment extends Fragment {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String reschedule_date = date_post + " " + time_post + ":00";
-                String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-                String assigned_id = nik_crh;
-                String notes = "-";
-                String ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb;
-                if(check_data1.isChecked() == true){
-                    ktp_suami1 = "1";
-                }else{
-                    ktp_suami1 = "0";
-                }
+                InterfaceDetailRequest apiService = RetrofitClient.getClient().create(InterfaceDetailRequest.class);
 
-                if(check_data2.isChecked() == true){
-                    ktp_penjamin = "1";
-                }else{
-                    ktp_penjamin = "0";
-                }
+                Call<DetailRequest> call = apiService.getDetailRequest(apiKey, Integer.parseInt(getActivity().getIntent().getStringExtra("TRANSACTION_ID")));
+                call.enqueue(new Callback<DetailRequest>() {
+                    @Override
+                    public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
+                        if(response.isSuccessful()) {
+                            detailRequests = response.body().getProgress();
+                            for (int i = 0; i < detailRequests.size(); i++){
+                                if(detailRequests.get(i).getStatus().equals("Proses")) {
+                                    String assigned_id = detailRequests.get(i).getUser_id();
+                                    String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                                    String notes = "-";
+                                    Toast.makeText(getActivity(), "id : "
+                                            + transaction_id + "assign : "
+                                            + assigned_id + "notes : "
+                                            + notes, Toast.LENGTH_SHORT).show();
 
-                if(check_data3.isChecked() == true){
-                    surat_cerai = "1";
-                }else{
-                    surat_cerai = "0";
-                }
+                                    String reschedule_date = date_post + " " + time_post + ":00";
+                                    String ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb;
+                                    if(check_data1.isChecked() == true){
+                                        ktp_suami1 = "1";
+                                    }else{
+                                        ktp_suami1 = "0";
+                                    }
 
-                if(check_data4.isChecked() == true){
-                    surat_kematian = "1";
-                }else{
-                    surat_kematian = "0";
-                }
+                                    if(check_data2.isChecked() == true){
+                                        ktp_penjamin = "1";
+                                    }else{
+                                        ktp_penjamin = "0";
+                                    }
 
-                if(check_data5.isChecked() == true){
-                    surat_domisili = "1";
-                }else{
-                    surat_domisili = "0";
-                }
+                                    if(check_data3.isChecked() == true){
+                                        surat_cerai = "1";
+                                    }else{
+                                        surat_cerai = "0";
+                                    }
 
-                if(check_data6.isChecked() == true){
-                    kartu_keluarga = "1";
-                }else{
-                    kartu_keluarga = "0";
-                }
+                                    if(check_data4.isChecked() == true){
+                                        surat_kematian = "1";
+                                    }else{
+                                        surat_kematian = "0";
+                                    }
 
-                if(check_data7.isChecked() == true){
-                    bukti_kepemilikan_rumah = "1";
-                }else{
-                    bukti_kepemilikan_rumah = "0";
-                }
+                                    if(check_data5.isChecked() == true){
+                                        surat_domisili = "1";
+                                    }else{
+                                        surat_domisili = "0";
+                                    }
 
-                if(check_data8.isChecked() == true){
-                    bukti_penghasilan = "1";
-                }else{
-                    bukti_penghasilan = "0";
-                }
+                                    if(check_data6.isChecked() == true){
+                                        kartu_keluarga = "1";
+                                    }else{
+                                        kartu_keluarga = "0";
+                                    }
 
-                if(check_data9.isChecked() == true){
-                    no_rangka = "1";
-                }else{
-                    no_rangka = "0";
-                }
+                                    if(check_data7.isChecked() == true){
+                                        bukti_kepemilikan_rumah = "1";
+                                    }else{
+                                        bukti_kepemilikan_rumah = "0";
+                                    }
 
-                if(check_data10.isChecked() == true){
-                    stnk = "1";
-                }else{
-                    stnk = "0";
-                }
+                                    if(check_data8.isChecked() == true){
+                                        bukti_penghasilan = "1";
+                                    }else{
+                                        bukti_penghasilan = "0";
+                                    }
 
-                if(check_data11.isChecked() == true){
-                    bpkb = "1";
-                }else{
-                    bpkb = "0";
-                }
-                doProcess(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
+                                    if(check_data9.isChecked() == true){
+                                        no_rangka = "1";
+                                    }else{
+                                        no_rangka = "0";
+                                    }
+
+                                    if(check_data10.isChecked() == true){
+                                        stnk = "1";
+                                    }else{
+                                        stnk = "0";
+                                    }
+
+                                    if(check_data11.isChecked() == true){
+                                        bpkb = "1";
+                                    }else{
+                                        bpkb = "0";
+                                    }
+                                    doProcess(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DetailRequest> call, Throwable t) {
+                        // Log error here since request failed
+                        Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, t.toString());
+                    }
+                });
 
             }
         });
@@ -433,7 +470,10 @@ public class TaskCROFragment extends Fragment {
     }
 
     private void doDraft(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String reschedule_date, final String ktp_suami1, final String ktp_penjamin, final String surat_cerai, final String surat_kematian, final String surat_domisili, final String kartu_keluarga, final String bukti_kepemilikan_rumah, final String bukti_penghasilan, final String no_rangka, final String stnk, final String bpkb) {
-        Call<ResRequestProcess> call = interfaceDraft.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb, "1");
+        InterfaceDraft draft =
+                RetrofitClient.getClient().create(InterfaceDraft.class);
+
+        Call<ResRequestProcess> call = draft.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb, "1");
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
@@ -456,7 +496,10 @@ public class TaskCROFragment extends Fragment {
     }
 
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String reschedule_date, final String ktp_suami1, final String ktp_penjamin, final String surat_cerai, final String surat_kematian, final String surat_domisili, final String kartu_keluarga, final String bukti_kepemilikan_rumah, final String bukti_penghasilan, final String no_rangka, final String stnk, final String bpkb) {
-        Call<ResRequestProcess> call = interfaceSurveyFinish.assign(apiKey, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
+        InterfaceSurveyFinish survey =
+                RetrofitClient.getClient().create(InterfaceSurveyFinish.class);
+        String decision = "pending";
+        Call<ResRequestProcess> call = survey.assign(apiKey, decision, transaction_id, assigned_id, notes, reschedule_date, ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
             public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {

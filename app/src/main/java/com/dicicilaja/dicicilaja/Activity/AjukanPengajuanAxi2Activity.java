@@ -47,6 +47,9 @@ import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.Interfa
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+import com.dicicilaja.dicicilaja.Upload.model.UserProfile;
+import com.dicicilaja.dicicilaja.Upload.services.Service;
+import com.dicicilaja.dicicilaja.Upload.utils.FileUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -86,6 +89,9 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     ProgressDialog progress;
     String apiKey;
     SessionManager session;
+
+    Service service;
+    String mCurrentPhotoPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +101,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        service = new Service();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -146,6 +154,16 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
                 Intent openGalleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 openGalleryIntent.setType("image/*");
+                File photoFile = null;
+
+                try {
+
+                    photoFile = FileUtils.createImageFile(getBaseContext());
+                    mCurrentPhotoPath = photoFile.getAbsolutePath();
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 startActivityForResult(openGalleryIntent, PICK_IMAGE_KTP);
             }
         });
@@ -181,7 +199,31 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         ajukan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                try {
+//                    Log.d(TAG, "uploadImage: mCurrentPhotoPath " + mCurrentPhotoPath);
+//
+//                    if (mCurrentPhotoPath != null && !mCurrentPhotoPath.equals("")) {
+//
+//                        String photnName = "upload_ktp";
+//
+//                        service.saveUserImage(getBaseContext(), photnName, new File(mCurrentPhotoPath), new Callback<UserProfile>() {
+//                            @Override
+//                            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+//                                showMessage("Image successfully uploaded to server.!");
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<UserProfile> call, Throwable t) {
+//                                showMessage("Upload Failed.!");
+//                                showMessage("error : " + t.getMessage());
+//                            }
+//                        });
+//                    } else {
+//                        showMessage("No Image found to be uploaded.");
+//                    }
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
                 try {
                     axi_referral = getIntent().getStringExtra("axi_referral");
                     nama = inputNama.getText().toString();
@@ -232,7 +274,11 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                             Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
                             Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
                             progress.show();
-                            doRequest(apiKey, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            if(session.getRole() != null){
+                                doRequest(apiKey, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            }else {
+                                doRequest(null, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                            }
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -254,6 +300,23 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
     }
 
+    public void showMessage(String message) {
+        try {
+            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(AjukanPengajuanAxi2Activity.this).create();
+            alertDialog.setTitle("Message");
+            alertDialog.setMessage(message);
+            alertDialog.setButton(android.app.AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void doRequest(final String apiKey, final String axi_referral, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String file_ktp, final String file_colleteral) {
         InterfaceCreateRequest apiService =
                 RetrofitClient.getClient().create(InterfaceCreateRequest.class);
@@ -265,20 +328,33 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 if(response.isSuccessful()){
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                    if(session.getRole().equals("axi")) {
-                        Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    } else if(session.getRole().equals("tc") || session.getRole().equals("crh") || session.getRole().equals("cro")) {
-                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                    try{
+                        if(session.getRole().equals("axi")) {
+                            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else if(session.getRole().equals("tc") || session.getRole().equals("crh") || session.getRole().equals("cro")) {
+                            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }else if(session.getRole().equals("basic")) {
+                            Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }catch (Exception ex){
+                        Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }
+
                 }else{
                     progress.dismiss();
-                    Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"code error : " + response.code(),Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -286,7 +362,15 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             @Override
             public void onFailure(Call<CreateRequest> call, Throwable t) {
                 progress.dismiss();
-                Log.d("ajukanpengajuan","error :" + t.getMessage());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
     }
@@ -400,7 +484,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Log.d(TAG, "onActivityResult: requestCode " + requestCode);
+        Log.d(TAG, "onActivityResult: resultCode == RESULT_OK ? " + (resultCode == RESULT_OK));
         if(requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK){
             uri = data.getData();
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -411,13 +496,14 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                Log.d(TAG, "Filename " + file.getName());
-                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+//                String filePath = getRealPathFromURIPath(uri, this);
+//                File file = new File(filePath);
+//                Log.d(TAG, "Filename " + file.getName());
+//                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+//                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+//                Log.d(TAG, "file_ktp " + file_ktp);
+//                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             }else{
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -431,13 +517,13 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                Log.d(TAG, "Filename " + file.getName());
-//                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+//                String filePath = getRealPathFromURIPath(uri, this);
+//                File file = new File(filePath);
+//                Log.d(TAG, "Filename " + file.getName());
+////                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+//                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+//                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             }else{
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }

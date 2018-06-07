@@ -276,17 +276,33 @@ public class TaskCRHFragment extends Fragment {
                         public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
                             if(response.isSuccessful()) {
                                 detailRequests = response.body().getProgress();
-                                for (int i = 0; i < detailRequests.size(); i++){
-                                    if(detailRequests.get(i).getStatus().equals("Survey")) {
-                                        String assigned_id = detailRequests.get(i).getUser_id();
-                                        String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
-                                        String notes = input_catatan_survey.getText().toString();
-                                        Toast.makeText(getActivity(), "id : "
-                                                + transaction_id + "assign : "
-                                                + assigned_id + "notes : "
-                                                + notes + "decision : "
-                                                + decision, Toast.LENGTH_SHORT).show();
-                                        keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
+                                if(decision.equals("pending")) {
+                                    for (int i = 0; i < detailRequests.size(); i++){
+                                        if(detailRequests.get(i).getStatus().equals("Survey")) {
+                                            String assigned_id = detailRequests.get(i).getUser_id();
+                                            String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                                            String notes = input_catatan_survey.getText().toString();
+                                            Toast.makeText(getActivity(), "id : "
+                                                    + transaction_id + "assign : "
+                                                    + assigned_id + "notes : "
+                                                    + notes + "decision : "
+                                                    + decision, Toast.LENGTH_SHORT).show();
+                                            keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
+                                        }
+                                    }
+                                }else{
+                                    for (int i = 0; i < detailRequests.size(); i++){
+                                        if(detailRequests.get(i).getStatus().equals("Proses")) {
+                                            String assigned_id = detailRequests.get(i).getUser_id();
+                                            String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
+                                            String notes = input_catatan_survey.getText().toString();
+                                            Toast.makeText(getActivity(), "id : "
+                                                    + transaction_id + "assign : "
+                                                    + assigned_id + "notes : "
+                                                    + notes + "decision : "
+                                                    + decision, Toast.LENGTH_SHORT).show();
+                                            keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
+                                        }
                                     }
                                 }
                             }

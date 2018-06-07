@@ -2,28 +2,20 @@ package com.dicicilaja.dicicilaja.API.Interface;
 
 import com.dicicilaja.dicicilaja.API.Item.CreateRequest.CreateRequest;
 
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
-/**
- * Created by fawazrifqi on 25/04/18.
- */
-
-public interface InterfaceCreateRequest {
+public interface InterfaceCreateRequestGuest {
     @Headers({
             "Accept: application/json",
     })
     @POST("request")
     @FormUrlEncoded
-    Call<CreateRequest> assign(@Header("Authorization") String apiKey,
-                               @Field("axi_reff") String axi_reff,
+    Call<CreateRequest> assign(@Field("axi_reff") String axi_reff,
                                @Field("channel_id") String channel_id,
                                @Field("program_id") String program_id,
                                @Field("colleteral_id") String colleteral_id,
