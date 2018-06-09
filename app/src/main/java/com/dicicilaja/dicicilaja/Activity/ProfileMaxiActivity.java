@@ -115,14 +115,14 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         title_pemilik.setTypeface(opensans_bold);
         ganti.setTypeface(opensans_semibold);
 
-        String imageUrl = session.getPhoto().toString();
 
         CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
-        try {
-            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
-        } catch (Exception ex) {
-
-        }
+        String imageUrl = session.getPhoto();
+        Picasso.with(getApplicationContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profilePictures);
 
 //        title_status.setTypeface(opensans_bold);
 //        title_profile.setTypeface(opensans_bold);

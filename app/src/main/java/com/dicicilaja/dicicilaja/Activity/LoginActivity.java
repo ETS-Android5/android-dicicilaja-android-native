@@ -199,9 +199,9 @@ public class LoginActivity extends AppCompatActivity {
                     Login resObj = response.body();
                     String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                     try {
-                        photo = resObj.getPhoto().toString();
-                        zipcode = resObj.getZipcode().toString();
-                        area = resObj.getArea().toString();
+                        photo = resObj.getPhoto();
+                        zipcode = resObj.getZipcode();
+                        area = resObj.getArea();
                     }catch (Exception ex) {
                         photo = "";
                         zipcode = "";

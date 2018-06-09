@@ -19,7 +19,7 @@ public interface InterfaceUbahPassword {
     @POST("/changepassword")
     @FormUrlEncoded
     Call<UbahPassword> change(@Header("Authorization") String apiKey,
-                              @Field("oldPassword") String oldPassword,
-                              @Field("newPassword") String newPassword,
-                              @Field("secondNewPassword") String secondNewPassword);
+                              @Field("old_password") String old_password,
+                              @Field("password") String password,
+                              @Field("new_password") String new_password);
 }

@@ -167,8 +167,12 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         TextView name = navbarView.findViewById(R.id.nameView);
 
         area.setText(session.getArea());
-        String imageUrl = session.getPhoto().toString();
-        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+        String imageUrl = session.getPhoto();
+        Picasso.with(getApplicationContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profilePictures);
 
         name.setText(session.getName());
 

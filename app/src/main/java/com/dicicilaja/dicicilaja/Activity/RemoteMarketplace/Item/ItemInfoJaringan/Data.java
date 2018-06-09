@@ -53,4 +53,5 @@ public class Data {
         this.pointTrip = pointTrip;
     }
 
+
 }

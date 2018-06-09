@@ -100,8 +100,7 @@ public class FullscreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String imageColleteral = getIntent().getStringExtra("URL").toString();
-        Picasso.with(getBaseContext()).load(imageColleteral).into(mContentView);
-
+        Picasso.with(getApplicationContext()).load(imageColleteral).into(mContentView);
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override

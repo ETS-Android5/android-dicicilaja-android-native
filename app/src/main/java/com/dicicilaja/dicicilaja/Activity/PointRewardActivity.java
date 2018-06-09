@@ -94,6 +94,8 @@ public class PointRewardActivity extends AppCompatActivity {
         Picasso.with(getApplicationContext()).load(imageUrl5).into(reward5);
         Picasso.with(getApplicationContext()).load(imageUrl6).into(reward6);
         Picasso.with(getApplicationContext()).load(imageUrl7).into(reward7);
+
+
     }
 
     @Override

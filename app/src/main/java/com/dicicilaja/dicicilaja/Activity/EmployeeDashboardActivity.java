@@ -82,10 +82,6 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
-                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
                             }
                         });
                         alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
@@ -113,9 +109,12 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         area.setText(session.getArea());
-        String imageUrl = session.getPhoto().toString();
-        Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
-
+        String imageUrl = session.getPhoto();
+        Picasso.with(getApplicationContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profilePictures);
         name.setText(session.getName());
 
         open_profile.setOnClickListener(new View.OnClickListener() {

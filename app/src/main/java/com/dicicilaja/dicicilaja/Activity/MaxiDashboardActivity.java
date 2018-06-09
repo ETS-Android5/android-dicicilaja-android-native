@@ -310,11 +310,11 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         TextView name = navbarView.findViewById(R.id.nameView);
 
         String imageUrl = session.getPhoto();
-        try {
-            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
-        } catch (Exception ex) {
-
-        }
+        Picasso.with(getApplicationContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profilePictures);
 
         name.setText(session.getName());
 

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
@@ -45,13 +46,13 @@ public class PromoActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
 
-        InterfaceSliderDetail apiService = NewRetrofitClient.getClient().create(InterfaceSliderDetail.class);
+        InterfaceSliderDetail apiService = RetrofitClient.getClient().create(InterfaceSliderDetail.class);
 
         Call<SliderDetail> call = apiService.getSliderDetail(Integer.parseInt(getIntent().getStringExtra("ID")));
         call.enqueue(new Callback<SliderDetail>() {
             @Override
             public void onResponse(Call<SliderDetail> call, Response<SliderDetail> response) {
-                Picasso.with(getBaseContext()).load(response.body().getData().get(0).getImageUrl()).into(image);
+                Picasso.with(getApplicationContext()).load(response.body().getData().get(0).getImageUrl()).into(image);
                 date.setText(response.body().getData().get(0).getExpiredIn());
                 name.setText(response.body().getData().get(0).getName());
                 description.setText(response.body().getData().get(0).getDescription());

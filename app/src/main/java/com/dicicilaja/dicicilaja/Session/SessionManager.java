@@ -45,6 +45,12 @@ public class SessionManager {
         editor.commit();
     }
 
+    public void editLoginSession(String name, String zipcode){
+        editor.putString("name", name);
+        editor.putString("zipcode", zipcode);
+        editor.commit();
+    }
+
     public String getUserId() {
         return pref.getString("user_id", null);
     }

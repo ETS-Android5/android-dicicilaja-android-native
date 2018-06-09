@@ -64,7 +64,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     SessionManager session;
     String token;
     List<com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
-    List<com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan2;
     com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
     RelativeLayout allpengajuan;
@@ -87,10 +86,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         session = new SessionManager(getApplicationContext());
-        session.checkLogin();
-
-        final SessionManager session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
+        session.checkLogin();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -172,9 +169,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call2.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if(response.code() == 401) {
-                    session.logoutUser();
-                }else{
+                if(response.isSuccessful()) {
                     pengajuan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -247,15 +242,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceAxiDetail apiService5 =
-                NewRetrofitClient.getClient().create(InterfaceAxiDetail.class);
+                RetrofitClient.getClient().create(InterfaceAxiDetail.class);
 
         Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if(response.code() == 401) {
-                    session.logoutUser();
-                }else {
+                if(response.isSuccessful()) {
                     itemDetail = response.body().getData();
 
                     Locale localeID = new Locale("in", "ID");
@@ -263,8 +256,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
+//                    content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+//                    content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
                     content_box3.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveCar())));
                     content_box4.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveMcy())));
                     link_web.setText(itemDetail.getReplicaWebLink());
@@ -277,16 +270,19 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceInfoJaringan apiService4 =
-                NewRetrofitClient.getClient().create(InterfaceInfoJaringan.class);
+                RetrofitClient.getClient().create(InterfaceInfoJaringan.class);
 
         Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-                infoJaringan = response.body().getData();
-                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                if(response.isSuccessful()){
+                    infoJaringan = response.body().getData();
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                content_box5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",","."));
+                    content_box5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",","."));
+
+                }
 
             }
 
@@ -371,7 +367,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view1);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view3);
         navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setCheckedItem(R.id.navbar_dashboard);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -416,9 +412,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
-                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                                startActivity(intent);
-                                finish();
                             }
                         });
 
@@ -440,19 +433,17 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         });
 
-        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_user);
+        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_axi);
         View navbarView = navigationView.getHeaderView(0);
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
-        ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
 
         String imageUrl = session.getPhoto();
-        try {
-            Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
-        } catch (Exception ex) {
-
-        }
-
+        Picasso.with(getApplicationContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profilePictures);
         name.setText(session.getName());
 
         open_profile.setOnClickListener(new View.OnClickListener() {

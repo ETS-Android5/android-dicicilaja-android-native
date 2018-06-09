@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceSlider;
 import com.dicicilaja.dicicilaja.API.Item.Slider.Slider;
 import com.dicicilaja.dicicilaja.Adapter.ListSliderAdapter;
@@ -46,7 +47,7 @@ public class AllPromoActivity extends AppCompatActivity {
         promo.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         InterfaceSlider apiService =
-                NewRetrofitClient.getClient().create(InterfaceSlider.class);
+                RetrofitClient.getClient().create(InterfaceSlider.class);
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");

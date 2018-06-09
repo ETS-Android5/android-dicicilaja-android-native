@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -103,14 +104,19 @@ public class SimulationActivity extends AppCompatActivity {
         final List<String> JAMINAN_ITEMS = new ArrayList<>();
         JAMINAN_DATA = new HashMap<Integer, String>();
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
         InterfaceSimulation apiServiceColleteral =
-                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
+                RetrofitClient.getClient().create(InterfaceSimulation.class);
 
         Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
         callcolleteral.enqueue(new Callback<Colleteral>() {
             @Override
             public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
-
+                progress.dismiss();
                 JAMINAN_ITEMS.clear();
                 JAMINAN_DATA.clear();
 
@@ -145,13 +151,13 @@ public class SimulationActivity extends AppCompatActivity {
 //                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
 
 
-        InterfaceAreaBranch apiServiceArea1 = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
 
         Call<Area> callarea = apiServiceArea1.getArea();
         callarea.enqueue(new Callback<Area>() {
             @Override
             public void onResponse(Call<Area> call, Response<Area> response) {
-
+                progress.dismiss();
                 AREA_ITEMS.clear();
                 AREA_DATA.clear();
 
@@ -257,12 +263,17 @@ public class SimulationActivity extends AppCompatActivity {
                     s_area = String.valueOf(area_value);
                     s_jaminan = String.valueOf(jaminan_value);
                     s_tenor = String.valueOf(tenor_value);
-                    s_harga = harga_simulasi.getText().toString();
+                    s_harga = harga_simulasi.getText().toString().replace(".","");
                 }catch (Exception ex) {
 
                 }
+                Log.d("Simulasi","area : " + area_value.toString());
+                Log.d("Simulasi","s_jaminan : " + jaminan_value.toString());
+                Log.d("Simulasi","s_tenor : " + v_tenor);
+                Log.d("Simulasi","s_harga : " + harga_simulasi.getText().toString());
+
                 if(validateForm(s_area, s_jaminan, s_tenor, s_harga)) {
-                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString(), v_tenor);
+                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString().replace(".",""), v_tenor);
                 }
             }
         });
@@ -271,7 +282,7 @@ public class SimulationActivity extends AppCompatActivity {
 
     private boolean validateForm(String s_area, String s_jaminan, String s_tenor, String s_harga) {
         if (s_harga == null || s_harga.trim().length() == 0 || s_harga.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setMessage("Masukan jumlah pinjaman");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -284,7 +295,7 @@ public class SimulationActivity extends AppCompatActivity {
             return false;
         }
         if (s_jaminan == null || s_jaminan.trim().length() == 0 || s_jaminan.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setMessage("Pilih jaminan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -298,7 +309,7 @@ public class SimulationActivity extends AppCompatActivity {
         }
 
         if (s_tenor == null || s_tenor.trim().length() == 0 || s_tenor.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setMessage("Pilih tenor");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -311,7 +322,7 @@ public class SimulationActivity extends AppCompatActivity {
             return false;
         }
         if (s_area == null || s_area.trim().length() == 0 || s_area.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setMessage("Pilih area");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -394,27 +405,29 @@ public class SimulationActivity extends AppCompatActivity {
 
     private void hitungSimulasi(final String area, final String jaminan, final String harga, final String tenor) {
         InterfaceSimulationProcess interfaceSimulationProcess =
-                NewRetrofitClient.getClient().create(InterfaceSimulationProcess.class);
+                RetrofitClient.getClient().create(InterfaceSimulationProcess.class);
 
         Call<Simulation> call = interfaceSimulationProcess.assign(area,jaminan, harga, tenor);
         call.enqueue(new Callback<Simulation>() {
             @Override
             public void onResponse(Call<Simulation> call, Response<Simulation> response) {
                 Simulation simulation = response.body();
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(getBaseContext(), SimulasiActivity.class);
+                    intent.putExtra("HARGA_SIMULASI", harga_simulasi.getText().toString().replace(".",""));
+                    intent.putExtra("JAMINAN",JAMINAN_DATA.get(jaminan_value));
+                    intent.putExtra("TENOR",TENOR_DATA.get(tenor_value));
+                    intent.putExtra("AREAREQUEST",AREA_DATA.get(area_value));
+                    intent.putExtra("HASIL",simulation.getInstallmentAmount().toString());
 
-                Intent intent = new Intent(getBaseContext(), SimulasiActivity.class);
-                intent.putExtra("HARGA_SIMULASI", harga_simulasi.getText().toString().replace(".",""));
-                intent.putExtra("JAMINAN",JAMINAN_DATA.get(jaminan_value));
-                intent.putExtra("TENOR",TENOR_DATA.get(tenor_value));
-                intent.putExtra("AREAREQUEST",AREA_DATA.get(area_value));
-                intent.putExtra("HASIL",simulation.getInstallmentAmount().toString());
-
-                intent.putExtra("text_harga", harga_simulasi.getText().toString().replace(".",""));
-                intent.putExtra("spinner_jaminan",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
-                intent.putExtra("spinner_tenor",String.valueOf(spinnerTenor.getSelectedItemPosition()));
-                intent.putExtra("spinner_area",String.valueOf(spinnerArea.getSelectedItemPosition()));
+                    intent.putExtra("text_harga", harga_simulasi.getText().toString().replace(".",""));
+                    intent.putExtra("spinner_jaminan",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
+                    intent.putExtra("spinner_tenor",String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                    intent.putExtra("spinner_area",String.valueOf(spinnerArea.getSelectedItemPosition()));
 //                Toast.makeText(getContext(),"area : " + AREA_DATA.get(area_value) + " kode_area : " + spinnerArea.getSelectedItemPosition(),Toast.LENGTH_SHORT).show();
-                startActivity(intent);
+                    startActivity(intent);
+                }
+
             }
 
             @Override

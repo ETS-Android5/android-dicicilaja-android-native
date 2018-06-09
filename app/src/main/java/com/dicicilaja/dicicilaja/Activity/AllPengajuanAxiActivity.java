@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum;
 import com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
@@ -62,7 +63,7 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfacePengajuanAxi apiService =
-                NewRetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
 
         final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

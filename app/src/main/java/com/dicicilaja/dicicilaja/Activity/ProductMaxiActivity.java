@@ -111,7 +111,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailProgramMaxi> call, Response<DetailProgramMaxi> response) {
                 detailProducts = response.body().getData();
-                Picasso.with(getBaseContext()).load(detailProducts.get(0).getImageUrl()).into(head_image);
+                Picasso.with(getApplicationContext()).load(detailProducts.get(0).getImageUrl()).into(head_image);
                 tv_title.setText(detailProducts.get(0).getTitleProgram());
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());

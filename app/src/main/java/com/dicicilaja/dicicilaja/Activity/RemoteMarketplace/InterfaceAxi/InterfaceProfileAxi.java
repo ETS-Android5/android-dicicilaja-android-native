@@ -14,6 +14,6 @@ public interface InterfaceProfileAxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/profileaxi")
+    @GET("axi/profile")
     Call<ProfileAxi> getProfile(@Header("Authorization") String apiKey);
 }

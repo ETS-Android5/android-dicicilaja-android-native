@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahPassword;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemUbahPassword.UbahPassword;
 import com.dicicilaja.dicicilaja.R;
@@ -144,12 +145,12 @@ public class UbahPasswordAxiActivity extends AppCompatActivity {
 
     private void changePassword(final String apiKey, final String oldPassword, final String newPassword, final String secondNewPassword) {
         InterfaceUbahPassword apiService =
-                NewRetrofitClient.getClient().create(InterfaceUbahPassword.class);
+                RetrofitClient.getClient().create(InterfaceUbahPassword.class);
         Call<UbahPassword> call = apiService.change(apiKey, oldPassword, newPassword, secondNewPassword);
         call.enqueue(new Callback<UbahPassword>() {
             @Override
             public void onResponse(Call<UbahPassword> call, Response<UbahPassword> response) {
-                if (response.code() == 200) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(),"Kata sandi Anda berhasil diubah",Toast.LENGTH_SHORT).show();
                     finish();
                 }else{

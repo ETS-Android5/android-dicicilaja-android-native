@@ -64,8 +64,7 @@
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="A SUDRAJAT"/>
+                        android:paddingLeft="10dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -88,8 +87,7 @@
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="020113000012"/>
+                        android:paddingLeft="10dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -112,8 +110,7 @@
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="2.213"/>
+                        android:paddingLeft="10dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -136,8 +133,7 @@
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="312"/>
+                        android:paddingLeft="10dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -161,7 +157,6 @@
                         android:paddingBottom="3dp"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"
-                        android:text="081234765267"
                         android:clickable="true"
                         android:elevation="1dp"
                         android:foreground="?android:attr/selectableItemBackground" />

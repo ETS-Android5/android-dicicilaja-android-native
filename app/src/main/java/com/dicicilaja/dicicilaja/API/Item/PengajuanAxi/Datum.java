@@ -11,9 +11,6 @@ public class Datum {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("transaction_id")
-    @Expose
-    private Integer transactionId;
     @SerializedName("tracking_id")
     @Expose
     private Integer trackingId;
@@ -32,6 +29,9 @@ public class Datum {
     @SerializedName("program")
     @Expose
     private String program;
+    @SerializedName("area")
+    @Expose
+    private String area;
     @SerializedName("branch")
     @Expose
     private String branch;
@@ -45,14 +45,6 @@ public class Datum {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
     }
 
     public Integer getTrackingId() {
@@ -101,6 +93,14 @@ public class Datum {
 
     public void setProgram(String program) {
         this.program = program;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getBranch() {

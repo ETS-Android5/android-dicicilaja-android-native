@@ -230,8 +230,12 @@ public class MarketplaceActivity extends AppCompatActivity
             }catch (Exception ex){
 
                 nameView.setText(session.getName());
-                String imageUrl = session.getPhoto().toString();
-                Picasso.with(getApplicationContext()).load(imageUrl).into(profilePictures);
+                String imageUrl = session.getPhoto();
+                Picasso.with(getApplicationContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(profilePictures);
                 login.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

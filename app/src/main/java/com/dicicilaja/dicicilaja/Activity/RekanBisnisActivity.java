@@ -21,8 +21,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRekanBisnis;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRekanBisnis.Data;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRekanBisnis.InfoJaringan;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRekanBisnis.RekanBisnis;
 import com.dicicilaja.dicicilaja.Adapter.RekanBisnisAdapter;
 import com.dicicilaja.dicicilaja.Listener.ClickListener;
@@ -40,7 +42,8 @@ public class RekanBisnisActivity extends AppCompatActivity {
     String id;
     Integer level;
     Integer newlevel;
-    List<Data> rekanBisnis;
+    Data data;
+    List<InfoJaringan> rekanBisnis;
     List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRekanBisnis.InfoJaringan> infoJaringans;
 
     RelativeLayout title_rb;
@@ -124,7 +127,7 @@ public class RekanBisnisActivity extends AppCompatActivity {
             progress.show();
 
             InterfaceRekanBisnis apiService =
-                    NewRetrofitClient.getClient().create(InterfaceRekanBisnis.class);
+                    RetrofitClient.getClient().create(InterfaceRekanBisnis.class);
 
 
 
@@ -132,15 +135,21 @@ public class RekanBisnisActivity extends AppCompatActivity {
             call2.enqueue(new Callback<RekanBisnis>() {
                 @Override
                 public void onResponse(Call<RekanBisnis> call, Response<RekanBisnis> response) {
-                    infoJaringans = response.body().getData().getInfoJaringan();
-                    recyclerView.setAdapter(new RekanBisnisAdapter(infoJaringans, R.layout.card_rb, getBaseContext()));
+                    rekanBisnis = response.body().getData().getInfoJaringan();
+                    data = response.body().getData();
+                    value_nama.setText(data.getNamaMentor());
+                    value_axi.setText(data.getAxiRefferal());
+                    value_reward.setText(data.getPointReward());
+                    value_trip.setText(data.getPointTrip());
+                    value_hp.setText(data.getNoHp());
+                    recyclerView.setAdapter(new RekanBisnisAdapter(rekanBisnis, R.layout.card_rb, getBaseContext()));
                     recyclerView.setNestedScrollingEnabled(false);
                     recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
                         @Override
                         public void onClick(View view, final int position) {
                             Intent intent = new Intent(getBaseContext(), RekanBisnisActivity.class);
                             intent.putExtra("level", value_daftar.getText().toString());
-                            intent.putExtra("EXTRA_REQUEST_ID", infoJaringans.get(position).getIdAxi().toString());
+                            intent.putExtra("EXTRA_REQUEST_ID", rekanBisnis.get(position).getIdAxi().toString());
                             startActivity(intent);
 
                         }
