@@ -173,32 +173,32 @@
                             android:id="@+id/radio2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Edukasi"
-                            android:enabled="false"/>
+                            android:text="Maxi Edukasi"/>
                         <RadioButton
                             android:id="@+id/radio3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Sehat"
-                            android:enabled="false"/>
+                            android:text="Maxi Sehat"/>
                         <RadioButton
                             android:id="@+id/radio4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi ExtraGuna"
-                            android:enabled="false"/>
+                            android:text="Maxi ExtraGuna"/>
                         <RadioButton
                             android:id="@+id/radio5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Travel"
-                            android:checked="true"/>
+                            android:text="Maxi Travel"/>
                         <RadioButton
                             android:id="@+id/radio6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Maxi Usaha"
-                            android:enabled="false"/>
+                            android:text="Maxi Usaha"/>
+                        <RadioButton
+                            android:id="@+id/radio7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Asuransi"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -312,31 +312,26 @@
                     android:id="@+id/inputLayoutWaktu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:hint="Jangka Waktu *"
+                    android:layout_marginTop="16dp">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerWaktu"
+                    <EditText
+                        android:id="@+id/inputWaktu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Jangka Waktu *"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Jangka Waktu *"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/spinnerCabang"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:editable="false"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -353,6 +348,11 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:inputType="number"
+                        android:editable="false"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"

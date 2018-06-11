@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfacePengajuanMaxi;
 import com.dicicilaja.dicicilaja.API.Item.PengajuanMaxi.Datum;
 import com.dicicilaja.dicicilaja.API.Item.PengajuanMaxi.PengajuanMaxi;
@@ -56,7 +57,7 @@ public class AllPengajuanMaxiActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfacePengajuanMaxi apiService =
-                NewRetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
+                RetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
 
         final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

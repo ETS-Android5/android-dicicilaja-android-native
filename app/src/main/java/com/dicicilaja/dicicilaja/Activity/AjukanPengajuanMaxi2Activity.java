@@ -35,8 +35,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequestMitra;
 import com.dicicilaja.dicicilaja.API.Item.CreateRequest.CreateRequest;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequestMitra.CreateRequestMitra;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Remote.ApiUtils;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
@@ -59,7 +62,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
     EditText inputNama, inputHp, inputAlamat, inputProvinsi, inputKota, inputKecamatan, inputEmail;
     String channel_id, qty;
     TextInputLayout inputLayoutNama, inputLayoutEmail, inputLayoutHp, inputLayoutAlamat, inputLayoutProvinsi, inputLayoutKota,inputLayoutKecamatan;
-    String nama, email, hp, alamat, provinsi, kota, kecamatan;
+    String nama, email, hp, alamat, provinsi, kota, kecamatan, id_partner, product;
     String axi, axi_referral, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, area_id, branch_id, client_name, address, district, city, province, ktp_image, colleteral_image;
     CheckBox check;
     InterfaceCreateRequest interfaceCreateRequest;
@@ -150,7 +153,6 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         });
 
         channel_id = "1";
-        qty = getIntent().getStringExtra("qty");
         interfaceCreateRequest = ApiUtils.getCreateRequest();
 
         progress = new ProgressDialog(this);
@@ -179,6 +181,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
             public void onClick(View view) {
 
                 try {
+                    qty = getIntent().getStringExtra("qty");
+                    id_partner = getIntent().getStringExtra("id_partner");
                     axi_referral = getIntent().getStringExtra("axi_referral");
                     nama = inputNama.getText().toString();
                     email = inputEmail.getText().toString();
@@ -196,11 +200,14 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                     amount = getIntent().getStringExtra("ammount");
                     area_id = getIntent().getStringExtra("area_id");
                     branch_id = getIntent().getStringExtra("branch_id");
+                    product = getIntent().getStringExtra("product");
                     client_name = inputNama.getText().toString();
                     address = inputAlamat.getText().toString();
                     district = inputKecamatan.getText().toString();
                     city = inputKota.getText().toString();
                     province = inputProvinsi.getText().toString();
+                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
@@ -224,10 +231,14 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                             Log.d("ajukanpengajuan","province:" + province);
                             Log.d("ajukanpengajuan","city:" + city);
                             Log.d("ajukanpengajuan","district:" + district);
-                            Log.d("ajukanpengajuan","ktp_image:" + file_ktp);
-                            Log.d("ajukanpengajuan","colleteral_image:" + file_colleteral);
+                            Log.d("ajukanpengajuan","ktp_image:" + ktp_image);
+                            Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
+                            Log.d("ajukanpengajuan","id_partner:" + id_partner);
+                            Log.d("ajukanpengajuan","product:" + product);
+
+
                             progress.show();
-//                            doRequest(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+                            doRequest(apiKey, axi_referral,channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image, id_partner, product);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanMaxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -248,35 +259,44 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         });
 
     }
-//    private void doRequest(final String apiKey, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final MultipartBody.Part file_ktp, final MultipartBody.Part file_colleteral) {
-//        InterfaceCreateRequest apiService =
-//                NewRetrofitClient.getClient().create(InterfaceCreateRequest.class);
-//
-//        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
-//        call.enqueue(new Callback<CreateRequest>() {
-//            @Override
-//            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-//                if(response.isSuccessful()){
-//                    progress.dismiss();
-//                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-//                    finish();
-//                }else{
-//                    progress.dismiss();
-//                    Toast.makeText(getBaseContext(),"code : " + response.code(),Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CreateRequest> call, Throwable t) {
-//                progress.dismiss();
-//                Log.d("ajukanpengajuan","error :" + t.getMessage());
-//            }
-//        });
-//    }
+    private void doRequest(final String apiKey, final String axi_reff, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String ktp_image, final String colleteral_image , final String id_partner, final String product) {
+        InterfaceCreateRequestMitra apiService =
+                RetrofitClient.getClient().create(InterfaceCreateRequestMitra.class);
+
+        Call<CreateRequestMitra> call = apiService.assign(apiKey, axi_reff, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image, id_partner, product);
+        call.enqueue(new Callback<CreateRequestMitra>() {
+            @Override
+            public void onResponse(Call<CreateRequestMitra> call, Response<CreateRequestMitra> response) {
+                if(response.isSuccessful()){
+                    progress.dismiss();
+                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(getBaseContext(),"code error : " + response.code(),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CreateRequestMitra> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanMaxi2Activity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

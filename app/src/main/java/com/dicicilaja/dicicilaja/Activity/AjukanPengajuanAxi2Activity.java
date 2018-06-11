@@ -275,9 +275,9 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                             Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
                             progress.show();
                             if(session.getRole() != null){
-                                doRequest(apiKey, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                                doRequest(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
                             }else {
-                                doRequest(null, axi_referral, program_id, channel_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                                doRequest(null, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
                             }
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);

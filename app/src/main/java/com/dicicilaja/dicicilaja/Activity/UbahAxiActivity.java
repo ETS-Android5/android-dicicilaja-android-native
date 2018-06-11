@@ -183,7 +183,6 @@ public class UbahAxiActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
                 }else{
                     Toast.makeText(getBaseContext(),"Gagal merubah data Anda",Toast.LENGTH_SHORT).show();
                 }
@@ -353,83 +352,83 @@ public class UbahAxiActivity extends AppCompatActivity {
             return false;
         }
 
-//        if(NPWP == null || NPWP.trim().length() == 0 || NPWP.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan no.npwp");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputNPWP);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
-//
-//        if(namaBank == null || namaBank.trim().length() == 0 || namaBank.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan nama bank");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputNamaBank);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
-//
-//        if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan cabang bank");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputCabang);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
-//
-//        if(rekening == null || rekening.trim().length() == 0 || rekening.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan no.rekening");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputRekening);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
-//
-//        if(AN == null || AN.trim().length() == 0 || AN.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan a/n rekening");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputAN);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
-//
-//        if(kotaBank == null || kotaBank.trim().length() == 0 || kotaBank.equals("0")) {
-//            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
-//            alertDialog.setMessage("Masukan kota bank");
-//
-//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    requestFocus(inputKotaBank);
-//                }
-//            });
-//            alertDialog.show();
-//            return false;
-//        }
+        if(NPWP == null || NPWP.trim().length() == 0 || NPWP.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan no.npwp");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNPWP);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(namaBank == null || namaBank.trim().length() == 0 || namaBank.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan nama bank");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNamaBank);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan cabang bank");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputCabang);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(rekening == null || rekening.trim().length() == 0 || rekening.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan no.rekening");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputRekening);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(AN == null || AN.trim().length() == 0 || AN.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan a/n rekening");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputAN);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if(kotaBank == null || kotaBank.trim().length() == 0 || kotaBank.equals("0")) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            alertDialog.setMessage("Masukan kota bank");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKotaBank);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
 
         return true;
     }

@@ -21,7 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -46,14 +48,15 @@ import retrofit2.Response;
 public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
     MaterialSpinner spinnerJaminan, spinnerTahun, spinnerArea, spinnerCabang, spinnerTenor;
-    EditText inputId, inputMerk, inputPinjaman;
+    EditText inputId, inputMerk, inputPinjaman, inputWaktu;
     Button next;
-    TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
+    TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan, inputLayoutWaktu;
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
     ImageView gambar;
     TextView plus, minus, value, tv_title, tv_mitra, tv_harga, tv_tenor;
     Integer qty;
-    String id_program;
+    String s_tenor, s_tenor_kirim, s_jenis, s_harga, program_cicilan;
+    RadioButton radio2, radio3, radio4, radio5, radio6, radio7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,29 +73,109 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        spinnerJaminan = findViewById(R.id.spinnerJaminan);
-        spinnerTahun = findViewById(R.id.spinnerTahun);
-        spinnerTenor = findViewById(R.id.spinnerWaktu);
-        inputPinjaman = findViewById(R.id.inputPinjaman);
-        next = findViewById(R.id.next);
-        inputId = findViewById(R.id.inputId);
-        inputMerk = findViewById(R.id.inputMerk);
-        inputPinjaman = findViewById(R.id.inputPinjaman);
-        spinnerArea = findViewById(R.id.spinnerArea);
-        spinnerCabang = findViewById(R.id.spinnerCabang);
-        inputLayoutMerk = findViewById(R.id.inputLayoutMerk);
+        radio2              = findViewById(R.id.radio2);
+        radio3              = findViewById(R.id.radio3);
+        radio4              = findViewById(R.id.radio4);
+        radio5              = findViewById(R.id.radio5);
+        radio6              = findViewById(R.id.radio6);
+        radio7              = findViewById(R.id.radio7);
+        spinnerJaminan      = findViewById(R.id.spinnerJaminan);
+        spinnerTahun        = findViewById(R.id.spinnerTahun);
+        inputWaktu          = findViewById(R.id.inputWaktu);
+        inputPinjaman       = findViewById(R.id.inputPinjaman);
+        next                = findViewById(R.id.next);
+        inputId             = findViewById(R.id.inputId);
+        inputMerk           = findViewById(R.id.inputMerk);
+        spinnerArea         = findViewById(R.id.spinnerArea);
+        spinnerCabang       = findViewById(R.id.spinnerCabang);
+        inputLayoutMerk     = findViewById(R.id.inputLayoutMerk);
         inputLayoutPinjaman = findViewById(R.id.inputLayoutPinjaman);
-        inputLayoutJaminan = findViewById(R.id.inputLayoutJaminan);
-        gambar = findViewById(R.id.gambar);
-        plus = findViewById(R.id.plus);
-        minus = findViewById(R.id.minus);
-        value = findViewById(R.id.value);
-        tv_title = findViewById(R.id.tv_title);
-        tv_mitra = findViewById(R.id.tv_mitra);
-        tv_harga = findViewById(R.id.tv_harga);
-        tv_tenor = findViewById(R.id.tv_tenor);
+        inputLayoutJaminan  = findViewById(R.id.inputLayoutJaminan);
+        inputLayoutWaktu    = findViewById(R.id.inputLayoutWaktu);
+        gambar              = findViewById(R.id.gambar);
+        plus                = findViewById(R.id.plus);
+        minus               = findViewById(R.id.minus);
+        value               = findViewById(R.id.value);
+        tv_title            = findViewById(R.id.tv_title);
+        tv_mitra            = findViewById(R.id.tv_mitra);
+        tv_harga            = findViewById(R.id.tv_harga);
+        tv_tenor            = findViewById(R.id.tv_tenor);
 
         qty = Integer.parseInt(value.getText().toString());
+
+        try {
+            Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("gambar")).into(gambar);
+            tv_title.setText(getIntent().getStringExtra("title"));
+            tv_mitra.setText(getIntent().getStringExtra("mitra"));
+            tv_harga.setText(getIntent().getStringExtra("harga"));
+            tv_tenor.setText(getIntent().getStringExtra("tenor"));
+            s_harga = getIntent().getStringExtra("pinjaman");
+            s_jenis = getIntent().getStringExtra("program");
+            s_tenor = getIntent().getStringExtra("spinner_tenor");
+        }catch (Exception ex){
+
+        }
+        if(s_jenis.equals("Maxi Edukasi")){
+            radio2.setEnabled(true);
+            radio3.setEnabled(false);
+            radio4.setEnabled(false);
+            radio5.setEnabled(false);
+            radio6.setEnabled(false);
+            radio7.setEnabled(false);
+
+            radio2.setChecked(true);
+            program_cicilan = "3";
+        }else if(s_jenis.equals("Maxi Sehat")){
+            radio2.setEnabled(false);
+            radio3.setEnabled(true);
+            radio4.setEnabled(false);
+            radio5.setEnabled(false);
+            radio6.setEnabled(false);
+            radio7.setEnabled(false);
+
+            radio3.setChecked(true);
+            program_cicilan = "5";
+        }else if(s_jenis.equals("Maxi ExtraGuna")){
+            radio2.setEnabled(false);
+            radio3.setEnabled(false);
+            radio4.setEnabled(true);
+            radio5.setEnabled(false);
+            radio6.setEnabled(false);
+            radio7.setEnabled(false);
+
+            radio4.setChecked(true);
+            program_cicilan = "7";
+        }else if(s_jenis.equals("Maxi Travel")){
+            radio2.setEnabled(false);
+            radio3.setEnabled(false);
+            radio4.setEnabled(false);
+            radio5.setEnabled(true);
+            radio6.setEnabled(false);
+            radio7.setEnabled(false);
+
+            radio5.setChecked(true);
+            program_cicilan = "2";
+        }else if(s_jenis.equals("Maxi Usaha")){
+            radio2.setEnabled(false);
+            radio3.setEnabled(false);
+            radio4.setEnabled(false);
+            radio5.setEnabled(false);
+            radio6.setEnabled(true);
+            radio7.setEnabled(false);
+
+            radio6.setChecked(true);
+            program_cicilan = "4";
+        }else if(s_jenis.equals("Maxi Asuransi")){
+            radio2.setEnabled(false);
+            radio3.setEnabled(false);
+            radio4.setEnabled(false);
+            radio5.setEnabled(false);
+            radio6.setEnabled(false);
+            radio7.setEnabled(true);
+
+            radio7.setChecked(true);
+            program_cicilan = "9";
+        }
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +186,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
                 }
                 value.setText(qty.toString());
+                inputPinjaman.setText(String.valueOf(Integer.valueOf(qty)*Integer.valueOf(s_harga)));
             }
         });
 
@@ -116,22 +200,12 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
                 }
                 value.setText(qty.toString());
+                inputPinjaman.setText(String.valueOf(Integer.valueOf(qty)*Integer.valueOf(s_harga)));
             }
         });
 
         qty = Integer.valueOf(value.getText().toString());
 
-
-        try {
-            id_program = getIntent().getStringExtra("id_program");
-            Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("gambar")).into(gambar);
-            tv_title.setText(getIntent().getStringExtra("title"));
-            tv_mitra.setText(getIntent().getStringExtra("mitra"));
-            tv_harga.setText(getIntent().getStringExtra("harga"));
-            tv_tenor.setText(getIntent().getStringExtra("tenor"));
-        }catch (Exception ex){
-
-        }
 
         inputMerk.addTextChangedListener(new AjukanPengajuanMaxiActivity.MyTextWatcher(inputMerk));
         inputPinjaman.addTextChangedListener(new AjukanPengajuanMaxiActivity.MyTextWatcher(inputPinjaman));
@@ -235,32 +309,6 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
             }
         });
 
-        final List<String> TENOR_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> TENOR_DATA = new HashMap<Integer, String>();
-
-        TENOR_ITEMS.clear();
-        TENOR_DATA.clear();
-
-        TENOR_DATA.put(1, "12");
-        TENOR_DATA.put(2, "18");
-        TENOR_DATA.put(3, "24");
-        TENOR_DATA.put(4, "30");
-        TENOR_DATA.put(5, "36");
-        TENOR_DATA.put(6, "42");
-        TENOR_DATA.put(7, "48");
-        TENOR_ITEMS.add("12 Bulan");
-        TENOR_ITEMS.add("18 Bulan");
-        TENOR_ITEMS.add("24 Bulan");
-        TENOR_ITEMS.add("30 Bulan");
-        TENOR_ITEMS.add("36 Bulan");
-        TENOR_ITEMS.add("42 Bulan");
-        TENOR_ITEMS.add("48 Bulan");
-
-
-        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
-        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTenor.setAdapter(tenor_adapter);
-
 
         //InterfaceCreateOrder apiServiceArea =
         //RetrofitClient.getClient().create(InterfaceCreateOrder.class);
@@ -279,6 +327,13 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
                     AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
                     AREA_ITEMS.add(response.body().getData().get(i).getName());
                 }
+
+                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+                area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerArea.setAdapter(area_adapter);
+                spinnerCabang.setEnabled(false);
+
+
             }
 
             @Override
@@ -289,11 +344,6 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerArea.setAdapter(area_adapter);
-        spinnerCabang.setEnabled(false);
 
 
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -354,6 +404,38 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 //        spinnerArea.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
 //        spinnerCabang.setHint(Html.fromHtml("Pilih Area <font color='#ff0000'>*</font>"));
 
+        try {
+            if(s_harga != null){
+                inputPinjaman.setText(s_harga);
+            }
+            if(s_tenor != null){
+                if(s_tenor.equals("1")) {
+                    s_tenor_kirim = "12";
+                    inputWaktu.setText("12 Bulan");
+                }else if(s_tenor.equals("2")) {
+                    s_tenor_kirim = "18";
+                    inputWaktu.setText("18 Bulan");
+                }else if(s_tenor.equals("3")) {
+                    s_tenor_kirim = "24";
+                    inputWaktu.setText("24 Bulan");
+                }else if(s_tenor.equals("4")) {
+                    s_tenor_kirim = "30";
+                    inputWaktu.setText("30 Bulan");
+                }else if(s_tenor.equals("5")) {
+                    s_tenor_kirim = "36";
+                    inputWaktu.setText("36 Bulan");
+                }else if(s_tenor.equals("6")) {
+                    s_tenor_kirim = "42";
+                    inputWaktu.setText("42 Bulan");
+                }else if(s_tenor.equals("7")) {
+                    s_tenor_kirim = "48";
+                    inputWaktu.setText("48 Bulan");
+                }
+            }
+        }catch (Exception ex) {
+
+        }
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -368,7 +450,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
                     pinjam = inputPinjaman.getText().toString().replace(".", "");
                     jaminan = JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition());
                     tahun = spinnerTahun.getSelectedItem().toString();
-                    waktu = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
+                    waktu = s_tenor;
                     area = AREA_MAP.get(spinnerArea.getSelectedItemPosition());
                     cabang = CABANG_MAP.get(spinnerCabang.getSelectedItemPosition());
                 } catch (Exception ex) {
@@ -379,7 +461,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
                 Log.d("ajukanpengajuan", "colleteral_id:" + JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan", "manufacturer:" + inputMerk.getText().toString());
                 Log.d("ajukanpengajuan", "year:" + spinnerTahun.getSelectedItem());
-                Log.d("ajukanpengajuan", "tenor:" + TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
+                Log.d("ajukanpengajuan", "tenor:" + s_tenor_kirim);
                 Log.d("ajukanpengajuan", "amount:" + inputPinjaman.getText().toString().replace(".", ""));
                 Log.d("ajukanpengajuan", "area_id:" + AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan", "branch_id:" + CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
@@ -388,15 +470,17 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
                 if (validateForm(merk, pinjam, jaminan, tahun, waktu, area, cabang)) {
                     Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxi2Activity.class);
                     intent.putExtra("qty", String.valueOf(qty));
-                    intent.putExtra("program_id", id_program);
                     intent.putExtra("axi_referral", axi_id);
                     intent.putExtra("colleteral_id", JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
                     intent.putExtra("manufacturer", inputMerk.getText().toString());
                     intent.putExtra("year", spinnerTahun.getSelectedItem().toString());
-                    intent.putExtra("tenor", TENOR_DATA.get(spinnerTenor.getSelectedItemPosition()));
+                    intent.putExtra("tenor", s_tenor_kirim);
                     intent.putExtra("ammount", inputPinjaman.getText().toString().replace(".", ""));
                     intent.putExtra("area_id", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
                     intent.putExtra("branch_id", CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
+                    intent.putExtra("id_partner",getIntent().getStringExtra("id_partner"));
+                    intent.putExtra("program_id",program_cicilan);
+                    intent.putExtra("product",getIntent().getStringExtra("title"));
                     startActivity(intent);
                 }
             }

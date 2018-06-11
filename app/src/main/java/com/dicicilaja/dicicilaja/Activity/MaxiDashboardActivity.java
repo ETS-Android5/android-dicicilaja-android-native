@@ -27,6 +27,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -145,7 +146,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         progress.show();
 
         InterfaceProgramMaxi apiService3 =
-                NewRetrofitClient.getClient().create(InterfaceProgramMaxi.class);
+                RetrofitClient.getClient().create(InterfaceProgramMaxi.class);
 
         final RecyclerView recyclerView2 =  findViewById(R.id.recycler_program);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -191,7 +192,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         });
 
         InterfacePengajuanMaxi apiService =
-                NewRetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
+                RetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
 
         final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

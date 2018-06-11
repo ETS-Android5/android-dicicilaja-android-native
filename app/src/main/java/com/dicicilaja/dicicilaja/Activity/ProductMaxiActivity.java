@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -92,26 +94,26 @@ public class ProductMaxiActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-        deskripsi_lengkap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), DeskripsiLengkapActivity.class);
-                startActivity(intent);
-            }
-        });
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
 
         final List<String> TENOR_ITEMS = new ArrayList<>();
         final HashMap<String, String> TENOR_MAP = new HashMap<String, String>();
 
-        InterfaceDetailProgramMaxi apiService = NewRetrofitClient.getClient().create(InterfaceDetailProgramMaxi.class);
+        InterfaceDetailProgramMaxi apiService = RetrofitClient.getClient().create(InterfaceDetailProgramMaxi.class);
 
         Call<DetailProgramMaxi> call = apiService.getDetail(apiKey,getIntent().getStringExtra("EXTRA_REQUEST_ID"));
         call.enqueue(new Callback<DetailProgramMaxi>() {
             @Override
             public void onResponse(Call<DetailProgramMaxi> call, Response<DetailProgramMaxi> response) {
+                progress.dismiss();
                 detailProducts = response.body().getData();
-                Picasso.with(getApplicationContext()).load(detailProducts.get(0).getImageUrl()).into(head_image);
+                Picasso.with(ProductMaxiActivity.this)
+                        .load(detailProducts.get(0).getImageUrl())
+                        .into(head_image);
                 tv_title.setText(detailProducts.get(0).getTitleProgram());
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());
@@ -139,6 +141,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DetailProgramMaxi> call, Throwable t) {
+                progress.dismiss();
                 TENOR_MAP.clear();
                 TENOR_ITEMS.clear();
 
@@ -156,7 +159,14 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
             }
         });
-
+        deskripsi_lengkap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), DeskripsiLengkapActivity.class);
+                intent.putExtra("description",detailProducts.get(0).getDescription());
+                startActivity(intent);
+            }
+        });
         ajukan_produk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,12 +175,15 @@ public class ProductMaxiActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
-                    intent.putExtra("id_program",detailProducts.get(0).getId());
+                    intent.putExtra("pinjaman", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
+                    intent.putExtra("spinner_tenor",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
+                    intent.putExtra("program",detailProducts.get(0).getJenisProgram());
                     intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
                     intent.putExtra("title", detailProducts.get(0).getTitleProgram());
                     intent.putExtra("mitra", detailProducts.get(0).getPartner());
                     intent.putExtra("harga", detailProducts.get(0).getPrice());
                     intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
+                    intent.putExtra("id_partner",detailProducts.get(0).getIdPartner().toString());
                     startActivity(intent);
                 }
 

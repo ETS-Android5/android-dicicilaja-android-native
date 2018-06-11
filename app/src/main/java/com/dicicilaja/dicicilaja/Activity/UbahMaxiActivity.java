@@ -1,6 +1,7 @@
 package com.dicicilaja.dicicilaja.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
@@ -31,12 +33,12 @@ import retrofit2.Response;
 
 public class UbahMaxiActivity extends AppCompatActivity {
 
-    MaterialEditText inputNamaPerusahaan, inputAlamatPerusahaan, inputNPWPPerusahaan, inputNamaPemilik, inputAlamatEmail, inputTelephone, inputHandphone, inputAlamatPemilik, inputKelurahan, inputKota, inputKTPPemilik, inputNPWPPemilik;
+    MaterialEditText inputNamaPerusahaan, inputAlamatPerusahaan, inputNPWPPerusahaan, inputNamaPemilik, inputTelephone, inputHandphone, inputAlamatPemilik, inputKelurahan, inputKota, inputKTPPemilik, inputNPWPPemilik;
     MaterialSpinner spinnerJenisKelamin;
     String apiKey;
     Button save;
 
-    String jk, namaPerusahaan, alamatPerusahaan, NPWPPerusahaan, namaPemilik, alamatEmail, telephone, handphone, alamatPemilik, kelurahan, kota, KTPPemilik, NPWPPemilik;
+    String jk, namaPerusahaan, alamatPerusahaan, NPWPPerusahaan, namaPemilik, telephone, handphone, alamatPemilik, kelurahan, kota, KTPPemilik, NPWPPemilik;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,6 @@ public class UbahMaxiActivity extends AppCompatActivity {
         inputAlamatPerusahaan   = findViewById(R.id.inputAlamatPerusahaan);
         inputNPWPPerusahaan     = findViewById(R.id.inputNPWPPerusahaan);
         inputNamaPemilik        = findViewById(R.id.inputNamaPemilik);
-        inputAlamatEmail        = findViewById(R.id.inputAlamatEmail);
         inputTelephone          = findViewById(R.id.inputTelephone);
         inputHandphone          = findViewById(R.id.inputHandphone);
         inputAlamatPemilik      = findViewById(R.id.inputAlamatPemilik);
@@ -75,7 +76,6 @@ public class UbahMaxiActivity extends AppCompatActivity {
         inputAlamatPerusahaan.setText(getIntent().getStringExtra("api_alamat"));
         inputNPWPPerusahaan.setText(getIntent().getStringExtra("api_npwp"));
         inputNamaPemilik.setText(getIntent().getStringExtra("api_name_user"));
-        inputAlamatEmail.setText(getIntent().getStringExtra("api_email_user"));
         inputTelephone.setText(getIntent().getStringExtra("api_telp"));
         inputHandphone.setText(getIntent().getStringExtra("api_handphone"));
         inputAlamatPemilik.setText(getIntent().getStringExtra("api_alamat_pemilik"));
@@ -109,7 +109,6 @@ public class UbahMaxiActivity extends AppCompatActivity {
                     alamatPerusahaan = inputAlamatPerusahaan.getText().toString();
                     NPWPPerusahaan = inputNPWPPerusahaan.getText().toString();
                     namaPemilik = inputNamaPemilik.getText().toString();
-                    alamatEmail = inputAlamatEmail.getText().toString();
                     telephone = inputTelephone.getText().toString();
                     handphone = inputHandphone.getText().toString();
                     alamatPemilik = inputAlamatPemilik.getText().toString();
@@ -121,24 +120,26 @@ public class UbahMaxiActivity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                if(validateForm(jk, namaPerusahaan, alamatPerusahaan, NPWPPerusahaan, namaPemilik, alamatEmail, telephone, handphone, alamatPemilik, kelurahan, kota, KTPPemilik, NPWPPemilik)) {
-                    ubahMaxi(apiKey,jk, namaPerusahaan, alamatPerusahaan, NPWPPerusahaan, namaPemilik, alamatEmail, telephone, handphone, alamatPemilik, kelurahan, kota, KTPPemilik, NPWPPemilik);
+                if(validateForm(namaPerusahaan, namaPemilik, jk, alamatPemilik, handphone, telephone, KTPPemilik, NPWPPemilik, NPWPPerusahaan, kelurahan, kota, alamatPerusahaan)) {
+                    ubahMaxi(apiKey,namaPerusahaan, namaPemilik, jk, alamatPemilik, handphone, telephone, KTPPemilik, NPWPPemilik, NPWPPerusahaan, kelurahan, kota, alamatPerusahaan);
 
                 }
             }
         });
     }
-    private void ubahMaxi(final String apiKey, final String jk, final String namaPerusahaan, final String alamatPerusahaan, final String NPWPPerusahaan, final String namaPemilik, final String alamatEmail, final String telephone, final String handphone, final String alamatPemilik, final String kelurahan, final String kota, final String KTPPemilik, final String NPWPPemilik) {
+    private void ubahMaxi(final String apiKey, final String namaPerusahaan, final String namaPemilik, final String jk, final String alamatPemilik, final String handphone, final String telephone, final String KTPPemilik, final String NPWPPemilik, final String NPWPPerusahaan, final String kelurahan, final String kota, final String alamatPerusahaan) {
         InterfaceUbahMaxi apiService =
-                NewRetrofitClient.getClient().create(InterfaceUbahMaxi.class);
+                RetrofitClient.getClient().create(InterfaceUbahMaxi.class);
 
-        Call<UbahMaxi> call = apiService.change(apiKey,jk, namaPerusahaan, alamatPerusahaan, NPWPPerusahaan, namaPemilik, alamatEmail, telephone, handphone, alamatPemilik, kelurahan, kota, KTPPemilik, NPWPPemilik);
+        Call<UbahMaxi> call = apiService.change(apiKey,namaPerusahaan, namaPemilik, jk, alamatPemilik, handphone, telephone, KTPPemilik, NPWPPemilik, NPWPPerusahaan, kelurahan, kota, alamatPerusahaan);
         call.enqueue(new Callback<UbahMaxi>() {
             @Override
             public void onResponse(Call<UbahMaxi> call, Response<UbahMaxi> response) {
                 try {
                     Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-                    finish();
+                    Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 } catch(Exception ex) {
                     Log.w("Process Exception :", ex.getMessage());
                     Toast.makeText(getBaseContext(), "Gagal mengubah data", Toast.LENGTH_SHORT).show();
@@ -152,7 +153,7 @@ public class UbahMaxiActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String jk, String namaPerusahaan, String alamatPerusahaan, String NPWPPerusahaan, String namaPemilik, String alamatEmail, String telephone, String handphone, String alamatPemilik, String kelurahan, String kota, String KTPPemilik, String NPWPPemilik) {
+    private boolean validateForm(String namaPerusahaan, String namaPemilik, String jk, String alamatPemilik, String handphone, String telephone, String KTPPemilik, String NPWPPemilik, String NPWPPerusahaan, String kelurahan, String kota, String alamatPerusahaan) {
         if(namaPerusahaan == null || namaPerusahaan.trim().length() == 0 || namaPerusahaan.equals("0")) {
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahMaxiActivity.this);
             alertDialog.setMessage("Masukan nama perusahaan");
@@ -199,19 +200,6 @@ public class UbahMaxiActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(inputNamaPemilik);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(alamatEmail == null || alamatEmail.trim().length() == 0 || alamatEmail.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahMaxiActivity.this);
-            alertDialog.setMessage("Masukan email");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputAlamatEmail);
                 }
             });
             alertDialog.show();

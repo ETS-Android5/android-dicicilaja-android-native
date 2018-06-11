@@ -14,6 +14,6 @@ public interface InterfacePengajuanMaxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/pengajuan/maxi")
+    @GET("request/user")
     Call<PengajuanMaxi> getPengajuanMaxi(@Header("Authorization") String apiKey);
 }

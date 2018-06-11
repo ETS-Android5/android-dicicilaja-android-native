@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
@@ -58,7 +59,7 @@ public class AllProgramMaxiActivity extends AppCompatActivity {
         progress.show();
 
         InterfaceProgramMaxi apiService3 =
-                NewRetrofitClient.getClient().create(InterfaceProgramMaxi.class);
+                RetrofitClient.getClient().create(InterfaceProgramMaxi.class);
 
         final RecyclerView recyclerView2 =  findViewById(R.id.recycler_program);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -74,7 +75,7 @@ public class AllProgramMaxiActivity extends AppCompatActivity {
                 recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView2, new ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getBaseContext(), ProductActivity.class);
+                        Intent intent = new Intent(getBaseContext(), ProductMaxiActivity.class);
                         intent.putExtra("EXTRA_REQUEST_ID", programMaxi.get(position).getId().toString());
                         startActivity(intent);
 

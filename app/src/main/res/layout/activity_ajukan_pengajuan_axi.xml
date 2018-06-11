@@ -90,6 +90,12 @@
                             android:layout_height="wrap_content"
                             android:text="Maxi Usaha"
                             android:enabled="false"/>
+                        <RadioButton
+                            android:id="@+id/radio7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maxi Asuransi"
+                            android:enabled="false"/>
                     </RadioGroup>
                 </LinearLayout>
 

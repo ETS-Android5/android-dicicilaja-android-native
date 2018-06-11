@@ -14,6 +14,6 @@ public interface InterfaceProfileMaxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/profilemaxi")
+    @GET("mitra/profile")
     Call<ProfileMaxi> getProfile(@Header("Authorization") String apiKey);
 }

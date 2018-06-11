@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -140,7 +141,7 @@ public class ProfileMaxiActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileMaxi apiService =
-                NewRetrofitClient.getClient().create(InterfaceProfileMaxi.class);
+                RetrofitClient.getClient().create(InterfaceProfileMaxi.class);
 
         Call<ProfileMaxi> callProfile = apiService.getProfile(apiKey);
         callProfile.enqueue(new Callback<ProfileMaxi>() {

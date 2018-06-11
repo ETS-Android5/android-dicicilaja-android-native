@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         app:met_helperText="Contoh : Jl. Jend. Sudirman"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textMultiLine|textPersonName|textCapWords"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputRtRw"
                         android:layout_marginLeft="5dp"
@@ -347,7 +347,7 @@
                     android:id="@+id/inputLayoutNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="No. NPWP"
+                    android:hint="No. NPWP *"
                     android:layout_marginTop="16dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -382,7 +382,7 @@
                     android:id="@+id/inputLayoutNamaBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Bank"
+                    android:hint="Nama Bank *"
                     android:layout_marginTop="10dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -406,7 +406,7 @@
                     android:id="@+id/inputLayoutCabang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Cabang Bank"
+                    android:hint="Cabang Bank *"
                     android:layout_marginTop="10dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -430,7 +430,7 @@
                     android:id="@+id/inputLayoutRekening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="No. Rekening"
+                    android:hint="No. Rekening *"
                     android:layout_marginTop="10dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -454,7 +454,7 @@
                     android:id="@+id/inputLayoutAN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="A/N Rekening"
+                    android:hint="A/N Rekening *"
                     android:layout_marginTop="10dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -478,7 +478,7 @@
                     android:id="@+id/inputLayoutKotaBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kota Bank"
+                    android:hint="Kota Bank *"
                     android:layout_marginTop="10dp">
 
                     <com.rengwuxian.materialedittext.MaterialEditText

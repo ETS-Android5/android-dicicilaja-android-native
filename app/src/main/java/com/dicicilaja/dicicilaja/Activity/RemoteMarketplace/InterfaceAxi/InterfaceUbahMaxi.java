@@ -16,21 +16,20 @@ public interface InterfaceUbahMaxi {
     @Headers({
             "Accept: application/json",
     })
-    @POST("jodi/changemaxi")
+    @POST("mitra/edit")
     @FormUrlEncoded
 
     Call<UbahMaxi> change(@Header("Authorization") String apiKey,
-                          @Field("jk") String jk,
-                          @Field("namaPerusahaan") String namaPerusahaan,
-                          @Field("alamatPerusahaan") String alamatPerusahaan,
-                          @Field("NPWPPerusahaan") String NPWPPerusahaan,
-                          @Field("namaPemilik") String namaPemilik,
-                          @Field("alamatEmail") String alamatEmail,
-                          @Field("telephone") String telephone,
+                          @Field("company") String company,
+                          @Field("owner") String owner,
+                          @Field("gender") String gender,
+                          @Field("address") String address,
                           @Field("handphone") String handphone,
-                          @Field("alamatPemilik") String alamatPemilik,
-                          @Field("kelurahan") String kelurahan,
-                          @Field("kota") String kota,
-                          @Field("KTPPemilik") String KTPPemilik,
-                          @Field("NPWPPemilik") String NPWPPemilik);
+                          @Field("telphone") String telphone,
+                          @Field("ktp") String ktp,
+                          @Field("personal_npwp") String personal_npwp,
+                          @Field("company_npwp") String company_npwp,
+                          @Field("hometown") String hometown,
+                          @Field("city") String city,
+                          @Field("company_address") String company_address);
 }

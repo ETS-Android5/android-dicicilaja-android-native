@@ -19,6 +19,9 @@ public class Data {
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("price_without_rp")
+    @Expose
+    private String priceWithoutRp;
     @SerializedName("jenis_program")
     @Expose
     private String jenisProgram;
@@ -28,6 +31,12 @@ public class Data {
     @SerializedName("partner")
     @Expose
     private String partner;
+    @SerializedName("id_partner")
+    @Expose
+    private Integer idPartner;
+    @SerializedName("description")
+    @Expose
+    private String description;
     @SerializedName("tenor")
     @Expose
     private List<Tenor> tenor = null;
@@ -56,6 +65,14 @@ public class Data {
         this.price = price;
     }
 
+    public String getPriceWithoutRp() {
+        return priceWithoutRp;
+    }
+
+    public void setPriceWithoutRp(String priceWithoutRp) {
+        this.priceWithoutRp = priceWithoutRp;
+    }
+
     public String getJenisProgram() {
         return jenisProgram;
     }
@@ -80,6 +97,22 @@ public class Data {
         this.partner = partner;
     }
 
+    public Integer getIdPartner() {
+        return idPartner;
+    }
+
+    public void setIdPartner(Integer idPartner) {
+        this.idPartner = idPartner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Tenor> getTenor() {
         return tenor;
     }
@@ -87,4 +120,6 @@ public class Data {
     public void setTenor(List<Tenor> tenor) {
         this.tenor = tenor;
     }
+
+
 }

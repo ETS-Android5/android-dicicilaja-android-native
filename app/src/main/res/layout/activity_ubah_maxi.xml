@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         app:met_helperText="Contoh: Jl. Jend. Sudirman, Kavling 1"
-                        android:inputType="textPersonName|textCapWords|textMultiLine"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNPWPPerusahaan"
                         android:layout_marginLeft="5dp"
@@ -184,30 +184,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutAlamatEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alamat Email *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputAlamatEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:met_helperText="Pastikan email Aktif"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputTelephone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
                     android:id="@+id/inputLayoutTelephone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -267,7 +243,7 @@
                         android:layout_height="wrap_content"
                         app:met_helperText="Sesuai yang tertera di KTP"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords|textMultiLine"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputKelurahan"
                         android:layout_marginLeft="5dp"
