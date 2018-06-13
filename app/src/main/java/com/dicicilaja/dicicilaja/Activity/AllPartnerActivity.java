@@ -12,8 +12,11 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceMerchant;
 import com.dicicilaja.dicicilaja.API.Item.Mechant.Merchant;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPartner.Datum;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPartner.Partner;
 import com.dicicilaja.dicicilaja.Adapter.ListMerchantAdapter;
 import com.dicicilaja.dicicilaja.R;
 import retrofit2.Call;
@@ -43,19 +46,19 @@ public class AllPartnerActivity extends AppCompatActivity {
         partner.setHasFixedSize(true);
         partner.setLayoutManager(new GridLayoutManager(this, 3));
         InterfaceMerchant apiService =
-                NewRetrofitClient.getClient().create(InterfaceMerchant.class);
+                RetrofitClient.getClient().create(InterfaceMerchant.class);
 
-        Call<Merchant> call = apiService.getMerchant();
-        call.enqueue(new Callback<Merchant>() {
+        Call<Partner> call = apiService.getPartner();
+        call.enqueue(new Callback<Partner>() {
             @Override
-            public void onResponse(Call<Merchant> call, Response<Merchant> response) {
-                final List<com.dicicilaja.dicicilaja.API.Item.Mechant.Datum> merchants = response.body().getData();
+            public void onResponse(Call<Partner> call, Response<Partner> response) {
+                final List<Datum> merchants = response.body().getData();
 
                 partner.setAdapter(new ListMerchantAdapter(merchants, getBaseContext()));
             }
 
             @Override
-            public void onFailure(Call<Merchant> call, Throwable t) {
+            public void onFailure(Call<Partner> call, Throwable t) {
 
             }
         });

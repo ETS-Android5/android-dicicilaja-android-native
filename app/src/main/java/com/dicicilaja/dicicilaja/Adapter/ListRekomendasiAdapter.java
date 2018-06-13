@@ -26,6 +26,7 @@ import com.dicicilaja.dicicilaja.R;
 public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasiAdapter.SingleItemRowHolder> {
     private List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends;
     private Context mContext;
+    Integer id;
 
     public ListRekomendasiAdapter(List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends, Context mContext) {
         this.recommends = recommends;
@@ -46,18 +47,17 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
 
     @Override
     public void onBindViewHolder(final SingleItemRowHolder holder, final int position) {
-        com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum itemModel = recommends.get(position);
-        holder.tv_title.setText(itemModel.getName());
+        final com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum itemModel = recommends.get(position);
+        holder.tv_title.setText(itemModel.getTitleProgram());
         holder.tv_mitra.setText(itemModel.getPartner());
+        holder.tv_jenis.setText(itemModel.getJenisProgram());
         holder.tv_harga.setText(itemModel.getPrice());
-        Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
-        holder.tv_tenor.setText(itemModel.getExcerpt());
+        Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"ID : " + position,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext,ProductMaxiActivity.class);
-                intent.putExtra("ID", position);
+                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
                 view.getContext().startActivity(intent);
 
             }
@@ -66,7 +66,11 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
 
     @Override
     public int getItemCount() {
-        return (null != recommends ? recommends.size() : 0);
+        if(recommends.size() > 4){
+            return 5;
+        }else{
+            return recommends.size();
+        }
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
@@ -75,7 +79,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
         protected ImageView discount_image;
         protected TextView tv_mitra;
         protected TextView tv_harga;
-        protected TextView tv_tenor;
+        protected TextView tv_jenis;
         protected CardView card_rekomendasi;
 
 
@@ -85,7 +89,7 @@ public class ListRekomendasiAdapter extends RecyclerView.Adapter<ListRekomendasi
             this.tv_title = itemView.findViewById(R.id.tv_title);
             this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
-            this.tv_tenor = itemView.findViewById(R.id.tv_tenor);
+            this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
             this.discount_image = itemView.findViewById(R.id.discount_image);
             this.card_rekomendasi = itemView.findViewById(R.id.card_rekomendasi);
         }

@@ -4,6 +4,7 @@ package com.dicicilaja.dicicilaja.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,7 +54,7 @@ public class AkunFragment extends Fragment {
     List<Data> programMaxi;
     LinearLayout share_app, nilai;
     String apiKey;
-    TextView nama;
+    TextView nama, title_favorite;
     LinearLayout detail_profile;
     CircleImageView profile_picture;
     public AkunFragment() {
@@ -79,6 +80,14 @@ public class AkunFragment extends Fragment {
         nama =  view.findViewById(R.id.nama);
         detail_profile =  view.findViewById(R.id.detail_profile);
         profile_picture =  view.findViewById(R.id.profile_picture);
+        title_favorite = view.findViewById(R.id.title_favorite);
+
+        Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
+        Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
+        Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+        title_favorite.setTypeface(opensans_bold);
+
 
         nama.setText(session.getName());
         String imageUrl = session.getPhoto();

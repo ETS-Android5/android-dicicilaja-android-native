@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dicicilaja.dicicilaja.Activity.AllProductActivity;
+import com.dicicilaja.dicicilaja.Activity.ProductMaxiActivity;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPartner.Datum;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,11 +24,11 @@ import com.dicicilaja.dicicilaja.R;
  */
 
 public class ListMerchantAdapter extends RecyclerView.Adapter<ListMerchantAdapter.SingleItemRowHolder> {
-    private List<com.dicicilaja.dicicilaja.API.Item.Mechant.Datum> merchants;
+    private List<Datum> partners;
     private Context mContext;
 
-    public ListMerchantAdapter(List<com.dicicilaja.dicicilaja.API.Item.Mechant.Datum> merchants, Context mContext) {
-        this.merchants = merchants;
+    public ListMerchantAdapter(List<Datum> partners, Context mContext) {
+        this.partners = partners;
         this.mContext = mContext;
     }
 
@@ -38,36 +41,35 @@ public class ListMerchantAdapter extends RecyclerView.Adapter<ListMerchantAdapte
     }
 
     @Override
-    public void onBindViewHolder(ListMerchantAdapter.SingleItemRowHolder holder, final int position) {
-        final com.dicicilaja.dicicilaja.API.Item.Mechant.Datum itemModel = merchants.get(position);
-        Picasso.with(mContext).load(itemModel.getLogo()).into(holder.discount_image);
-        holder.card_merchant.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final ListMerchantAdapter.SingleItemRowHolder holder, final int position) {
+        final Datum itemModel = partners.get(position);
+        Picasso.with(mContext).load(itemModel.getImages()).into(holder.image);
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(mContext,"ID : " + itemModel.getId(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext,ProductPartnerActivity.class);
-                intent.putExtra("ID", itemModel.getId().toString());
+                Intent intent = new Intent(mContext,AllProductActivity.class);
+                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
+
                 view.getContext().startActivity(intent);
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return (null != merchants ? merchants.size() : 0);
+        return partners.size();
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView discount_image;
-        protected LinearLayout card_merchant;
+        protected ImageView image;
 
 
 
         public SingleItemRowHolder(View itemView) {
             super(itemView);
-            this.card_merchant = itemView.findViewById(R.id.card_merchant);
-            this.discount_image = itemView.findViewById(R.id.discount_image);
+            this.image = itemView.findViewById(R.id.image);
         }
     }
 }

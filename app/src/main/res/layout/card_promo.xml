@@ -84,15 +84,15 @@
                         android:textSize="12sp"
                         android:textColor="@color/colorAccent"
                         android:text="Rp 20.000.000"/>
+
                     <TextView
-                        android:id="@+id/tv_tenor"
+                        android:id="@+id/tv_jenis"
                         android:layout_below="@+id/tv_harga"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="Cicilan"/>
+                        android:textColor="@color/colorBackground"
+                        android:text="Mitra Travel"/>
                 </RelativeLayout>
             </RelativeLayout>
 

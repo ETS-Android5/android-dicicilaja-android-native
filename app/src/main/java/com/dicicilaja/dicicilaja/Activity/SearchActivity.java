@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.Adapter.ListPromoAdapter;
 import com.dicicilaja.dicicilaja.R;
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
         search.setHasFixedSize(true);
         search.setLayoutManager(new GridLayoutManager(this, 2));
         com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-                NewRetrofitClient.getClient().create(com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+                RetrofitClient.getClient().create(com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
 
         Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
         call.enqueue(new Callback<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {

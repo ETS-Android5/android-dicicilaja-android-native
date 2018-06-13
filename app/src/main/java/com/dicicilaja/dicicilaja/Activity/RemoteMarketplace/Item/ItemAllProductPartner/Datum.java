@@ -1,13 +1,10 @@
-package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRecommendation;
+package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAllProductPartner;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by fawazrifqi on 13/05/18.
- */
-
 public class Datum {
+    @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("title_program")
@@ -22,9 +19,6 @@ public class Datum {
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
-    @SerializedName("partner")
-    @Expose
-    private String partner;
 
     public Integer getId() {
         return id;
@@ -64,13 +58,5 @@ public class Datum {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
-        this.partner = partner;
     }
 }

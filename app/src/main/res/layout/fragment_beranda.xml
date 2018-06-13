@@ -449,26 +449,26 @@
                         android:paddingLeft="32dp"
                         android:paddingRight="32dp">
                         <RelativeLayout
+                            android:id="@+id/show_all_promo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_alignParentRight="true">
+                            android:layout_marginBottom="5dp">
                             <TextView
+                                android:id="@+id/txt_all_promo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:text="Lihat Semua"
                                 android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/show_more2"
                                 android:textColor="@color/colorAccent"/>
                             <ImageView
-                                android:id="@+id/show_more2"
+                                android:layout_toRightOf="@+id/txt_all_promo"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:src="@drawable/ic_show_more"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_centerVertical="true"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <android.support.v7.widget.RecyclerView
@@ -508,26 +508,26 @@
                         android:paddingLeft="32dp"
                         android:paddingRight="32dp">
                         <RelativeLayout
+                            android:id="@+id/show_all_recommend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_alignParentRight="true">
+                            android:layout_marginBottom="5dp">
                             <TextView
+                                android:id="@+id/txt_all_recommend"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:text="Lihat Semua"
                                 android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/show_more3"
                                 android:textColor="@color/colorAccent"/>
                             <ImageView
-                                android:id="@+id/show_more3"
+                                android:layout_toRightOf="@+id/txt_all_recommend"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:src="@drawable/ic_show_more"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_centerVertical="true"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <android.support.v7.widget.RecyclerView
@@ -569,24 +569,23 @@
                             android:id="@+id/show_all_partner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_alignParentRight="true">
+                            android:layout_marginBottom="5dp">
                             <TextView
+                                android:id="@+id/txt_all_partner"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:text="Lihat Semua"
                                 android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/show_more4"
                                 android:textColor="@color/colorAccent"/>
                             <ImageView
-                                android:id="@+id/show_more4"
+                                android:layout_toRightOf="@+id/txt_all_partner"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:src="@drawable/ic_show_more"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_centerVertical="true"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <android.support.v7.widget.RecyclerView

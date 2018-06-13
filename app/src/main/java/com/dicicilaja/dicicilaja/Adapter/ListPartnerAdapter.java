@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dicicilaja.dicicilaja.Activity.AllProductActivity;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAllProductPartner.AllProductPartner;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,15 +43,13 @@ public class ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAdapter.
 
     @Override
     public void onBindViewHolder(final ListPartnerAdapter.SingleItemRowHolder holder, final int position) {
-        Datum itemModel = partners.get(position);
-        Picasso.with(mContext).load(itemModel.getImage()).into(holder.image);
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        final Datum itemModel = partners.get(position);
+        Picasso.with(mContext).load(itemModel.getImages()).into(holder.image);
+        holder.card_merchant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"ID : " + position,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext,ProductMaxiActivity.class);
-                intent.putExtra("ID", position);
-
+                Intent intent = new Intent(mContext,AllProductActivity.class);
+                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
                 view.getContext().startActivity(intent);
 
             }
@@ -57,18 +58,24 @@ public class ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAdapter.
 
     @Override
     public int getItemCount() {
-        return (null != partners ? partners.size() : 0);
+        if(partners.size() > 4){
+            return 5;
+        }else{
+            return partners.size();
+        }
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         protected ImageView image;
+        protected LinearLayout card_merchant;
 
 
 
         public SingleItemRowHolder(View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.image);
+            this.card_merchant = itemView.findViewById(R.id.card_merchant);
         }
     }
 }

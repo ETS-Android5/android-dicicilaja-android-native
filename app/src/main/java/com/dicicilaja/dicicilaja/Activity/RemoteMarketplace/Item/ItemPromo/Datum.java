@@ -11,27 +11,24 @@ public class Datum {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("name")
+    @SerializedName("title_program")
     @Expose
-    private String name;
-    @SerializedName("slug")
-    @Expose
-    private String slug;
-    @SerializedName("partner")
-    @Expose
-    private String partner;
-    @SerializedName("image")
-    @Expose
-    private String image;
+    private String titleProgram;
     @SerializedName("price")
     @Expose
     private String price;
-    @SerializedName("excerpt")
+    @SerializedName("jenis_program")
     @Expose
-    private String excerpt;
-    @SerializedName("views")
+    private String jenisProgram;
+    @SerializedName("image_url")
     @Expose
-    private Integer views;
+    private String imageUrl;
+    @SerializedName("discount")
+    @Expose
+    private Integer discount;
+    @SerializedName("partner")
+    @Expose
+    private String partner;
 
     public Integer getId() {
         return id;
@@ -41,36 +38,12 @@ public class Datum {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitleProgram() {
+        return titleProgram;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
-        this.partner = partner;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setTitleProgram(String titleProgram) {
+        this.titleProgram = titleProgram;
     }
 
     public String getPrice() {
@@ -81,20 +54,35 @@ public class Datum {
         this.price = price;
     }
 
-    public String getExcerpt() {
-        return excerpt;
+    public String getJenisProgram() {
+        return jenisProgram;
     }
 
-    public void setExcerpt(String excerpt) {
-        this.excerpt = excerpt;
+    public void setJenisProgram(String jenisProgram) {
+        this.jenisProgram = jenisProgram;
     }
 
-    public Integer getViews() {
-        return views;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setViews(Integer views) {
-        this.views = views;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public String getPartner() {
+        return partner;
+    }
+
+    public void setPartner(String partner) {
+        this.partner = partner;
+    }
 }

@@ -34,6 +34,8 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.dicicilaja.Activity.AllProductPromoActivity;
+import com.dicicilaja.dicicilaja.Activity.AllProductRecommendationActivity;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.text.NumberFormat;
@@ -92,7 +94,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
     LinearLayout webview_axi, webview_maxi;
-    RelativeLayout show_all_partner, allpromo;
+    RelativeLayout allpromo;
     ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_extraguna, maxi_asuransi;
 
     EditText harga_simulasi;
@@ -109,6 +111,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     ImageView dana_multiguna;
 
     String s_area, s_jaminan, s_tenor, s_harga;
+
+    RelativeLayout show_all_partner, show_all_promo, show_all_recommend;
     public BerandaFragment() {
         // Required empty public constructor
     }
@@ -133,6 +137,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
         maxi_asuransi = view.findViewById(R.id.maxi_asuransi);
         show_all_partner = view.findViewById(R.id.show_all_partner);
+        show_all_promo = view.findViewById(R.id.show_all_promo);
+        show_all_recommend = view.findViewById(R.id.show_all_recommend);
         allpromo = view.findViewById(R.id.allpromo);
         webview_axi = view.findViewById(R.id.webview_axi);
         webview_maxi = view.findViewById(R.id.webview_maxi);
@@ -351,7 +357,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         });
 
         final RecyclerView recyclerPartner = (RecyclerView) view.findViewById(R.id.recycler_partner);
-        recyclerRekomendasi.setHasFixedSize(true);
+        recyclerPartner.setHasFixedSize(true);
 
         recyclerPartner.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -528,6 +534,20 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AllPartnerActivity.class);
+                startActivity(intent);
+            }
+        });
+        show_all_promo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AllProductPromoActivity.class);
+                startActivity(intent);
+            }
+        });
+        show_all_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AllProductRecommendationActivity.class);
                 startActivity(intent);
             }
         });

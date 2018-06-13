@@ -577,8 +577,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
-        <activity android:name=".Activity.UbahCustomerActivity"
+        <activity
+            android:name=".Activity.UbahCustomerActivity"
             android:label="Ubah Profil"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllProductActivity"
+            android:label="Semua Produk"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.AllProductRecommendationActivity"
+            android:label="Semua Rekomendasi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity android:name=".Activity.AllProductPromoActivity"
+            android:label="Semua Promo"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
