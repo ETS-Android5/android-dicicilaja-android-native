@@ -1,4 +1,4 @@
-package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel;
+package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by fawazrifqi on 13/05/18.
  */
 
-public class MaxiTravel {
+public class MaxiProgram {
     @SerializedName("status")
     @Expose
     private String status;
@@ -32,4 +32,5 @@ public class MaxiTravel {
     public void setData(List<Data> data) {
         this.data = data;
     }
+
 }

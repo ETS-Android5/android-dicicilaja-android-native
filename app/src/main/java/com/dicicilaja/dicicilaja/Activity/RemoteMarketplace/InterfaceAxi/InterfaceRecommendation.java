@@ -13,6 +13,6 @@ public interface InterfaceRecommendation {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/recommendation")
+    @GET("recommendation")
     Call<Recommendation> getRecommend();
 }

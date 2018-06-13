@@ -13,6 +13,6 @@ public interface InterfacePartner {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/partner")
+    @GET("partner")
     Call<Partner> getPartner();
 }

@@ -51,6 +51,11 @@ public class SessionManager {
         editor.commit();
     }
 
+    public void editLoginSessionCustomer(String name){
+        editor.putString("name", name);
+        editor.commit();
+    }
+
     public String getUserId() {
         return pref.getString("user_id", null);
     }

@@ -1,6 +1,7 @@
 package com.dicicilaja.dicicilaja.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -183,14 +184,19 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         final List<String> JAMINAN_ITEMS = new ArrayList<>();
         JAMINAN_DATA = new HashMap<Integer, String>();
 
+        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+
         InterfaceSimulation apiServiceColleteral =
-                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
+                RetrofitClient.getClient().create(InterfaceSimulation.class);
 
         Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
         callcolleteral.enqueue(new Callback<Colleteral>() {
             @Override
             public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
-
+                progress.dismiss();
                 JAMINAN_ITEMS.clear();
                 JAMINAN_DATA.clear();
 
@@ -225,13 +231,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
 
 
-        InterfaceAreaBranch apiServiceArea1 = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
 
         Call<Area> callarea = apiServiceArea1.getArea();
         callarea.enqueue(new Callback<Area>() {
             @Override
             public void onResponse(Call<Area> call, Response<Area> response) {
-
+                progress.dismiss();
                 AREA_ITEMS.clear();
                 AREA_DATA.clear();
 
@@ -301,7 +307,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
         com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-                NewRetrofitClient.getClient().create(com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+                RetrofitClient.getClient().create(com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
 
         Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
         call.enqueue(new Callback<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
@@ -327,7 +333,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         snapHelperRekomendasi.attachToRecyclerView(recyclerRekomendasi);
 
         InterfaceRecommendation apiService2 =
-                NewRetrofitClient.getClient().create(InterfaceRecommendation.class);
+                RetrofitClient.getClient().create(InterfaceRecommendation.class);
 
         Call<Recommendation> call2 = apiService2.getRecommend();
         call2.enqueue(new Callback<Recommendation>() {
@@ -354,7 +360,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         snapHelperPartner.attachToRecyclerView(recyclerPartner);
 
         InterfacePartner apiService3 =
-                NewRetrofitClient.getClient().create(InterfacePartner.class);
+                RetrofitClient.getClient().create(InterfacePartner.class);
 
         Call<Partner> call3 = apiService3.getPartner();
         call3.enqueue(new Callback<Partner>() {
@@ -447,12 +453,17 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                     s_area = String.valueOf(area_value);
                     s_jaminan = String.valueOf(jaminan_value);
                     s_tenor = String.valueOf(tenor_value);
-                    s_harga = harga_simulasi.getText().toString();
+                    s_harga = harga_simulasi.getText().toString().replace(".","");
                 }catch (Exception ex) {
 
                 }
+                Log.d("Simulasi","area : " + area_value.toString());
+                Log.d("Simulasi","s_jaminan : " + jaminan_value.toString());
+                Log.d("Simulasi","s_tenor : " + v_tenor);
+                Log.d("Simulasi","s_harga : " + harga_simulasi.getText().toString().replace(".",""));
+
                 if(validateForm(s_area, s_jaminan, s_tenor, s_harga)) {
-                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString(), v_tenor);
+                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString().replace(".",""), v_tenor);
                 }
             }
         });
@@ -462,7 +473,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Travel");
-                intent.putExtra("content","maxi_travel");
+                intent.putExtra("content","travel");
                 startActivity(intent);
             }
         });
@@ -472,7 +483,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Edukasi");
-                intent.putExtra("content","maxi_edukasi");
+                intent.putExtra("content","edukasi");
                 startActivity(intent);
             }
         });
@@ -481,7 +492,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Usaha");
-                intent.putExtra("content","maxi_usaha");
+                intent.putExtra("content","usaha");
                 startActivity(intent);
             }
         });
@@ -490,7 +501,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Sehat");
-                intent.putExtra("content","maxi_sehat");
+                intent.putExtra("content","sehat");
                 startActivity(intent);
             }
         });
@@ -499,7 +510,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Griya");
-                intent.putExtra("content","maxi_griya");
+                intent.putExtra("content","asuransi");
                 startActivity(intent);
             }
         });
@@ -508,7 +519,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
                 intent.putExtra("title","MAXI Extraguna");
-                intent.putExtra("content","maxi_extraguna");
+                intent.putExtra("content","extraguna");
                 startActivity(intent);
             }
         });
@@ -704,7 +715,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     private void hitungSimulasi(final String area, final String jaminan, final String harga, final String tenor) {
         InterfaceSimulationProcess interfaceSimulationProcess =
-                NewRetrofitClient.getClient().create(InterfaceSimulationProcess.class);
+                RetrofitClient.getClient().create(InterfaceSimulationProcess.class);
 
         Call<Simulation> call = interfaceSimulationProcess.assign(area,jaminan, harga, tenor);
         call.enqueue(new Callback<Simulation>() {

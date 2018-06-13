@@ -447,7 +447,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
-        <activity android:name=".Activity.DeskripsiLengkapActivity"
+        <activity
+            android:name=".Activity.DeskripsiLengkapActivity"
             android:label="Deskripsi Lengkap"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -549,12 +550,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
         </activity>
-        <activity android:name=".Activity.UbahPasswordEmployeeActivity"
+        <activity
+            android:name=".Activity.UbahPasswordEmployeeActivity"
             android:label="Ubah Kata Sandi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProfileActivity" /></activity>
+                android:value="com.dicicilaja.dicicilaja.Activity.ProfileActivity" />
+        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.dicicilaja.dicicilaja."
@@ -562,8 +566,23 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name=".Activity.ProfileCustomerActivity"
+            android:label="Akun Saya"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity android:name=".Activity.UbahCustomerActivity"
+            android:label="Ubah Profil"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" /></activity>
     </application>
 
 </manifest>

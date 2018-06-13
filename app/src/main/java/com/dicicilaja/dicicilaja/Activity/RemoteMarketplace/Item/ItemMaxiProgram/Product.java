@@ -1,4 +1,4 @@
-package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel;
+package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -96,4 +96,5 @@ public class Product {
     public void setViews(Integer views) {
         this.views = views;
     }
+
 }

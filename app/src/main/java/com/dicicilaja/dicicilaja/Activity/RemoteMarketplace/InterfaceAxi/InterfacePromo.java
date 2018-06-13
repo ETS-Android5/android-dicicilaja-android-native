@@ -13,6 +13,6 @@ public interface InterfacePromo {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/promo")
+    @GET("promo")
     Call<Promo> getPromo();
 }

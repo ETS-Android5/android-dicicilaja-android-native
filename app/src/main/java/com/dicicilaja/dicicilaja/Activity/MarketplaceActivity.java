@@ -149,7 +149,6 @@ public class MarketplaceActivity extends AppCompatActivity
 //        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 //        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
-
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -178,7 +177,7 @@ public class MarketplaceActivity extends AppCompatActivity
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
-                                Intent intent = new Intent(getBaseContext(), OnBoardingActivity.class);
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -211,6 +210,15 @@ public class MarketplaceActivity extends AppCompatActivity
         session = new SessionManager(getApplicationContext());
         logout.setVisibility(View.GONE);
         login.setVisibility(View.VISIBLE);
+
+        try{
+            if(getIntent().getStringExtra("profile").equals("profile")){
+                viewPager.setCurrentItem(3);
+                drawer.closeDrawers();
+            }
+        }catch (Exception ex){
+
+        }
 
         if(session.isLoggedIn() == FALSE) {
             login.setVisibility(View.GONE);

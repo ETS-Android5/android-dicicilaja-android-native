@@ -25,6 +25,8 @@ import com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity;
 import com.dicicilaja.dicicilaja.Activity.DetailRequestActivity;
 import com.dicicilaja.dicicilaja.Activity.ProductMaxiActivity;
+import com.dicicilaja.dicicilaja.Activity.ProfileActivity;
+import com.dicicilaja.dicicilaja.Activity.ProfileCustomerActivity;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
@@ -34,6 +36,9 @@ import com.dicicilaja.dicicilaja.Listener.ClickListener;
 import com.dicicilaja.dicicilaja.Listener.RecyclerTouchListener;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +53,9 @@ public class AkunFragment extends Fragment {
     List<Data> programMaxi;
     LinearLayout share_app, nilai;
     String apiKey;
+    TextView nama;
+    LinearLayout detail_profile;
+    CircleImageView profile_picture;
     public AkunFragment() {
         // Required empty public constructor
     }
@@ -68,6 +76,32 @@ public class AkunFragment extends Fragment {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
+        nama =  view.findViewById(R.id.nama);
+        detail_profile =  view.findViewById(R.id.detail_profile);
+        profile_picture =  view.findViewById(R.id.profile_picture);
+
+        nama.setText(session.getName());
+        String imageUrl = session.getPhoto();
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(profile_picture);
+
+        detail_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ProfileCustomerActivity.class);
+                startActivity(intent);
+            }
+        });
+        profile_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ProfileCustomerActivity.class);
+                startActivity(intent);
+            }
+        });
         InterfaceProgramMaxi apiService3 =
                 NewRetrofitClient.getClient().create(InterfaceProgramMaxi.class);
 

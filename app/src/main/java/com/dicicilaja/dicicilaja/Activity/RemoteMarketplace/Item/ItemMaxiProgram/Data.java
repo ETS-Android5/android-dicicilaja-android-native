@@ -1,4 +1,4 @@
-package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel;
+package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

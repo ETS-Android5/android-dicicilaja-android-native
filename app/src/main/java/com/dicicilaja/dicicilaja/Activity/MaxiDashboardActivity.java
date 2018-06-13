@@ -229,7 +229,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             @Override
             public void onFailure(Call<PengajuanMaxi> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MaxiDashboardActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

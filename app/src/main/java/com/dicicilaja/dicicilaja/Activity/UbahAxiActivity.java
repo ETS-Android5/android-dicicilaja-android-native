@@ -46,10 +46,8 @@ public class UbahAxiActivity extends AppCompatActivity {
 
     MaterialEditText inputNamaLengkap, inputTempatLahir, inputTanggal, inputNoHp, inputEmail, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputProvinsi, inputKodepos, inputNPWP, inputNamaBank, inputCabang, inputRekening, inputAN, inputKotaBank;
     MaterialSpinner jenisKelamin;
-    ImageView date_range;
     Button save;
     String apiKey;
-    TextInputLayout layoutNamaLengkap;
 
     SessionManager session;
     String namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank;
@@ -181,7 +179,7 @@ public class UbahAxiActivity extends AppCompatActivity {
                     session.editLoginSession(namaLengkap,kodepos);
                     Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else{
                     Toast.makeText(getBaseContext(),"Gagal merubah data Anda",Toast.LENGTH_SHORT).show();

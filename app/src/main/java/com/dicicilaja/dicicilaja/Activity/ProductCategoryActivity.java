@@ -22,20 +22,19 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
 import com.dicicilaja.dicicilaja.API.Item.Product.SectionDataModel;
 import com.dicicilaja.dicicilaja.API.Item.Product.SingleItemModel;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMaxiTravel;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMaxiUsaha;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel.Data;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel.MaxiTravel;
-import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiTravel.Product;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMaxiProgram;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram.MaxiProgram;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Product;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiUsaha.MaxiUsaha;
 import com.dicicilaja.dicicilaja.Adapter.RecyclerViewDataAdapter;
 import com.dicicilaja.dicicilaja.Content.PromoModel;
@@ -84,93 +83,133 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        if(content.equals("maxi_travel")){
-            InterfaceMaxiTravel apiService =
-                    NewRetrofitClient.getClient().create(InterfaceMaxiTravel.class);
+        InterfaceMaxiProgram apiService =
+                RetrofitClient.getClient().create(InterfaceMaxiProgram.class);
 
-            Call<MaxiTravel> call2 = apiService.getProduct(apiKey);
-            call2.enqueue(new Callback<MaxiTravel>() {
-                @Override
-                public void onResponse(Call<MaxiTravel> call, Response<MaxiTravel> response) {
-                    List<Data> maxi = response.body().getData();
-                    for (int i = 0; i < maxi.size(); i++) {
-                        SectionDataModel dm = new SectionDataModel();
-                        dm.setHeaderTitle(maxi.get(i).getTag());
-                        ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
+        Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
+        call2.enqueue(new Callback<MaxiProgram>() {
+            @Override
+            public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+                List<Data> maxi = response.body().getData();
+                for (int i = 0; i < maxi.size(); i++) {
+                    SectionDataModel dm = new SectionDataModel();
+                    dm.setHeaderTitle(maxi.get(i).getTag());
+                    ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
 
-                        List<Product> product = maxi.get(i).getProduct();
-                        for (int j = 0; j < maxi.get(i).getProduct().size(); j++) {
+                    List<Product> product = maxi.get(i).getProduct();
+                    for (int j = 0; j < maxi.get(i).getProduct().size(); j++) {
 
-                            singleItemModels.add(new SingleItemModel(product.get(j).getName(), product.get(j).getImage(), product.get(j).getPartner(), product.get(j).getPrice(), product.get(j).getExcerpt()));
-                        }
-                        dm.setAllItemInSection(singleItemModels);
-                        allSampleData.add(dm);
+                        singleItemModels.add(new SingleItemModel(product.get(j).getName(), product.get(j).getImage(), product.get(j).getPartner(), product.get(j).getPrice(), product.get(j).getExcerpt()));
                     }
-                    progress.dismiss();
+                    dm.setAllItemInSection(singleItemModels);
+                    allSampleData.add(dm);
                 }
+                progress.dismiss();
+            }
 
-                @Override
-                public void onFailure(Call<MaxiTravel> call, Throwable t) {
-                    progress.dismiss();
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+            @Override
+            public void onFailure(Call<MaxiProgram> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-                    alertDialog.show();
-                }
-            });
-        }else if(content.equals("maxi_usaha")){
-            InterfaceMaxiUsaha apiService =
-                    NewRetrofitClient.getClient().create(InterfaceMaxiUsaha.class);
-
-            Call<MaxiUsaha> call2 = apiService.getProduct(apiKey);
-            call2.enqueue(new Callback<MaxiUsaha>() {
-                @Override
-                public void onResponse(Call<MaxiUsaha> call, Response<MaxiUsaha> response) {
-                    List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiUsaha.Data> maxi = response.body().getData();
-                    for (int i = 0; i < maxi.size(); i++) {
-                        SectionDataModel dm = new SectionDataModel();
-                        dm.setHeaderTitle(maxi.get(i).getTag());
-                        ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
-
-                        List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemMaxiUsaha.Product> product = maxi.get(i).getProduct();
-                        for (int j = 0; j < maxi.get(i).getProduct().size(); j++) {
-
-                            singleItemModels.add(new SingleItemModel(product.get(j).getName(), product.get(j).getImage(), product.get(j).getPartner(), product.get(j).getPrice(), product.get(j).getExcerpt()));
-                        }
-                        dm.setAllItemInSection(singleItemModels);
-                        allSampleData.add(dm);
                     }
-                    progress.dismiss();
-                }
+                });
+                alertDialog.show();
+            }
+        });
 
-                @Override
-                public void onFailure(Call<MaxiUsaha> call, Throwable t) {
-                    progress.dismiss();
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alertDialog.show();
-                }
-            });
-        }else if(content.equals("maxi_sehat")){
-
-        }else if(content.equals("maxi_edukasi")){
-
-        }else if(content.equals("maxi_griya")){
-
-        }else if(content.equals("maxi_extraguna")){
-
-        }
+//        if(content.equals("maxi_travel")){
+//            InterfaceMaxiProgram apiService =
+//                    RetrofitClient.getClient().create(InterfaceMaxiProgram.class);
+//
+//            Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
+//            call2.enqueue(new Callback<MaxiProgram>() {
+//                @Override
+//                public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+//                    List<Data> maxi = response.body().getData();
+//                    for (int i = 0; i < maxi.size(); i++) {
+//                        SectionDataModel dm = new SectionDataModel();
+//                        dm.setHeaderTitle(maxi.get(i).getTag());
+//                        ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
+//
+//                        List<Product> product = maxi.get(i).getProduct();
+//                        for (int j = 0; j < maxi.get(i).getProduct().size(); j++) {
+//
+//                            singleItemModels.add(new SingleItemModel(product.get(j).getName(), product.get(j).getImage(), product.get(j).getPartner(), product.get(j).getPrice(), product.get(j).getExcerpt()));
+//                        }
+//                        dm.setAllItemInSection(singleItemModels);
+//                        allSampleData.add(dm);
+//                    }
+//                    progress.dismiss();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<MaxiProgram> call, Throwable t) {
+//                    progress.dismiss();
+//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+//                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+//
+//                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    alertDialog.show();
+//                }
+//            });
+//        }else if(content.equals("maxi_usaha")){
+//            InterfaceMaxiProgram apiService =
+//                    RetrofitClient.getClient().create(InterfaceMaxiProgram.class);
+//
+//            Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
+//            call2.enqueue(new Callback<MaxiProgram>() {
+//                @Override
+//                public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+//                    List<Data> maxi = response.body().getData();
+//                    for (int i = 0; i < maxi.size(); i++) {
+//                        SectionDataModel dm = new SectionDataModel();
+//                        dm.setHeaderTitle(maxi.get(i).getTag());
+//                        ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
+//
+//                        List<Product> product = maxi.get(i).getProduct();
+//                        for (int j = 0; j < maxi.get(i).getProduct().size(); j++) {
+//
+//                            singleItemModels.add(new SingleItemModel(product.get(j).getName(), product.get(j).getImage(), product.get(j).getPartner(), product.get(j).getPrice(), product.get(j).getExcerpt()));
+//                        }
+//                        dm.setAllItemInSection(singleItemModels);
+//                        allSampleData.add(dm);
+//                    }
+//                    progress.dismiss();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<MaxiProgram> call, Throwable t) {
+//                    progress.dismiss();
+//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+//                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+//
+//                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    alertDialog.show();
+//                }
+//            });
+//        }else if(content.equals("maxi_sehat")){
+//
+//        }else if(content.equals("maxi_edukasi")){
+//
+//        }else if(content.equals("maxi_griya")){
+//
+//        }else if(content.equals("maxi_extraguna")){
+//
+//        }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
