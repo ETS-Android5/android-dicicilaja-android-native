@@ -69,6 +69,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
     Button upload_ktp, upload_colleteral;
     ImageView image_ktp, image_colleteral;
     TextView textCheck;
+    SessionManager session;
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_COLLETERAL = 200;
@@ -94,7 +95,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         final String apiKey = "Bearer " + session.getToken();
 
         inputNama = findViewById(R.id.inputNama);
@@ -270,10 +271,16 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 if(response.isSuccessful()){
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+                    if(session.getRole().equals("channel")){
+                        Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }else if(session.getRole().equals("basic")){
+                        Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
 
                 }else{
                     progress.dismiss();

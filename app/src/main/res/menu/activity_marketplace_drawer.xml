@@ -11,7 +11,7 @@
                 android:id="@+id/navbar_axi"
                 android:title="Ayo jadi AXI"/>
             <item
-                android:id="@+id/navbar_mitra_maxiZ"
+                android:id="@+id/navbar_mitra"
                 android:title="Daftar Kemitraan"/>
 
             <item

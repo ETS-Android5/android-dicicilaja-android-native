@@ -1,7 +1,10 @@
 package com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi;
 
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 
 /**
@@ -12,6 +15,6 @@ public interface InterfacePengajuanMarketplace {
     @Headers({
             "Accept: application/json",
     })
-    @GET("jodi/recommendation")
-    Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemRequestMarketplace.Recommendation> getRecommend();
+    @GET("user/request")
+    Call<AllPengajuan> getPengajuan(@Header("Authorization") String apiKey);
 }

@@ -13,6 +13,10 @@ import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
 import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllProduk;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAllProduct.AllProduk;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAllProduct.Datum;
+import com.dicicilaja.dicicilaja.Adapter.ListProdukAdapter;
 import com.dicicilaja.dicicilaja.Adapter.ListPromoAdapter;
 import com.dicicilaja.dicicilaja.R;
 import retrofit2.Call;
@@ -41,20 +45,20 @@ public class SearchActivity extends AppCompatActivity {
         search = findViewById(R.id.recycler_search);
         search.setHasFixedSize(true);
         search.setLayoutManager(new GridLayoutManager(this, 2));
-        com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-                RetrofitClient.getClient().create(com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+        InterfaceAllProduk apiService =
+                RetrofitClient.getClient().create(InterfaceAllProduk.class);
 
-        Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
-        call.enqueue(new Callback<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
+        Call<AllProduk> call = apiService.getProduct();
+        call.enqueue(new Callback<AllProduk>() {
             @Override
-            public void onResponse(Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
-                final List<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
+            public void onResponse(Call<AllProduk> call, Response<AllProduk> response) {
+                final List<Datum> produk = response.body().getData();
 
-                search.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
+                search.setAdapter(new ListProdukAdapter(produk, getBaseContext()));
             }
 
             @Override
-            public void onFailure(Call<com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
+            public void onFailure(Call<AllProduk> call, Throwable t) {
 
             }
         });

@@ -62,12 +62,20 @@ public class BantuanFragment extends Fragment {
             }
         });
 
+//        hotline2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String phone = "081293343334";
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+//                startActivity(intent);
+//            }
+//        });
+
         hotline2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phone = "081293343334";
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                startActivity(intent);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281293343334"));
+                startActivity(browserIntent);
             }
         });
 

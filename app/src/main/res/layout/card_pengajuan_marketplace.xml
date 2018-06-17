@@ -11,6 +11,10 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:elevation="100dp"
         android:contextClickable="true">
         <RelativeLayout
@@ -19,9 +23,10 @@
             android:padding="12dp">
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/illustration_1_02"/>
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:src="@drawable/illustration_1_02"
+                android:scaleType="centerCrop"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_toRightOf="@+id/image"
@@ -55,8 +60,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="Status Order Proses"
+                    android:layout_marginBottom="5dp"
                     android:textSize="10sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,10 +80,12 @@
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/terkirim" />
                         <TextView
+                            android:id="@+id/txt_1"
                             android:layout_below="@+id/img_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Terkirim"/>
                     </RelativeLayout>
 
@@ -96,10 +104,12 @@
                             android:src="@drawable/konfirmasi"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/txt_2"
                             android:layout_below="@+id/img_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Konfirmasi"/>
                     </RelativeLayout>
 
@@ -118,10 +128,12 @@
                             android:src="@drawable/proses"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/txt_3"
                             android:layout_below="@+id/img_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Proses"/>
                     </RelativeLayout>
 
@@ -140,10 +152,12 @@
                             android:src="@drawable/survey"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/txt_4"
                             android:layout_below="@+id/img_4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Survey"/>
                     </RelativeLayout>
 
@@ -162,10 +176,12 @@
                             android:src="@drawable/penilaian"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/txt_5"
                             android:layout_below="@+id/img_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Penilaian"/>
                     </RelativeLayout>
 
@@ -184,10 +200,12 @@
                             android:src="@drawable/pencairan"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/txt_6"
                             android:layout_below="@+id/img_6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="6sp"
+                            android:layout_marginTop="2dp"
                             android:text="Pencairan"/>
                     </RelativeLayout>
                 </LinearLayout>

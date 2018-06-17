@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.dicicilaja.dicicilaja.Adapter.ViewPagerAdapter;
 import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
+import com.dicicilaja.dicicilaja.WebView.AboutAxiMarketplaceActivity;
+import com.dicicilaja.dicicilaja.WebView.AboutMaxiMarketplaceActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -163,6 +165,32 @@ public class MarketplaceActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Intent intent;
                 switch( menuItem.getItemId() ) {
+                    case R.id.navbar_home:
+                        break;
+                    case R.id.navbar_axi:
+                        Intent intent1 = new Intent(getBaseContext(), AboutAxiMarketplaceActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case R.id.navbar_mitra:
+                        Intent intent2 = new Intent(getBaseContext(), AboutMaxiMarketplaceActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case R.id.navbar_simulasi:
+                        Intent intent3 = new Intent(getBaseContext(), SimulationActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.navbar_semua_produk:
+                        break;
+                    case R.id.navbar_gudang_info:
+                        break;
+                    case R.id.navbar_tentang:
+                        Intent intent6 = new Intent(getBaseContext(), HelpAboutActivity.class);
+                        startActivity(intent6);
+                        break;
+                    case R.id.navbar_bantuan:
+                        viewPager.setCurrentItem(2);
+                        drawer.closeDrawers();
+                        break;
                     case R.id.navbar_keluar:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MarketplaceActivity.this);
 
@@ -177,9 +205,6 @@ public class MarketplaceActivity extends AppCompatActivity
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 session.logoutUser();
-                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                                startActivity(intent);
-                                finish();
                             }
                         });
 
@@ -234,9 +259,6 @@ public class MarketplaceActivity extends AppCompatActivity
             });
         }else{
             try {
-
-            }catch (Exception ex){
-
                 nameView.setText(session.getName());
                 String imageUrl = session.getPhoto();
                 Picasso.with(getApplicationContext())
@@ -253,6 +275,9 @@ public class MarketplaceActivity extends AppCompatActivity
 //                    startActivity(intent);
                     }
                 });
+            }catch (Exception ex){
+
+
             }
         }
 

@@ -20,39 +20,38 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:id="@+id/search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorWhite">
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginLeft="10dp"
-                            android:hint="Cari pengajuan"
-                            android:imeOptions="actionSearch"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:layout_marginRight="10dp"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:background="@android:color/transparent"/>
-                    </LinearLayout>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/search"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_marginTop="16dp"-->
+                    <!--android:layout_marginLeft="16dp"-->
+                    <!--android:layout_marginRight="16dp">-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:background="@color/colorWhite">-->
+                        <!--<EditText-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:hint="Cari pengajuan"-->
+                            <!--android:imeOptions="actionSearch"-->
+                            <!--android:drawableLeft="@drawable/ic_search"-->
+                            <!--android:layout_marginRight="10dp"-->
+                            <!--android:inputType="text"-->
+                            <!--android:padding="10dp"-->
+                            <!--android:background="@android:color/transparent"/>-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="16dp">
+                    android:orientation="vertical">
                     <!--<LinearLayout-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
@@ -73,6 +72,9 @@
                         android:id="@+id/recycler_pengajuan"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:clipToPadding="false"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
                     <LinearLayout
                         android:id="@+id/order"
@@ -96,6 +98,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
                             android:layout_marginTop="10dp"
                             android:text="Semua Pengajuan Pembiayaan dana multiguna akan muncul disini supaya Anda bisa mengecek dengan mudah dan kapanpun."/>
                         <Button
