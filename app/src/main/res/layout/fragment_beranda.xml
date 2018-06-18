@@ -42,27 +42,27 @@
                         card_view:unselected_color="@color/colorWhite"
                         android:gravity="center"
                         />
-                    <RelativeLayout
-                        android:id="@+id/allpromo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true">
-                        <TextView
-                            android:id="@+id/text_all_promo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="Lihat Semua Promo"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/colorAccent"/>
-                        <ImageView
-                            android:id="@+id/show_more"
-                            android:layout_toRightOf="@+id/text_all_promo"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/ic_show_more"
-                            android:layout_centerVertical="true"/>
-                    </RelativeLayout>
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/allpromo"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true">-->
+                        <!--<TextView-->
+                            <!--android:id="@+id/text_all_promo"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:text="Lihat Semua Promo"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:textColor="@color/colorAccent"/>-->
+                        <!--<ImageView-->
+                            <!--android:id="@+id/show_more"-->
+                            <!--android:layout_toRightOf="@+id/text_all_promo"-->
+                            <!--android:layout_width="15dp"-->
+                            <!--android:layout_height="15dp"-->
+                            <!--android:src="@drawable/ic_show_more"-->
+                            <!--android:layout_centerVertical="true"/>-->
+                    <!--</RelativeLayout>-->
 
                 </RelativeLayout>
 
@@ -78,7 +78,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp">
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp">
 
                         <TextView
                             android:id="@+id/title_program_agen"

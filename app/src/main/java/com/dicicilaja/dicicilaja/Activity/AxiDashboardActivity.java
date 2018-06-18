@@ -33,6 +33,14 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.API.Interface.InterfaceNotification;
+import com.dicicilaja.dicicilaja.API.Item.Notification.Notification;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
+import com.dicicilaja.dicicilaja.Adapter.NotifAdapter;
+import com.dicicilaja.dicicilaja.WebView.MateriActivity;
+import com.dicicilaja.dicicilaja.WebView.NewsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -79,6 +87,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     RelativeLayout allpromo;
     LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
 
+    HashMap<String, String> file_maps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +130,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         button_rb = findViewById(R.id.button_rb);
         footer_item_1 = findViewById(R.id.footer_item_1);
         allpengajuan = findViewById(R.id.allpengajuan);
-        allpromo = findViewById(R.id.allpromo);
+//        allpromo = findViewById(R.id.allpromo);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -146,13 +155,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_box6.setTypeface(opensans_bold);
         content_box6.setTypeface(opensans_reguler);
 
-        allpromo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),AllPromoActivity.class);
-                startActivity(intent);
-            }
-        });
+//        allpromo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getBaseContext(),AllPromoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
@@ -391,8 +400,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         startActivity(intent);
                         break;
                     case R.id.navbar_news:
+                        Intent intent5 = new Intent(getBaseContext(), NewsActivity.class);
+                        startActivity(intent5);
                         break;
                     case R.id.navbar_materi:
+                        Intent intent6 = new Intent(getBaseContext(), MateriActivity.class);
+                        startActivity(intent6);
                         break;
                     case R.id.navbar_add:
                         Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
@@ -454,23 +467,50 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        final HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
-        file_maps.put(1,"https://dicicilaja.com/uploads/banner/1524290702banner%20campaign.jpg");
-        file_maps.put(2,"https://dicicilaja.com/uploads/banner/1523528108Homebanner%20Tasya.jpg");
+        file_maps = new HashMap<String, String>();
+
+//        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
+//        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
+        InterfaceAxiSlider apiSlider =
+                RetrofitClient.getClient().create(InterfaceAxiSlider.class);
+
+        Call<AxiSlider> call = apiSlider.getSlider();
+        call.enqueue(new Callback<AxiSlider>() {
+            @Override
+            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                List <Datum> slider = response.body().getData();
+                for (int i = 0; i < slider.size(); i++) {
+                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
+                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                }
+
+                for(final String name1 : file_maps.keySet()) {
+                    final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
+                    // initialize a SliderLayout
+                    sliderView
+                            .image(file_maps.get(name1))
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop);
+                    sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                        @Override
+                        public void onSliderClick(BaseSliderView slider) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(name1.toString()));
+                            startActivity(browserIntent);
+                        }
+                    });
+                    mDemoSlider.addSlider(sliderView);
+                }
 
 
-        for(Integer name1 : file_maps.keySet()) {
-            final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
-            // initialize a SliderLayout
-            sliderView
-                    .image(file_maps.get(name1))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-            sliderView.setOnSliderClickListener(this);
-            sliderView.bundle(new Bundle());
-            sliderView.getBundle()
-                    .putString("extra", name1.toString());
-            mDemoSlider.addSlider(sliderView);
-        }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            }
+        });
+
+
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
@@ -510,9 +550,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Intent intent = new Intent(getBaseContext(), PromoActivity.class);
-        intent.putExtra("ID",slider.getBundle().get("extra").toString());
-        startActivity(intent);
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(slider.getBundle().get("extra").toString()));
+        startActivity(browserIntent);
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}

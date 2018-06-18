@@ -113,47 +113,9 @@ public class RegisterAxi5Activity extends AppCompatActivity {
                     } catch (Exception ex) {
 
                     }
-                    android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi5Activity.this);
-                    alertDialog.setMessage("axi_id: " + axi_id + "\n"
-                            + "nama: " + nama + "\n"
-                            + "email: " + email + "\n"
-                            + "hp: " + hp + "\n"
-                            + "namaibu: " + namaibu + "\n"
-                            + "area: " + area + "\n"
-                            + "cabang: " + cabang + "\n"
-                            + "no_ktp: " + no_ktp + "\n"
-                            + "tempat_lahir: " + tempat_lahir + "\n"
-                            + "tanggal: " + tanggal + "\n"
-                            + "alamat: " + alamat + "\n"
-                            + "rtrw: " + rtrw + "\n"
-                            + "kelurahan: " + kelurahan + "\n"
-                            + "kecamatan: " + kecamatan + "\n"
-                            + "kota: " + kota + "\n"
-                            + "provinsi: " + provinsi + "\n"
-                            + "kodepos: " + kodepos + "\n"
-                            + "jk: " + jk + "\n"
-                            + "status: " + status + "\n"
-                            + "nama_bank: " + nama_bank + "\n"
-                            + "no_rekening: " + no_rekening + "\n"
-                            + "cabang_bank: " + cabang_bank + "\n"
-                            + "an_rekening: " + an_rekening + "\n"
-                            + "kota_bank: " + kota_bank + "\n"
-                            + "npwp: " + npwp + "\n"
-                            + "nama_npwp: " + nama_npwp + "\n"
-                            + "status_npwp: " + status_npwp + "\n"
-                            + "pkp_status: " + pkp_status + "\n"
-                            + "imageKtp: " + imageKtp + "\n"
-                            + "imageNpwp: " + imageNpwp + "\n"
-                            + "imageCover: " + imageCover + "\n");
-
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(validateForm(imageKtp, imageNpwp, imageCover)) {
-                                buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rtrw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover);
-                            }
-                        }
-                    });
-                    alertDialog.show();
+                    if(validateForm(imageKtp, imageNpwp, imageCover)) {
+                        buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rtrw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover);
+                    }
                 }else {
                     android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi5Activity.this);
                     alertDialog.setMessage("Harap setujui syarat dan ketentuan jika ingin mendaftar");

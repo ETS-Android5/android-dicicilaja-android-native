@@ -228,7 +228,7 @@
         </activity>
         <activity
             android:name=".Activity.SearchActivity"
-            android:label="Pencarian"
+            android:label="Semua produk"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -601,8 +601,48 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
-        <activity android:name=".Activity.AllProductPromoActivity"
+        <activity
+            android:name=".Activity.AllProductPromoActivity"
             android:label="Semua Promo"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.ForgotActivity"
+            android:label="Lupa Kata Sandi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.NewsActivity"
+            android:label="Berita Terbaru"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.MateriActivity"
+            android:label="Unduh Materi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.InfoActivity"
+            android:label="Gudang Info"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity android:name=".Activity.RegisterMaxi1Activity"
+            android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

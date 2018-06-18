@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,10 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -64,6 +69,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
     LinearLayout insentif_car, insentif_mcy, jumlah_program, total_pengajuan, button_rb, button_kedalaman_rb;
 
     RelativeLayout allpengajuan, allprogram;
+    HashMap<String, String> file_maps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,23 +333,48 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             }
         });
 
-        final HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
-        file_maps.put(1,"https://dicicilaja.com/uploads/banner/1524290702banner%20campaign.jpg");
-        file_maps.put(2,"https://dicicilaja.com/uploads/banner/1523528108Homebanner%20Tasya.jpg");
+        file_maps = new HashMap<String, String>();
+
+//        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
+//        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
+        InterfaceMitraSlider apiSlider =
+                RetrofitClient.getClient().create(InterfaceMitraSlider.class);
+
+        Call<AxiSlider> call = apiSlider.getSlider();
+        call.enqueue(new Callback<AxiSlider>() {
+            @Override
+            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                List <Datum> slider = response.body().getData();
+                for (int i = 0; i < slider.size(); i++) {
+                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
+                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                }
+
+                for(final String name1 : file_maps.keySet()) {
+                    final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
+                    // initialize a SliderLayout
+                    sliderView
+                            .image(file_maps.get(name1))
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop);
+                    sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                        @Override
+                        public void onSliderClick(BaseSliderView slider) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(name1.toString()));
+                            startActivity(browserIntent);
+                        }
+                    });
+                    mDemoSlider.addSlider(sliderView);
+                }
 
 
-        for(Integer name1 : file_maps.keySet()) {
-            final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
-            // initialize a SliderLayout
-            sliderView
-                    .image(file_maps.get(name1))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-            sliderView.setOnSliderClickListener(this);
-            sliderView.bundle(new Bundle());
-            sliderView.getBundle()
-                    .putString("extra", name1.toString());
-            mDemoSlider.addSlider(sliderView);
-        }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            }
+        });
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);

@@ -25,6 +25,7 @@ import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceLogin;
 import com.dicicilaja.dicicilaja.API.Item.Login.Login;
+import com.dicicilaja.dicicilaja.WebView.ForgotActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import com.dicicilaja.dicicilaja.API.Interface.InterfaceNotifToken;
@@ -162,6 +163,8 @@ public class LoginActivity extends AppCompatActivity {
             tvForgot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), ForgotActivity.class);
+                    startActivity(intent);
                 }
             });
             lewati.setOnClickListener(new View.OnClickListener() {

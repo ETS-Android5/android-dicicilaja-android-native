@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.dicicilaja.dicicilaja.Activity.RegisterActivity;
+import com.dicicilaja.dicicilaja.Activity.RegisterAxi1Activity;
 import com.dicicilaja.dicicilaja.R;
 
 public class AboutAxiMarketplaceActivity extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                Intent intent = new Intent(getBaseContext(), RegisterAxi1Activity.class);
                 startActivity(intent);
             }
         });

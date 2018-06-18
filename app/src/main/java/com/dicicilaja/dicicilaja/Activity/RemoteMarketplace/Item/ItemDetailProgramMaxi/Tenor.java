@@ -30,4 +30,5 @@ public class Tenor {
     public void setCicilan(String cicilan) {
         this.cicilan = cicilan;
     }
+
 }

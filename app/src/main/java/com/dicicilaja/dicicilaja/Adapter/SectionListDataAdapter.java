@@ -40,10 +40,10 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
         SingleItemModel itemModel = itemModels.get(position);
         holder.tv_title.setText(itemModel.getTv_title());
-        Picasso.with(mContext).load(itemModel.getImage()).into(holder.image);
+        Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
         holder.tv_mitra.setText(itemModel.getTv_mitra());
         holder.tv_harga.setText(itemModel.getTv_harga());
-        holder.tv_tenor.setText(itemModel.getTv_tenor());
+        holder.tv_jenis.setText(itemModel.getTv_tenor());
     }
 
     @Override
@@ -54,18 +54,18 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         protected TextView tv_title;
-        protected ImageView image;
+        protected ImageView discount_image;
         protected TextView tv_mitra;
         protected TextView tv_harga;
-        protected TextView tv_tenor;
+        protected TextView tv_jenis;
 
         public SingleItemRowHolder(View itemView) {
             super(itemView);
             this.tv_title = itemView.findViewById(R.id.tv_title);
-            this.image = itemView.findViewById(R.id.image);
+            this.discount_image = itemView.findViewById(R.id.discount_image);
             this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
-            this.tv_tenor = itemView.findViewById(R.id.tv_tenor);
+            this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

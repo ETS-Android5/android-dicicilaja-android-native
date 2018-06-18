@@ -26,6 +26,8 @@ import com.dicicilaja.dicicilaja.R;
 import com.dicicilaja.dicicilaja.Session.SessionManager;
 import com.dicicilaja.dicicilaja.WebView.AboutAxiMarketplaceActivity;
 import com.dicicilaja.dicicilaja.WebView.AboutMaxiMarketplaceActivity;
+import com.dicicilaja.dicicilaja.WebView.InfoActivity;
+import com.dicicilaja.dicicilaja.WebView.MateriActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -180,12 +182,16 @@ public class MarketplaceActivity extends AppCompatActivity
                         startActivity(intent3);
                         break;
                     case R.id.navbar_semua_produk:
+                        Intent intent4 = new Intent(getBaseContext(), SearchActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.navbar_gudang_info:
+                        Intent intent6 = new Intent(getBaseContext(), InfoActivity.class);
+                        startActivity(intent6);
                         break;
                     case R.id.navbar_tentang:
-                        Intent intent6 = new Intent(getBaseContext(), HelpAboutActivity.class);
-                        startActivity(intent6);
+                        Intent intent7 = new Intent(getBaseContext(), HelpAboutActivity.class);
+                        startActivity(intent7);
                         break;
                     case R.id.navbar_bantuan:
                         viewPager.setCurrentItem(2);
@@ -448,11 +454,12 @@ public class MarketplaceActivity extends AppCompatActivity
             }
 
             return true;
-        }else if (id == R.id.search) {
-            Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-            startActivity(intent);
-            return true;
         }
+//        else if (id == R.id.search) {
+//            Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

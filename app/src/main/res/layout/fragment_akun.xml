@@ -104,29 +104,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_alignParentRight="true">
+                        android:layout_marginBottom="5dp">
                         <TextView
                             android:id="@+id/title_favorite"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Produk Favorit"
                             android:layout_centerVertical="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="Lihat Semua"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/show_more2"
-                            android:textColor="@color/colorAccent"/>
-                        <ImageView
-                            android:id="@+id/show_more2"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/ic_show_more"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:text="Lihat Semua"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_toLeftOf="@+id/show_more2"-->
+                            <!--android:textColor="@color/colorAccent"/>-->
+                        <!--<ImageView-->
+                            <!--android:id="@+id/show_more2"-->
+                            <!--android:layout_width="15dp"-->
+                            <!--android:layout_height="15dp"-->
+                            <!--android:src="@drawable/ic_show_more"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_alignParentRight="true"/>-->
                     </RelativeLayout>
                 </RelativeLayout>
                 <android.support.v7.widget.RecyclerView

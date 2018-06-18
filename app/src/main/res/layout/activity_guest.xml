@@ -29,7 +29,7 @@
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/Logo"
                 app:srcCompat="@drawable/illustration_1_01" />
@@ -65,18 +65,17 @@
                 android:text="Daftar"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp" />
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/textInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
                 android:layout_below="@+id/btn_regis"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp">
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_marginLeft="4dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
@@ -87,72 +86,73 @@
                     <TextView
                         android:id="@+id/login_account"
                         android:layout_marginTop="3dp"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorAccent"
                         android:text="Masuk Akun"/>
                 </LinearLayout>
 
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textInfo"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/title_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Login"/>
-                <TextView
-                    android:id="@+id/desc_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="dengan sosial media" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_login"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <Button
-                    android:id="@+id/btn_facebook"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="55dp"
-                    android:layout_below="@+id/layout_login"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:backgroundTint="@color/colorWhite"
-                    android:drawableLeft="@drawable/facebook"
-                    android:text="Facebook"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorFacebook"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            </RelativeLayout>
+            <!--<LinearLayout-->
+                <!--android:id="@+id/layout_login"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/textInfo"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:orientation="vertical">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/title_login"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Login"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/desc_login"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="dengan sosial media" />-->
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/layout_login"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="2">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_facebook"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="55dp"-->
+                    <!--android:layout_below="@+id/layout_login"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:backgroundTint="@color/colorWhite"-->
+                    <!--android:drawableLeft="@drawable/facebook"-->
+                    <!--android:text="Facebook"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/colorFacebook"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:textStyle="bold" />-->
 
-                <Button
-                    android:id="@+id/btn_google"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="55dp"
-                    android:layout_below="@+id/btn_facebook"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:backgroundTint="@color/colorWhite"
-                    android:drawableLeft="@drawable/google"
-                    android:text="Google"
-                    android:textStyle="bold"
-                    android:textAllCaps="false"
-                    android:textColor="#444444"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                <!--<Button-->
+                    <!--android:id="@+id/btn_google"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="55dp"-->
+                    <!--android:layout_below="@+id/btn_facebook"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:backgroundTint="@color/colorWhite"-->
+                    <!--android:drawableLeft="@drawable/google"-->
+                    <!--android:text="Google"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="#444444"-->
+                    <!--android:textSize="18sp" />-->
+            <!--</LinearLayout>-->
 
         </RelativeLayout>
     </ScrollView>

@@ -200,24 +200,17 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
                 }
 
-                android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi1Activity.this);
-                alertDialog.setMessage("axi_id: " + axi_id + "\n" + "nama: " + nama + "\n" + "email: " + email + "\n" + "hp: " + hp + "\n" + "namaibu: " + namaibu + "\n" + "area: " + area + "\n" + "cabang: " + cabang);
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(validateForm(nama, email, hp, namaibu, area, cabang)) {
-                            Intent intent = new Intent(getBaseContext(), RegisterAxi2Activity.class);
-                            intent.putExtra("axi_id",axi_id);
-                            intent.putExtra("nama",nama);
-                            intent.putExtra("email",email);
-                            intent.putExtra("hp", hp);
-                            intent.putExtra("namaibu", namaibu);
-                            intent.putExtra("area", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                            intent.putExtra("cabang", CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
-                            startActivity(intent);
-                        }
-                    }
-                });
-                alertDialog.show();
+                if(validateForm(nama, email, hp, namaibu, area, cabang)) {
+                    Intent intent = new Intent(getBaseContext(), RegisterAxi2Activity.class);
+                    intent.putExtra("axi_id",axi_id);
+                    intent.putExtra("nama",nama);
+                    intent.putExtra("email",email);
+                    intent.putExtra("hp", hp);
+                    intent.putExtra("namaibu", namaibu);
+                    intent.putExtra("area", AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+                    intent.putExtra("cabang", CABANG_MAP.get(spinnerCabang.getSelectedItemPosition()));
+                    startActivity(intent);
+                }
 
             }
         });

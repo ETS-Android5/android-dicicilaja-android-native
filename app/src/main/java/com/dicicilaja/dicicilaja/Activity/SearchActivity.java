@@ -1,5 +1,6 @@
 package com.dicicilaja.dicicilaja.Activity;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,6 +27,7 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
 
     RecyclerView search;
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,10 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progress = new ProgressDialog(SearchActivity.this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -53,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AllProduk> call, Response<AllProduk> response) {
                 final List<Datum> produk = response.body().getData();
-
+                progress.dismiss();
                 search.setAdapter(new ListProdukAdapter(produk, getBaseContext()));
             }
 

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -113,6 +114,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     String s_area, s_jaminan, s_tenor, s_harga;
 
     RelativeLayout show_all_partner, show_all_promo, show_all_recommend;
+
+    ProgressDialog progress;
     public BerandaFragment() {
         // Required empty public constructor
     }
@@ -139,7 +142,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         show_all_partner = view.findViewById(R.id.show_all_partner);
         show_all_promo = view.findViewById(R.id.show_all_promo);
         show_all_recommend = view.findViewById(R.id.show_all_recommend);
-        allpromo = view.findViewById(R.id.allpromo);
+//        allpromo = view.findViewById(R.id.allpromo);
         webview_axi = view.findViewById(R.id.webview_axi);
         webview_maxi = view.findViewById(R.id.webview_maxi);
         dana_multiguna = view.findViewById(R.id.dana_multiguna);
@@ -153,7 +156,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_program_agen.setTypeface(opensans_semibold);
+        title_program_agen.setTypeface(opensans_bold);
         program_maxi.setTypeface(opensans_semibold);
         program_axi.setTypeface(opensans_semibold);
         simulasi_title.setTypeface(opensans_semibold);
@@ -190,7 +193,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         final List<String> JAMINAN_ITEMS = new ArrayList<>();
         JAMINAN_DATA = new HashMap<Integer, String>();
 
-        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -384,21 +387,21 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         });
 
 
-        final HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
-        file_maps.put(1,"https://dicicilaja.com/uploads/banner/1523528108Homebanner%20Tasya.jpg");
-        file_maps.put(2,"https://dicicilaja.com/uploads/banner/banner-dana-tunai.jpg");
+        final HashMap<String, String> file_maps = new HashMap<String, String>();
+        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
+//        file_maps.put(2,"https://dicicilaja.com/uploads/banner/banner-dana-tunai.jpg");
 
 
-        for(Integer name : file_maps.keySet()){
+        for(String name : file_maps.keySet()){
             final DefaultSliderView sliderView = new DefaultSliderView(getContext());
             // initialize a SliderLayout
             sliderView
                     .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop);
             sliderView.setOnSliderClickListener(this);
             sliderView.bundle(new Bundle());
             sliderView.getBundle()
-                    .putString("extra",name.toString());
+                    .putString("link",name.toString());
             mDemoSlider.addSlider(sliderView);
         }
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
@@ -455,6 +458,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         btn_hitung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progress.show();
                 try {
                     s_area = String.valueOf(area_value);
                     s_jaminan = String.valueOf(jaminan_value);
@@ -551,13 +555,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
-        allpromo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllPromoActivity.class);
-                startActivity(intent);
-            }
-        });
+//        allpromo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), AllPromoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         return view;
     }
 
@@ -718,9 +722,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Intent intent = new Intent(getContext(), PromoActivity.class);
-        intent.putExtra("ID",slider.getBundle().get("extra").toString());
-        startActivity(intent);
+//        Intent intent = new Intent(getContext(), PromoActivity.class);
+//        intent.putExtra("ID",slider.getBundle().get("link").toString());
+//        startActivity(intent);
+
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(slider.getBundle().get("link").toString()));
+        startActivity(browserIntent);
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -742,7 +750,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             @Override
             public void onResponse(Call<Simulation> call, Response<Simulation> response) {
                 Simulation simulation = response.body();
-
+                progress.dismiss();
                 Intent intent = new Intent(getContext(), SimulasiActivity.class);
                 intent.putExtra("HARGA_SIMULASI", harga_simulasi.getText().toString().replace(".",""));
                 intent.putExtra("JAMINAN",JAMINAN_DATA.get(jaminan_value));

@@ -96,65 +96,35 @@ public class RegisterAxi3Activity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
-                alertDialog.setMessage("axi_id: " + axi_id + "\n"
-                        + "nama: " + nama + "\n"
-                        + "email: " + email + "\n"
-                        + "hp: " + hp + "\n"
-                        + "namaibu: " + namaibu + "\n"
-                        + "area: " + area + "\n"
-                        + "cabang: " + cabang + "\n"
-                        + "no_ktp: " + no_ktp + "\n"
-                        + "tempat_lahir: " + tempat_lahir + "\n"
-                        + "tanggal: " + tanggal + "\n"
-                        + "alamat: " + alamat + "\n"
-                        + "rtrw: " + rtrw + "\n"
-                        + "kelurahan: " + kelurahan + "\n"
-                        + "kecamatan: " + kecamatan + "\n"
-                        + "kota: " + kota + "\n"
-                        + "provinsi: " + provinsi + "\n"
-                        + "kodepos: " + kodepos + "\n"
-                        + "jk: " + jk + "\n"
-                        + "status: " + status + "\n"
-                        + "nama_bank: " + nama_bank + "\n"
-                        + "no_rekening: " + no_rekening + "\n"
-                        + "cabang_bank: " + cabang_bank + "\n"
-                        + "an_rekening: " + an_rekening + "\n"
-                        + "kota_bank: " + kota_bank + "\n");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(validateForm(nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank)) {
-                            Intent intent = new Intent(getBaseContext(), RegisterAxi4Activity.class);
-                            intent.putExtra("apiKey",apiKey);
-                            intent.putExtra("axi_id",axi_id);
-                            intent.putExtra("nama",nama);
-                            intent.putExtra("email",email);
-                            intent.putExtra("hp", hp);
-                            intent.putExtra("namaibu", namaibu);
-                            intent.putExtra("area", area);
-                            intent.putExtra("cabang", cabang);
-                            intent.putExtra("no_ktp",no_ktp);
-                            intent.putExtra("tempat_lahir",tempat_lahir);
-                            intent.putExtra("tanggal",tanggal);
-                            intent.putExtra("alamat",alamat);
-                            intent.putExtra("rtrw",rtrw);
-                            intent.putExtra("kelurahan",kelurahan);
-                            intent.putExtra("kecamatan",kecamatan);
-                            intent.putExtra("kota",kota);
-                            intent.putExtra("provinsi",provinsi);
-                            intent.putExtra("kodepos",kodepos);
-                            intent.putExtra("jk",jk);
-                            intent.putExtra("status",status);
-                            intent.putExtra("nama_bank",nama_bank);
-                            intent.putExtra("no_rekening",no_rekening);
-                            intent.putExtra("cabang_bank",cabang_bank);
-                            intent.putExtra("an_rekening",an_rekening);
-                            intent.putExtra("kota_bank",kota_bank);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                alertDialog.show();
+                if(validateForm(nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank)) {
+                    Intent intent = new Intent(getBaseContext(), RegisterAxi4Activity.class);
+                    intent.putExtra("apiKey",apiKey);
+                    intent.putExtra("axi_id",axi_id);
+                    intent.putExtra("nama",nama);
+                    intent.putExtra("email",email);
+                    intent.putExtra("hp", hp);
+                    intent.putExtra("namaibu", namaibu);
+                    intent.putExtra("area", area);
+                    intent.putExtra("cabang", cabang);
+                    intent.putExtra("no_ktp",no_ktp);
+                    intent.putExtra("tempat_lahir",tempat_lahir);
+                    intent.putExtra("tanggal",tanggal);
+                    intent.putExtra("alamat",alamat);
+                    intent.putExtra("rtrw",rtrw);
+                    intent.putExtra("kelurahan",kelurahan);
+                    intent.putExtra("kecamatan",kecamatan);
+                    intent.putExtra("kota",kota);
+                    intent.putExtra("provinsi",provinsi);
+                    intent.putExtra("kodepos",kodepos);
+                    intent.putExtra("jk",jk);
+                    intent.putExtra("status",status);
+                    intent.putExtra("nama_bank",nama_bank);
+                    intent.putExtra("no_rekening",no_rekening);
+                    intent.putExtra("cabang_bank",cabang_bank);
+                    intent.putExtra("an_rekening",an_rekening);
+                    intent.putExtra("kota_bank",kota_bank);
+                    startActivity(intent);
+                }
             }
         });
     }

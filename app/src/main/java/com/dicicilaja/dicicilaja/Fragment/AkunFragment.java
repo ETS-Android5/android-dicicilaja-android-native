@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.dicicilaja.dicicilaja.API.Client.NewRetrofitClient;
+import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
 import com.dicicilaja.dicicilaja.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity;
@@ -28,9 +29,13 @@ import com.dicicilaja.dicicilaja.Activity.DetailRequestActivity;
 import com.dicicilaja.dicicilaja.Activity.ProductMaxiActivity;
 import com.dicicilaja.dicicilaja.Activity.ProfileActivity;
 import com.dicicilaja.dicicilaja.Activity.ProfileCustomerActivity;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllFavorite;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemFavorite.Datum;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemFavorite.ItemFavorite;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
+import com.dicicilaja.dicicilaja.Adapter.FavoriteAllAdapter;
 import com.dicicilaja.dicicilaja.Adapter.PengajuanAkun;
 import com.dicicilaja.dicicilaja.Adapter.ProgramMaxiAdapter;
 import com.dicicilaja.dicicilaja.Listener.ClickListener;
@@ -52,6 +57,7 @@ public class AkunFragment extends Fragment {
     List<com.dicicilaja.dicicilaja.API.Item.PengajuanAxi.Datum> pengajuan;
     Button alihkan;
     List<Data> programMaxi;
+    List <Datum> favorite;
     LinearLayout share_app, nilai;
     String apiKey;
     TextView nama, title_favorite;
@@ -111,25 +117,25 @@ public class AkunFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        InterfaceProgramMaxi apiService3 =
-                NewRetrofitClient.getClient().create(InterfaceProgramMaxi.class);
+        InterfaceAllFavorite apiService3 =
+                RetrofitClient.getClient().create(InterfaceAllFavorite.class);
 
         final RecyclerView recyclerView2 =  view.findViewById(R.id.recycler_related);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Call<ProgramMaxi> call5 = apiService3.getProgramMaxi(apiKey);
-        call5.enqueue(new Callback<ProgramMaxi>() {
+        Call<ItemFavorite> call5 = apiService3.getFavorite(apiKey);
+        call5.enqueue(new Callback<ItemFavorite>() {
             @Override
-            public void onResponse(Call<ProgramMaxi> call, Response<ProgramMaxi> response) {
-                programMaxi = response.body().getData();
+            public void onResponse(Call<ItemFavorite> call, Response<ItemFavorite> response) {
+                favorite = response.body().getData();
 
-                recyclerView2.setAdapter(new PengajuanAkun(programMaxi, R.layout.card_program, getContext()));
+                recyclerView2.setAdapter(new FavoriteAllAdapter(favorite, R.layout.card_program, getContext()));
                 recyclerView2.setNestedScrollingEnabled(false);
                 recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView2, new ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
                         Intent intent = new Intent(getContext(), ProductMaxiActivity.class);
-                        intent.putExtra("EXTRA_REQUEST_ID", programMaxi.get(position).getId().toString());
+                        intent.putExtra("EXTRA_REQUEST_ID", favorite.get(position).getId().toString());
                         startActivity(intent);
 
                     }
@@ -143,7 +149,7 @@ public class AkunFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ProgramMaxi> call, Throwable t) {
+            public void onFailure(Call<ItemFavorite> call, Throwable t) {
                 progress.dismiss();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
@@ -160,6 +166,10 @@ public class AkunFragment extends Fragment {
         alihkan = view.findViewById(R.id.alihkan);
         share_app = view.findViewById(R.id.share_app);
         nilai = view.findViewById(R.id.nilai);
+
+        if(session.getRole().equals("basic")){
+            alihkan.setVisibility(View.GONE);
+        }
 
         nilai.setOnClickListener(new View.OnClickListener() {
             @Override

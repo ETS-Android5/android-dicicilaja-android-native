@@ -1,10 +1,16 @@
 package com.dicicilaja.dicicilaja.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.dicicilaja.API.Client.RetrofitClient;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.InterfaceAxi.InterfaceFavorite;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
+import com.dicicilaja.dicicilaja.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
+import com.dicicilaja.dicicilaja.Adapter.ListPromoAdapter;
+import com.dicicilaja.dicicilaja.Adapter.ListRelatedAdapter;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -103,6 +115,14 @@ public class ProductMaxiActivity extends AppCompatActivity {
         final List<String> TENOR_ITEMS = new ArrayList<>();
         final HashMap<String, String> TENOR_MAP = new HashMap<String, String>();
 
+        final RecyclerView recyclerPromo = (RecyclerView) findViewById(R.id.recycler_related);
+        recyclerPromo.setHasFixedSize(true);
+        recyclerPromo.setLayoutManager(new LinearLayoutManager(getBaseContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+
+        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
+        snapHelperPromo.attachToRecyclerView(recyclerPromo);
+
         InterfaceDetailProgramMaxi apiService = RetrofitClient.getClient().create(InterfaceDetailProgramMaxi.class);
 
         Call<DetailProgramMaxi> call = apiService.getDetail(apiKey,getIntent().getStringExtra("EXTRA_REQUEST_ID"));
@@ -110,6 +130,11 @@ public class ProductMaxiActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailProgramMaxi> call, Response<DetailProgramMaxi> response) {
                 progress.dismiss();
+
+                final List<Related> related = response.body().getData().get(0).getRelated();
+
+                recyclerPromo.setAdapter(new ListRelatedAdapter(related, getBaseContext()));
+
                 detailProducts = response.body().getData();
                 Picasso.with(ProductMaxiActivity.this)
                         .load(detailProducts.get(0).getImageUrl())
@@ -189,6 +214,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -206,10 +232,15 @@ public class ProductMaxiActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.fav) {
-            Toast.makeText(getBaseContext(),"Anda menyukai produk ini",Toast.LENGTH_SHORT).show();
+            doFav(apiKey,detailProducts.get(0).getId());
+
             return true;
         } else if (id == R.id.share) {
-            Toast.makeText(getBaseContext(),"Bagikan",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, detailProducts.get(0).getTitleProgram()+" "+detailProducts.get(0).getLink());
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Link produk");
+            startActivity(Intent.createChooser(intent, "Bagikan produk"));
             return true;
         } else if (id == R.id.home) {
             super.finish();
@@ -217,5 +248,24 @@ public class ProductMaxiActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void doFav(final String apiKey, final String product_id) {
+        InterfaceFavorite apiService =
+                RetrofitClient.getClient().create(InterfaceFavorite.class);
+
+        Call<CreateRequest> call = apiService.assign(apiKey, product_id);
+        call.enqueue(new Callback<CreateRequest>() {
+            @Override
+            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+                Toast.makeText(getBaseContext(),"Anda menyukai produk ini",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<CreateRequest> call, Throwable t) {
+
+            }
+        });
     }
 }

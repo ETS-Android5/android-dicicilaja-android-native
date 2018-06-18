@@ -40,6 +40,12 @@ public class Data {
     @SerializedName("tenor")
     @Expose
     private List<Tenor> tenor = null;
+    @SerializedName("link")
+    @Expose
+    private String link;
+    @SerializedName("related")
+    @Expose
+    private List<Related> related = null;
 
     public String getId() {
         return id;
@@ -121,5 +127,19 @@ public class Data {
         this.tenor = tenor;
     }
 
+    public String getLink() {
+        return link;
+    }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public List<Related> getRelated() {
+        return related;
+    }
+
+    public void setRelated(List<Related> related) {
+        this.related = related;
+    }
 }

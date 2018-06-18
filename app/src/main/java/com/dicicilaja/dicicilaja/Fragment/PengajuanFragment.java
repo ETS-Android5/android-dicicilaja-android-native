@@ -72,7 +72,7 @@ public class PengajuanFragment extends Fragment {
 
         if(session.isLoggedIn() == FALSE) {
             recyclerPengajuan.setVisibility(View.GONE);
-            search.setVisibility(View.GONE);
+//            search.setVisibility(View.GONE);
             order.setVisibility(View.VISIBLE);
 
         }

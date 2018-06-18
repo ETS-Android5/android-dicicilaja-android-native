@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -104,6 +105,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
                     dm.setAllItemInSection(singleItemModels);
                     allSampleData.add(dm);
                 }
+                Toast.makeText(getBaseContext(),"status : " + response.code(),Toast.LENGTH_SHORT).show();
                 progress.dismiss();
             }
 
@@ -245,11 +247,11 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.product_category, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.product_category, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -257,10 +259,10 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             case android.R.id.home:
                 super.finish();
                 return true;
-            case R.id.search:
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(intent);
-                return true;
+//            case R.id.search:
+//                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+//                startActivity(intent);
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }
