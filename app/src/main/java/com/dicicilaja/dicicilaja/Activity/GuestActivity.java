@@ -26,8 +26,8 @@ public class GuestActivity extends AppCompatActivity {
         lewati = findViewById(R.id.lewati);
         title_regis = findViewById(R.id.title_regis);
         title_regis_account = findViewById(R.id.title_regis_account);
-        title_login = findViewById(R.id.title_login);
-        desc_login = findViewById(R.id.desc_login);
+//        title_login = findViewById(R.id.title_login);
+//        desc_login = findViewById(R.id.desc_login);
         btn_register = findViewById(R.id.btn_regis);
         login_account = findViewById(R.id.login_account);
 
@@ -39,8 +39,8 @@ public class GuestActivity extends AppCompatActivity {
         title_regis.setTypeface(opensans_bold);
         title_regis_account.setTypeface(opensans_reguler);
         login_account.setTypeface(opensans_reguler);
-        title_login.setTypeface(opensans_bold);
-        desc_login.setTypeface(opensans_bold);
+//        title_login.setTypeface(opensans_bold);
+//        desc_login.setTypeface(opensans_bold);
         lewati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

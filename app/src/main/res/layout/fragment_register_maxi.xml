@@ -69,35 +69,53 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:orientation="vertical">
-                <TextView
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tempat Pendataran"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="9dp"/>
+                    android:hint="Nama Pemilik *"
+                    android:layout_marginTop="20dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaPemilik"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Sesuai dengan yang ada di KTP"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutArea"
+                    android:id="@+id/inputLayoutJenisKelamin"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
                     <fr.ganfra.materialspinner.MaterialSpinner
                         android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerArea"
+                        android:id="@+id/spinnerJenisKelamin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ms_multiline="false"
                         app:ms_dropDownHintView="@layout/dropdown_hint_item"
                         app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area"
+                        app:ms_hint="Jenis Kelamin *"
                         app:ms_enableFloatingLabel="true"
                         app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area"
+                        app:ms_floatingLabelText="Jenis Kelamin"
                         app:ms_baseColor="@color/colorBlack"
                         app:ms_highlightColor="@color/colorPrimaryDark"
                         app:ms_errorColor="@color/colorPrimaryDark"
                         android:layout_marginLeft="9dp"
                         android:layout_marginRight="9dp"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/inputAlamat"
                         app:ms_alignLabels="true"
                         android:textSize="14sp"
                         app:ms_hintTextSize="14sp"
@@ -105,151 +123,74 @@
 
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutCabang"
+                    android:id="@+id/inputLayoutAlamatPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp">
-
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/spinnerCabang"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Cabang"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Cabang"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorBackgroundDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        app:ms_hintColor="@color/colorBlack"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorAccent"/>
-
-                </android.support.design.widget.TextInputLayout>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/inputReferal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Refferal"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/inputNama"
-                    app:met_floatingLabel="normal"
-                    app:met_helperText="Kode referal - Nama referal"
-                    app:met_baseColor="@color/colorAccent"
-                    app:met_primaryColor="@color/colorAccent"
-                    app:met_textColor="@color/colorBlack"
-                    app:met_textColorHint="@color/colorAccent"
-                    app:met_errorColor="@color/colorRed"
-                    app:met_helperTextColor="@color/colorAccentDark"
-                    app:met_underlineColor="@color/colorAccent"
-                    app:met_floatingLabelTextColor="@color/colorAccent"
-                    android:layout_centerHorizontal="true"
-                    android:textColorHighlight="@color/colorAccent"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutNama"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:hint="Alamat Pemilik *"
                     android:layout_marginTop="10dp">
 
-                    <EditText
-                        android:id="@+id/inputNama"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputAlamatPemilik"
                         android:layout_width="match_parent"
+                        app:met_helperText="Contoh : Jl. Jend. Sudirman"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:hint="Nama Lengkap"
-                        android:imeOptions="actionNext"
                         android:inputType="textPersonName|textCapWords"
-                        android:nextFocusDown="@+id/inputEmail"
-                        android:padding="10dp"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/inputEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email"
                         android:imeOptions="actionNext"
-                        android:inputType="textEmailAddress"
-                        android:nextFocusDown="@+id/inputHandphone"
-                        android:layout_centerHorizontal="true"
+                        android:nextFocusDown="@id/inputNoHp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
-                        android:padding="10dp"
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutHandphone"
+                    android:id="@+id/inputLayoutNoHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:hint="No. Handphone *"
+                    android:layout_marginTop="16dp">
 
-                    <EditText
-                        android:id="@+id/inputHandphone"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNoHp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="No. HP"
-                        android:imeOptions="actionNext"
+                        android:layout_centerHorizontal="true"
+                        app:met_helperText="Contoh : 081234567890"
                         android:inputType="phone"
-                        android:nextFocusDown="@+id/inputIbu"
-                        android:layout_centerHorizontal="true"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKtp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
-                        android:padding="10dp"
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/inputLayoutIbu"
+                    android:id="@+id/inputLayoutKtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:hint="No.KTP *"
+                    android:layout_marginTop="16dp">
 
-                    <EditText
-                        android:id="@+id/inputIbu"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKtp"
                         android:layout_width="match_parent"
+                        app:met_helperText="Contoh : 3274050000000000"
                         android:layout_height="wrap_content"
-                        android:hint="Nama Ibu Kandung"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPersonName|textCapWords"
                         android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
-                        android:padding="10dp"
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
                 </android.support.design.widget.TextInputLayout>
+
                 <Button
                     android:id="@+id/btnLanjut"
                     android:layout_width="match_parent"
@@ -258,11 +199,8 @@
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/colorAccent"
                     android:text="Lanjut"
+
                     android:textColor="@color/colorWhite"
-                    android:paddingLeft="25dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:paddingRight="25dp"
                     android:textSize="14sp" />
                 <RelativeLayout
                     android:layout_width="match_parent"

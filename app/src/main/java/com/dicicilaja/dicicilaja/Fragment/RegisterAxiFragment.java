@@ -207,6 +207,9 @@ public class RegisterAxiFragment extends Fragment {
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if(validateForm(nama, email, hp, namaibu, area, cabang)) {
+                            Log.d("ajukanpengajuan","nama : " + nama);
+
+
                             Intent intent = new Intent(getContext(), RegisterAxi2Activity.class);
                             intent.putExtra("apiKey",apiKey);
                             intent.putExtra("axi_id",axi_id);

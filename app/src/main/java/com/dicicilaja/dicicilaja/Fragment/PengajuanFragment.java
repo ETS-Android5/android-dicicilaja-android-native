@@ -89,7 +89,13 @@ public class PengajuanFragment extends Fragment {
             public void onResponse(Call<AllPengajuan> call, Response<AllPengajuan> response) {
                 if(response.isSuccessful()) {
                     final List<Datum> pengajuan = response.body().getData();
-                    recyclerPengajuan.setAdapter(new ListPengajuanAdapter(pengajuan, getContext()));
+                    if(pengajuan.size() == 0){
+                        recyclerPengajuan.setVisibility(View.GONE);
+                        order.setVisibility(View.VISIBLE);
+                    }else{
+                        recyclerPengajuan.setAdapter(new ListPengajuanAdapter(pengajuan, getContext()));
+
+                    }
 
 
                 }else{

@@ -179,7 +179,7 @@
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi2Activity"
-            android:label="Pendaftaran MAXI"
+            android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -187,7 +187,7 @@
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi3Activity"
-            android:label="Pendaftaran MAXI"
+            android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -195,13 +195,19 @@
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi4Activity"
-            android:label="Pendaftaran MAXI"
+            android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterMaxi5Activity" />
+        <activity android:name=".Activity.RegisterMaxi5Activity"
+            android:label="Pendaftaran Mitra"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+        </activity>
         <activity
             android:name=".Activity.ProductActivity"
             android:label="@string/title_activity_product"

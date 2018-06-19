@@ -29,15 +29,10 @@
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:weightSum="5">
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -130,152 +125,150 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutNamaPerusahaan"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/namaPerusahaan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Perusahaan"
-                    android:inputType="textPersonName|textCapWords"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/alamatUsaha"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutTempat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <EditText
-                    android:id="@+id/alamatUsaha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alamat Usaha"
-                    android:inputType="textMultiLine"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/kota"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKota"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <EditText
-                    android:id="@+id/kota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kota"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/kelurahan"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutKelurahan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <EditText
-                    android:id="@+id/kelurahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kelurahan"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/noNPWP"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutNoNPWP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <EditText
-                    android:id="@+id/noNPWP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nomor NPWP Perusahaan"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@+id/noNPWPPribadi"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/selectLayoutnoNPWPPribadi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-                <EditText
-                    android:id="@+id/noNPWPPribadi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nomor NPWP Perusahaan"
-                    android:imeOptions="actionDone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="sans-serif"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
-
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:id="@+id/btnLanjut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Lanjut"
-
-                android:textColor="@color/colorWhite"
+                android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:paddingRight="25dp"
-                android:textSize="14sp" />
+                android:paddingTop="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Informasi Perusahaan"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutNamaPerusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Perusahaan *"
+                    android:layout_marginTop="20dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaPerusahaan"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Sesuai dengan nama perusahaan"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputAlamatPerusahaan"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutAlamatPerusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Perusahaan *"
+                    android:layout_marginTop="10dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputAlamatPerusahaan"
+                        android:layout_width="match_parent"
+                        app:met_helperText="Contoh : Jl. Jend. Sudirman"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKelurahan"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKelurahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kelurahan *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKelurahan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Kuningan Timur"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputKota"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutKota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kota *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputKota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_helperText="Contoh : Bandung"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputTelp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputLayoutTelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="No. Telephone *"
+                    android:layout_marginTop="16dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputTelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:met_helperText="Contoh : 02167890"
+                        android:inputType="phone"
+                        android:imeOptions="actionDone"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLanjut"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Lanjut"
+
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
+
+
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
