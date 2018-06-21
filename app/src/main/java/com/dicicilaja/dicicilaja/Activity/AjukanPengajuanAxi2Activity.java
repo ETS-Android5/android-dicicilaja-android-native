@@ -354,7 +354,6 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
                 }else{
                     progress.dismiss();
-                    Toast.makeText(getBaseContext(),"code error : " + response.code(),Toast.LENGTH_SHORT).show();
                 }
 
             }

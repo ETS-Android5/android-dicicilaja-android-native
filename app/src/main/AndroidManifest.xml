@@ -201,7 +201,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterMaxi5Activity"
+        <activity
+            android:name=".Activity.RegisterMaxi5Activity"
             android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -647,12 +648,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
         </activity>
-        <activity android:name=".Activity.RegisterMaxi1Activity"
+        <activity
+            android:name=".Activity.RegisterMaxi1Activity"
             android:label="Pendaftaran Mitra"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" /></activity>
+                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".WebView.CekStatusActivity"
+            android:label="Cek Status Pengajuan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+        </activity>
+        <activity android:name=".Activity.ProfileEmployeeActivity"></activity>
     </application>
 
 </manifest>

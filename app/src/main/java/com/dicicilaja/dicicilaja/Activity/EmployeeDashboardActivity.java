@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dicicilaja.dicicilaja.WebView.CekStatusActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -66,9 +67,11 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.navbar_cek:
+                        intent = new Intent(getBaseContext(), CekStatusActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_simulation:
-                        intent = new Intent(getBaseContext(), SimulationActivity.class);
+                        intent = new Intent(getBaseContext(), com.dicicilaja.dicicilaja.Activity.SimulationActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_statistics:
@@ -120,7 +123,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         open_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                Intent intent = new Intent(getBaseContext(), ProfileEmployeeActivity.class);
                 startActivity(intent);
             }
         });

@@ -284,7 +284,6 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
 
                 }else{
                     progress.dismiss();
-                    Toast.makeText(getBaseContext(),"code error : " + response.code(),Toast.LENGTH_SHORT).show();
                 }
 
             }
