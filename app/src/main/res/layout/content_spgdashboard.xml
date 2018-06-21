@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.dicicilaja.dicicilaja.Activity.SPGDashboardActivity"
+    tools:context="com.dicicilaja.app.Activity.SPGDashboardActivity"
     tools:showIn="@layout/app_bar_spgdashboard">
     <ScrollView
         android:layout_width="match_parent"

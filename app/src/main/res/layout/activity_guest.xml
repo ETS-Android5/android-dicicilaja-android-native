@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context="com.dicicilaja.dicicilaja.Activity.GuestActivity">
+    tools:context="com.dicicilaja.app.Activity.GuestActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

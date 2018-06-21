@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dicicilaja.dicicilaja">
+    package="com.dicicilaja.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+                android:value="com.dicicilaja.app.Activity.LoginActivity" />
         </activity>
         <activity
             android:name=".Activity.HelpActivity"
@@ -38,7 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+                android:value="com.dicicilaja.app.Activity.LoginActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterActivity"
@@ -46,7 +46,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+                android:value="com.dicicilaja.app.Activity.LoginActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterAxi2Activity"
@@ -54,7 +54,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterAxi3Activity"
@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi2Activity" />
+                android:value="com.dicicilaja.app.Activity.RegisterAxi2Activity" />
         </activity>
         <activity
             android:name=".Activity.RegisterAxi4Activity"
@@ -70,7 +70,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity" />
+                android:value="com.dicicilaja.app.Activity.RegisterAxi3Activity" />
         </activity>
         <activity
             android:name=".Activity.RegisterAxi5Activity"
@@ -78,7 +78,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterAxi4Activity" />
+                android:value="com.dicicilaja.app.Activity.RegisterAxi4Activity" />
         </activity>
         <activity
             android:name=".Activity.AxiDashboardActivity"
@@ -94,7 +94,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProfileActivity"
@@ -102,7 +102,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".WebView.AboutAxiActivity"
@@ -110,7 +110,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".WebView.AboutMaxiActivity"
@@ -118,7 +118,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.SimulationActivity"
@@ -126,7 +126,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
 
         <service android:name=".Notification.MyFirebaseMessagingService">
@@ -156,7 +156,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.GuestActivity"
@@ -167,7 +167,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.ProductCategoryActivity"
@@ -175,7 +175,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi2Activity"
@@ -183,7 +183,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi3Activity"
@@ -191,7 +191,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi4Activity"
@@ -199,7 +199,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi5Activity"
@@ -207,7 +207,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.RegisterActivity" />
+                android:value="com.dicicilaja.app.Activity.RegisterActivity" />
         </activity>
         <activity
             android:name=".Activity.ProductActivity"
@@ -215,7 +215,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.RutePerjalananActivity"
@@ -223,7 +223,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProductActivity" />
+                android:value="com.dicicilaja.app.Activity.ProductActivity" />
         </activity>
         <activity
             android:name=".Activity.SyaratKetentuanActivity"
@@ -231,7 +231,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProductActivity" />
+                android:value="com.dicicilaja.app.Activity.ProductActivity" />
         </activity>
         <activity
             android:name=".Activity.SearchActivity"
@@ -239,7 +239,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.AllPartnerActivity"
@@ -247,7 +247,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.AllPromoActivity"
@@ -255,7 +255,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.PromoActivity"
@@ -263,7 +263,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".WebView.AboutAxiMarketplaceActivity"
@@ -271,7 +271,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".WebView.AboutMaxiMarketplaceActivity"
@@ -279,7 +279,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.ProductPartnerActivity"
@@ -287,7 +287,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.InsentifCarActivity"
@@ -295,7 +295,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.PointRewardActivity"
@@ -303,7 +303,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.PointTripActivity"
@@ -311,7 +311,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.InsentifMcyActivity"
@@ -319,7 +319,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.InfoJaringanActivity"
@@ -327,7 +327,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.RekanBisnisActivity"
@@ -335,7 +335,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.MaxiDashboardActivity"
@@ -347,7 +347,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.UbahMaxiActivity"
@@ -355,7 +355,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AllPengajuanAxiActivity"
@@ -363,7 +363,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.UbahPasswordAxiActivity"
@@ -371,7 +371,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.UbahAxiActivity"
@@ -379,7 +379,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity android:name=".Activity.UbahPasswordMaxiActivity" />
         <activity
@@ -388,7 +388,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AllProgramMaxiActivity"
@@ -396,7 +396,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProductMaxiActivity"
@@ -404,7 +404,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuanMaxiActivity"
@@ -412,7 +412,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuanMaxi2Activity"
@@ -420,7 +420,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuanAxiActivity"
@@ -428,7 +428,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuanAxi2Activity"
@@ -436,7 +436,7 @@
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MaxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterAxi1Activity"
@@ -444,7 +444,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.NasabahActivity"
@@ -452,7 +452,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.DeskripsiLengkapActivity"
@@ -460,7 +460,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.NotificationActivity"
@@ -468,7 +468,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProsesPengajuanActivity"
@@ -476,7 +476,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.app.Activity.DetailRequestActivity" />
         </activity>
         <activity
             android:name=".WebView.ChatActivity"
@@ -487,7 +487,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity android:name=".Activity.ConfirmRequestActivity" />
         <activity
@@ -496,7 +496,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.app.Activity.DetailRequestActivity" />
         </activity>
 
         <meta-data
@@ -509,7 +509,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
+                android:value="com.dicicilaja.app.Activity.ProsesPengajuanActivity" />
         </activity>
         <activity
             android:name=".Activity.DatabaseCRO"
@@ -517,7 +517,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProsesPengajuanActivity" />
+                android:value="com.dicicilaja.app.Activity.ProsesPengajuanActivity" />
         </activity>
         <activity
             android:name=".Activity.FullscreenActivity"
@@ -526,7 +526,7 @@
             android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.DetailRequestActivity" />
+                android:value="com.dicicilaja.app.Activity.DetailRequestActivity" />
         </activity>
         <activity
             android:name=".Activity.SPGDashboardActivity"
@@ -538,7 +538,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.AjukanPengajuan2Activity"
@@ -546,7 +546,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity android:name=".Activity.SalesUbahActivity" />
         <activity
@@ -555,7 +555,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.EmployeeDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.UbahPasswordEmployeeActivity"
@@ -563,12 +563,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.ProfileActivity" />
+                android:value="com.dicicilaja.app.Activity.ProfileActivity" />
         </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.dicicilaja.dicicilaja."
+            android:authorities="com.dicicilaja.app."
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -582,7 +582,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.UbahCustomerActivity"
@@ -590,7 +590,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.AllProductActivity"
@@ -598,7 +598,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.AllProductRecommendationActivity"
@@ -606,7 +606,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.AllProductPromoActivity"
@@ -614,7 +614,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".WebView.ForgotActivity"
@@ -622,7 +622,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.LoginActivity" />
+                android:value="com.dicicilaja.app.Activity.LoginActivity" />
         </activity>
         <activity
             android:name=".WebView.NewsActivity"
@@ -630,7 +630,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".WebView.MateriActivity"
@@ -638,7 +638,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
             android:name=".WebView.InfoActivity"
@@ -646,7 +646,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.RegisterMaxi1Activity"
@@ -654,7 +654,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.MarketplaceActivity" />
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".WebView.CekStatusActivity"
@@ -662,7 +662,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.dicicilaja.Activity.AxiDashboardActivity" />
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity android:name=".Activity.ProfileEmployeeActivity"></activity>
     </application>

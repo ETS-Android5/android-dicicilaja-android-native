@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context="com.dicicilaja.dicicilaja.Fragment.CompleteFragment"
+    tools:context="com.dicicilaja.app.Fragment.CompleteFragment"
     android:background="@color/colorPrimary">
     <ScrollView
         android:layout_width="match_parent"

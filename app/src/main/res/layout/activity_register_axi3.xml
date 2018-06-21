@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dicicilaja.dicicilaja.Activity.RegisterAxi3Activity"
+    tools:context="com.dicicilaja.app.Activity.RegisterAxi3Activity"
     android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/inputNamaBank"
                         android:layout_width="match_parent"
-                        app:met_helperText="Contoh : BTPN"
+                        app:met_helperText="Contoh : Danamon"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
