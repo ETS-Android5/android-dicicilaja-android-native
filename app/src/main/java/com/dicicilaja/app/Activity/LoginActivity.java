@@ -77,37 +77,46 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
             Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
             Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("admin")) {
+            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
             Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("mm")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("bm")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("ho")) {
+            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
             Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         } else {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
@@ -212,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         photo = resObj.getPhoto();
                         zipcode = resObj.getZipcode();
                         area = resObj.getArea();
-                    }catch (Exception ex) {
+                    } catch (Exception ex) {
                         photo = "";
                         zipcode = "";
                         area = "";
@@ -224,42 +233,50 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     } else if (resObj.getRole().equals("channel")) {
                         Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     } else if (resObj.getRole().equals("crh")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     } else if (resObj.getRole().equals("cro")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     } else if (resObj.getRole().equals("tc")) {
                         Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
+                    } else if (resObj.getRole().equals("admin")) {
+                        Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     } else if (resObj.getRole().equals("spg")) {
                         Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
+                    } else if (resObj.getRole().equals("bm")) {
+                        Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else if (resObj.getRole().equals("mm")) {
+                        Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else if (resObj.getRole().equals("ho")) {
+                        Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     } else if (resObj.getRole().equals("basic")) {
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     } else {
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                     }
                 }else {
                     progress.dismiss();

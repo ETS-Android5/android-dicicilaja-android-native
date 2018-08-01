@@ -45,7 +45,8 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Data itemModel = produk.get(position);
         holder.tv_title.setText(itemModel.getName());
-        holder.tv_jenis.setText(itemModel.getPartner());
+        holder.tv_jenis.setText(itemModel.getExcerpt());
+        holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
         Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +70,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         protected ImageView discount_image;
         protected TextView tv_jenis;
         protected TextView tv_harga;
+        protected TextView tv_mitra;
         protected CardView card_promo;
 
 
@@ -78,6 +80,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
             this.tv_title = itemView.findViewById(R.id.tv_title);
             this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
+            this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.card_promo = itemView.findViewById(R.id.card_promo);
             this.discount_image = itemView.findViewById(R.id.discount_image);
         }

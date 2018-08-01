@@ -47,6 +47,7 @@ public class ListProductPromoAdapter extends RecyclerView.Adapter<ListProductPro
         holder.tv_title.setText(itemModel.getTitleProgram());
         holder.tv_jenis.setText(itemModel.getJenisProgram());
         holder.tv_harga.setText(itemModel.getPrice());
+        holder.tv_mitra.setText(itemModel.getPartner());
         holder.discount.setText(String.valueOf(itemModel.getDiscount() + "%"));
         Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +74,14 @@ public class ListProductPromoAdapter extends RecyclerView.Adapter<ListProductPro
         protected TextView tv_jenis;
         protected TextView discount;
         protected CardView card_rekomendasi;
+        protected TextView tv_mitra;
 
         public SingleItemRowHolder(View itemView) {
             super(itemView);
             this.tv_title = itemView.findViewById(R.id.tv_title);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
+            this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.discount = itemView.findViewById(R.id.discount);
             this.discount_image = itemView.findViewById(R.id.discount_image);
             this.card_rekomendasi = itemView.findViewById(R.id.card_rekomendasi);

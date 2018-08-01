@@ -142,47 +142,56 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         textCheck = findViewById(R.id.textCheck);
 
 
-        final ProgressDialog progress1 = new ProgressDialog(this);
-        progress1.setMessage("Sedang memuat data...");
-        progress1.setCanceledOnTouchOutside(false);
-        progress1.show();
-        InterfaceProfileCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
 
-        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
-        callProfile.enqueue(new Callback<ProfileCustomer>() {
-            @Override
-            public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
-                dataCustomer = response.body().getData();
+        try {
+            if(session.getRole().equals("basic")){
+                final ProgressDialog progress1 = new ProgressDialog(this);
+                progress1.setMessage("Sedang memuat data...");
+                progress1.setCanceledOnTouchOutside(false);
+                progress1.show();
 
-                try {
-                    inputNama.setText(dataCustomer.getName().toString());
-                    inputEmail.setText(dataCustomer.getEmail().toString());
-                    inputHp.setText(dataCustomer.getPhone().toString());
-                    inputAlamat.setText(dataCustomer.getAddress().toString());
-                    inputKecamatan.setText(dataCustomer.getDistrict().toString());
-                    inputKota.setText(dataCustomer.getCity().toString());
-                    inputProvinsi.setText(dataCustomer.getProvince().toString());
-                }catch (Exception ex){
+                InterfaceProfileCustomer apiService =
+                        RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
 
-                }
-                progress1.dismiss();
-            }
+                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
+                callProfile.enqueue(new Callback<ProfileCustomer>() {
+                    @Override
+                    public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
+                        dataCustomer = response.body().getData();
 
-            @Override
-            public void onFailure(Call<ProfileCustomer> call, Throwable t) {
-                progress1.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+                        try {
+                            inputNama.setText(dataCustomer.getName().toString());
+                            inputEmail.setText(dataCustomer.getEmail().toString());
+                            inputHp.setText(dataCustomer.getPhone().toString());
+                            inputAlamat.setText(dataCustomer.getAddress().toString());
+                            inputKecamatan.setText(dataCustomer.getDistrict().toString());
+                            inputKota.setText(dataCustomer.getCity().toString());
+                            inputProvinsi.setText(dataCustomer.getProvince().toString());
+                        }catch (Exception ex){
 
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                        }
+                        progress1.dismiss();
+                    }
 
+                    @Override
+                    public void onFailure(Call<ProfileCustomer> call, Throwable t) {
+                        progress1.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                        alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
                     }
                 });
-                alertDialog.show();
             }
-        });
+        }catch (Exception ex){
+
+        }
+
 
         textCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,8 +377,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     private void doRequest(final String apiKey, final String axi_referral, final String channel_id, final String program_id, final String colleteral_id, final String status_id, final String manufacturer, final String year, final String tenor, final String amount, final String qty, final String area_id, final String branch_id, final String client_name, final String hp, final String address, final String district, final String city, final String province, final String email,  final String file_ktp, final String file_colleteral) {
         InterfaceCreateRequest apiService =
                 RetrofitClient.getClient().create(InterfaceCreateRequest.class);
-
-        Call<CreateRequest> call = apiService.assign(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
+        String product = "Dana Multiguna";
+        Call<CreateRequest> call = apiService.assign(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral, product);
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
@@ -396,6 +405,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                         startActivity(intent);
                     }
 
+                }else if(response.code() == 406){
+                    progress.dismiss();
                 }else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();

@@ -125,47 +125,55 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         image_colleteral = findViewById(R.id.image_colleteral);
         textCheck = findViewById(R.id.textCheck);
 
-        final ProgressDialog progress1 = new ProgressDialog(this);
-        progress1.setMessage("Sedang memuat data...");
-        progress1.setCanceledOnTouchOutside(false);
-        progress1.show();
-        InterfaceProfileCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
+        try {
+            if(session.getRole().equals("basic")) {
 
-        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
-        callProfile.enqueue(new Callback<ProfileCustomer>() {
-            @Override
-            public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
-                dataCustomer = response.body().getData();
+                final ProgressDialog progress1 = new ProgressDialog(this);
+                progress1.setMessage("Sedang memuat data...");
+                progress1.setCanceledOnTouchOutside(false);
+                progress1.show();
+                InterfaceProfileCustomer apiService =
+                        RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
 
-                try {
-                    inputNama.setText(dataCustomer.getName().toString());
-                    inputEmail.setText(dataCustomer.getEmail().toString());
-                    inputHp.setText(dataCustomer.getPhone().toString());
-                    inputAlamat.setText(dataCustomer.getAddress().toString());
-                    inputKecamatan.setText(dataCustomer.getDistrict().toString());
-                    inputKota.setText(dataCustomer.getCity().toString());
-                    inputProvinsi.setText(dataCustomer.getProvince().toString());
-                }catch (Exception ex){
+                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
+                callProfile.enqueue(new Callback<ProfileCustomer>() {
+                    @Override
+                    public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
+                        dataCustomer = response.body().getData();
 
-                }
-                progress1.dismiss();
-            }
+                        try {
+                            inputNama.setText(dataCustomer.getName().toString());
+                            inputEmail.setText(dataCustomer.getEmail().toString());
+                            inputHp.setText(dataCustomer.getPhone().toString());
+                            inputAlamat.setText(dataCustomer.getAddress().toString());
+                            inputKecamatan.setText(dataCustomer.getDistrict().toString());
+                            inputKota.setText(dataCustomer.getCity().toString());
+                            inputProvinsi.setText(dataCustomer.getProvince().toString());
+                        }catch (Exception ex){
 
-            @Override
-            public void onFailure(Call<ProfileCustomer> call, Throwable t) {
-                progress1.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+                        }
+                        progress1.dismiss();
+                    }
 
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onFailure(Call<ProfileCustomer> call, Throwable t) {
+                        progress1.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                        alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
                     }
                 });
-                alertDialog.show();
             }
-        });
+        }catch (Exception ex) {
+
+        }
+
         textCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,6 +336,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                     }
 
 
+                }else if(response.code() == 406){
+                    progress.dismiss();
                 }else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();

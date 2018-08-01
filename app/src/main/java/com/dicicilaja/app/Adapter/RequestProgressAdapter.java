@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
         TextView detail_resi;
         TextView nama_resi;
 
-        public RequestProgressViewHolder(View v) {
+        public RequestProgressViewHolder(final View v) {
             super(v);
             card_view       = v.findViewById(R.id.card_view);
             resi            = v.findViewById(R.id.resi);
@@ -57,7 +58,7 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
                     Intent intent = new Intent(context, DetailRequestActivity.class);
                     intent.putExtra("EXTRA_REQUEST_ID", dataListFiltered.get(getAdapterPosition()).getId().toString());
                     intent.putExtra("STATUS", true);
-                    ((Activity) context).startActivity(intent);
+                    v.getContext().startActivity(intent);
                 }
             });
         }

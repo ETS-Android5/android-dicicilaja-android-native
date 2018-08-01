@@ -37,6 +37,10 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.text.NumberFormat;
@@ -101,7 +105,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
 
-
+    HashMap<String, String> file_maps;
     String v_harga_simulasi;
     String v_tenor;
 
@@ -387,23 +391,48 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         });
 
 
-        final HashMap<String, String> file_maps = new HashMap<String, String>();
-        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
-//        file_maps.put(2,"https://dicicilaja.com/uploads/banner/banner-dana-tunai.jpg");
+        file_maps = new HashMap<String, String>();
+
+//        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
+//        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
+        InterfaceCustomerSlider apiSlider2 =
+                com.dicicilaja.app.API.Client.RetrofitClient.getClient().create(InterfaceCustomerSlider.class);
+
+        Call<AxiSlider> call5 = apiSlider2.getSlider();
+        call5.enqueue(new Callback<AxiSlider>() {
+            @Override
+            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                List <Datum> slider = response.body().getData();
+                for (int i = 0; i < slider.size(); i++) {
+                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
+                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                }
+
+                for(final String name1 : file_maps.keySet()) {
+                    final DefaultSliderView sliderView = new DefaultSliderView(getContext());
+                    // initialize a SliderLayout
+                    sliderView
+                            .image(file_maps.get(name1))
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop);
+                    sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                        @Override
+                        public void onSliderClick(BaseSliderView slider) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(name1.toString()));
+                            startActivity(browserIntent);
+                        }
+                    });
+                    mDemoSlider.addSlider(sliderView);
+                }
 
 
-        for(String name : file_maps.keySet()){
-            final DefaultSliderView sliderView = new DefaultSliderView(getContext());
-            // initialize a SliderLayout
-            sliderView
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop);
-            sliderView.setOnSliderClickListener(this);
-            sliderView.bundle(new Bundle());
-            sliderView.getBundle()
-                    .putString("link",name.toString());
-            mDemoSlider.addSlider(sliderView);
-        }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            }
+        });
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
@@ -519,7 +548,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
-                intent.putExtra("title","MAXI Griya");
+                intent.putExtra("title","MAXI Asuransi");
                 intent.putExtra("content","asuransi");
                 startActivity(intent);
             }

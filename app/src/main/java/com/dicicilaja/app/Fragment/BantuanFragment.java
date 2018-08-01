@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.dicicilaja.app.Activity.HelpAboutActivity;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.WebView.AboutDicicilajaActivity;
 import com.dicicilaja.app.WebView.ChatActivity;
 
 /**
@@ -39,7 +40,7 @@ public class BantuanFragment extends Fragment {
         btn_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), HelpAboutActivity.class);
+                Intent intent = new Intent(getContext(), AboutDicicilajaActivity.class);
                 startActivity(intent);
             }
         });

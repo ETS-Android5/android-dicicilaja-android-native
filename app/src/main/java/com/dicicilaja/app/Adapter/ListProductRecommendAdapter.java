@@ -47,6 +47,7 @@ public class ListProductRecommendAdapter extends RecyclerView.Adapter<ListProduc
         holder.tv_title.setText(itemModel.getTitleProgram());
         holder.tv_jenis.setText(itemModel.getJenisProgram());
         holder.tv_harga.setText(itemModel.getPrice());
+        holder.tv_mitra.setText(itemModel.getPartner());
         Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,7 @@ public class ListProductRecommendAdapter extends RecyclerView.Adapter<ListProduc
         protected ImageView discount_image;
         protected TextView tv_harga;
         protected TextView tv_jenis;
+        protected TextView tv_mitra;
         protected CardView card_rekomendasi;
 
         public SingleItemRowHolder(View itemView) {
@@ -77,6 +79,7 @@ public class ListProductRecommendAdapter extends RecyclerView.Adapter<ListProduc
             this.tv_title = itemView.findViewById(R.id.tv_title);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
+            this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
             this.discount_image = itemView.findViewById(R.id.discount_image);
             this.card_rekomendasi = itemView.findViewById(R.id.card_rekomendasi);
         }

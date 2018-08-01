@@ -30,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dicicilaja.app.Listener.ClickListener;
+import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

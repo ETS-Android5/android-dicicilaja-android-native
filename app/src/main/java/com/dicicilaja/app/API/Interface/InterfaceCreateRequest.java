@@ -43,5 +43,6 @@ public interface InterfaceCreateRequest {
                                @Field("province") String province,
                                @Field("email") String email,
                                @Field("ktp_image") String ktp_image,
-                               @Field("colleteral_image") String colleteral_image);
+                               @Field("colleteral_image") String colleteral_image,
+                               @Field("product") String product);
 }

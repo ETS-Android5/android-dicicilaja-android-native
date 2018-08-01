@@ -25,6 +25,7 @@ import com.dicicilaja.app.Adapter.ViewPagerAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.AboutAxiMarketplaceActivity;
+import com.dicicilaja.app.WebView.AboutDicicilajaActivity;
 import com.dicicilaja.app.WebView.AboutMaxiMarketplaceActivity;
 import com.dicicilaja.app.WebView.InfoActivity;
 import com.dicicilaja.app.WebView.MateriActivity;
@@ -190,7 +191,7 @@ public class MarketplaceActivity extends AppCompatActivity
                         startActivity(intent6);
                         break;
                     case R.id.navbar_tentang:
-                        Intent intent7 = new Intent(getBaseContext(), HelpAboutActivity.class);
+                        Intent intent7 = new Intent(getBaseContext(), AboutDicicilajaActivity.class);
                         startActivity(intent7);
                         break;
                     case R.id.navbar_bantuan:

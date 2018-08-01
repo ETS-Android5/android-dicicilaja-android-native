@@ -462,9 +462,9 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
             public void onResponse(Call<CreateAXI> call, Response<CreateAXI> response) {
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    Toast.makeText(getBaseContext(),"Pendaftaran berhasil. Kami akan lakukan verifikasi data Anda.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"Selamat! Link verifikasi telah dikirimkan ke email Anda, Silahkan cek untuk melengkapi proses registrasi.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }else{
                     progress.dismiss();

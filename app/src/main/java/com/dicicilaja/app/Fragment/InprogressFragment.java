@@ -158,6 +158,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
                                 progress.dismiss();
                             } else {
+                                progress.dismiss();
                                 session.logoutUser();
                             }
                         }
@@ -240,6 +241,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
                         progress.dismiss();
                     } else {
+                        progress.dismiss();
                         session.logoutUser();
                     }
 
