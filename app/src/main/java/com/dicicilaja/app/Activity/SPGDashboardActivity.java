@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
+import com.dicicilaja.app.WebView.CekStatusActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -112,16 +113,24 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
                 Intent intent;
                 switch( menuItem.getItemId() ) {
                     case R.id.navbar_request:
+                        intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_create_request:
+                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_cek:
+                        intent = new Intent(getBaseContext(), CekStatusActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_simulation:
-                        intent = new Intent(getBaseContext(), SimulationActivity.class);
+                        intent = new Intent(getBaseContext(), com.dicicilaja.app.Activity.SimulationActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_statistics:
+                        intent = new Intent(getBaseContext(), StatisticActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SPGDashboardActivity.this);

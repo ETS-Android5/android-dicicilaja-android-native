@@ -6,10 +6,13 @@ import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dicicilaja.app.API.Client.JodyRetrofitClient;
@@ -108,6 +111,14 @@ public class StatisticActivity extends AppCompatActivity {
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+
+        if( session.getRole().equals("mm") ) {
+            CardView cardPengajuan = findViewById(R.id.card_pengajuan);
+            cardPengajuan.setVisibility(View.GONE);
+
+            RelativeLayout barPoint = findViewById(R.id.bar_point);
+            barPoint.setVisibility(View.GONE);
+        }
 
         InterfaceStatistics apiService =
                 RetrofitClient.getClient().create(InterfaceStatistics.class);

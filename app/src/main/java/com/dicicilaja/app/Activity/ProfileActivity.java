@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileBase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -126,50 +129,80 @@ public class ProfileActivity extends AppCompatActivity {
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
-        InterfaceProfileAxi apiService =
-                RetrofitClient.getClient().create(InterfaceProfileAxi.class);
 
-        Call<ProfileAxi> callProfile = apiService.getProfile(apiKey);
+        Call<ProfileAxi> callProfile;
+
+        if( session.getRole().equals("mm") ) {
+            InterfaceProfile apiService = RetrofitClient.getClient().create(InterfaceProfile.class);
+            callProfile = apiService.getProfile(apiKey);
+        } else {
+            InterfaceProfileAxi apiService = RetrofitClient.getClient().create(InterfaceProfileAxi.class);
+            callProfile = apiService.getProfile(apiKey);
+        }
+
         callProfile.enqueue(new Callback<ProfileAxi>() {
             @Override
             public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
-                dataAxi = response.body().getData();
-                name_user.setText(dataAxi.getNamaLengkap());
-                api_axi_id.setText(dataAxi.getAxiId());
-                api_cabang.setText(dataAxi.getCabang());
-                api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
-                api_no_ktp.setText(dataAxi.getNoKtp());
-                api_mentor.setText(dataAxi.getAxiIdReff());
-                api_tempat_lahir.setText(dataAxi.getTempatLahir());
-                api_tanggal_lahir.setText(dataAxi.getTanggalLahir());
-                api_no_hp.setText(dataAxi.getNoHp());
-                api_email.setText(dataAxi.getEmail());
-                api_alamat.setText(dataAxi.getAlamatKtp());
-                api_rt_rw.setText(dataAxi.getRtRwKtp());
-                api_kelurahan.setText(dataAxi.getKelurahanKtp());
-                api_kecamatan.setText(dataAxi.getKecamatanKtp());
-                api_provinsi.setText(dataAxi.getProvinsiKtp());
-                api_kodepos.setText(dataAxi.getKodeposKtp());
-                api_jk.setText(dataAxi.getJenisKelamin());
-                api_no_npwp.setText(dataAxi.getNpwpNo());
+                Log.d("PROFILE::::", response.body().getData().toString());
+                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
+                if( response.body() == null ) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
 
-                api_nama_bank.setText(dataAxi.getNamaBank());
-                api_no_rekening.setText(dataAxi.getNoRekening());
-                api_an_rekening.setText(dataAxi.getAnRekening());
-                api_cabang_bank.setText(dataAxi.getCabangBank());
-                api_kota_bank.setText(dataAxi.getKotaBank());
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Ooopppssss...");
+
+                    // Setting Dialog Message
+                    alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
+
+                    // Setting Positive "Yes" Button
+                    alertDialog.setPositiveButton("Okkay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+
+                    // Showing Alert Message
+                    alertDialog.show();
+                } else {
+                    dataAxi = response.body().getData();
+                    name_user.setText(dataAxi.getNamaLengkap());
+                    api_axi_id.setText(dataAxi.getAxiId());
+                    api_cabang.setText(dataAxi.getCabang());
+                    api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
+                    api_no_ktp.setText(dataAxi.getNoKtp());
+                    api_mentor.setText(dataAxi.getAxiIdReff());
+                    api_tempat_lahir.setText(dataAxi.getTempatLahir());
+                    api_tanggal_lahir.setText(dataAxi.getTanggalLahir());
+                    api_no_hp.setText(dataAxi.getNoHp());
+                    api_email.setText(dataAxi.getEmail());
+                    api_alamat.setText(dataAxi.getAlamatKtp());
+                    api_rt_rw.setText(dataAxi.getRtRwKtp());
+                    api_kelurahan.setText(dataAxi.getKelurahanKtp());
+                    api_kecamatan.setText(dataAxi.getKecamatanKtp());
+                    api_provinsi.setText(dataAxi.getProvinsiKtp());
+                    api_kodepos.setText(dataAxi.getKodeposKtp());
+                    api_jk.setText(dataAxi.getJenisKelamin());
+                    api_no_npwp.setText(dataAxi.getNpwpNo());
+
+                    api_nama_bank.setText(dataAxi.getNamaBank());
+                    api_no_rekening.setText(dataAxi.getNoRekening());
+                    api_an_rekening.setText(dataAxi.getAnRekening());
+                    api_cabang_bank.setText(dataAxi.getCabangBank());
+                    api_kota_bank.setText(dataAxi.getKotaBank());
+                }
                 progress.dismiss();
             }
 
             @Override
             public void onFailure(Call<ProfileAxi> call, Throwable t) {
+                Log.e("PROFILE::::", t.toString());
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        finish();
                     }
                 });
                 alertDialog.show();
