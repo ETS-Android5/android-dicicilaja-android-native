@@ -32,11 +32,11 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/discount_image"
                         android:layout_width="150dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/illustration_1_02"
+                        app:placeholderImage="@drawable/illustration_1_02"
                         android:scaleType="centerCrop"/>
                 </RelativeLayout>
                 <RelativeLayout

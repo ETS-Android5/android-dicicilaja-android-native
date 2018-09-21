@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
@@ -154,6 +155,15 @@ public class PengajuanJaminanFragment extends Fragment {
                         api_specification.setVisibility(View.GONE);
                     }
                     progress.dismiss();
+                } else {
+                    progress.dismiss();
+                    Toast.makeText(getContext(), "Something went wrong with our server", Toast.LENGTH_SHORT).show();
+                    Log.e("ERRORPENGAJUAN::", "ID: " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                    try {
+                        Log.e("ERRORPENGAJUAN::", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -162,7 +172,9 @@ public class PengajuanJaminanFragment extends Fragment {
             public void onFailure(Call<DetailRequest> call, Throwable t) {
                 // Log error here since request failed
                 Toast.makeText(getContext(), "koneksi internet tidak ditemukan", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e("ERRORPENGAJUAN::", "ID: " + Integer.parseInt(getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID")));
+                t.printStackTrace();
+                progress.dismiss();
             }
         });
 
@@ -219,10 +231,16 @@ public class PengajuanJaminanFragment extends Fragment {
                     public void onClick(View view) {
                         Intent intent = new Intent(getContext(), RequestProcessActivity.class);
                         intent.putExtra("TRANSACTION_ID", getActivity().getIntent().getStringExtra("EXTRA_REQUEST_ID").toString());
-                        intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
-                        intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
-                        intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
-                        intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+
+                        try {
+                            intent.putExtra("NAME", detailRequests.get(0).getResponsiblePerson().getName());
+                            intent.putExtra("ROLE", detailRequests.get(0).getResponsiblePerson().getRole());
+                            intent.putExtra("RESPONSE_TIME", detailRequests.get(0).getResponsiblePerson().getResponseTime());
+                            intent.putExtra("NOTE", detailRequests.get(0).getResponsiblePerson().getCatatan());
+                        } catch (Exception e) {
+
+                        }
+
                         intent.putExtra("STATUS_SURVEY", detailRequests.get(0).getStatusSurvey().toString());
                         intent.putExtra("STATUS", detailRequests.get(0).getStatus().toString());
 

@@ -479,44 +479,45 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
                 List <Datum> slider = response.body().getData();
+                Log.d("SLIDER AXI", slider.toString());
                 for (int i = 0; i < slider.size(); i++) {
                     Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
                     file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
                 }
 
-                for(final String name1 : file_maps.keySet()) {
-                    final DefaultSliderView sliderView = new DefaultSliderView(getBaseContext());
-                    // initialize a SliderLayout
-                    sliderView
-                            .image(file_maps.get(name1))
-                            .setScaleType(BaseSliderView.ScaleType.CenterCrop);
-                    sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                        @Override
-                        public void onSliderClick(BaseSliderView slider) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(name1.toString()));
-                            startActivity(browserIntent);
-                        }
-                    });
-                    mDemoSlider.addSlider(sliderView);
+                for(final Datum s: slider) {
+                    Log.d("DASH::::", s.getImage());
+                    DefaultSliderView sliderBannerItem = new DefaultSliderView(AxiDashboardActivity.this);
+                    sliderBannerItem
+                            .image(s.getImage())
+                            .description(s.getUrl())
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                @Override
+                                public void onSliderClick(BaseSliderView slider) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
+                                    startActivity(browserIntent);
+                                }
+                            });
+                    mDemoSlider.addSlider(sliderBannerItem);
                 }
-
-
-
 
             }
 
             @Override
             public void onFailure(Call<AxiSlider> call, Throwable t) {
+                Log.e("AXI SLIDER::::", t.toString());
             }
         });
 
 
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+//        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
         mDemoSlider.setDuration(4000);
 //        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-        mDemoSlider.addOnPageChangeListener(this);
+        //mDemoSlider.addOnPageChangeListener(this);
     }
 
     @Override

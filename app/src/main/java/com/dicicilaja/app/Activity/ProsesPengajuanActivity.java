@@ -154,7 +154,12 @@ public class ProsesPengajuanActivity extends AppCompatActivity {
                 String notes = inputCatatan.getText().toString();
 //                Toast.makeText(getBaseContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
 
+
                 if(validateForm(assigned_id)){
+                    Log.d("PROSES PENGAJUAN", "Transaction id: " + transaction_id);
+                    Log.d("PROSES PENGAJUAN", "Assigned id: " + assigned_id);
+                    Log.d("PROSES PENGAJUAN", "Notes: " + notes);
+
                     doProcess(apiKey, transaction_id, assigned_id, notes);
                 }
 

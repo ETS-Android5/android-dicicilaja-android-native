@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequest.Crea
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
 import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.Adapter.ListRelatedAdapter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +55,7 @@ import static java.lang.Boolean.FALSE;
 public class ProductMaxiActivity extends AppCompatActivity {
 
     List<Data> detailProducts;
-    ImageView head_image;
+    SimpleDraweeView head_image;
     RelativeLayout rute, syarat, deskripsi_lengkap;
     String apiKey;
     MaterialSpinner spinnerJaminan;
@@ -136,9 +138,11 @@ public class ProductMaxiActivity extends AppCompatActivity {
                 recyclerPromo.setAdapter(new ListRelatedAdapter(related, getBaseContext()));
 
                 detailProducts = response.body().getData();
-                Picasso.with(ProductMaxiActivity.this)
-                        .load(detailProducts.get(0).getImageUrl())
-                        .into(head_image);
+                //Picasso.with(ProductMaxiActivity.this)
+                //        .load(detailProducts.get(0).getImageUrl())
+                //        .into(head_image);
+                Uri uri = Uri.parse(detailProducts.get(0).getImageUrl());
+                head_image.setImageURI(uri);
                 tv_title.setText(detailProducts.get(0).getTitleProgram());
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());

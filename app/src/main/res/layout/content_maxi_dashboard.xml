@@ -25,53 +25,19 @@
                 android:background="@color/colorSection"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
+
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp">
-                    <com.daimajia.slider.library.Indicators.PagerIndicator
-                        android:id="@+id/custom_indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        card_view:selected_color="@color/colorAccent"
-                        card_view:unselected_color="@color/colorWhite"
-                        android:gravity="center"
-                        />
-                    <!--<RelativeLayout-->
-                        <!--android:id="@+id/allpromo"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true">-->
-                        <!--<TextView-->
-                            <!--android:id="@+id/text_all_promo"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:textSize="12sp"-->
-                            <!--android:text="Lihat Semua Promo"-->
-                            <!--android:textAllCaps="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:textColor="@color/colorAccent"/>-->
-                        <!--<ImageView-->
-                            <!--android:id="@+id/show_more"-->
-                            <!--android:layout_toRightOf="@+id/text_all_promo"-->
-                            <!--android:layout_width="15dp"-->
-                            <!--android:layout_height="15dp"-->
-                            <!--android:src="@drawable/ic_show_more"-->
-                            <!--android:layout_centerVertical="true"/>-->
-                    <!--</RelativeLayout>-->
+                    android:layout_height="150dp"/>
 
-                </RelativeLayout>
+                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/sliderBannerIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:selected_color="@color/colorAccent"
+                    app:unselected_color="@color/colorWhite"/>
+
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

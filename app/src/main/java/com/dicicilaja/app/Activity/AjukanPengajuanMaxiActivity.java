@@ -112,10 +112,12 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
             s_harga = getIntent().getStringExtra("pinjaman");
             s_jenis = getIntent().getStringExtra("program");
             s_tenor = getIntent().getStringExtra("spinner_tenor");
+            Log.d("ajukanpenajuan::", "JENIS " + s_jenis);
+            Log.d("ajukanpengajuan::", "JENIS L" + s_jenis.toLowerCase());
         }catch (Exception ex){
 
         }
-        if(s_jenis.equals("Maxi Edukasi")){
+        if(s_jenis.toLowerCase().equals("maxi edukasi")){
             radio2.setEnabled(true);
             radio3.setEnabled(false);
             radio4.setEnabled(false);
@@ -125,7 +127,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
             radio2.setChecked(true);
             program_cicilan = "3";
-        }else if(s_jenis.equals("Maxi Sehat")){
+        }else if(s_jenis.toLowerCase().equals("maxi sehat")){
             radio2.setEnabled(false);
             radio3.setEnabled(true);
             radio4.setEnabled(false);
@@ -135,7 +137,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
             radio3.setChecked(true);
             program_cicilan = "5";
-        }else if(s_jenis.equals("Maxi ExtraGuna")){
+        }else if(s_jenis.toLowerCase().equals("maxi extraguna")){
             radio2.setEnabled(false);
             radio3.setEnabled(false);
             radio4.setEnabled(true);
@@ -145,7 +147,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
             radio4.setChecked(true);
             program_cicilan = "7";
-        }else if(s_jenis.equals("Maxi Travel")){
+        }else if(s_jenis.toLowerCase().equals("maxi travel")){
             radio2.setEnabled(false);
             radio3.setEnabled(false);
             radio4.setEnabled(false);
@@ -155,7 +157,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
             radio5.setChecked(true);
             program_cicilan = "2";
-        }else if(s_jenis.equals("Maxi Usaha")){
+        }else if(s_jenis.toLowerCase().equals("maxi usaha")){
             radio2.setEnabled(false);
             radio3.setEnabled(false);
             radio4.setEnabled(false);
@@ -165,7 +167,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
             radio6.setChecked(true);
             program_cicilan = "4";
-        }else if(s_jenis.equals("Maxi Asuransi")){
+        }else if(s_jenis.toLowerCase().equals("maxi asuransi")){
             radio2.setEnabled(false);
             radio3.setEnabled(false);
             radio4.setEnabled(false);
@@ -456,7 +458,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                Log.d("ajukanpengajuan", "program_id:" + "1");
+                Log.d("ajukanpengajuan", "program_id:" + program_cicilan);
                 Log.d("ajukanpengajuan", "axi_referral:" + axi_id);
                 Log.d("ajukanpengajuan", "colleteral_id:" + JAMINAN_MAP.get(spinnerJaminan.getSelectedItemPosition()));
                 Log.d("ajukanpengajuan", "manufacturer:" + inputMerk.getText().toString());

@@ -2,6 +2,7 @@ package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -32,6 +33,6 @@ public interface InterfaceCreateMitra {
                                 @Field("password") String password,
                                 @Field("program") String program,
                                 @Field("program_id") String program_id,
-                                @Field("ktp_image") String ktp_image,
-                                @Field("npwp_image") String npwp_image);
+                                @Field("ktp_image") MultipartBody.Part ktp_image,
+                                @Field("npwp_image") MultipartBody.Part npwp_image);
 }

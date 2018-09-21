@@ -3,6 +3,7 @@ package com.dicicilaja.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProduct.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
 import com.dicicilaja.app.R;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,7 +50,9 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         holder.tv_jenis.setText(itemModel.getExcerpt());
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
-        Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
+        //Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
+        Uri uri = Uri.parse(itemModel.getImage());
+        holder.discount_image.setImageURI(uri);
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +71,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         protected TextView tv_title;
-        protected ImageView discount_image;
+        protected SimpleDraweeView discount_image;
         protected TextView tv_jenis;
         protected TextView tv_harga;
         protected TextView tv_mitra;

@@ -37,6 +37,7 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
+import com.dicicilaja.app.Activity.MaxiDashboardActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
@@ -408,7 +409,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                     file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
                 }
 
-                for(final String name1 : file_maps.keySet()) {
+                /*for(final String name1 : file_maps.keySet()) {
                     final DefaultSliderView sliderView = new DefaultSliderView(getContext());
                     // initialize a SliderLayout
                     sliderView
@@ -422,11 +423,24 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                         }
                     });
                     mDemoSlider.addSlider(sliderView);
+                }*/
+
+                for(final Datum s: slider) {
+                    Log.d("DASH::::", s.getImage());
+                    DefaultSliderView sliderBannerItem = new DefaultSliderView(getContext());
+                    sliderBannerItem
+                            .image(s.getImage())
+                            .description(s.getUrl())
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                @Override
+                                public void onSliderClick(BaseSliderView slider) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
+                                    startActivity(browserIntent);
+                                }
+                            });
+                    mDemoSlider.addSlider(sliderBannerItem);
                 }
-
-
-
-
             }
 
             @Override
@@ -434,11 +448,11 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             }
         });
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
+//        mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
         mDemoSlider.setDuration(4000);
 //        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider.addOnPageChangeListener(this);
 
         harga_simulasi = view.findViewById(R.id.harga_simulasi);
         jaminan = view.findViewById(R.id.jaminan);

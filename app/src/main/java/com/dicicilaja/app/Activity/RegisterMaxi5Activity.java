@@ -186,7 +186,7 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
                     Log.d("ajukanpengajuan","ktp_image : " + ktp_image);
                     Log.d("ajukanpengajuan","npwp_image : " + npwp_image);
                     progress.show();
-                    doCreate(apiKey, namapemilik, alamatpemilik, nohp, noktp, jk, namaperusahaan, alamatperusahaan, kelurahan, kota, telp, npwppemilik, npwpperusahaan, katasandi, email, program_id, program_nama, ktp_image, npwp_image);
+                    doCreate(apiKey, namapemilik, alamatpemilik, nohp, noktp, jk, namaperusahaan, alamatperusahaan, kelurahan, kota, telp, npwppemilik, npwpperusahaan, katasandi, email, program_id, program_nama, file_ktp, file_npwp);
                 }else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterMaxi5Activity.this);
                     alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -400,7 +400,7 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
         Log.d(TAG, "Permission has been denied");
     }
 
-    private void doCreate(final String apiKey, final String namapemilik, final String alamatpemilik, final String nohp, final String noktp, final String jk, final String namaperusahaan, final String alamatperusahaan, final String kelurahan, final String kota, final String telp, final String npwppemilik, final String npwpperusahaan, final String katasandi, final String email, final String program_id, final String program_nama, final String ktp_image, final String npwp_image) {
+    private void doCreate(final String apiKey, final String namapemilik, final String alamatpemilik, final String nohp, final String noktp, final String jk, final String namaperusahaan, final String alamatperusahaan, final String kelurahan, final String kota, final String telp, final String npwppemilik, final String npwpperusahaan, final String katasandi, final String email, final String program_id, final String program_nama, final MultipartBody.Part ktp_image, final MultipartBody.Part npwp_image) {
         InterfaceCreateMitra apiService =
                 RetrofitClient.getClient().create(InterfaceCreateMitra.class);
 

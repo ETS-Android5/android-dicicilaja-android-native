@@ -3,6 +3,8 @@ package com.dicicilaja.app.API.Item.DetailRequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by ziterz on 1/29/2018.
  */
@@ -91,7 +93,7 @@ public class Datum {
     private Integer statusSurvey;
     @SerializedName("responsible_person")
     @Expose
-    private ResponsiblePerson responsiblePerson;
+    private List<ResponsiblePerson> responsiblePerson;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -319,10 +321,10 @@ public class Datum {
     }
 
     public ResponsiblePerson getResponsiblePerson() {
-        return responsiblePerson;
+        return responsiblePerson.get(0);
     }
 
-    public void setResponsiblePerson(ResponsiblePerson responsiblePerson) {
+    public void setResponsiblePerson(List<ResponsiblePerson> responsiblePerson) {
         this.responsiblePerson = responsiblePerson;
     }
 

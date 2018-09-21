@@ -149,13 +149,14 @@
                                 android:layout_height="24dp"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/whatsapp"/>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toRightOf="@+id/image_wa"
-                                android:text="0812 9334 3334"
+                                android:layout_centerVertical="true"
                                 android:layout_marginLeft="10dp"
-                                android:layout_centerVertical="true"/>
+                                android:layout_toRightOf="@+id/image_wa"
+                                android:text="081 1146 5005" />
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"

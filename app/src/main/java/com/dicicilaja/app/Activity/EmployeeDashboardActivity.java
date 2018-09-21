@@ -41,7 +41,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tab_tc);
         tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN MASUK"));
-        tabLayout.addTab(tabLayout.newTab().setText("SEDANG DIPROSES"));
+        tabLayout.addTab(tabLayout.newTab().setText("STATUS APLIKASI"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent2));
 

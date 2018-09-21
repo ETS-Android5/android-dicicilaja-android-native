@@ -46,6 +46,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Pr
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
+import com.dicicilaja.app.Utils.Helper;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +67,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
     String channel_id, qty;
     TextInputLayout inputLayoutNama, inputLayoutEmail, inputLayoutHp, inputLayoutAlamat, inputLayoutProvinsi, inputLayoutKota,inputLayoutKecamatan;
     String nama, email, hp, alamat, provinsi, kota, kecamatan, id_partner, product;
-    String axi, axi_referral, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, area_id, branch_id, client_name, address, district, city, province, ktp_image, colleteral_image;
+    String axi, axi_referral, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, area_id, branch_id, client_name, address, district, city, province;
+    MultipartBody.Part ktp_image, colleteral_image;
     CheckBox check;
     InterfaceCreateRequest interfaceCreateRequest;
     Button upload_ktp, upload_colleteral;
@@ -82,6 +84,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
     MultipartBody.Part file_ktp, file_colleteral;
     RequestBody ktp_desc, colleteral_desc;
     ProgressDialog progress;
+
+    String fileKtp, fileBpkb;
 
     Data dataCustomer;
     @Override
@@ -261,8 +265,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                     district = inputKecamatan.getText().toString();
                     city = inputKota.getText().toString();
                     province = inputProvinsi.getText().toString();
-                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    //ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    //colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
@@ -293,7 +297,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
 
 
                             progress.show();
-                            doRequest(apiKey, axi_referral,channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image, id_partner, product);
+                            doRequest(apiKey, axi_referral,channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, fileKtp, fileBpkb, id_partner, product);
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanMaxi2Activity.this);
                             alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
@@ -325,11 +329,25 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 if(response.isSuccessful()){
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
-                    if(session.getRole().equals("channel")){
-                        Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }else if(session.getRole().equals("basic")){
+                    try{
+                        if(session.getRole().equals("axi")) {
+                            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else if(session.getRole().equals("tc") || session.getRole().equals("crh") || session.getRole().equals("cro")) {
+                            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }else if(session.getRole().equals("basic")) {
+                            Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }else if(session.getRole().equals("channel")){
+                            Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    }catch (Exception ex){
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -338,12 +356,20 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
 
                 }else if(response.code() == 406){
                     progress.dismiss();
+                    Toast.makeText(getBaseContext(),"Something went wrong with our server.",Toast.LENGTH_SHORT).show();
+                    try {
+                        Log.e("BUAT PENGAJUAN::::", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    try {
+                        Log.e("BUAT PENGAJUAN::::", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -491,18 +517,16 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
                     image_ktp.setImageBitmap(getResizedBitmap(bitmap,350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileKtp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                Log.d(TAG, "Filename " + file.getName());
-                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             }else{
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -511,18 +535,16 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_colleteral.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_colleteral.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileBpkb = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileBpkb);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                Log.d(TAG, "Filename " + file.getName());
-//                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             }else{
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -40,8 +41,10 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahAxi.UbahAxi;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Upload.services.Service;
+import com.dicicilaja.app.Utils.Helper;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -73,7 +76,6 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
     ProgressDialog progress;
     TextView textCheck;
 
-
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_NPWP = 200;
@@ -83,6 +85,8 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
     private Uri uri;
     MultipartBody.Part file_ktp, file_npwp, file_cover;
     RequestBody ktp_desc, npwp_desc, cover_desc;
+
+    String fileKtp, fileNpwp, fileCover;
 
     Service service;
     String mCurrentPhotoPath;
@@ -209,7 +213,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                 if (check.isChecked()){
 
                     progress.show();
-                    buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rtrw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover);
+                    buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rtrw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, fileKtp, fileNpwp, fileCover);
 
                 }else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi5Activity.this);
@@ -343,8 +347,13 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_ktp.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_ktp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileKtp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -364,8 +373,13 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
                     image_npwp.setImageBitmap(getResizedBitmap(bitmap,350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileNpwp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileNpwp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -384,8 +398,13 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
                     image_cover.setImageBitmap(getResizedBitmap(bitmap,350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileCover = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileCover);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -478,9 +497,12 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
             @Override
             public void onFailure(Call<CreateAXI> call, Throwable t) {
                 Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                Log.d("REGISTERAXI:::", "ERORR");
+                t.printStackTrace();
+
+                //Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //startActivity(intent);
             }
         });
     }

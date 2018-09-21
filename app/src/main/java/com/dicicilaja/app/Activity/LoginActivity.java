@@ -287,6 +287,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
+                Log.e("LOGINERR:::", "ERROR");
+                t.printStackTrace();
                 progress.dismiss();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");

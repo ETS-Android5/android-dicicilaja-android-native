@@ -147,7 +147,7 @@ public class TaskCRHFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
 
-        if(getActivity().getIntent().getStringExtra("STATUS").equals("Proses")) {
+        if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("proses") || getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("verifikasi")) {
 
             layout_title_penugasan.setVisibility(View.VISIBLE);
             card_pengajuan.setVisibility(View.VISIBLE);
@@ -202,7 +202,7 @@ public class TaskCRHFragment extends Fragment {
 //            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
 //            button_selesai.setVisibility(View.GONE);
 
-        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
+        } else if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
 
             layout_title_penugasan.setVisibility(View.GONE);
             card_pengajuan.setVisibility(View.GONE);
@@ -317,7 +317,7 @@ public class TaskCRHFragment extends Fragment {
                     });
                 }
             });
-        } else if(getActivity().getIntent().getStringExtra("STATUS").equals("Analisa Kredit")) {
+        } else if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("analisa kredit")) {
 //            lihat_database.setEnabled(false);
 //            inputReferal.setEnabled(false);
 //            inputCatatan.setEnabled(false);
@@ -439,7 +439,7 @@ public class TaskCRHFragment extends Fragment {
                     keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number,amount);
                 }
             });
-        }else if(getActivity().getIntent().getStringExtra("STATUS").equals("Pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") != null) {
+        } else if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") != null) {
 
             layout_title_penugasan.setVisibility(View.GONE);
             card_pengajuan.setVisibility(View.GONE);

@@ -53,6 +53,7 @@ import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Upload.model.UserProfile;
 import com.dicicilaja.app.Upload.services.Service;
 import com.dicicilaja.app.Upload.utils.FileUtils;
+import com.dicicilaja.app.Utils.Helper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -88,6 +89,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     private static final int READ_REQUEST_CODE = 300;
     private Uri uri;
     MultipartBody.Part file_ktp, file_colleteral;
+    String fileKtp, fileBpkb;
     RequestBody ktp_desc, colleteral_desc;
     ProgressDialog progress;
     String apiKey;
@@ -304,8 +306,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                     district = inputKecamatan.getText().toString();
                     city = inputKota.getText().toString();
                     province = inputProvinsi.getText().toString();
-                    ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
-                    colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    //ktp_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
+                    //colleteral_image = "http://dicicilaja.com/public/assets/images/not-found.jpg";
 
                     if(validateForm(client_name, email, hp, alamat, provinsi, kota, kecamatan)) {
                         if(check.isChecked()) {
@@ -332,9 +334,9 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                             Log.d("ajukanpengajuan","colleteral_image:" + colleteral_image);
                             progress.show();
                             if(session.getRole() != null){
-                                doRequest(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                                doRequest(apiKey, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, fileKtp, fileBpkb);
                             }else {
-                                doRequest(null, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, ktp_image, colleteral_image);
+                                doRequest(null, axi_referral, channel_id, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, fileKtp, fileBpkb);
                             }
                         }else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AjukanPengajuanAxi2Activity.this);
@@ -382,6 +384,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+                Log.d("PENGAJUAN:::", String.valueOf(response.body()));
                 if(response.isSuccessful()){
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();
@@ -407,6 +410,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 
                 }else if(response.code() == 406){
                     progress.dismiss();
+                    Toast.makeText(getBaseContext(),"Something went wrong with our server.",Toast.LENGTH_SHORT).show();
+                    Log.e("BUAT PENGAJUAN::::", response.message());
                 }else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
@@ -549,8 +554,13 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_ktp.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_ktp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileKtp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REQUEST AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -570,8 +580,13 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_colleteral.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_colleteral.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileBpkb = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REQUEST AXI:::", fileBpkb);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
