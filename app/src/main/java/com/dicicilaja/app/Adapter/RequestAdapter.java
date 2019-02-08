@@ -176,7 +176,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     @Override
     public int getItemCount() {
-        return dataListFiltered.size();
+        if( dataListFiltered == null ) {
+            return 0;
+        } else {
+            return dataListFiltered.size();
+        }
     }
 
     @Override
@@ -219,6 +223,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     }
 
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
+        Log.d("REQUEST TC:::", "Transaction ID " + transaction_id);
+        Log.d("REQUEST TC:::", "Assigned ID " + assigned_id);
         Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
         call.enqueue(new Callback<ResRequestProcess>() {
             @Override
@@ -231,6 +237,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
             }
         });
+    }
+
+    public void refreshAdapter(List<Datum> data) {
+        this.requests.addAll(data);
+        notifyItemRangeChanged(0, this.requests.size());
     }
 
 }

@@ -179,6 +179,7 @@ public class PengajuanJaminanFragment extends Fragment {
         });
 
         Intent intent = getActivity().getIntent();
+
         if(intent.hasExtra("STATUS")) {
             proses.setVisibility(View.GONE);
         }else{

@@ -33,8 +33,11 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSl
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
+import com.dicicilaja.app.Model.RequestMeta;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,6 +73,18 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
 
     RelativeLayout allpengajuan, allprogram;
     HashMap<String, String> file_maps;
+
+    ProgressDialog progress;
+    RecyclerView recyclerView;
+    RecyclerView recyclerView2;
+
+    ProgramMaxiAdapter adapterProgram;
+    PengajuanMaxiAdapter adapterRequest;
+
+    int totalData = 1;
+    int totalPage = 1;
+    int currentPage = 1;
+    boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +161,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             }
         });
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -154,8 +169,11 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         InterfaceProgramMaxi apiService3 =
                 RetrofitClient.getClient().create(InterfaceProgramMaxi.class);
 
-        final RecyclerView recyclerView2 =  findViewById(R.id.recycler_program);
+        recyclerView2 =  findViewById(R.id.recycler_program);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        adapterProgram = new ProgramMaxiAdapter(programMaxi, R.layout.card_program, getBaseContext());
+        recyclerView2.setAdapter(adapterProgram);
 
         Call<ProgramMaxi> call5 = apiService3.getProgramMaxi(apiKey);
         call5.enqueue(new Callback<ProgramMaxi>() {
@@ -197,55 +215,19 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             }
         });
 
-        InterfacePengajuanMaxi apiService =
-                RetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
-
-        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
+        recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        Call<PengajuanMaxi> call2 = apiService.getPengajuanMaxi(apiKey);
-        call2.enqueue(new Callback<PengajuanMaxi>() {
-            @Override
-            public void onResponse(Call<PengajuanMaxi> call, Response<PengajuanMaxi> response) {
-                if(response.isSuccessful()){
-                    pengajuan = response.body().getData();
+        adapterRequest = new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext());
+        recyclerView.setAdapter(adapterRequest);
 
-                    recyclerView.setAdapter(new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
-                    recyclerView.setNestedScrollingEnabled(false);
-                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                        @Override
-                        public void onClick(View view, final int position) {
-                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-                            startActivity(intent);
+        pengajuan = new ArrayList<>();
 
-                        }
+        // Load Data
+        doLoadData();
 
-                        @Override
-                        public void onLongClick(View view, int position) {
-                        }
-                    }));
-                }else{
-                    session.logoutUser();
-                }
-
-                progress.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<PengajuanMaxi> call, Throwable t) {
-                progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MaxiDashboardActivity.this);
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+        // Init Listener
+        initListener();
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -441,4 +423,99 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
 
     @Override
     public void onPageScrollStateChanged(int state) {}
+
+    private void doLoadData() {
+        showLoading();
+
+        InterfacePengajuanMaxi apiService =
+                RetrofitClient.getClient().create(InterfacePengajuanMaxi.class);
+
+        Call<PengajuanMaxi> call2 = apiService.getPengajuanMaxi(apiKey, currentPage);
+        call2.enqueue(new Callback<PengajuanMaxi>() {
+            @Override
+            public void onResponse(Call<PengajuanMaxi> call, Response<PengajuanMaxi> response) {
+                if(response.isSuccessful()){
+
+                    List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> items = response.body().getData();
+                    RequestMeta meta = response.body().getMeta();
+
+                    totalPage = meta.getLastPage();
+                    totalData = meta.getTotal();
+                    currentPage = meta.getCurrentPage();
+
+                    if( currentPage == 1 ) {
+                        pengajuan.clear();
+                        pengajuan.addAll(items);
+
+                        adapterRequest.notifyDataSetChanged();
+
+                    } else {
+                        adapterRequest.refreshAdapter(items);
+                    }
+
+                    /*pengajuan = response.body().getData();
+
+                    recyclerView.setAdapter(new PengajuanMaxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
+                    recyclerView.setNestedScrollingEnabled(false);*/
+                }else{
+                    session.logoutUser();
+                }
+
+                hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<PengajuanMaxi> call, Throwable t) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MaxiDashboardActivity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                hideLoading();
+                alertDialog.show();
+            }
+        });
+    }
+
+    private void initListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int countItem = layoutManager.getItemCount();
+
+                /*int visiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                if( visiblePosition >= 3 ) {
+                    fabScrollTop.setVisibility(View.VISIBLE);
+                } else {
+                    fabScrollTop.setVisibility(View.GONE);
+                }*/
+
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean isLastPosition = countItem - 1 == lastVisiblePosition;
+
+                if( !isLoading && isLastPosition && currentPage < totalPage ) {
+                    currentPage = currentPage + 1;
+                    doLoadData();
+                }
+            }
+        });
+    }
+
+    private void showLoading() {
+        isLoading = true;
+        progress.show();
+    }
+
+    private void hideLoading() {
+        isLoading = false;
+        progress.dismiss();
+    }
 }

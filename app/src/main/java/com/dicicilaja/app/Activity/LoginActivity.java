@@ -25,6 +25,7 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.app.API.Interface.InterfaceLogin;
 import com.dicicilaja.app.API.Item.Login.Login;
+import com.dicicilaja.app.Activity.Addon.CompletePhoneEmailActivity;
 import com.dicicilaja.app.WebView.ForgotActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -36,6 +37,8 @@ import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Remote.UserFirebase;
 import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
+import com.instabug.library.Instabug;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,7 +76,14 @@ public class LoginActivity extends AppCompatActivity {
         progress.setMessage("Mohon tunggu sebentar...");
         progress.setCanceledOnTouchOutside(false);
 
-        if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
+        if( session.isLoggedIn() ) {
+
+            showNextActivity(true, session.getRole());
+
+        } else {
+
+
+        /*if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
             Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -117,7 +127,11 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-        } else {
+        } else {*/
+
+            Instabug.setUserAttribute("USER_ID", null);
+            Instabug.setUserAttribute("LOGIN", "False");
+
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -143,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
             userFirebase = ApiUtils.getUserFirebase();
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-            Log.i("firebase_login", "token : "  + refreshedToken.toString());
+            //Log.i("firebase_login", "token : "  + refreshedToken.toString());
 
             Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
             Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -227,9 +241,26 @@ public class LoginActivity extends AppCompatActivity {
                         area = "";
                     }
 
-                    session.createLoginSession(resObj.getUserId(), resObj.getToken().getAccessToken(), resObj.getRole(), resObj.getName(), photo, resObj.getBranch(), area, zipcode, refreshedToken);
+                    session.createLoginSession(
+                            resObj.getUserId(),
+                            resObj.getToken().getAccessToken(),
+                            resObj.getRole(),
+                            resObj.getName(),
+                            photo,
+                            resObj.getBranch(),
+                            area,
+                            zipcode,
+                            refreshedToken,
+                            resObj.getPhone(),
+                            resObj.getEmail()
+                    );
 
-                    if (resObj.getRole().equals("axi")) {
+                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
+                    Instabug.setUserAttribute("LOGIN", "True");
+
+                    showNextActivity(true, resObj.getRole());
+
+                    /*if (resObj.getRole().equals("axi")) {
                         Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -277,7 +308,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                    }
+                    }*/
                 }else {
                     progress.dismiss();
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
@@ -360,6 +391,82 @@ public class LoginActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    private void showNextActivity(boolean isLogin, String role) {
+        if( isLogin ) {
+
+            if( String.valueOf(session.getPhone()).isEmpty() || (session.getEmail() == null) ) {
+                Intent intent = new Intent( LoginActivity.this, CompletePhoneEmailActivity.class );
+
+                intent.putExtra("USER_ID", session.getUserId());
+                intent.putExtra("USER_PHONE", session.getPhone());
+                intent.putExtra("USER_EMAIL", session.getEmail());
+                intent.putExtra("USER_ROLE", session.getRole());
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
+            } else {
+                showWhichActivity(role);
+            }
+        }
+    }
+
+    private void showWhichActivity( String role ) {
+        role = role.toLowerCase();
+        Intent intent;
+        switch (role) {
+            case "axi":
+                intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                break;
+
+            case "channel":
+                intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                break;
+
+            case "crh":
+                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                break;
+
+            case "cro":
+                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                break;
+
+            case "tc":
+                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                break;
+
+            case "admin":
+                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                break;
+
+            case "spg":
+                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                break;
+
+            case "bm":
+                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                break;
+
+            case "mm":
+                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                break;
+
+            case "ho":
+                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                break;
+
+            case "basic":
+                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                break;
+
+            default:
+                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                break;
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

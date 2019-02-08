@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,6 +39,8 @@ import com.dicicilaja.app.API.Item.Task.Datum;
 import com.dicicilaja.app.API.Item.Task.Task;
 import com.dicicilaja.app.Adapter.RequestAdapter;
 import com.dicicilaja.app.Adapter.TaskAdapter;
+import com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty;
+import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Remote.RequestProcess;
@@ -55,7 +60,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
     RequestProcess interfaceTCProcess;
     Integer positionCard;
     String apiKey;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayoutWithEmpty mSwipeRefreshLayout;
     RequestAdapter requestAdapter;
     TaskAdapter taskAdapter;
 
@@ -63,17 +68,36 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
     SearchView search;
     CardView search_toggle;
 
+    FloatingActionButton fabScrollTop;
+    RecyclerView recyclerView;
+    EditText searchBox;
+    ImageView searchClose;
+
+    ProgressDialog progress;
+    SessionManager session;
+
+    TextView title_pengumuman;
+    TextView jumlah_pengajuan;
+
+    int totalData = 1;
+    int totalPage = 1;
+    int currentPage = 1;
+    boolean isLoading = false;
+    String searchVal = null;
+
+    RelativeLayout layoutEmpty;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inprogress, container, false);
 
-        final SessionManager session = new SessionManager(getContext());
+        session = new SessionManager(getContext());
         apiKey = "Bearer " + session.getToken();
 
-        TextView title_pengumuman = view.findViewById(R.id.title_pengumuman);
-        final TextView jumlah_pengajuan = view.findViewById(R.id.jumlah_pengajuan);
+        title_pengumuman = view.findViewById(R.id.title_pengumuman);
+        jumlah_pengajuan = view.findViewById(R.id.jumlah_pengajuan);
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -83,10 +107,13 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         title_pengumuman.setTypeface(opensans_bold);
         jumlah_pengajuan.setTypeface(opensans_bold);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-        final RecyclerView recyclerView =  view.findViewById(R.id.recycler_pengajuan);
+
+        recyclerView =  view.findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        layoutEmpty = view.findViewById(R.id.layoutEmpty);
 
         interfaceTCProcess = ApiUtils.getRequestService();
 
@@ -98,14 +125,18 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         search = view.findViewById(R.id.search);
         search_toggle = view.findViewById(R.id.search_toggle);
         top_attribut = view.findViewById(R.id.top_attribut);
+
+        fabScrollTop = view.findViewById(R.id.fabScrollTop);
+        fabScrollTop.bringToFront();
+
         search.setVisibility(View.GONE);
 
-        EditText searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
         searchBox.setTextSize(16);
         searchBox.setTextColor(Color.parseColor("#000000"));
         searchBox.setCursorVisible(false);
 
-        ImageView searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
         searchClose.setImageResource(R.drawable.ic_close);
 
@@ -130,7 +161,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
             }
         });
 
-        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -138,171 +169,22 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(session.getRole().equals("admin") || session.getRole().equals("tc")){
-                    InterfaceRequest apiService =
-                            RetrofitClient.getClient().create(InterfaceRequest.class);
-
-                    Call<Request> call = apiService.getRequest(apiKey);
-                    call.enqueue(new Callback<Request>() {
-                        @Override
-                        public void onResponse(Call<Request> call, Response<Request> response) {
-                            if (response.isSuccessful() ) {
-                                List<com.dicicilaja.app.API.Item.Request.Datum> items = response.body().getData();
-                                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-                                jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
-                                requests.clear();
-                                requests.addAll(items);
-
-                                requestAdapter.notifyDataSetChanged();
-                                recyclerView.setAdapter(requestAdapter);
-
-                                progress.dismiss();
-                            } else {
-                                progress.dismiss();
-                                session.logoutUser();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Request> call, Throwable t) {
-                            progress.dismiss();
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                            alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                            alertDialog.show();
-                        }
-                    });
-                } else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
-                    InterfaceTask apiService =
-                            RetrofitClient.getClient().create(InterfaceTask.class);
-
-                    Call<Task> call = apiService.getTask(apiKey);
-                    call.enqueue(new Callback<Task>() {
-                        @Override
-                        public void onResponse(Call<Task> call, Response<Task> response) {
-                            if ( response.isSuccessful() ) {
-                                List<Datum> items = response.body().getData();
-                                DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-                                jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
-                                tasks.clear();
-                                tasks.addAll(items);
-
-                                taskAdapter.notifyDataSetChanged();
-                                recyclerView.setAdapter(taskAdapter);
-
-                                progress.dismiss();
-                            } else {
-                                session.logoutUser();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Task> call, Throwable t) {
-                            progress.dismiss();
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                            alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                            alertDialog.show();
-                        }
-                    });
-                }
+                currentPage = 1;
+                doLoadData();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        if(session.getRole().equals("admin") || session.getRole().equals("tc")){
-            InterfaceRequest apiService =
-                    RetrofitClient.getClient().create(InterfaceRequest.class);
+        // Load data
+        doLoadData();
 
-            Call<Request> call = apiService.getRequest(apiKey);
-            call.enqueue(new Callback<Request>() {
-                @Override
-                public void onResponse(Call<Request> call, Response<Request> response) {
-                    if (response.isSuccessful()) {
-                        List<com.dicicilaja.app.API.Item.Request.Datum> items = response.body().getData();
-                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-                        jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
-                        requests.clear();
-                        requests.addAll(items);
+        // Init recyleview listener
+        initListener();
 
-                        requestAdapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(requestAdapter);
+        // Hide recyle
+        hideEmpty();
 
-                        progress.dismiss();
-                    } else {
-                        progress.dismiss();
-                        session.logoutUser();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<Request> call, Throwable t) {
-                    progress.dismiss();
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alertDialog.show();
-                }
-            });
-        } else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
-            InterfaceTask apiService =
-                    RetrofitClient.getClient().create(InterfaceTask.class);
-
-            Call<Task> call = apiService.getTask(apiKey);
-            call.enqueue(new Callback<Task>() {
-                @Override
-                public void onResponse(Call<Task> call, Response<Task> response) {
-                    if ( response.isSuccessful() ) {
-                        List<Datum> items = response.body().getData();
-                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-                        jumlah_pengajuan.setText(formatter.format(items.size()).replace(",","."));
-                        tasks.clear();
-                        tasks.addAll(items);
-
-                        taskAdapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(taskAdapter);
-
-                        progress.dismiss();
-                    } else {
-                        session.logoutUser();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<Task> call, Throwable t) {
-                    progress.dismiss();
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-//
-                        }
-                    });
-                    alertDialog.show();
-                }
-            });
-        }
-
-        SearchView search = view.findViewById(R.id.search);
+        final SearchView search = view.findViewById(R.id.search);
         search.setActivated(true);
         search.setQueryHint("Ketik disini untuk mencari");
         search.onActionViewExpanded();
@@ -312,20 +194,26 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
+                /*if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
                     requestAdapter.getFilter().filter(query);
                 } else if(session.getRole().equals("crh") || session.getRole().equals("cro")) {
                     taskAdapter.getFilter().filter(query);
-                }
+                }*/
+                searchVal = query;
+                doLoadData();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
+                /*if(session.getRole().equals("admin") || session.getRole().equals("tc")) {
                     requestAdapter.getFilter().filter(query);
                 } else if(session.getRole().equals("crh") || session.getRole().equals("cro")) {
                     taskAdapter.getFilter().filter(query);
+                }*/
+                if( query.equals("") ) {
+                    searchVal = null;
+                    doLoadData();
                 }
                 return false;
             }
@@ -341,5 +229,206 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
     @Override
     public void onDataSelected(Datum datum) {
 
+    }
+
+    private void doLoadData() {
+        Log.d("page", String.valueOf(currentPage));
+        showLoading(false);
+
+        Log.d("FRS:::", session.getRole());
+        if(session.getRole().equals("admin") || session.getRole().equals("tc")){
+            InterfaceRequest apiService =
+                    RetrofitClient.getClient().create(InterfaceRequest.class);
+
+            Call<Request> call = apiService.getRequest(apiKey, currentPage);
+            call.enqueue(new Callback<Request>() {
+                @Override
+                public void onResponse(Call<Request> call, Response<Request> response) {
+                    if (response.isSuccessful()) {
+                        List<com.dicicilaja.app.API.Item.Request.Datum> items = response.body().getData();
+                        RequestMeta meta = response.body().getMeta();
+                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                        String total = formatter.format(meta.getTotal()).replace(",", ".");
+
+                        totalPage = meta.getLastPage();
+                        totalData = meta.getTotal();
+                        currentPage = meta.getCurrentPage();
+
+                        if( meta.getCurrentPage() == 1 ) {
+                            requests.clear();
+                            requests.addAll(items);
+
+                            requestAdapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(requestAdapter);
+                        } else {
+                            requestAdapter.refreshAdapter(items);
+                        }
+
+                        jumlah_pengajuan.setText(total);
+                    } else {
+                        session.logoutUser();
+                    }
+
+                    hideLoading();
+                }
+
+                @Override
+                public void onFailure(Call<Request> call, Throwable t) {
+                    progress.dismiss();
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                    alertDialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    alertDialog.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            doLoadData();
+                        }
+                    });
+                    hideLoading();
+                    alertDialog.show();
+                }
+            });
+        } else if(session.getRole().equals("crh") || session.getRole().equals("cro")){
+            Log.d("FRS:::", session.getRole());
+            InterfaceTask apiService =
+                    RetrofitClient.getClient().create(InterfaceTask.class);
+
+            Call<Task> call = apiService.getTask(apiKey, currentPage);
+            call.enqueue(new Callback<Task>() {
+                @Override
+                public void onResponse(Call<Task> call, Response<Task> response) {
+                    Log.d("FRS:::", String.valueOf(response.isSuccessful()));
+                    if ( response.isSuccessful() ) {
+                        List<Datum> items = response.body().getData();
+                        RequestMeta meta = response.body().getMeta();
+                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                        String total = formatter.format(meta.getTotal()).replace(",", ".");
+
+                        jumlah_pengajuan.setText(total);
+
+                        totalPage = meta.getLastPage();
+                        totalData = meta.getTotal();
+                        currentPage = meta.getCurrentPage();
+
+                        Log.d("FRS::::", meta.getCurrentPage().toString());
+
+                        if( meta.getCurrentPage() == 1 ) {
+                            tasks.clear();
+                            tasks.addAll(items);
+
+                            taskAdapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(taskAdapter);
+                        } else {
+                            taskAdapter.refreshAdapter(tasks);
+                        }
+
+                        if( tasks.size() > 0 ) {
+                            hideEmpty();
+                        } else {
+                            showEmpty();
+                        }
+/*
+                        jumlah_pengajuan.setText(total);
+                        tasks.clear();
+                        tasks.addAll(items);
+
+                        taskAdapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(taskAdapter);
+
+                        progress.dismiss();
+                        */
+                    } else {
+                        session.logoutUser();
+                    }
+
+                    hideLoading();
+                }
+
+                @Override
+                public void onFailure(Call<Task> call, Throwable t) {
+                    progress.dismiss();
+                    t.printStackTrace();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                    alertDialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    alertDialog.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            doLoadData();
+                        }
+                    });
+
+                    hideLoading();
+                    alertDialog.show();
+                }
+            });
+        }
+    }
+
+    private void initListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int countItem = layoutManager.getItemCount();
+
+                int visiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                if( visiblePosition >= 3 ) {
+                    fabScrollTop.setVisibility(View.VISIBLE);
+                } else {
+                    fabScrollTop.setVisibility(View.GONE);
+                }
+
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean isLastPosition = countItem - 1 == lastVisiblePosition;
+
+                if( !isLoading && isLastPosition && currentPage < totalPage ) {
+                    showLoading(false);
+                    currentPage = currentPage + 1;
+                    doLoadData();
+                }
+            }
+        });
+        fabScrollTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.scrollToPosition(0);
+                fabScrollTop.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void showLoading(boolean isRefresh) {
+        isLoading = true;
+        progress.show();
+    }
+
+    private void hideLoading() {
+        isLoading = false;
+        progress.dismiss();
+    }
+
+    private void showEmpty() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmpty.setVisibility(View.VISIBLE);
+    }
+
+    private void hideEmpty() {
+        recyclerView.setVisibility(View.VISIBLE);
+        layoutEmpty.setVisibility(View.GONE);
     }
 }

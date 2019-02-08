@@ -1,5 +1,6 @@
 package com.dicicilaja.app.API.Item.Task;
 
+import com.dicicilaja.app.Model.RequestMeta;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,6 +18,9 @@ public class Task {
     @Expose
     private List<Datum> data = null;
 
+    @SerializedName("meta")
+    private RequestMeta meta;
+
     public String getStatus() {
         return status;
     }
@@ -31,5 +35,13 @@ public class Task {
 
     public void setData(List<Datum> data) {
         this.data = data;
+    }
+
+    public RequestMeta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(RequestMeta meta) {
+        this.meta = meta;
     }
 }

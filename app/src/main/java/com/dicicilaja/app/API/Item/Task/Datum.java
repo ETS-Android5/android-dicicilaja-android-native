@@ -16,7 +16,7 @@ public class Datum {
     private Integer transactionId;
     @SerializedName("tracking_id")
     @Expose
-    private Integer trackingId;
+    private String trackingId;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -56,11 +56,11 @@ public class Datum {
         this.transactionId = transactionId;
     }
 
-    public Integer getTrackingId() {
+    public String getTrackingId() {
         return trackingId;
     }
 
-    public void setTrackingId(Integer trackingId) {
+    public void setTrackingId(String trackingId) {
         this.trackingId = trackingId;
     }
 

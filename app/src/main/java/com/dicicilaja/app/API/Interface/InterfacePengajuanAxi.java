@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Query;
 
 /**
  * Created by fawazrifqi on 29/04/18.
@@ -15,6 +16,7 @@ public interface InterfacePengajuanAxi {
             "Accept: application/json",
     })
     @GET("request/user")
-    Call<PengajuanAxi> getPengajuanAxi(@Header("Authorization") String apiKey);
+    Call<PengajuanAxi> getPengajuanAxi(@Header("Authorization") String apiKey,
+                                       @Query("page") int page);
 
 }

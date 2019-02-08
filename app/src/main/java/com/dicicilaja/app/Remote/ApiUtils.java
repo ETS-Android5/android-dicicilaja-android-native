@@ -30,16 +30,16 @@ public class ApiUtils {
     }
 
     public static InterfaceAxiDetail getAxiDetail() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceAxiDetail.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceAxiDetail.class);
     }
 
     public static ClaimProcess getClaim() {
-        return RetrofitClient.getClient(BASE_URL).create(ClaimProcess.class);
+        return RetrofitClient.getClient(BASE_URL2).create(ClaimProcess.class);
     }
 
 
     public static LoginMarketplace getLogin() {
-        return RetrofitClient.getClient(BASE_URL).create(LoginMarketplace.class);
+        return RetrofitClient.getClient(BASE_URL2).create(LoginMarketplace.class);
     }
 
     public static UserFirebase getUserFirebase() {
@@ -47,43 +47,43 @@ public class ApiUtils {
     }
 
     public static AreaService getAreaService() {
-        return RetrofitClient.getClient(BASE_URL).create(AreaService.class);
+        return RetrofitClient.getClient(BASE_URL2).create(AreaService.class);
     }
 
     public static RequestProcess getRequestService() {
-        return RetrofitClient.getClient(BASE_URL).create(RequestProcess.class);
+        return RetrofitClient.getClient(BASE_URL2).create(RequestProcess.class);
     }
 
     public static InterfaceRequestSurvey getRequestSurvey() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceRequestSurvey.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceRequestSurvey.class);
     }
 
     public static InterfaceDraft getDraft() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceDraft.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceDraft.class);
     }
 
     public static InterfaceSurveyFinish getSurvey() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceSurveyFinish.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceSurveyFinish.class);
     }
 
     public static InterfaceKeputusanSurvey getKeputusanSurvey() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceKeputusanSurvey.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceKeputusanSurvey.class);
     }
 
     public static InterfaceNilaiPinjaman getNilaiPinjaman() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceNilaiPinjaman.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceNilaiPinjaman.class);
     }
 
     public static InterfaceKeputusanPinjaman getKeputusanPinjaman() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceKeputusanPinjaman.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceKeputusanPinjaman.class);
     }
 
     public static InterfaceNotifToken getNotifToken() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceNotifToken.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceNotifToken.class);
     }
 
     public static InterfaceLogout getLogout() {
-        return RetrofitClient.getClient(BASE_URL).create(InterfaceLogout.class);
+        return RetrofitClient.getClient(BASE_URL2).create(InterfaceLogout.class);
     }
 
 

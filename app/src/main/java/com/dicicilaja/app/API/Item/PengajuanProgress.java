@@ -13,7 +13,7 @@ public class PengajuanProgress {
     private Integer id;
     @SerializedName("tracking_id")
     @Expose
-    private Integer trackingId;
+    private String trackingId;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -41,11 +41,11 @@ public class PengajuanProgress {
         this.id = id;
     }
 
-    public Integer getTrackingId() {
+    public String getTrackingId() {
         return trackingId;
     }
 
-    public void setTrackingId(Integer trackingId) {
+    public void setTrackingId(String trackingId) {
         this.trackingId = trackingId;
     }
 

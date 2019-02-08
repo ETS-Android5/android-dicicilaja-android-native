@@ -105,4 +105,15 @@
             </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
     </ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabScrollTop"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ib_fr_ic_arrow_upward"
+        android:tint="@color/colorWhite"
+        android:visibility="gone" />
 </RelativeLayout>

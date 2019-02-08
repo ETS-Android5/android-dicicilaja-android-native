@@ -70,6 +70,11 @@ public class DatabaseCRHAdapter extends RecyclerView.Adapter<DatabaseCRHAdapter.
         this.dataListFiltered = dataList;
     }
 
+    public void refreshAdapter(List<Datum> dataList) {
+        this.dataList.addAll(dataList);
+        notifyItemRangeChanged(0, this.dataList.size());
+    }
+
     @Override
     public DatabaseCRHAdapter.DatabaseCRHViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_database_crh, parent, false);

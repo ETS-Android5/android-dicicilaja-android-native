@@ -14,7 +14,7 @@ public class DetailPengajuan {
     private Integer id;
     @SerializedName("tracking")
     @Expose
-    private Integer tracking;
+    private String tracking;
     @SerializedName("channel")
     @Expose
     private String channel;
@@ -102,11 +102,11 @@ public class DetailPengajuan {
         this.id = id;
     }
 
-    public Integer getTracking() {
+    public String getTracking() {
         return tracking;
     }
 
-    public void setTracking(Integer tracking) {
+    public void setTracking(String tracking) {
         this.tracking = tracking;
     }
 

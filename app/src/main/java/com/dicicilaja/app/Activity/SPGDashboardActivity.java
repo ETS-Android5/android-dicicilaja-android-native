@@ -1,5 +1,6 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -30,11 +32,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dicicilaja.app.API.Item.Request.Request;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
+import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.WebView.CekStatusActivity;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +68,20 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
     String apiKey;
     CardView search_toggle;
 
+    RecyclerView recyclerView;
+    EditText searchBox;
+    TextView jumlah_pengajuan;
+    ImageView searchClose;
+    FloatingActionButton fabScrollTop;
+
+    ProgressDialog progress;
+
+    int totalData = 1;
+    int totalPage = 1;
+    int currentPage = 1;
+    boolean isLoading = false;
+    String searchVal = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +91,10 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         getSupportActionBar().setTitle(null);
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
+
+        progress = new ProgressDialog(this);
+        progress.setCanceledOnTouchOutside(false);
+        progress.setMessage("Please wait...");
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -196,7 +219,7 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         });
 
         TextView title_pengumuman = findViewById(R.id.title_pengumuman);
-        final TextView jumlah_pengajuan = findViewById(R.id.jumlah_pengajuan);
+        jumlah_pengajuan = findViewById(R.id.jumlah_pengajuan);
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
@@ -205,25 +228,29 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         title_pengumuman.setTypeface(opensans_bold);
         jumlah_pengajuan.setTypeface(opensans_bold);
 
+        fabScrollTop = findViewById(R.id.fabScrollTop);
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
+
+        recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         requestProgress = new ArrayList<>();
         requestProgressAdapter = new RequestProgressAdapter(getBaseContext(), requestProgress, this);
+        recyclerView.setAdapter(requestProgressAdapter);
 
         search = findViewById(R.id.search);
         search_toggle = findViewById(R.id.search_toggle);
         top_attribut = findViewById(R.id.top_attribut);
         search.setVisibility(View.GONE);
 
-        EditText searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
         searchBox.setTextSize(16);
         searchBox.setTextColor(Color.parseColor("#000000"));
         searchBox.setCursorVisible(false);
 
-        ImageView searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
         searchClose.setImageResource(R.drawable.ic_close);
 
@@ -251,101 +278,16 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                InterfaceRequestProgress apiService =
-                        RetrofitClient.getClient().create(InterfaceRequestProgress.class);
-
-                Call<RequestProgress> call = apiService.getRequestProgress(apiKey);
-                call.enqueue(new Callback<RequestProgress>() {
-                    @Override
-                    public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
-                        if ( response.isSuccessful() ) {
-                            List<Datum> items = response.body().getData();
-                            jumlah_pengajuan.setText(Integer.toString(items.size()));
-                            requestProgress.clear();
-                            requestProgress.addAll(items);
-
-                            requestProgressAdapter.notifyDataSetChanged();
-                            recyclerView.setAdapter(requestProgressAdapter);
-
-//                            requestProgress = response.body().getData();
-//                            jumlah_pengajuan.setText(Integer.toString(requestProgress.size()));
-//                            recyclerView.setAdapter(new RequestProgressAdapter(requestProgress, R.layout.card_pengajuan, getContext()));
-//
-//
-//                            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-//                                @Override
-//                                public void onClick(View view, int position) {
-//                                    Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-//                                    intent.putExtra("EXTRA_REQUEST_ID", requestProgress.get(position).getId().toString());
-//                                    intent.putExtra("STATUS", true);
-//                                    startActivity(intent);
-//                                }
-//
-//                                @Override
-//                                public void onLongClick(View view, int position) {
-//                                }
-//                            }));
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<RequestProgress> call, Throwable t) {
-
-                    }
-                });
+                doLoadData();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        InterfaceRequestProgress apiService =
-                RetrofitClient.getClient().create(InterfaceRequestProgress.class);
+        // Load Data
+        doLoadData();
 
-        Call<RequestProgress> call = apiService.getRequestProgress(apiKey);
-        call.enqueue(new Callback<RequestProgress>() {
-            @Override
-            public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
-                if ( response.isSuccessful() ) {
-                    List<Datum> items = response.body().getData();
-                    jumlah_pengajuan.setText(Integer.toString(items.size()));
-                    requestProgress.clear();
-                    requestProgress.addAll(items);
-
-                    requestProgressAdapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(requestProgressAdapter);
-
-
-//                    requestProgress = response.body().getData();
-//                    jumlah_pengajuan.setText(Integer.toString(requestProgress.size()));
-//                    recyclerView.setAdapter(new RequestProgressAdapter(requestProgress, R.layout.card_pengajuan, getContext()));
-//
-//
-//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-//                        @Override
-//                        public void onClick(View view, int position) {
-//                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
-//                            intent.putExtra("EXTRA_REQUEST_ID", requestProgress.get(position).getId().toString());
-//                            intent.putExtra("STATUS", true);
-//                            startActivity(intent);
-//                        }
-//
-//                        @Override
-//                        public void onLongClick(View view, int position) {
-//                        }
-//                    }));
-
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<RequestProgress> call, Throwable t) {
-
-            }
-        });
+        // Init listener
+        initListener();
 
         SearchView search = findViewById(R.id.search);
         search.setActivated(true);
@@ -357,13 +299,19 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                requestProgressAdapter.getFilter().filter(query);
+                //requestProgressAdapter.getFilter().filter(query);
+                searchVal = query;
+                doLoadData();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                requestProgressAdapter.getFilter().filter(query);
+                //requestProgressAdapter.getFilter().filter(query);
+                if( query.equals("") ) {
+                    searchVal = null;
+                    doLoadData();
+                }
                 return true;
             }
         });
@@ -406,5 +354,131 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
     @Override
     public void onDataSelected(Datum datum) {
 
+    }
+
+    private void doLoadData() {
+        showLoading();
+
+        InterfaceRequestProgress apiService =
+                RetrofitClient.getClient().create(InterfaceRequestProgress.class);
+
+        Call<RequestProgress> call = apiService.getRequestProgress(apiKey,currentPage, searchVal);
+        call.enqueue(new Callback<RequestProgress>() {
+            @Override
+            public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
+                if ( response.isSuccessful() ) {
+                    List<Datum> items = response.body().getData();
+                    RequestMeta meta = response.body().getMeta();
+
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                    String total = formatter.format(meta.getTotal()).replace(",", ".");
+
+                    jumlah_pengajuan.setText(total);
+
+                    totalPage = meta.getLastPage();
+                    totalData = meta.getTotal();
+                    currentPage = meta.getCurrentPage();
+
+                    if( currentPage == 1 ) {
+                        requestProgress.clear();
+                        requestProgress.addAll(items);
+
+                        requestProgressAdapter.notifyDataSetChanged();
+
+                    } else {
+                        requestProgressAdapter.refreshAdapter(items);
+                    }
+
+
+//                    requestProgress = response.body().getData();
+//                    jumlah_pengajuan.setText(Integer.toString(requestProgress.size()));
+//                    recyclerView.setAdapter(new RequestProgressAdapter(requestProgress, R.layout.card_pengajuan, getContext()));
+//
+//
+//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+//                        @Override
+//                        public void onClick(View view, int position) {
+//                            Intent intent = new Intent(getContext(), DetailRequestActivity.class);
+//                            intent.putExtra("EXTRA_REQUEST_ID", requestProgress.get(position).getId().toString());
+//                            intent.putExtra("STATUS", true);
+//                            startActivity(intent);
+//                        }
+//
+//                        @Override
+//                        public void onLongClick(View view, int position) {
+//                        }
+//                    }));
+
+                    hideLoading();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RequestProgress> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SPGDashboardActivity.this);
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        doLoadData();
+                    }
+                });
+
+                hideLoading();
+                alertDialog.show();
+            }
+        });
+    }
+
+    private void initListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int countItem = layoutManager.getItemCount();
+
+                int visiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                if( visiblePosition >= 3 ) {
+                    fabScrollTop.setVisibility(View.VISIBLE);
+                } else {
+                    fabScrollTop.setVisibility(View.GONE);
+                }
+
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean isLastPosition = countItem - 1 == lastVisiblePosition;
+
+                if( !isLoading && isLastPosition && currentPage < totalPage ) {
+                    currentPage = currentPage + 1;
+                    doLoadData();
+                }
+            }
+        });
+        fabScrollTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.scrollToPosition(0);
+                fabScrollTop.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void showLoading() {
+        isLoading = true;
+        progress.show();
+    }
+
+    private void hideLoading() {
+        isLoading = false;
+        progress.dismiss();
     }
 }

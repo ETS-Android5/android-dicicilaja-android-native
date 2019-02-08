@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class NewRetrofitClient {
-    public static final String BASE_URL = "http://sandbox.dicicilaja.com/";
+    public static final String BASE_URL = "http://api.dicicilaja.com/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

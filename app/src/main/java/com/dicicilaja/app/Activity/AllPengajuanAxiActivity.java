@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.NewRetrofitClient;
@@ -25,6 +26,7 @@ import com.dicicilaja.app.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Adapter.PengajuanAxiAllAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
+import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import retrofit2.Call;
@@ -36,6 +38,17 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
     List<Datum> pengajuan;
     String apiKey;
     LinearLayout order;
+    ProgressDialog progress;
+
+    RecyclerView recyclerView;
+
+    PengajuanAxiAllAdapter adapter;
+
+    int totalData = 1;
+    int totalPage = 1;
+    int currentPage = 1;
+    boolean isLoading = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,24 +71,63 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-        progress.show();
+
+        recyclerView =  findViewById(R.id.recycler_pengajuan);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        pengajuan = new ArrayList<>();
+        adapter = new PengajuanAxiAllAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext());
+
+        // Load Data
+        doLoadData();
+
+        // Init listener
+        initListener();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.finish();
+        }
+        return true;
+    }
+
+    private void doLoadData() {
+        showLoading();
+
         InterfacePengajuanAxi apiService =
                 RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
 
-        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-
-        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey);
+        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
         call2.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                pengajuan = response.body().getData();
+
+                List<Datum> items = response.body().getData();
+
                 if(response.body().getData().size() == 0) {
                     recyclerView.setVisibility(View.GONE);
                     order.setVisibility(View.VISIBLE);
+                } else {
+                    RequestMeta meta = response.body().getMeta();
+
+                    totalPage = meta.getLastPage();
+                    totalData = meta.getTotal();
+                    currentPage = meta.getCurrentPage();
+
+                    if( meta.getCurrentPage() == 1 ) {
+                        pengajuan.clear();
+                        pengajuan.addAll(items);
+
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                    } else {
+                        adapter.refreshAdapter(items);
+                    }
                 }
                 recyclerView.setAdapter(new PengajuanAxiAllAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
                 recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
@@ -91,13 +143,14 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
                     public void onLongClick(View view, int position) {
                     }
                 }));
-                progress.dismiss();
+
+                hideLoading();
             }
 
             @Override
             public void onFailure(Call<PengajuanAxi> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AllPengajuanAxiActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -105,16 +158,40 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
 
                     }
                 });
+
+                hideLoading();
                 alertDialog.show();
             }
         });
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                super.finish();
-        }
-        return true;
+
+    private void initListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int countItem = layoutManager.getItemCount();
+
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean isLastPosition = countItem - 1 == lastVisiblePosition;
+
+                if( !isLoading && isLastPosition && currentPage < totalPage ) {
+                    currentPage = currentPage + 1;
+                    doLoadData();
+                }
+            }
+        });
+    }
+
+    private void showLoading() {
+        isLoading = true;
+        progress.show();
+    }
+
+    private void hideLoading() {
+        isLoading = false;
+        progress.dismiss();
     }
 }

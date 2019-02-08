@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -72,6 +73,8 @@ public class TaskCRHFragment extends Fragment {
     CardView card_pengajuan, card_tugas, card_nilai, card_keputusan;
     RelativeLayout hasil_ammount, layout_catatan;
     TextView final_ammount, title_rp;
+
+    ProgressDialog progress;
 
     String assigned_id_survey;
     public TaskCRHFragment() {
@@ -145,6 +148,9 @@ public class TaskCRHFragment extends Fragment {
         title_nilai.setTypeface(opensans_bold);
         title_keputusan.setTypeface(opensans_bold);
 
+        progress = new ProgressDialog(getContext());
+        progress.setMessage("Please wait...");
+
         Intent intent = getActivity().getIntent();
 
         if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("proses") || getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("verifikasi")) {
@@ -177,7 +183,8 @@ public class TaskCRHFragment extends Fragment {
                     String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                     String assigned_id = inputReferal.getText().toString();
                     String notes = inputCatatan.getText().toString();
-                Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
+
+                    //Toast.makeText(getContext(),"transcation_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + notes,Toast.LENGTH_LONG).show();
 
                 if(validateForm(assigned_id)){
                         doProcess(apiKey, transaction_id, assigned_id, notes);
@@ -202,7 +209,7 @@ public class TaskCRHFragment extends Fragment {
 //            input_catatan_keputusan_pinjaman.setVisibility(View.GONE);
 //            button_selesai.setVisibility(View.GONE);
 
-        } else if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("pending") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
+        } else if(getActivity().getIntent().getStringExtra("STATUS").toLowerCase().equals("survey") && getActivity().getIntent().getStringExtra("FINAL_AMOUNT") == null) {
 
             layout_title_penugasan.setVisibility(View.GONE);
             card_pengajuan.setVisibility(View.GONE);
@@ -282,11 +289,11 @@ public class TaskCRHFragment extends Fragment {
                                             String assigned_id = detailRequests.get(i).getUser_id();
                                             String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                                             String notes = input_catatan_survey.getText().toString();
-                                            Toast.makeText(getActivity(), "id : "
+                                            /*Toast.makeText(getActivity(), "id : "
                                                     + transaction_id + "assign : "
                                                     + assigned_id + "notes : "
                                                     + notes + "decision : "
-                                                    + decision, Toast.LENGTH_SHORT).show();
+                                                    + decision, Toast.LENGTH_SHORT).show();*/
                                             keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
                                         }
                                     }
@@ -296,11 +303,11 @@ public class TaskCRHFragment extends Fragment {
                                             String assigned_id = detailRequests.get(i).getUser_id();
                                             String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                                             String notes = input_catatan_survey.getText().toString();
-                                            Toast.makeText(getActivity(), "id : "
+                                            /*Toast.makeText(getActivity(), "id : "
                                                     + transaction_id + "assign : "
                                                     + assigned_id + "notes : "
                                                     + notes + "decision : "
-                                                    + decision, Toast.LENGTH_SHORT).show();
+                                                    + decision, Toast.LENGTH_SHORT).show();*/
                                             keputusanSurvey(apiKey, transaction_id, assigned_id, notes, decision);
                                         }
                                     }
@@ -519,7 +526,7 @@ public class TaskCRHFragment extends Fragment {
                     String notes = input_catatan_keputusan_pinjaman.getText().toString();
                     String amount = input_catatan_pinjaman.getText().toString();
 //                    Toast.makeText(getContext(),"transaction_id : " + transaction_id + " assigned_id : " + assigned_id + " notes : " + input_catatan_keputusan_pinjaman.getText() + " decision : " + decision + "amount : " + input_catatan_pinjaman.getText(),Toast.LENGTH_LONG).show();
-                    keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number,amount);
+                    keputusanPinjaman(apiKey, transaction_id, assigned_id, notes, decision, pk_number, amount);
                 }
             });
         } else {
@@ -623,6 +630,8 @@ public class TaskCRHFragment extends Fragment {
     }
 
     private void keputusanSurvey(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String decision) {
+        progress.show();
+
         InterfaceKeputusanSurvey survey =
                 RetrofitClient.getClient().create(InterfaceKeputusanSurvey.class);
 
@@ -638,11 +647,30 @@ public class TaskCRHFragment extends Fragment {
                 }else{
                     Toast.makeText(getActivity(), "code : " + response.code(), Toast.LENGTH_SHORT).show();
                 }
+
+                progress.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                alertDialog.setTitle("Oooppsss!");
+                alertDialog.setMessage("Sepertinya terjadi kesalahan pada server kami.");
 
+                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.setPositiveButton("Coba Lagi", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        keputusanSurvey(apiKey,transaction_id, assigned_id, notes, decision);
+                    }
+                });
+
+                progress.dismiss();
+                alertDialog.show();
             }
         });
     }

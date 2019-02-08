@@ -30,7 +30,10 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode, String firebase_token){
+    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode,
+                                   String firebase_token,
+                                   String phone,
+                                   String email){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString("user_id", user_id);
         editor.putString("axi_id", user_id);
@@ -42,6 +45,8 @@ public class SessionManager {
         editor.putString("zipcode", zipcode);
         editor.putString("token", token);
         editor.putString("firebase_token", firebase_token);
+        editor.putString("phone", phone);
+        editor.putString("email", email);
         editor.commit();
     }
 
@@ -94,6 +99,20 @@ public class SessionManager {
 
     public String getFirebaseToken() {
         return pref.getString("firebase_token", null);
+    }
+
+    public String getPhone() { return pref.getString("phone", null); }
+
+    public String getEmail() { return pref.getString("email", null); }
+
+    public void setPhone(String val) {
+        editor.putString("phone", val);
+        editor.commit();
+    }
+
+    public void setEmail( String val ) {
+        editor.putString("email", val);
+        editor.commit();
     }
 
 

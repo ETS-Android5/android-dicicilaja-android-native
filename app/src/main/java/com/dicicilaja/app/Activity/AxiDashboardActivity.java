@@ -88,6 +88,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
 
     HashMap<String, String> file_maps;
+
+    ProgressDialog progress;
+    RecyclerView recyclerView;
+
+    int totalData = 1;
+    int totalPage = 1;
+    int currentPage = 1;
+    boolean isLoading = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,51 +171,15 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //            }
 //        });
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-        progress.show();
 
-        InterfacePengajuanAxi apiService =
-                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
-
-        final RecyclerView recyclerView =  findViewById(R.id.recycler_pengajuan);
+        recyclerView =  findViewById(R.id.recycler_pengajuan);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey);
-        call2.enqueue(new Callback<PengajuanAxi>() {
-            @Override
-            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if(response.isSuccessful()) {
-                    pengajuan = response.body().getData();
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
-
-                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext()));
-                    recyclerView.setNestedScrollingEnabled(false);
-                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                        @Override
-                        public void onClick(View view, final int position) {
-                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-                            startActivity(intent);
-
-                        }
-
-                        @Override
-                        public void onLongClick(View view, int position) {
-                        }
-                    }));
-                }
-                progress.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
-            }
-        });
-
+        // Load Data Pengajuan
+        doLoadData();
 
         link_web.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -564,4 +536,62 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     @Override
     public void onPageScrollStateChanged(int state) {}
+
+    private void doLoadData() {
+        showLoading();
+
+        InterfacePengajuanAxi apiService =
+                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+
+        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
+        call2.enqueue(new Callback<PengajuanAxi>() {
+            @Override
+            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+                if(response.isSuccessful()) {
+                    pengajuan = response.body().getData();
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
+
+                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext(), 3));
+                    recyclerView.setNestedScrollingEnabled(false);
+                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
+                }
+                //progress.dismiss();
+                hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
+                hideLoading();
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void initListener() {
+
+    }
+
+    private void showLoading() {
+        isLoading = true;
+        progress.show();
+    }
+
+    private void hideLoading() {
+        isLoading = false;
+        progress.dismiss();
+    }
 }

@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.dicicilaja.app.Activity.DetailRequestActivity;
 import com.dicicilaja.app.R;
 
 /**
@@ -39,6 +41,15 @@ public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdap
             harga_resi      = v.findViewById(R.id.harga_resi);
             detail_resi     = v.findViewById(R.id.detail_resi);
             nama_resi     = v.findViewById(R.id.nama_resi);
+
+            card_pengajuan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailRequestActivity.class);
+                    intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(getAdapterPosition()).getId().toString());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -100,5 +111,10 @@ public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdap
         }else{
             return pengajuan.size();
         }
+    }
+
+    public void refreshAdapter(List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> data) {
+        this.pengajuan.addAll(data);
+        notifyItemRangeChanged(0, this.pengajuan.size());
     }
 }

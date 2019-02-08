@@ -13,7 +13,7 @@ public class Transaction {
     private Integer id;
     @SerializedName("tracking_id")
     @Expose
-    private Integer trackingId;
+    private String trackingId;
     @SerializedName("channel_id")
     @Expose
     private Integer channelId;
@@ -107,11 +107,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public Integer getTrackingId() {
+    public String getTrackingId() {
         return trackingId;
     }
 
-    public void setTrackingId(Integer trackingId) {
+    public void setTrackingId(String trackingId) {
         this.trackingId = trackingId;
     }
 

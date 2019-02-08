@@ -41,8 +41,12 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
         TextView detail_resi;
         TextView nama_resi;
 
+        Datum d;
+        boolean s = false;
+
         public RequestProgressViewHolder(final View v) {
             super(v);
+
             card_view       = v.findViewById(R.id.card_view);
             resi            = v.findViewById(R.id.resi);
             tanggal         = v.findViewById(R.id.tanggal);
@@ -51,13 +55,26 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
             detail_resi     = v.findViewById(R.id.detail_resi);
             nama_resi       = v.findViewById(R.id.nama_resi);
 
+            //
+
             card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onDataSelected(dataListFiltered.get(getAdapterPosition()));
+
+                    String status = dataListFiltered.get(getAdapterPosition()).getStatus().toLowerCase();
+
+                    if( !status.equals("ditolak") && !status.equals("pencairan")) {
+                        s = false;
+                    } else {
+                        s = true;
+                    }
+
                     Intent intent = new Intent(context, DetailRequestActivity.class);
                     intent.putExtra("EXTRA_REQUEST_ID", dataListFiltered.get(getAdapterPosition()).getId().toString());
-                    intent.putExtra("STATUS", true);
+                    if( s ) {
+                        intent.putExtra("STATUS", s);
+                    }
                     v.getContext().startActivity(intent);
                 }
             });
@@ -80,35 +97,35 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
     @Override
     public void onBindViewHolder(RequestProgressAdapter.RequestProgressViewHolder holder, int position) {
         final Datum datum = dataListFiltered.get(position);
-        holder.resi.setText("#" + datum.getTrackingId().toString());
+        holder.resi.setText("#" + String.valueOf(datum.getTrackingId()));
         holder.tanggal.setText(datum.getCreatedAt());
         holder.status.setText(datum.getStatus());
         holder.harga_resi.setText(datum.getBranch());
         holder.detail_resi.setText(datum.getClient_name());
         holder.nama_resi.setText(datum.getProgram());
-        switch(datum.getStatus()) {
-            case "Terkirim":
+        switch(datum.getStatus().toLowerCase()) {
+            case "terkirim":
                 holder.status.setBackgroundResource(R.drawable.capsule_terkirim);
                 break;
-            case "Verifikasi":
+            case "verifikasi":
                 holder.status.setBackgroundResource(R.drawable.capsule_verifikasi);
                 break;
-            case "Proses":
+            case "proses":
                 holder.status.setBackgroundResource(R.drawable.capsule_proses);
                 break;
-            case "Survey":
+            case "survey":
                 holder.status.setBackgroundResource(R.drawable.capsule_survey);
                 break;
-            case "Pending":
+            case "pending":
                 holder.status.setBackgroundResource(R.drawable.capsule_pending);
                 break;
-            case "Analisa Kredit":
+            case "analisa kredit":
                 holder.status.setBackgroundResource(R.drawable.capsule_analisa);
                 break;
-            case "Ditolak":
+            case "ditolak":
                 holder.status.setBackgroundResource(R.drawable.capsule_ditolak);
                 break;
-            case "Pencairan":
+            case "pencairan":
                 holder.status.setBackgroundResource(R.drawable.capsule_pencairan);
                 break;
             default:
@@ -159,5 +176,10 @@ public class RequestProgressAdapter extends RecyclerView.Adapter<RequestProgress
 
     public interface RequestProgressAdapterListener {
         void onDataSelected(Datum datum);
+    }
+
+    public void refreshAdapter(List<Datum> data) {
+        this.requestProgresses.addAll(data);
+        notifyItemRangeChanged(0, this.requestProgresses.size());
     }
 }

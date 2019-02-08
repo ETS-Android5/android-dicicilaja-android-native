@@ -110,7 +110,6 @@
                                         android:layout_alignParentEnd="true"
                                         android:layout_alignParentRight="true"
                                         android:layout_alignParentTop="true"
-                                        android:inputType="number"
                                         android:imeOptions="actionNext"
                                         android:nextFocusDown="@+id/inputCatatan"
                                         android:fontFamily="sans-serif"

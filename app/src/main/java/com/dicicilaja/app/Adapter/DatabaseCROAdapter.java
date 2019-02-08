@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,14 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
         this.listener = listener;
         this.dataList = dataList;
         this.dataListFiltered = dataList;
+    }
+
+    public void refreshAdapter(List<com.dicicilaja.app.API.Item.DatabaseCRO.Datum> data) {
+        Log.d("SIZE BEFORE::", String.valueOf(this.dataList.size()));
+        this.dataList.addAll(data);
+        dataListFiltered = this.dataList;
+        Log.d("SIZE AFTER::", String.valueOf(this.dataList.size()));
+        notifyItemRangeChanged(0, this.dataList.size());
     }
 
     @Override

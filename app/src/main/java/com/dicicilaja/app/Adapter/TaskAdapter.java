@@ -217,4 +217,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             }
         });
     }
+
+    public void refreshAdapter(List<Datum> data) {
+        this.tasks.addAll(data);
+        notifyItemRangeChanged(0, this.tasks.size());
+    }
 }

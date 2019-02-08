@@ -377,10 +377,10 @@ public class TaskCROFragment extends Fragment {
                                     String assigned_id = detailRequests.get(i).getUser_id();
                                     String transaction_id = getActivity().getIntent().getStringExtra("TRANSACTION_ID");
                                     String notes = "-";
-                                    Toast.makeText(getActivity(), "id : "
+                                    /*Toast.makeText(getActivity(), "id : "
                                             + transaction_id + "assign : "
                                             + assigned_id + "notes : "
-                                            + notes, Toast.LENGTH_SHORT).show();
+                                            + notes, Toast.LENGTH_SHORT).show();*/
 
                                     String reschedule_date = date_post + " " + time_post + ":00";
                                     String ktp_suami1, ktp_penjamin, surat_cerai, surat_kematian, surat_domisili, kartu_keluarga, bukti_kepemilikan_rumah, bukti_penghasilan, no_rangka, stnk, bpkb;

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO"
+        tools:node="remove" />
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_new"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_new"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/MyMaterialTheme"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
@@ -665,12 +671,19 @@
                 android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity android:name=".Activity.ProfileEmployeeActivity" />
-        <activity android:name=".WebView.AboutDicicilajaActivity"
+        <activity
+            android:name=".WebView.AboutDicicilajaActivity"
             android:label="Tentang diciclaja"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" /></activity>
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.Addon.UpgradeActivity"
+            android:label="Update Aplikasi dicicilaja"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.Addon.CompletePhoneEmailActivity"></activity>
     </application>
 
 </manifest>
