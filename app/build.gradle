@@ -70,6 +70,7 @@ dependencies {
     implementation 'com.instabug.library:instabug:8.0.11'
     implementation 'com.android.support:multidex:1.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.asksira.android:webviewsuite:1.0.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -239,8 +239,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                     content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
                     content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
-                    content_box3.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveCar())));
-                    content_box4.setText(formatRupiah.format((double) Integer.parseInt(itemDetail.getIncentiveMcy())));
+                    content_box3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+                    content_box4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
                     link_web.setText(itemDetail.getReplicaWebLink());
                 }
             }

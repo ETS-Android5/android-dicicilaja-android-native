@@ -39,9 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/colorWhite"
-                    android:layout_marginBottom="16dp">
+                    android:background="@color/colorWhite">
                     <TextView
                         android:id="@+id/title_point"
                         android:layout_width="wrap_content"
@@ -60,101 +58,14 @@
                         android:paddingLeft="10dp"
                         android:text="0"/>
                 </RelativeLayout>
-                <ImageView
-                    android:id="@+id/reward1"
-                    android:layout_below="@+id/bar_point"
+                <com.asksira.webviewsuite.WebViewSuite
+                    android:id="@+id/webviewPoint"
+                    android:layout_below="@id/bar_point"
                     android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward2"
-                    android:layout_below="@+id/reward1"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward3"
-                    android:layout_below="@+id/reward2"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward4"
-                    android:layout_below="@+id/reward3"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward5"
-                    android:layout_below="@+id/reward4"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward6"
-                    android:layout_below="@+id/reward5"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/reward7"
-                    android:layout_below="@+id/reward6"
-                    android:layout_width="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
+                    android:layout_height="match_parent"
+                    app:webViewProgressBarStyle="linear"
+                    app:enableJavaScript="true" />
             </RelativeLayout>
         </ScrollView>
-        <LinearLayout
-            android:id="@+id/button_bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/download_katalog"
-                android:layout_width="0dp"
-                android:background="@color/colorAccent"
-                android:text="Download Katalog"
-                android:padding="16dp"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-
-                android:textColor="@color/colorWhite"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <TextView
-                android:id="@+id/redeem_point"
-                android:layout_width="0dp"
-                android:background="@color/colorAccent2"
-                android:text="Redeem Poin"
-                android:padding="16dp"
-                android:gravity="center"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
