@@ -225,11 +225,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         InterfaceAxiDetail apiService5 =
                 RetrofitClient.getClient().create(InterfaceAxiDetail.class);
 
+//        showLoading();
         Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
                 if(response.isSuccessful()) {
+                    Log.e("AAAA::::", "AXI Profile loaded");
                     itemDetail = response.body().getData();
 
                     Locale localeID = new Locale("in", "ID");
@@ -243,10 +245,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     content_box4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
                     link_web.setText(itemDetail.getReplicaWebLink());
                 }
+                hideLoading();
             }
 
             @Override
             public void onFailure(Call<AXIDetail> call, Throwable t) {
+                hideLoading();
+                t.printStackTrace();
             }
         });
 
@@ -570,12 +575,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     }));
                 }
                 //progress.dismiss();
-                hideLoading();
+//                hideLoading();
             }
 
             @Override
             public void onFailure(Call<PengajuanAxi> call, Throwable t) {
-                hideLoading();
+//                hideLoading();
                 t.printStackTrace();
             }
         });

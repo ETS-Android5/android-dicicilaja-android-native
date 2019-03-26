@@ -72,9 +72,9 @@ public class PointRewardActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 //
-//        value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_REWARD")))).replace(",","."));
+        value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_REWARD")))).replace(",","."));
 //        reward1 = findViewById(R.id.reward1);
 //        reward2 = findViewById(R.id.reward2);
 //        reward3 = findViewById(R.id.reward3);
