@@ -96,12 +96,18 @@ public class AkunFragment extends Fragment {
 
 
         nama.setText(session.getName());
-        String imageUrl = session.getPhoto();
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(profile_picture);
+
+        try {
+            String imageUrl = session.getPhoto();
+            Picasso.with(getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(profile_picture);
+        } catch (Exception ex) {
+
+        }
+
 
         detail_profile.setOnClickListener(new View.OnClickListener() {
             @Override
