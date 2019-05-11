@@ -80,7 +80,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     ImageView icon1_web, icon2_web, copy_link;
     TextView link_web;
     List<Data> infoJaringan;
-    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
+    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_ppob;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
     String apiKey;
@@ -116,7 +116,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_info = findViewById(R.id.title_info);
         title_info_jaringan = findViewById(R.id.title_info_jaringan);
         title_replika = findViewById(R.id.title_replika);
-        title_status = findViewById(R.id.title_status);
+        title_ppob = findViewById(R.id.title_ppob);
         total_view = findViewById(R.id.total_view);
         title_box1 = findViewById(R.id.title_box1);
         content_box1 = findViewById(R.id.content_box1);
@@ -146,7 +146,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         title_info.setTypeface(opensans_bold);
-        title_status.setTypeface(opensans_bold);
+        title_ppob.setTypeface(opensans_bold);
         title_info_jaringan.setTypeface(opensans_bold);
         title_replika.setTypeface(opensans_bold);
         total_view.setTypeface(opensans_bold);
@@ -212,13 +212,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 ClipData clip = ClipData.newPlainText("link",link_web.getText().toString());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getBaseContext(),"Berhasil menyalin link web replika",Toast.LENGTH_SHORT).show();
-            }
-        });
-        allpengajuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
-                startActivity(intent);
             }
         });
 
