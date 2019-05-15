@@ -1,8 +1,8 @@
 package com.dicicilaja.app.Activity;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -100,7 +100,7 @@ public class FullscreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String imageColleteral = getIntent().getStringExtra("URL").toString();
-        Picasso.with(getApplicationContext()).load(imageColleteral).into(mContentView);
+        Picasso.get().load(imageColleteral).into(mContentView);
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override

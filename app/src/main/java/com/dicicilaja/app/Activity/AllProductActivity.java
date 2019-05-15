@@ -1,22 +1,20 @@
 package com.dicicilaja.app.Activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllProductPartner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProductPartner.AllProductPartner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProductPartner.Datum;
 import com.dicicilaja.app.Adapter.ListProductPartnerAdapter;
-import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.R;
 
 import java.util.List;

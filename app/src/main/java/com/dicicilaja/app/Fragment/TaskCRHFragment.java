@@ -6,9 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,13 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.app.API.Interface.InterfaceDetailRequest;
-import com.dicicilaja.app.API.Item.DetailRequest.Datum;
 import com.dicicilaja.app.API.Item.DetailRequest.DetailRequest;
 import com.dicicilaja.app.API.Item.DetailRequest.Progress;
-import com.dicicilaja.app.Activity.LoginActivity;
-import com.dicicilaja.app.Activity.ProsesPengajuanActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.NumberFormat;

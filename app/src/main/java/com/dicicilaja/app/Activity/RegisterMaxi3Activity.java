@@ -3,10 +3,10 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dicicilaja.app.R;
-import com.dicicilaja.app.Session.SessionManager;
 
 public class RegisterMaxi3Activity extends AppCompatActivity {
 
@@ -123,7 +122,7 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
         }
 
         if(npwpperusahaan == null || npwpperusahaan.trim().length() == 0 || npwpperusahaan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterMaxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi3Activity.this);
             alertDialog.setMessage("Masukan no. NPWP perusahaan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

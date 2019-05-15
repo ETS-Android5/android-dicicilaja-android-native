@@ -134,18 +134,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
-
-        <service android:name=".Notification.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".Notification.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".Activity.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -573,7 +561,7 @@
         </activity>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.dicicilaja.app."
             android:exported="false"
             android:grantUriPermissions="true">

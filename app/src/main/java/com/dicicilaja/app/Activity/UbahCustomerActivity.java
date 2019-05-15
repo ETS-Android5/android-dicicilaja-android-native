@@ -5,11 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -22,9 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahCustomer;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahAxi.UbahAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahCustomer.UbahCustomer;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
@@ -174,7 +172,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
 
     private boolean validateForm(String namaLengkap, String handphone, String tanggal, String alamat, String kelurahan, String kecamatan, String kota, String provinsi, String bill, String jk) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -187,7 +185,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(handphone == null || handphone.trim().length() == 0 || handphone.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan no.handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -200,7 +198,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(tanggal == null || tanggal.trim().length() == 0 || tanggal.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan tanggal lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -213,7 +211,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(alamat == null || alamat.trim().length() == 0 || alamat.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan alamat");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -226,7 +224,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -239,7 +237,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -252,7 +250,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(kota == null || kota.trim().length() == 0 || kota.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan kota");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -265,7 +263,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan provinsi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -278,7 +276,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -291,7 +289,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         }
 
         if(bill == null || bill.trim().length() == 0 || bill.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
             alertDialog.setMessage("Masukan no. tagihan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

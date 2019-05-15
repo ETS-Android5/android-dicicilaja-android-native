@@ -3,10 +3,10 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -131,7 +131,7 @@ public class RegisterMaxi1Activity extends AppCompatActivity {
         }
 
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterMaxi1Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi1Activity.this);
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

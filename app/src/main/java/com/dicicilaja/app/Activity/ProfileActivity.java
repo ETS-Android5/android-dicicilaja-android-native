@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +21,10 @@ import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileBase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
+
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileAxi.Data;
@@ -119,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)

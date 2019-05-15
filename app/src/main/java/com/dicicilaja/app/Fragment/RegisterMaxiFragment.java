@@ -5,8 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dicicilaja.app.Activity.RegisterAxi2Activity;
 import com.dicicilaja.app.Activity.RegisterMaxi2Activity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.WebView.AboutMaxiActivity;
@@ -142,7 +141,7 @@ public class RegisterMaxiFragment extends Fragment {
         }
 
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

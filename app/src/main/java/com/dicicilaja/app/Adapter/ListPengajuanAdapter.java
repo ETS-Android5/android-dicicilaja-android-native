@@ -2,14 +2,13 @@ package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dicicilaja.app.Activity.DetailRequestActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;
@@ -17,7 +16,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.R;
 
 /**
@@ -47,54 +45,54 @@ public class ListPengajuanAdapter extends RecyclerView.Adapter<ListPengajuanAdap
         holder.tv_title.setText(itemModel.getTitleProgram());
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(itemModel.getPrice());
-        Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.image);
+        Picasso.get().load(itemModel.getImageUrl()).into(holder.image);
         if(itemModel.getStatus().equals("Terkirim")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         } else if(itemModel.getStatus().equals("Konfirmasi")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.konfirmasi_active).into(holder.img_2);
+            Picasso.get().load(R.drawable.konfirmasi_active).into(holder.img_2);
             holder.txt_2.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         } else if(itemModel.getStatus().equals("Proses")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.konfirmasi_active).into(holder.img_2);
+            Picasso.get().load(R.drawable.konfirmasi_active).into(holder.img_2);
             holder.txt_2.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.proses_active).into(holder.img_3);
+            Picasso.get().load(R.drawable.proses_active).into(holder.img_3);
             holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         } else if(itemModel.getStatus().equals("Survey")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.konfirmasi_active).into(holder.img_2);
+            Picasso.get().load(R.drawable.konfirmasi_active).into(holder.img_2);
             holder.txt_2.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.proses_active).into(holder.img_3);
+            Picasso.get().load(R.drawable.proses_active).into(holder.img_3);
             holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.survey_active).into(holder.img_4);
+            Picasso.get().load(R.drawable.survey_active).into(holder.img_4);
             holder.txt_4.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         } else if(itemModel.getStatus().equals("Analisa Kredit") || itemModel.getStatus().equals("Ditolak") || itemModel.getStatus().equals("Pending")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.konfirmasi_active).into(holder.img_2);
+            Picasso.get().load(R.drawable.konfirmasi_active).into(holder.img_2);
             holder.txt_2.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.proses_active).into(holder.img_3);
+            Picasso.get().load(R.drawable.proses_active).into(holder.img_3);
             holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.survey_active).into(holder.img_4);
+            Picasso.get().load(R.drawable.survey_active).into(holder.img_4);
             holder.txt_4.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.penilaian_active).into(holder.img_5);
+            Picasso.get().load(R.drawable.penilaian_active).into(holder.img_5);
             holder.txt_5.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         } else if(itemModel.getStatus().equals("Pencairan")) {
-            Picasso.with(mContext).load(R.drawable.terkirim_active).into(holder.img_1);
+            Picasso.get().load(R.drawable.terkirim_active).into(holder.img_1);
             holder.txt_1.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.konfirmasi_active).into(holder.img_2);
+            Picasso.get().load(R.drawable.konfirmasi_active).into(holder.img_2);
             holder.txt_2.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.proses_active).into(holder.img_3);
+            Picasso.get().load(R.drawable.proses_active).into(holder.img_3);
             holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.survey_active).into(holder.img_4);
+            Picasso.get().load(R.drawable.survey_active).into(holder.img_4);
             holder.txt_4.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.penilaian_active).into(holder.img_5);
+            Picasso.get().load(R.drawable.penilaian_active).into(holder.img_5);
             holder.txt_5.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            Picasso.with(mContext).load(R.drawable.pencairan_active).into(holder.img_6);
+            Picasso.get().load(R.drawable.pencairan_active).into(holder.img_6);
             holder.txt_6.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         }
         holder.card_pengajuan.setOnClickListener(new View.OnClickListener() {

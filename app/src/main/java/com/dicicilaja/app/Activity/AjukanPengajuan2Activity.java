@@ -14,12 +14,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,13 +32,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
-import com.dicicilaja.app.API.Item.CreateRequest.CreateRequest;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
-import com.dicicilaja.app.Remote.RetrofitClient;
 import com.dicicilaja.app.Session.SessionManager;
 
 import java.io.File;
@@ -49,9 +46,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import pub.devrel.easypermissions.EasyPermissions;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AjukanPengajuan2Activity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 

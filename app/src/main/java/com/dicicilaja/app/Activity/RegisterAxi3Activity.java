@@ -3,10 +3,10 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -130,7 +130,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
     }
     private boolean validateForm(String nama_bank, String no_rekening, String cabang_bank, String an_rekening, String kota_bank) {
         if (nama_bank == null || nama_bank.trim().length() == 0 || nama_bank.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan nama bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -142,7 +142,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             return false;
         }
         if (no_rekening == null || no_rekening.trim().length() == 0 || no_rekening.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan no.rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -154,7 +154,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             return false;
         }
         if (cabang_bank == null || cabang_bank.trim().length() == 0 || cabang_bank.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan cabang bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -166,7 +166,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             return false;
         }
         if (an_rekening == null || an_rekening.trim().length() == 0 || an_rekening.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan a/n rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -178,7 +178,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             return false;
         }
         if (kota_bank == null || kota_bank.trim().length() == 0 || kota_bank.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan kota bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

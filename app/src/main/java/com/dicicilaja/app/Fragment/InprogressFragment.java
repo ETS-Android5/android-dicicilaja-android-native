@@ -7,14 +7,14 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -131,12 +130,12 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
 
         search.setVisibility(View.GONE);
 
-        searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox = search.findViewById (R.id.search_src_text);
         searchBox.setTextSize(16);
         searchBox.setTextColor(Color.parseColor("#000000"));
         searchBox.setCursorVisible(false);
 
-        searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose = search.findViewById (R.id.search_close_btn);
         searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
         searchClose.setImageResource(R.drawable.ic_close);
 

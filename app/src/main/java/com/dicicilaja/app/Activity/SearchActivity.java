@@ -1,24 +1,22 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllProduk;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProduct.AllProduk;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProduct.Datum;
 import com.dicicilaja.app.Adapter.ListProdukAdapter;
-import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.R;
 import retrofit2.Call;
 import retrofit2.Callback;

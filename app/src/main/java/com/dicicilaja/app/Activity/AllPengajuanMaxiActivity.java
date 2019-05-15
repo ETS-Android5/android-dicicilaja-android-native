@@ -2,28 +2,25 @@ package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanMaxi;
 import com.dicicilaja.app.API.Item.PengajuanMaxi.Datum;
 import com.dicicilaja.app.API.Item.PengajuanMaxi.PengajuanMaxi;
 import com.dicicilaja.app.Adapter.PengajuanMaxiAllAdapter;
-import com.dicicilaja.app.Listener.ClickListener;
-import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;

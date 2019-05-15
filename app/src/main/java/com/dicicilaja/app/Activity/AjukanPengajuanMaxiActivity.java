@@ -3,11 +3,11 @@ package com.dicicilaja.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -104,7 +103,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
         qty = Integer.parseInt(value.getText().toString());
 
         try {
-            Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("gambar")).into(gambar);
+            Picasso.get().load(getIntent().getStringExtra("gambar")).into(gambar);
             tv_title.setText(getIntent().getStringExtra("title"));
             tv_mitra.setText(getIntent().getStringExtra("mitra"));
             tv_harga.setText(getIntent().getStringExtra("harga"));

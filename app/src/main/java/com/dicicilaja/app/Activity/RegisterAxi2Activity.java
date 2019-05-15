@@ -6,11 +6,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +29,6 @@ import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
-import com.dicicilaja.app.Fragment.RegisterAxiFragment;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
@@ -205,7 +204,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
     private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rtrw, String kelurahan, String kecamatan, String kota, String provinsi, String kodepos, String jk, String status) {
         if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan no.KTP");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -217,7 +216,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (tempat_lahir == null || tempat_lahir.trim().length() == 0 || tempat_lahir.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan tempat lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -229,7 +228,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (tanggal == null || tanggal.trim().length() == 0 || tanggal.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan tanggal lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -241,7 +240,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -254,7 +253,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (alamat == null || alamat.trim().length() == 0 || alamat.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan alamat");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -266,7 +265,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (rtrw == null || rtrw.trim().length() == 0 || rtrw.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan RT/RW");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -278,7 +277,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if(status == null || status.trim().length() == 0 || status.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Pilih status perkawinan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -291,7 +290,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -303,7 +302,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -315,7 +314,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (kota == null || kota.trim().length() == 0 || kota.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kota");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -327,7 +326,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan provinsi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -339,7 +338,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         }
         if (kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kode pos");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

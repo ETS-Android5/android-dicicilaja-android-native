@@ -4,14 +4,12 @@ package com.dicicilaja.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.LoginActivity;
-import com.dicicilaja.app.Activity.NasabahActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 import com.dicicilaja.app.R;
@@ -124,7 +121,7 @@ public class RegisterCustomerFragment extends Fragment {
                             buatAkun(nama, email, nohp, katasandi);
 
                         }else {
-                            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+                            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
                             alertDialog.setMessage("Harap setujui syarat dan ketentuan jika ingin mendaftar");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -188,7 +185,7 @@ public class RegisterCustomerFragment extends Fragment {
 
     private boolean validateForm(String nama, String email, String nohp, String katasandi, String konfirmasi) {
         if (nama == null || nama.trim().length() == 0 || nama.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -201,7 +198,7 @@ public class RegisterCustomerFragment extends Fragment {
         }
 
         if (email == null || email.trim().length() == 0 || email.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -214,7 +211,7 @@ public class RegisterCustomerFragment extends Fragment {
         }
 
         if (nohp == null || nohp.trim().length() == 0 || nohp.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan no. Handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -227,7 +224,7 @@ public class RegisterCustomerFragment extends Fragment {
         }
 
         if (katasandi == null || katasandi.trim().length() == 0 || katasandi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan kata sandi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -240,7 +237,7 @@ public class RegisterCustomerFragment extends Fragment {
         }
 
         if (konfirmasi == null || konfirmasi.trim().length() == 0 || konfirmasi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(getContext());
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan konfirmasi kata sandi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

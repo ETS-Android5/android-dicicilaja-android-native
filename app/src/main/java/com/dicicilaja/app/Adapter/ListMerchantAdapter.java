@@ -2,21 +2,18 @@ package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.dicicilaja.app.Activity.AllProductActivity;
-import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Datum;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import com.dicicilaja.app.Activity.ProductPartnerActivity;
 import com.dicicilaja.app.R;
 
 /**
@@ -43,7 +40,7 @@ public class ListMerchantAdapter extends RecyclerView.Adapter<ListMerchantAdapte
     @Override
     public void onBindViewHolder(final ListMerchantAdapter.SingleItemRowHolder holder, final int position) {
         final Datum itemModel = partners.get(position);
-        Picasso.with(mContext).load(itemModel.getImages()).into(holder.image);
+        Picasso.get().load(itemModel.getImages()).into(holder.image);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

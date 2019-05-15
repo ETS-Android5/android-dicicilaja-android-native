@@ -1,10 +1,10 @@
 package com.dicicilaja.app.Activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,9 +13,7 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRecommendation;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
-import com.dicicilaja.app.Adapter.ListProductPartnerAdapter;
 import com.dicicilaja.app.Adapter.ListProductRecommendAdapter;
-import com.dicicilaja.app.Adapter.ListRekomendasiAdapter;
 import com.dicicilaja.app.R;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.dicicilaja.app;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;

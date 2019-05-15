@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -23,26 +23,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
+
 import com.dicicilaja.app.API.Interface.InterfacePengajuanMaxi;
 import com.dicicilaja.app.API.Item.PengajuanMaxi.PengajuanMaxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
@@ -299,7 +296,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         TextView name = navbarView.findViewById(R.id.nameView);
 
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)

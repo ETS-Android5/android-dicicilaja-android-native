@@ -3,9 +3,9 @@ package com.dicicilaja.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
-import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePengajuanMarketplace;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;

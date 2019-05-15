@@ -1,7 +1,7 @@
 package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +40,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
         SingleItemModel itemModel = itemModels.get(position);
         holder.tv_title.setText(itemModel.getTv_title());
-        Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
+        Picasso.get().load(itemModel.getImage()).into(holder.discount_image);
         holder.tv_mitra.setText(itemModel.getTv_mitra());
         holder.tv_harga.setText(itemModel.getTv_harga());
         holder.tv_jenis.setText(itemModel.getTv_tenor());

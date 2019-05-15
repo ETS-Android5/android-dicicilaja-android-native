@@ -5,12 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
@@ -33,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
+
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahAxi.UbahAxi;
 import com.dicicilaja.app.R;
@@ -195,7 +194,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 
     private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String rtRw, String kelurahan, String kecamatan, String provinsi, String kodepos, String jk, String NPWP, String namaBank, String cabang, String rekening, String AN, String kotaBank) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -208,7 +207,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(tempatLahir == null || tempatLahir.trim().length() == 0 || tempatLahir.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan tempat lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -221,7 +220,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(tanggal == null || tanggal.trim().length() == 0 || tanggal.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan tanggal lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -234,7 +233,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(noHp == null || noHp.trim().length() == 0 || noHp.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan no.handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -247,7 +246,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(email == null || email.trim().length() == 0 || email.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -260,7 +259,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(alamat == null || alamat.trim().length() == 0 || alamat.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan alamat");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -273,7 +272,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(rtRw == null || rtRw.trim().length() == 0 || rtRw.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan RT/RW");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -286,7 +285,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -299,7 +298,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -312,7 +311,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan provinsi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -325,7 +324,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan kode pos");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -338,7 +337,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -351,7 +350,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(NPWP == null || NPWP.trim().length() == 0 || NPWP.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan no.npwp");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -364,7 +363,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(namaBank == null || namaBank.trim().length() == 0 || namaBank.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan nama bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -377,7 +376,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(cabang == null || cabang.trim().length() == 0 || cabang.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan cabang bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -390,7 +389,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(rekening == null || rekening.trim().length() == 0 || rekening.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan no.rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -403,7 +402,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(AN == null || AN.trim().length() == 0 || AN.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan a/n rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -416,7 +415,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         }
 
         if(kotaBank == null || kotaBank.trim().length() == 0 || kotaBank.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(UbahAxiActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan kota bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

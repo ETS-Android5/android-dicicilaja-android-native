@@ -1,13 +1,13 @@
 package com.dicicilaja.app.Activity.Addon
 
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.widget.ProgressBar
 import com.dicicilaja.app.API.Client.RetrofitClient
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi
 import com.dicicilaja.app.API.Item.AreaRequest.CompleteDataUpdate
@@ -29,7 +29,8 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
     var inEmail: String? = null
     var inRole: String? = null
 
-    var loader: ProgressDialog? = null
+//    var loader: ProgressBar? = null
+    val loader = findViewById<ProgressBar>(R.id.progressBar)
     var phoneUpdate: Boolean = true
     var emailUpdate: Boolean = true
 
@@ -43,8 +44,7 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
 
         toolbar.title = "Lengkapi Data"
 
-        loader = ProgressDialog(this)
-        loader!!.setMessage("Loading...")
+
 
         cardCompletePhone.visibility = View.GONE
         cardCompleteEmail.visibility = View.GONE
@@ -204,17 +204,16 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
     }
 
     private fun showLoader() {
-        loader?.show()
+        loader.visibility = View.VISIBLE;
     }
 
     private fun hideLoader() {
-        loader?.hide()
+        loader.visibility = View.GONE;
     }
 
     private fun showNextActivity() {
         if( phoneUpdate && emailUpdate ) {
-            var role: String? = inRole?.toLowerCase()
-            var intent: Intent? = null
+//            var role: String? = inRole?.toLowerCase()
             when( inRole ) {
                 "axi" -> intent = Intent(baseContext, AxiDashboardActivity::class.java)
                 "channel" -> intent = Intent(baseContext, MaxiDashboardActivity::class.java)
@@ -229,7 +228,7 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
                 "basic" -> intent = Intent(baseContext, MarketplaceActivity::class.java)
                 else -> intent = Intent(baseContext, MarketplaceActivity::class.java)
             }
-            intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }
     }

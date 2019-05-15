@@ -8,20 +8,20 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -32,9 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dicicilaja.app.API.Item.Request.Request;
-import com.dicicilaja.app.Listener.ClickListener;
-import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.WebView.CekStatusActivity;
 import com.squareup.picasso.Picasso;
@@ -51,7 +48,7 @@ import com.dicicilaja.app.API.Item.RequestProgress.RequestProgress;
 import com.dicicilaja.app.Adapter.RequestProgressAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import com.dicicilaja.app.WebView.SimulationActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -202,7 +199,7 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
 
         area.setText(session.getArea());
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)
@@ -245,12 +242,12 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         top_attribut = findViewById(R.id.top_attribut);
         search.setVisibility(View.GONE);
 
-        searchBox = search.findViewById (android.support.v7.appcompat.R.id.search_src_text);
+        searchBox = search.findViewById (R.id.search_src_text);
         searchBox.setTextSize(16);
         searchBox.setTextColor(Color.parseColor("#000000"));
         searchBox.setCursorVisible(false);
 
-        searchClose = search.findViewById (android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose = search.findViewById (R.id.search_close_btn);
         searchClose.setColorFilter (Color.parseColor("#F89E4C"), PorterDuff.Mode.SRC_ATOP);
         searchClose.setImageResource(R.drawable.ic_close);
 

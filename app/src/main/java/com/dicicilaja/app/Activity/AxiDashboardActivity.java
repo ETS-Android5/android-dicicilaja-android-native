@@ -9,14 +9,14 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,18 +27,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfaceNotification;
-import com.dicicilaja.app.API.Item.Notification.Notification;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
-import com.dicicilaja.app.Adapter.NotifAdapter;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.squareup.picasso.Picasso;
@@ -50,7 +46,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
+
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
@@ -80,7 +76,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     ImageView icon1_web, icon2_web, copy_link;
     TextView link_web;
     List<Data> infoJaringan;
-    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_ppob;
+    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_status;
     TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
     String apiKey;
@@ -116,7 +112,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         title_info = findViewById(R.id.title_info);
         title_info_jaringan = findViewById(R.id.title_info_jaringan);
         title_replika = findViewById(R.id.title_replika);
-        title_ppob = findViewById(R.id.title_ppob);
+        title_status = findViewById(R.id.title_status);
         total_view = findViewById(R.id.total_view);
         title_box1 = findViewById(R.id.title_box1);
         content_box1 = findViewById(R.id.content_box1);
@@ -146,7 +142,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         title_info.setTypeface(opensans_bold);
-        title_ppob.setTypeface(opensans_bold);
+        title_status.setTypeface(opensans_bold);
         title_info_jaringan.setTypeface(opensans_bold);
         title_replika.setTypeface(opensans_bold);
         total_view.setTypeface(opensans_bold);
@@ -212,6 +208,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 ClipData clip = ClipData.newPlainText("link",link_web.getText().toString());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getBaseContext(),"Berhasil menyalin link web replika",Toast.LENGTH_SHORT).show();
+            }
+        });
+        allpengajuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -422,7 +425,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         TextView name = navbarView.findViewById(R.id.nameView);
 
         String imageUrl = session.getPhoto();
-        Picasso.with(getApplicationContext())
+        Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)

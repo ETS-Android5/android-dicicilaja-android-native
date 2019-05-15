@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -99,7 +99,7 @@
                     </RadioGroup>
                 </LinearLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutId"
                     android:hint="AXI ID Referal"
                     android:layout_width="match_parent"
@@ -119,9 +119,9 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutJaminan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -150,9 +150,9 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutMerk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,9 +172,9 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutTahun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -203,9 +203,9 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutWaktu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,9 +235,9 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutPinjaman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -257,9 +257,9 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -288,9 +288,9 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutCabang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/next"

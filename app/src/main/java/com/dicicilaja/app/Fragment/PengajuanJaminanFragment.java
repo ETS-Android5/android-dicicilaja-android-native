@@ -6,7 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -131,9 +131,9 @@ public class PengajuanJaminanFragment extends Fragment {
                     api_zipcode.setText(detailRequests.get(0).getZipcode());
 
                     String imageKtp = detailRequests.get(0).getKtpImage().toString();
-                    Picasso.with(getContext()).load(imageKtp).into(api_ktp_image);
+                    Picasso.get().load(imageKtp).into(api_ktp_image);
                     String imageColleteral = detailRequests.get(0).getColleteralImage().toString();
-                    Picasso.with(getContext()).load(imageColleteral).into(api_colleteral_image);
+                    Picasso.get().load(imageColleteral).into(api_colleteral_image);
 
 
                     try {

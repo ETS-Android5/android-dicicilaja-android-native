@@ -3,9 +3,9 @@ package com.dicicilaja.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -73,7 +73,7 @@ public class PointTripActivity extends AppCompatActivity {
         value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_TRIP")))).replace(",","."));
         trip = findViewById(R.id.trip);
         String imageUrl = "https://dicicilaja.com/uploads/trip/trips.png";
-        Picasso.with(getApplicationContext()).load(imageUrl).into(trip);
+        Picasso.get().load(imageUrl).into(trip);
     }
 
     @Override

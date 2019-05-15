@@ -1,16 +1,15 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,18 +27,16 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceFavorite;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
-import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.Adapter.ListRelatedAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
+
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceDetailProgramMaxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.DetailProgramMaxi;

@@ -9,12 +9,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.text.TextWatcher;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dicicilaja.app.R;
 
-public class MaskedEditText extends android.support.v7.widget.AppCompatEditText implements TextWatcher {
+public class MaskedEditText extends androidx.appcompat.widget.AppCompatEditText implements TextWatcher {
     private String mask;
     private char maskFill;
     private char charRepresentation;

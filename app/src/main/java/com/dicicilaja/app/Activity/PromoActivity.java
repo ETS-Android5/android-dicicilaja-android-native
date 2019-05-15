@@ -1,8 +1,8 @@
 package com.dicicilaja.app.Activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceSliderDetail;
 import com.dicicilaja.app.API.Item.SliderDetail.SliderDetail;
 import com.dicicilaja.app.R;
@@ -52,7 +51,7 @@ public class PromoActivity extends AppCompatActivity {
         call.enqueue(new Callback<SliderDetail>() {
             @Override
             public void onResponse(Call<SliderDetail> call, Response<SliderDetail> response) {
-                Picasso.with(getApplicationContext()).load(response.body().getData().get(0).getImageUrl()).into(image);
+                Picasso.get().load(response.body().getData().get(0).getImageUrl()).into(image);
                 date.setText(response.body().getData().get(0).getExpiredIn());
                 name.setText(response.body().getData().get(0).getName());
                 description.setText(response.body().getData().get(0).getDescription());

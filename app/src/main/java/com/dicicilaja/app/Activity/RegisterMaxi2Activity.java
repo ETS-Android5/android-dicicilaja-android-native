@@ -3,10 +3,10 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -129,7 +129,7 @@ public class RegisterMaxi2Activity extends AppCompatActivity {
         }
 
         if(alamatperusahaan == null || alamatperusahaan.trim().length() == 0 || alamatperusahaan.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(RegisterMaxi2Activity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi2Activity.this);
             alertDialog.setMessage("Masukan alamat perusahaan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

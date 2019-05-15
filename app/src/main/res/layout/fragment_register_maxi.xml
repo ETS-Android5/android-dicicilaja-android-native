@@ -69,7 +69,7 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:orientation="vertical">
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,8 +90,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutJenisKelamin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,8 +121,8 @@
                         app:ms_hintTextSize="14sp"
                         app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutAlamatPemilik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -144,8 +144,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNoHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,8 +167,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutKtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnLanjut"

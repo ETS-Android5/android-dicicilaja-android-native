@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,24 +20,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
-import com.dicicilaja.app.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.AxiDashboardActivity;
-import com.dicicilaja.app.Activity.DetailRequestActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
-import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.Activity.ProfileCustomerActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllFavorite;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemFavorite.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemFavorite.ItemFavorite;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
 import com.dicicilaja.app.Adapter.FavoriteAllAdapter;
-import com.dicicilaja.app.Adapter.PengajuanAkun;
-import com.dicicilaja.app.Adapter.ProgramMaxiAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
@@ -99,7 +90,7 @@ public class AkunFragment extends Fragment {
 
         try {
             String imageUrl = session.getPhoto();
-            Picasso.with(getContext())
+            Picasso.get()
                     .load(imageUrl)
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)

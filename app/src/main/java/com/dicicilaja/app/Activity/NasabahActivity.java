@@ -3,10 +3,10 @@ package com.dicicilaja.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,15 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.NewRetrofitClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Item.Login.Login;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateAXI;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateCustomer;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateAXI.CreateAXI;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 import com.dicicilaja.app.R;
-import com.dicicilaja.app.Session.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,7 +113,7 @@ public class NasabahActivity extends AppCompatActivity {
                             buatAkun(nama, email, nohp, katasandi);
 
                         }else {
-                            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+                            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
                             alertDialog.setMessage("Harap setujui syarat dan ketentuan jika ingin mendaftar");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -180,7 +175,7 @@ public class NasabahActivity extends AppCompatActivity {
 
     private boolean validateForm(String nama, String email, String nohp, String katasandi, String konfirmasi) {
         if (nama == null || nama.trim().length() == 0 || nama.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -193,7 +188,7 @@ public class NasabahActivity extends AppCompatActivity {
         }
 
         if (email == null || email.trim().length() == 0 || email.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
             alertDialog.setMessage("Masukan email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -206,7 +201,7 @@ public class NasabahActivity extends AppCompatActivity {
         }
 
         if (nohp == null || nohp.trim().length() == 0 || nohp.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
             alertDialog.setMessage("Masukan no. Handphone");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -219,7 +214,7 @@ public class NasabahActivity extends AppCompatActivity {
         }
 
         if (katasandi == null || katasandi.trim().length() == 0 || katasandi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
             alertDialog.setMessage("Masukan kata sandi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -232,7 +227,7 @@ public class NasabahActivity extends AppCompatActivity {
         }
 
         if (konfirmasi == null || konfirmasi.trim().length() == 0 || konfirmasi.equals("0")) {
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(NasabahActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(NasabahActivity.this);
             alertDialog.setMessage("Masukan konfirmasi kata sandi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

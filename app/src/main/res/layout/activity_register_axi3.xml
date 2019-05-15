@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.dicicilaja.app.Activity.RegisterAxi3Activity"
     android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
             android:background="@color/colorPrimary"
             app:titleTextColor="@color/colorBlack">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:text="Informasi Rekening"/>
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,8 +161,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNoRekening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -184,8 +184,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutCabangBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -207,8 +207,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutANRekening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,8 +230,8 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutKotaBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     android:id="@+id/btnLanjut"
                     android:layout_width="match_parent"

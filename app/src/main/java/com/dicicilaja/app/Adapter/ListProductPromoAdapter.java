@@ -3,8 +3,8 @@ package com.dicicilaja.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +49,7 @@ public class ListProductPromoAdapter extends RecyclerView.Adapter<ListProductPro
         holder.tv_harga.setText(itemModel.getPrice());
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.discount.setText(String.valueOf(itemModel.getDiscount() + "%"));
-        Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
+        Picasso.get().load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

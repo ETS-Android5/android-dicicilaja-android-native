@@ -6,13 +6,13 @@
     tools:context="com.dicicilaja.app.Fragment.ProfileFragment"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
         android:theme="@style/AppTheme1">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -27,9 +27,9 @@
                 android:textSize="18sp"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"

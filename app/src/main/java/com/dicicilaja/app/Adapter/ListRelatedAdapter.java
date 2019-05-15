@@ -3,8 +3,8 @@ package com.dicicilaja.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum;
 import com.dicicilaja.app.R;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +47,7 @@ public class ListRelatedAdapter extends RecyclerView.Adapter<ListRelatedAdapter.
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_jenis.setText(itemModel.getJenisProgram());
         holder.tv_harga.setText(itemModel.getPrice());
-        Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
+        Picasso.get().load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_rekomendasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

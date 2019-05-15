@@ -3,7 +3,7 @@ package com.dicicilaja.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +50,7 @@ public class ListSliderAdapter extends RecyclerView.Adapter<ListSliderAdapter.Si
 
         holder.tv_title.setText(itemModel.getName());
         holder.tv_date.setText(itemModel.getName());
-        Picasso.with(mContext).load(itemModel.getImageUrl()).into(holder.discount_image);
+        Picasso.get().load(itemModel.getImageUrl()).into(holder.discount_image);
         holder.card_list_promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

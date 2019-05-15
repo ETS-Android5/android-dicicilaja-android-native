@@ -1,7 +1,7 @@
 package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +56,7 @@ public class ProgramMaxiAdapter extends RecyclerView.Adapter<ProgramMaxiAdapter.
     public void onBindViewHolder(ProgramMaxiAdapter.RequestViewHolder holder, int position) {
         holder.title_program.setText(program.get(position).getTitleProgram());
         holder.value_harga.setText(program.get(position).getPrice());
-        Picasso.with(context).load(program.get(position).getImageUrl()).into(holder.image_program);
+        Picasso.get().load(program.get(position).getImageUrl()).into(holder.image_program);
 
     }
 
