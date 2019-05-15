@@ -23,10 +23,10 @@ import com.dicicilaja.app.R;
  */
 
 public class ListSliderAdapter extends RecyclerView.Adapter<ListSliderAdapter.SingleItemRowHolder> {
-    private List<com.dicicilaja.app.API.Item.Slider.Datum> sliders;
+    private List<com.dicicilaja.app.API.Model.Slider.Datum> sliders;
     private Context mContext;
 
-    public ListSliderAdapter(List<com.dicicilaja.app.API.Item.Slider.Datum> sliders, Context mContext) {
+    public ListSliderAdapter(List<com.dicicilaja.app.API.Model.Slider.Datum> sliders, Context mContext) {
         this.sliders = sliders;
         this.mContext = mContext;
     }
@@ -46,7 +46,7 @@ public class ListSliderAdapter extends RecyclerView.Adapter<ListSliderAdapter.Si
 
     @Override
     public void onBindViewHolder(ListSliderAdapter.SingleItemRowHolder holder, final int position) {
-        final com.dicicilaja.app.API.Item.Slider.Datum itemModel = sliders.get(position);
+        final com.dicicilaja.app.API.Model.Slider.Datum itemModel = sliders.get(position);
 
         holder.tv_title.setText(itemModel.getName());
         holder.tv_date.setText(itemModel.getName());

@@ -17,7 +17,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import com.dicicilaja.app.API.Item.Product.SectionDataModel;
+import com.dicicilaja.app.API.Model.Product.SectionDataModel;
 import com.dicicilaja.app.R;
 
 /**

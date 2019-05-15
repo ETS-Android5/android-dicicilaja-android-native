@@ -1,7 +1,7 @@
 package com.dicicilaja.app.Remote;
 
-import com.dicicilaja.app.API.Item.Login.Login;
-import com.dicicilaja.app.Model.ResObj;
+import com.dicicilaja.app.API.Model.Login.Login;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

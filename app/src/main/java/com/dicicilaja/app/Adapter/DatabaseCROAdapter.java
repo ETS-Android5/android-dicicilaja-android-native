@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dicicilaja.app.API.Item.DatabaseCRO.Datum;
+import com.dicicilaja.app.API.Model.DatabaseCRO.Datum;
 import com.dicicilaja.app.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -70,7 +70,7 @@ public class DatabaseCROAdapter extends RecyclerView.Adapter<DatabaseCROAdapter.
         this.dataListFiltered = dataList;
     }
 
-    public void refreshAdapter(List<com.dicicilaja.app.API.Item.DatabaseCRO.Datum> data) {
+    public void refreshAdapter(List<com.dicicilaja.app.API.Model.DatabaseCRO.Datum> data) {
         Log.d("SIZE BEFORE::", String.valueOf(this.dataList.size()));
         this.dataList.addAll(data);
         dataListFiltered = this.dataList;

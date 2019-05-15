@@ -45,7 +45,7 @@ import retrofit2.Response;
  */
 public class AkunFragment extends Fragment {
 
-    List<com.dicicilaja.app.API.Item.PengajuanAxi.Datum> pengajuan;
+    List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
     Button alihkan;
     List<Data> programMaxi;
     List <Datum> favorite;

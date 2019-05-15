@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.dicicilaja.app.API.Item.CheckVersion;
+import com.dicicilaja.app.API.Model.CheckVersion;
 import com.dicicilaja.app.Activity.Addon.UpgradeActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;

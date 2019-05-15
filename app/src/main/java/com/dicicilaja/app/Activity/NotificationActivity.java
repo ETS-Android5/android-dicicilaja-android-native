@@ -21,7 +21,7 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceNotification;
-import com.dicicilaja.app.API.Item.Notification.Notification;
+import com.dicicilaja.app.API.Model.Notification.Notification;
 import com.dicicilaja.app.Adapter.NotifAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
@@ -33,7 +33,7 @@ import retrofit2.Response;
 
 
 public class NotificationActivity extends AppCompatActivity {
-    List<com.dicicilaja.app.API.Item.Notification.Datum> notifs;
+    List<com.dicicilaja.app.API.Model.Notification.Datum> notifs;
     String apiKey;
 
     LinearLayout order;

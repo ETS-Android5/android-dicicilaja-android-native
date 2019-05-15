@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.RequestProgress.RequestProgress;
+import com.dicicilaja.app.API.Model.RequestProgress.RequestProgress;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -33,9 +33,9 @@ import java.util.List;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceRequest;
 import com.dicicilaja.app.API.Interface.InterfaceTask;
-import com.dicicilaja.app.API.Item.Request.Request;
-import com.dicicilaja.app.API.Item.Task.Datum;
-import com.dicicilaja.app.API.Item.Task.Task;
+import com.dicicilaja.app.API.Model.Request.Request;
+import com.dicicilaja.app.API.Model.Task.Datum;
+import com.dicicilaja.app.API.Model.Task.Task;
 import com.dicicilaja.app.Adapter.RequestAdapter;
 import com.dicicilaja.app.Adapter.TaskAdapter;
 import com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty;
@@ -54,7 +54,7 @@ import retrofit2.Response;
 public class InprogressFragment extends Fragment implements RequestAdapter.RequestAdapterListener, TaskAdapter.TaskAdapterListener {
 
     private static final String TAG = InprogressFragment.class.getSimpleName();
-    List<com.dicicilaja.app.API.Item.Request.Datum> requests;
+    List<com.dicicilaja.app.API.Model.Request.Datum> requests;
     List<Datum> tasks;
     RequestProcess interfaceTCProcess;
     Integer positionCard;
@@ -221,7 +221,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
     }
 
     @Override
-    public void onDataSelected(com.dicicilaja.app.API.Item.Request.Datum datum) {
+    public void onDataSelected(com.dicicilaja.app.API.Model.Request.Datum datum) {
 
     }
 
@@ -244,7 +244,7 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
                 @Override
                 public void onResponse(Call<Request> call, Response<Request> response) {
                     if (response.isSuccessful()) {
-                        List<com.dicicilaja.app.API.Item.Request.Datum> items = response.body().getData();
+                        List<com.dicicilaja.app.API.Model.Request.Datum> items = response.body().getData();
                         RequestMeta meta = response.body().getMeta();
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 

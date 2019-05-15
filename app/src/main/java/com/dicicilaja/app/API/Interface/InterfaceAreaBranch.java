@@ -1,8 +1,8 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.CreateOrder.Area.Area;
-import com.dicicilaja.app.API.Item.CreateOrder.Branch.Branch;
-import com.dicicilaja.app.API.Item.CreateOrder.Colleteral.Colleteral;
+import com.dicicilaja.app.API.Model.CreateOrder.Area.Area;
+import com.dicicilaja.app.API.Model.CreateOrder.Branch.Branch;
+import com.dicicilaja.app.API.Model.CreateOrder.Colleteral.Colleteral;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

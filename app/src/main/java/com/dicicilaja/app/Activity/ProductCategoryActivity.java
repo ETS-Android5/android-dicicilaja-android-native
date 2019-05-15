@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.dicicilaja.app.API.Item.Product.SectionDataModel;
+import com.dicicilaja.app.API.Model.Product.SectionDataModel;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMaxiProgram;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.MaxiProgram;

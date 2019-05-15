@@ -13,7 +13,7 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
 import com.dicicilaja.app.API.Interface.InterfaceSliderDetail;
-import com.dicicilaja.app.API.Item.SliderDetail.SliderDetail;
+import com.dicicilaja.app.API.Model.SliderDetail.SliderDetail;
 import com.dicicilaja.app.R;
 import retrofit2.Call;
 import retrofit2.Callback;

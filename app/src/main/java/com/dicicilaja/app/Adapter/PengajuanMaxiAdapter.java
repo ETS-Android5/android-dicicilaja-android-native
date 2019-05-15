@@ -19,7 +19,7 @@ import com.dicicilaja.app.R;
  */
 
 public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdapter.RequestViewHolder> {
-    private List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> pengajuan;
+    private List<com.dicicilaja.app.API.Model.PengajuanMaxi.Datum> pengajuan;
     private int rowLayout;
     private Context context;
 
@@ -53,7 +53,7 @@ public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdap
         }
     }
 
-    public PengajuanMaxiAdapter(List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> requests, int rowLayout, Context context) {
+    public PengajuanMaxiAdapter(List<com.dicicilaja.app.API.Model.PengajuanMaxi.Datum> requests, int rowLayout, Context context) {
         this.pengajuan = requests;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -113,7 +113,7 @@ public class PengajuanMaxiAdapter extends RecyclerView.Adapter<PengajuanMaxiAdap
         }
     }
 
-    public void refreshAdapter(List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> data) {
+    public void refreshAdapter(List<com.dicicilaja.app.API.Model.PengajuanMaxi.Datum> data) {
         this.pengajuan.addAll(data);
         notifyItemRangeChanged(0, this.pengajuan.size());
     }

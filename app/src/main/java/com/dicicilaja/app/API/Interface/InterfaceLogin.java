@@ -1,7 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.Login.Login;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMarketplace.LoginObj;
+import com.dicicilaja.app.API.Model.Login.Login;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

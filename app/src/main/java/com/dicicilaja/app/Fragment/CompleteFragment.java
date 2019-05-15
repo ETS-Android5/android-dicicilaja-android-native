@@ -32,8 +32,8 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceRequestProgress;
-import com.dicicilaja.app.API.Item.RequestProgress.Datum;
-import com.dicicilaja.app.API.Item.RequestProgress.RequestProgress;
+import com.dicicilaja.app.API.Model.RequestProgress.Datum;
+import com.dicicilaja.app.API.Model.RequestProgress.RequestProgress;
 import com.dicicilaja.app.Adapter.RequestProgressAdapter;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;

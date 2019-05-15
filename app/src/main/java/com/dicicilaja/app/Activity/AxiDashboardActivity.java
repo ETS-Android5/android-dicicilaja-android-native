@@ -6,26 +6,32 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
+import com.dicicilaja.app.Adapter.ListPPOBAdapter;
 import com.dicicilaja.app.Adapter.ListPromoAdapter;
-import com.dicicilaja.app.Content.PartnerModel;
 import com.dicicilaja.app.Content.PromoModel;
-import com.dicicilaja.app.Content.RekomendasiModel;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,16 +63,11 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
-import com.dicicilaja.app.API.Item.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
-import com.dicicilaja.app.Adapter.PengajuanAxiAdapter;
-import com.dicicilaja.app.Listener.ClickListener;
-import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import retrofit2.Call;
@@ -77,7 +78,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     SessionManager session;
     String token;
-    List<com.dicicilaja.app.API.Item.PengajuanAxi.Datum> pengajuan;
+    List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
     com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
     RelativeLayout allpengajuan;
@@ -96,10 +97,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     HashMap<String, String> file_maps;
 
     ProgressDialog progress;
-    RecyclerView recyclerView;
+
 
     /* Update to Microservices - Variable */
-    private ArrayList<PromoModel> promoData;
+    private List<PPOB> ppobList;
+    RecyclerView recyclerView;
+    ListPPOBAdapter adapter;
 
     int totalData = 1;
     int totalPage = 1;
@@ -148,8 +151,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         footer_item_1 = findViewById(R.id.footer_item_1);
         allpengajuan = findViewById(R.id.allpengajuan);
 
-        promoData = new ArrayList<>();
-//        allpromo = findViewById(R.id.allpromo);
+        /* Update to Microservices - Data */
+        ppobList = new ArrayList<>();
+        adapter = new ListPPOBAdapter(ppobList, this);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -189,33 +193,47 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        recyclerView =  findViewById(R.id.recycler_pengajuan);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        final RecyclerView recyclerPPOB = (RecyclerView) findViewById(R.id.recycler_ppob);
-        recyclerPPOB.setHasFixedSize(true);
-        recyclerPPOB.setLayoutManager(new LinearLayoutManager(getBaseContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
 
-        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
-        snapHelperPromo.attachToRecyclerView(recyclerPPOB);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(mLayoutManager);
+//        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
+
+//        recyclerPPOB.setHasFixedSize(true);
+//        recyclerPPOB.setLayoutManager(new LinearLayoutManager(getBaseContext(),
+//                LinearLayoutManager.HORIZONTAL, false));
+
+//        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
+//        snapHelperPromo.attachToRecyclerView(recyclerPPOB);
 
         createDummyData();
 
-        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+        try {
+            Glide.with(this).load(R.drawable.ic_home).into((ImageView) findViewById(R.id.icon_image));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
-        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
-            @Override
-            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
-                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
-
-                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
-            }
-
-            @Override
-            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
-
-            }
-        });
+//        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+//                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+//
+//        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+//        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
+//            @Override
+//            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+//                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
+//
+//                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
+//
+//            }
+//        });
 
         // Load Data Pengajuan
 //        doLoadData();
@@ -626,16 +644,21 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //    }
 
     private void createDummyData() {
-        for (int j = 1; j <= 5; j++) {
-            promoData.add(new PromoModel("Umroh Free Tour Istanbul Turkey",
-                    "1",
-                    "Mitra Usaha : PT. SUKA JADI",
-                    "Rp 20.000.000",
-                    "Cicilan 60 bulan Rp 900.000/bulan",
-                    "1",
-                    "20%"));
-        }
+        int[] covers = new int[]{
+                R.drawable.ic_home,
+                R.drawable.ic_access_time,
+                R.drawable.ic_add_box};
 
+        PPOB a = new PPOB("PLN", 1, covers[0]);
+        ppobList.add(a);
+
+        a = new PPOB("BPJS-KS", 2, covers[1]);
+        ppobList.add(a);
+
+        a = new PPOB("PDAM", 3, covers[2]);
+        ppobList.add(a);
+
+        adapter.notifyDataSetChanged();
     }
 
     private void initListener() {

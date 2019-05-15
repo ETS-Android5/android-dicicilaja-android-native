@@ -51,8 +51,8 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 
 import com.dicicilaja.app.API.Interface.InterfaceSimulation;
 import com.dicicilaja.app.API.Interface.InterfaceSimulationProcess;
-import com.dicicilaja.app.API.Item.Colleteral.Colleteral;
-import com.dicicilaja.app.API.Item.Simulation.Simulation;
+import com.dicicilaja.app.API.Model.Colleteral.Colleteral;
+import com.dicicilaja.app.API.Model.Simulation.Simulation;
 import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
 import com.dicicilaja.app.Activity.AllPartnerActivity;
 import com.dicicilaja.app.Activity.ProductCategoryActivity;

@@ -16,7 +16,7 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceSlider;
-import com.dicicilaja.app.API.Item.Slider.Slider;
+import com.dicicilaja.app.API.Model.Slider.Slider;
 import com.dicicilaja.app.Adapter.ListSliderAdapter;
 import com.dicicilaja.app.R;
 import retrofit2.Call;
@@ -57,7 +57,7 @@ public class AllPromoActivity extends AppCompatActivity {
         call.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
-                final List<com.dicicilaja.app.API.Item.Slider.Datum> promos = response.body().getData();
+                final List<com.dicicilaja.app.API.Model.Slider.Datum> promos = response.body().getData();
 
                 promo.setAdapter(new ListSliderAdapter(promos, getBaseContext()));
                 progress.dismiss();

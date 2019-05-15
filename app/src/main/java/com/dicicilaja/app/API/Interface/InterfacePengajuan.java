@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.PengajuanResponse;
+import com.dicicilaja.app.API.Model.PengajuanResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

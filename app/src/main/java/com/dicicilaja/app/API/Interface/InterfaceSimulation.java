@@ -1,7 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.AreaRequest.AreaRequest;
-import com.dicicilaja.app.API.Item.Colleteral.Colleteral;
+import com.dicicilaja.app.API.Model.Colleteral.Colleteral;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch.Branch;
 

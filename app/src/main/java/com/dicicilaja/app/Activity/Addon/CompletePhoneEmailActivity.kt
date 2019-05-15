@@ -9,14 +9,11 @@ import android.util.Patterns
 import android.view.View
 import android.widget.ProgressBar
 import com.dicicilaja.app.API.Client.RetrofitClient
-import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi
-import com.dicicilaja.app.API.Item.AreaRequest.CompleteDataUpdate
+import com.dicicilaja.app.API.Model.AreaRequest.CompleteDataUpdate
 import com.dicicilaja.app.Activity.*
 import com.dicicilaja.app.R
-import com.dicicilaja.app.Remote.ApiUtils
 import com.dicicilaja.app.Remote.UserService
 import com.dicicilaja.app.Session.SessionManager
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_complete_phone_email.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,13 +21,12 @@ import retrofit2.Response
 
 class CompletePhoneEmailActivity : AppCompatActivity() {
 
-    var inUserId: String? = null
-    var inPhone: String? = null
-    var inEmail: String? = null
-    var inRole: String? = null
+    private var inUserId: String? = null
+    private var inPhone: String? = null
+    private var inEmail: String? = null
+    private var inRole: String? = null
 
-//    var loader: ProgressBar? = null
-    val loader = findViewById<ProgressBar>(R.id.progressBar)
+    private lateinit var loader: ProgressBar
     var phoneUpdate: Boolean = true
     var emailUpdate: Boolean = true
 
@@ -44,7 +40,7 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
 
         toolbar.title = "Lengkapi Data"
 
-
+        loader = findViewById(R.id.progressBar)
 
         cardCompletePhone.visibility = View.GONE
         cardCompleteEmail.visibility = View.GONE
@@ -213,8 +209,8 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
 
     private fun showNextActivity() {
         if( phoneUpdate && emailUpdate ) {
-//            var role: String? = inRole?.toLowerCase()
-            when( inRole ) {
+            val role: String? = inRole?.toLowerCase()
+            when (role) {
                 "axi" -> intent = Intent(baseContext, AxiDashboardActivity::class.java)
                 "channel" -> intent = Intent(baseContext, MaxiDashboardActivity::class.java)
                 "crh" -> intent = Intent(baseContext, EmployeeDashboardActivity::class.java)
@@ -234,7 +230,7 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
     }
 
     private fun validatePhoneNumber(txt: String?): Boolean {
-        var ret = false
+        val ret = false
         if( !txt.isNullOrEmpty() || !txt.isNullOrBlank() ) {
             return Patterns.PHONE.matcher(txt).matches()
         }
@@ -242,7 +238,7 @@ class CompletePhoneEmailActivity : AppCompatActivity() {
     }
 
     private fun validateEmail(txt: String?): Boolean {
-        var ret = false
+        val ret = false
         if( !txt.isNullOrEmpty() || !txt.isNullOrBlank() ) {
             return Patterns.EMAIL_ADDRESS.matcher(txt).matches()
         }

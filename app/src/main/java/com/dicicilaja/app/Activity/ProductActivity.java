@@ -20,7 +20,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.NewRetrofitClient;
-import com.dicicilaja.app.API.Item.DetailProduct.Datum;
+import com.dicicilaja.app.API.Model.DetailProduct.Datum;
 import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;

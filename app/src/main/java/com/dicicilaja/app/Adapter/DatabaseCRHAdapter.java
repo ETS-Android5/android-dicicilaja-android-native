@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dicicilaja.app.API.Item.DatabaseCRH.Datum;
+import com.dicicilaja.app.API.Model.DatabaseCRH.Datum;
 import com.dicicilaja.app.R;
 
 import static android.app.Activity.RESULT_OK;

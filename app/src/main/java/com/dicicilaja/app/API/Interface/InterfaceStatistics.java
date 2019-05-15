@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.Statistics.Statistics;
+import com.dicicilaja.app.API.Model.Statistics.Statistics;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

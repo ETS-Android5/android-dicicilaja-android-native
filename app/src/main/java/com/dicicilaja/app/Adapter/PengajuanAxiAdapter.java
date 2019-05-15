@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Item.PengajuanAxi.Datum;
+import com.dicicilaja.app.API.Model.PengajuanAxi.Datum;
 import com.dicicilaja.app.R;
 
 /**

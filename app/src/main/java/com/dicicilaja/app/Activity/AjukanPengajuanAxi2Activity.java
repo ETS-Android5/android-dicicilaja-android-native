@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
-import com.dicicilaja.app.API.Item.CreateRequest.CreateRequest;
+import com.dicicilaja.app.API.Model.CreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;

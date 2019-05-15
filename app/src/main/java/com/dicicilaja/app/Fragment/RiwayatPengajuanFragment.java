@@ -18,10 +18,10 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceDetailRequest;
-import com.dicicilaja.app.API.Item.DetailRequest.Datum;
-import com.dicicilaja.app.API.Item.DetailRequest.DetailRequest;
-import com.dicicilaja.app.API.Item.DetailRequest.Progress;
-import com.dicicilaja.app.API.Item.DetailRequest.SurveyChecklist;
+import com.dicicilaja.app.API.Model.DetailRequest.Datum;
+import com.dicicilaja.app.API.Model.DetailRequest.DetailRequest;
+import com.dicicilaja.app.API.Model.DetailRequest.Progress;
+import com.dicicilaja.app.API.Model.DetailRequest.SurveyChecklist;
 import com.dicicilaja.app.Activity.ProsesPengajuanActivity;
 import com.dicicilaja.app.Activity.RequestProcessActivity;
 import com.dicicilaja.app.R;

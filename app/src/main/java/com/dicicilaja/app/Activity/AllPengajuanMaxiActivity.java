@@ -18,8 +18,8 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanMaxi;
-import com.dicicilaja.app.API.Item.PengajuanMaxi.Datum;
-import com.dicicilaja.app.API.Item.PengajuanMaxi.PengajuanMaxi;
+import com.dicicilaja.app.API.Model.PengajuanMaxi.Datum;
+import com.dicicilaja.app.API.Model.PengajuanMaxi.PengajuanMaxi;
 import com.dicicilaja.app.Adapter.PengajuanMaxiAllAdapter;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;

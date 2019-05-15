@@ -24,7 +24,7 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.ClientDatabaseEmployee;
 import com.dicicilaja.app.API.Interface.InterfaceDatabaseCRH;
-import com.dicicilaja.app.API.Item.DatabaseCRH.Datum;
+import com.dicicilaja.app.API.Model.DatabaseCRH.Datum;
 import com.dicicilaja.app.Adapter.DatabaseCRHAdapter;
 import com.dicicilaja.app.Model.RequestMeta;
 import com.dicicilaja.app.R;
@@ -162,10 +162,10 @@ public class DatabaseCRH extends AppCompatActivity implements DatabaseCRHAdapter
         InterfaceDatabaseCRH apiService =
                 ClientDatabaseEmployee.getClientDatabaseEmployee().create(InterfaceDatabaseCRH.class);
 
-        Call<com.dicicilaja.app.API.Item.DatabaseCRH.DatabaseCRH> call = apiService.getDatabaseCRH(apiKey, currentPage, searchVal);
-        call.enqueue(new Callback<com.dicicilaja.app.API.Item.DatabaseCRH.DatabaseCRH>() {
+        Call<com.dicicilaja.app.API.Model.DatabaseCRH.DatabaseCRH> call = apiService.getDatabaseCRH(apiKey, currentPage, searchVal);
+        call.enqueue(new Callback<com.dicicilaja.app.API.Model.DatabaseCRH.DatabaseCRH>() {
             @Override
-            public void onResponse(Call<com.dicicilaja.app.API.Item.DatabaseCRH.DatabaseCRH> call, retrofit2.Response<com.dicicilaja.app.API.Item.DatabaseCRH.DatabaseCRH> response) {
+            public void onResponse(Call<com.dicicilaja.app.API.Model.DatabaseCRH.DatabaseCRH> call, retrofit2.Response<com.dicicilaja.app.API.Model.DatabaseCRH.DatabaseCRH> response) {
                 List<Datum> items = response.body().getData();
                 RequestMeta meta = response.body().getMeta();
 
@@ -205,7 +205,7 @@ public class DatabaseCRH extends AppCompatActivity implements DatabaseCRHAdapter
             }
 
             @Override
-            public void onFailure(Call<com.dicicilaja.app.API.Item.DatabaseCRH.DatabaseCRH> call, Throwable t) {
+            public void onFailure(Call<com.dicicilaja.app.API.Model.DatabaseCRH.DatabaseCRH> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
 

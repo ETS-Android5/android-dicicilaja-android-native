@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import com.dicicilaja.app.API.Item.Product.SingleItemModel;
+import com.dicicilaja.app.API.Model.Product.SingleItemModel;
 import com.dicicilaja.app.R;
 
 /**

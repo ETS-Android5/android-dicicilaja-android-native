@@ -1,6 +1,5 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.Mechant.Merchant;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Partner;
 
 import retrofit2.Call;

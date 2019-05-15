@@ -41,7 +41,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.dicicilaja.app.API.Interface.InterfacePengajuanMaxi;
-import com.dicicilaja.app.API.Item.PengajuanMaxi.PengajuanMaxi;
+import com.dicicilaja.app.API.Model.PengajuanMaxi.PengajuanMaxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
@@ -58,7 +58,7 @@ import retrofit2.Response;
 public class MaxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SessionManager session;
-    List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> pengajuan;
+    List<com.dicicilaja.app.API.Model.PengajuanMaxi.Datum> pengajuan;
     List<Data> programMaxi;
     String token;
     SliderLayout mDemoSlider;
@@ -433,7 +433,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             public void onResponse(Call<PengajuanMaxi> call, Response<PengajuanMaxi> response) {
                 if(response.isSuccessful()){
 
-                    List<com.dicicilaja.app.API.Item.PengajuanMaxi.Datum> items = response.body().getData();
+                    List<com.dicicilaja.app.API.Model.PengajuanMaxi.Datum> items = response.body().getData();
                     RequestMeta meta = response.body().getMeta();
 
                     totalPage = meta.getLastPage();

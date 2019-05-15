@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.Request.Request;
+import com.dicicilaja.app.API.Model.Request.Request;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

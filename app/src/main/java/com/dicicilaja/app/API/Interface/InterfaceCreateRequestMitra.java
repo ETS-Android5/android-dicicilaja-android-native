@@ -1,9 +1,7 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.CreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequestMitra.CreateRequestMitra;
 
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

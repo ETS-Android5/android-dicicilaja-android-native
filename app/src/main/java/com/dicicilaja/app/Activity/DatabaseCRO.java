@@ -36,7 +36,7 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
 
     private static final String TAG = DatabaseCRO.class.getSimpleName();
     private RecyclerView recyclerView;
-    private List<com.dicicilaja.app.API.Item.DatabaseCRO.Datum> dataList;
+    private List<com.dicicilaja.app.API.Model.DatabaseCRO.Datum> dataList;
     private DatabaseCROAdapter mAdapter;
     private SearchView searchView;
 
@@ -147,7 +147,7 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
     }
 
     @Override
-    public void onDataSelected(com.dicicilaja.app.API.Item.DatabaseCRO.Datum datum) {
+    public void onDataSelected(com.dicicilaja.app.API.Model.DatabaseCRO.Datum datum) {
 //        Toast.makeText(getApplicationContext(), "Selected: " + datum.getBranch() + ", " + datum.getBranch(), Toast.LENGTH_LONG).show();
     }
 
@@ -157,11 +157,11 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
         InterfaceDatabaseCRO apiService =
                 ClientDatabaseEmployee.getClientDatabaseEmployee().create(InterfaceDatabaseCRO.class);
 
-        Call<com.dicicilaja.app.API.Item.DatabaseCRO.DatabaseCRO> call = apiService.getDatabaseCRO(apiKey, currentPage, searchVal);
-        call.enqueue(new Callback<com.dicicilaja.app.API.Item.DatabaseCRO.DatabaseCRO>() {
+        Call<com.dicicilaja.app.API.Model.DatabaseCRO.DatabaseCRO> call = apiService.getDatabaseCRO(apiKey, currentPage, searchVal);
+        call.enqueue(new Callback<com.dicicilaja.app.API.Model.DatabaseCRO.DatabaseCRO>() {
             @Override
-            public void onResponse(Call<com.dicicilaja.app.API.Item.DatabaseCRO.DatabaseCRO> call, retrofit2.Response<com.dicicilaja.app.API.Item.DatabaseCRO.DatabaseCRO> response) {
-                List<com.dicicilaja.app.API.Item.DatabaseCRO.Datum> items = response.body().getData();
+            public void onResponse(Call<com.dicicilaja.app.API.Model.DatabaseCRO.DatabaseCRO> call, retrofit2.Response<com.dicicilaja.app.API.Model.DatabaseCRO.DatabaseCRO> response) {
+                List<com.dicicilaja.app.API.Model.DatabaseCRO.Datum> items = response.body().getData();
                 RequestMeta meta = response.body().getMeta();
 
 //                dataList.clear();
@@ -206,7 +206,7 @@ public class DatabaseCRO extends AppCompatActivity implements DatabaseCROAdapter
             }
 
             @Override
-            public void onFailure(Call<com.dicicilaja.app.API.Item.DatabaseCRO.DatabaseCRO> call, Throwable t) {
+            public void onFailure(Call<com.dicicilaja.app.API.Model.DatabaseCRO.DatabaseCRO> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
 

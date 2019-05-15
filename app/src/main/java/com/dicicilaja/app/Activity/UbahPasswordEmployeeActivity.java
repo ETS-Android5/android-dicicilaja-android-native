@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceUbahPassword;
-import com.dicicilaja.app.API.Item.UbahPassword.UbahPassword;
+import com.dicicilaja.app.API.Model.UbahPassword.UbahPassword;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 

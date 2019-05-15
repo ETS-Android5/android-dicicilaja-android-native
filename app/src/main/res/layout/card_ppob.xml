@@ -25,20 +25,19 @@
             android:elevation="100dp"
             android:layout_margin="5dp">
             <RelativeLayout
-                android:layout_width="80dp"
+                android:layout_width="match_parent"
                 android:padding="8dp"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:id="@+id/top_card"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <ImageView
                         android:id="@+id/icon_image"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/illustration_1_02"
-                        android:scaleType="centerCrop"/>
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_home"
+                        android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_below="@+id/top_card"

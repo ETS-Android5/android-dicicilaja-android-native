@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceStatistics;
-import com.dicicilaja.app.API.Item.Statistics.Data;
-import com.dicicilaja.app.API.Item.Statistics.Statistics;
+import com.dicicilaja.app.API.Model.Statistics.Data;
+import com.dicicilaja.app.API.Model.Statistics.Statistics;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 

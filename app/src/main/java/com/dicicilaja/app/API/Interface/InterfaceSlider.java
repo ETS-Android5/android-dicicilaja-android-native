@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.Slider.Slider;
+import com.dicicilaja.app.API.Model.Slider.Slider;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;

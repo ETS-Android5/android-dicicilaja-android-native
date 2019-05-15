@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dicicilaja.app.API.Item.Request.Datum;
+import com.dicicilaja.app.API.Model.Request.Datum;
 import com.dicicilaja.app.Activity.DetailRequestActivity;
 import com.dicicilaja.app.Model.ResRequestProcess;
 import com.dicicilaja.app.R;

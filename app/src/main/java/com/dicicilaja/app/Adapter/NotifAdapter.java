@@ -18,7 +18,7 @@ import com.dicicilaja.app.R;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> {
 
-    private List<com.dicicilaja.app.API.Item.Notification.Datum> notifs;
+    private List<com.dicicilaja.app.API.Model.Notification.Datum> notifs;
     private int rowLayout;
     private Context context;
 
@@ -39,7 +39,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
         }
     }
 
-    public NotifAdapter(List<com.dicicilaja.app.API.Item.Notification.Datum> notifs, int rowLayout, Context context) {
+    public NotifAdapter(List<com.dicicilaja.app.API.Model.Notification.Datum> notifs, int rowLayout, Context context) {
         this.notifs = notifs;
         this.rowLayout = rowLayout;
         this.context = context;

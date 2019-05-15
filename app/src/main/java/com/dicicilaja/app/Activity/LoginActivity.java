@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Item.Login.Login;
+import com.dicicilaja.app.API.Model.Login.Login;
 import com.dicicilaja.app.Activity.Addon.CompletePhoneEmailActivity;
 import com.dicicilaja.app.WebView.ForgotActivity;
 import com.google.firebase.iid.FirebaseInstanceId;

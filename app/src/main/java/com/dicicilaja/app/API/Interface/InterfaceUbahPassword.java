@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Item.UbahPassword.UbahPassword;
+import com.dicicilaja.app.API.Model.UbahPassword.UbahPassword;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

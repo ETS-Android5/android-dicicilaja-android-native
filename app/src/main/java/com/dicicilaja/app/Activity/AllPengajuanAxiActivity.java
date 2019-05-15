@@ -20,8 +20,8 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
-import com.dicicilaja.app.API.Item.PengajuanAxi.Datum;
-import com.dicicilaja.app.API.Item.PengajuanAxi.PengajuanAxi;
+import com.dicicilaja.app.API.Model.PengajuanAxi.Datum;
+import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Adapter.PengajuanAxiAllAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
