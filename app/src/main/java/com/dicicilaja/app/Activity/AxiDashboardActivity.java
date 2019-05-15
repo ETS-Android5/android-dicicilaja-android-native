@@ -9,6 +9,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+
+import com.dicicilaja.app.Adapter.ListPromoAdapter;
+import com.dicicilaja.app.Content.PartnerModel;
+import com.dicicilaja.app.Content.PromoModel;
+import com.dicicilaja.app.Content.RekomendasiModel;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,7 +23,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.SnapHelper;
+
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +50,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -88,6 +98,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     ProgressDialog progress;
     RecyclerView recyclerView;
 
+    /* Update to Microservices - Variable */
+    private ArrayList<PromoModel> promoData;
+
     int totalData = 1;
     int totalPage = 1;
     int currentPage = 1;
@@ -134,6 +147,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         button_rb = findViewById(R.id.button_rb);
         footer_item_1 = findViewById(R.id.footer_item_1);
         allpengajuan = findViewById(R.id.allpengajuan);
+
+        promoData = new ArrayList<>();
 //        allpromo = findViewById(R.id.allpromo);
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
@@ -171,11 +186,39 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
 
-        recyclerView =  findViewById(R.id.recycler_pengajuan);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+//        recyclerView =  findViewById(R.id.recycler_pengajuan);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        final RecyclerView recyclerPPOB = (RecyclerView) findViewById(R.id.recycler_ppob);
+        recyclerPPOB.setHasFixedSize(true);
+        recyclerPPOB.setLayoutManager(new LinearLayoutManager(getBaseContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+
+        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
+        snapHelperPromo.attachToRecyclerView(recyclerPPOB);
+
+        createDummyData();
+
+        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+
+        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
+            @Override
+            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
+
+                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
+            }
+
+            @Override
+            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
+
+            }
+        });
 
         // Load Data Pengajuan
-        doLoadData();
+//        doLoadData();
 
         link_web.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -447,10 +490,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         InterfaceAxiSlider apiSlider =
                 RetrofitClient.getClient().create(InterfaceAxiSlider.class);
 
-        Call<AxiSlider> call = apiSlider.getSlider();
-        call.enqueue(new Callback<AxiSlider>() {
+        Call<AxiSlider> call6 = apiSlider.getSlider();
+        call6.enqueue(new Callback<AxiSlider>() {
             @Override
-            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+            public void onResponse(Call<AxiSlider> call6, Response<AxiSlider> response) {
                 List <Datum> slider = response.body().getData();
                 Log.d("SLIDER AXI", slider.toString());
                 for (int i = 0; i < slider.size(); i++) {
@@ -538,48 +581,61 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     @Override
     public void onPageScrollStateChanged(int state) {}
 
-    private void doLoadData() {
-        showLoading();
+//    private void doLoadData() {
+//        showLoading();
+//
+//        InterfacePengajuanAxi apiService =
+//                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+//
+//        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
+//        call2.enqueue(new Callback<PengajuanAxi>() {
+//            @Override
+//            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+//                if(response.isSuccessful()) {
+//                    pengajuan = response.body().getData();
+//                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+//
+//                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
+//
+//                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext(), 3));
+//                    recyclerView.setNestedScrollingEnabled(false);
+//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+//                        @Override
+//                        public void onClick(View view, final int position) {
+//                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+//                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+//                            startActivity(intent);
+//
+//                        }
+//
+//                        @Override
+//                        public void onLongClick(View view, int position) {
+//                        }
+//                    }));
+//                }
+//                //progress.dismiss();
+////                hideLoading();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
+////                hideLoading();
+//                t.printStackTrace();
+//            }
+//        });
+//    }
 
-        InterfacePengajuanAxi apiService =
-                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+    private void createDummyData() {
+        for (int j = 1; j <= 5; j++) {
+            promoData.add(new PromoModel("Umroh Free Tour Istanbul Turkey",
+                    "1",
+                    "Mitra Usaha : PT. SUKA JADI",
+                    "Rp 20.000.000",
+                    "Cicilan 60 bulan Rp 900.000/bulan",
+                    "1",
+                    "20%"));
+        }
 
-        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
-        call2.enqueue(new Callback<PengajuanAxi>() {
-            @Override
-            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if(response.isSuccessful()) {
-                    pengajuan = response.body().getData();
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
-
-                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext(), 3));
-                    recyclerView.setNestedScrollingEnabled(false);
-                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                        @Override
-                        public void onClick(View view, final int position) {
-                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-                            startActivity(intent);
-
-                        }
-
-                        @Override
-                        public void onLongClick(View view, int position) {
-                        }
-                    }));
-                }
-                //progress.dismiss();
-//                hideLoading();
-            }
-
-            @Override
-            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
-//                hideLoading();
-                t.printStackTrace();
-            }
-        });
     }
 
     private void initListener() {

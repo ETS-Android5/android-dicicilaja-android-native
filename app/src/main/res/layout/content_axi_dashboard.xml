@@ -256,7 +256,9 @@
                 <RelativeLayout
                     android:id="@+id/top_pengajuan"
                     android:layout_width="match_parent"
-                    android:padding="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/title_ppob"
@@ -296,13 +298,11 @@
                             android:textColor="@color/colorAccent2"/>
                     </RelativeLayout>
                 </RelativeLayout>
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_pengajuan"
-                    android:layout_below="@+id/top_pengajuan"
+                    android:id="@+id/recycler_ppob"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_pengajuan"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -154,7 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
                     alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
 
                     // Setting Positive "Yes" Button
-                    alertDialog.setPositiveButton("Okkay", new DialogInterface.OnClickListener() {
+                    alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
