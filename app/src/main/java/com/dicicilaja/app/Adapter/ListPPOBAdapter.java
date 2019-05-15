@@ -63,7 +63,7 @@ public class ListPPOBAdapter extends RecyclerView.Adapter<ListPPOBAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final PPOB ppob = ppobList.get(position);
         holder.tv_title.setText(ppob.getName());
-        Glide.with(mContext).load(R.drawable.ic_home).into(holder.icon_image);
+        Glide.with(mContext).load(ppob.getThumbnail()).into(holder.icon_image);
         holder.card_ppob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

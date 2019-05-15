@@ -645,14 +645,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     private void createDummyData() {
         int[] covers = new int[]{
-                R.drawable.ic_home,
-                R.drawable.ic_access_time,
-                R.drawable.ic_add_box};
+                R.drawable.pln,
+                R.drawable.bpjs,
+                R.drawable.pdam};
 
         PPOB a = new PPOB("PLN", 1, covers[0]);
         ppobList.add(a);
 
-        a = new PPOB("BPJS-KS", 2, covers[1]);
+        a = new PPOB("BPJS ", 2, covers[1]);
         ppobList.add(a);
 
         a = new PPOB("PDAM", 3, covers[2]);
