@@ -291,7 +291,7 @@
                 android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.PointRewardActivity"
+            android:name=".Activity.BusinesRewardActivity"
             android:label="Poin Reward"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
