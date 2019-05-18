@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
+import com.dicicilaja.app.Activity.DetailProductActivity;
+import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -71,9 +74,12 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
         holder.card_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext, ProductMaxiActivity.class);
-//                intent.putExtra("ID", ppob.getId());
-//                view.getContext().startActivity(intent);
+                Intent intent = new Intent(mContext, DetailProductActivity.class);
+                intent.putExtra("ID", pc.getId());
+                intent.putExtra("Name", pc.getName());
+                intent.putExtra("Point", pc.getPoint());
+                intent.putExtra("Thumbnail", pc.getThumbnail());
+                view.getContext().startActivity(intent);
                 Snackbar.make(view, "ID : " + pc.getId(), Snackbar.LENGTH_SHORT).show();
             }
         });

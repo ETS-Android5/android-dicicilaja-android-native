@@ -671,6 +671,27 @@
             android:label="Update Aplikasi dicicilaja"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.Addon.CompletePhoneEmailActivity"></activity>
+        <activity
+            android:name=".Activity.DetailProductActivity"
+            android:label="Detail Produk"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.DetailProduct2Activity"
+            android:label="Detail Produk"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.DetailProductActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.DetailPenukaranActivity"
+            android:label="Detail Penukaran"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

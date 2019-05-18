@@ -61,6 +61,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,18 +74,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
     com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
-    RelativeLayout allpengajuan;
-    InterfaceAxiDetail interfaceAxiDetail;
     SliderLayout mDemoSlider;
-    ImageView icon1_web, icon2_web, copy_link;
-    TextView link_web;
     List<Data> infoJaringan;
-    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_ppob;
-    TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
     String apiKey;
     RelativeLayout allpromo;
-    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
 
     HashMap<String, String> file_maps;
 
@@ -175,7 +169,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
     RecyclerView recyclerView;
@@ -191,44 +184,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_axi_dashboard);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
+        mDemoSlider = findViewById(R.id.slider);
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
-
-        icon2_web = findViewById(R.id.icon2_web);
-        copy_link = findViewById(R.id.copy_link);
-        icon1_web = findViewById(R.id.icon1_web);
-        link_web = findViewById(R.id.link_web);
-        title_info = findViewById(R.id.title_info);
-        title_info_jaringan = findViewById(R.id.title_info_jaringan);
-        title_replika = findViewById(R.id.title_replika);
-        title_ppob = findViewById(R.id.title_ppob);
-        total_view = findViewById(R.id.total_view);
-        title_box1 = findViewById(R.id.title_box1);
-        content_box1 = findViewById(R.id.content_box1);
-        title_box2 = findViewById(R.id.title_box2);
-        content_box2 = findViewById(R.id.content_box2);
-        title_box3 = findViewById(R.id.title_box3);
-        content_box3 = findViewById(R.id.content_box3);
-        title_box4 = findViewById(R.id.title_box4);
-        content_box4 = findViewById(R.id.content_box4);
-        title_box5 = findViewById(R.id.title_box5);
-        content_box5 = findViewById(R.id.content_box5);
-        title_box6 = findViewById(R.id.title_box6);
-        content_box6 = findViewById(R.id.content_box6);
-        insentif_car = findViewById(R.id.insentif_car);
-        insentif_mcy = findViewById(R.id.insentif_mcy);
-        point_reward = findViewById(R.id.point_reward);
-        point_trip = findViewById(R.id.point_trip);
-        button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
-        button_rb = findViewById(R.id.button_rb);
-        footer_item_1 = findViewById(R.id.footer_item_1);
-        allpengajuan = findViewById(R.id.allpengajuan);
 
         /* Update to Microservices - Data */
         ppobList = new ArrayList<>();
@@ -239,23 +201,23 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_info.setTypeface(opensans_bold);
-        title_ppob.setTypeface(opensans_bold);
-        title_info_jaringan.setTypeface(opensans_bold);
-        title_replika.setTypeface(opensans_bold);
-        total_view.setTypeface(opensans_bold);
-        title_box1.setTypeface(opensans_bold);
-        content_box1.setTypeface(opensans_reguler);
-        title_box2.setTypeface(opensans_bold);
-        content_box2.setTypeface(opensans_reguler);
-        title_box3.setTypeface(opensans_bold);
-        content_box3.setTypeface(opensans_reguler);
-        title_box4.setTypeface(opensans_bold);
-        content_box4.setTypeface(opensans_reguler);
-        title_box5.setTypeface(opensans_bold);
-        content_box5.setTypeface(opensans_reguler);
-        title_box6.setTypeface(opensans_bold);
-        content_box6.setTypeface(opensans_reguler);
+        titleInfo.setTypeface(opensans_bold);
+        titlePpob.setTypeface(opensans_bold);
+        titleInfoJaringan.setTypeface(opensans_bold);
+        titleReplika.setTypeface(opensans_bold);
+        totalView.setTypeface(opensans_bold);
+        titleBox1.setTypeface(opensans_bold);
+        contentBox1.setTypeface(opensans_reguler);
+        titleBox2.setTypeface(opensans_bold);
+        contentBox2.setTypeface(opensans_reguler);
+        titleBox3.setTypeface(opensans_bold);
+        contentBox3.setTypeface(opensans_reguler);
+        titleBox4.setTypeface(opensans_bold);
+        contentBox4.setTypeface(opensans_reguler);
+        titleBox5.setTypeface(opensans_bold);
+        contentBox5.setTypeface(opensans_reguler);
+        titleBox6.setTypeface(opensans_bold);
+        contentBox6.setTypeface(opensans_reguler);
 
 //        allpromo.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -317,39 +279,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         // Load Data Pengajuan
 //        doLoadData();
 
-        link_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
-                startActivity(browserIntent);
-            }
-        });
-        icon1_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
-                startActivity(browserIntent);
-            }
-        });
-        icon2_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Temukan solusi kebutuhan Anda disini " + link_web.getText().toString());
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Link web replika");
-                startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
-            }
-        });
-        copy_link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("link", link_web.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
-            }
-        });
 //        allpengajuan.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -375,11 +304,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
-                    content_box3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
-                    content_box4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    link_web.setText(itemDetail.getReplicaWebLink());
+                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+                    contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
+                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
+                    linkWeb.setText(itemDetail.getReplicaWebLink());
                 }
                 hideLoading();
             }
@@ -402,7 +331,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    content_box5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
+                    contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
 
                 }
 
@@ -415,73 +344,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 alertDialog.show();
             }
         });
-
-        insentif_car.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
-                startActivity(intent);
-            }
-        });
-
-        point_reward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-//                intent.putExtra("POINT_REWARD", String.valueOf(itemDetail.getPointReward()));
-                startActivity(intent);
-            }
-        });
-
-        point_trip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), PointTripActivity.class);
-                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
-                startActivity(intent);
-            }
-        });
-
-        insentif_mcy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
-                startActivity(intent);
-            }
-        });
-        button_rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
-                intent.putExtra("total_rb", content_box5.getText().toString());
-                startActivity(intent);
-            }
-        });
-        button_kedalaman_rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
-                startActivity(intent);
-            }
-        });
-        footer_item_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -509,7 +371,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         break;
                     case R.id.navbar_jaringan:
                         intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
-                        intent.putExtra("total_rb", content_box5.getText().toString());
+                        intent.putExtra("total_rb", contentBox5.getText().toString());
                         startActivity(intent);
                         break;
                     case R.id.navbar_news:
@@ -757,4 +619,77 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         isLoading = false;
         progress.dismiss();
     }
+
+    @OnClick(R.id.link_web)
+    public void onViewClicked() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkWeb.getText().toString()));
+        startActivity(browserIntent);
+    }
+
+    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.point_reward, R.id.point_trip, R.id.insentif_car, R.id.insentif_mcy, R.id.button_rb, R.id.button_kedalaman_rb, R.id.footer_item_1})
+    public void onViewClicked(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.icon1_web:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkWeb.getText().toString()));
+                startActivity(browserIntent);
+                break;
+            case R.id.copy_link:
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("link", linkWeb.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.icon2_web:
+                intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Temukan solusi kebutuhan Anda disini " + linkWeb.getText().toString());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Link web replika");
+                startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
+                break;
+            case R.id.point_reward:
+                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+//                intent.putExtra("POINT_REWARD", String.valueOf(itemDetail.getPointReward()));
+                startActivity(intent);
+                break;
+            case R.id.point_trip:
+                intent = new Intent(getBaseContext(), PointTripActivity.class);
+                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
+                startActivity(intent);
+                break;
+            case R.id.insentif_car:
+                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+                startActivity(intent);
+                break;
+            case R.id.insentif_mcy:
+                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+                startActivity(intent);
+                break;
+            case R.id.card2:
+                break;
+            case R.id.button_rb:
+                intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
+                intent.putExtra("total_rb", contentBox5.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.button_kedalaman_rb:
+                intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.footer_item_1:
+                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                startActivity(intent);
+                break;
+        }
+    };
 }
