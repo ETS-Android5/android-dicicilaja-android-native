@@ -15,3 +15,4 @@ public interface InterfaceAllFavorite {
     @GET("favorite")
     Call<ItemFavorite> getFavorite(@Header("Authorization") String apiKey);
 }
+gi
