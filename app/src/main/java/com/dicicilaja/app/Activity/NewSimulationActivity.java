@@ -71,11 +71,13 @@ public class NewSimulationActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
-            startActivity(intent);
-            return true;
+        switch (id) {
+            case R.id.notif:
+                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.home:
+                super.finish();
         }
 
         return super.onOptionsItemSelected(item);
