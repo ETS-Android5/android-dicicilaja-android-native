@@ -109,6 +109,8 @@ public class NewLoanActivity extends AppCompatActivity {
             case R.id.icon_help2:
                 break;
             case R.id.next:
+                Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                startActivity(intent);
                 break;
         }
     }
