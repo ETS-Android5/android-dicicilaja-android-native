@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.NewColleteralActivity"></activity>
+        <activity android:name=".Activity.NewLoanActivity"></activity>
+        <activity android:name=".Activity.NewColleteralActivity" />
         <activity android:name=".Activity.NewSimulationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

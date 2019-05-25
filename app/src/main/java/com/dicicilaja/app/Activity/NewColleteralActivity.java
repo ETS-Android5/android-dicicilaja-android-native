@@ -49,12 +49,11 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Informasi Jaminan");
 
         final List<String> MERK_ITEMS = new ArrayList<>();
-
-        final List<String> TYPE_ITEMS = new ArrayList<>();;
-
+        final List<String> TYPE_ITEMS = new ArrayList<>();
         final List<String> YEAR_ITEMS = new ArrayList<>();
 
         MERK_ITEMS.clear();
@@ -73,8 +72,6 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerBrand.setAdapter(brand_adapter);
 
         TYPE_ITEMS.clear();
-        TYPE_ITEMS.add("New Crv 2.0 M/T DOHC");
-        TYPE_ITEMS.add("New Crv 2.0 M/T DOHC");
         TYPE_ITEMS.add("New Crv 2.0 M/T DOHC");
         TYPE_ITEMS.add("Skyline GTR R35 Putih");
         ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
@@ -103,6 +100,8 @@ public class NewColleteralActivity extends AppCompatActivity {
 
     @OnClick(R.id.next)
     public void onViewClicked() {
+        Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -124,10 +123,11 @@ public class NewColleteralActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.home:
+            case android.R.id.home:
                 super.finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

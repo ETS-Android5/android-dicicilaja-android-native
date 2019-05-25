@@ -36,6 +36,7 @@ public class NewSimulationActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Simulasi");
 
 
@@ -76,10 +77,11 @@ public class NewSimulationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.home:
+            case android.R.id.home:
                 super.finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }
