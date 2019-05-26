@@ -20,15 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.NewSimulationResultActivity"></activity>
-        <activity android:name=".Activity.NewLoanActivity" />
-        <activity android:name=".Activity.NewColleteralActivity" />
-        <activity android:name=".Activity.NewSimulationActivity">
+        <activity android:name=".Activity.NewSimulationResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activity.NewLoanActivity" />
+        <activity android:name=".Activity.NewColleteralActivity" />
+        <activity android:name=".Activity.NewSimulationActivity">
+
         </activity>
         <activity
             android:name=".Activity.SplashActivity"
