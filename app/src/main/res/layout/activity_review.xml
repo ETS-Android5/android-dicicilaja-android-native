@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/spek_barang_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@+id/info_penukaran"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/spek_penukaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Produk"
+            android:textStyle="bold"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:id="@+id/detail_produk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_barang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xiaomi A2 Lite"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:id="@+id/point"
+                android:layout_below="@id/title_barang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="450 Point"
+                android:textSize="@dimen/ib_fr_space_12"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/barang_picture"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/user" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@+id/info_penukaran"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/title_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beri Rating Produk"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="14dp" />
+        
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:layout_below="@+id/title_rating"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/rt_bar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:numStars="5"
+            android:stepSize="0.5" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ulasan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="30dp"
+        android:layout_below="@+id/info_penukaran"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/title_ulasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ulasan"
+            android:textStyle="bold"
+            android:textSize="14dp" />
+
+        <EditText
+            android:layout_below="@+id/title_ulasan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tulis komentar kamu disini"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/spek_barang_detail">
+
+        <Button
+            android:id="@+id/klaim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simpan"
+            android:textAllCaps="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorAccent"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

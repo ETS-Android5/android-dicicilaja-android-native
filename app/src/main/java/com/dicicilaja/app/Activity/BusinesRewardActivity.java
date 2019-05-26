@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BusinesRewardActivity extends AppCompatActivity {
@@ -90,6 +93,14 @@ public class BusinesRewardActivity extends AppCompatActivity {
     RecyclerView recyclerElektronika;
     @BindView(R.id.rl_elektronik)
     RelativeLayout rlElektronik;
+    @BindView(R.id.ll_profile)
+    LinearLayout llProfile;
+    @BindView(R.id.info)
+    ImageView info;
+    @BindView(R.id.profile_note)
+    TextView profileNote;
+    @BindView(R.id.ll_info)
+    LinearLayout llInfo;
 
     private List<ProductCatalog> productCatalogList;
     private List<ProductCatalog> productCatalogList2;
@@ -293,13 +304,27 @@ public class BusinesRewardActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
             startActivity(intent);
             return true;
-        }else if(id == R.id.search){
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+        } else if (id == R.id.search) {
+            Intent intent = new Intent(getBaseContext(), SearchResultActivity.class);
             startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.txt_all_promo, R.id.txt_all_promo2, R.id.txt_all_promo3})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.txt_all_promo:
+                Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.txt_all_promo2:
+                break;
+            case R.id.txt_all_promo3:
+                break;
+        }
     }
 
 //    @Override

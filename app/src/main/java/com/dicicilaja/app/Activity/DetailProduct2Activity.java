@@ -105,7 +105,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
 
     @OnClick(R.id.klaim)
     public void onViewClicked() {
-        Intent intent = new Intent(getBaseContext(), DetailPenukaranActivity.class);
+        Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
         startActivity(intent);
     }
 }

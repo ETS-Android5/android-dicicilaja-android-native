@@ -688,9 +688,54 @@
                 android:value="com.dicicilaja.app.Activity.DetailProductActivity" />
         </activity>
         <activity
-            android:name=".Activity.DetailPenukaranActivity"
+            android:name=".Activity.RedeemConfirmationActivity"
             android:label="Detail Penukaran"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Activity.RedeemConfirmation2Activity"
+            android:label="Detail Penukaran"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.RedeemConfirmationActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.TrackingOrderActivity"
+            android:label="Detail Penukaran"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.RedeemConfirmationActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.CatalogResultActivity"
+            android:label="Motor"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SearchResultActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.RedeemConfirmation2Activity" />
+        </activity>
+        <activity
+            android:name=".Activity.TransactionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.TrackingOrderActivity" />
         </activity>
     </application>
 

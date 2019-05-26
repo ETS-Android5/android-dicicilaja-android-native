@@ -15,8 +15,9 @@ import com.dicicilaja.app.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class DetailPenukaranActivity extends AppCompatActivity {
+public class RedeemConfirmationActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.icon_sukses)
@@ -38,7 +39,7 @@ public class DetailPenukaranActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_penukaran);
+        setContentView(R.layout.activity_redeem_confirmation);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -68,5 +69,11 @@ public class DetailPenukaranActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.klaim)
+    public void onViewClicked() {
+        Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
+        startActivity(intent);
     }
 }
