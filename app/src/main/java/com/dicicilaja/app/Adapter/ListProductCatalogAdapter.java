@@ -3,6 +3,7 @@ package com.dicicilaja.app.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductCatalogAdapter.MyViewHolder> {
     List<ProductCatalog> pcList;
     Context mContext;
+    public String nama;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,7 +70,14 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final ProductCatalog pc = pcList.get(position);
-        holder.tv_title.setText(pc.getName());
+
+        if(pc.getName().length() >= 16) {
+            nama = pc.getName().substring(0, 15) + "...";
+        } else {
+            nama = pc.getName();
+        }
+        String title = nama;
+        holder.tv_title.setText(title);
         holder.tv_point.setText(String.valueOf(pc.getPoint()));
         Glide.with(mContext).load(pc.getThumbnail()).into(holder.icon_image);
         holder.card_pc.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +90,7 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
                 intent.putExtra("Thumbnail", pc.getThumbnail());
                 view.getContext().startActivity(intent);
                 Snackbar.make(view, "ID : " + pc.getId(), Snackbar.LENGTH_SHORT).show();
+                Log.d("ListProductCatalog", " id: " + pc.getId());
             }
         });
     }
