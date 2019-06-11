@@ -1,15 +1,21 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.NewSimulation.ui.newcolleteral;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.Activity.NewLoanActivity;
+import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -41,6 +47,8 @@ public class NewColleteralActivity extends AppCompatActivity {
     @BindView(R.id.next)
     Button next;
 
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,15 +57,23 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Informasi Jaminan");
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
+        }
+
+        type = getIntent().getStringExtra("type");
 
         final List<String> MERK_ITEMS = new ArrayList<>();
         final List<String> TYPE_ITEMS = new ArrayList<>();
         final List<String> YEAR_ITEMS = new ArrayList<>();
 
         MERK_ITEMS.clear();
-        MERK_ITEMS.add("Honda");
+        MERK_ITEMS.add(type);
         MERK_ITEMS.add("Nissan");
         MERK_ITEMS.add("Suzuki");
         MERK_ITEMS.add("Mitsubishi");
@@ -119,8 +135,8 @@ public class NewColleteralActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.notif:
-                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            case R.id.help:
+                Intent intent = new Intent(getBaseContext(), BantuanNewSimulationActivity.class);
                 startActivity(intent);
                 return true;
             case android.R.id.home:

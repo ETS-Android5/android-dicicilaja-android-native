@@ -19,11 +19,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="496" />
-                            <entry key="outputName" value="ic_update" />
+                            <entry key="height" value="20" />
+                            <entry key="outputName" value="ic_motor_sports" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/smartphone (1).svg" />
-                            <entry key="width" value="496" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/Illustrasi/motor-sports.svg" />
+                            <entry key="width" value="40" />
                           </map>
                         </option>
                       </PersistentState>

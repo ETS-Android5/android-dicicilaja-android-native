@@ -194,4 +194,27 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_spgdashboard">SPGDashboardActivity</string>
+
+    <string name="bantuan">
+        <![CDATA[
+        <div style="font-family: 'Open Sans', sans-serif; padding: 10px; color: #424242">
+        <h2>Pembuka</h2>
+        <h3>Simulasi Pinjaman</h3>
+        <p>Simulasi pinjaman berupa layanan yang diberikan Dicicilaja kepada para user. Layanan ini mampu memberikan gambaran kasar pinjaman yang akan diajukan.</p>
+        <p>Look, this is <em>emphasized.</em> And here\'s some <b>bold</b>.</p>
+        <p>This is a UL list:
+        <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        </ul>
+        <p>This is an OL list:
+        <ol>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        </ol>
+        </div>
+        ]]>
+    </string>
 </resources>

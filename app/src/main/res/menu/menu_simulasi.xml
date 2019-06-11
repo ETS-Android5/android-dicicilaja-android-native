@@ -4,7 +4,7 @@
     <item
         android:id="@+id/help"
         android:orderInCategory="100"
-        android:title="Help"
+        android:title="bantuan"
         android:icon="@drawable/ic_menu_help"
         app:showAsAction="always" />
 </menu>
