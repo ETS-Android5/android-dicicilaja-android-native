@@ -9,29 +9,30 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.dicicilaja.app.Activity.NewLoanActivity;
-import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
-import com.dicicilaja.app.R;
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
+import com.dicicilaja.app.R;
+import com.google.android.material.textfield.TextInputLayout;
 import fr.ganfra.materialspinner.MaterialSpinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewColleteralActivity extends AppCompatActivity {
 
+
+    String type;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.spinnerArea)
+    MaterialSpinner spinnerArea;
+    @BindView(R.id.layoutArea)
+    TextInputLayout layoutArea;
     @BindView(R.id.spinnerBrand)
     MaterialSpinner spinnerBrand;
     @BindView(R.id.layoutBrand)
@@ -46,8 +47,6 @@ public class NewColleteralActivity extends AppCompatActivity {
     TextInputLayout layoutYear;
     @BindView(R.id.next)
     Button next;
-
-    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +67,19 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         type = getIntent().getStringExtra("type");
 
+        final List<String> AREA_ITEMS = new ArrayList<>();
         final List<String> MERK_ITEMS = new ArrayList<>();
         final List<String> TYPE_ITEMS = new ArrayList<>();
         final List<String> YEAR_ITEMS = new ArrayList<>();
+
+        AREA_ITEMS.clear();
+        AREA_ITEMS.add("Jabodetabekser");
+        AREA_ITEMS.add("Jawa Barat");
+        AREA_ITEMS.add("Jawa Tengah");
+        AREA_ITEMS.add("Jawa Timur");
+        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerArea.setAdapter(area_adapter);
 
         MERK_ITEMS.clear();
         MERK_ITEMS.add(type);
@@ -114,12 +123,6 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerYear.setAdapter(year_adapter);
     }
 
-    @OnClick(R.id.next)
-    public void onViewClicked() {
-        Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -146,4 +149,10 @@ public class NewColleteralActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.next)
+    public void onViewClicked() {
+        Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
+    }
 }

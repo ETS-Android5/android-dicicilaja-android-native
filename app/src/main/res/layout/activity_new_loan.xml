@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.NewLoanActivity">
+    tools:context=".NewSimulation.ui.newloan.NewLoanActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,37 +80,6 @@
                                 android:layout_marginRight="9dp"
                                 android:imeOptions="actionNext"
                                 android:nextFocusDown="@+id/spinnerArea"
-                                app:ms_alignLabels="true"
-                                android:textSize="15sp"
-                                app:ms_hintTextSize="14sp"
-                                app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/layoutArea"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:layout_marginTop="10dp"
-                                android:id="@+id/spinnerArea"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ms_multiline="false"
-                                app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Area"
-                                app:ms_enableFloatingLabel="true"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_floatingLabelText="Pilih Area"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                android:layout_marginLeft="9dp"
-                                android:layout_marginRight="9dp"
-                                android:imeOptions="actionNext"
-                                android:nextFocusDown="@+id/spinnerInstallment"
                                 app:ms_alignLabels="true"
                                 android:textSize="15sp"
                                 app:ms_hintTextSize="14sp"

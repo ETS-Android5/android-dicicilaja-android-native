@@ -21,7 +21,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity"></activity>
         <activity android:name=".NewSimulation.ui.newsimulationresult.NewSimulationResultActivity" />
-        <activity android:name=".Activity.NewLoanActivity" />
+        <activity android:name=".NewSimulation.ui.newloan.NewLoanActivity" />
         <activity android:name=".NewSimulation.ui.newcolleteral.NewColleteralActivity" />
         <activity android:name=".NewSimulation.ui.newsimulation.activity.NewSimulationActivity">
             <intent-filter>

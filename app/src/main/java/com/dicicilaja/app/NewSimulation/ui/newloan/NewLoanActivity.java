@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.NewSimulation.ui.newloan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,21 +8,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
-import com.dicicilaja.app.R;
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
+import com.dicicilaja.app.R;
+import com.google.android.material.textfield.TextInputLayout;
 import fr.ganfra.materialspinner.MaterialSpinner;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class NewLoanActivity extends AppCompatActivity {
 
@@ -32,10 +31,6 @@ public class NewLoanActivity extends AppCompatActivity {
     MaterialSpinner spinnerTenor;
     @BindView(R.id.layoutTenor)
     TextInputLayout layoutTenor;
-    @BindView(R.id.spinnerArea)
-    MaterialSpinner spinnerArea;
-    @BindView(R.id.layoutArea)
-    TextInputLayout layoutArea;
     @BindView(R.id.icon_help1)
     ImageView iconHelp1;
     @BindView(R.id.spinnerInstallment)
@@ -63,28 +58,30 @@ public class NewLoanActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Informasi Pinjaman");
 
         final List<String> TENOR_ITEMS = new ArrayList<>();
-        final List<String> AREA_ITEMS = new ArrayList<>();
-        final List<String> JENISANGSURAN_ITEMS = new ArrayList<>();
-        final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
 
+        final List<String> JENISANGSURAN_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> JENISANGSURAN_MAP = new HashMap<Integer, String>();
+
+        final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
+
+        TENOR_MAP.clear();
         TENOR_ITEMS.clear();
-        TENOR_ITEMS.add("6 Bulan");
-        TENOR_ITEMS.add("12 Bulan");
-        TENOR_ITEMS.add("24 Bulan");
-        TENOR_ITEMS.add("36 Bulan");
-        TENOR_ITEMS.add("72 Bulan");
+
+        TENOR_MAP.put(1, "1");
+        TENOR_MAP.put(2, "2");
+        TENOR_MAP.put(3, "3");
+        TENOR_MAP.put(4, "4");
+
+        TENOR_ITEMS.add("1 Tahun");
+        TENOR_ITEMS.add("2 Tahun");
+        TENOR_ITEMS.add("3 Tahun");
+        TENOR_ITEMS.add("4 Tahun");
+
         ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTenor.setAdapter(tenor_adapter);
-
-        AREA_ITEMS.clear();
-        AREA_ITEMS.add("Jabodetabekser");
-        AREA_ITEMS.add("Jawa Barat");
-        AREA_ITEMS.add("Jawa Tengah");
-        AREA_ITEMS.add("Jawa Timur");
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerArea.setAdapter(area_adapter);
 
         JENISANGSURAN_ITEMS.clear();
         JENISANGSURAN_ITEMS.add("Angsuran Per Minggu");
@@ -115,6 +112,7 @@ public class NewLoanActivity extends AppCompatActivity {
                 break;
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
