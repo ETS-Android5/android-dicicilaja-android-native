@@ -16,13 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity"></activity>
+        <activity android:name=".NewSimulation.ui.bantuan.TipeAsuransiActivity"></activity>
+        <activity android:name=".NewSimulation.ui.bantuan.JenisAngsuranActivity" />
+        <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity" />
         <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity" />
         <activity android:name=".NewSimulation.ui.newsimulationresult.NewSimulationResultActivity" />
         <activity android:name=".NewSimulation.ui.newloan.NewLoanActivity" />
         <activity android:name=".NewSimulation.ui.newcolleteral.NewColleteralActivity" />
-        <activity android:name=".NewSimulation.ui.newsimulation.NewSimulationActivity">
-        </activity>
+        <activity android:name=".NewSimulation.ui.newsimulation.NewSimulationActivity" />
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"

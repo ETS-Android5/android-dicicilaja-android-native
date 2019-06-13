@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
 import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.JenisAngsuranActivity;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.TipeAsuransiActivity;
 import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -152,26 +155,12 @@ public class NewLoanActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.icon_help1:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
-                alertDialog.setTitle("Jenis Angsuran");
-                alertDialog.setMessage(R.string.jenis_angsuran);
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
+                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
+                startActivity(intent);
                 break;
             case R.id.icon_help2:
-                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(NewLoanActivity.this);
-                alertDialog2.setTitle("Tipe Asuransi");
-                alertDialog2.setMessage(R.string.tipe_asuransi);
-                alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog2.show();
+                Intent intent2 = new Intent(getBaseContext(), TipeAsuransiActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.next:
 
@@ -199,16 +188,16 @@ public class NewLoanActivity extends AppCompatActivity {
 
                     ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-                    Call<HitungSimulasi> call = apiService.hitung(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
+                    Call<HitungSimulasi> call = apiService.hitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
                     call.enqueue(new Callback<HitungSimulasi>() {
 
                         @Override
                         public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-
+                            progressBar.setVisibility(View.VISIBLE);
 
                             if (response.isSuccessful()) {
 
-                                progressBar.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
 
                                 text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
                                 text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
@@ -233,7 +222,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                 intent.putExtra("text_insurance", text_insurance);
                                 intent.putExtra("text_area", text_area);
                                 startActivity(intent);
-                                progressBar.setVisibility(View.GONE);
+
                             } else {
 
                             }

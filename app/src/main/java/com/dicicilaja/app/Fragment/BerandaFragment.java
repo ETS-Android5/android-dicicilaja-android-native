@@ -145,7 +145,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         webview_axi = view.findViewById(R.id.webview_axi);
         webview_maxi = view.findViewById(R.id.webview_maxi);
         dana_multiguna = view.findViewById(R.id.dana_multiguna);
-        harga_simulasi = view.findViewById(R.id.harga_simulasi);
+//        harga_simulasi = view.findViewById(R.id.harga_simulasi);
         jaminan = view.findViewById(R.id.jaminan);
         tenor = view.findViewById(R.id.tenor);
         arearequest = view.findViewById(R.id.arearequest);
@@ -158,10 +158,10 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         title_program_agen.setTypeface(opensans_bold);
         program_maxi.setTypeface(opensans_semibold);
         program_axi.setTypeface(opensans_semibold);
-        simulasi_title.setTypeface(opensans_semibold);
-        simulasi_subtitle.setTypeface(opensans_reguler);
-
-        setCurrency(harga_simulasi);
+//        simulasi_title.setTypeface(opensans_semibold);
+//        simulasi_subtitle.setTypeface(opensans_reguler);
+//
+//        setCurrency(harga_simulasi);
 
         webview_axi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,116 +189,116 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         rekomendasiData = new ArrayList<>();
         partnerData = new ArrayList<>();
 
-        final List<String> JAMINAN_ITEMS = new ArrayList<>();
-        JAMINAN_DATA = new HashMap<Integer, String>();
+//        final List<String> JAMINAN_ITEMS = new ArrayList<>();
+//        JAMINAN_DATA = new HashMap<Integer, String>();
 
         progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        InterfaceSimulation apiServiceColleteral =
-                RetrofitClient.getClient().create(InterfaceSimulation.class);
+//        InterfaceSimulation apiServiceColleteral =
+//                RetrofitClient.getClient().create(InterfaceSimulation.class);
+//
+//        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
+//        callcolleteral.enqueue(new Callback<Colleteral>() {
+//            @Override
+//            public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
+//                progress.dismiss();
+//                JAMINAN_ITEMS.clear();
+//                JAMINAN_DATA.clear();
+//
+//                for ( int i = 0; i < response.body().getData().size(); i++ ) {
+//                    JAMINAN_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
+//                    JAMINAN_ITEMS.add(response.body().getData().get(i).getName());
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Colleteral> call, Throwable t) {
+//                JAMINAN_DATA.clear();
+//                JAMINAN_ITEMS.clear();
+//                Log.e("Error", t.getMessage());
+//            }
+//        });
+//
+//        ArrayAdapter<String> jaminan_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, JAMINAN_ITEMS);
+//        jaminan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
-        callcolleteral.enqueue(new Callback<Colleteral>() {
-            @Override
-            public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
-                progress.dismiss();
-                JAMINAN_ITEMS.clear();
-                JAMINAN_DATA.clear();
-
-                for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    JAMINAN_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
-                    JAMINAN_ITEMS.add(response.body().getData().get(i).getName());
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Colleteral> call, Throwable t) {
-                JAMINAN_DATA.clear();
-                JAMINAN_ITEMS.clear();
-                Log.e("Error", t.getMessage());
-            }
-        });
-
-        ArrayAdapter<String> jaminan_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, JAMINAN_ITEMS);
-        jaminan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerJaminan = view.findViewById(R.id.jaminan);
-        spinnerJaminan.setAdapter(jaminan_adapter);
-        spinnerJaminan.setTypeface(opensans_semibold);
-
-
-        final List<String> AREA_ITEMS = new ArrayList<>();
-        AREA_DATA = new HashMap<Integer, String>();
-
-//        InterfaceSimulation apiServiceArea =
-//                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
+//        spinnerJaminan = view.findViewById(R.id.jaminan);
+//        spinnerJaminan.setAdapter(jaminan_adapter);
+//        spinnerJaminan.setTypeface(opensans_semibold);
 
 
-        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
-
-        Call<Area> callarea = apiServiceArea1.getArea();
-        callarea.enqueue(new Callback<Area>() {
-            @Override
-            public void onResponse(Call<Area> call, Response<Area> response) {
-                progress.dismiss();
-                AREA_ITEMS.clear();
-                AREA_DATA.clear();
-
-                for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    AREA_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
-                    AREA_ITEMS.add(response.body().getData().get(i).getName());
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Area> call, Throwable t) {
-                AREA_DATA.clear();
-                AREA_ITEMS.clear();
-                Log.e("Error", t.getMessage());
-            }
-        });
-
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerArea = view.findViewById(R.id.arearequest);
-        spinnerArea.setAdapter(area_adapter);
-        spinnerArea.setTypeface(opensans_semibold);
-
-        final List<String> TENOR_ITEMS = new ArrayList<>();
-        TENOR_DATA = new HashMap<Integer, String>();
-
-        TENOR_ITEMS.clear();
-        TENOR_DATA.clear();
-
-        TENOR_ITEMS.add("12");
-        TENOR_ITEMS.add("18");
-        TENOR_ITEMS.add("24");
-        TENOR_ITEMS.add("30");
-        TENOR_ITEMS.add("36");
-        TENOR_ITEMS.add("42");
-        TENOR_ITEMS.add("48");
-        TENOR_DATA.put(1, "12");
-        TENOR_DATA.put(2, "18");
-        TENOR_DATA.put(3, "24");
-        TENOR_DATA.put(4, "30");
-        TENOR_DATA.put(5, "36");
-        TENOR_DATA.put(6, "42");
-        TENOR_DATA.put(7, "48");
-
-        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
-        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerTenor = view.findViewById(R.id.tenor);
-        spinnerTenor.setAdapter(tenor_adapter);
-        spinnerTenor.setTypeface(opensans_semibold);
+//        final List<String> AREA_ITEMS = new ArrayList<>();
+//        AREA_DATA = new HashMap<Integer, String>();
+//
+////        InterfaceSimulation apiServiceArea =
+////                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
+//
+//
+//        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
+//
+//        Call<Area> callarea = apiServiceArea1.getArea();
+//        callarea.enqueue(new Callback<Area>() {
+//            @Override
+//            public void onResponse(Call<Area> call, Response<Area> response) {
+//                progress.dismiss();
+//                AREA_ITEMS.clear();
+//                AREA_DATA.clear();
+//
+//                for ( int i = 0; i < response.body().getData().size(); i++ ) {
+//                    AREA_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
+//                    AREA_ITEMS.add(response.body().getData().get(i).getName());
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Area> call, Throwable t) {
+//                AREA_DATA.clear();
+//                AREA_ITEMS.clear();
+//                Log.e("Error", t.getMessage());
+//            }
+//        });
+//
+//        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+//        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinnerArea = view.findViewById(R.id.arearequest);
+//        spinnerArea.setAdapter(area_adapter);
+//        spinnerArea.setTypeface(opensans_semibold);
+//
+//        final List<String> TENOR_ITEMS = new ArrayList<>();
+//        TENOR_DATA = new HashMap<Integer, String>();
+//
+//        TENOR_ITEMS.clear();
+//        TENOR_DATA.clear();
+//
+//        TENOR_ITEMS.add("12");
+//        TENOR_ITEMS.add("18");
+//        TENOR_ITEMS.add("24");
+//        TENOR_ITEMS.add("30");
+//        TENOR_ITEMS.add("36");
+//        TENOR_ITEMS.add("42");
+//        TENOR_ITEMS.add("48");
+//        TENOR_DATA.put(1, "12");
+//        TENOR_DATA.put(2, "18");
+//        TENOR_DATA.put(3, "24");
+//        TENOR_DATA.put(4, "30");
+//        TENOR_DATA.put(5, "36");
+//        TENOR_DATA.put(6, "42");
+//        TENOR_DATA.put(7, "48");
+//
+//        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
+//        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinnerTenor = view.findViewById(R.id.tenor);
+//        spinnerTenor.setAdapter(tenor_adapter);
+//        spinnerTenor.setTypeface(opensans_semibold);
 
 
 
@@ -321,6 +321,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
             @Override
             public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+                progress.dismiss();
                 final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
 
                 recyclerPromo.setAdapter(new ListPromoAdapter(promos, getContext()));
@@ -448,72 +449,72 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
 //        mDemoSlider.addOnPageChangeListener(this);
 
-        harga_simulasi = view.findViewById(R.id.harga_simulasi);
-        jaminan = view.findViewById(R.id.jaminan);
-        tenor = view.findViewById(R.id.tenor);
-        arearequest = view.findViewById(R.id.arearequest);
+//        harga_simulasi = view.findViewById(R.id.harga_simulasi);
+//        jaminan = view.findViewById(R.id.jaminan);
+//        tenor = view.findViewById(R.id.tenor);
+//        arearequest = view.findViewById(R.id.arearequest);
 
-        tenor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                v_tenor = tenor.getItemAtPosition(i).toString();
-                tenor_value = i + 1;
-            }
+//        tenor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                v_tenor = tenor.getItemAtPosition(i).toString();
+//                tenor_value = i + 1;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//        jaminan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                jaminan_value = i + 1;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//        arearequest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                area_value = i + 1;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//
+//        v_harga_simulasi = harga_simulasi.getText().toString();
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        jaminan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                jaminan_value = i + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        arearequest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                area_value = i + 1;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        v_harga_simulasi = harga_simulasi.getText().toString();
 
 
-
-        btn_hitung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progress.show();
-                try {
-                    s_area = String.valueOf(area_value);
-                    s_jaminan = String.valueOf(jaminan_value);
-                    s_tenor = String.valueOf(tenor_value);
-                    s_harga = harga_simulasi.getText().toString().replace(".","");
-                }catch (Exception ex) {
-
-                }
-                Log.d("Simulasi","area : " + area_value.toString());
-                Log.d("Simulasi","s_jaminan : " + jaminan_value.toString());
-                Log.d("Simulasi","s_tenor : " + v_tenor);
-                Log.d("Simulasi","s_harga : " + harga_simulasi.getText().toString().replace(".",""));
-
-                if(validateForm(s_area, s_jaminan, s_tenor, s_harga)) {
-                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString().replace(".",""), v_tenor);
-                }
-            }
-        });
+//        btn_hitung.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                progress.show();
+//                try {
+//                    s_area = String.valueOf(area_value);
+//                    s_jaminan = String.valueOf(jaminan_value);
+//                    s_tenor = String.valueOf(tenor_value);
+//                    s_harga = harga_simulasi.getText().toString().replace(".","");
+//                }catch (Exception ex) {
+//
+//                }
+//                Log.d("Simulasi","area : " + area_value.toString());
+//                Log.d("Simulasi","s_jaminan : " + jaminan_value.toString());
+//                Log.d("Simulasi","s_tenor : " + v_tenor);
+//                Log.d("Simulasi","s_harga : " + harga_simulasi.getText().toString().replace(".",""));
+//
+//                if(validateForm(s_area, s_jaminan, s_tenor, s_harga)) {
+//                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString().replace(".",""), v_tenor);
+//                }
+//            }
+//        });
 
         maxi_travel.setOnClickListener(new View.OnClickListener() {
             @Override

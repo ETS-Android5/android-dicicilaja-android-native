@@ -13,6 +13,9 @@
                 android:id="@+id/navbar_program"
                 android:title="PROGRAM ANDA"/>
             <item
+                android:id="@+id/navbar_simulation"
+                android:title="SIMULASI CICILAN"/>
+            <item
                 android:id="@+id/navbar_status"
                 android:title="STATUS PENGAJUAN"/>
             <item

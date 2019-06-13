@@ -48,7 +48,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
     TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
 
-    String s_area, s_jaminan, s_tenor, s_harga;
+    String s_area, s_jaminan, s_tenor, s_harga, s_merk;
     SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -335,8 +335,10 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         try {
             s_harga = getIntent().getStringExtra("text_harga");
+            s_merk = getIntent().getStringExtra("text_merk");
             if(s_harga != null){
                 inputPinjaman.setText(s_harga);
+                inputMerk.setText(s_merk);
             }
         }catch (Exception ex) {
 

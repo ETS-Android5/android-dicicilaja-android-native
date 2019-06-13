@@ -2,6 +2,7 @@ package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
 import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
 import com.dicicilaja.app.NewSimulation.network.ApiService;
@@ -59,7 +61,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
     String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id;
 
-    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
+    String spinner_jaminan, text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
 
 
     @Override
@@ -103,19 +105,33 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         insurance.setText(text_insurance);
         area.setText(text_area);
 
+        if (text_colleteral.equals("Mobil")) {
+            spinner_jaminan = "1";
+        } else if (text_colleteral.equals("Motor")) {
+            spinner_jaminan = "2";
+        }
+
     }
 
     @OnClick({R.id.call_tasya, R.id.next, R.id.simulation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281293343334"));
+                startActivity(browserIntent);
                 break;
             case R.id.next:
+                Intent intent2 = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
+                intent2.putExtra("text_harga", String.valueOf(text_total));
+                intent2.putExtra("text_merk", text_merk + " " + text_type);
+                intent2.putExtra("spinner_jaminan", spinner_jaminan);
+                startActivity(intent2);
                 break;
             case R.id.simulation:
                 Intent intent = new Intent(getBaseContext(), NewSimulationActivity.class);
-                intent.putExtra("finishingallact", "yes");
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

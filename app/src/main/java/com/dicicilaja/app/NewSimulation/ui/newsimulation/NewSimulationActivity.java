@@ -46,24 +46,6 @@ public class NewSimulationActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
-
-        if(getIntent().getStringExtra("finishingallact")!=null)
-        {
-            if(getIntent().getStringExtra("finishingallact").toLowerCase().equals("yes"))
-            {
-                NewColleteralActivity act1 = new NewColleteralActivity();
-                NewLoanActivity act2 = new NewLoanActivity();
-                MotorColleteralActivity act3 = new MotorColleteralActivity();
-                BantuanNewSimulationActivity act4 = new BantuanNewSimulationActivity();
-                NewSimulationResultActivity act5 = new NewSimulationResultActivity();
-
-                act1.finish();
-                act2.finish();
-                act3.finish();
-                act4.finish();
-                act5.finish();
-            }
-        }
     }
 
     @Override

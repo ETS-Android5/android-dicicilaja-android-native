@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AlertDialog;
@@ -145,7 +146,7 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
                         startActivity(intent);
                         break;
                     case R.id.navbar_simulation:
-                        intent = new Intent(getBaseContext(), com.dicicilaja.app.Activity.SimulationActivity.class);
+                        intent = new Intent(getBaseContext(), NewSimulationActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_statistics:

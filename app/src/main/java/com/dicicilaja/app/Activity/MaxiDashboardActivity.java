@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -246,6 +247,11 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                     case R.id.navbar_program:
                         Intent intent1 = new Intent(getBaseContext(),AllProgramMaxiActivity.class);
                         startActivity(intent1);
+                        break;
+
+                    case R.id.navbar_simulation:
+                        intent = new Intent(getBaseContext(), NewSimulationActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navbar_status:
                         Intent intent2 = new Intent(getBaseContext(),AllPengajuanMaxiActivity.class);

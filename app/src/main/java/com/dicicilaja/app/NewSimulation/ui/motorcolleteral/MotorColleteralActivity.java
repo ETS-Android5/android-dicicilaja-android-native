@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.data.objekbrand.ObjekBrand;
 import com.dicicilaja.app.NewSimulation.data.objekmodel.ObjekModel;
 import com.dicicilaja.app.NewSimulation.data.objektahun.ObjekTahun;
@@ -22,11 +23,12 @@ import com.dicicilaja.app.NewSimulation.data.tahunkendaraan.TahunKendaraan;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
 import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
-import com.dicicilaja.app.NewSimulation.ui.newcolleteral.NewColleteralActivity;
 import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
+import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,12 +61,16 @@ public class MotorColleteralActivity extends AppCompatActivity {
     SearchableSpinner spinnerTenor;
     @BindView(R.id.layoutTenor)
     TextInputLayout layoutTenor;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
     @BindView(R.id.next)
     Button next;
 
     List<ObjekTahun> objekTahuns;
 
     String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor;
+
+    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
 
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
@@ -97,6 +103,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+
+        progressBar.setVisibility(View.GONE);
 
         tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
 
@@ -166,8 +174,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                     try {
                         for (int i = 0; i < response.body().getData().size(); i++) {
-                            Log.d("KELUARAN", "MERK: " + response.body().getData().get(i).getId());
-                            MERK_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                             MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                         }
                     } catch (Exception ex) {
@@ -230,11 +237,11 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                             if (response.body().getData().size() > 0) {
                                 try {
-                                    for ( int i = 0; i < response.body().getData().size() ; i++ ) {
-                                        TYPE_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                        TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
                                     }
-                                }catch (Exception ex) {
+                                } catch (Exception ex) {
 
                                 }
                                 spinnerType.setEnabled(true);
@@ -303,11 +310,11 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                             if (response.body().getData().size() > 0) {
                                 try {
-                                    for ( int i = 0; i < response.body().getData().size() ; i++ ) {
-                                        YEAR_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                        YEAR_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         YEAR_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getTahun()));
                                     }
-                                }catch (Exception ex) {
+                                } catch (Exception ex) {
 
                                 }
 
@@ -326,11 +333,11 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<TahunKendaraan> call, Throwable t) {
-                            TYPE_DATA.clear();
-                            TYPE_ITEMS.clear();
+                            YEAR_DATA.clear();
+                            YEAR_ITEMS.clear();
 
-                            TYPE_DATA.put(0, "0");
-                            TYPE_ITEMS.add("Tahun Kendaraan");
+                            YEAR_DATA.put(0, "0");
+                            YEAR_ITEMS.add("Tahun Kendaraan");
 
                             spinnerYear.setEnabled(false);
                         }
@@ -373,28 +380,98 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
     @OnClick(R.id.next)
     public void onViewClicked() {
+
         try {
-            tenor = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
-            area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
-            tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
             model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
             type_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
+            area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
+            tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
+            tenor = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
         } catch (Exception ex) {
 
         }
 
-        if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
-            Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
-            intent.putExtra("tenor", tipe_objek_id);
-            intent.putExtra("tipe_objek_id", tipe_objek_id);
-            intent.putExtra("area_id", area_id);
-            intent.putExtra("tahun_kendaraan", tahun_kendaraan);
-            intent.putExtra("objek_model_id", type_id);
-            startActivity(intent);
+        if (validateForm(tenor, area_id, tahun_kendaraan, model_id, type_id)) {
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
+
+            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+            Log.d("MOTORMOTOR", "tipe_objek_id: " + tipe_objek_id);
+            Log.d("MOTORMOTOR", "type_id: " + type_id);
+            Log.d("MOTORMOTOR", "tahun_kendaraan: " + tahun_kendaraan);
+            Log.d("MOTORMOTOR", "area_id: " + area_id);
+            Log.d("MOTORMOTOR", "tenor: " + tenor);
+
+            Call<HitungSimulasi> call = apiService.hitungMcy(tipe_objek_id, type_id, tahun_kendaraan, area_id, tenor);
+            call.enqueue(new Callback<HitungSimulasi>() {
+
+                @Override
+                public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
+                    Log.d("MOTORMOTOR", "code: " + response.code());
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    if (response.isSuccessful()) {
+
+                        text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
+                        text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
+                        text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
+                        text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                        text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
+                        text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
+                        text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
+                        text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
+                        text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
+                        text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
+
+                        progressBar.setVisibility(View.GONE);
+
+                        Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                        intent.putExtra("text_total", text_total);
+                        intent.putExtra("text_tenor", text_tenor);
+                        intent.putExtra("text_angsuran", text_angsuran);
+                        intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
+                        intent.putExtra("text_colleteral", text_colleteral);
+                        intent.putExtra("text_merk", text_merk);
+                        intent.putExtra("text_type", text_type);
+                        intent.putExtra("text_year", text_year);
+                        intent.putExtra("text_insurance", text_insurance);
+                        intent.putExtra("text_area", text_area);
+                        startActivity(intent);
+
+
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<HitungSimulasi> call, Throwable t) {
+
+                }
+            });
         }
     }
 
-    private boolean validateForm(String area_id, String tahun_kendaraan, String model_id, String type_id) {
+    private boolean validateForm(String tenor, String area_id, String tahun_kendaraan, String model_id, String type_id) {
+
+        if (tenor == null || tenor.trim().length() == 0 || tenor.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+            alertDialog.setMessage("Pilih Tenor Pinjaman");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerTenor);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerTenor.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
             alertDialog.setMessage("Pilih Area Domisili");

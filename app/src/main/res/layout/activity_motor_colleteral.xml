@@ -12,158 +12,172 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
-            app:titleTextColor="@color/colorWhite">
-        </androidx.appcompat.widget.Toolbar>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorAccent"
+        app:titleTextColor="@color/colorWhite">
+    </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <RelativeLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <RelativeLayout
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:orientation="vertical"
-                android:background="@color/colorPrimary">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginRight="16dp"
-                    android:text="Informasi Kendaraan"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/open_sans_bold"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:padding="16dp"
-                    android:background="@drawable/border_form"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutArea"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Informasi Kendaraan"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/open_sans_bold"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        app:hintEnabled="true"
-                        android:layout_marginRight="9dp"
-                        android:background="@drawable/border_bottom">
+                        android:layout_margin="16dp"
+                        android:padding="16dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/spinnerArea"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutArea"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerBrand"
-                            android:textSize="14sp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="24dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            app:hintEnabled="true"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerArea"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerBrand"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutBrand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:background="@drawable/border_bottom">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/spinnerBrand"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutBrand"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerType"
-                            android:textSize="14sp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="24dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerBrand"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:background="@drawable/border_bottom">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/spinnerType"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutType"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerType"
-                            android:textSize="14sp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="24dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerType"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutYear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:background="@drawable/border_bottom">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/spinnerYear"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutYear"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerType"
-                            android:textSize="14sp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="24dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerYear"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutTenor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        app:hintEnabled="true"
-                        android:layout_marginRight="9dp"
-                        android:background="@drawable/border_bottom">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/spinnerTenor"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutTenor"
                             android:layout_width="match_parent"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerType"
-                            android:textSize="14sp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="24dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            app:hintEnabled="true"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerTenor"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
-                    <Button
-                        android:id="@+id/next"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:text="Selanjutnya"
-                        android:backgroundTint="@color/colorAccentDark2"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="32dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/next"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:text="Selanjutnya"
+                            android:backgroundTint="@color/colorAccentDark2"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginTop="32dp"/>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    </RelativeLayout>
 </LinearLayout>
