@@ -36,8 +36,8 @@ public class SplashActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
         }
 
-        Instabug.setUserAttribute("USER_ID", null);
-        Instabug.setUserAttribute("LOGIN", "False");
+//        Instabug.setUserAttribute("USER_ID", null);
+//        Instabug.setUserAttribute("LOGIN", "False");
 
         userService = ApiUtils.getUserService();
 

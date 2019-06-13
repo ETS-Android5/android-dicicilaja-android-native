@@ -81,12 +81,12 @@ public class NewSimulationActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.card_view_car:
                 Intent car = new Intent(getBaseContext(), NewColleteralActivity.class);
-                car.putExtra("type","car");
+                car.putExtra("tipe_objek_id","1");
                 startActivity(car);
                 break;
             case R.id.card_view_mcy:
                 Intent mcy = new Intent(getBaseContext(), NewColleteralActivity.class);
-                mcy.putExtra("type","mcy");
+                mcy.putExtra("tipe_objek_id","2");
                 startActivity(mcy);
                 break;
         }

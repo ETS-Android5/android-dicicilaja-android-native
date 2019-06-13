@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -176,7 +177,7 @@ public class MarketplaceActivity extends AppCompatActivity
                         startActivity(intent2);
                         break;
                     case R.id.navbar_simulasi:
-                        Intent intent3 = new Intent(getBaseContext(), SimulationActivity.class);
+                        Intent intent3 = new Intent(getBaseContext(), NewSimulationActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.navbar_semua_produk:

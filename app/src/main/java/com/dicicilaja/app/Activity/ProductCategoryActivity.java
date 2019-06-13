@@ -114,7 +114,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 //        Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
 //        call2.enqueue(new Callback<MaxiProgram>() {
 //            @Override
-//            public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+//            public void onResponse(Call<MaxiProgram> call, ObjekModel<MaxiProgram> response) {
 //                List<Data> maxi = response.body().getData();
 //                for (int i = 0; i < maxi.size(); i++) {
 //                    SectionDataModel dm = new SectionDataModel();
@@ -156,7 +156,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 //            Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
 //            call2.enqueue(new Callback<MaxiProgram>() {
 //                @Override
-//                public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+//                public void onResponse(Call<MaxiProgram> call, ObjekModel<MaxiProgram> response) {
 //                    List<Data> maxi = response.body().getData();
 //                    for (int i = 0; i < maxi.size(); i++) {
 //                        SectionDataModel dm = new SectionDataModel();
@@ -195,7 +195,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 //            Call<MaxiProgram> call2 = apiService.getProduct(apiKey, content);
 //            call2.enqueue(new Callback<MaxiProgram>() {
 //                @Override
-//                public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
+//                public void onResponse(Call<MaxiProgram> call, ObjekModel<MaxiProgram> response) {
 //                    List<Data> maxi = response.body().getData();
 //                    for (int i = 0; i < maxi.size(); i++) {
 //                        SectionDataModel dm = new SectionDataModel();

@@ -121,8 +121,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         } else {*/
 
-            Instabug.setUserAttribute("USER_ID", null);
-            Instabug.setUserAttribute("LOGIN", "False");
+//            Instabug.setUserAttribute("USER_ID", null);
+//            Instabug.setUserAttribute("LOGIN", "False");
 
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();

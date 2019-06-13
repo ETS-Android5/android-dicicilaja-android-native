@@ -17,6 +17,7 @@ import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
 import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.Content.PromoModel;
+import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -223,7 +224,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
 //        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
 //            @Override
-//            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+//            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, ObjekModel<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
 //                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
 //
 //                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
@@ -425,7 +426,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         startActivity(intent);
                         break;
                     case R.id.navbar_simulation:
-                        intent = new Intent(getBaseContext(), SimulationActivity.class);
+                        intent = new Intent(getBaseContext(), NewSimulationActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_jaringan:
@@ -608,7 +609,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
 //        call2.enqueue(new Callback<PengajuanAxi>() {
 //            @Override
-//            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+//            public void onResponse(Call<PengajuanAxi> call, ObjekModel<PengajuanAxi> response) {
 //                if(response.isSuccessful()) {
 //                    pengajuan = response.body().getData();
 //                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");

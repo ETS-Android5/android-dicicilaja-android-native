@@ -239,7 +239,7 @@ public class AjukanPengajuan2Activity extends AppCompatActivity implements EasyP
 //        Call<CreateRequest> call = apiService.assign(apiKey, program_id, colleteral_id, status_id, manufacturer, year, tenor, amount, qty, area_id, branch_id, client_name, hp, address, district, city, province, email, file_ktp, file_colleteral);
 //        call.enqueue(new Callback<CreateRequest>() {
 //            @Override
-//            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+//            public void onResponse(Call<CreateRequest> call, ObjekModel<CreateRequest> response) {
 //                if(response.isSuccessful()){
 //                    progress.dismiss();
 //                    Toast.makeText(getBaseContext(),"Selamat! Pengajuan Anda berhasil dibuat",Toast.LENGTH_SHORT).show();

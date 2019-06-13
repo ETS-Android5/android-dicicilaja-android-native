@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context=".NewSimulation.ui.newsimulation.activity.NewSimulationActivity">
+    tools:context=".NewSimulation.ui.newsimulation.NewSimulationActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

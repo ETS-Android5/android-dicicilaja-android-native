@@ -257,7 +257,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
 //
 //                        service.saveUserImage(getBaseContext(), photnName, new File(mCurrentPhotoPath), new Callback<UserProfile>() {
 //                            @Override
-//                            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+//                            public void onResponse(Call<UserProfile> call, ObjekModel<UserProfile> response) {
 //                                showMessage("Image successfully uploaded to server.!");
 //                            }
 //

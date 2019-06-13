@@ -53,39 +53,29 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:padding="16dp"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/border_form"
                         android:orientation="vertical">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layoutTenor"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            app:hintEnabled="true"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
 
-                            <fr.ganfra.materialspinner.MaterialSpinner
-                                android:layout_marginTop="10dp"
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerTenor"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ms_multiline="false"
-                                app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                                app:ms_hintView="@layout/hint_item"
-                                app:ms_hint="Pilih Tenor Pinjaman"
-                                app:ms_enableFloatingLabel="true"
-                                app:ms_enableErrorLabel="false"
-                                app:ms_floatingLabelText="Pilih Tenor Pinjaman"
-                                app:ms_baseColor="@color/colorBlack"
-                                app:ms_highlightColor="@color/colorPrimaryDark"
-                                app:ms_errorColor="@color/colorPrimaryDark"
-                                android:layout_marginLeft="9dp"
-                                android:layout_marginRight="9dp"
                                 android:imeOptions="actionNext"
-                                android:nextFocusDown="@+id/spinnerArea"
-                                app:ms_alignLabels="true"
-                                android:textSize="15sp"
-                                app:ms_hintTextSize="14sp"
-                                app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="24dp"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -101,36 +91,26 @@
                                 android:layout_alignParentRight="true"/>
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:layout_toLeftOf="@id/icon_help1"
                                 android:id="@+id/layoutInstallment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@id/icon_help1">
+                                android:layout_marginLeft="9dp"
+                                app:hintEnabled="true"
+                                android:layout_marginRight="9dp"
+                                android:background="@drawable/border_bottom">
 
-                                <fr.ganfra.materialspinner.MaterialSpinner
-                                    android:layout_marginTop="10dp"
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/spinnerInstallment"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:ms_multiline="false"
-                                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                                    app:ms_hintView="@layout/hint_item"
-                                    app:ms_hint="Pilih Jenis Angsuran"
-                                    app:ms_enableFloatingLabel="true"
-                                    app:ms_enableErrorLabel="false"
-                                    app:ms_floatingLabelText="Pilih Jenis Angsuran"
-                                    app:ms_baseColor="@color/colorBlack"
-                                    app:ms_highlightColor="@color/colorPrimaryDark"
-                                    app:ms_errorColor="@color/colorPrimaryDark"
-                                    android:layout_marginLeft="9dp"
-                                    android:layout_marginRight="9dp"
                                     android:imeOptions="actionNext"
-                                    android:nextFocusDown="@+id/spinnerInsurance"
-                                    app:ms_alignLabels="true"
-                                    android:textSize="15sp"
-                                    app:ms_hintTextSize="14sp"
-                                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                                    android:nextFocusDown="@+id/spinnerType"
+                                    android:textSize="14sp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="24dp"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
+
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -147,35 +127,26 @@
                                 android:layout_alignParentRight="true"/>
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:layout_toLeftOf="@id/icon_help2"
                                 android:id="@+id/layoutInsurance"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@id/icon_help2">
+                                android:layout_marginLeft="9dp"
+                                app:hintEnabled="true"
+                                android:layout_marginRight="9dp"
+                                android:background="@drawable/border_bottom">
 
-                                <fr.ganfra.materialspinner.MaterialSpinner
-                                    android:layout_marginTop="10dp"
+                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/spinnerInsurance"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:ms_multiline="false"
-                                    app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                                    app:ms_hintView="@layout/hint_item"
-                                    app:ms_hint="Pilih Tipe Asuransi"
-                                    app:ms_enableFloatingLabel="true"
-                                    app:ms_enableErrorLabel="false"
-                                    app:ms_floatingLabelText="Pilih Tipe Asuransi"
-                                    app:ms_baseColor="@color/colorBlack"
-                                    app:ms_highlightColor="@color/colorPrimaryDark"
-                                    app:ms_errorColor="@color/colorPrimaryDark"
-                                    android:layout_marginLeft="9dp"
-                                    android:layout_marginRight="9dp"
-                                    android:imeOptions="actionDone"
-                                    app:ms_alignLabels="true"
-                                    android:textSize="15sp"
-                                    app:ms_hintTextSize="14sp"
-                                    app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                                    android:imeOptions="actionNext"
+                                    android:nextFocusDown="@+id/spinnerType"
+                                    android:textSize="14sp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="24dp"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
+
                         </RelativeLayout>
 
                         <Button

@@ -2,6 +2,7 @@ package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;
@@ -60,6 +62,14 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Hasil Simulasi");
 
+        Log.d("TESTTEST","tipe_objek_id: " + getIntent().getStringExtra("tipe_objek_id"));
+        Log.d("TESTTEST","objek_model_id: " + getIntent().getStringExtra("objek_model_id"));
+        Log.d("TESTTEST","tahun_kendaraan: " + getIntent().getStringExtra("tahun_kendaraan"));
+        Log.d("TESTTEST","area_id: " + getIntent().getStringExtra("area_id"));
+        Log.d("TESTTEST","tenor: " + getIntent().getStringExtra("tenor"));
+        Log.d("TESTTEST","tipe_asuransi_id: " + getIntent().getStringExtra("tipe_asuransi_id"));
+        Log.d("TESTTEST","tipe_angsuran_id: " + getIntent().getStringExtra("tipe_angsuran_id"));
+
     }
 
     @OnClick({R.id.call_tasya, R.id.next, R.id.simulation})
@@ -89,8 +99,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.notif:
-                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            case R.id.help:
+                Intent intent = new Intent(getBaseContext(), BantuanNewSimulationActivity.class);
                 startActivity(intent);
                 return true;
             case android.R.id.home:

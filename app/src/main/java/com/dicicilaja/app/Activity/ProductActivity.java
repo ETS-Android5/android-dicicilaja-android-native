@@ -78,7 +78,7 @@ public class ProductActivity extends AppCompatActivity {
 //        Call<DetailProduct> call = apiService.getDetailProduct(Integer.parseInt(getIntent().getStringExtra("ID")));
 //        call.enqueue(new Callback<DetailProduct>() {
 //            @Override
-//            public void onResponse(Call<DetailProduct> call, Response<DetailProduct> response) {
+//            public void onResponse(Call<DetailProduct> call, ObjekModel<DetailProduct> response) {
 //                detailProducts = response.body().getData();
 //                Picasso.with(getBaseContext()).load(detailProducts.get(0).getImage().toString()).into(head_image);
 //            }
