@@ -7,19 +7,25 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
+import com.dicicilaja.app.NewSimulation.network.ApiClient;
+import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +33,9 @@ import java.util.List;
 
 public class NewLoanActivity extends AppCompatActivity {
 
-    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tipe_asuransi_id, tipe_angsuran_id;
+    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
+
+    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
 
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
@@ -37,6 +45,7 @@ public class NewLoanActivity extends AppCompatActivity {
 
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.spinnerTenor)
@@ -44,19 +53,21 @@ public class NewLoanActivity extends AppCompatActivity {
     @BindView(R.id.layoutTenor)
     TextInputLayout layoutTenor;
     @BindView(R.id.icon_help1)
-    ImageView iconHelp1;
+    RelativeLayout iconHelp1;
     @BindView(R.id.spinnerInstallment)
     SearchableSpinner spinnerInstallment;
     @BindView(R.id.layoutInstallment)
     TextInputLayout layoutInstallment;
     @BindView(R.id.icon_help2)
-    ImageView iconHelp2;
+    RelativeLayout iconHelp2;
     @BindView(R.id.spinnerInsurance)
     SearchableSpinner spinnerInsurance;
     @BindView(R.id.layoutInsurance)
     TextInputLayout layoutInsurance;
     @BindView(R.id.next)
     Button next;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +86,7 @@ public class NewLoanActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+        progressBar.setVisibility(View.GONE);
 
         tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
         area_id = getIntent().getStringExtra("area_id");
@@ -140,36 +152,98 @@ public class NewLoanActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.icon_help1:
-                Intent icon1 = new Intent(getBaseContext(), BantuanNewSimulationActivity.class);
-                startActivity(icon1);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
+                alertDialog.setTitle("Jenis Angsuran");
+                alertDialog.setMessage(R.string.jenis_angsuran);
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
                 break;
             case R.id.icon_help2:
-                Intent icon2 = new Intent(getBaseContext(), BantuanNewSimulationActivity.class);
-                startActivity(icon2);
+                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(NewLoanActivity.this);
+                alertDialog2.setTitle("Tipe Asuransi");
+                alertDialog2.setMessage(R.string.tipe_asuransi);
+                alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog2.show();
                 break;
             case R.id.next:
+
                 try {
-                    tenor = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
+                    tenor_simulasi = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
                     tipe_asuransi_id = TIPEASURANSI_MAP.get(spinnerInsurance.getSelectedItemPosition());
                     tipe_angsuran_id = JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition());
                 } catch (Exception ex) {
 
                 }
 
-                if (validateForm(tenor, tipe_asuransi_id, tipe_angsuran_id)) {
-                    Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
-                    intent.putExtra("tenor", tenor);
-                    intent.putExtra("tipe_asuransi_id", tipe_asuransi_id);
+                if (validateForm(tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id)) {
+
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
+                    area_id = getIntent().getStringExtra("area_id");
+                    tahun_kendaraan = getIntent().getStringExtra("tahun_kendaraan");
+                    objek_model_id = getIntent().getStringExtra("objek_model_id");
                     if (tipe_angsuran_id.equals("1")) {
-                        intent.putExtra("tipe_angsuran_id", "addb");
+                        value_tipe_angsuran_id = "addb";
                     } else if (tipe_asuransi_id.equals("2")) {
-                        intent.putExtra("tipe_angsuran_id", "addm");
+                        value_tipe_angsuran_id = "addm";
                     }
-                    intent.putExtra("tipe_objek_id", tipe_objek_id);
-                    intent.putExtra("area_id", area_id);
-                    intent.putExtra("tahun_kendaraan", tahun_kendaraan);
-                    intent.putExtra("objek_model_id", objek_model_id);
-                    startActivity(intent);
+
+                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+                    Call<HitungSimulasi> call = apiService.hitung(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
+                    call.enqueue(new Callback<HitungSimulasi>() {
+
+                        @Override
+                        public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
+
+
+                            if (response.isSuccessful()) {
+
+                                progressBar.setVisibility(View.VISIBLE);
+
+                                text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
+                                text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
+                                text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
+                                text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
+                                text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
+                                text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
+                                text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
+                                text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
+                                text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
+
+                                Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                                intent.putExtra("text_total", text_total);
+                                intent.putExtra("text_tenor", text_tenor);
+                                intent.putExtra("text_angsuran", text_angsuran);
+                                intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
+                                intent.putExtra("text_colleteral", text_colleteral);
+                                intent.putExtra("text_merk", text_merk);
+                                intent.putExtra("text_type", text_type);
+                                intent.putExtra("text_year", text_year);
+                                intent.putExtra("text_insurance", text_insurance);
+                                intent.putExtra("text_area", text_area);
+                                startActivity(intent);
+                                progressBar.setVisibility(View.GONE);
+                            } else {
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<HitungSimulasi> call, Throwable t) {
+
+                        }
+                    });
                 }
                 break;
         }
@@ -209,7 +283,7 @@ public class NewLoanActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerTenor);
-                    MotionEvent motionEvent = MotionEvent.obtain( 0, 0, MotionEvent.ACTION_UP, 0, 0, 0 );
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerTenor.dispatchTouchEvent(motionEvent);
                 }
             });
@@ -224,7 +298,7 @@ public class NewLoanActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerInstallment);
-                    MotionEvent motionEvent = MotionEvent.obtain( 0, 0, MotionEvent.ACTION_UP, 0, 0, 0 );
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerInstallment.dispatchTouchEvent(motionEvent);
                 }
             });
@@ -239,7 +313,7 @@ public class NewLoanActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerInsurance);
-                    MotionEvent motionEvent = MotionEvent.obtain( 0, 0, MotionEvent.ACTION_UP, 0, 0, 0 );
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerInsurance.dispatchTouchEvent(motionEvent);
                 }
             });

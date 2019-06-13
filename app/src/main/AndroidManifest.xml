@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--<uses-permission-->
-        <!--android:name="android.permission.RECORD_AUDIO"-->
-        <!--tools:node="remove" />-->
 
     <application
         android:name=".BaseApplication"
@@ -19,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity"></activity>
+        <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity"></activity>
+        <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity" />
         <activity android:name=".NewSimulation.ui.newsimulationresult.NewSimulationResultActivity" />
         <activity android:name=".NewSimulation.ui.newloan.NewLoanActivity" />
         <activity android:name=".NewSimulation.ui.newcolleteral.NewColleteralActivity" />

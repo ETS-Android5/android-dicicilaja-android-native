@@ -1,24 +1,30 @@
 package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
-import com.dicicilaja.app.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
+import com.dicicilaja.app.NewSimulation.network.ApiClient;
+import com.dicicilaja.app.NewSimulation.network.ApiService;
+import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
+import com.dicicilaja.app.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewSimulationResultActivity extends AppCompatActivity {
 
@@ -51,6 +57,11 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     @BindView(R.id.simulation)
     TextView simulation;
 
+    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id;
+
+    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +73,35 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Hasil Simulasi");
 
-        Log.d("TESTTEST","tipe_objek_id: " + getIntent().getStringExtra("tipe_objek_id"));
-        Log.d("TESTTEST","objek_model_id: " + getIntent().getStringExtra("objek_model_id"));
-        Log.d("TESTTEST","tahun_kendaraan: " + getIntent().getStringExtra("tahun_kendaraan"));
-        Log.d("TESTTEST","area_id: " + getIntent().getStringExtra("area_id"));
-        Log.d("TESTTEST","tenor: " + getIntent().getStringExtra("tenor"));
-        Log.d("TESTTEST","tipe_asuransi_id: " + getIntent().getStringExtra("tipe_asuransi_id"));
-        Log.d("TESTTEST","tipe_angsuran_id: " + getIntent().getStringExtra("tipe_angsuran_id"));
+//        Log.d("TESTTEST", "tipe_objek_id: " + getIntent().getStringExtra("tipe_objek_id"));
+//        Log.d("TESTTEST", "objek_model_id: " + getIntent().getStringExtra("objek_model_id"));
+//        Log.d("TESTTEST", "tahun_kendaraan: " + getIntent().getStringExtra("tahun_kendaraan"));
+//        Log.d("TESTTEST", "area_id: " + getIntent().getStringExtra("area_id"));
+//        Log.d("TESTTEST", "tenor: " + getIntent().getStringExtra("tenor"));
+//        Log.d("TESTTEST", "tipe_asuransi_id: " + getIntent().getStringExtra("tipe_asuransi_id"));
+//        Log.d("TESTTEST", "tipe_angsuran_id: " + getIntent().getStringExtra("tipe_angsuran_id"));
+
+        text_total = getIntent().getStringExtra("text_total");
+        text_tenor = getIntent().getStringExtra("text_tenor");
+        text_angsuran = getIntent().getStringExtra("text_angsuran");
+        text_tenor_angsuran = getIntent().getStringExtra("text_tenor_angsuran");
+        text_colleteral = getIntent().getStringExtra("text_colleteral");
+        text_merk = getIntent().getStringExtra("text_merk");
+        text_type = getIntent().getStringExtra("text_type");
+        text_year = getIntent().getStringExtra("text_year");
+        text_insurance = getIntent().getStringExtra("text_insurance");
+        text_area = getIntent().getStringExtra("text_area");
+
+        total.setText(text_total);
+        tenor.setText(text_tenor);
+        angsuran.setText(text_angsuran);
+        tenorAngsuran.setText(text_tenor_angsuran);
+        colleteral.setText(text_colleteral);
+        merk.setText(text_merk);
+        type.setText(text_type);
+        year.setText(text_year);
+        insurance.setText(text_insurance);
+        area.setText(text_area);
 
     }
 
@@ -80,6 +113,9 @@ public class NewSimulationResultActivity extends AppCompatActivity {
             case R.id.next:
                 break;
             case R.id.simulation:
+                Intent intent = new Intent(getBaseContext(), NewSimulationActivity.class);
+                intent.putExtra("finishingallact", "yes");
+                startActivity(intent);
                 break;
         }
     }
@@ -109,4 +145,5 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

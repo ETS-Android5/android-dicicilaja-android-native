@@ -23,7 +23,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -80,15 +81,24 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <ImageView
+
+                            <RelativeLayout
                                 android:id="@+id/icon_help1"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_support"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:padding="10dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_support" />
+                            </RelativeLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_toLeftOf="@id/icon_help1"
@@ -116,15 +126,23 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <ImageView
+                            <RelativeLayout
                                 android:id="@+id/icon_help2"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_support"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:padding="10dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_support" />
+                            </RelativeLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_toLeftOf="@id/icon_help2"
@@ -163,7 +181,19 @@
 
                 </LinearLayout>
             </RelativeLayout>
-
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
     </RelativeLayout>
+
+
+
 </LinearLayout>

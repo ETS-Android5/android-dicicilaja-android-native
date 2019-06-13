@@ -12,7 +12,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.ui.motorcolleteral.MotorColleteralActivity;
 import com.dicicilaja.app.NewSimulation.ui.newcolleteral.NewColleteralActivity;
+import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
+import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
 
 public class NewSimulationActivity extends AppCompatActivity {
@@ -42,6 +45,24 @@ public class NewSimulationActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
+        }
+
+        if(getIntent().getStringExtra("finishingallact")!=null)
+        {
+            if(getIntent().getStringExtra("finishingallact").toLowerCase().equals("yes"))
+            {
+                NewColleteralActivity act1 = new NewColleteralActivity();
+                NewLoanActivity act2 = new NewLoanActivity();
+                MotorColleteralActivity act3 = new MotorColleteralActivity();
+                BantuanNewSimulationActivity act4 = new BantuanNewSimulationActivity();
+                NewSimulationResultActivity act5 = new NewSimulationResultActivity();
+
+                act1.finish();
+                act2.finish();
+                act3.finish();
+                act4.finish();
+                act5.finish();
+            }
         }
     }
 
@@ -85,7 +106,7 @@ public class NewSimulationActivity extends AppCompatActivity {
                 startActivity(car);
                 break;
             case R.id.card_view_mcy:
-                Intent mcy = new Intent(getBaseContext(), NewColleteralActivity.class);
+                Intent mcy = new Intent(getBaseContext(), MotorColleteralActivity.class);
                 mcy.putExtra("tipe_objek_id","2");
                 startActivity(mcy);
                 break;

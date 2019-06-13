@@ -1,4 +1,4 @@
-package com.dicicilaja.app.NewSimulation.ui.newcolleteral;
+package com.dicicilaja.app.NewSimulation.ui.motorcolleteral;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,13 +17,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.data.objekbrand.ObjekBrand;
 import com.dicicilaja.app.NewSimulation.data.objekmodel.ObjekModel;
-import com.dicicilaja.app.NewSimulation.data.objektahun.Attributes;
-import com.dicicilaja.app.NewSimulation.data.objektahun.Data;
 import com.dicicilaja.app.NewSimulation.data.objektahun.ObjekTahun;
 import com.dicicilaja.app.NewSimulation.data.tahunkendaraan.TahunKendaraan;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
 import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.ui.newcolleteral.NewColleteralActivity;
 import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewColleteralActivity extends AppCompatActivity {
+public class MotorColleteralActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -56,12 +55,19 @@ public class NewColleteralActivity extends AppCompatActivity {
     SearchableSpinner spinnerYear;
     @BindView(R.id.layoutYear)
     TextInputLayout layoutYear;
+    @BindView(R.id.spinnerTenor)
+    SearchableSpinner spinnerTenor;
+    @BindView(R.id.layoutTenor)
+    TextInputLayout layoutTenor;
     @BindView(R.id.next)
     Button next;
 
     List<ObjekTahun> objekTahuns;
 
-    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id;
+    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor;
+
+    final List<String> TENOR_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
 
     final List<String> AREA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
@@ -78,7 +84,7 @@ public class NewColleteralActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_colleteral);
+        setContentView(R.layout.activity_motor_colleteral);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -97,6 +103,27 @@ public class NewColleteralActivity extends AppCompatActivity {
         objekTahuns = new ArrayList<>();
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        TENOR_MAP.clear();
+        TENOR_ITEMS.clear();
+
+        TENOR_MAP.put(0, "0");
+        TENOR_MAP.put(1, "1");
+        TENOR_MAP.put(2, "2");
+        TENOR_MAP.put(3, "3");
+        TENOR_MAP.put(4, "4");
+
+        TENOR_ITEMS.add("Pilih Tenor Pinjaman");
+        TENOR_ITEMS.add("1 Tahun");
+        TENOR_ITEMS.add("2 Tahun");
+        TENOR_ITEMS.add("3 Tahun");
+        TENOR_ITEMS.add("4 Tahun");
+
+        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
+        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTenor.setAdapter(tenor_adapter);
+        spinnerTenor.setTitle("");
+        spinnerTenor.setPositiveButton("OK");
 
         AREA_DATA.put(0, "0");
         AREA_DATA.put(1, "9");
@@ -347,6 +374,7 @@ public class NewColleteralActivity extends AppCompatActivity {
     @OnClick(R.id.next)
     public void onViewClicked() {
         try {
+            tenor = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
             area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
             tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
             model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
@@ -357,6 +385,7 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
             Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
+            intent.putExtra("tenor", tipe_objek_id);
             intent.putExtra("tipe_objek_id", tipe_objek_id);
             intent.putExtra("area_id", area_id);
             intent.putExtra("tahun_kendaraan", tahun_kendaraan);
@@ -367,7 +396,7 @@ public class NewColleteralActivity extends AppCompatActivity {
 
     private boolean validateForm(String area_id, String tahun_kendaraan, String model_id, String type_id) {
         if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
             alertDialog.setMessage("Pilih Area Domisili");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -382,7 +411,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         }
 
         if (model_id == null || model_id.trim().length() == 0 || model_id.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
             alertDialog.setMessage("Pilih Merk Kendaraan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -397,7 +426,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         }
 
         if (type_id == null || type_id.trim().length() == 0 || type_id.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
             alertDialog.setMessage("Pilih Tipe Kendaraan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -412,7 +441,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         }
 
         if (tahun_kendaraan == null || tahun_kendaraan.trim().length() == 0 || tahun_kendaraan.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
             alertDialog.setMessage("Pilih Tahun Kendaraaan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

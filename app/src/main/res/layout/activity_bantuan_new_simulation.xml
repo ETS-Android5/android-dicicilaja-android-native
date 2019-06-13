@@ -22,11 +22,345 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <WebView
-        android:id="@+id/webView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:fillViewport="true">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    </WebView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="# Pembuka"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Simulasi Pinjaman"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Simulasi pinjaman berupa layanan yang diberikan Dicicilaja kepada para user. Layanan ini mampu memberikan gambaran kasar pinjaman yang akan diajukan."
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="# Istilah-Istilah"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Jaminan"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Jaminan dibutuhkan pada saat akan mengajukan peminjaman. Jaminan ini dapat berupa barang otomotif (Mobil dan sepeda motor), Barang elektronik, Device atau Gadget, serta emas. Dalam jaminan terdapat istilah-istilah diantaranya"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/jaminan_1"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/jaminan_2"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/jaminan_3"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/jaminan_4"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Pinjaman"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Pinjaman berisi informasi seputar paket pinjaman yang akan diajukan oleh calon peminjam. Didalamnya terdapat istilah-istilah Tenor Pinjaman, Area, Jenis Angsuran, Tipe Asuransi."
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/pinjaman_1"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/pinjaman_2"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/pinjaman_3"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/pinjaman_4"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Jenis Angsuran"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="ADDM, merupakan …"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="ADDB, merupakan …"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Tipe Asuransi"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="Compare (All-risk), merupakan …"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="TLO, merupakan …"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="# Hasil Simulasi"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Hasil simulasi merupakan sebuah gambaran kasar besarnya pinjaman yang akan diperoleh calon peminjam berdasarkan opsi-opsi yang sudah calon peminjam isi sebelumnya (Jaminan, Pinjaman)."
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Calon peminjam bisa langsung ajukan pinjamannya dengan meng-click button “Ajukan Sekarang” yang nantinya akan diarahkan dan diproses oleh pihak Dicicilaja."
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Apabila ada pertanyaan lebih lanjut seputar simulasi pinjaman, calon peminjam bisa langsung Hubungi Tasya (tanya saya), Dicicil aja support team."
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Apakah bantuan ini sangat berguna?"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="50dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_marginRight="5dp"
+                    android:text="Ya"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:backgroundTint="@color/colorAccent2"
+                    android:layout_marginRight="5dp"
+                    android:text="Tidak"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

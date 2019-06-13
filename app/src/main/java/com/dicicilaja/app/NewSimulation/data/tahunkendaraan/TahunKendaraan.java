@@ -1,9 +1,9 @@
-package com.dicicilaja.app.NewSimulation.data.objekmodel;
+package com.dicicilaja.app.NewSimulation.data.tahunkendaraan;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ObjekModel{
+public class TahunKendaraan{
 
 	@SerializedName("data")
 	private List<DataItem> data;

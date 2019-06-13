@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewSimulation.ui.newcolleteral.NewColleteralActivity">
+    tools:context=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -123,6 +123,26 @@
 
                         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                             android:id="@+id/spinnerYear"
+                            android:layout_width="match_parent"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@+id/spinnerType"
+                            android:textSize="14sp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="24dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutTenor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp"
+                        app:hintEnabled="true"
+                        android:layout_marginRight="9dp"
+                        android:background="@drawable/border_bottom">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerTenor"
                             android:layout_width="match_parent"
                             android:imeOptions="actionNext"
                             android:nextFocusDown="@+id/spinnerType"
