@@ -1,16 +1,12 @@
 package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,15 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
-import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
-import com.dicicilaja.app.NewSimulation.network.ApiClient;
-import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
 import com.dicicilaja.app.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NewSimulationResultActivity extends AppCompatActivity {
 
@@ -83,16 +73,22 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 //        Log.d("TESTTEST", "tipe_asuransi_id: " + getIntent().getStringExtra("tipe_asuransi_id"));
 //        Log.d("TESTTEST", "tipe_angsuran_id: " + getIntent().getStringExtra("tipe_angsuran_id"));
 
-        text_total = getIntent().getStringExtra("text_total");
-        text_tenor = getIntent().getStringExtra("text_tenor");
-        text_angsuran = getIntent().getStringExtra("text_angsuran");
-        text_tenor_angsuran = getIntent().getStringExtra("text_tenor_angsuran");
-        text_colleteral = getIntent().getStringExtra("text_colleteral");
-        text_merk = getIntent().getStringExtra("text_merk");
-        text_type = getIntent().getStringExtra("text_type");
-        text_year = getIntent().getStringExtra("text_year");
-        text_insurance = getIntent().getStringExtra("text_insurance");
-        text_area = getIntent().getStringExtra("text_area");
+        try {
+            text_total = getIntent().getStringExtra("text_total");
+            text_tenor = getIntent().getStringExtra("text_tenor");
+            text_angsuran = getIntent().getStringExtra("text_angsuran");
+            text_tenor_angsuran = getIntent().getStringExtra("text_tenor_angsuran");
+            text_colleteral = getIntent().getStringExtra("text_colleteral");
+            text_merk = getIntent().getStringExtra("text_merk");
+            text_type = getIntent().getStringExtra("text_type");
+            text_year = getIntent().getStringExtra("text_year");
+            text_insurance = getIntent().getStringExtra("text_insurance");
+            text_area = getIntent().getStringExtra("text_area");
+            area_id = getIntent().getStringExtra("area_id");
+        } catch (Exception ex) {
+
+        }
+
 
         total.setText(text_total);
         tenor.setText(text_tenor);
@@ -117,9 +113,35 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281293343334"));
-                startActivity(browserIntent);
-                break;
+                if (area_id.equals("9")) {
+                    Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("10")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("11")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("12")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("13")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("14")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("15")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("16")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                } else if (area_id.equals("17")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    startActivity(browserIntent);
+                }
+            break;
             case R.id.next:
                 Intent intent2 = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
                 intent2.putExtra("text_harga", String.valueOf(text_total));
@@ -128,9 +150,9 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.simulation:
-                Intent intent = new Intent(getBaseContext(), NewSimulationActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                Intent intent3 = new Intent(getBaseContext(), NewSimulationActivity.class);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent3);
                 finish();
                 break;
         }

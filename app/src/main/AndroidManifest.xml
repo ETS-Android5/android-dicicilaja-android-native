@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NewSimulation.ui.bantuan.TipeAsuransiActivity"></activity>
+        <activity android:name=".NewSimulation.ui.bantuan.TipeAsuransiActivity" />
         <activity android:name=".NewSimulation.ui.bantuan.JenisAngsuranActivity" />
         <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity" />
         <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity" />

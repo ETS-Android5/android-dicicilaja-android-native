@@ -12,13 +12,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.data.objekbrand.ObjekBrand;
 import com.dicicilaja.app.NewSimulation.data.objekmodel.ObjekModel;
-import com.dicicilaja.app.NewSimulation.data.objektahun.Attributes;
-import com.dicicilaja.app.NewSimulation.data.objektahun.Data;
 import com.dicicilaja.app.NewSimulation.data.objektahun.ObjekTahun;
 import com.dicicilaja.app.NewSimulation.data.tahunkendaraan.TahunKendaraan;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
@@ -28,6 +27,7 @@ import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,6 +74,12 @@ public class NewColleteralActivity extends AppCompatActivity {
 
     final List<String> YEAR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> YEAR_DATA = new HashMap<Integer, String>();
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
+    @BindView(R.id.progressBar2)
+    MaterialProgressBar progressBar2;
+    @BindView(R.id.progressBar3)
+    MaterialProgressBar progressBar3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +98,16 @@ public class NewColleteralActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
+        progressBar.setVisibility(View.GONE);
+        progressBar2.setVisibility(View.GONE);
+        progressBar3.setVisibility(View.GONE);
+
+        tipe_objek_id = "1";
+
+        next.setEnabled(false);
+        next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
 
         objekTahuns = new ArrayList<>();
-
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         AREA_DATA.put(0, "0");
         AREA_DATA.put(1, "9");
@@ -126,29 +137,56 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerArea.setTitle("");
         spinnerArea.setPositiveButton("OK");
 
+        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                next.setEnabled(false);
+                next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
+
+                onLoad();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        onLoad();
+
+    }
+
+    public void onLoad() {
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        progressBar.setVisibility(View.VISIBLE);
+
         Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
         callArea.enqueue(new Callback<ObjekBrand>() {
             @Override
             public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+
                 MERK_DATA.clear();
                 MERK_ITEMS.clear();
 
-                if (response.body().getData().size() > 0) {
-                    MERK_DATA.put(0, "0");
-                    MERK_ITEMS.add("Merk Kendaraan");
+                try {
+                    if (response.body().getData().size() > 0) {
+                        MERK_DATA.put(0, "0");
+                        MERK_ITEMS.add("Merk Kendaraan");
 
-                    try {
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             Log.d("KELUARAN", "MERK: " + response.body().getData().get(i).getId());
-                            MERK_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                             MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                         }
-                    } catch (Exception ex) {
+                        progressBar.setVisibility(View.GONE);
+                    } else {
 
                     }
-                } else {
-                    MERK_DATA.put(0, "0");
-                    MERK_ITEMS.add("Tidak ada Kendaraan");
+                } catch (Exception ex) {
+
                 }
 
                 ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
@@ -166,6 +204,20 @@ public class NewColleteralActivity extends AppCompatActivity {
 
                 MERK_DATA.put(0, "0");
                 MERK_ITEMS.add("Tidak ada Kendaraan");
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                alertDialog.setMessage("Data tidak ditemukan.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        MERK_DATA.clear();
+                        MERK_ITEMS.clear();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -188,30 +240,35 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerType.setEnabled(false);
 
                 if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
+
+                    progressBar2.setVisibility(View.VISIBLE);
+
                     Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())));
                     callArea.enqueue(new Callback<ObjekModel>() {
                         @Override
                         public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
+
                             TYPE_DATA.clear();
                             TYPE_ITEMS.clear();
 
                             TYPE_DATA.put(0, "0");
                             TYPE_ITEMS.add("Tipe Kendaraan");
 
-                            if (response.body().getData().size() > 0) {
-                                try {
-                                    for ( int i = 0; i < response.body().getData().size() ; i++ ) {
-                                        TYPE_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                            try {
+                                if (response.body().getData().size() > 0) {
+
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                        TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
                                     }
-                                }catch (Exception ex) {
+                                    progressBar2.setVisibility(View.GONE);
+                                    spinnerType.setEnabled(true);
+                                } else {
 
                                 }
-                                spinnerType.setEnabled(true);
-                            } else {
+                            } catch (Exception ex) {
 
                             }
 
@@ -221,6 +278,7 @@ public class NewColleteralActivity extends AppCompatActivity {
                             spinnerType.setAdapter(type_adapter);
                             spinnerType.setTitle("");
                             spinnerType.setPositiveButton("OK");
+                            progressBar2.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -230,6 +288,20 @@ public class NewColleteralActivity extends AppCompatActivity {
 
                             TYPE_DATA.put(0, "0");
                             TYPE_ITEMS.add("Tipe Kendaraan");
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                            alertDialog.setMessage("Data tidak ditemukan.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MERK_DATA.clear();
+                                    MERK_ITEMS.clear();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                            progressBar2.setVisibility(View.GONE);
 
                             spinnerType.setEnabled(false);
                         }
@@ -264,28 +336,42 @@ public class NewColleteralActivity extends AppCompatActivity {
 
                 if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
 
+                    progressBar3.setVisibility(View.VISIBLE);
+
                     Call<TahunKendaraan> callArea = apiService.getTahunKendaraan(Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())), Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     callArea.enqueue(new Callback<TahunKendaraan>() {
                         @Override
                         public void onResponse(Call<TahunKendaraan> call, Response<TahunKendaraan> response) {
+
                             YEAR_DATA.clear();
                             YEAR_ITEMS.clear();
 
                             YEAR_DATA.put(0, "0");
                             YEAR_ITEMS.add("Tahun Kendaraan");
 
-                            if (response.body().getData().size() > 0) {
-                                try {
-                                    for ( int i = 0; i < response.body().getData().size() ; i++ ) {
-                                        YEAR_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                            try {
+                                if (response.body().getData().size() == 0) {
+                                    YEAR_DATA.clear();
+                                    YEAR_ITEMS.clear();
+
+                                    YEAR_DATA.put(0, "0");
+                                    YEAR_ITEMS.add("Data tidak ada");
+                                    spinnerYear.setEnabled(false);
+                                    next.setEnabled(false);
+                                    next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
+                                } else if (response.body().getData().size() > 0) {
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                        YEAR_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         YEAR_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getTahun()));
                                     }
-                                }catch (Exception ex) {
+                                    progressBar3.setVisibility(View.GONE);
+                                    spinnerYear.setEnabled(true);
+                                    next.setEnabled(true);
+                                    next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorAccentDark2));
+                                } else {
 
                                 }
-
-                                spinnerYear.setEnabled(true);
-                            } else {
+                            } catch (Exception ex) {
 
                             }
 
@@ -294,6 +380,7 @@ public class NewColleteralActivity extends AppCompatActivity {
                             spinnerYear.setAdapter(year_adapter);
                             spinnerYear.setTitle("");
                             spinnerYear.setPositiveButton("OK");
+                            progressBar3.setVisibility(View.GONE);
 
                         }
 
@@ -304,6 +391,20 @@ public class NewColleteralActivity extends AppCompatActivity {
 
                             TYPE_DATA.put(0, "0");
                             TYPE_ITEMS.add("Tahun Kendaraan");
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                            alertDialog.setMessage("Data tidak ditemukan.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MERK_DATA.clear();
+                                    MERK_ITEMS.clear();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                            progressBar3.setVisibility(View.GONE);
 
                             spinnerYear.setEnabled(false);
                         }

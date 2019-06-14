@@ -14,9 +14,8 @@ import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.ui.motorcolleteral.MotorColleteralActivity;
 import com.dicicilaja.app.NewSimulation.ui.newcolleteral.NewColleteralActivity;
-import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
-import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class NewSimulationActivity extends AppCompatActivity {
 
@@ -84,12 +83,10 @@ public class NewSimulationActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.card_view_car:
                 Intent car = new Intent(getBaseContext(), NewColleteralActivity.class);
-                car.putExtra("tipe_objek_id","1");
                 startActivity(car);
                 break;
             case R.id.card_view_mcy:
                 Intent mcy = new Intent(getBaseContext(), MotorColleteralActivity.class);
-                mcy.putExtra("tipe_objek_id","2");
                 startActivity(mcy);
                 break;
         }

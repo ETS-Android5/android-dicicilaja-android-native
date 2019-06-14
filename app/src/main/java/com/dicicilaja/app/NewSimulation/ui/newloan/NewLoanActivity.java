@@ -221,6 +221,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                 intent.putExtra("text_year", text_year);
                                 intent.putExtra("text_insurance", text_insurance);
                                 intent.putExtra("text_area", text_area);
+                                intent.putExtra("area_id", area_id);
                                 startActivity(intent);
 
                             } else {

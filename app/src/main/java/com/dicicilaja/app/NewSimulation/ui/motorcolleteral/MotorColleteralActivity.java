@@ -106,7 +106,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
 
-        tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
+        tipe_objek_id = "2";
 
         objekTahuns = new ArrayList<>();
 
@@ -165,24 +165,48 @@ public class MotorColleteralActivity extends AppCompatActivity {
         callArea.enqueue(new Callback<ObjekBrand>() {
             @Override
             public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 MERK_DATA.clear();
                 MERK_ITEMS.clear();
 
-                if (response.body().getData().size() > 0) {
-                    MERK_DATA.put(0, "0");
-                    MERK_ITEMS.add("Merk Kendaraan");
+                try {
+                    if (response.body().getData().size() > 0) {
+                        MERK_DATA.put(0, "0");
+                        MERK_ITEMS.add("Merk Kendaraan");
 
-                    try {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-                        }
-                    } catch (Exception ex) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                            }
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                        alertDialog.setMessage("Data tidak ditemukan.");
 
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                        progressBar.setVisibility(View.GONE);
                     }
-                } else {
-                    MERK_DATA.put(0, "0");
-                    MERK_ITEMS.add("Tidak ada Kendaraan");
+                } catch (Exception ex) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                    alertDialog.setMessage("Data tidak ditemukan.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
@@ -200,6 +224,19 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                 MERK_DATA.put(0, "0");
                 MERK_ITEMS.add("Tidak ada Kendaraan");
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                alertDialog.setMessage("Data tidak ditemukan.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -229,24 +266,49 @@ public class MotorColleteralActivity extends AppCompatActivity {
                     callArea.enqueue(new Callback<ObjekModel>() {
                         @Override
                         public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
+                            progressBar.setVisibility(View.VISIBLE);
                             TYPE_DATA.clear();
                             TYPE_ITEMS.clear();
 
                             TYPE_DATA.put(0, "0");
                             TYPE_ITEMS.add("Tipe Kendaraan");
 
-                            if (response.body().getData().size() > 0) {
-                                try {
+                            try {
+                                if (response.body().getData().size() > 0) {
+
                                     for (int i = 0; i < response.body().getData().size(); i++) {
                                         TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
                                     }
-                                } catch (Exception ex) {
+                                    progressBar.setVisibility(View.GONE);
+                                    spinnerType.setEnabled(true);
+                                } else {
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                                    alertDialog.setMessage("Data tidak ditemukan.");
 
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+
+                                            startActivity(getIntent());
+                                        }
+                                    });
+                                    alertDialog.show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
-                                spinnerType.setEnabled(true);
-                            } else {
+                            } catch (Exception ex) {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                                alertDialog.setMessage("Data tidak ditemukan.");
 
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
@@ -264,7 +326,18 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                             TYPE_DATA.put(0, "0");
                             TYPE_ITEMS.add("Tipe Kendaraan");
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                            alertDialog.setMessage("Data tidak ditemukan.");
 
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                            progressBar.setVisibility(View.GONE);
                             spinnerType.setEnabled(false);
                         }
                     });
@@ -439,6 +512,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                         intent.putExtra("text_year", text_year);
                         intent.putExtra("text_insurance", text_insurance);
                         intent.putExtra("text_area", text_area);
+                        intent.putExtra("area_id", area_id);
                         startActivity(intent);
 
 

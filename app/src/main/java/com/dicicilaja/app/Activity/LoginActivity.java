@@ -247,8 +247,8 @@ public class LoginActivity extends AppCompatActivity {
                             resObj.getEmail()
                     );
 
-                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
-                    Instabug.setUserAttribute("LOGIN", "True");
+//                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
+//                    Instabug.setUserAttribute("LOGIN", "True");
 
                     showNextActivity(true, resObj.getRole());
 

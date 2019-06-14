@@ -348,6 +348,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call2.enqueue(new Callback<Recommendation>() {
             @Override
             public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
+                progress.dismiss();
                 final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
 
                 recyclerRekomendasi.setAdapter(new ListRekomendasiAdapter(recommends, getContext()));
@@ -375,6 +376,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call3.enqueue(new Callback<Partner>() {
             @Override
             public void onResponse(Call<Partner> call, Response<Partner> response) {
+                progress.dismiss();
                 final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Datum> partners = response.body().getData();
 
                 recyclerPartner.setAdapter(new ListPartnerAdapter(partners, getContext()));
@@ -398,6 +400,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call5.enqueue(new Callback<AxiSlider>() {
             @Override
             public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                progress.dismiss();
                 List <Datum> slider = response.body().getData();
                 for (int i = 0; i < slider.size(); i++) {
                     Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
