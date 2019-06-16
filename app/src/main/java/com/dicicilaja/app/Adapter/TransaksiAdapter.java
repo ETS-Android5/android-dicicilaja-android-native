@@ -73,7 +73,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.MyVi
     public void onBindViewHolder(@NonNull TransaksiAdapter.MyViewHolder holder, int position) {
         final Transaksi transaksi = transaksiList.get(position);
         holder.tv_tgl.setText(transaksi.getTgl());
-        holder.tv_point.setText(String.valueOf(transaksi.getPoin()));
+        holder.tv_point.setText(String.valueOf(transaksi.getPoin())+" POINT");
         holder.tv_merk.setText(String.valueOf(transaksi.getMerk()));
         holder.tv_status.setText(String.valueOf(transaksi.getStatus()));
 //        Glide.with(mContext).load(pc.getThumbnail()).into(holder.icon_image);

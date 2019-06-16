@@ -13,6 +13,11 @@
     <dimen name="slide_desc">11sp</dimen>
     <dimen name="desc_padding">32dp</dimen>
 
+    <dimen name="font_mini">12dp</dimen>
+    <dimen name="font_medium">14dp</dimen>
+    <dimen name="font_semi_medium">14dp</dimen>
+    <dimen name="font_title">18dp</dimen>
+
     <!-- Tab Layout -->
     <dimen name="tab_max_width">264dp</dimen>
     <dimen name="tab_padding_bottom">16dp</dimen>

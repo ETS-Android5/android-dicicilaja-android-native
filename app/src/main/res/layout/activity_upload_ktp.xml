@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@color/colorWhite">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutEmailID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/inputNoKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukan Nomer KTP"
+                android:fontFamily="@font/open_sans"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/inputNoNPWP"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutNPWP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/inputNoNPWP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukan Nomer NPWP"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/open_sans"
+                android:layout_marginRight="5dp"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:visibility="gone"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/title_ktp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Upload KTP"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/uploadKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukan Nomer KTP"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/inputNoNPWP"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/open_sans"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="7"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="6"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/inputKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukan Photo KTP"
+                    android:fontFamily="@font/open_sans"
+                    android:layout_centerHorizontal="true"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/file1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File"
+                android:fontFamily="@font/open_sans"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/border_button"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:visibility="gone"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/title_npwp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Upload NPWP"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/uploadNPWP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukan Nomer NPWP"
+                android:layout_centerHorizontal="true"
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/open_sans"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/inputNoNPWP"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="7"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="6">
+
+                <EditText
+                    android:id="@+id/inputNPWP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukan Photo NPWP"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/open_sans"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/file2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File"
+                android:fontFamily="@font/open_sans"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/border_button"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <TextView
+            android:id="@+id/title_ktp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="File Foto KTP"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/border_upload_ktp"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/upload_blue"/>
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="14dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent2"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Upload file KTP kamu disini"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:textAllCaps="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/open_sans"
+            android:background="@drawable/border_button"/>
+
+    </RelativeLayout>
+</LinearLayout>

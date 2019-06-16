@@ -49,9 +49,9 @@ public class CatalogResultActivity extends AppCompatActivity {
 
     private void createDummyData() {
         int[] covers = new int[]{
-                R.drawable.pln,
-                R.drawable.bpjs,
-                R.drawable.pdam};
+                R.drawable.motor1,
+                R.drawable.motor2,
+                R.drawable.motor3};
 
         //motor
         ProductCatalog a = new ProductCatalog("Yamaha Fino", 1, covers[0], 2000);

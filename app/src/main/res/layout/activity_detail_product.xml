@@ -47,8 +47,8 @@
 
                     <ImageView
                         android:id="@+id/barang_picture"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginRight="16dp"
                         android:src="@drawable/user" />
@@ -76,7 +76,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Xiaomi A2 Lite"
-                        android:textSize="@dimen/ib_fr_space_16"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_title"/>
 
                     <TextView
                         android:id="@+id/tv_point"
@@ -84,7 +85,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="450 Point"
-                        android:textSize="@dimen/ib_fr_space_12"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_medium"/>
 
                 </RelativeLayout>
 
@@ -102,7 +104,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Spesifikasi"
-                        android:textSize="@dimen/ib_fr_space_12"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_medium"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -121,20 +124,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kategori              : "
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_kategori"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Handphone"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -142,20 +148,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Processor           : "
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_processor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Snapdragon"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -163,20 +172,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Display Screen   : "
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_display"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5 Inch"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -184,20 +196,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="OS                       : "
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_os"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Android"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -205,14 +220,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Brand                  : "
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_brand"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Xiaomi"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -233,6 +250,7 @@
                         android:layout_height="wrap_content"
                         android:text="Klaim Produk"
                         android:textAllCaps="true"
+                        android:fontFamily="@font/open_sans"
                         android:layout_alignParentBottom="true"
                         android:textColor="@color/colorWhite"
                         android:background="@color/colorAccent"/>

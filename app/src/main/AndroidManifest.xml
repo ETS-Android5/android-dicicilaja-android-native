@@ -689,7 +689,6 @@
         </activity>
         <activity
             android:name=".Activity.RedeemConfirmationActivity"
-            android:label="Detail Penukaran"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
@@ -736,6 +735,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.TrackingOrderActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.UploadKTPActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
         </activity>
     </application>
 

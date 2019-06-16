@@ -74,6 +74,9 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
     @BindView(R.id.ulasan_produk)
     RelativeLayout ulasanProduk;
 
+    String id, name;
+    int poin, thumbnail;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem_confirmation2);
@@ -81,6 +84,14 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("ID");
+        name = intent.getStringExtra("Name");
+        poin = (int) intent.getIntExtra("Point",0);
+        thumbnail = intent.getIntExtra("Thumbnail", 0);
+
+
     }
 
     @OnClick(R.id.ulasan_produk)

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;
@@ -59,6 +60,9 @@ public class DetailProductActivity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
+    String id, name;
+    int point, thumbnail;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
@@ -68,14 +72,14 @@ public class DetailProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("ID");
-        String name = intent.getStringExtra("Name");
-        int point = (int) intent.getIntExtra("Point",0);
-        String thumbnail = intent.getStringExtra("Thumbnail");
+        id = intent.getStringExtra("ID");
+        name = intent.getStringExtra("Name");
+        point = (int) intent.getIntExtra("Point",0);
+        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
         titleBarang.setText(name);
-        tvPoint.setText(String.valueOf(point )+ " Point");
-
+        tvPoint.setText(String.valueOf(point)+ " Point");
+        Glide.with(this).load(thumbnail).into(barangPicture);
     }
 
     @Override
@@ -105,6 +109,10 @@ public class DetailProductActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
+        intent.putExtra("ID", id);
+        intent.putExtra("Name", name);
+        intent.putExtra("Point", point);
+        intent.putExtra("Thumbnail", thumbnail);
         startActivity(intent);
     }
 }

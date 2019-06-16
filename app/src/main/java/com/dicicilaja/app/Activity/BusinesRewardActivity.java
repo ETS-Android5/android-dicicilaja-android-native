@@ -3,24 +3,33 @@ package com.dicicilaja.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.*;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
 import com.dicicilaja.app.Adapter.ListProductCatalogAdapter;
 import com.dicicilaja.app.R;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
-import de.hdodenhof.circleimageview.CircleImageView;
-import java.text.DecimalFormat;
+
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BusinesRewardActivity extends AppCompatActivity {
 
@@ -54,6 +63,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
     TextView allElektronik;
     @BindView(R.id.recycler_elektronika)
     RecyclerView recyclerElektronika;
+    @BindView(R.id.upload)
+    Button upload;
 
     private ArrayList<ProductCatalog> productCatalogList;
     private ArrayList<ProductCatalog> productCatalogList2;
@@ -71,7 +82,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -145,10 +156,10 @@ public class BusinesRewardActivity extends AppCompatActivity {
                 R.drawable.motor3};
 
         //motor
-        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125",1, motor[0],2000));
-        productCatalogList.add(new ProductCatalog("Yamaha Mio M3",2, motor[1],1900));
-        productCatalogList.add(new ProductCatalog("Honda Vario 150",3, motor[2],2100));
-        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125",4, motor[0],2000));
+        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125", 1, motor[0], 2000));
+        productCatalogList.add(new ProductCatalog("Yamaha Mio M3", 2, motor[1], 1900));
+        productCatalogList.add(new ProductCatalog("Honda Vario 150", 3, motor[2], 2100));
+        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125", 4, motor[0], 2000));
         adapter.notifyDataSetChanged();
 
         //hp
@@ -182,7 +193,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), TransactionActivity.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.search) {
@@ -206,6 +217,12 @@ public class BusinesRewardActivity extends AppCompatActivity {
             case R.id.all_elektronik:
                 break;
         }
+    }
+
+    @OnClick(R.id.upload)
+    public void onViewClicked() {
+        Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+        startActivity(intent);
     }
 
 //    @Override

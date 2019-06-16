@@ -130,6 +130,38 @@
                     android:orientation="vertical"
                     android:background="@color/colorPrimary">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ib_fr_space_16"
+                        android:layout_marginLeft="@dimen/ib_fr_space_16"
+                        android:layout_marginRight="@dimen/ib_fr_space_16"
+                        android:padding="@dimen/ib_fr_space_16"
+                        android:background="@drawable/border_layout"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="9dp"
+                            android:fontFamily="@font/open_sans"
+                            android:text="@string/notif_ktp"/>
+
+                        <Button
+                            android:id="@+id/upload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:text="upload"
+                            android:layout_marginTop="10dp"
+                            android:textAllCaps="true"
+                            android:textSize="9dp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_alignParentBottom="true"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/border_button"/>
+
+                    </LinearLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_marginTop="16dp"
@@ -235,6 +267,13 @@
                         android:paddingRight="16dp"
                         android:clipToPadding="true"/>
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="50dp"
+                    android:visibility="gone"
+                    android:src="@drawable/bg_not_open_program"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>

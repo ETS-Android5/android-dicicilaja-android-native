@@ -51,8 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alamat Pengiriman"
-                        android:textStyle="bold"
-                        android:textSize="18dp"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_title"/>
 
                     <LinearLayout
                         android:layout_below="@id/title_tujuan"
@@ -73,8 +73,9 @@
                                 android:layout_below="@id/tv_nama"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
                                 android:text="Jalan Setiabudhi No.206, Isola, Sukasari, Hegarmanah, Cidadap, Kota Bandung, Jawa Barat 40154"
-                                android:textSize="14dp"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -97,8 +98,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Informasi Penukaran"
-                        android:textStyle="bold"
-                        android:textSize="18dp" />
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_title" />
 
                     <LinearLayout
                         android:layout_below="@id/title_penukaran"
@@ -121,7 +122,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Nomor Transaksi"
-                                android:textSize="14dp" />
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium" />
 
                         </LinearLayout>
 
@@ -138,8 +140,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="1912233321"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:gravity="right"
-                                android:textSize="14dp"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -165,7 +168,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Tanggal Penukaran"
-                                android:textSize="14dp"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -181,8 +185,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="1 Mar 2019"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:gravity="right"
-                                android:textSize="14dp"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -208,7 +213,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Status Pengiriman"
-                                android:textSize="14dp"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -217,13 +223,62 @@
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1"
+                            android:weightSum="7"
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/bantuan"/>
+                                android:padding="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/border_active"
+                                android:src="@drawable/box1"/>
+
+                            <View
+                                android:layout_width="5dp"
+                                android:layout_height="3dp"
+                                android:background="@color/black_overlay"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:src="@drawable/box2"/>
+
+                            <View
+                                android:layout_width="5dp"
+                                android:layout_height="3dp"
+                                android:background="@color/black_overlay"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:src="@drawable/delivery"/>
+
+                            <View
+                                android:layout_width="5dp"
+                                android:layout_height="3dp"
+                                android:background="@color/black_overlay"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/border"
+                                android:src="@drawable/order"/>
+
 
                         </LinearLayout>
 
@@ -248,8 +303,9 @@
                                 android:id="@+id/stat_selesai"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Sudah Selesai"
-                                android:textSize="12dp"/>
+                                android:text="Sedang diproses"
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_mini"/>
 
                         </LinearLayout>
 
@@ -271,8 +327,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Produk"
-                        android:textStyle="bold"
-                        android:textSize="18dp" />
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_title" />
 
                     <LinearLayout
                         android:id="@+id/detail_produk"
@@ -285,16 +341,18 @@
                             android:id="@+id/title_barang"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_bold"
                             android:text="Xiaomi A2 Lite"
-                            android:textSize="14dp"/>
+                            android:textSize="@dimen/font_medium"/>
 
                         <TextView
                             android:id="@+id/point"
                             android:layout_below="@id/title_barang"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_bold"
                             android:text="450 Point"
-                            android:textSize="@dimen/ib_fr_space_12"/>
+                            android:textSize="@dimen/font_mini"/>
 
                     </LinearLayout>
 
@@ -322,14 +380,12 @@
                         android:id="@+id/title_ulasan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
                         android:text="Beli Ulasan Produk"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/font_medium" />
 
                 </RelativeLayout>
-
             </RelativeLayout>
-
         </ScrollView>
     </RelativeLayout>
-
 </LinearLayout>

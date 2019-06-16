@@ -16,9 +16,20 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:text="Detail Penukaran"/>
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,9 +37,9 @@
         <ImageView
             android:id="@+id/icon_sukses"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginTop="80dp"
-            android:src="@drawable/beri_nilai"/>
+            android:src="@drawable/checked"/>
         
         <TextView
             android:id="@+id/title_sukses"
@@ -36,9 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/icon_sukses"
             android:gravity="center"
-            android:textSize="@dimen/ib_fr_space_36"
+            android:textSize="24dp"
             android:textColor="@color/statusGreen"
-            android:textStyle="bold"
+            android:fontFamily="@font/open_sans_bold"
             android:text="Sukses!"/>
 
         <TextView
@@ -48,7 +59,8 @@
             android:layout_below="@+id/title_sukses"
             android:gravity="center"
             android:layout_marginTop="50dp"
-            android:textSize="@dimen/ib_fr_space_16"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/font_medium"
             android:text="Penukaran telah berhasil pada"/>
 
         <TextView
@@ -57,8 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="@dimen/ib_fr_space_16"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="@dimen/font_semi_medium"
             android:text="tanggal 30 Maret 2019"/>
 
         <TextView
@@ -68,7 +80,8 @@
             android:layout_below="@+id/detail2"
             android:gravity="center"
             android:layout_marginTop="100dp"
-            android:textSize="@dimen/ib_fr_space_16"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/font_mini"
             android:text="Butuh bantuan?"/>
 
         <LinearLayout
@@ -82,7 +95,8 @@
                 android:id="@+id/detail4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/ib_fr_space_16"
+                android:textSize="@dimen/font_mini"
+                android:fontFamily="@font/open_sans"
                 android:text="Tanya saya di"/>
 
             <TextView
@@ -90,7 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent2"
-                android:textSize="@dimen/ib_fr_space_16"
+                android:fontFamily="@font/open_sans"
+                android:textSize="@dimen/font_mini"
                 android:text=" 08111465005"/>
 
         </LinearLayout>
@@ -108,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:text="Lihat Detail"
                 android:textAllCaps="true"
+                android:fontFamily="@font/open_sans"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorAccent"/>

@@ -29,10 +29,10 @@
                     android:imeOptions="actionNext"
                     android:nextFocusDown="@+id/inputPassword"
                     android:textColorHint="@color/colorWhite"
-                    android:fontFamily="sans-serif"
                     android:padding="10dp"
+                    android:fontFamily="@font/open_sans"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14sp"/>
+                    android:textSize="@dimen/font_medium"/>
 
         </androidx.appcompat.widget.Toolbar>
 

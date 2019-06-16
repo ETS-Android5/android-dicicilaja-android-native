@@ -37,13 +37,23 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
+    String id, name;
+    int point, thumbnail;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem_confirmation);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(" ");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("ID");
+        name = intent.getStringExtra("Name");
+        point = (int) intent.getIntExtra("Point",0);
+        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
     }
 
@@ -74,6 +84,10 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
+        intent.putExtra("ID", id);
+        intent.putExtra("Name", name);
+        intent.putExtra("Point", point);
+        intent.putExtra("Thumbnail", thumbnail);
         startActivity(intent);
     }
 }

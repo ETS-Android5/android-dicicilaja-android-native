@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;
@@ -38,7 +39,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
     @BindView(R.id.title_barang)
     TextView titleBarang;
     @BindView(R.id.point)
-    TextView point;
+    TextView tvPoint;
     @BindView(R.id.barang_image)
     RelativeLayout barangImage;
     @BindView(R.id.spek_title)
@@ -62,6 +63,9 @@ public class DetailProduct2Activity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
+    String id, name;
+    int point, thumbnail;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product2);
@@ -71,12 +75,14 @@ public class DetailProduct2Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("ID");
-        String name = intent.getStringExtra("Name");
-        String point = intent.getStringExtra("Point");
-        String thumbnail = intent.getStringExtra("Thumbnail");
+        id = intent.getStringExtra("ID");
+        name = intent.getStringExtra("Name");
+        point = (int) intent.getIntExtra("Point",0);
+        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
-
+        titleBarang.setText(name);
+        tvPoint.setText(String.valueOf(point)+ " Point");
+        Glide.with(this).load(thumbnail).into(barangPicture);
     }
 
     @Override
@@ -106,6 +112,10 @@ public class DetailProduct2Activity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
+        intent.putExtra("ID", id);
+        intent.putExtra("Name", name);
+        intent.putExtra("Point", point);
+        intent.putExtra("Thumbnail", thumbnail);
         startActivity(intent);
     }
 }

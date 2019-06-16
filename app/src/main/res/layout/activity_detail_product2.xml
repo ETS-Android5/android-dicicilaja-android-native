@@ -51,8 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tujuan Pengiriman"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/ib_fr_space_12"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_semi_medium"/>
 
                     <LinearLayout
                         android:layout_below="@id/title_tujuan"
@@ -74,8 +74,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ziady Mubaraq"
+                                android:fontFamily="@font/open_sans"
                                 android:textAllCaps="true"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_alamat"
@@ -83,7 +84,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Jalan Setiabudhi No.206, Isola, Sukasari, Hegarmanah, Cidadap, Kota Bandung, Jawa Barat 40154"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -93,6 +95,7 @@
                             android:background="@color/colorAccent"
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
                             android:text="UBAH" />
 
                     </LinearLayout>
@@ -127,15 +130,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Xiaomi A2 Lite"
-                            android:textSize="@dimen/ib_fr_space_16"/>
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textSize="@dimen/font_title"/>
 
                         <TextView
                             android:id="@+id/point"
                             android:layout_below="@id/title_barang"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_bold"
                             android:text="450 Point"
-                            android:textSize="@dimen/ib_fr_space_12"/>
+                            android:textSize="@dimen/font_medium"/>
 
                     </LinearLayout>
 
@@ -155,7 +160,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Point"
-                        android:textSize="@dimen/ib_fr_space_12"/>
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_semi_medium"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -174,21 +180,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Total Point"
+                                android:fontFamily="@font/open_sans"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_total_point"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:text="3000 POINT"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -196,15 +205,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Point Barang"
+                                android:fontFamily="@font/open_sans"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_point_barang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:text="450 POINT"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -220,6 +231,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -227,15 +239,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sisa Point"
+                                android:fontFamily="@font/open_sans"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_sisa_point"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:text="2550 POINT"
-                                android:textSize="@dimen/ib_fr_space_12"/>
+                                android:textSize="@dimen/font_medium"/>
 
                         </LinearLayout>
 
@@ -255,6 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Selesai"
+                        android:fontFamily="@font/open_sans"
                         android:textAllCaps="true"
                         android:layout_alignParentBottom="true"
                         android:textColor="@color/colorWhite"

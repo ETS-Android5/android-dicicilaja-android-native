@@ -1,5 +1,6 @@
 package com.dicicilaja.app.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class TransactionActivity extends AppCompatActivity {
     private List<Transaksi> transaksiList;
     TransaksiAdapter adapter;
 
+    @SuppressLint("WrongConstant")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
@@ -45,7 +47,7 @@ public class TransactionActivity extends AppCompatActivity {
         adapter = new TransaksiAdapter(transaksiList, this);
 
         recyclerTransaksi.setLayoutManager(new LinearLayoutManager(getBaseContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+                LinearLayoutManager.VERTICAL, false));
         recyclerTransaksi.setHasFixedSize(true);
         recyclerTransaksi.setAdapter(adapter);
 
