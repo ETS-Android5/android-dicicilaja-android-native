@@ -125,8 +125,8 @@ public class NewLoanActivity extends AppCompatActivity {
         JENISANGSURAN_MAP.put(2, "2");
 
         JENISANGSURAN_ITEMS.add("Pilih Jenis Angsuran");
-        JENISANGSURAN_ITEMS.add("Angsuran Per Bulan");
-        JENISANGSURAN_ITEMS.add("Pembayaran Pertama");
+        JENISANGSURAN_ITEMS.add("Angsuran Per Bulan (ADDB)");
+        JENISANGSURAN_ITEMS.add("Pembayaran Pertama (ADDM)");
 
         ArrayAdapter<String> jenisangsuran_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JENISANGSURAN_ITEMS);
         jenisangsuran_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -193,7 +193,6 @@ public class NewLoanActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                            progressBar.setVisibility(View.VISIBLE);
 
                             if (response.isSuccessful()) {
 

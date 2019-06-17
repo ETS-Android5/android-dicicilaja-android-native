@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
         <activity android:name=".NewSimulation.ui.bantuan.TipeAsuransiActivity" />
         <activity android:name=".NewSimulation.ui.bantuan.JenisAngsuranActivity" />
         <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity" />

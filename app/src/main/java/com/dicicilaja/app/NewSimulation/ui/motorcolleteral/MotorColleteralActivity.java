@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,7 +24,6 @@ import com.dicicilaja.app.NewSimulation.data.tahunkendaraan.TahunKendaraan;
 import com.dicicilaja.app.NewSimulation.network.ApiClient;
 import com.dicicilaja.app.NewSimulation.network.ApiService;
 import com.dicicilaja.app.NewSimulation.ui.bantuan.BantuanNewSimulationActivity;
-import com.dicicilaja.app.NewSimulation.ui.newloan.NewLoanActivity;
 import com.dicicilaja.app.NewSimulation.ui.newsimulationresult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -65,6 +65,12 @@ public class MotorColleteralActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
     @BindView(R.id.next)
     Button next;
+    @BindView(R.id.progressBar2)
+    MaterialProgressBar progressBar2;
+    @BindView(R.id.progressBar3)
+    MaterialProgressBar progressBar3;
+    @BindView(R.id.progressBar4)
+    MaterialProgressBar progressBar4;
 
     List<ObjekTahun> objekTahuns;
 
@@ -105,33 +111,16 @@ public class MotorColleteralActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.GONE);
+        progressBar2.setVisibility(View.GONE);
+        progressBar3.setVisibility(View.GONE);
+        progressBar4.setVisibility(View.GONE);
 
         tipe_objek_id = "2";
 
+        next.setEnabled(false);
+        next.setBackgroundTintList(ContextCompat.getColorStateList(MotorColleteralActivity.this, R.color.colorBackground));
+
         objekTahuns = new ArrayList<>();
-
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        TENOR_MAP.clear();
-        TENOR_ITEMS.clear();
-
-        TENOR_MAP.put(0, "0");
-        TENOR_MAP.put(1, "1");
-        TENOR_MAP.put(2, "2");
-        TENOR_MAP.put(3, "3");
-        TENOR_MAP.put(4, "4");
-
-        TENOR_ITEMS.add("Pilih Tenor Pinjaman");
-        TENOR_ITEMS.add("1 Tahun");
-        TENOR_ITEMS.add("2 Tahun");
-        TENOR_ITEMS.add("3 Tahun");
-        TENOR_ITEMS.add("4 Tahun");
-
-        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
-        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTenor.setAdapter(tenor_adapter);
-        spinnerTenor.setTitle("");
-        spinnerTenor.setPositiveButton("OK");
 
         AREA_DATA.put(0, "0");
         AREA_DATA.put(1, "9");
@@ -161,11 +150,55 @@ public class MotorColleteralActivity extends AppCompatActivity {
         spinnerArea.setTitle("");
         spinnerArea.setPositiveButton("OK");
 
+        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                next.setEnabled(false);
+                next.setBackgroundTintList(ContextCompat.getColorStateList(MotorColleteralActivity.this, R.color.colorBackground));
+
+                onLoad();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        onLoad();
+    }
+
+    public void onLoad() {
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        TENOR_MAP.clear();
+        TENOR_ITEMS.clear();
+
+        TENOR_MAP.put(0, "0");
+        TENOR_MAP.put(1, "1");
+        TENOR_MAP.put(2, "2");
+        TENOR_MAP.put(3, "3");
+        TENOR_MAP.put(4, "4");
+
+        TENOR_ITEMS.add("Pilih Tenor Pinjaman");
+        TENOR_ITEMS.add("1 Tahun");
+        TENOR_ITEMS.add("2 Tahun");
+        TENOR_ITEMS.add("3 Tahun");
+        TENOR_ITEMS.add("4 Tahun");
+
+        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
+        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTenor.setAdapter(tenor_adapter);
+        spinnerTenor.setTitle("");
+        spinnerTenor.setPositiveButton("OK");
+
         Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
         callArea.enqueue(new Callback<ObjekBrand>() {
             @Override
             public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
-                progressBar.setVisibility(View.VISIBLE);
 
                 MERK_DATA.clear();
                 MERK_ITEMS.clear();
@@ -175,38 +208,14 @@ public class MotorColleteralActivity extends AppCompatActivity {
                         MERK_DATA.put(0, "0");
                         MERK_ITEMS.add("Merk Kendaraan");
 
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-                                MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-                            }
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                        }
                         progressBar.setVisibility(View.GONE);
                     } else {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
-                        alertDialog.setMessage("Data tidak ditemukan.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-
-                                startActivity(getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                        progressBar.setVisibility(View.GONE);
                     }
                 } catch (Exception ex) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
-                    alertDialog.setMessage("Data tidak ditemukan.");
-
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-
-                            startActivity(getIntent());
-                        }
-                    });
-                    alertDialog.show();
-                    progressBar.setVisibility(View.GONE);
                 }
 
                 ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
@@ -262,11 +271,13 @@ public class MotorColleteralActivity extends AppCompatActivity {
                 spinnerType.setEnabled(false);
 
                 if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
-                    Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())));
+
+                    progressBar2.setVisibility(View.VISIBLE);
+
+                    Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), true);
                     callArea.enqueue(new Callback<ObjekModel>() {
                         @Override
                         public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
-                            progressBar.setVisibility(View.VISIBLE);
                             TYPE_DATA.clear();
                             TYPE_ITEMS.clear();
 
@@ -280,35 +291,11 @@ public class MotorColleteralActivity extends AppCompatActivity {
                                         TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
                                     }
-                                    progressBar.setVisibility(View.GONE);
+                                    progressBar2.setVisibility(View.GONE);
                                     spinnerType.setEnabled(true);
                                 } else {
-                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
-                                    alertDialog.setMessage("Data tidak ditemukan.");
-
-                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            finish();
-
-                                            startActivity(getIntent());
-                                        }
-                                    });
-                                    alertDialog.show();
-                                    progressBar.setVisibility(View.GONE);
                                 }
                             } catch (Exception ex) {
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
-                                alertDialog.setMessage("Data tidak ditemukan.");
-
-                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        finish();
-
-                                        startActivity(getIntent());
-                                    }
-                                });
-                                alertDialog.show();
-                                progressBar.setVisibility(View.GONE);
                             }
 
                             ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
@@ -317,6 +304,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                             spinnerType.setAdapter(type_adapter);
                             spinnerType.setTitle("");
                             spinnerType.setPositiveButton("OK");
+                            progressBar2.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -337,7 +325,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                                 }
                             });
                             alertDialog.show();
-                            progressBar.setVisibility(View.GONE);
+                            progressBar2.setVisibility(View.GONE);
                             spinnerType.setEnabled(false);
                         }
                     });
@@ -371,6 +359,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                 if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
 
+                    progressBar3.setVisibility(View.VISIBLE);
+
                     Call<TahunKendaraan> callArea = apiService.getTahunKendaraan(Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())), Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     callArea.enqueue(new Callback<TahunKendaraan>() {
                         @Override
@@ -381,18 +371,29 @@ public class MotorColleteralActivity extends AppCompatActivity {
                             YEAR_DATA.put(0, "0");
                             YEAR_ITEMS.add("Tahun Kendaraan");
 
-                            if (response.body().getData().size() > 0) {
-                                try {
+                            try {
+                                if (response.body().getData().size() == 0) {
+                                    YEAR_DATA.clear();
+                                    YEAR_ITEMS.clear();
+
+                                    YEAR_DATA.put(0, "0");
+                                    YEAR_ITEMS.add("Data tidak ada");
+                                    spinnerYear.setEnabled(false);
+                                    next.setEnabled(false);
+                                    next.setBackgroundTintList(ContextCompat.getColorStateList(MotorColleteralActivity.this, R.color.colorBackground));
+                                } else if (response.body().getData().size() > 0) {
                                     for (int i = 0; i < response.body().getData().size(); i++) {
                                         YEAR_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                         YEAR_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getTahun()));
                                     }
-                                } catch (Exception ex) {
+                                    progressBar3.setVisibility(View.GONE);
+                                    spinnerYear.setEnabled(true);
+                                    next.setEnabled(true);
+                                    next.setBackgroundTintList(ContextCompat.getColorStateList(MotorColleteralActivity.this, R.color.colorAccentDark2));
+                                } else {
 
                                 }
-
-                                spinnerYear.setEnabled(true);
-                            } else {
+                            } catch (Exception ex) {
 
                             }
 
@@ -401,7 +402,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                             spinnerYear.setAdapter(year_adapter);
                             spinnerYear.setTitle("");
                             spinnerYear.setPositiveButton("OK");
-
+                            progressBar3.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -411,6 +412,20 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                             YEAR_DATA.put(0, "0");
                             YEAR_ITEMS.add("Tahun Kendaraan");
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
+                            alertDialog.setMessage("Data tidak ditemukan.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    YEAR_DATA.clear();
+                                    YEAR_ITEMS.clear();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                            progressBar3.setVisibility(View.GONE);
 
                             spinnerYear.setEnabled(false);
                         }
@@ -465,10 +480,9 @@ public class MotorColleteralActivity extends AppCompatActivity {
         }
 
         if (validateForm(tenor, area_id, tahun_kendaraan, model_id, type_id)) {
+            progressBar4.setVisibility(View.VISIBLE);
 
-            progressBar.setVisibility(View.VISIBLE);
-
-            tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
+            tipe_objek_id = "2";
 
             ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
@@ -484,9 +498,10 @@ public class MotorColleteralActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
                     Log.d("MOTORMOTOR", "code: " + response.code());
-                    progressBar.setVisibility(View.VISIBLE);
 
                     if (response.isSuccessful()) {
+
+                        progressBar4.setVisibility(View.GONE);
 
                         text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
                         text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
@@ -498,8 +513,6 @@ public class MotorColleteralActivity extends AppCompatActivity {
                         text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
                         text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
                         text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
-
-                        progressBar.setVisibility(View.GONE);
 
                         Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
                         intent.putExtra("text_total", text_total);

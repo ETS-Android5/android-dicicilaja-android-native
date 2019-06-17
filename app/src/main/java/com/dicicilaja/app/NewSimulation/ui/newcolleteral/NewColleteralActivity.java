@@ -104,8 +104,8 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         tipe_objek_id = "1";
 
-        next.setEnabled(false);
-        next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
+//        next.setEnabled(false);
+//        next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
 
         objekTahuns = new ArrayList<>();
 
@@ -137,18 +137,107 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerArea.setTitle("");
         spinnerArea.setPositiveButton("OK");
 
+        MERK_DATA.clear();
+        MERK_ITEMS.clear();
+        MERK_DATA.put(0, "0");
+        MERK_ITEMS.add("Merk Kendaraan");
+        spinnerBrand.setEnabled(false);
+
+        ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
+        brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBrand.setAdapter(brand_adapter);
+
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                next.setEnabled(false);
-                next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
+            public void onItemSelected (AdapterView < ? > adapterView, View view,int i, long l) {
 
-                onLoad();
+                MERK_DATA.clear();
+                MERK_ITEMS.clear();
+                MERK_DATA.put(0, "0");
+                MERK_ITEMS.add("Merk Kendaraan");
+                spinnerBrand.setEnabled(false);
 
+                TYPE_DATA.clear();
+                TYPE_ITEMS.clear();
+                TYPE_DATA.put(0, "0");
+                TYPE_ITEMS.add("Tipe Kendaraan");
+                spinnerType.setEnabled(false);
+
+                YEAR_DATA.clear();
+                YEAR_ITEMS.clear();
+                YEAR_DATA.put(0, "0");
+                YEAR_ITEMS.add("Tahun Kendaraan");
+                spinnerYear.setEnabled(false);
+
+                if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    spinnerBrand.setEnabled(true);
+                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+                    Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
+                    callArea.enqueue(new Callback<ObjekBrand>() {
+                        @Override
+                        public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+
+                            MERK_DATA.clear();
+                            MERK_ITEMS.clear();
+
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    MERK_DATA.put(0, "0");
+                                    MERK_ITEMS.add("Merk Kendaraan");
+
+                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                        Log.d("KELUARAN", "MERK: " + response.body().getData().get(i).getId());
+                                        MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                        MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                    }
+                                    progressBar.setVisibility(View.GONE);
+                                } else {
+
+                                }
+                            } catch (Exception ex) {
+
+                            }
+
+                            ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
+                            brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            spinnerBrand.setAdapter(brand_adapter);
+                            spinnerBrand.setTitle("");
+                            spinnerBrand.setPositiveButton("OK");
+                        }
+
+                        @Override
+                        public void onFailure(Call<ObjekBrand> call, Throwable t) {
+                            MERK_DATA.clear();
+                            MERK_ITEMS.clear();
+
+                            MERK_DATA.put(0, "0");
+                            MERK_ITEMS.add("Tidak ada Kendaraan");
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                            alertDialog.setMessage("Data tidak ditemukan.!!!");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MERK_DATA.clear();
+                                    MERK_ITEMS.clear();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
+                    onLoad();
+                }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                @Override
+                public void onNothingSelected (AdapterView < ? > adapterView) {
 
             }
         });
@@ -160,66 +249,6 @@ public class NewColleteralActivity extends AppCompatActivity {
     public void onLoad() {
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
-        callArea.enqueue(new Callback<ObjekBrand>() {
-            @Override
-            public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
-
-                MERK_DATA.clear();
-                MERK_ITEMS.clear();
-
-                try {
-                    if (response.body().getData().size() > 0) {
-                        MERK_DATA.put(0, "0");
-                        MERK_ITEMS.add("Merk Kendaraan");
-
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            Log.d("KELUARAN", "MERK: " + response.body().getData().get(i).getId());
-                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-                        }
-                        progressBar.setVisibility(View.GONE);
-                    } else {
-
-                    }
-                } catch (Exception ex) {
-
-                }
-
-                ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
-                brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                spinnerBrand.setAdapter(brand_adapter);
-                spinnerBrand.setTitle("");
-                spinnerBrand.setPositiveButton("OK");
-            }
-
-            @Override
-            public void onFailure(Call<ObjekBrand> call, Throwable t) {
-                MERK_DATA.clear();
-                MERK_ITEMS.clear();
-
-                MERK_DATA.put(0, "0");
-                MERK_ITEMS.add("Tidak ada Kendaraan");
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-                alertDialog.setMessage("Data tidak ditemukan.");
-
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        MERK_DATA.clear();
-                        MERK_ITEMS.clear();
-                        finish();
-                        startActivity(getIntent());
-                    }
-                });
-                alertDialog.show();
-                progressBar.setVisibility(View.GONE);
-            }
-        });
 
         TYPE_DATA.clear();
         TYPE_ITEMS.clear();
@@ -241,11 +270,12 @@ public class NewColleteralActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                spinnerType.setEnabled(false);
                 if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
 
                     progressBar2.setVisibility(View.VISIBLE);
 
-                    Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())));
+                    Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
                     callArea.enqueue(new Callback<ObjekModel>() {
                         @Override
                         public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
@@ -355,7 +385,7 @@ public class NewColleteralActivity extends AppCompatActivity {
                                     YEAR_ITEMS.clear();
 
                                     YEAR_DATA.put(0, "0");
-                                    YEAR_ITEMS.add("Data tidak ada");
+                                    YEAR_ITEMS.add("Tahun kendaraan tidak tersedia");
                                     spinnerYear.setEnabled(false);
                                     next.setEnabled(false);
                                     next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
@@ -386,19 +416,19 @@ public class NewColleteralActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<TahunKendaraan> call, Throwable t) {
-                            TYPE_DATA.clear();
-                            TYPE_ITEMS.clear();
+                            YEAR_DATA.clear();
+                            YEAR_ITEMS.clear();
 
-                            TYPE_DATA.put(0, "0");
-                            TYPE_ITEMS.add("Tahun Kendaraan");
+                            YEAR_DATA.put(0, "0");
+                            YEAR_ITEMS.add("Tahun Kendaraan");
 
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
                             alertDialog.setMessage("Data tidak ditemukan.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MERK_DATA.clear();
-                                    MERK_ITEMS.clear();
+                                    YEAR_DATA.clear();
+                                    YEAR_ITEMS.clear();
                                     finish();
                                     startActivity(getIntent());
                                 }

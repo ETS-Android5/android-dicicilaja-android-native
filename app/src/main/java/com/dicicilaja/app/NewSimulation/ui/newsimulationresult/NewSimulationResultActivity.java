@@ -3,10 +3,12 @@ package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -52,6 +54,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id;
 
     String spinner_jaminan, text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
+    @BindView(R.id.asuransi_card)
+    LinearLayout asuransiCard;
 
 
     @Override
@@ -89,6 +93,10 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
         }
 
+        if (text_colleteral.equals("Motor")) {
+            asuransiCard.setVisibility(View.GONE);
+        }
+
 
         total.setText(text_total);
         tenor.setText(text_tenor);
@@ -114,7 +122,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.call_tasya:
                 if (area_id.equals("9")) {
-                    Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
                     startActivity(browserIntent);
                 } else if (area_id.equals("10")) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
@@ -141,7 +149,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
                     startActivity(browserIntent);
                 }
-            break;
+                break;
             case R.id.next:
                 Intent intent2 = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
                 intent2.putExtra("text_harga", String.valueOf(text_total));

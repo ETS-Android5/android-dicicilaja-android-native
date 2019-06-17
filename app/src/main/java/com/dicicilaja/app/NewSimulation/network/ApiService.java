@@ -19,13 +19,13 @@ public interface ApiService {
     Call<ObjekBrand> getObjekBrand(@Path("brand_id") int id);
 
     @GET("objekbrand/{id}/objekmodel")
-    Call<ObjekModel> getObjekModel(@Path("id") int id);
+    Call<ObjekModel> getObjekModel(@Path("id") int id,
+                                   @Query("area_id") int area_id,
+                                   @Query("mrp") boolean mrp);
 
     @GET("tahunkendaraan/{objek_id}/{area_id}")
-    Call<TahunKendaraan> getTahunKendaraan(@Path("objek_id") int objek_id, @Path("area_id") int area_id);
-
-    @GET("area?simulasi=true")
-    Call<AreaSimulasi> getAreaSimulasi();
+    Call<TahunKendaraan> getTahunKendaraan(@Path("objek_id") int objek_id,
+                                           @Path("area_id") int area_id);
 
     @POST("simulasi/hitung/")
     @FormUrlEncoded
