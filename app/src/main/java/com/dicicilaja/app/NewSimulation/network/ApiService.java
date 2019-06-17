@@ -45,6 +45,4 @@ public interface ApiService {
                                 @Field("area_id") String area_id,
                                 @Field("tenor") String tenor);
 
-
-
 }

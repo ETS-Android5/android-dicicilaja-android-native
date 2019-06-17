@@ -134,6 +134,17 @@
                                 android:layout_marginTop="24dp"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:id="@+id/not_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:text="*Tahun kendaraan belum tersedia"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark"
+                            android:layout_marginTop="5dp"
+                            android:textSize="13sp"/>
 
                         <Button
                             android:id="@+id/next"
@@ -142,9 +153,11 @@
                             android:text="Selanjutnya"
                             android:backgroundTint="@color/colorAccentDark2"
                             android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
-                            android:layout_marginTop="32dp"/>
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="5dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

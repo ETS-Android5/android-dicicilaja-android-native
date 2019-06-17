@@ -2,6 +2,7 @@ package com.dicicilaja.app.NewSimulation.ui.newcolleteral;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +10,10 @@ import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,30 +57,30 @@ public class NewColleteralActivity extends AppCompatActivity {
     SearchableSpinner spinnerYear;
     @BindView(R.id.layoutYear)
     TextInputLayout layoutYear;
-    @BindView(R.id.next)
-    Button next;
-
-    List<ObjekTahun> objekTahuns;
-
-    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id;
-
-    final List<String> AREA_ITEMS = new ArrayList<>();
-    final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
-
-    final List<String> MERK_ITEMS = new ArrayList<>();
-    final HashMap<Integer, String> MERK_DATA = new HashMap<Integer, String>();
-
-    final List<String> TYPE_ITEMS = new ArrayList<>();
-    final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
-
-    final List<String> YEAR_ITEMS = new ArrayList<>();
-    final HashMap<Integer, String> YEAR_DATA = new HashMap<Integer, String>();
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
     @BindView(R.id.progressBar2)
     MaterialProgressBar progressBar2;
     @BindView(R.id.progressBar3)
     MaterialProgressBar progressBar3;
+    @BindView(R.id.not_available)
+    TextView notAvailable;
+    @BindView(R.id.next)
+    Button next;
+
+    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, text_area, text_merk, text_tipe, text_tahun;
+    boolean data_tahun;
+    List<ObjekTahun> objekTahuns;
+    ApiService apiService;
+
+    final List<String> AREA_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
+    final List<String> MERK_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> MERK_DATA = new HashMap<Integer, String>();
+    final List<String> TYPE_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
+    final List<String> YEAR_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> YEAR_DATA = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,13 @@ public class NewColleteralActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_colleteral);
         ButterKnife.bind(this);
 
+        initToolbar();
+        initAction();
+        initDummyData();
+        initLoadData();
+    }
+
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Informasi Jaminan");
@@ -97,18 +105,95 @@ public class NewColleteralActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+    }
 
+    private void initAction() {
+        //Initialize
         progressBar.setVisibility(View.GONE);
         progressBar2.setVisibility(View.GONE);
         progressBar3.setVisibility(View.GONE);
-
+        notAvailable.setVisibility(View.GONE);
         tipe_objek_id = "1";
-
-//        next.setEnabled(false);
-//        next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
-
+        data_tahun = true;
         objekTahuns = new ArrayList<>();
+        spinnerBrand.setEnabled(false);
+        spinnerType.setEnabled(false);
+        spinnerYear.setEnabled(false);
 
+        //Merk Kendaraaan
+        MERK_DATA.clear();
+        MERK_ITEMS.clear();
+        MERK_DATA.put(0, "0");
+        MERK_ITEMS.add("Merk Kendaraan");
+        ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
+        brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBrand.setAdapter(brand_adapter);
+        spinnerBrand.setTitle("");
+        spinnerBrand.setPositiveButton("OK");
+
+        //Tipe Kendaraan
+        TYPE_DATA.clear();
+        TYPE_ITEMS.clear();
+        TYPE_DATA.put(0, "0");
+        TYPE_ITEMS.add("Tipe Kendaraan");
+        ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
+        type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(type_adapter);
+        spinnerType.setTitle("");
+        spinnerType.setPositiveButton("OK");
+
+        //Tahun Kendaraan
+        YEAR_DATA.clear();
+        YEAR_ITEMS.clear();
+        YEAR_DATA.put(0, "0");
+        YEAR_ITEMS.add("Tahun Kendaraan");
+        ArrayAdapter<String> year_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, YEAR_ITEMS);
+        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerYear.setAdapter(year_adapter);
+        spinnerYear.setTitle("");
+        spinnerYear.setPositiveButton("OK");
+
+        //Network
+        apiService = ApiClient.getClient().create(ApiService.class);
+    }
+
+    private void clearBrand() {
+        MERK_DATA.clear();
+        MERK_ITEMS.clear();
+        MERK_DATA.put(0, "0");
+        MERK_ITEMS.add("Merk Kendaraan");
+        ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
+        brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBrand.setAdapter(brand_adapter);
+        spinnerBrand.setTitle("");
+        spinnerBrand.setPositiveButton("OK");
+    }
+
+    private void clearType() {
+        TYPE_DATA.clear();
+        TYPE_ITEMS.clear();
+        TYPE_DATA.put(0, "0");
+        TYPE_ITEMS.add("Tipe Kendaraan");
+        ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
+        type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(type_adapter);
+        spinnerType.setTitle("");
+        spinnerType.setPositiveButton("OK");
+    }
+
+    private void clearYear() {
+        YEAR_DATA.clear();
+        YEAR_ITEMS.clear();
+        YEAR_DATA.put(0, "0");
+        YEAR_ITEMS.add("Tahun Kendaraan");
+        ArrayAdapter<String> year_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, YEAR_ITEMS);
+        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerYear.setAdapter(year_adapter);
+        spinnerYear.setTitle("");
+        spinnerYear.setPositiveButton("OK");
+    }
+
+    private void initDummyData() {
         AREA_DATA.put(0, "0");
         AREA_DATA.put(1, "9");
         AREA_DATA.put(2, "10");
@@ -136,307 +221,265 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerArea.setAdapter(area_adapter);
         spinnerArea.setTitle("");
         spinnerArea.setPositiveButton("OK");
+    }
 
-        MERK_DATA.clear();
-        MERK_ITEMS.clear();
-        MERK_DATA.put(0, "0");
-        MERK_ITEMS.add("Merk Kendaraan");
-        spinnerBrand.setEnabled(false);
-
-        ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
-        brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBrand.setAdapter(brand_adapter);
-
+    private void initLoadData() {
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
-            public void onItemSelected (AdapterView < ? > adapterView, View view,int i, long l) {
-
-                MERK_DATA.clear();
-                MERK_ITEMS.clear();
-                MERK_DATA.put(0, "0");
-                MERK_ITEMS.add("Merk Kendaraan");
-                spinnerBrand.setEnabled(false);
-
-                TYPE_DATA.clear();
-                TYPE_ITEMS.clear();
-                TYPE_DATA.put(0, "0");
-                TYPE_ITEMS.add("Tipe Kendaraan");
-                spinnerType.setEnabled(false);
-
-                YEAR_DATA.clear();
-                YEAR_ITEMS.clear();
-                YEAR_DATA.put(0, "0");
-                YEAR_ITEMS.add("Tahun Kendaraan");
-                spinnerYear.setEnabled(false);
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                initAction();
                 if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    spinnerBrand.setEnabled(true);
-                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
                     Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
                     callArea.enqueue(new Callback<ObjekBrand>() {
                         @Override
                         public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        for (int i = 0; i < response.body().getData().size(); i++) {
+                                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                        }
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        clearBrand();
+                                        progressBar.setVisibility(View.GONE);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data merk kendaraan belum tersedia, silahkan coba beberapa saat lagi.");
 
-                            MERK_DATA.clear();
-                            MERK_ITEMS.clear();
-
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    MERK_DATA.put(0, "0");
-                                    MERK_ITEMS.add("Merk Kendaraan");
-
-                                    for (int i = 0; i < response.body().getData().size(); i++) {
-                                        Log.d("KELUARAN", "MERK: " + response.body().getData().get(i).getId());
-                                        MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                        MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
                                     }
-                                    progressBar.setVisibility(View.GONE);
-                                } else {
+                                } catch (Exception ex) { }
 
-                                }
-                            } catch (Exception ex) {
+                                ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
+                                brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+                                spinnerBrand.setAdapter(brand_adapter);
+                                spinnerBrand.setTitle("");
+                                spinnerBrand.setPositiveButton("OK");
+                                spinnerBrand.setEnabled(true);
+                            } else {
+                                clearBrand();
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data merk kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-
-                            ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, MERK_ITEMS);
-                            brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinnerBrand.setAdapter(brand_adapter);
-                            spinnerBrand.setTitle("");
-                            spinnerBrand.setPositiveButton("OK");
                         }
 
                         @Override
                         public void onFailure(Call<ObjekBrand> call, Throwable t) {
-                            MERK_DATA.clear();
-                            MERK_ITEMS.clear();
-
-                            MERK_DATA.put(0, "0");
-                            MERK_ITEMS.add("Tidak ada Kendaraan");
-
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-                            alertDialog.setMessage("Data tidak ditemukan.!!!");
-
-                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MERK_DATA.clear();
-                                    MERK_ITEMS.clear();
-                                    finish();
-                                    startActivity(getIntent());
-                                }
-                            });
-                            alertDialog.show();
                             progressBar.setVisibility(View.GONE);
-                        }
-                    });
-
-                    onLoad();
-                }
-            }
-                @Override
-                public void onNothingSelected (AdapterView < ? > adapterView) {
-
-            }
-        });
-
-        onLoad();
-
-    }
-
-    public void onLoad() {
-
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        TYPE_DATA.clear();
-        TYPE_ITEMS.clear();
-
-        TYPE_DATA.put(0, "0");
-        TYPE_ITEMS.add("Tipe Kendaraan");
-
-        ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
-        type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerType.setAdapter(type_adapter);
-        spinnerType.setTitle("");
-        spinnerType.setPositiveButton("OK");
-
-        spinnerType.setEnabled(false);
-
-
-        spinnerBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                spinnerType.setEnabled(false);
-                if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
-
-                    progressBar2.setVisibility(View.VISIBLE);
-
-                    Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
-                    callArea.enqueue(new Callback<ObjekModel>() {
-                        @Override
-                        public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
-
-                            TYPE_DATA.clear();
-                            TYPE_ITEMS.clear();
-
-                            TYPE_DATA.put(0, "0");
-                            TYPE_ITEMS.add("Tipe Kendaraan");
-
-                            try {
-                                if (response.body().getData().size() > 0) {
-
-                                    for (int i = 0; i < response.body().getData().size(); i++) {
-                                        TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                        TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
-                                    }
-                                    progressBar2.setVisibility(View.GONE);
-                                    spinnerType.setEnabled(true);
-                                } else {
-
-                                }
-                            } catch (Exception ex) {
-
-                            }
-
-                            ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
-                            type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinnerType.setAdapter(type_adapter);
-                            spinnerType.setTitle("");
-                            spinnerType.setPositiveButton("OK");
-                            progressBar2.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onFailure(Call<ObjekModel> call, Throwable t) {
-                            TYPE_DATA.clear();
-                            TYPE_ITEMS.clear();
-
-                            TYPE_DATA.put(0, "0");
-                            TYPE_ITEMS.add("Tipe Kendaraan");
-
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-                            alertDialog.setMessage("Data tidak ditemukan.");
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data merk kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MERK_DATA.clear();
-                                    MERK_ITEMS.clear();
                                     finish();
                                     startActivity(getIntent());
                                 }
                             });
                             alertDialog.show();
-                            progressBar2.setVisibility(View.GONE);
-
-                            spinnerType.setEnabled(false);
                         }
                     });
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        YEAR_DATA.clear();
-        YEAR_ITEMS.clear();
-
-        YEAR_DATA.put(0, "0");
-
-        YEAR_ITEMS.add("Tahun Kendaraan");
-
-        ArrayAdapter<String> year_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, YEAR_ITEMS);
-        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerYear.setAdapter(year_adapter);
-        spinnerYear.setTitle("");
-        spinnerYear.setPositiveButton("OK");
-
-        spinnerYear.setEnabled(false);
-
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
-
-                    progressBar3.setVisibility(View.VISIBLE);
-
-                    Call<TahunKendaraan> callArea = apiService.getTahunKendaraan(Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())), Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
-                    callArea.enqueue(new Callback<TahunKendaraan>() {
+                    spinnerBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onResponse(Call<TahunKendaraan> call, Response<TahunKendaraan> response) {
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            clearType();
+                            clearYear();
+                            notAvailable.setVisibility(View.GONE);
+                            data_tahun = true;
+                            if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
+                                progressBar2.setVisibility(View.VISIBLE);
+                                Call<ObjekModel> callArea = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
+                                callArea.enqueue(new Callback<ObjekModel>() {
+                                    @Override
+                                    public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
+                                        if (response.isSuccessful()) {
+                                            try {
+                                                if (response.body().getData().size() > 0) {
+                                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                                        TYPE_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                                        TYPE_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNamaObjek()));
+                                                    }
+                                                    progressBar2.setVisibility(View.GONE);
 
-                            YEAR_DATA.clear();
-                            YEAR_ITEMS.clear();
+                                                } else {
+                                                    clearType();
+                                                    progressBar2.setVisibility(View.GONE);
+                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                                    alertDialog.setTitle("Perhatian");
+                                                    alertDialog.setMessage("Data tipe kendaraan belum tersedia, silahkan coba beberapa saat lagi.");
 
-                            YEAR_DATA.put(0, "0");
-                            YEAR_ITEMS.add("Tahun Kendaraan");
+                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+                                                    alertDialog.show();
+                                                }
+                                            } catch (Exception ex) { }
 
-                            try {
-                                if (response.body().getData().size() == 0) {
-                                    YEAR_DATA.clear();
-                                    YEAR_ITEMS.clear();
+                                            ArrayAdapter<String> type_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TYPE_ITEMS);
+                                            type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                                    YEAR_DATA.put(0, "0");
-                                    YEAR_ITEMS.add("Tahun kendaraan tidak tersedia");
-                                    spinnerYear.setEnabled(false);
-                                    next.setEnabled(false);
-                                    next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorBackground));
-                                } else if (response.body().getData().size() > 0) {
-                                    for (int i = 0; i < response.body().getData().size(); i++) {
-                                        YEAR_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                        YEAR_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getTahun()));
+                                            spinnerType.setAdapter(type_adapter);
+                                            spinnerType.setTitle("");
+                                            spinnerType.setPositiveButton("OK");
+                                            spinnerType.setEnabled(true);
+                                        } else {
+                                            clearType();
+                                            progressBar2.setVisibility(View.GONE);
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                            alertDialog.setTitle("Perhatian");
+                                            alertDialog.setMessage("Data tipe kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        }
                                     }
-                                    progressBar3.setVisibility(View.GONE);
-                                    spinnerYear.setEnabled(true);
-                                    next.setEnabled(true);
-                                    next.setBackgroundTintList(ContextCompat.getColorStateList(NewColleteralActivity.this, R.color.colorAccentDark2));
-                                } else {
 
-                                }
-                            } catch (Exception ex) {
+                                    @Override
+                                    public void onFailure(Call<ObjekModel> call, Throwable t) {
+                                        clearType();
+                                        progressBar2.setVisibility(View.GONE);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data tipe kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                });
+
+                                spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        clearYear();
+                                        notAvailable.setVisibility(View.GONE);
+                                        data_tahun = true;
+                                        if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
+                                            progressBar3.setVisibility(View.VISIBLE);
+                                            Call<TahunKendaraan> callArea = apiService.getTahunKendaraan(Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())), Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
+                                            callArea.enqueue(new Callback<TahunKendaraan>() {
+                                                @Override
+                                                public void onResponse(Call<TahunKendaraan> call, Response<TahunKendaraan> response) {
+                                                    if (response.isSuccessful()) {
+                                                        try {
+                                                            if (response.body().getData().size() == 0) {
+                                                                data_tahun = false;
+                                                                clearYear();
+                                                                notAvailable.setVisibility(View.VISIBLE);
+                                                                spinnerYear.setEnabled(false);
+                                                            } else if (response.body().getData().size() > 0) {
+                                                                data_tahun = true;
+                                                                for (int i = 0; i < response.body().getData().size(); i++) {
+                                                                    YEAR_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                                                    YEAR_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getTahun()));
+                                                                }
+                                                                progressBar3.setVisibility(View.GONE);
+                                                                notAvailable.setVisibility(View.GONE);
+                                                                spinnerYear.setEnabled(true);
+                                                            } else {
+                                                                clearYear();
+                                                                progressBar3.setVisibility(View.GONE);
+                                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                                                alertDialog.setTitle("Perhatian");
+                                                                alertDialog.setMessage("Data tahun kendaraan belum tersedia, silahkan coba beberapa saat lagi.");
+
+                                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                        finish();
+                                                                        startActivity(getIntent());
+                                                                    }
+                                                                });
+                                                                alertDialog.show();
+                                                            }
+                                                        } catch (Exception ex) { }
+
+                                                        ArrayAdapter<String> year_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, YEAR_ITEMS);
+                                                        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                        spinnerYear.setAdapter(year_adapter);
+                                                        spinnerYear.setTitle("");
+                                                        spinnerYear.setPositiveButton("OK");
+                                                        progressBar3.setVisibility(View.GONE);
+                                                    } else {
+                                                        clearYear();
+                                                        progressBar3.setVisibility(View.GONE);
+                                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                                        alertDialog.setTitle("Perhatian");
+                                                        alertDialog.setMessage("Data tahun kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                finish();
+                                                                startActivity(getIntent());
+                                                            }
+                                                        });
+                                                        alertDialog.show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<TahunKendaraan> call, Throwable t) {
+                                                    clearYear();
+                                                    progressBar3.setVisibility(View.GONE);
+                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+                                                    alertDialog.setTitle("Perhatian");
+                                                    alertDialog.setMessage("Data tahun kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+                                                    alertDialog.show();
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
                             }
-
-                            ArrayAdapter<String> year_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, YEAR_ITEMS);
-                            year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerYear.setAdapter(year_adapter);
-                            spinnerYear.setTitle("");
-                            spinnerYear.setPositiveButton("OK");
-                            progressBar3.setVisibility(View.GONE);
-
                         }
 
                         @Override
-                        public void onFailure(Call<TahunKendaraan> call, Throwable t) {
-                            YEAR_DATA.clear();
-                            YEAR_ITEMS.clear();
+                        public void onNothingSelected(AdapterView<?> adapterView) {
 
-                            YEAR_DATA.put(0, "0");
-                            YEAR_ITEMS.add("Tahun Kendaraan");
-
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-                            alertDialog.setMessage("Data tidak ditemukan.");
-
-                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    YEAR_DATA.clear();
-                                    YEAR_ITEMS.clear();
-                                    finish();
-                                    startActivity(getIntent());
-                                }
-                            });
-                            alertDialog.show();
-                            progressBar3.setVisibility(View.GONE);
-
-                            spinnerYear.setEnabled(false);
                         }
                     });
                 }
@@ -479,26 +522,79 @@ public class NewColleteralActivity extends AppCompatActivity {
     public void onViewClicked() {
         try {
             area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
-            tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
-            model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
-            type_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
-        } catch (Exception ex) {
+            text_area = AREA_ITEMS.get(spinnerArea.getSelectedItemPosition());
+            text_merk = MERK_ITEMS.get(spinnerBrand.getSelectedItemPosition());
+            text_tipe = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
+        } catch (Exception ex) { }
 
+        if (!data_tahun) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            alertDialog.setTitle("Hubungi Tasya");
+            alertDialog.setMessage("Silahkan hubungi tasya melalui WhatsApp untuk menindak lanjuti pengajuan");
+            alertDialog.setIcon(R.drawable.ic_whatsapp_icon);
+
+            alertDialog.setPositiveButton("Hubungi", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (area_id.equals("9")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("10")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("11")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("12")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("13")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("14")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("15")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("16")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("17")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_tipe + "\n\nMengapa belum tersedia?"));
+                        startActivity(browserIntent);
+                    }
+                }
+            });
+            alertDialog.show();
+        } else {
+            try {
+                area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
+                tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
+                model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
+                type_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
+            } catch (Exception ex) { }
+
+            if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
+                Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
+                intent.putExtra("tipe_objek_id", tipe_objek_id);
+                intent.putExtra("area_id", area_id);
+                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                intent.putExtra("objek_model_id", type_id);
+                startActivity(intent);
+            }
         }
+    }
 
-        if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
-            Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
-            intent.putExtra("tipe_objek_id", tipe_objek_id);
-            intent.putExtra("area_id", area_id);
-            intent.putExtra("tahun_kendaraan", tahun_kendaraan);
-            intent.putExtra("objek_model_id", type_id);
-            startActivity(intent);
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
     private boolean validateForm(String area_id, String tahun_kendaraan, String model_id, String type_id) {
         if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih Area Domisili");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -514,6 +610,7 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         if (model_id == null || model_id.trim().length() == 0 || model_id.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih Merk Kendaraan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -529,6 +626,7 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         if (type_id == null || type_id.trim().length() == 0 || type_id.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih Tipe Kendaraan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -544,6 +642,7 @@ public class NewColleteralActivity extends AppCompatActivity {
 
         if (tahun_kendaraan == null || tahun_kendaraan.trim().length() == 0 || tahun_kendaraan.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih Tahun Kendaraaan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -558,11 +657,5 @@ public class NewColleteralActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    public void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
     }
 }
