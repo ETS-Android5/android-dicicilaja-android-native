@@ -167,6 +167,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerBrand.setAdapter(brand_adapter);
         spinnerBrand.setTitle("");
         spinnerBrand.setPositiveButton("OK");
+        spinnerBrand.setEnabled(false);
     }
 
     private void clearType() {
@@ -179,6 +180,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerType.setAdapter(type_adapter);
         spinnerType.setTitle("");
         spinnerType.setPositiveButton("OK");
+        spinnerType.setEnabled(false);
     }
 
     private void clearYear() {
@@ -191,6 +193,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         spinnerYear.setAdapter(year_adapter);
         spinnerYear.setTitle("");
         spinnerYear.setPositiveButton("OK");
+        spinnerYear.setEnabled(false);
     }
 
     private void initDummyData() {

@@ -48,7 +48,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
     TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan;
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
 
-    String s_area, s_jaminan, s_tenor, s_harga, s_merk;
+    String s_area, s_jaminan, s_tenor, s_harga, s_merk, s_tahun;
     SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +132,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                         spinnerJaminan.setSelection(Integer.parseInt(s_jaminan));
 
                     }
-                }catch (Exception ex) {
-
-                }
+                }catch (Exception ex) { }
             }
 
             @Override
@@ -169,12 +167,48 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                     TAHUN_MOBIL_ITEMS.add("2016");
                     TAHUN_MOBIL_ITEMS.add("2017");
                     TAHUN_MOBIL_ITEMS.add("2018");
+                    TAHUN_MOBIL_ITEMS.add("2019");
                     ArrayAdapter<String> tahun_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TAHUN_MOBIL_ITEMS);
                     tahun_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                     spinnerTahun.setEnabled(true);
                     spinnerTahun = findViewById(R.id.spinnerTahun);
                     spinnerTahun.setAdapter(tahun_adapter);
+
+                    try {
+                        s_tahun = getIntent().getStringExtra("text_year");
+                        if(s_tahun != null) {
+                            if (s_tahun.equals("2006")) {
+                                spinnerTahun.setSelection(1);
+                            } else if (s_tahun.equals("2007")) {
+                                spinnerTahun.setSelection(2);
+                            } else if (s_tahun.equals("2008")) {
+                                spinnerTahun.setSelection(3);
+                            } else if (s_tahun.equals("2009")) {
+                                spinnerTahun.setSelection(4);
+                            } else if (s_tahun.equals("2010")) {
+                                spinnerTahun.setSelection(5);
+                            } else if (s_tahun.equals("2011")) {
+                                spinnerTahun.setSelection(6);
+                            } else if (s_tahun.equals("2012")) {
+                                spinnerTahun.setSelection(7);
+                            } else if (s_tahun.equals("2013")) {
+                                spinnerTahun.setSelection(8);
+                            } else if (s_tahun.equals("2014")) {
+                                spinnerTahun.setSelection(9);
+                            } else if (s_tahun.equals("2015")) {
+                                spinnerTahun.setSelection(10);
+                            } else if (s_tahun.equals("2016")) {
+                                spinnerTahun.setSelection(11);
+                            } else if (s_tahun.equals("2017")) {
+                                spinnerTahun.setSelection(12);
+                            } else if (s_tahun.equals("2018")) {
+                                spinnerTahun.setSelection(13);
+                            } else if (s_tahun.equals("2019")) {
+                                spinnerTahun.setSelection(14);
+                            }
+                        }
+                    }catch (Exception ex) { }
                 } else if (spinnerJaminan.getSelectedItemPosition() == 2) {
                     TAHUN_MOTOR_ITEMS.clear();
                     TAHUN_MOTOR_ITEMS.add("2011");
@@ -185,15 +219,40 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                     TAHUN_MOTOR_ITEMS.add("2016");
                     TAHUN_MOTOR_ITEMS.add("2017");
                     TAHUN_MOTOR_ITEMS.add("2018");
+                    TAHUN_MOTOR_ITEMS.add("2019");
                     ArrayAdapter<String> tahun_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TAHUN_MOTOR_ITEMS);
                     tahun_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                     spinnerTahun.setEnabled(true);
                     spinnerTahun.setAdapter(tahun_adapter);
+
+                    try {
+                        s_tahun = getIntent().getStringExtra("text_year");
+                        if(s_tahun != null) {
+                            if (s_tahun.equals("2011")) {
+                                spinnerTahun.setSelection(1);
+                            } else if (s_tahun.equals("2012")) {
+                                spinnerTahun.setSelection(2);
+                            } else if (s_tahun.equals("2013")) {
+                                spinnerTahun.setSelection(3);
+                            } else if (s_tahun.equals("2014")) {
+                                spinnerTahun.setSelection(4);
+                            } else if (s_tahun.equals("2015")) {
+                                spinnerTahun.setSelection(5);
+                            } else if (s_tahun.equals("2016")) {
+                                spinnerTahun.setSelection(6);
+                            } else if (s_tahun.equals("2017")) {
+                                spinnerTahun.setSelection(7);
+                            } else if (s_tahun.equals("2018")) {
+                                spinnerTahun.setSelection(8);
+                            } else if (s_tahun.equals("2019")) {
+                                spinnerTahun.setSelection(9);
+                            }
+                        }
+                    }catch (Exception ex) { }
                 } else {
                     spinnerTahun.setEnabled(false);
                 }
-
             }
 
             @Override
@@ -228,6 +287,21 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTenor.setAdapter(tenor_adapter);
 
+        try {
+            s_tenor = getIntent().getStringExtra("text_tenor");
+            if(s_tenor != null) {
+                if (s_tenor.equals("12")) {
+                    spinnerTenor.setSelection(1);
+                } else if (s_tenor.equals("24")) {
+                    spinnerTenor.setSelection(3);
+                } else if (s_tenor.equals("36")) {
+                    spinnerTenor.setSelection(5);
+                } else if (s_tenor.equals("48")) {
+                    spinnerTenor.setSelection(7);
+                }
+            }
+        }catch (Exception ex) { }
+
 
         //InterfaceCreateOrder apiServiceArea =
         //RetrofitClient.getClient().create(InterfaceCreateOrder.class);
@@ -253,16 +327,26 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
                 spinnerArea.setAdapter(area_adapter);
                 spinnerCabang.setEnabled(false);
                 try {
-                    s_tenor = getIntent().getStringExtra("spinner_tenor");
-                    s_area = getIntent().getStringExtra("spinner_area");
-                    if(s_tenor != null && s_area != null){
-                        spinnerTenor.setSelection(Integer.parseInt(s_tenor));
-                        spinnerArea.setSelection(Integer.parseInt(s_area));
+                    s_area = getIntent().getStringExtra("text_area");
+                    if(s_area != null) {
+                        if (s_area.equals("Jabodetabekser")) {
+                            spinnerArea.setSelection(1);
+                        } else if (s_area.equals("Jawa Barat")) {
+                            spinnerArea.setSelection(2);
+                        } else if (s_area.equals("Jawa Tengah")) {
+                            spinnerArea.setSelection(3);
+                        } else if (s_area.equals("Jawa Timur")) {
+                            spinnerArea.setSelection(4);
+                        } else if (s_area.equals("Bali & Nusa Tenggara")) {
+                            spinnerArea.setSelection(5);
+                        } else if (s_area.equals("Sumbagut")) {
+                        } else if (s_area.equals("Sumbagsel")) {
+                        } else if (s_area.equals("Kalimantan")) {
+                            spinnerArea.setSelection(7);
+                        } else if (s_area.equals("Sulampapua")) {
+                        }
                     }
-
-                }catch (Exception ex) {
-
-                }
+                }catch (Exception ex) { }
             }
 
             @Override

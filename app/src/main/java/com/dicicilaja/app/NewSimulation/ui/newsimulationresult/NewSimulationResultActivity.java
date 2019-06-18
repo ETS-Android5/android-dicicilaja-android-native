@@ -3,11 +3,11 @@ package com.dicicilaja.app.NewSimulation.ui.newsimulationresult;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +24,6 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.call_tasya)
-    TextView callTasya;
     @BindView(R.id.total)
     TextView total;
     @BindView(R.id.tenor)
@@ -56,6 +54,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     String spinner_jaminan, text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
     @BindView(R.id.asuransi_card)
     LinearLayout asuransiCard;
+    @BindView(R.id.call_tasya)
+    FrameLayout callTasya;
 
 
     @Override
@@ -122,36 +122,39 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.call_tasya:
                 if (area_id.equals("9")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("10")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("11")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("12")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("13")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("14")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("15")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("16")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 } else if (area_id.equals("17")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20Tasya%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan&source=&data="));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
                     startActivity(browserIntent);
                 }
                 break;
             case R.id.next:
                 Intent intent2 = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
+                intent2.putExtra("text_tenor", String.valueOf(text_tenor));
+                intent2.putExtra("text_year", String.valueOf(text_year));
+                intent2.putExtra("text_area", String.valueOf(text_area));
                 intent2.putExtra("text_harga", String.valueOf(text_total));
                 intent2.putExtra("text_merk", text_merk + " " + text_type);
                 intent2.putExtra("spinner_jaminan", spinner_jaminan);
@@ -192,4 +195,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.call_tasya)
+    public void onViewClicked() {
+    }
 }

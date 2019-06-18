@@ -135,6 +135,18 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <TextView
+                            android:id="@+id/not_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:text="*Tahun kendaraan belum tersedia"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark"
+                            android:layout_marginTop="5dp"
+                            android:textSize="13sp"/>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layoutTenor"
                             android:layout_width="match_parent"
@@ -160,6 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
                             android:text="Selanjutnya"
+                            android:fontFamily="@font/open_sans_bold"
                             android:backgroundTint="@color/colorAccentDark2"
                             android:textColor="@color/colorWhite"
                             android:layout_marginLeft="4dp"
@@ -201,6 +214,16 @@
             style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"

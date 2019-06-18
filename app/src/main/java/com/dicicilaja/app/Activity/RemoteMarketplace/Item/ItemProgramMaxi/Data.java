@@ -23,6 +23,9 @@ public class Data {
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
+    @SerializedName("link")
+    @Expose
+    private String link;
 
     public Integer getId() {
         return id;
@@ -64,4 +67,11 @@ public class Data {
         this.imageUrl = imageUrl;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

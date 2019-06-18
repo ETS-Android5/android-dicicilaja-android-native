@@ -173,6 +173,7 @@
                             android:text="Hitung Simulasi"
                             android:backgroundTint="@color/colorAccentDark2"
                             android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
                             android:layout_marginTop="32dp"/>

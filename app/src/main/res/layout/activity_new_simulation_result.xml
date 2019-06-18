@@ -48,18 +48,6 @@
                         android:layout_marginRight="16dp"
                         android:text="Hasil Simulasi"
                         android:textSize="16dp"
-                        android:fontFamily="@font/open_sans_semibold"/>
-                    <TextView
-                        android:id="@+id/call_tasya"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="Hubungi Tasya"
-                        android:textColor="@color/colorAccentDark2"
-                        android:textSize="15sp"
                         android:fontFamily="@font/open_sans_bold"/>
                 </RelativeLayout>
 
@@ -371,11 +359,6 @@
                             android:fontFamily="@font/open_sans_bold"/>
                     </RelativeLayout>
 
-
-
-
-
-
                 </LinearLayout>
                 <Button
                     android:id="@+id/next"
@@ -384,8 +367,35 @@
                     android:text="Ajukan Pinjaman"
                     android:backgroundTint="@color/colorAccentDark2"
                     android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/open_sans_bold"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"/>
+
+                <FrameLayout
+                    android:id="@+id/call_tasya"
+                    style="?attr/buttonStyle"
+                    android:layout_width="match_parent"
+                    android:backgroundTint="@color/colorWhite"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_height="53dp" >
+
+                    <TextView
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:drawablePadding="7dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textColor="#5A5A5A"
+                        android:drawableLeft="@drawable/ic_whatsapp_icon"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:text="Hubungi Tasya" />
+                </FrameLayout>
                 <TextView
                     android:id="@+id/simulation"
                     android:layout_width="wrap_content"
