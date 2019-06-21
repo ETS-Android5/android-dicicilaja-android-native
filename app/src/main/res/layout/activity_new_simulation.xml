@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context=".NewSimulation.ui.newsimulation.NewSimulationActivity">
+    tools:context=".NewSimulation.UI.NewSimulation.NewSimulationActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,13 +20,13 @@
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
         <RelativeLayout
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Rincian hasil simulasi bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan lebih detail, hubungi support kami"
+                android:text="@string/copy_simulation_result"
                 android:layout_gravity="center"
                 android:textSize="11dp"
                 android:textAlignment="center"

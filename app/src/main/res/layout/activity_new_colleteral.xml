@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewSimulation.ui.newcolleteral.NewColleteralActivity">
+    tools:context=".NewSimulation.UI.NewColleteral.NewColleteralActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,21 +19,23 @@
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <RelativeLayout
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -41,6 +43,7 @@
                     android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     android:background="@color/colorPrimary">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,6 +53,7 @@
                         android:text="Informasi Kendaraan"
                         android:textSize="16sp"
                         android:fontFamily="@font/open_sans_bold"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -67,15 +71,22 @@
                             android:layout_marginRight="9dp"
                             android:background="@drawable/border_bottom">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Area Domisili"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="16dp"
+                                android:textSize="12sp"/>
+
                             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerArea"
                                 android:layout_width="match_parent"
                                 android:imeOptions="actionNext"
                                 android:nextFocusDown="@+id/spinnerBrand"
                                 android:textSize="14sp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="24dp"/>
-
+                                android:layout_height="40dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -86,15 +97,22 @@
                             android:layout_marginRight="9dp"
                             android:background="@drawable/border_bottom">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Merk Kendaraan"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="20dp"
+                                android:textSize="12sp"/>
+
                             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerBrand"
                                 android:layout_width="match_parent"
                                 android:imeOptions="actionNext"
                                 android:nextFocusDown="@+id/spinnerType"
                                 android:textSize="14sp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="24dp"/>
-
+                                android:layout_height="40dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -105,15 +123,22 @@
                             android:layout_marginRight="9dp"
                             android:background="@drawable/border_bottom">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tipe Kendaraan"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="20dp"
+                                android:textSize="12sp"/>
+
                             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerType"
                                 android:layout_width="match_parent"
                                 android:imeOptions="actionNext"
-                                android:nextFocusDown="@+id/spinnerType"
+                                android:nextFocusDown="@+id/spinnerYear"
                                 android:textSize="14sp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="24dp"/>
-
+                                android:layout_height="40dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -124,16 +149,23 @@
                             android:layout_marginRight="9dp"
                             android:background="@drawable/border_bottom">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tahun Kendaraan"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="20dp"
+                                android:textSize="12sp"/>
+
                             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerYear"
                                 android:layout_width="match_parent"
-                                android:imeOptions="actionNext"
-                                android:nextFocusDown="@+id/spinnerType"
+                                android:imeOptions="actionDone"
                                 android:textSize="14sp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="24dp"/>
-
+                                android:layout_height="40dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <TextView
                             android:id="@+id/not_available"
                             android:layout_width="match_parent"
@@ -162,6 +194,18 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"
             android:layout_width="match_parent"
@@ -172,6 +216,7 @@
             android:layout_alignParentTop="true"
             app:mpb_showProgressBackground="false"
             style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar2"
             android:layout_width="match_parent"
@@ -182,6 +227,7 @@
             android:layout_alignParentTop="true"
             app:mpb_showProgressBackground="false"
             style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar3"
             android:layout_width="match_parent"
@@ -192,7 +238,5 @@
             android:layout_alignParentTop="true"
             app:mpb_showProgressBackground="false"
             style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
-
     </RelativeLayout>
-
 </LinearLayout>

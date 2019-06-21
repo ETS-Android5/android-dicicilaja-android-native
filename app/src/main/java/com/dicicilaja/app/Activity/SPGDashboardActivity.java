@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AlertDialog;

@@ -229,4 +229,5 @@
     <string name="pinjaman_2"><b>Area</b>, merupakan area domisili dari calon peminjam sekarang.</string>
     <string name="pinjaman_3"><b>Jenis Angsuran</b>, merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran yaitu ADDM dan ADDB</string>
     <string name="pinjaman_4"><b>Tipe Asuransi</b>, merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2 yaitu Compare (all risk) dan TLO</string>
+    <string name="copy_simulation_result">Rincian hasil simulasi bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan lebih detail dan <b>urusan lainnya</b>, hubungi support <b>(Tasya)</b> Kami.</string>
 </resources>

@@ -15,28 +15,29 @@
         android:roundIcon="@drawable/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".NewSimulation.ui.bantuan.TipeAsuransiActivity" />
-        <activity android:name=".NewSimulation.ui.bantuan.JenisAngsuranActivity" />
-        <activity android:name=".NewSimulation.ui.motorcolleteral.MotorColleteralActivity" />
-        <activity android:name=".NewSimulation.ui.bantuan.BantuanNewSimulationActivity" />
-        <activity android:name=".NewSimulation.ui.newsimulationresult.NewSimulationResultActivity" />
-        <activity android:name=".NewSimulation.ui.newloan.NewLoanActivity" />
-        <activity android:name=".NewSimulation.ui.newcolleteral.NewColleteralActivity" />
-        <activity android:name=".NewSimulation.ui.newsimulation.NewSimulationActivity">
-
-        </activity>
-        <activity
-            android:name=".Activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity"></activity>
+        <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BranchOffice.UI.CityBranchOffice.Activity.CityBranchOfficeActivity" />
+        <activity android:name=".NewSimulation.UI.BantuanNewSimulation.TipeAsuransiActivity" />
+        <activity android:name=".NewSimulation.UI.BantuanNewSimulation.JenisAngsuranActivity" />
+        <activity android:name=".NewSimulation.UI.MotorColleteral.MotorColleteralActivity" />
+        <activity android:name=".NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity" />
+        <activity android:name=".NewSimulation.UI.NewSimulationResult.NewSimulationResultActivity" />
+        <activity android:name=".NewSimulation.UI.NewLoan.NewLoanActivity" />
+        <activity android:name=".NewSimulation.UI.NewColleteral.NewColleteralActivity" />
+        <activity android:name=".NewSimulation.UI.NewSimulation.NewSimulationActivity" />
+        <activity
+            android:name=".Activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"

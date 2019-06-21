@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;

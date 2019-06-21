@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewSimulation.ui.newsimulationresult.NewSimulationResultActivity">
+    tools:context=".NewSimulation.UI.NewSimulationResult.NewSimulationResultActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Pencairan"
+                        android:text="Maksimal Pinjaman"
                         android:textSize="13sp"
                         android:fontFamily="@font/open_sans_semibold"/>
 
@@ -412,7 +413,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Rincian hasil simulasi bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan lebih detail, hubungi support kami"
+                    android:text="@string/copy_simulation_result"
                     android:layout_gravity="center"
                     android:textSize="11dp"
                     android:textAlignment="center"

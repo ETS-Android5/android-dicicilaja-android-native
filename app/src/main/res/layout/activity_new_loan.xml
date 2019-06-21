@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewSimulation.ui.newloan.NewLoanActivity">
+    tools:context=".NewSimulation.UI.NewLoan.NewLoanActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,21 +65,30 @@
                             android:layout_marginRight="9dp"
                             android:background="@drawable/border_bottom">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tenor Pinjaman"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="16dp"
+                                android:textSize="12sp"/>
+
                             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                 android:id="@+id/spinnerTenor"
                                 android:layout_width="match_parent"
                                 android:imeOptions="actionNext"
                                 android:nextFocusDown="@+id/spinnerType"
                                 android:textSize="14sp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="24dp"/>
+                                android:layout_height="40dp"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
 
                             <RelativeLayout
                                 android:id="@+id/icon_help1"
@@ -109,14 +118,21 @@
                                 android:layout_marginRight="9dp"
                                 android:background="@drawable/border_bottom">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Jenis Angsuran"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textColor="#FFB8B8B8"
+                                    android:textSize="12sp"/>
+
                                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/spinnerInstallment"
                                     android:layout_width="match_parent"
                                     android:imeOptions="actionNext"
                                     android:nextFocusDown="@+id/spinnerType"
                                     android:textSize="14sp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="24dp"/>
+                                    android:layout_height="40dp"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +140,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
                             <RelativeLayout
                                 android:id="@+id/icon_help2"
                                 android:layout_width="wrap_content"
@@ -132,6 +149,7 @@
                                 android:layout_alignParentRight="true"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:clickable="true"
+                                android:layout_centerVertical="true"
                                 android:padding="10dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginRight="10dp">
@@ -153,14 +171,21 @@
                                 android:layout_marginRight="9dp"
                                 android:background="@drawable/border_bottom">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Tipe Asuransi"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textColor="#FFB8B8B8"
+                                    android:textSize="12sp"/>
+
                                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                                     android:id="@+id/spinnerInsurance"
                                     android:layout_width="match_parent"
                                     android:imeOptions="actionNext"
                                     android:nextFocusDown="@+id/spinnerType"
                                     android:textSize="14sp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="24dp"/>
+                                    android:layout_height="40dp"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,7 +201,8 @@
                             android:fontFamily="@font/open_sans_bold"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
-                            android:layout_marginTop="32dp"/>
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="5dp"/>
                     </LinearLayout>
 
                 </LinearLayout>

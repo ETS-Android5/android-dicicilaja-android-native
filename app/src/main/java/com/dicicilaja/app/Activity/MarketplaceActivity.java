@@ -3,7 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import com.dicicilaja.app.NewSimulation.ui.newsimulation.NewSimulationActivity;
+import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
