@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="Jaminan dibutuhkan pada saat akan mengajukan peminjaman. Jaminan ini dapat berupa barang otomotif (Mobil dan sepeda motor), Barang elektronik, Device atau Gadget, serta emas. Dalam jaminan terdapat istilah-istilah diantaranya"
+                android:text="Jaminan dibutuhkan pada saat akan mengajukan peminjaman. Jaminan ini dapat berupa barang otomotif (Mobil dan sepeda motor). Dalam jaminan terdapat istilah-istilah diantaranya"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/open_sans"/>
 
@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran"
+                android:text="Merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/open_sans"/>
 
@@ -217,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="ADDM, merupakan …"
+                    android:text="@string/angsuran_1"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/open_sans"/>
 
@@ -225,7 +225,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="ADDB, merupakan …"
+                    android:text="@string/angsuran_2"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/angsuran_3"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/open_sans"/>
 
@@ -243,7 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2"
+                android:text="Merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2:"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/open_sans"/>
 
@@ -259,7 +267,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="Compare (All-risk), merupakan …"
+                    android:text="@string/asuransi_1"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/open_sans"/>
 
@@ -267,9 +275,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="TLO, merupakan …"
+                    android:text="@string/asuransi_2"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/open_sans"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="• Tsunami dan gempa bumi"
+                        android:fontFamily="@font/open_sans"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="• Banjir"
+                        android:fontFamily="@font/open_sans"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="• Kerusuhan"
+                        android:fontFamily="@font/open_sans"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="• Terorisme dan sabotase"
+                        android:fontFamily="@font/open_sans"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -291,15 +337,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="Hasil simulasi merupakan sebuah gambaran kasar besarnya pinjaman yang akan diperoleh calon peminjam berdasarkan opsi-opsi yang sudah calon peminjam isi sebelumnya (Jaminan, Pinjaman)."
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/open_sans"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Calon peminjam bisa langsung ajukan pinjamannya dengan meng-click button “Ajukan Sekarang” yang nantinya akan diarahkan dan diproses oleh pihak Dicicilaja."
+                android:text="Hasil simulasi merupakan sebuah gambaran kasar besarnya pinjaman yang akan diperoleh calon peminjam berdasarkan opsi-opsi yang sudah calon peminjam isi sebelumnya (Jaminan, Pinjaman). Calon peminjam bisa langsung ajukan pinjamannya dengan meng-click button “Ajukan Sekarang” yang nantinya akan diarahkan dan diproses oleh pihak Dicicilaja."
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/open_sans"/>
 
@@ -313,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="Apabila ada pertanyaan lebih lanjut seputar simulasi pinjaman, calon peminjam bisa langsung Hubungi Tasya (tanya saya), Dicicil aja support team."
+                android:text="Apabila ada pertanyaan lebih lanjut seputar simulasi pinjaman, calon peminjam bisa langsung menghubungi Tasya (tanya saya), Dicicil aja support team (link)"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"/>
 

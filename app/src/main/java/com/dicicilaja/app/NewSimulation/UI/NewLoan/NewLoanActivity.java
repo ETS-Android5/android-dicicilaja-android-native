@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
-import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.JenisAngsuranActivity;

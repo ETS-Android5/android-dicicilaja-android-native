@@ -221,13 +221,23 @@
     <string name="tipe_asuransi">
         \n<b>TLO</b>\n\nTotal Loss Only (TLO) adalah klaim asuransi yang dapat diajukan apabila terjadi ‘kehilangan total’ ketika kerusakan yang terjadi di atas 75% atau kehilangan pencurian ataupun karena perampasan. Bila kerusakan yang dialami kurang dari itu, Anda tidak akan mendapatkan ganti rugi atas kerusakan. Patokan 75% diambil karena mobil dipastikan tidak dapat digunakan lagi.
         \n\n<b>All Risk</b>\n\nAll Risk dapat diartikan menjadi ‘segala risiko’. Asuransi ini disebut juga Comprehensive atau keseluruhan. Ini berarti asuransi akan membayar klaim untuk segala jenis kerusakan, mulai dari kerusakan ringan, rusak berat, hingga kehilangan. Berbeda dengan TLO, lecet sedikit saja pada mobil, asuransi akan membayarkan klaim asuransi. Hanya saja asuransi mobil All Risk pembiayaannya lebih mahal daripada TLO.</string>
-    <string name="jaminan_1"><b>Merk Jaminan</b>, bagi jaminan yang memiliki merk dagang (contoh : mobil, motor elektronik, etc), harap mencantumkan merk jaminan yang sesuai yang sudah disediakan oleh pihak Dicicilaja.</string>
+    <string name="jaminan_1"><b>Merk Jaminan</b>, bagi jaminan yang memiliki merk dagang (contoh : mobil dan motor), harap mencantumkan merk jaminan yang sesuai yang sudah disediakan oleh pihak Dicicilaja.</string>
     <string name="jaminan_2"><b>Type Jaminan</b>, merupakan turunan dari merk jaminan (contoh : Avanza, Brio, Scoopy, Samsung).</string>
     <string name="jaminan_3"><b>Tahun Jaminan</b>, merupakan usia dari jaminan itu sendiri yang diproleh dari tahun produksi jaminan tersebut.</string>
     <string name="jaminan_4"><b>Berat Jaminan (khusus emas)</b>, merupakan berat total dari jaminan tersebut.</string>
     <string name="pinjaman_1"><b>Tenor</b>, merupakan durasi pembayaran. Pihak dicicilaja menyediakan tenor 12 - 60 Bulan sesuai dari jaminan yang diajukan.</string>
     <string name="pinjaman_2"><b>Area</b>, merupakan area domisili dari calon peminjam sekarang.</string>
+<<<<<<< HEAD
     <string name="pinjaman_3"><b>Jenis Angsuran</b>, merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran yaitu ADDM dan ADDB</string>
     <string name="pinjaman_4"><b>Tipe Asuransi</b>, merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2 yaitu Compare (all risk) dan TLO</string>
     <string name="copy_simulation_result">Rincian hasil simulasi bersifat tidak mengikat dan dapat berubah sewaktu-waktu mengikuti kebijakan yang berlaku. Untuk perhitungan lebih detail dan <b>urusan lainnya</b>, hubungi support <b>(Tasya)</b> Kami.</string>
+=======
+    <string name="pinjaman_3"><b>Jenis Angsuran</b>, merupakan type pembayaran, dimana pihak Dicicilaja menyediakan dua jenis Angsuran.</string>
+    <string name="pinjaman_4"><b>Tipe Asuransi</b>, merupakan asuransi jaminan yang dapat dipilih oleh calon peminjam, tipe asuransi ini dibagi menjadi 2.</string>
+    <string name="angsuran_2"><b>ADDB</b>, merupakan Angsuran dibayarkan di Belakang yang artinya adalah TDP akan sedikit lebih ringan, dengan tenor pinjaman tetap</string>
+    <string name="angsuran_1"><b>ADDM</b>, merupakan Angsuran dibayarkan di Muka yang artinya adalah Angsuran pertama yang dibayarkan bersamaan dengan DP (Down Payment)</string>
+    <string name="angsuran_3"><b>TDP</b>, merupakan biaya yang harus dibayarkan di awal sebagai tanda jadi pembelian</string>
+    <string name="asuransi_1"><b>Compare (All-risk)</b>, merupakan ganti rugi oleh perusahaan asuransi atas kerugian sebagian atau keseluruhan mobil akibat kejatuhan benda, kebakaran, perbuatan jahat, pencurian, perampasan, tabrakan, benturan atau kecelakaan lalu lintas lainnya.</string>
+    <string name="asuransi_2"><b>TLO</b>, merupakan ganti rugi yang <b>HANYA</b> akan diberikan perusahaan jika mobil mengalami kerusakan total atau di atas 75%. Selain kedua jenis di atas, Anda juga perlu mengetahui adanya ‘perluasan’. Perluasan adalah penambahan cakupan perlindungan. Perluasan mencakup:</string>
+>>>>>>> 4f14102ab008f5c1736b526775c9a58e24ae12e7
 </resources>
