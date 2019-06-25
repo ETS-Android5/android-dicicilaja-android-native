@@ -51,7 +51,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
     String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id;
 
-    String spinner_jaminan, text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
+    String spinner_jaminan, text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
     @BindView(R.id.asuransi_card)
     LinearLayout asuransiCard;
     @BindView(R.id.call_tasya)
@@ -87,6 +87,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
             text_type = getIntent().getStringExtra("text_type");
             text_year = getIntent().getStringExtra("text_year");
             text_insurance = getIntent().getStringExtra("text_insurance");
+            text_angsuran_baru = getIntent().getStringExtra("text_angsuran_baru");
             text_area = getIntent().getStringExtra("text_area");
             area_id = getIntent().getStringExtra("area_id");
         } catch (Exception ex) {
@@ -121,33 +122,64 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
-                if (area_id.equals("9")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("10")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("11")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("12")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("13")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("14")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("15")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("16")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
-                } else if (area_id.equals("17")) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year));
-                    startActivity(browserIntent);
+                if(text_colleteral.equals("Mobil")) {
+                    if (area_id.equals("9")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("10")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("11")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("12")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("13")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("14")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("15")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("16")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("17")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    }
+                } else if (text_colleteral.equals("Motor")) {
+                    if (area_id.equals("9")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("10")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("11")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281617368163&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("12")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6287720837284&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("13")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628998402718&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("14")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282115555976&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("15")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6282126042793&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("16")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6289652431443&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"));
+                        startActivity(browserIntent);
+                    } else if (area_id.equals("17")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20simulasi%20cicilan\n\nArea : " + text_area + "\nMerk Kendaraan : " + text_merk + "\nTipe Kendaraan : " + text_type + "\nTahun Kendaraan : " + text_year  + "\nTenor Pinjaman : " + text_tenor + " Bulan"  + "\nJenis Angsuran : " + text_angsuran_baru  + "\nTipe Asuransi : " + text_insurance));
+                        startActivity(browserIntent);
+                    }
                 }
                 break;
             case R.id.next:

@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
+import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.JenisAngsuranActivity;
@@ -36,7 +37,7 @@ public class NewLoanActivity extends AppCompatActivity {
 
     String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
 
-    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area;
+    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
 
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
@@ -200,6 +201,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                     text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
                                     text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
                                     text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
+                                    text_angsuran_baru = response.body().getData().getAttributes().getInformasiJaminan().getTipeAngsuran();
                                     text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
                                     text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
 
@@ -213,6 +215,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                     intent.putExtra("text_type", text_type);
                                     intent.putExtra("text_year", text_year);
                                     intent.putExtra("text_insurance", text_insurance);
+                                    intent.putExtra("text_angsuran_baru", text_angsuran_baru);
                                     intent.putExtra("text_area", text_area);
                                     intent.putExtra("area_id", area_id);
                                     startActivity(intent);
