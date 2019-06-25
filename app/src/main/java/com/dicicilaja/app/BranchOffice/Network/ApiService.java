@@ -24,7 +24,7 @@ public interface ApiService {
     Call<KotaBranchOffice> getKota(@Query("region") String region);
 
     /*
-    Cabang pada Branch Office
+    Kantor Cabang pada Branch Office
     */
     @GET("cabang")
     Call<BranchOffice> getBranch(@Query("kota") String kota);

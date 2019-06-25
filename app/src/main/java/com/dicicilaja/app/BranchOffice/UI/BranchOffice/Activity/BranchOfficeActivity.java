@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -40,7 +41,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
 
     List<DataItem> dataItems;
     ApiService apiService;
-    String kota;
+    String kota, fax1, fax2, fax3, nama, alamat;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -97,13 +98,39 @@ public class BranchOfficeActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         dataItems = response.body().getData();
+
+
                         if (dataItems.size() > 0) {
                             recyclerBranch.setAdapter(new BranchOfficeAdapter(dataItems, getBaseContext()));
                             recyclerBranch.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerBranch, new ClickListener() {
                                 @Override
                                 public void onClick(View view, final int position) {
+
+                                    nama = "-";
+                                    alamat = "-";
+                                    kota = "-";
+                                    fax1 = "-";
+                                    fax2 = "-";
+                                    fax3 = "-";
+
+                                    try {
+                                        nama = dataItems.get(position).getAttributes().getNama();
+                                        alamat = dataItems.get(position).getAttributes().getDetail().getAlamat();
+                                        kota = dataItems.get(position).getAttributes().getDetail().getKota();
+                                        fax1 = dataItems.get(position).getAttributes().getDetail().getFax1();
+                                        fax2 = dataItems.get(position).getAttributes().getDetail().getFax2();
+                                        fax3 = dataItems.get(position).getAttributes().getDetail().getFax3();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
                                     Intent intent = new Intent(getBaseContext(), DetailBranchOfficeActivity.class);
-                                    intent.putExtra("nama", dataItems.get(position).getAttributes().getNama());
+                                    intent.putExtra("nama", nama);
+                                    intent.putExtra("alamat", alamat);
+                                    intent.putExtra("kota", kota);
+                                    intent.putExtra("fax1", fax1);
+                                    intent.putExtra("fax2", fax2);
+                                    intent.putExtra("fax3", fax3);
                                     startActivity(intent);
                                 }
 
@@ -116,7 +143,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(BranchOfficeActivity.this);
                             alertDialog.setTitle("Perhatian");
-                            alertDialog.setMessage("Data cabang belum tersedia, silahkan coba beberapa saat lagi.");
+                            alertDialog.setMessage("Data kantor cabang belum tersedia, silahkan coba beberapa saat lagi.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -126,13 +153,15 @@ public class BranchOfficeActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    } catch (Exception ex) {
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
                     }
                 } else {
                     progressBar.setVisibility(View.GONE);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(BranchOfficeActivity.this);
                     alertDialog.setTitle("Perhatian");
-                    alertDialog.setMessage("Data cabang gagal dipanggil, silahkan coba beberapa saat lagi.");
+                    alertDialog.setMessage("Data kantor cabang gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +178,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(BranchOfficeActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Data cabang gagal dipanggil, silahkan coba beberapa saat lagi.");
+                alertDialog.setMessage("Data kantor cabang gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

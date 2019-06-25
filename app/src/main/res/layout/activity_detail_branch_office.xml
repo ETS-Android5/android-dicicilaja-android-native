@@ -220,15 +220,63 @@
                             android:layout_height="2dp"
                             android:src="@drawable/border_bottom"/>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="23dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Fax"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textColor="#FFB8B8B8"
+                                    android:textSize="12sp"/>
+
+                                <TextView
+                                    android:id="@+id/branch_fax3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="021-88955379"
+                                    android:textSize="14sp"
+                                    android:layout_marginTop="2dp"
+                                    android:textColor="@color/colorBlack"
+                                    android:fontFamily="@font/open_sans"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/copy_fax3"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:padding="5dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_content_copy_black_24dp"/>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:src="@drawable/border_bottom"/>
 
                         <FrameLayout
                             android:id="@+id/call_tasya"
                             style="?attr/buttonStyle"
                             android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:text="Selanjutnya"
                             android:backgroundTint="@color/colorAccentDark2"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_height="53dp" >
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:layout_marginTop="50dp">
 
                             <TextView
                                 style="?android:attr/buttonStyle"
@@ -248,13 +296,15 @@
                         </FrameLayout>
 
                         <FrameLayout
-                            android:id="@+id/call_tasya"
+                            android:id="@+id/guide"
                             style="?attr/buttonStyle"
                             android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:text="Selanjutnya"
                             android:backgroundTint="@color/colorAccent"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_height="53dp" >
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:layout_marginBottom="5dp">
 
                             <TextView
                                 style="?android:attr/buttonStyle"

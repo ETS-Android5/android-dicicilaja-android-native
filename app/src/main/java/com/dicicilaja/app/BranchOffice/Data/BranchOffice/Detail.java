@@ -1,5 +1,6 @@
 package com.dicicilaja.app.BranchOffice.Data.BranchOffice;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class Detail{
@@ -11,7 +12,7 @@ public class Detail{
 	private String kota;
 
 	@SerializedName("telp_1")
-	private String telp1;
+	private List<String> telp1;
 
 	@SerializedName("fax_1")
 	private String fax1;
@@ -23,16 +24,16 @@ public class Detail{
 	private String kodePos;
 
 	@SerializedName("fax_3")
-	private Object fax3;
+	private String fax3;
 
 	@SerializedName("fax_2")
-	private Object fax2;
+	private String fax2;
 
 	@SerializedName("telp_2")
-	private String telp2;
+	private List<String> telp2;
 
 	@SerializedName("telp_3")
-	private Object telp3;
+	private List<String> telp3;
 
 	@SerializedName("kelurahan")
 	private String kelurahan;
@@ -56,11 +57,11 @@ public class Detail{
 		return kota;
 	}
 
-	public void setTelp1(String telp1){
+	public void setTelp1(List<String> telp1){
 		this.telp1 = telp1;
 	}
 
-	public String getTelp1(){
+	public List<String> getTelp1(){
 		return telp1;
 	}
 
@@ -88,35 +89,35 @@ public class Detail{
 		return kodePos;
 	}
 
-	public void setFax3(Object fax3){
+	public void setFax3(String fax3){
 		this.fax3 = fax3;
 	}
 
-	public Object getFax3(){
+	public String getFax3(){
 		return fax3;
 	}
 
-	public void setFax2(Object fax2){
+	public void setFax2(String fax2){
 		this.fax2 = fax2;
 	}
 
-	public Object getFax2(){
+	public String getFax2(){
 		return fax2;
 	}
 
-	public void setTelp2(String telp2){
+	public void setTelp2(List<String> telp2){
 		this.telp2 = telp2;
 	}
 
-	public String getTelp2(){
+	public List<String> getTelp2(){
 		return telp2;
 	}
 
-	public void setTelp3(Object telp3){
+	public void setTelp3(List<String> telp3){
 		this.telp3 = telp3;
 	}
 
-	public Object getTelp3(){
+	public List<String> getTelp3(){
 		return telp3;
 	}
 
