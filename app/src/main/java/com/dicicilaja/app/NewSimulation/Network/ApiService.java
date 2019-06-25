@@ -1,6 +1,5 @@
-package com.dicicilaja.app.NewSimulation.network;
+package com.dicicilaja.app.NewSimulation.Network;
 
-import com.dicicilaja.app.NewSimulation.data.areasimulasi.AreaSimulasi;
 import com.dicicilaja.app.NewSimulation.data.hitungsimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.data.objekbrand.ObjekBrand;
 import com.dicicilaja.app.NewSimulation.data.objekmodel.ObjekModel;

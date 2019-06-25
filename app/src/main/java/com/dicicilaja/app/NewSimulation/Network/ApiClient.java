@@ -1,4 +1,4 @@
-package com.dicicilaja.app.NewSimulation.network;
+package com.dicicilaja.app.NewSimulation.Network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
