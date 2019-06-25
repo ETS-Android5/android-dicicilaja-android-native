@@ -17,13 +17,10 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity"></activity>
+        <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity"></activity>
+        <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".BranchOffice.UI.CityBranchOffice.Activity.CityBranchOfficeActivity" />
         <activity android:name=".NewSimulation.UI.BantuanNewSimulation.TipeAsuransiActivity" />
@@ -37,7 +34,13 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"

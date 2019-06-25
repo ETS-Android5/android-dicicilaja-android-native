@@ -190,44 +190,77 @@ public class NewLoanActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-
                             if (response.isSuccessful()) {
+                                try {
+                                    progressBar.setVisibility(View.GONE);
+                                    text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
+                                    text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
+                                    text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
+                                    text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                    text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
+                                    text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
+                                    text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
+                                    text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
+                                    text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
+                                    text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
 
-                                progressBar.setVisibility(View.GONE);
+                                    Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                                    intent.putExtra("text_total", text_total);
+                                    intent.putExtra("text_tenor", text_tenor);
+                                    intent.putExtra("text_angsuran", text_angsuran);
+                                    intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
+                                    intent.putExtra("text_colleteral", text_colleteral);
+                                    intent.putExtra("text_merk", text_merk);
+                                    intent.putExtra("text_type", text_type);
+                                    intent.putExtra("text_year", text_year);
+                                    intent.putExtra("text_insurance", text_insurance);
+                                    intent.putExtra("text_area", text_area);
+                                    intent.putExtra("area_id", area_id);
+                                    startActivity(intent);
+                                } catch (Exception ex) {
+                                    progressBar.setVisibility(View.GONE);
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
+                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setMessage("Gagal melakukan perhitungan simulasi, silahkan coba beberapa saat lagi.");
 
-                                text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
-                                text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
-                                text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
-                                text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
-                                text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
-                                text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
-                                text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
-                                text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
-                                text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
-                                text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
-
-                                Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
-                                intent.putExtra("text_total", text_total);
-                                intent.putExtra("text_tenor", text_tenor);
-                                intent.putExtra("text_angsuran", text_angsuran);
-                                intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
-                                intent.putExtra("text_colleteral", text_colleteral);
-                                intent.putExtra("text_merk", text_merk);
-                                intent.putExtra("text_type", text_type);
-                                intent.putExtra("text_year", text_year);
-                                intent.putExtra("text_insurance", text_insurance);
-                                intent.putExtra("text_area", text_area);
-                                intent.putExtra("area_id", area_id);
-                                startActivity(intent);
-
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    });
+                                    alertDialog.show();
+                                }
                             } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Gagal melakukan perhitungan simulasi, silahkan coba beberapa saat lagi.");
 
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<HitungSimulasi> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Gagal melakukan perhitungan simulasi, silahkan coba beberapa saat lagi.");
 
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
                         }
                     });
                 }

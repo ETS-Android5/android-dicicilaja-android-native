@@ -25,6 +25,7 @@ import com.dicicilaja.app.BranchOffice.Network.ApiClient;
 import com.dicicilaja.app.BranchOffice.Network.ApiService;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BranchOffice.UI.BranchOffice.Adapter.BranchOfficeAdapter;
+import com.dicicilaja.app.BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
@@ -101,9 +102,9 @@ public class BranchOfficeActivity extends AppCompatActivity {
                             recyclerBranch.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerBranch, new ClickListener() {
                                 @Override
                                 public void onClick(View view, final int position) {
-//                                    Intent intent = new Intent(getBaseContext(), BranchOffice.class);
-//                                    intent.putExtra("city", dataItems.get(position).getAttributes().getRegion());
-//                                    startActivity(intent);
+                                    Intent intent = new Intent(getBaseContext(), DetailBranchOfficeActivity.class);
+                                    intent.putExtra("nama", dataItems.get(position).getAttributes().getNama());
+                                    startActivity(intent);
                                 }
 
                                 @Override
