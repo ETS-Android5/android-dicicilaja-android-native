@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.Activity.BusinessReward.ui.DetailProduct.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProduk.DetailProduk;
+import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
+import com.dicicilaja.app.Activity.NotificationActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailProductActivity extends AppCompatActivity {
 
@@ -35,33 +42,15 @@ public class DetailProductActivity extends AppCompatActivity {
     RelativeLayout barangDetail;
     @BindView(R.id.spek_title)
     TextView spekTitle;
-    @BindView(R.id.title_kategori)
-    TextView titleKategori;
-    @BindView(R.id.tv_kategori)
-    TextView tvKategori;
-    @BindView(R.id.title_processor)
-    TextView titleProcessor;
-    @BindView(R.id.tv_processor)
-    TextView tvProcessor;
-    @BindView(R.id.title_display)
-    TextView titleDisplay;
-    @BindView(R.id.tv_display)
-    TextView tvDisplay;
-    @BindView(R.id.title_os)
-    TextView titleOs;
-    @BindView(R.id.tv_os)
-    TextView tvOs;
-    @BindView(R.id.title_brand)
-    TextView titleBrand;
-    @BindView(R.id.tv_brand)
-    TextView tvBrand;
     @BindView(R.id.spek_barang_detail)
     RelativeLayout spekBarangDetail;
     @BindView(R.id.klaim)
     Button klaim;
 
-    String id, name;
-    int point, thumbnail;
+    String name;
+    int point, thumbnail, id;
+    @BindView(R.id.deskripsi)
+    TextView deskripsi;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +61,29 @@ public class DetailProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("ID");
-        name = intent.getStringExtra("Name");
-        point = (int) intent.getIntExtra("Point",0);
-        thumbnail = intent.getIntExtra("Thumbnail", 0);
+        id = intent.getIntExtra("ID", 0);
+//        name = intent.getStringExtra("Name");
+//        point = (int) intent.getIntExtra("Point", 0);
+//        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
-        titleBarang.setText(name);
-        tvPoint.setText(String.valueOf(point)+ " Point");
-        Glide.with(this).load(thumbnail).into(barangPicture);
+        ApiService apiService =
+                ApiClient.getClient().create(ApiService.class);
+
+        Call<DetailProduk> call = apiService.getDetailProduk(Integer.valueOf(id));
+        call.enqueue(new Callback<DetailProduk>() {
+            @Override
+            public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
+                titleBarang.setText(response.body().getData().getAttributes().getNama());
+                tvPoint.setText(response.body().getData().getAttributes().getPoint() + " Point");
+                Glide.with(getBaseContext()).load(response.body().getData().getAttributes().getFoto()).into(barangPicture);
+                deskripsi.setText(response.body().getData().getAttributes().getDeskripsi());
+            }
+
+            @Override
+            public void onFailure(Call<DetailProduk> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

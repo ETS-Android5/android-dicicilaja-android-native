@@ -1,24 +1,18 @@
 package com.dicicilaja.app.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
 import com.dicicilaja.app.API.Model.Transaksi;
-import com.dicicilaja.app.Activity.DetailProductActivity;
 import com.dicicilaja.app.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 

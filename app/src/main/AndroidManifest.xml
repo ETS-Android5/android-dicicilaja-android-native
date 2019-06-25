@@ -291,7 +291,7 @@
                 android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.BusinesRewardActivity"
+            android:name=".Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity"
             android:label="Poin Reward"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -672,20 +672,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.Addon.CompletePhoneEmailActivity"></activity>
         <activity
-            android:name=".Activity.DetailProductActivity"
+            android:name=".Activity.BusinessReward.ui.DetailProduct.activity.DetailProductActivity"
             android:label="Detail Produk"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+                android:value="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
-            android:name=".Activity.DetailProduct2Activity"
+            android:name=".Activity.BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity"
             android:label="Detail Produk"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.DetailProductActivity" />
+                android:value="com.dicicilaja.app.Activity.BusinessReward.ui.DetailProduct.activity.DetailProductActivity" />
         </activity>
         <activity
             android:name=".Activity.RedeemConfirmationActivity"
@@ -713,14 +713,14 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+                android:value="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
             android:name=".Activity.SearchResultActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+                android:value="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
             android:name=".Activity.ReviewActivity"
@@ -741,7 +741,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.BusinesRewardActivity" />
+                android:value="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
     </application>
 

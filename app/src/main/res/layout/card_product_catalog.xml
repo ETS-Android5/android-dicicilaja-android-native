@@ -42,7 +42,6 @@
                         android:layout_marginBottom="5dp"
                         android:src="@drawable/ic_home"
                         android:layout_gravity="center"
-
                         android:layout_centerHorizontal="true"/>
                     <TextView
                         android:id="@+id/tv_title"

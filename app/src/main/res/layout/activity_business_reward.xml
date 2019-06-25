@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dicicilaja.app.Activity.BusinesRewardActivity"
+    tools:context="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -128,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:visibility="visible"
                     android:background="@color/colorPrimary">
 
                     <LinearLayout
@@ -162,110 +163,41 @@
 
                     </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_height="wrap_content">
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_marginTop="16dp"-->
+                        <!--android:layout_marginLeft="16dp"-->
+                        <!--android:layout_marginRight="16dp"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <TextView
-                            android:id="@+id/title_motor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="Motor"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/title_motor"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:fontFamily="@font/open_sans_bold"-->
+                            <!--android:text="Motor"/>-->
 
-                        <TextView
-                            android:id="@+id/all_motor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans"
-                            android:text="@string/lihat_semua"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorAccent"/>
-                    </RelativeLayout>
+                        <!--<TextView-->
+                            <!--android:id="@+id/all_motor"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:fontFamily="@font/open_sans"-->
+                            <!--android:text="@string/lihat_semua"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:textColor="@color/colorAccent"/>-->
+                    <!--</RelativeLayout>-->
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_motor"
+                        android:id="@+id/recycler_produk"
                         android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingRight="13dp"
                         android:clipToPadding="false"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/title_handphone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="Handphone"/>
-
-                        <TextView
-                            android:id="@+id/all_handphone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans"
-                            android:text="@string/lihat_semua"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorAccent"/>
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_hp"
-                        android:layout_marginTop="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="16dp"
-                        android:clipToPadding="true"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/title_elektronik"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:text="Elektronik"/>
-
-                        <TextView
-                            android:id="@+id/all_elektronik"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans"
-                            android:text="@string/lihat_semua"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorAccent"/>
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_elektronika"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:paddingRight="16dp"
-                        android:clipToPadding="true"/>
                 </LinearLayout>
 
                 <ImageView

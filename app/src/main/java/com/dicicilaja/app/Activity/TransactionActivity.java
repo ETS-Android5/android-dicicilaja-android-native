@@ -6,14 +6,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
-import com.dicicilaja.app.API.Model.Transaction;
 import com.dicicilaja.app.API.Model.Transaksi;
-import com.dicicilaja.app.Adapter.ListProductCatalogAdapter;
 import com.dicicilaja.app.Adapter.TransaksiAdapter;
 import com.dicicilaja.app.R;
 

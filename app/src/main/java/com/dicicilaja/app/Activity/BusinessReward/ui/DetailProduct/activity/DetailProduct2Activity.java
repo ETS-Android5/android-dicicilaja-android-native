@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.Activity.BusinessReward.ui.DetailProduct.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.Activity.RedeemConfirmationActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;

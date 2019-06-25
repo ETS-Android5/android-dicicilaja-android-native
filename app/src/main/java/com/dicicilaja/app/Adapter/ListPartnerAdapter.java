@@ -21,7 +21,7 @@ import java.util.List;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Datum;
 import com.dicicilaja.app.R;
 
-public class ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAdapter.SingleItemRowHolder> {
+public class      ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAdapter.SingleItemRowHolder> {
     private List<Datum> partners;
     private Context mContext;
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title_kategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:textSize="@dimen/font_title"
+                android:layout_marginLeft="@dimen/ib_fr_space_16"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:text="Kategori"/>
+
+            <TextView
+                android:id="@+id/lihat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:fontFamily="@font/open_sans"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:text="Lihat Semua"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_produks"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="13dp"
+            android:clipToPadding="false"/>
+
+    </LinearLayout>
+
+</LinearLayout>
