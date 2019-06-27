@@ -159,8 +159,11 @@ public class DetailProductActivity extends AppCompatActivity {
 //                    itemDetail = response.body().getData();
 //                    noNpwp = response.body().getData().size();
                     int sizenya = response.body().getData().size();
+                    Log.d("SIZENYAAAA", String.valueOf(response.body().getData().size()));
 
                     for(int i = 0;i < sizenya;i++){
+                        Log.d("DATANYAAA", String.valueOf(response.body().getData().get(i).getName()));
+//                        Log.d("DATANYAAA2", cabangText);
                         if(response.body().getData().get(i).getName().equals(cabangText)){
                             branchId = String.valueOf(response.body().getData().get(i).getId());
                             Log.d("Profile4", branchId);
@@ -300,13 +303,19 @@ public class DetailProductActivity extends AppCompatActivity {
 //                        Log.d("Profile", noPo);
 //                        Log.d("Profile", ongkir);
 //                        Call<ClaimReward> call = apiService.postClaimReward(profileId, "111", "1", "111111111", "1", "1", "AD", "0", "0", "10000");
-                        Call<ClaimReward> call = apiService.postClaimReward(profileId, "17", areaId, crhId, productCatalogId, statusId, alamatC, "0", "0", "0");
+                        Call<ClaimReward> call = apiService.postClaimReward(profileId, "17", "17", crhId, productCatalogId, statusId, alamatC, "0", "0", "0");
                         call.enqueue(new Callback<ClaimReward>() {
                             @Override
                             public void onResponse(Call<ClaimReward> call, Response<ClaimReward> response) {
                                 try {
                                     Log.d("Responnya", String.valueOf(response.code()));
                                     Toast.makeText(getBaseContext(),"Berhasil Klaim",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+                                    intent.putExtra("ID", id);
+                                    intent.putExtra("Name", name);
+                                    intent.putExtra("Point", point);
+                                    intent.putExtra("Thumbnail", thumbnail);
+                                    startActivity(intent);
                                 } catch(Exception ex) {
 
                                 }
@@ -343,11 +352,5 @@ public class DetailProductActivity extends AppCompatActivity {
             });
             alertDialog.show();
         }
-//        Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
-//        intent.putExtra("ID", id);
-//        intent.putExtra("Name", name);
-//        intent.putExtra("Point", point);
-//        intent.putExtra("Thumbnail", thumbnail);
-//        startActivity(intent);
     }
 }
