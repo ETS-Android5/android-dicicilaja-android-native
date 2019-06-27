@@ -68,7 +68,7 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
 
         holder.tv_title.setText(pc.getAttributes().getNama());
         Log.d("Relasi", " id: " + pc.getRelationships());
-        horizontalAdapter = new ListProductAdapter(pcList2, pcList, mContext);
+        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(),pcList2, mContext);
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);

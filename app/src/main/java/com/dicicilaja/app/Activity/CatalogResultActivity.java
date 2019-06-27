@@ -7,8 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk.DataItem;
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
 import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
@@ -27,7 +25,7 @@ public class CatalogResultActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private List<Produk> productCatalogList;
+//    private List<Produk> productCatalogList;
     ListProductCatalogAdapter adapter;
 
     @BindView(R.id.recycler_catalog)
@@ -41,31 +39,31 @@ public class CatalogResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        productCatalogList = new ArrayList<>();
-//        adapter = new ListProductCatalogAdapter(productCatalogList, this);
-
-        recyclerCatalog.setLayoutManager(new GridLayoutManager(getBaseContext(),
-                2));
-        recyclerCatalog.setHasFixedSize(true);
-        recyclerCatalog.setAdapter(adapter);
-
-        ApiService apiService =
-                ApiClient.getClient().create(ApiService.class);
-
-        Call<Produk> call = apiService.getProduk();
-        call.enqueue(new Callback<Produk>() {
-            @Override
-            public void onResponse(Call<Produk> call, Response<Produk> response) {
-                final List<DataItem> dataItems = response.body().getData();
-
-//                recyclerCatalog.setAdapter(new ListProductCatalogAdapter(dataItems, getBaseContext()));
-            }
-
-            @Override
-            public void onFailure(Call<Produk> call, Throwable t) {
-
-            }
-        });
+//        productCatalogList = new ArrayList<>();
+////        adapter = new ListProductCatalogAdapter(productCatalogList, this);
+//
+//        recyclerCatalog.setLayoutManager(new GridLayoutManager(getBaseContext(),
+//                2));
+//        recyclerCatalog.setHasFixedSize(true);
+//        recyclerCatalog.setAdapter(adapter);
+//
+//        ApiService apiService =
+//                ApiClient.getClient().create(ApiService.class);
+//
+//        Call<Produk> call = apiService.getProduk();
+//        call.enqueue(new Callback<Produk>() {
+//            @Override
+//            public void onResponse(Call<Produk> call, Response<Produk> response) {
+//                final List<DataItem> dataItems = response.body().getData();
+//
+////                recyclerCatalog.setAdapter(new ListProductCatalogAdapter(dataItems, getBaseContext()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Produk> call, Throwable t) {
+//
+//            }
+//        });
 
 //        createDummyData();
     }

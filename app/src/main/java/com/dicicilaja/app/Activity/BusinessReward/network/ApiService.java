@@ -7,7 +7,6 @@ import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailSemester.DetailS
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailStatus.DetailStatus;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailTestimoni.DetailTestimoni;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.semester.Semester;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.status.Status;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.statusUBClaim.StatusClaim;
@@ -34,8 +33,8 @@ public interface ApiService {
     @GET("kategori")
     Call<KategoriProduk> getKategori();
 
-    @GET("product-catalog")
-    Call<Produk> getProduk();
+//    @GET("product-catalog")
+//    Call<Produk> getProduk();
 
     @GET("status")
     Call<Status> getStatus();
@@ -89,19 +88,19 @@ public interface ApiService {
                                 @Field("nama") String semester_nama,
                                 @Field("tahun") String semester_tahun);
 
-    @POST("produk")
-    @FormUrlEncoded
-    Call<Produk> postProduk(@Field("type") String produk_type,
-                                @Field("id") String produk_id,
-                                @Field("vendor_id") String vendor_id,
-                                @Field("point") String produk_point,
-                                @Field("nama") String produk_nama,
-                                @Field("deskripsi") String produk_deskripsi,
-                                @Field("harga") String produk_harga,
-                                @Field("ppn") String produk_ppn,
-                                @Field("status_id") String produk_status,
-                                @Field("foto") String produk_foto,
-                                @Field("alt_foto") String produk_alt_foto);
+//    @POST("produk")
+//    @FormUrlEncoded
+//    Call<Produk> postProduk(@Field("type") String produk_type,
+//                                @Field("id") String produk_id,
+//                                @Field("vendor_id") String vendor_id,
+//                                @Field("point") String produk_point,
+//                                @Field("nama") String produk_nama,
+//                                @Field("deskripsi") String produk_deskripsi,
+//                                @Field("harga") String produk_harga,
+//                                @Field("ppn") String produk_ppn,
+//                                @Field("status_id") String produk_status,
+//                                @Field("foto") String produk_foto,
+//                                @Field("alt_foto") String produk_alt_foto);
 
     @POST("claimReward")
     @FormUrlEncoded

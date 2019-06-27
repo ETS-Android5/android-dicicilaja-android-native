@@ -1,105 +1,107 @@
 package com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Attributes{
 
-	@SerializedName("status_id")
-	private int statusId;
-
-	@SerializedName("nama")
-	private String nama;
-
-	@SerializedName("harga")
-	private int harga;
-
-	@SerializedName("foto")
-	private String foto;
-
-	@SerializedName("alt_foto")
-	private String altFoto;
-
 	@SerializedName("vendor_id")
-	private int vendorId;
-
-	@SerializedName("deskripsi")
-	private String deskripsi;
-
+	@Expose
+	private Integer vendorId;
 	@SerializedName("point")
-	private int point;
-
+	@Expose
+	private Integer point;
+	@SerializedName("nama")
+	@Expose
+	private String nama;
+	@SerializedName("deskripsi")
+	@Expose
+	private String deskripsi;
+	@SerializedName("harga")
+	@Expose
+	private Integer harga;
 	@SerializedName("ppn")
-	private int ppn;
+	@Expose
+	private Integer ppn;
+	@SerializedName("foto")
+	@Expose
+	private String foto;
+	@SerializedName("alt_foto")
+	@Expose
+	private String altFoto;
+	@SerializedName("popularitas")
+	@Expose
+	private Integer popularitas;
 
-	public void setStatusId(int statusId){
-		this.statusId = statusId;
-	}
-
-	public int getStatusId(){
-		return statusId;
-	}
-
-	public void setNama(String nama){
-		this.nama = nama;
-	}
-
-	public String getNama(){
-		return nama;
-	}
-
-	public void setHarga(int harga){
-		this.harga = harga;
-	}
-
-	public int getHarga(){
-		return harga;
-	}
-
-	public void setFoto(String foto){
-		this.foto = foto;
-	}
-
-	public String getFoto(){
-		return foto;
-	}
-
-	public void setAltFoto(String altFoto){
-		this.altFoto = altFoto;
-	}
-
-	public String getAltFoto(){
-		return altFoto;
-	}
-
-	public void setVendorId(int vendorId){
-		this.vendorId = vendorId;
-	}
-
-	public int getVendorId(){
+	public Integer getVendorId() {
 		return vendorId;
 	}
 
-	public void setDeskripsi(String deskripsi){
-		this.deskripsi = deskripsi;
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
 	}
 
-	public String getDeskripsi(){
-		return deskripsi;
-	}
-
-	public void setPoint(int point){
-		this.point = point;
-	}
-
-	public int getPoint(){
+	public Integer getPoint() {
 		return point;
 	}
 
-	public void setPpn(int ppn){
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
+
+	public String getNama() {
+		return nama;
+	}
+
+	public void setNama(String nama) {
+		this.nama = nama;
+	}
+
+	public String getDeskripsi() {
+		return deskripsi;
+	}
+
+	public void setDeskripsi(String deskripsi) {
+		this.deskripsi = deskripsi;
+	}
+
+	public Integer getHarga() {
+		return harga;
+	}
+
+	public void setHarga(Integer harga) {
+		this.harga = harga;
+	}
+
+	public Integer getPpn() {
+		return ppn;
+	}
+
+	public void setPpn(Integer ppn) {
 		this.ppn = ppn;
 	}
 
-	public int getPpn(){
-		return ppn;
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getAltFoto() {
+		return altFoto;
+	}
+
+	public void setAltFoto(String altFoto) {
+		this.altFoto = altFoto;
+	}
+
+	public Integer getPopularitas() {
+		return popularitas;
+	}
+
+	public void setPopularitas(Integer popularitas) {
+		this.popularitas = popularitas;
 	}
 }

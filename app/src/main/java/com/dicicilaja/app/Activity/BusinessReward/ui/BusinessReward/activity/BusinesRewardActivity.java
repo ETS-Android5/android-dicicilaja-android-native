@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,8 +23,6 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.ProductCatalogs;
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
 import com.dicicilaja.app.Activity.SearchResultActivity;
@@ -65,11 +62,11 @@ public class BusinesRewardActivity extends AppCompatActivity {
     @BindView(R.id.upload)
     Button upload;
 
-    private ArrayList<Produk> productCatalogList;
-    private ArrayList<Produk> productCatalogList2;
-    private ArrayList<Produk> productCatalogList3;
-
-    private ArrayList<Produk> produks;
+//    private ArrayList<Produk> productCatalogList;
+//    private ArrayList<Produk> productCatalogList2;
+//    private ArrayList<Produk> productCatalogList3;
+//
+//    private ArrayList<Produk> produks;
 
     ListProductCatalogAdapter adapter;
     ListProductCatalogAdapter adapter2;
@@ -96,11 +93,11 @@ public class BusinesRewardActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        productCatalogList = new ArrayList<>();
-        productCatalogList2 = new ArrayList<>();
-        productCatalogList3 = new ArrayList<>();
-
-        produks = new ArrayList<>();
+//        productCatalogList = new ArrayList<>();
+//        productCatalogList2 = new ArrayList<>();
+//        productCatalogList3 = new ArrayList<>();
+//
+//        produks = new ArrayList<>();
 
 //        adapter = new ListProductCatalogAdapter(productCatalogList, this);
 //        adapter2 = new ListProductCatalogAdapter(productCatalogList2, this);
