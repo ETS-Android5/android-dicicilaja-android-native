@@ -1,40 +1,21 @@
 package com.dicicilaja.app.Activity.BusinessReward.dataAPI.claimReward;
 
 import java.util.List;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ClaimReward{
 
 	@SerializedName("data")
-	private List<DataItem> data;
+	@Expose
+	private Data data;
 
-	@SerializedName("meta")
-	private Meta meta;
-
-	@SerializedName("links")
-	private Links links;
-
-	public void setData(List<DataItem> data){
-		this.data = data;
-	}
-
-	public List<DataItem> getData(){
+	public Data getData() {
 		return data;
 	}
 
-	public void setMeta(Meta meta){
-		this.meta = meta;
-	}
-
-	public Meta getMeta(){
-		return meta;
-	}
-
-	public void setLinks(Links links){
-		this.links = links;
-	}
-
-	public Links getLinks(){
-		return links;
+	public void setData(Data data) {
+		this.data = data;
 	}
 }

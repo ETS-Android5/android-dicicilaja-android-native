@@ -1,116 +1,118 @@
 package com.dicicilaja.app.Activity.BusinessReward.dataAPI.claimReward;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Attributes{
 
-	@SerializedName("no_resi")
-	private String noResi;
-
-	@SerializedName("product_catalog_id")
-	private int productCatalogId;
-
-	@SerializedName("status_id")
-	private int statusId;
-
-	@SerializedName("ongkos_kirim")
-	private int ongkosKirim;
-
-	@SerializedName("branch_id")
-	private int branchId;
-
 	@SerializedName("profile_id")
-	private int profileId;
-
-	@SerializedName("crh_id")
-	private int crhId;
-
+	@Expose
+	private Integer profileId;
+	@SerializedName("branch_id")
+	@Expose
+	private Integer branchId;
 	@SerializedName("area_id")
-	private int areaId;
-
+	@Expose
+	private Integer areaId;
+	@SerializedName("crh_id")
+	@Expose
+	private Integer crhId;
+	@SerializedName("product_catalog_id")
+	@Expose
+	private Integer productCatalogId;
+	@SerializedName("status_id")
+	@Expose
+	private Integer statusId;
 	@SerializedName("alamat")
+	@Expose
 	private String alamat;
-
+	@SerializedName("no_resi")
+	@Expose
+	private String noResi;
 	@SerializedName("no_po")
+	@Expose
 	private String noPo;
+	@SerializedName("ongkos_kirim")
+	@Expose
+	private Integer ongkosKirim;
 
-	public void setNoResi(String noResi){
-		this.noResi = noResi;
-	}
-
-	public String getNoResi(){
-		return noResi;
-	}
-
-	public void setProductCatalogId(int productCatalogId){
-		this.productCatalogId = productCatalogId;
-	}
-
-	public int getProductCatalogId(){
-		return productCatalogId;
-	}
-
-	public void setStatusId(int statusId){
-		this.statusId = statusId;
-	}
-
-	public int getStatusId(){
-		return statusId;
-	}
-
-	public void setOngkosKirim(int ongkosKirim){
-		this.ongkosKirim = ongkosKirim;
-	}
-
-	public int getOngkosKirim(){
-		return ongkosKirim;
-	}
-
-	public void setBranchId(int branchId){
-		this.branchId = branchId;
-	}
-
-	public int getBranchId(){
-		return branchId;
-	}
-
-	public void setProfileId(int profileId){
-		this.profileId = profileId;
-	}
-
-	public int getProfileId(){
+	public Integer getProfileId() {
 		return profileId;
 	}
 
-	public void setCrhId(int crhId){
-		this.crhId = crhId;
+	public void setProfileId(Integer profileId) {
+		this.profileId = profileId;
 	}
 
-	public int getCrhId(){
-		return crhId;
+	public Integer getBranchId() {
+		return branchId;
 	}
 
-	public void setAreaId(int areaId){
-		this.areaId = areaId;
+	public void setBranchId(Integer branchId) {
+		this.branchId = branchId;
 	}
 
-	public int getAreaId(){
+	public Integer getAreaId() {
 		return areaId;
 	}
 
-	public void setAlamat(String alamat){
-		this.alamat = alamat;
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
 	}
 
-	public String getAlamat(){
+	public Integer getCrhId() {
+		return crhId;
+	}
+
+	public void setCrhId(Integer crhId) {
+		this.crhId = crhId;
+	}
+
+	public Integer getProductCatalogId() {
+		return productCatalogId;
+	}
+
+	public void setProductCatalogId(Integer productCatalogId) {
+		this.productCatalogId = productCatalogId;
+	}
+
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+
+	public String getAlamat() {
 		return alamat;
 	}
 
-	public void setNoPo(String noPo){
+	public void setAlamat(String alamat) {
+		this.alamat = alamat;
+	}
+
+	public String getNoResi() {
+		return noResi;
+	}
+
+	public void setNoResi(String noResi) {
+		this.noResi = noResi;
+	}
+
+	public String getNoPo() {
+		return noPo;
+	}
+
+	public void setNoPo(String noPo) {
 		this.noPo = noPo;
 	}
 
-	public String getNoPo(){
-		return noPo;
+	public Integer getOngkosKirim() {
+		return ongkosKirim;
+	}
+
+	public void setOngkosKirim(Integer ongkosKirim) {
+		this.ongkosKirim = ongkosKirim;
 	}
 }

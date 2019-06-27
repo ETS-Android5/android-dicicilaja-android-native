@@ -121,8 +121,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         } else {*/
 
-            Instabug.setUserAttribute("USER_ID", null);
-            Instabug.setUserAttribute("LOGIN", "False");
+//            Instabug.setUserAttribute("USER_ID", null);
+//            Instabug.setUserAttribute("LOGIN", "False");
 
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
@@ -247,8 +247,8 @@ public class LoginActivity extends AppCompatActivity {
                             resObj.getEmail()
                     );
 
-                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
-                    Instabug.setUserAttribute("LOGIN", "True");
+//                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
+//                    Instabug.setUserAttribute("LOGIN", "True");
 
                     showNextActivity(true, resObj.getRole());
 

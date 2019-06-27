@@ -1,12 +1,15 @@
 package com.dicicilaja.app.Activity.BusinessReward.network;
 
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.claimReward.ClaimReward;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProduk.DetailProduk;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProfile.DetailProfile;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailSemester.DetailSemester;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailStatus.DetailStatus;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailTestimoni.DetailTestimoni;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.semester.Semester;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.status.Status;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.statusUBClaim.StatusClaim;
@@ -19,10 +22,12 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @Headers({
@@ -32,6 +37,15 @@ public interface ApiService {
     //GET
     @GET("kategori")
     Call<KategoriProduk> getKategori();
+
+    @GET("branch")
+    Call<Branch> getCabang();
+
+    @GET("axi/detail")
+    Call<DetailProfile> getDetailProfile(@Header("Authorization") String apiKey);
+
+    @GET("point")
+    Call<Point> getPoint(@Query("profile_id") int profile_id);
 
 //    @GET("product-catalog")
 //    Call<Produk> getProduk();
@@ -102,10 +116,9 @@ public interface ApiService {
 //                                @Field("foto") String produk_foto,
 //                                @Field("alt_foto") String produk_alt_foto);
 
-    @POST("claimReward")
+    @POST("claim-reward")
     @FormUrlEncoded
-    Call<ClaimReward> postClaimReward(@Field("type") String claim_type,
-                            @Field("id") String claim_id,
+    Call<ClaimReward> postClaimReward(
                             @Field("profile_id") String profile_id,
                             @Field("branch_id") String branch_id,
                             @Field("area_id") String area_id,
@@ -114,7 +127,8 @@ public interface ApiService {
                             @Field("status_id") String status_id,
                             @Field("alamat") String alamat,
                             @Field("no_resi") String no_resi,
-                            @Field("no_po") String no_po, @Field("ongkos_kirim") String ongkir);
+                            @Field("no_po") String no_po,
+                            @Field("ongkos_kirim") String ongkir);
 
     @POST("testimoni")
     @FormUrlEncoded

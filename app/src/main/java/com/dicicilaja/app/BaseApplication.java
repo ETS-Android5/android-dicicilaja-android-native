@@ -10,8 +10,8 @@ public class    BaseApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        new Instabug.Builder(this, "7cf2f1bf79c1a536ff5ecd88d4d76c02")
-                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
-                .build();
+//        new Instabug.Builder(this, "7cf2f1bf79c1a536ff5ecd88d4d76c02")
+//                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+//                .build();
     }
 }
