@@ -19,20 +19,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
-import com.dicicilaja.app.Activity.SearchResultActivity;
-import com.dicicilaja.app.Activity.TransactionActivity;
-import com.dicicilaja.app.Activity.UploadKTPActivity;
 import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
+import com.dicicilaja.app.Activity.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
+import com.dicicilaja.app.Activity.BusinessReward.ui.Transaction.activity.TransactionActivity;
+import com.dicicilaja.app.Activity.SearchResultActivity;
+import com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty;
 import com.dicicilaja.app.R;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,6 +75,12 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
     ListProductCatalogAdapter adapterProduk;
 
+    int currentPage = 1;
+
+    SwipeRefreshLayoutWithEmpty mSwipeRefreshLayout;
+    @BindView(R.id.swipeToRefresh)
+    SwipeRefreshLayoutWithEmpty swipeToRefresh;
+
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +100,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
+        swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
+
 //        productCatalogList = new ArrayList<>();
 //        productCatalogList2 = new ArrayList<>();
 //        productCatalogList3 = new ArrayList<>();
@@ -109,14 +118,21 @@ public class BusinesRewardActivity extends AppCompatActivity {
         recyclerProduk.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 LinearLayoutManager.VERTICAL, false));
         recyclerProduk.setHasFixedSize(true);
-        recyclerProduk.setAdapter(adapter);
 
-        SnapHelper snapHelperMotor = new GravitySnapHelper(Gravity.START);
-        snapHelperMotor.attachToRecyclerView(recyclerProduk);
+        doLoadData();
 
-        ApiService apiService =
-                ApiClient.getClient().create(ApiService.class);
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 1;
+                doLoadData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
 
+    private void doLoadData(){
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<KategoriProduk> call = apiService.getKategori();
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
@@ -124,8 +140,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
                 final List<Datum> dataItems = response.body().getData();
                 final List<Included> dataItems2 = response.body().getIncluded();
-                Log.d("Cek1", ""+response.body().getData());
-                Log.d("Cek2", ""+response.body().getIncluded());
+                Log.d("Cek1", "" + response.body().getData());
+                Log.d("Cek2", "" + response.body().getIncluded());
 
                 recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext()));
             }
@@ -136,37 +152,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
             }
         });
 
-//        createDummyData();
     }
-
-//    private void createDummyData() {
-//
-//        int[] motor = new int[]{
-//                R.drawable.motor1,
-//                R.drawable.motor2,
-//                R.drawable.motor3};
-//
-//        //motor
-//        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125", 1, motor[0], 2000));
-//        productCatalogList.add(new ProductCatalog("Yamaha Mio M3", 2, motor[1], 1900));
-//        productCatalogList.add(new ProductCatalog("Honda Vario 150", 3, motor[2], 2100));
-//        productCatalogList.add(new ProductCatalog("Yamaha New Fino 125", 4, motor[0], 2000));
-//        adapter.notifyDataSetChanged();
-//
-//        //hp
-//        productCatalogList2.add(new ProductCatalog("Xiaomi A2 Lite", 1, motor[0], 450));
-//        productCatalogList2.add(new ProductCatalog("Huawei Y6", 2, motor[1], 250));
-//        productCatalogList2.add(new ProductCatalog("Samsung Galaxy A2", 3, motor[2], 350));
-//        productCatalogList2.add(new ProductCatalog("Xiaomi A2 Lite", 4, motor[0], 410));
-//        adapter2.notifyDataSetChanged();
-//
-//        //elektronik
-//        productCatalogList3.add(new ProductCatalog("Speaker JBL", 1, motor[0], 250));
-//        productCatalogList3.add(new ProductCatalog("JBL Flip 4", 2, motor[1], 200));
-//        productCatalogList3.add(new ProductCatalog("Sony Extra Bass", 3, motor[2], 150));
-//        productCatalogList3.add(new ProductCatalog("Speaker JBL", 4, motor[0], 125));
-//        adapter3.notifyDataSetChanged();
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

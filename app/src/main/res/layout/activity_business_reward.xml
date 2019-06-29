@@ -123,7 +123,10 @@
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
-
+                <com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty
+                    android:id="@+id/swipeToRefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,42 +166,16 @@
 
                     </LinearLayout>
 
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_marginTop="16dp"-->
-                        <!--android:layout_marginLeft="16dp"-->
-                        <!--android:layout_marginRight="16dp"-->
-                        <!--android:layout_height="wrap_content">-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/title_motor"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:fontFamily="@font/open_sans_bold"-->
-                            <!--android:text="Motor"/>-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/all_motor"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:textSize="12sp"-->
-                            <!--android:fontFamily="@font/open_sans"-->
-                            <!--android:text="@string/lihat_semua"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:textColor="@color/colorAccent"/>-->
-                    <!--</RelativeLayout>-->
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_produk"
-                        android:layout_marginTop="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="13dp"
-                        android:clipToPadding="false"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_produk"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="13dp"
+                            android:clipToPadding="false"/>
 
                 </LinearLayout>
+                </com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty>
 
                 <ImageView
                     android:layout_width="match_parent"

@@ -1,7 +1,9 @@
 package com.dicicilaja.app.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -10,11 +12,23 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.ClaimReward;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.Datum;
+import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
+import com.dicicilaja.app.Activity.BusinessReward.ui.Transaction.adapter.ListClaimRewardAdapter;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RedeemConfirmation2Activity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -74,7 +88,7 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
     @BindView(R.id.ulasan_produk)
     RelativeLayout ulasanProduk;
 
-    String id, name;
+    String id, name, userId;
     int poin, thumbnail;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +100,32 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("ID");
-        name = intent.getStringExtra("Name");
-        poin = (int) intent.getIntExtra("Point",0);
-        thumbnail = intent.getIntExtra("Thumbnail", 0);
+        id = intent.getStringExtra("PRODUK_ID");
 
+        final SessionManager session = new SessionManager(getBaseContext());
+        userId = session.getUserId();
+//        name = intent.getStringExtra("Name");
+//        poin = (int) intent.getIntExtra("Point",0);
+//        thumbnail = intent.getIntExtra("Thumbnail", 0);
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        Call<ClaimRewards> call = apiService.getClaim(Integer.parseInt(userId));
+        call.enqueue(new Callback<ClaimRewards>() {
+            @SuppressLint("WrongConstant")
+            @Override
+            public void onResponse(Call<ClaimRewards> call, Response<ClaimRewards> response) {
+                final List<Datum> dataItems = response.body().getData();
+                Log.d("Cek1", ""+response.body().getData());
+
+//                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
+            }
+
+            @Override
+            public void onFailure(Call<ClaimRewards> call, Throwable t) {
+
+            }
+        });
 
     }
 

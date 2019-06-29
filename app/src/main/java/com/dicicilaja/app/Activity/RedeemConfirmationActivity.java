@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @BindView(R.id.detail)
     TextView detail;
     @BindView(R.id.detail2)
-    TextView detail2;
+    LinearLayout detail2;
     @BindView(R.id.detail3)
     TextView detail3;
     @BindView(R.id.detail4)
@@ -37,8 +38,10 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
-    String id, name;
+    String tgl, name, produk_id;
     int point, thumbnail;
+    @BindView(R.id.tgl)
+    TextView tvTgl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +53,12 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("ID");
-        name = intent.getStringExtra("Name");
-        point = (int) intent.getIntExtra("Point",0);
-        thumbnail = intent.getIntExtra("Thumbnail", 0);
+        tgl = intent.getStringExtra("DATE");
+        produk_id = intent.getStringExtra("PRODUK_ID");
+        tvTgl.setText(tgl);
+//        name = intent.getStringExtra("Name");
+//        point = (int) intent.getIntExtra("Point",0);
+//        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
     }
 
@@ -84,10 +89,10 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
-        intent.putExtra("ID", id);
-        intent.putExtra("Name", name);
-        intent.putExtra("Point", point);
-        intent.putExtra("Thumbnail", thumbnail);
+        intent.putExtra("PRODUK_ID", produk_id);
+//        intent.putExtra("Name", name);
+//        intent.putExtra("Point", point);
+//        intent.putExtra("Thumbnail", thumbnail);
         startActivity(intent);
     }
 }

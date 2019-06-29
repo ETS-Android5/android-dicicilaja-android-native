@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Attributes;
@@ -19,6 +21,7 @@ import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.Activity.BusinessReward.ui.DetailProduct.activity.DetailProductActivity;
 import com.dicicilaja.app.R;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -68,10 +71,17 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
 
         holder.tv_title.setText(pc.getAttributes().getNama());
         Log.d("Relasi", " id: " + pc.getRelationships());
-        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(),pcList2, mContext);
+
+        for (int i = 0; i < pc.getRelationships().getProductCatalogs().getData().size(); i++){
+            horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData().get(i).getId(),pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
+        }
+//        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);
+
+        SnapHelper snapHelperMotor = new GravitySnapHelper(Gravity.START);
+        snapHelperMotor.attachToRecyclerView(holder.rvProduk);
     }
 
     @Override

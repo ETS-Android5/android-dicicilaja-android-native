@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.dicicilaja.app.API.Model.Transaction;
+import com.dicicilaja.app.Activity.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;

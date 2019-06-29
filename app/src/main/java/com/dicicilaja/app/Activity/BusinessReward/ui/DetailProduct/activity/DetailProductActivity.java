@@ -23,6 +23,7 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.claimReward.ClaimReward;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProduk.DetailProduk;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Datum;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
@@ -30,14 +31,17 @@ import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
 import com.dicicilaja.app.Activity.BusinessReward.network.InterfaceBranch;
 import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.Activity.RedeemConfirmationActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahPassword.UbahPassword;
-import com.dicicilaja.app.Activity.UploadKTPActivity;
+import com.dicicilaja.app.Activity.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,7 +88,10 @@ public class DetailProductActivity extends AppCompatActivity {
     ProgressBar pbDetail;
 
     String branchId, areaId, crhId, productCatalogId, statusId, noResi, noPo, ongkir;
-    String profileId, alamatC, cabangText;
+    String profileId, alamatC;
+    String cabangText;
+    String fotoKtp, fotoNpwp, nomorKtp, nomorNpwp;
+    int product_id;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +110,6 @@ public class DetailProductActivity extends AppCompatActivity {
 
         final SessionManager session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
-//        apiKey = session.getUserId();
         Log.d("apinya", session.getToken());
 
 
@@ -112,7 +118,6 @@ public class DetailProductActivity extends AppCompatActivity {
 
         ApiService apiService2 =
                 ApiClient.getClient2().create(ApiService.class);
-
 
         InterfaceAxiDetail apiService5 =
                 RetrofitClient.getClient().create(InterfaceAxiDetail.class);
@@ -133,13 +138,41 @@ public class DetailProductActivity extends AppCompatActivity {
 
                     profileId = itemDetail.getAxiId();
                     Log.d("Profile1", profileId);
-                    alamatC = itemDetail.getAlamatKtp();
+                    alamatC = " ";
                     Log.d("Profile2", alamatC);
                     cabangText = itemDetail.getCabang();
-                    Log.d("Profile3", cabangText);
+//                    Log.d("Profile3", cabangText);
 
                     Log.d("popo", String.valueOf(noKtp));
                     Log.d("popo", String.valueOf(noNpwp));
+
+                    Call<Branch> callBranch = apiService6.getCabang();
+                    callBranch.enqueue(new Callback<Branch>() {
+                        @Override
+                        public void onResponse(Call<Branch> call, Response<Branch> response) {
+                            if (response.isSuccessful()) {
+                                pbDetail.setVisibility(View.GONE);
+                                int sizenya = response.body().getData().size();
+                                Log.d("SIZENYAAAA", String.valueOf(response.body().getData().size()));
+
+                                for(int i = 0;i < sizenya;i++){
+                                    Log.d("DATANYAAA", response.body().getData().get(i).getName() + cabangText);
+                                    if(response.body().getData().get(i).getName().equals(cabangText)){
+                                        branchId = String.valueOf(response.body().getData().get(i).getId());
+                                        Log.d("Profile4", branchId);
+                                        areaId = response.body().getData().get(i).getAreaId();
+                                        Log.d("Profile5", areaId);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Branch> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
 
                 }
             }
@@ -150,57 +183,26 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
 
-        Call<Branch> callBranch = apiService6.getCabang();
-        callBranch.enqueue(new Callback<Branch>() {
+        Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
+        callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
-            public void onResponse(Call<Branch> call, Response<Branch> response) {
-                if (response.isSuccessful()) {
-                    pbDetail.setVisibility(View.GONE);
-//                    itemDetail = response.body().getData();
-//                    noNpwp = response.body().getData().size();
-                    int sizenya = response.body().getData().size();
-                    Log.d("SIZENYAAAA", String.valueOf(response.body().getData().size()));
+            public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
+                final List<com.dicicilaja.app.Activity.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
 
-                    for(int i = 0;i < sizenya;i++){
-                        Log.d("DATANYAAA", String.valueOf(response.body().getData().get(i).getName()));
-//                        Log.d("DATANYAAA2", cabangText);
-                        if(response.body().getData().get(i).getName().equals(cabangText)){
-                            branchId = String.valueOf(response.body().getData().get(i).getId());
-                            Log.d("Profile4", branchId);
-                            areaId = response.body().getData().get(i).getAreaId();
-                            Log.d("Profile5", areaId);
-                        }
-                    }
-
+                if(dataItems.size() != 0){
+                    fotoKtp = dataItems.get(0).getAttributes().getFotoKtp();
+                    fotoNpwp = dataItems.get(0).getAttributes().getFotoNpwp();
+                    nomorKtp = dataItems.get(0).getAttributes().getNoKtp();
+                    nomorNpwp = dataItems.get(0).getAttributes().getNoNpwp();
                 }
+
             }
 
             @Override
-            public void onFailure(Call<Branch> call, Throwable t) {
-                t.printStackTrace();
+            public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
+
             }
         });
-
-//        Call<Branch> callBranch = apiService2.getCabang();
-//        callBranch.enqueue(new Callback<Branch>() {
-//            @Override
-//            public void onResponse(Call<Branch> call, Response<Branch> response2) {
-//                final List<com.dicicilaja.app.Activity.BusinessReward.dataAPI.branch.Datum> dataItems = response2.body().getData();
-//                int sizenya = response2.body().getData().size();
-//
-//                for(int i = 0;i < sizenya;i++){
-//                    if(response2.body().getData().get(i).getName().equals(cabangText)){
-//                        branchId = String.valueOf(response2.body().getData().get(i).getId());
-//                        areaId = response2.body().getData().get(i).getAreaId();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Branch> call, Throwable t) {
-//
-//            }
-//        });
 
         Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<Point>() {
@@ -226,10 +228,11 @@ public class DetailProductActivity extends AppCompatActivity {
                 deskripsi.setText(response.body().getData().getAttributes().getDeskripsi());
 
                 pointS = response.body().getData().getAttributes().getPoint();
+                product_id = response.body().getData().getId();
 //                Log.d("popos", String.valueOf(pointS));
                 productCatalogId = String.valueOf(response.body().getData().getId());
                 Log.d("Profile6", productCatalogId);
-                statusId = String.valueOf(response.body().getData().getRelationships().getStatus().getData().getId());
+                statusId = String.valueOf(5);
                 Log.d("Profile7", statusId);
             }
 
@@ -270,51 +273,46 @@ public class DetailProductActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         if (pointR >= pointS) {
-            if ((noKtp == null || noKtp.trim().length() == 0 || noKtp.equals("0")) && (noNpwp == null || noNpwp.trim().length() == 0 || noNpwp.equals("0"))) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                alertDialog.setTitle("Perhatian!");
-                alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
+            if (((noKtp == null || noKtp.trim().length() == 0 || noKtp.equals("0")) && (noNpwp == null || noNpwp.trim().length() == 0 || noNpwp.equals("0"))) || ((nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) && (nomorNpwp == null || nomorNpwp.trim().length() == 0 || nomorNpwp.equals("0")) && (fotoKtp == null || fotoKtp.trim().length() == 0 || fotoKtp.equals("0")) && (fotoNpwp == null || fotoNpwp.trim().length() == 0 || fotoNpwp.equals("0")))) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+                    alertDialog.setTitle("Perhatian!");
+                    alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
 
-                alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                alertDialog.show();
+                    alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
 
             } else {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
                 alertDialog.setTitle("Klaim Produk");
                 alertDialog.setMessage("Apakah kamu setuju ingin menukarkan point dengan produk ini?");
-                crhId = String.valueOf(111111111);
+                crhId = String.valueOf(0);
                 alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ApiService apiService =
-                                ApiClient.getClient().create(ApiService.class);
-//                        Log.d("Profile", profileId);
-//                        Log.d("Profile", branchId);
-//                        Log.d("Profile", areaId);
-//                        Log.d("Profile", crhId);
-//                        Log.d("Profile", productCatalogId);
-//                        Log.d("Profile", statusId);
-//                        Log.d("Profile", alamatC);
-//                        Log.d("Profile", noResi);
-//                        Log.d("Profile", noPo);
-//                        Log.d("Profile", ongkir);
-//                        Call<ClaimReward> call = apiService.postClaimReward(profileId, "111", "1", "111111111", "1", "1", "AD", "0", "0", "10000");
-                        Call<ClaimReward> call = apiService.postClaimReward(profileId, "17", "17", crhId, productCatalogId, statusId, alamatC, "0", "0", "0");
+                        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                        Call<ClaimReward> call = apiService.postClaimReward(profileId, branchId, areaId, crhId, productCatalogId, statusId, "0", "0", "0", "0");
                         call.enqueue(new Callback<ClaimReward>() {
                             @Override
                             public void onResponse(Call<ClaimReward> call, Response<ClaimReward> response) {
                                 try {
-                                    Log.d("Responnya", String.valueOf(response.code()));
+                                    Log.d("Responnya", String.valueOf(response));
+
+                                    Date c = Calendar.getInstance().getTime();
+
+                                    SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+                                    String date = df.format(c);
+
                                     Toast.makeText(getBaseContext(),"Berhasil Klaim",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
-                                    intent.putExtra("ID", id);
-                                    intent.putExtra("Name", name);
-                                    intent.putExtra("Point", point);
-                                    intent.putExtra("Thumbnail", thumbnail);
+                                    Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
+                                    intent.putExtra("DATE", date);
+                                    intent.putExtra("PRODUK_ID", product_id);
+//                                    intent.putExtra("Name", name);
+//                                    intent.putExtra("Point", point);
+//                                    intent.putExtra("Thumbnail", thumbnail);
                                     startActivity(intent);
                                 } catch(Exception ex) {
 

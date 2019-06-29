@@ -334,11 +334,12 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: requestCode " + requestCode);
         Log.d(TAG, "onActivityResult: resultCode == RESULT_OK ? " + (resultCode == RESULT_OK));
-        if(requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK) {
             uri = data.getData();
-            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
@@ -359,17 +360,17 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
 //                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
 //                Log.d(TAG, "file_ktp " + file_ktp);
 //                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            }else{
+            } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
-        } else if(requestCode == PICK_IMAGE_NPWP && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == PICK_IMAGE_NPWP && resultCode == Activity.RESULT_OK) {
             uri = data.getData();
-            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
 
-                    image_npwp.setImageBitmap(getResizedBitmap(bitmap,350));
+                    image_npwp.setImageBitmap(getResizedBitmap(bitmap, 350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                     fileNpwp = Helper.ConvertBitmapToString(resizedBitmap);
@@ -384,17 +385,17 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
 //                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
 //                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
 //                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            }else{
+            } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
-        } else if(requestCode == PICK_IMAGE_COVER && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == PICK_IMAGE_COVER && resultCode == Activity.RESULT_OK) {
             uri = data.getData();
-            if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
 
-                    image_cover.setImageBitmap(getResizedBitmap(bitmap,350));
+                    image_cover.setImageBitmap(getResizedBitmap(bitmap, 350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                     fileCover = Helper.ConvertBitmapToString(resizedBitmap);
@@ -409,7 +410,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
 //                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
 //                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
 //                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            }else{
+            } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
         }

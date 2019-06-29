@@ -8,6 +8,8 @@ import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProfile.DetailPr
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailSemester.DetailSemester;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailStatus.DetailStatus;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailTestimoni.DetailTestimoni;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.semester.Semester;
@@ -40,6 +42,16 @@ public interface ApiService {
 
     @GET("branch")
     Call<Branch> getCabang();
+
+    @GET("axi-foto")
+    Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
+
+    @GET("claim-reward")
+    Call<ClaimRewards> getClaim(
+                            @Query("profile_id") int profile_id);
+
+    @GET("claim-reward")
+    Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);
 
     @GET("axi/detail")
     Call<DetailProfile> getDetailProfile(@Header("Authorization") String apiKey);
@@ -129,6 +141,16 @@ public interface ApiService {
                             @Field("no_resi") String no_resi,
                             @Field("no_po") String no_po,
                             @Field("ongkos_kirim") String ongkir);
+
+    @POST("axi-foto")
+    @FormUrlEncoded
+    Call<FotoKtpNpwp> postFoto(
+                            @Field("axi_id") String axi_id,
+                            @Field("foto_ktp") String foto_ktp,
+                            @Field("foto_npwp") String foto_npwp,
+                            @Field("no_ktp") String no_ktp,
+                            @Field("no_npwp") String no_npwp);
+
 
     @POST("testimoni")
     @FormUrlEncoded

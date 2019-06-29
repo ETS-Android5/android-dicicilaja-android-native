@@ -28,23 +28,26 @@ import java.util.List;
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.MyViewHolder> {
 
 //    List<com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Attributes> pcList;
+    int idProduk;
     List<Datum_> pcList;
     List<Included> pcList2;
     Context mContext;
     Relationships re;
     Integer id;
     Integer size;
+    String nama;
 
-    public ListProductAdapter(List<Datum_> pc, List<Included> pc2, Context baseContext) {
-        this.pcList = pc;
+    public ListProductAdapter(Integer idProduk, List<Datum_> data, List<Included> pc2, Context baseContext) {
+        this.idProduk = idProduk;
+        this.pcList = data;
         this.pcList2 = pc2;
         this.mContext = baseContext;
     }
 
-//    public ListProductAdapter(List<Included> pc2, Relationships relationships, Context baseContext) {
+//    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
+//        this.pcList = data;
 //        this.pcList2 = pc2;
 //        this.mContext = baseContext;
-//        this.re = relationships;
 //    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -78,12 +81,18 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 
         Log.d("GETID", " 1nya: " + pcList.size());
         Log.d("GETID", " 2nya: " + pcList2.size());
-        for (int i = 0; i < pcList.size(); i++){
-            for (int j = 0; j < pcList2.size(); j++){
+//        for (int i = 0; i < pcList.size();i++) {
+            for (int j = 0; j < pcList2.size(); j++) {
 //                Log.d("GETID", " data1: " + pcList.get(i).getId());
 //                Log.d("GETID", " data2: " + pcList2.get(j).getId());
-                if(pcList.get(i).getId() == pcList2.get(j).getId()){
-                    holder.tv_title.setText(String.valueOf(pcList2.get(j).getAttributes().getNama()));
+                if (idProduk == pcList2.get(j).getId()) {
+                    if (pcList2.get(j).getAttributes().getNama().length() >= 16) {
+                        nama = pcList2.get(j).getAttributes().getNama().substring(0, 15) + "...";
+                    } else {
+                        nama = pcList2.get(j).getAttributes().getNama();
+                    }
+                    String title = nama;
+                    holder.tv_title.setText(title);
                     holder.tv_point.setText(String.valueOf(pcList2.get(j).getAttributes().getPoint()));
                     Glide.with(mContext).load(pcList2.get(j).getAttributes().getFoto()).into(holder.iconImage);
                     int finalj = j;
@@ -98,8 +107,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                     break;
                 }
             }
-        }
-
+//        }
     }
 
     @Override

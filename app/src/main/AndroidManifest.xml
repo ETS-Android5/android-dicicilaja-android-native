@@ -730,14 +730,15 @@
                 android:value="com.dicicilaja.app.Activity.RedeemConfirmation2Activity" />
         </activity>
         <activity
-            android:name=".Activity.TransactionActivity"
+            android:name=".Activity.BusinessReward.ui.Transaction.activity.TransactionActivity"
+            android:label="Transaksi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.TrackingOrderActivity" />
         </activity>
         <activity
-            android:name=".Activity.UploadKTPActivity"
+            android:name=".Activity.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

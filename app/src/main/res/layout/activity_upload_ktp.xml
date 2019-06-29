@@ -92,7 +92,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/uploadKTP"
+                android:id="@+id/noKtp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukan Nomer KTP"
@@ -114,7 +114,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/file1"
+                android:id="@+id/fileKtp"
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_height="45dp"
@@ -127,10 +127,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/file1">
+                android:layout_toLeftOf="@id/fileKtp">
 
                 <EditText
-                    android:id="@+id/inputKTP"
+                    android:id="@+id/photoKtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Masukan Photo KTP"
@@ -167,7 +167,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/uploadNPWP"
+                android:id="@+id/noNpwp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukan Nomer NPWP"
@@ -189,7 +189,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/file2"
+                android:id="@+id/fileNpwp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -201,10 +201,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/file2">
+                android:layout_toLeftOf="@id/fileNpwp">
 
                 <EditText
-                    android:id="@+id/inputNPWP"
+                    android:id="@+id/photoNpwp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Masukan Photo NPWP"
