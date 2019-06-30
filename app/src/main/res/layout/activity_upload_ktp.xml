@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
         android:orientation="vertical"
         android:visibility="gone"
         android:padding="15dp"
-        android:background="@color/colorWhite">
+        android:background="@drawable/border_all">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayoutEmailID"
@@ -78,6 +79,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="15dp"
+        android:layout_marginTop="16dp"
         android:background="@color/colorWhite">
 
         <TextView
@@ -89,6 +91,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
 
             <EditText
@@ -119,28 +122,27 @@
                 android:layout_alignParentRight="true"
                 android:layout_height="45dp"
                 android:text="File"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans_semibold"
                 android:layout_weight="1"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/border_button"/>
+                android:backgroundTint="@color/colorAccentDark2"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/fileKtp">
 
-                <EditText
+                <TextView
                     android:id="@+id/photoKtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Masukan Photo KTP"
-                    android:fontFamily="@font/open_sans"
-                    android:layout_centerHorizontal="true"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    android:layout_marginRight="5dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end"
+                    android:paddingRight="10dp"
+                    android:textColor="#42B1FF"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/open_sans"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,6 +166,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
 
             <EditText
@@ -194,27 +197,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="File"
-                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/border_button"/>
+                android:backgroundTint="@color/colorAccentDark2"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/fileNpwp">
 
-                <EditText
+                <TextView
                     android:id="@+id/photoNpwp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Masukan Photo NPWP"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/open_sans"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    android:layout_marginRight="5dp"
-                    android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end"
+                    android:textColor="#42B1FF"
+                    android:paddingRight="10dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/open_sans"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -280,13 +282,13 @@
         <Button
             android:id="@+id/upload"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:text="Upload"
             android:textAllCaps="true"
             android:layout_alignParentBottom="true"
             android:textColor="@color/colorWhite"
-            android:fontFamily="@font/open_sans"
-            android:background="@drawable/border_button"/>
+            android:fontFamily="@font/open_sans_bold"
+            android:backgroundTint="@color/colorAccent"/>
 
     </RelativeLayout>
 </LinearLayout>

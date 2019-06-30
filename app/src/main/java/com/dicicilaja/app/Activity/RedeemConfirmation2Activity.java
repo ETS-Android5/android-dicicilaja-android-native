@@ -1,9 +1,10 @@
 package com.dicicilaja.app.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,22 +12,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
-import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.Datum;
-import com.dicicilaja.app.Activity.BusinessReward.network.ApiClient;
-import com.dicicilaja.app.Activity.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RedeemConfirmation2Activity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -103,6 +96,13 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem_confirmation2);
         ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

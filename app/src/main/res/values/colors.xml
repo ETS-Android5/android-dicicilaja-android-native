@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#1C1C1C</color><!-- EBEDEE -->
     <color name="colorAccent">#F89E4C</color>
     <color name="colorIndicator">#fcd0a9</color>
-    <color name="colorAccentDark">#EA9A51</color>
+    <color name="colorAccentDark">#E48A38</color>
     <color name="colorAccent2">#3489C1</color>
     <color name="colorAccentDark2">#016BB2</color>
     <color name="colorBackground">#9aa0a6</color>
@@ -19,6 +19,7 @@
     <color name="colorTextSection">#424242</color>
     <color name="colorFacebook">#3b5998</color>
     <color name="colorGooglePlus">#d34836</color>
+    <color name="colorbluewhite">#C9EDFF</color>
     <!-- STATUS DISPOSISI -->
     <color name="statusGreen">#2ECC71</color>
 

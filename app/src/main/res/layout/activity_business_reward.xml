@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity"
+    tools:context=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,26 +22,32 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:fitsSystemWindows="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
+                android:layout_height="match_parent"
                 android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:fillViewport="true"
                 android:orientation="vertical"
                 android:background="@color/colorPrimary">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="190dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/colorAccent">
 
                     <LinearLayout
@@ -84,22 +90,24 @@
                                 android:textColor="@color/colorWhite"
                                 android:layout_gravity="center_vertical"
                                 android:textSize="24sp"
-                                android:text="3000"
+                                android:text="0"
                                 android:fontFamily="@font/open_sans"/>
 
                             <ImageView
                                 android:id="@+id/coin"
-                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="20dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_height="20dp"
-                                android:src="@drawable/coins"/>
+                                android:src="@drawable/ic_coin_reward"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal">
 
@@ -123,10 +131,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
-                <com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty
-                    android:id="@+id/swipeToRefresh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,57 +139,61 @@
                     android:visibility="visible"
                     android:background="@color/colorPrimary">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ib_fr_space_16"
-                        android:layout_marginLeft="@dimen/ib_fr_space_16"
-                        android:layout_marginRight="@dimen/ib_fr_space_16"
-                        android:padding="@dimen/ib_fr_space_16"
+                        android:layout_height="85dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
                         android:background="@drawable/border_layout"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="9dp"
+                            android:textSize="11dp"
                             android:fontFamily="@font/open_sans"
                             android:text="@string/notif_ktp"/>
 
                         <Button
                             android:id="@+id/upload"
                             android:layout_width="wrap_content"
-                            android:layout_height="25dp"
+                            android:layout_height="40dp"
                             android:text="upload"
-                            android:layout_marginTop="10dp"
+                            android:layout_margin="7dp"
                             android:textAllCaps="true"
-                            android:textSize="9dp"
-                            android:fontFamily="@font/open_sans"
+                            android:textSize="11dp"
+                            android:fontFamily="@font/open_sans_semibold"
                             android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
                             android:textColor="@color/colorWhite"
-                            android:background="@drawable/border_button"/>
+                            android:backgroundTint="@color/colorAccentDark2"/>
 
-                    </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_produk"
-                            android:layout_marginTop="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingRight="13dp"
-                            android:clipToPadding="false"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                </com.dicicilaja.app.Component.SwipeRefreshLayoutWithEmpty>
-
+                        <androidx.recyclerview.widget.RecyclerView
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            android:id="@+id/recycler_produk"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="16dp"
+                            android:clipToPadding="false"/>
+                </LinearLayout>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="50dp"
                     android:visibility="gone"
-                    android:src="@drawable/bg_not_open_program"/>
+                    android:src="@drawable/ic_undraw_empty_xct9"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </LinearLayout>

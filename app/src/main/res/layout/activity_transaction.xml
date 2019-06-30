@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,16 +24,8 @@
         android:id="@+id/dataTrans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title_tujuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bulan Ini"
-            android:fontFamily="@font/open_sans_bold"
-            android:padding="@dimen/ib_fr_space_16"
-            android:textSize="@dimen/font_medium"/>
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_transaksi"
@@ -50,19 +43,22 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal"
             android:layout_height="300dp"
-            android:padding="50dp"
+            android:paddingTop="50dp"
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
             android:src="@drawable/bg_not_open_program"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kamu belum punya riwayat transaksi"
+            android:text="Kamu belum melakukan\npenukaran poin."
             android:gravity="center"
-            android:fontFamily="@font/open_sans_bold"
+            android:fontFamily="@font/open_sans_semibold"
             android:padding="@dimen/ib_fr_space_16"
-            android:textSize="@dimen/font_medium"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 

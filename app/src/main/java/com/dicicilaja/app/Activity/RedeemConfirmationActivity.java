@@ -1,26 +1,25 @@
 package com.dicicilaja.app.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
+import android.view.*;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.dicicilaja.app.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.R;
 
 public class RedeemConfirmationActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+
+    String tgl, name, produk_id, alamat, no_transaksi, no_transaksi2, tgl_penukaran, status_pengiriman;
+
+    int point, thumbnail;
+    @BindView(R.id.tgl)
+    TextView tvTgl;
     @BindView(R.id.icon_sukses)
     ImageView iconSukses;
     @BindView(R.id.title_sukses)
@@ -29,29 +28,16 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     TextView detail;
     @BindView(R.id.detail2)
     LinearLayout detail2;
-    @BindView(R.id.detail3)
-    TextView detail3;
-    @BindView(R.id.detail4)
-    TextView detail4;
-    @BindView(R.id.detail5)
-    TextView detail5;
+    @BindView(R.id.call_tasya)
+    FrameLayout callTasya;
     @BindView(R.id.klaim)
     Button klaim;
-
-    String tgl, name, produk_id, alamat, no_transaksi, no_transaksi2, tgl_penukaran, status_pengiriman;
-
-    int point, thumbnail;
-    @BindView(R.id.tgl)
-    TextView tvTgl;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem_confirmation);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(" ");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         tgl = intent.getStringExtra("DATE");
@@ -60,7 +46,7 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
         no_transaksi2 = intent.getStringExtra("NO_TRANSAKSI2");
         tgl_penukaran = intent.getStringExtra("TGL_PENUKARAN");
         status_pengiriman = intent.getStringExtra("STATUS_PENGIRIMAN");
-        produk_id= intent.getStringExtra("PRODUK_ID");
+        produk_id = intent.getStringExtra("PRODUK_ID");
 
         tvTgl.setText(tgl);
     }
@@ -89,18 +75,28 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.klaim)
-    public void onViewClicked() {
-        Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
-        intent.putExtra("ALAMAT", alamat);
-        intent.putExtra("NO_TRANSAKSI", no_transaksi);
-        intent.putExtra("NO_TRANSAKSI2", no_transaksi2);
-        intent.putExtra("TGL_PENUKARAN", tgl_penukaran);
-        intent.putExtra("STATUS_PENGIRIMAN", status_pengiriman);
-        intent.putExtra("PRODUK_ID", produk_id);
+    @OnClick({R.id.call_tasya, R.id.klaim})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.call_tasya:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=08111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20produk%20yang%20saya%20telah%20tukar%20"));
+                startActivity(browserIntent);
+                break;
+            case R.id.klaim:
+                Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
+                intent.putExtra("ALAMAT", alamat);
+                intent.putExtra("NO_TRANSAKSI", no_transaksi);
+                intent.putExtra("NO_TRANSAKSI2", no_transaksi2);
+                intent.putExtra("TGL_PENUKARAN", tgl_penukaran);
+                intent.putExtra("STATUS_PENGIRIMAN", status_pengiriman);
+                intent.putExtra("PRODUK_ID", produk_id);
 //        intent.putExtra("Name", name);
 //        intent.putExtra("Point", point);
 //        intent.putExtra("Thumbnail", thumbnail);
-        startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+                break;
+        }
     }
 }

@@ -5,14 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/card_trans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:clickable="true"
-        android:layout_gravity="center"
-        android:elevation="100dp"
+        android:background="@drawable/border_branch"
         android:layout_marginBottom="5dp">
 
         <RelativeLayout
@@ -68,8 +65,8 @@
                 <TextView
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:textSize="8dp"
+                    android:layout_height="26dp"
+                    android:textSize="12dp"
                     android:background="@drawable/border_blue"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
@@ -83,13 +80,13 @@
 
             <ImageView
                 android:id="@+id/bmasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ib_fr_ic_arrow_right"
+                android:src="@drawable/ic_transaction_right"
                 android:layout_centerVertical="true" />
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>

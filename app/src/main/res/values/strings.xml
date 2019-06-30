@@ -193,6 +193,7 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="deskripsi"></string>
     <string name="title_activity_spgdashboard">SPGDashboardActivity</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP.\nUntuk mengurangi nilai pajak barang, segera lakukan upload File.]]></string>

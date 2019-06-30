@@ -1,11 +1,7 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +18,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -36,7 +29,6 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
-import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
@@ -46,12 +38,20 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
+import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -59,14 +59,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
@@ -95,8 +87,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView titleInfo;
     @BindView(R.id.title_box1)
     TextView titleBox1;
-    @BindView(R.id.content_box1)
-    TextView contentBox1;
     @BindView(R.id.point_reward)
     LinearLayout pointReward;
     @BindView(R.id.title_box2)
@@ -169,6 +159,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     NavigationView navView3;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.content_box1)
+    TextView contentBox1;
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
@@ -219,6 +211,23 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         contentBox5.setTypeface(opensans_reguler);
         titleBox6.setTypeface(opensans_bold);
         contentBox6.setTypeface(opensans_reguler);
+
+        ApiService apiService =
+                ApiClient.getClient().create(ApiService.class);
+
+        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        call2.enqueue(new Callback<Point>() {
+            @Override
+            public void onResponse(Call<Point> call, Response<Point> response2) {
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+            }
+
+            @Override
+            public void onFailure(Call<Point> call, Throwable t) {
+
+            }
+        });
 
 //        allpromo.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -305,7 +314,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
                     contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
                     contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
                     contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
@@ -692,5 +701,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(intent);
                 break;
         }
-    };
+    }
+
+    ;
 }
