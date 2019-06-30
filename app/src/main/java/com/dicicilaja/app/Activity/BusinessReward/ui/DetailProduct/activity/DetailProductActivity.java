@@ -20,8 +20,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.area.Area;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.claimReward.ClaimReward;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailProduk.DetailProduk;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Datum;
@@ -32,6 +34,7 @@ import com.dicicilaja.app.Activity.BusinessReward.network.InterfaceBranch;
 import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Activity.NotificationActivity;
 import com.dicicilaja.app.Activity.RedeemConfirmationActivity;
+import com.dicicilaja.app.Activity.RegisterMaxi3Activity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data;
@@ -87,7 +90,7 @@ public class DetailProductActivity extends AppCompatActivity {
     @BindView(R.id.pbDetail)
     ProgressBar pbDetail;
 
-    String branchId, areaId, crhId, productCatalogId, statusId, noResi, noPo, ongkir;
+    String branchId, areaId, crhId, productCatalogId, statusId, noResi, noPo, ongkir, namaCabang, namaArea, ktpnpwp;
     String profileId, alamatC;
     String cabangText;
     String fotoKtp, fotoNpwp, nomorKtp, nomorNpwp;
@@ -104,11 +107,8 @@ public class DetailProductActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
-//        name = intent.getStringExtra("Name");
-//        point = (int) intent.getIntExtra("Point", 0);
-//        thumbnail = intent.getIntExtra("Thumbnail", 0);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
         Log.d("apinya", session.getToken());
 
@@ -153,14 +153,46 @@ public class DetailProductActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 pbDetail.setVisibility(View.GONE);
                                 int sizenya = response.body().getData().size();
-                                Log.d("SIZENYAAAA", String.valueOf(response.body().getData().size()));
+//                                Log.d("SIZENYAAAA", String.valueOf(response.body().getData().size()));
 
                                 for(int i = 0;i < sizenya;i++){
                                     Log.d("DATANYAAA", response.body().getData().get(i).getName() + cabangText);
                                     if(response.body().getData().get(i).getName().equals(cabangText)){
+
                                         branchId = String.valueOf(response.body().getData().get(i).getId());
-                                        Log.d("Profile4", branchId);
+                                        namaCabang = String.valueOf(response.body().getData().get(i).getName());
+//                                        Log.d("Profile4", branchId);
                                         areaId = response.body().getData().get(i).getAreaId();
+
+                                        Call<Area> callArea = apiService6.getArea();
+                                        callArea.enqueue(new Callback<Area>() {
+                                            @Override
+                                            public void onResponse(Call<Area> call2, Response<Area> response2) {
+                                                if (response2.isSuccessful()) {
+
+                                                    int sizenya2 = response2.body().getData().size();
+                                                    Log.d("SIZENYAAAA", String.valueOf(response2.body().getData().size()));
+
+                                                    for(int j = 0;j < sizenya2; j++){
+                                                        Log.d("SIZENYAAAA", String.valueOf(response2.body().getData().get(j).getId()));
+                                                        Log.d("SIZENYAAAA", areaId);
+                                                        if(response2.body().getData().get(j).getId() == Integer.parseInt(areaId)){
+
+                                                            namaArea = String.valueOf(response2.body().getData().get(j).getName());
+
+                                                            Log.d("Profile5", areaId);
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Area> call, Throwable t) {
+                                                t.printStackTrace();
+                                            }
+                                        });
+
                                         Log.d("Profile5", areaId);
                                     }
                                 }
@@ -242,25 +274,120 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
 
-//        if(noNpwp == 0){
-//        }
+        klaim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pointR >= pointS) {
+                    if (((noKtp == null || noKtp.trim().length() == 0 || noKtp.equals("0")) && (noNpwp == null || noNpwp.trim().length() == 0 || noNpwp.equals("0"))) || ((nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) && (nomorNpwp == null || nomorNpwp.trim().length() == 0 || nomorNpwp.equals("0")) && (fotoKtp == null || fotoKtp.trim().length() == 0 || fotoKtp.equals("0")) && (fotoNpwp == null || fotoNpwp.trim().length() == 0 || fotoNpwp.equals("0")))) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+                        alertDialog.setTitle("Perhatian!");
+                        alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
+
+                        alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        alertDialog.show();
+
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+                        alertDialog.setTitle("Klaim Produk");
+                        alertDialog.setMessage("Apakah kamu setuju ingin menukarkan point dengan produk ini?");
+                        crhId = String.valueOf(0);
+                        alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                ktpnpwp = nomorKtp + "/" + nomorNpwp;
+                                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+                                Log.d("datainput", profileId);
+                                Log.d("datainput", session.getName());
+                                Log.d("datainput", branchId);
+                                Log.d("datainput", namaCabang);
+                                Log.d("datainput", areaId);
+//                                Log.d("datainput", namaArea);
+                                Log.d("datainput", crhId);
+                                Log.d("datainput", productCatalogId);
+                                Log.d("datainput", ktpnpwp);
+                                Log.d("datainput", statusId);
+
+                                Call<DetailClaimReward> call = apiService.postClaimReward(profileId, session.getName(), branchId, namaCabang, areaId, namaArea, crhId, null, productCatalogId, ktpnpwp, null, null, null, null, null, null, null, statusId, null);
+                                call.enqueue(new Callback<DetailClaimReward>() {
+                                    @Override
+                                    public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
+                                        try {
+                                            Log.d("Responnya", String.valueOf(response.code()));
+
+                                            Date c = Calendar.getInstance().getTime();
+
+                                            SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+                                            String date = df.format(c);
+
+                                            Toast.makeText(getBaseContext(),"Berhasil Klaim",Toast.LENGTH_SHORT).show();
+
+                                            Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
+                                            intent.putExtra("DATE", date);
+                                            intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
+                                            intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
+                                            intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
+                                            intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
+                                            intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
+                                            intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
+                                            startActivity(intent);
+
+                                        } catch(Exception ex) {
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<DetailClaimReward> call, Throwable t) {
+
+                                    }
+                                });
+
+                            }
+                        });
+                        alertDialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+                    alertDialog.setTitle("Point Kurang!");
+                    alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
+
+                    alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+//                    finish();
+//                    startActivity(getIntent());
+                            Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
+                }
+            }
+        });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.axi_dasboard, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
             Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
             startActivity(intent);
@@ -272,83 +399,6 @@ public class DetailProductActivity extends AppCompatActivity {
 
     @OnClick(R.id.klaim)
     public void onViewClicked() {
-        if (pointR >= pointS) {
-            if (((noKtp == null || noKtp.trim().length() == 0 || noKtp.equals("0")) && (noNpwp == null || noNpwp.trim().length() == 0 || noNpwp.equals("0"))) || ((nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) && (nomorNpwp == null || nomorNpwp.trim().length() == 0 || nomorNpwp.equals("0")) && (fotoKtp == null || fotoKtp.trim().length() == 0 || fotoKtp.equals("0")) && (fotoNpwp == null || fotoNpwp.trim().length() == 0 || fotoNpwp.equals("0")))) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                    alertDialog.setTitle("Perhatian!");
-                    alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
 
-                    alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    alertDialog.show();
-
-            } else {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                alertDialog.setTitle("Klaim Produk");
-                alertDialog.setMessage("Apakah kamu setuju ingin menukarkan point dengan produk ini?");
-                crhId = String.valueOf(0);
-                alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-                        Call<ClaimReward> call = apiService.postClaimReward(profileId, branchId, areaId, crhId, productCatalogId, statusId, "0", "0", "0", "0");
-                        call.enqueue(new Callback<ClaimReward>() {
-                            @Override
-                            public void onResponse(Call<ClaimReward> call, Response<ClaimReward> response) {
-                                try {
-                                    Log.d("Responnya", String.valueOf(response));
-
-                                    Date c = Calendar.getInstance().getTime();
-
-                                    SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-                                    String date = df.format(c);
-
-                                    Toast.makeText(getBaseContext(),"Berhasil Klaim",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
-                                    intent.putExtra("DATE", date);
-                                    intent.putExtra("PRODUK_ID", product_id);
-//                                    intent.putExtra("Name", name);
-//                                    intent.putExtra("Point", point);
-//                                    intent.putExtra("Thumbnail", thumbnail);
-                                    startActivity(intent);
-                                } catch(Exception ex) {
-
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ClaimReward> call, Throwable t) {
-
-                            }
-                        });
-
-                    }
-                });
-                alertDialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        startActivity(getIntent());
-                    }
-                });
-                alertDialog.show();
-            }
-        } else {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-            alertDialog.setTitle("Point Kurang!");
-            alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
-
-            alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-//                    finish();
-//                    startActivity(getIntent());
-                    Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                    startActivity(intent);
-                }
-            });
-            alertDialog.show();
-        }
     }
 }

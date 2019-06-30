@@ -82,4 +82,5 @@ public class Meta{
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
+
 }

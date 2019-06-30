@@ -227,11 +227,12 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/box1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/border_active"
+                                android:background="@drawable/border"
                                 android:src="@drawable/box1"/>
 
                             <View
@@ -242,6 +243,7 @@
                                 android:layout_weight="1"/>
 
                             <ImageView
+                                android:id="@+id/box2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
@@ -257,6 +259,7 @@
                                 android:layout_weight="1"/>
 
                             <ImageView
+                                android:id="@+id/box3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
@@ -272,6 +275,7 @@
                                 android:layout_weight="1"/>
 
                             <ImageView
+                                android:id="@+id/box4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
@@ -368,6 +372,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/ulasan_produk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

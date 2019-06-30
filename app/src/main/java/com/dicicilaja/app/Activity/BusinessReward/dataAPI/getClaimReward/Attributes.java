@@ -64,6 +64,9 @@ public class Attributes {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("ktp_npwp")
+    @Expose
+    private String ktpNpwp;
 
     public String getProfileId() {
         return profileId;
@@ -223,5 +226,13 @@ public class Attributes {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getKtpNpwp() {
+        return ktpNpwp;
+    }
+
+    public void setKtpNpwp(String ktpNpwp) {
+        this.ktpNpwp = ktpNpwp;
     }
 }

@@ -1,19 +1,18 @@
-package com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk;
+package com.dicicilaja.app.Activity.BusinessReward.dataAPI.getDetailKategori;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Status{
-
+public class Status {
     @SerializedName("data")
     @Expose
-    private Data data;
+    private Data_ data;
 
-    public Data getData() {
+    public Data_ getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Data_ data) {
         this.data = data;
     }
 }

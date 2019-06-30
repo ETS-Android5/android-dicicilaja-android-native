@@ -38,7 +38,8 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
-    String tgl, name, produk_id;
+    String tgl, name, produk_id, alamat, no_transaksi, no_transaksi2, tgl_penukaran, status_pengiriman;
+
     int point, thumbnail;
     @BindView(R.id.tgl)
     TextView tvTgl;
@@ -54,12 +55,14 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         tgl = intent.getStringExtra("DATE");
-        produk_id = intent.getStringExtra("PRODUK_ID");
-        tvTgl.setText(tgl);
-//        name = intent.getStringExtra("Name");
-//        point = (int) intent.getIntExtra("Point",0);
-//        thumbnail = intent.getIntExtra("Thumbnail", 0);
+        alamat = intent.getStringExtra("ALAMAT");
+        no_transaksi = intent.getStringExtra("NO_TRANSAKSI");
+        no_transaksi2 = intent.getStringExtra("NO_TRANSAKSI2");
+        tgl_penukaran = intent.getStringExtra("TGL_PENUKARAN");
+        status_pengiriman = intent.getStringExtra("STATUS_PENGIRIMAN");
+        produk_id= intent.getStringExtra("PRODUK_ID");
 
+        tvTgl.setText(tgl);
     }
 
     @Override
@@ -89,6 +92,11 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
+        intent.putExtra("ALAMAT", alamat);
+        intent.putExtra("NO_TRANSAKSI", no_transaksi);
+        intent.putExtra("NO_TRANSAKSI2", no_transaksi2);
+        intent.putExtra("TGL_PENUKARAN", tgl_penukaran);
+        intent.putExtra("STATUS_PENGIRIMAN", status_pengiriman);
         intent.putExtra("PRODUK_ID", produk_id);
 //        intent.putExtra("Name", name);
 //        intent.putExtra("Point", point);

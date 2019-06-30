@@ -708,7 +708,7 @@
                 android:value="com.dicicilaja.app.Activity.RedeemConfirmationActivity" />
         </activity>
         <activity
-            android:name=".Activity.CatalogResultActivity"
+            android:name=".Activity.BusinessReward.ui.BusinessReward.activity.CatalogResultActivity"
             android:label="Motor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -743,6 +743,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.BusinessReward.ui.Transaction.activity.DetailTransactionActivity"
+            android:label="Transaksi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.BusinessReward.ui.Transaction.activity.TransactionActivity" />
         </activity>
     </application>
 

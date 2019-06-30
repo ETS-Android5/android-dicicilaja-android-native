@@ -77,7 +77,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
     int currentPage = 1;
 
-    SwipeRefreshLayoutWithEmpty mSwipeRefreshLayout;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayoutWithEmpty swipeToRefresh;
 
@@ -124,9 +123,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
         swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                currentPage = 1;
                 doLoadData();
-                mSwipeRefreshLayout.setRefreshing(false);
+                swipeToRefresh.setRefreshing(false);
             }
         });
     }

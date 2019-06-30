@@ -20,9 +20,6 @@ public class Attributes{
 	@SerializedName("harga")
 	@Expose
 	private Integer harga;
-	@SerializedName("ppn")
-	@Expose
-	private Integer ppn;
 	@SerializedName("foto")
 	@Expose
 	private String foto;
@@ -73,14 +70,6 @@ public class Attributes{
 		this.harga = harga;
 	}
 
-	public Integer getPpn() {
-		return ppn;
-	}
-
-	public void setPpn(Integer ppn) {
-		this.ppn = ppn;
-	}
-
 	public String getFoto() {
 		return foto;
 	}
@@ -104,4 +93,5 @@ public class Attributes{
 	public void setPopularitas(Integer popularitas) {
 		this.popularitas = popularitas;
 	}
+
 }

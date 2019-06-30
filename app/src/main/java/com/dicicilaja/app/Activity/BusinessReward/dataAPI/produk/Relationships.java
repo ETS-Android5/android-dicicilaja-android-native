@@ -28,4 +28,5 @@ public class Relationships{
 		this.kategori = kategori;
 	}
 
+
 }

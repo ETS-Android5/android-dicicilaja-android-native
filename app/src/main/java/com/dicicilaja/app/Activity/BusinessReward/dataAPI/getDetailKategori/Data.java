@@ -1,9 +1,9 @@
-package com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk;
+package com.dicicilaja.app.Activity.BusinessReward.dataAPI.getDetailKategori;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+public class Data {
     @SerializedName("type")
     @Expose
     private String type;
@@ -48,5 +48,4 @@ public class Datum {
     public void setRelationships(Relationships relationships) {
         this.relationships = relationships;
     }
-
 }

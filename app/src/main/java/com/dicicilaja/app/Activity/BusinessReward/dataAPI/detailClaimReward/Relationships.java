@@ -1,28 +1,42 @@
 package com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailClaimReward;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Relationships{
 
-	@SerializedName("product_catalog")
-	private ProductCatalog productCatalog;
-
 	@SerializedName("status")
+	@Expose
 	private Status status;
+	@SerializedName("product_catalog")
+	@Expose
+	private ProductCatalog productCatalog;
+	@SerializedName("testimonis")
+	@Expose
+	private Testimonis testimonis;
 
-	public void setProductCatalog(ProductCatalog productCatalog){
-		this.productCatalog = productCatalog;
+	public Status getStatus() {
+		return status;
 	}
 
-	public ProductCatalog getProductCatalog(){
-		return productCatalog;
-	}
-
-	public void setStatus(Status status){
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
-	public Status getStatus(){
-		return status;
+	public ProductCatalog getProductCatalog() {
+		return productCatalog;
 	}
+
+	public void setProductCatalog(ProductCatalog productCatalog) {
+		this.productCatalog = productCatalog;
+	}
+
+	public Testimonis getTestimonis() {
+		return testimonis;
+	}
+
+	public void setTestimonis(Testimonis testimonis) {
+		this.testimonis = testimonis;
+	}
+
 }

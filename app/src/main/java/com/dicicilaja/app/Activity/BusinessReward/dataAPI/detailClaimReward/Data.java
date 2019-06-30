@@ -1,50 +1,52 @@
 package com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailClaimReward;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Data{
 
+	@SerializedName("type")
+	@Expose
+	private String type;
+	@SerializedName("id")
+	@Expose
+	private Integer id;
+	@SerializedName("attributes")
+	@Expose
+	private Attributes attributes;
 	@SerializedName("relationships")
+	@Expose
 	private Relationships relationships;
 
-	@SerializedName("attributes")
-	private Attributes attributes;
-
-	@SerializedName("id")
-	private int id;
-
-	@SerializedName("type")
-	private String type;
-
-	public void setRelationships(Relationships relationships){
-		this.relationships = relationships;
+	public String getType() {
+		return type;
 	}
 
-	public Relationships getRelationships(){
-		return relationships;
-	}
-
-	public void setAttributes(Attributes attributes){
-		this.attributes = attributes;
-	}
-
-	public Attributes getAttributes(){
-		return attributes;
-	}
-
-	public void setId(int id){
-		this.id = id;
-	}
-
-	public int getId(){
-		return id;
-	}
-
-	public void setType(String type){
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public String getType(){
-		return type;
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Attributes attributes) {
+		this.attributes = attributes;
+	}
+
+	public Relationships getRelationships() {
+		return relationships;
+	}
+
+	public void setRelationships(Relationships relationships) {
+		this.relationships = relationships;
 	}
 }

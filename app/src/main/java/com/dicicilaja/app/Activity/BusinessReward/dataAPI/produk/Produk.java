@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Example {
+public class Produk {
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;

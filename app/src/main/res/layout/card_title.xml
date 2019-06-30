@@ -29,7 +29,7 @@
                 android:text="Kategori"/>
 
             <TextView
-                android:id="@+id/lihat"
+                android:id="@+id/lihat_semua"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
@@ -37,7 +37,8 @@
                 android:textSize="@dimen/font_medium"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
-                android:text="Lihat Semua"/>
+                android:text="Lihat Semua"
+                android:gravity="end" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

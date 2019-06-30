@@ -48,4 +48,5 @@ public class Included {
     public void setRelationships(Relationships_ relationships) {
         this.relationships = relationships;
     }
+
 }

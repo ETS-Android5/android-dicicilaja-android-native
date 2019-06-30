@@ -19,6 +19,11 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/dataTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_tujuan"
@@ -34,5 +39,31 @@
             android:layout_below="@id/title_tujuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/warn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="50dp"
+            android:src="@drawable/bg_not_open_program"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kamu belum punya riwayat transaksi"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_bold"
+            android:padding="@dimen/ib_fr_space_16"
+            android:textSize="@dimen/font_medium"/>
+
+    </LinearLayout>
 
 </LinearLayout>

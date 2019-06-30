@@ -1,9 +1,9 @@
-package com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk;
+package com.dicicilaja.app.Activity.BusinessReward.dataAPI.getDetailKategori;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+public class Included {
     @SerializedName("type")
     @Expose
     private String type;
@@ -12,10 +12,10 @@ public class Datum {
     private Integer id;
     @SerializedName("attributes")
     @Expose
-    private Attributes attributes;
+    private Attributes_ attributes;
     @SerializedName("relationships")
     @Expose
-    private Relationships relationships;
+    private Relationships_ relationships;
 
     public String getType() {
         return type;
@@ -33,19 +33,19 @@ public class Datum {
         this.id = id;
     }
 
-    public Attributes getAttributes() {
+    public Attributes_ getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Attributes attributes) {
+    public void setAttributes(Attributes_ attributes) {
         this.attributes = attributes;
     }
 
-    public Relationships getRelationships() {
+    public Relationships_ getRelationships() {
         return relationships;
     }
 
-    public void setRelationships(Relationships relationships) {
+    public void setRelationships(Relationships_ relationships) {
         this.relationships = relationships;
     }
 

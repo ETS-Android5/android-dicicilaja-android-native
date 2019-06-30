@@ -19,6 +19,7 @@ import com.dicicilaja.app.API.Model.ProductCatalog.ProductCatalog;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Attributes;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.Included;
+import com.dicicilaja.app.Activity.BusinessReward.ui.BusinessReward.activity.CatalogResultActivity;
 import com.dicicilaja.app.Activity.BusinessReward.ui.DetailProduct.activity.DetailProductActivity;
 import com.dicicilaja.app.R;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -43,13 +44,14 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tv_title;
-        public CardView card_pc;
+        public TextView lihatSemua;
         public RecyclerView rvProduk;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.tv_title = itemView.findViewById(R.id.title_kategori);
             this.rvProduk = itemView.findViewById(R.id.recycler_produks);
+            this.lihatSemua = itemView.findViewById(R.id.lihat_semua);
         }
     }
 
@@ -79,6 +81,16 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);
+
+        holder.lihatSemua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CatalogResultActivity.class);
+                intent.putExtra("ID", String.valueOf(pc.getId()));
+                intent.putExtra("SIZE", String.valueOf(pc.getRelationships().getProductCatalogs().getData().size()));
+                v.getContext().startActivity(intent);
+            }
+        });
 
         SnapHelper snapHelperMotor = new GravitySnapHelper(Gravity.START);
         snapHelperMotor.attachToRecyclerView(holder.rvProduk);

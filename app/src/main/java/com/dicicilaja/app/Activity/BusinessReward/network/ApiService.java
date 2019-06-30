@@ -10,8 +10,10 @@ import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailStatus.DetailSta
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.detailTestimoni.DetailTestimoni;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.getDetailKategori.DetailKategori;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.point.Point;
+import com.dicicilaja.app.Activity.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.semester.Semester;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.status.Status;
 import com.dicicilaja.app.Activity.BusinessReward.dataAPI.statusUBClaim.StatusClaim;
@@ -47,8 +49,7 @@ public interface ApiService {
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
 
     @GET("claim-reward")
-    Call<ClaimRewards> getClaim(
-                            @Query("profile_id") int profile_id);
+    Call<ClaimRewards> getClaim(@Query("profile_id") int profile_id);
 
     @GET("claim-reward")
     Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);
@@ -59,8 +60,11 @@ public interface ApiService {
     @GET("point")
     Call<Point> getPoint(@Query("profile_id") int profile_id);
 
-//    @GET("product-catalog")
-//    Call<Produk> getProduk();
+    @GET("product-catalog")
+    Call<Produk> getProduk();
+
+    @GET("kategori/{id}")
+    Call<DetailKategori> getDetailKategori(@Path("id") int id);
 
     @GET("status")
     Call<Status> getStatus();
@@ -92,7 +96,7 @@ public interface ApiService {
     @GET("semester/{id}")
     Call<DetailSemester> getDetailSemester(@Path("id") int id);
 
-    @GET("claimReward/{id}")
+    @GET("claim-reward/{id}")
     Call<DetailClaimReward> getDetailClaimReward(@Path("id") int id);
 
     @GET("testimoni/{id}")
@@ -130,17 +134,26 @@ public interface ApiService {
 
     @POST("claim-reward")
     @FormUrlEncoded
-    Call<ClaimReward> postClaimReward(
+    Call<DetailClaimReward> postClaimReward(
                             @Field("profile_id") String profile_id,
-                            @Field("branch_id") String branch_id,
+                            @Field("nama_axi") String nama_axi,
+                            @Field("cabang_id") String branch_id,
+                            @Field("nama_cabang") String nama_cabang,
                             @Field("area_id") String area_id,
+                            @Field("nama_area") String nama_area,
                             @Field("crh_id") String crh_id,
+                            @Field("penerima") String penerima,
                             @Field("product_catalog_id") String product_catalog_id,
-                            @Field("status_id") String status_id,
+                            @Field("ktp_npwp") String ktp_npwp,
                             @Field("alamat") String alamat,
-                            @Field("no_resi") String no_resi,
                             @Field("no_po") String no_po,
-                            @Field("ongkos_kirim") String ongkir);
+                            @Field("ekspedisi") String ekspedisi,
+                            @Field("no_resi") String no_resi,
+                            @Field("ongkos_kirim") String ongkos_kirim,
+                            @Field("harga_barang_ongkir") String harga_barang_ongkir,
+                            @Field("ppn") String ppn,
+                            @Field("status_id") String status_id,
+                            @Field("total_harga") String total_harga);
 
     @POST("axi-foto")
     @FormUrlEncoded

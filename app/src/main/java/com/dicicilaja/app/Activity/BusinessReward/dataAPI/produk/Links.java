@@ -16,7 +16,7 @@ public class Links{
 	private Object prev;
 	@SerializedName("next")
 	@Expose
-	private Object next;
+	private String next;
 
 	public String getFirst() {
 		return first;
@@ -42,11 +42,12 @@ public class Links{
 		this.prev = prev;
 	}
 
-	public Object getNext() {
+	public String getNext() {
 		return next;
 	}
 
-	public void setNext(Object next) {
+	public void setNext(String next) {
 		this.next = next;
 	}
+
 }
