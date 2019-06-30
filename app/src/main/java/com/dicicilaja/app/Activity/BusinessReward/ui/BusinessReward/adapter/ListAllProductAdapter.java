@@ -68,7 +68,7 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //        Log.d("IDNYADANID", id + pcAll.get(position).getRelationships().getKategori().getData().getId());
-            if (pcAll.getAttributes().getNama().length() >= 16) {
+            if (pcAll2.get(position).getAttributes().getNama().length() >= 16) {
                 nama = pcAll2.get(position).getAttributes().getNama().substring(0, 15) + "...";
             } else {
                 nama = pcAll2.get(position).getAttributes().getNama();
