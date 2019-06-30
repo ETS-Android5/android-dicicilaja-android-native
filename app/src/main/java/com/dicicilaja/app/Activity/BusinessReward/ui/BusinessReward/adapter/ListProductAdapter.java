@@ -36,9 +36,9 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     Integer id;
     Integer size;
     String nama;
+    int no = 0;
 
-    public ListProductAdapter(Integer idProduk, List<Datum_> data, List<Included> pc2, Context baseContext) {
-        this.idProduk = idProduk;
+    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
         this.pcList = data;
         this.pcList2 = pc2;
         this.mContext = baseContext;
@@ -83,9 +83,9 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         Log.d("GETID", " 2nya: " + pcList2.size());
 //        for (int i = 0; i < pcList.size();i++) {
             for (int j = 0; j < pcList2.size(); j++) {
-//                Log.d("GETID", " data1: " + pcList.get(i).getId());
-//                Log.d("GETID", " data2: " + pcList2.get(j).getId());
-                if (idProduk == pcList2.get(j).getId()) {
+                Log.d("IDPRODUKNYA", String.valueOf(idProduk));
+                Log.d("IDPRODUKNYA", String.valueOf(pcList2.get(j).getId()));
+                if (pcList.get(no).getId() == pcList2.get(j).getId()) {
                     if (pcList2.get(j).getAttributes().getNama().length() >= 16) {
                         nama = pcList2.get(j).getAttributes().getNama().substring(0, 15) + "...";
                     } else {
@@ -104,10 +104,11 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                             view.getContext().startActivity(intent);
                         }
                     });
-                    break;
+//                    break;
                 }
             }
 //        }
+        no++;
     }
 
     @Override

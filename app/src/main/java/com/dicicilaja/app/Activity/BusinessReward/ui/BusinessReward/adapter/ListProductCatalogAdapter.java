@@ -34,6 +34,7 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
     ListProductAdapter horizontalAdapter;
     Context mContext;
     public String nama;
+    int no = 0;
 
     public ListProductCatalogAdapter(List<Datum> dataItems, List<Included> dataItems2, Context baseContext) {
         this.pcList = dataItems;
@@ -74,13 +75,15 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
         holder.tv_title.setText(pc.getAttributes().getNama());
         Log.d("Relasi", " id: " + pc.getRelationships());
 
-        for (int i = 0; i < pc.getRelationships().getProductCatalogs().getData().size(); i++){
-            horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData().get(i).getId(),pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
-        }
-//        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
+//        for (int i = 0; i < pc.getRelationships().getProductCatalogs().getData().size(); i++){
+//        Log.d("idnyaanjing", String.valueOf(pc.getRelationships().getProductCatalogs().getData().get(position).getId()));
+        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);
+//        }
+        no++;
+//        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
 
         holder.lihatSemua.setOnClickListener(new View.OnClickListener() {
             @Override
