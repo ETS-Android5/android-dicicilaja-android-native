@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
@@ -29,7 +28,6 @@ import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
 import com.dicicilaja.app.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
-import com.dicicilaja.app.Activity.SearchResultActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.squareup.picasso.Picasso;
@@ -76,6 +74,10 @@ public class BusinesRewardActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
+    @BindView(R.id.uploadKTP)
+    LinearLayout uploadKTP;
+
+    SessionManager session;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -84,7 +86,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_business_reward);
         ButterKnife.bind(this);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -137,6 +139,24 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Point> call, Throwable t) {
+
+            }
+        });
+
+        Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
+        callKtp.enqueue(new Callback<FotoKtpNpwp>() {
+            @Override
+            public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
+                Log.d("sizenyaaa", String.valueOf(dataItems.size()));
+                if (dataItems.size() != 0) {
+                    uploadKTP.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
 
             }
         });
