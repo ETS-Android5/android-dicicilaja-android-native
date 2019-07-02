@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -161,6 +162,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     DrawerLayout drawerLayout;
     @BindView(R.id.content_box1)
     TextView contentBox1;
+    @BindView(R.id.swipeToRefresh)
+    SwipeRefreshLayout swipeToRefresh;
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
@@ -212,20 +215,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         titleBox6.setTypeface(opensans_bold);
         contentBox6.setTypeface(opensans_reguler);
 
-        ApiService apiService =
-                ApiClient.getClient().create(ApiService.class);
+        doLoadData();
+        swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
 
-        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
-        call2.enqueue(new Callback<Point>() {
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onResponse(Call<Point> call, Response<Point> response2) {
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
-            }
-
-            @Override
-            public void onFailure(Call<Point> call, Throwable t) {
-
+            public void onRefresh() {
+                doLoadData();
+                swipeToRefresh.setRefreshing(false);
             }
         });
 
@@ -505,6 +502,25 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         //mDemoSlider.addOnPageChangeListener(this);
     }
 
+    private void doLoadData() {
+        ApiService apiService =
+                ApiClient.getClient().create(ApiService.class);
+
+        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        call2.enqueue(new Callback<Point>() {
+            @Override
+            public void onResponse(Call<Point> call, Response<Point> response2) {
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+            }
+
+            @Override
+            public void onFailure(Call<Point> call, Throwable t) {
+
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -659,7 +675,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 break;
             case R.id.point_reward:
                 intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-//                intent.putExtra("POINT_REWARD", String.valueOf(itemDetail.getPointReward()));
+                intent.putExtra("POINT_REWARD", contentBox1.getText());
                 startActivity(intent);
                 break;
             case R.id.point_trip:

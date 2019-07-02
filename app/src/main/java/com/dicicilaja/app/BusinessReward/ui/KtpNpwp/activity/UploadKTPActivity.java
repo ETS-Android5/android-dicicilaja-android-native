@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,17 +18,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.Activity.RegisterAxi5Activity;
+import com.dicicilaja.app.BusinessReward.dataAPI.foto.Foto;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
@@ -35,7 +35,7 @@ import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewar
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Utils.Helper;
-import com.google.android.material.textfield.TextInputLayout;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -49,24 +49,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class UploadKTPActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
-    @BindView(R.id.inputNoKTP)
-    EditText inputNoKTP;
-    @BindView(R.id.inputLayoutEmailID)
-    TextInputLayout inputLayoutEmailID;
-    @BindView(R.id.inputNoNPWP)
-    EditText inputNoNPWP;
-    @BindView(R.id.inputLayoutNPWP)
-    TextInputLayout inputLayoutNPWP;
-    @BindView(R.id.title_ktp)
-    TextView titleKtp;
-    @BindView(R.id.fileKtp)
-    Button fileKtp;
-    @BindView(R.id.title_npwp)
-    TextView titleNpwp;
-    @BindView(R.id.fileNpwp)
-    Button fileNpwp;
-    @BindView(R.id.title_ktp2)
-    TextView titleKtp2;
     @BindView(R.id.upload)
     Button upload;
     @BindView(R.id.toolbar)
@@ -75,10 +57,28 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
     EditText noKtp;
     @BindView(R.id.noNpwp)
     EditText noNpwp;
-    @BindView(R.id.photoKtp)
-    TextView photoKtp;
-    @BindView(R.id.photoNpwp)
-    TextView photoNpwp;
+    @BindView(R.id.image_ktp)
+    ImageView imageKtp;
+    @BindView(R.id.display_ktp)
+    RelativeLayout displayKtp;
+    @BindView(R.id.image_npwp)
+    ImageView imageNpwp;
+    @BindView(R.id.display_npwp)
+    RelativeLayout displayNpwp;
+    @BindView(R.id.fileKtp)
+    RelativeLayout fileKtp;
+    @BindView(R.id.fileNpwp)
+    RelativeLayout fileNpwp;
+    @BindView(R.id.change_ktp)
+    TextView changeKtp;
+    @BindView(R.id.change_npwp)
+    TextView changeNpwp;
+    @BindView(R.id.uploadid1)
+    ImageView uploadid1;
+    @BindView(R.id.uploadid2)
+    ImageView uploadid2;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -90,7 +90,8 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
     MultipartBody.Part file_ktp, file_npwp, file_cover;
     RequestBody ktp_desc, npwp_desc, cover_desc;
 
-    String fKtp, fNpwp, axiId;
+
+    String fKtp, fNpwp, nomorKtp, nomorNpwp, axiId;
     SessionManager session;
 
     @Override
@@ -98,6 +99,12 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_ktp);
         ButterKnife.bind(this);
+        progressBar.setVisibility(View.GONE);
+
+        fKtp = "0";
+        fNpwp = "0";
+        nomorKtp = "0";
+        nomorNpwp = "0";
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -118,64 +125,113 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomorKtp = noKtp.getText().toString();
-                String nomorNpwp = noNpwp.getText().toString();
-                Log.d("KTPNYA", nomorKtp);
-                Log.d("KTPNYA", nomorNpwp);
-                Log.d("KTPNYA", fKtp);
-                Log.d("KTPNYA", fNpwp);
 
-                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                nomorKtp = noKtp.getText().toString();
+                nomorNpwp = noNpwp.getText().toString();
+                if (nomorNpwp == null || nomorNpwp.trim().length() == 0 ) {
+                    nomorNpwp = "0";
+                }
 
-                Call<FotoKtpNpwp> postKtp = apiService.postFoto(axiId, fKtp, fNpwp, nomorKtp, nomorNpwp);
-                postKtp.enqueue(new Callback<FotoKtpNpwp>() {
-                    @Override
-                    public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getBaseContext(), "Anda telah mengisi KTP dan NPWP.", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-                        } else {
-                            Toast.makeText(getBaseContext(), "Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
-                            Log.d("dada", String.valueOf(response.code()));
-//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
+                if (fNpwp == null || fNpwp.trim().length() == 0 ) {
+                    fNpwp = "0";
+                }
+
+                Log.d("UPLOADKTP", "NO KTP: " + nomorKtp);
+                Log.d("UPLOADKTP", "NO NPWP: " + nomorNpwp);
+                Log.d("UPLOADKTP", "FOTO KTP: " + fKtp);
+                Log.d("UPLOADKTP", "FOTO NPWP: " + fNpwp);
+
+                if (validateForm(fKtp, nomorKtp)) {
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+                    Call<Foto> postKtp = apiService.postFoto(axiId, fKtp, fNpwp, nomorKtp, nomorNpwp);
+                    postKtp.enqueue(new Callback<Foto>() {
+                        @Override
+                        public void onResponse(Call<Foto> call, Response<Foto> response) {
+                            Log.d("UPLOADKTP", "KODE: " + response.code());
+                            if (response.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+                                alertDialog.setTitle("Sukses");
+                                alertDialog.setMessage("Berhasil mengupload foto.");
+                                alertDialog.setCancelable(false);
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                                alertDialog.show();
+
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Gagal mengupload foto, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
                         }
 
-                        Intent intent3 = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                        intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent3);
-                        finish();
-                    }
+                        @Override
+                        public void onFailure(Call<Foto> call, Throwable t) {
+                            Log.d("UPLOADKTP", "KODE: " + t.getMessage());
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Gagal mengupload foto, silahkan coba beberapa saat lagi.");
 
-                    @Override
-                    public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
-                        Log.d("KTPNYA", t.getMessage());
-                        Intent intent3 = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                        intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent3);
-                        finish();
-                    }
-                });
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
+                }
+
+
             }
         });
     }
 
-    @OnClick({R.id.fileKtp, R.id.fileNpwp})
+
+    @OnClick({R.id.fileKtp, R.id.fileNpwp, R.id.change_ktp, R.id.change_npwp})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.fileKtp:
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih gambar"), PICK_IMAGE_KTP);
+                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
                 break;
             case R.id.fileNpwp:
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih gambar"), PICK_IMAGE_NPWP);
+                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_NPWP);
+                break;
+            case R.id.change_ktp:
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                break;
+            case R.id.change_npwp:
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_NPWP);
                 break;
         }
     }
@@ -191,15 +247,16 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
 
-//                    image_ktp.setImageBitmap(resizedBitmap);
+                    imageKtp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                     fKtp = Helper.ConvertBitmapToString(resizedBitmap);
 
+                    fileKtp.setVisibility(View.GONE);
+                    displayKtp.setVisibility(View.VISIBLE);
                     String filePath = getRealPathFromURIPath(uri, this);
                     File file = new File(filePath);
 
-                    photoKtp.setText(file.getName());
 //                    Log.d("REGISTER AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -220,14 +277,16 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
 
-//                    image_npwp.setImageBitmap(getResizedBitmap(bitmap, 350));
+                    imageNpwp.setImageBitmap(getResizedBitmap(bitmap, 350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                     fNpwp = Helper.ConvertBitmapToString(resizedBitmap);
+
+                    fileNpwp.setVisibility(View.GONE);
+                    displayNpwp.setVisibility(View.VISIBLE);
                     String filePath = getRealPathFromURIPath(uri, this);
                     File file = new File(filePath);
 
-                    photoNpwp.setText(file.getName());
 //                    Log.d("REGISTER AXI:::", fileNpwp);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -411,5 +470,45 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                 cursor.close();
         }
         return null;
+    }
+
+    private boolean validateForm(String fKtp, String nomorKtp) {
+        if (nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan nomor KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(noKtp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (fKtp == null || fKtp.trim().length() == 0 || fKtp.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan upload foto KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 }

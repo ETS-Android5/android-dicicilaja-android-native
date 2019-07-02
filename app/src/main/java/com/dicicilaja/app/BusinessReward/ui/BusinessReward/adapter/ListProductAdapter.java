@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum_;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Relationships;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity.DetailProductActivity;
 import com.dicicilaja.app.R;
 
@@ -99,6 +100,22 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                         public void onClick(View view) {
                             Intent intent = new Intent(mContext, DetailProductActivity.class);
                             intent.putExtra("ID", pcList2.get(finalj).getId());
+                            intent.putExtra("IMAGE", pcList2.get(finalj).getAttributes().getFoto());
+                            intent.putExtra("TITLE", pcList2.get(finalj).getAttributes().getNama());
+                            intent.putExtra("DETAIL", pcList2.get(finalj).getAttributes().getDeskripsi());
+                            intent.putExtra("POINT_PRODUCT", pcList2.get(finalj).getAttributes().getPoint());
+                            intent.putExtra("POINT_REWARD", BusinesRewardActivity.point_reward);
+                            intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
+                            intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
+
+                            Log.d("ListProductActivity", "ID: " + pcList2.get(finalj).getId());
+                            Log.d("ListProductActivity", "IMAGE: " + pcList2.get(finalj).getAttributes().getFoto());
+                            Log.d("ListProductActivity", "TITLE: " + pcList2.get(finalj).getAttributes().getNama());
+                            Log.d("ListProductActivity", "DETAIL: " + pcList2.get(finalj).getAttributes().getDeskripsi());
+                            Log.d("ListProductActivity", "POINT_PRODUCT: " + pcList2.get(finalj).getAttributes().getPoint());
+                            Log.d("ListProductActivity", "POINT_REWARD: " + BusinesRewardActivity.point_reward);
+                            Log.d("ListProductActivity", "KTP: " + BusinesRewardActivity.ktpnpwp);
+                            Log.d("ListProductActivity", "NOKTP: " + BusinesRewardActivity.no_ktp);
                             view.getContext().startActivity(intent);
                         }
                     });

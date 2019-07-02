@@ -196,5 +196,5 @@
     <string name="deskripsi"></string>
     <string name="title_activity_spgdashboard">SPGDashboardActivity</string>
     <string name="lihat_semua">Lihat Semua</string>
-    <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP.\nUntuk mengurangi nilai pajak barang, segera lakukan upload File.]]></string>
+    <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP. Untuk mengurangi nilai pajak barang, segera upload file.]]></string>
 </resources>

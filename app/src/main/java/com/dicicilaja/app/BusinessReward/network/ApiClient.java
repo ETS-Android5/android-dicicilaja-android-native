@@ -8,8 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-//    public static final String BASE_URL = "http://103.233.103.23:83/api/";
-    public static final String BASE_URL = "http://dca-br.herokuapp.com/api/";
+    public static final String BASE_URL = "http://103.233.103.23:83/api/";
     public static final String BASE_URL2 = "https://api.dicicilaja.com/";
     private static Retrofit retrofit = null;
 

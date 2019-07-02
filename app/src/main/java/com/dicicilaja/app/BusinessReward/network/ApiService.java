@@ -8,6 +8,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.detailProfile.DetailProfile;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailSemester.DetailSemester;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailStatus.DetailStatus;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailTestimoni.DetailTestimoni;
+import com.dicicilaja.app.BusinessReward.dataAPI.foto.Foto;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.DetailKategori;
@@ -157,7 +158,7 @@ public interface ApiService {
 
     @POST("axi-foto")
     @FormUrlEncoded
-    Call<FotoKtpNpwp> postFoto(
+    Call<Foto> postFoto(
                             @Field("axi_id") String axi_id,
                             @Field("foto_ktp") String foto_ktp,
                             @Field("foto_npwp") String foto_npwp,

@@ -131,53 +131,58 @@
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/uploadKTP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:background="@color/colorPrimary">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="85dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:background="@drawable/border_layout"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="11dp"
-                            android:fontFamily="@font/open_sans"
-                            android:text="@string/notif_ktp"/>
-
-                        <Button
-                            android:id="@+id/upload"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:text="upload"
-                            android:layout_margin="7dp"
-                            android:textAllCaps="true"
-                            android:textSize="11dp"
-                            android:fontFamily="@font/open_sans_semibold"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorWhite"
-                            android:backgroundTint="@color/colorAccentDark2"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/uploadKTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:background="@color/colorPrimary">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:background="@drawable/border_layout"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="11dp"
+                                android:textColor="#31708f"
+                                android:fontFamily="@font/open_sans"
+                                android:text="@string/notif_ktp"/>
+
+                            <Button
+                                android:id="@+id/upload"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="upload"
+                                android:layout_margin="7dp"
+                                android:textAllCaps="true"
+                                android:textSize="11dp"
+                                android:fontFamily="@font/open_sans_semibold"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/colorWhite"
+                                android:backgroundTint="@color/colorAccent2"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/idProduct"
+                        android:layout_below="@+id/uploadKTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <androidx.recyclerview.widget.RecyclerView
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -186,13 +191,27 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="16dp"
                             android:clipToPadding="false"/>
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="50dp"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_undraw_empty_xct9"/>
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_below="@+id/idProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="50dp"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_undraw_empty_xct9"/>
+                    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        app:mpb_progressStyle="horizontal"
+                        app:mpb_useIntrinsicPadding="false"
+                        android:layout_alignParentTop="true"
+                        app:mpb_showProgressBackground="false"
+                        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+                </RelativeLayout>
+
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

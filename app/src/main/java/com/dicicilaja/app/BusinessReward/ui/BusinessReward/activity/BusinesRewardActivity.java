@@ -1,6 +1,7 @@
 package com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,28 +59,19 @@ public class BusinesRewardActivity extends AppCompatActivity {
     RecyclerView recyclerProduk;
     @BindView(R.id.upload)
     Button upload;
-
-//    private ArrayList<Produk> productCatalogList;
-//    private ArrayList<Produk> productCatalogList2;
-//    private ArrayList<Produk> productCatalogList3;
-//
-//    private ArrayList<Produk> produks;
-
-    ListProductCatalogAdapter adapter;
-    ListProductCatalogAdapter adapter2;
-    ListProductCatalogAdapter adapter3;
-
-    ListProductCatalogAdapter adapterProduk;
-
-    int currentPage = 1;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
     @BindView(R.id.uploadKTP)
     LinearLayout uploadKTP;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
     SessionManager session;
+    String final_point;
+    public static String ktpnpwp, no_ktp, point_reward;
+    ApiService apiService;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -86,8 +80,20 @@ public class BusinesRewardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_business_reward);
         ButterKnife.bind(this);
 
-        session = new SessionManager(getBaseContext());
+        initToolbar();
+        initAction();
+        initLoadData();
 
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initLoadData();
+                swipeToRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    private  void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
@@ -99,42 +105,36 @@ public class BusinesRewardActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+    }
 
-        String imageUrl = session.getPhoto();
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(profilePicturePage);
-
+    private void initAction() {
+        session = new SessionManager(getBaseContext());
+        try {
+            final_point = getIntent().getStringExtra("POINT_REWARD");
+            String imageUrl = session.getPhoto();
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(profilePicturePage);
+        } catch (Exception ex) { }
         swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
-
-//        productCatalogList = new ArrayList<>();
-//        productCatalogList2 = new ArrayList<>();
-//        productCatalogList3 = new ArrayList<>();
-//
-//        produks = new ArrayList<>();
-
-//        adapter = new ListProductCatalogAdapter(productCatalogList, this);
-//        adapter2 = new ListProductCatalogAdapter(productCatalogList2, this);
-//        adapter3 = new ListProductCatalogAdapter(productCatalogList3, this);
-//
-//        adapterProduk = new ListProductCatalogAdapter(produks, this);
-
-        //motor
         recyclerProduk.setLayoutManager(new LinearLayoutManager(getBaseContext(),
-                LinearLayoutManager.VERTICAL, false));
+                RecyclerView.VERTICAL, false));
         recyclerProduk.setHasFixedSize(true);
+        profilePoint.setText(final_point);
 
-        ApiService apiService =
-                ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getClient().create(ApiService.class);
+    }
 
+    private void initLoadData() {
         Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
                 final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
                 profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
             }
 
             @Override
@@ -143,14 +143,19 @@ public class BusinesRewardActivity extends AppCompatActivity {
             }
         });
 
+
         Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
                 final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
                 Log.d("sizenyaaa", String.valueOf(dataItems.size()));
-                if (dataItems.size() != 0) {
-                    uploadKTP.setVisibility(View.GONE);
+                if (dataItems.size() == 0) {
+                    uploadKTP.setVisibility(View.VISIBLE);
+                    ktpnpwp = "Tidak";
+                } else {
+                    ktpnpwp = "Ada";
+                    no_ktp = response.body().getData().get(0).getAttributes().getNoKtp();
                 }
 
             }
@@ -161,19 +166,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
             }
         });
 
-        doLoadData();
-
-        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                doLoadData();
-                swipeToRefresh.setRefreshing(false);
-            }
-        });
-    }
-
-    private void doLoadData() {
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<KategoriProduk> call = apiService.getKategori();
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
@@ -185,11 +177,22 @@ public class BusinesRewardActivity extends AppCompatActivity {
                 Log.d("Cek2", "" + response.body().getIncluded());
 
                 recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext()));
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<KategoriProduk> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
 
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -229,13 +232,4 @@ public class BusinesRewardActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
         startActivity(intent);
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                super.finish();
-//        }
-//        return true;
-//    }
 }
