@@ -23,6 +23,7 @@
             android:minWidth="135dp"
             app:cardCornerRadius="4dp"
             app:cardElevation="2.5dp"
+            android:background="@color/colorWhite"
             android:layout_marginLeft="13dp"
             app:cardUseCompatPadding="true">
 
@@ -66,7 +67,7 @@
                             android:layout_alignBottom="@id/tv_title"
                             android:text="2000"
                             android:fontFamily="@font/open_sans_bold"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/colorAccentDark2"
                             android:textSize="12sp" />
 
                         <TextView
@@ -75,7 +76,7 @@
                             android:layout_alignBottom="@id/tv_title"
                             android:text=" POINT"
                             android:fontFamily="@font/open_sans_bold"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/colorAccentDark2"
                             android:textSize="12sp"/>
 
                     </LinearLayout>

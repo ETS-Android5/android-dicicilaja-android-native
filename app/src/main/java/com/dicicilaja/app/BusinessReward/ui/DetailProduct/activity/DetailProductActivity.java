@@ -41,32 +41,12 @@ import java.util.Date;
 
 public class DetailProductActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.barang_picture)
-    ImageView barangPicture;
-    @BindView(R.id.barang_image)
-    RelativeLayout barangImage;
-    @BindView(R.id.title_barang)
-    TextView titleBarang;
-    @BindView(R.id.tv_point)
-    TextView tvPoint;
-    @BindView(R.id.barang_detail)
-    RelativeLayout barangDetail;
-    @BindView(R.id.spek_title)
-    TextView spekTitle;
-    @BindView(R.id.spek_barang_detail)
-    RelativeLayout spekBarangDetail;
-    @BindView(R.id.klaim)
-    Button klaim;
     public static String ktpnpwp, no_ktp;
 
     Data itemDetail;
 
     String name;
     int point, thumbnail, id;
-    @BindView(R.id.deskripsi)
-    TextView deskripsi;
 
     SessionManager session;
     String apiKey;
@@ -79,8 +59,28 @@ public class DetailProductActivity extends AppCompatActivity {
     String cabangText;
     String fotoKtp, fotoNpwp, nomorKtp, nomorNpwp;
     int product_id;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
+    @BindView(R.id.barang_picture)
+    ImageView barangPicture;
+    @BindView(R.id.barang_image)
+    RelativeLayout barangImage;
+    @BindView(R.id.title_barang)
+    TextView titleBarang;
+    @BindView(R.id.tv_point)
+    TextView tvPoint;
+    @BindView(R.id.barang_detail)
+    RelativeLayout barangDetail;
+    @BindView(R.id.spek_title)
+    TextView spekTitle;
+    @BindView(R.id.deskripsi)
+    TextView deskripsi;
+    @BindView(R.id.spek_barang_detail)
+    RelativeLayout spekBarangDetail;
+    @BindView(R.id.klaim)
+    Button klaim;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,13 +101,14 @@ public class DetailProductActivity extends AppCompatActivity {
 
         productCatalogId = String.valueOf(getIntent().getIntExtra("ID", 0));
         titleBarang.setText(getIntent().getStringExtra("TITLE"));
-        tvPoint.setText(getIntent().getIntExtra("POINT", 0) + " POINT");
+        tvPoint.setText(String.valueOf(getIntent().getIntExtra("POINT_PRODUCT", 0)) + " POINT");
         Glide.with(getBaseContext()).load(getIntent().getStringExtra("IMAGE")).into(barangPicture);
         String textt = getIntent().getStringExtra("DETAIL").replace("\\n", "\n");
         deskripsi.setText(textt);
 //        product_id = getIntent().getIntExtra("ID", 0);
-        pointS = getIntent().getIntExtra("POINT", 0);
+        pointS = getIntent().getIntExtra("POINT_REWARD", 0);
         ktpnpwp = getIntent().getStringExtra("KTP");
+        no_ktp = getIntent().getStringExtra("NOKTP");
 
 
         Intent intent = getIntent();
@@ -257,44 +258,44 @@ public class DetailProductActivity extends AppCompatActivity {
                                                                             Log.d("datainput", statusId);
 
 
-                                Call<DetailClaimReward> call = apiService.postClaimReward(profileId, session.getName(), branchId, namaCabang, areaId, namaArea, crhId, null, productCatalogId, ktpnpwp, null, null, null, null, null, null, null, statusId, null);
-                                call.enqueue(new Callback<DetailClaimReward>() {
-                                    @Override
-                                    public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
-                                        try {
-                                            Log.d("Responnya", String.valueOf(response.code()));
+                                                                            Call<DetailClaimReward> call = apiService.postClaimReward(profileId, session.getName(), branchId, namaCabang, areaId, namaArea, crhId, null, productCatalogId, ktpnpwp, null, null, null, null, null, null, null, statusId, null);
+                                                                            call.enqueue(new Callback<DetailClaimReward>() {
+                                                                                @Override
+                                                                                public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
+                                                                                    try {
+                                                                                        Log.d("Responnya", String.valueOf(response.code()));
 
-                                            Date c = Calendar.getInstance().getTime();
+                                                                                        Date c = Calendar.getInstance().getTime();
 
-                                            SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-                                            String date = df.format(c);
+                                                                                        SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+                                                                                        String date = df.format(c);
 
-                                            Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
+                                                                                        Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
 
 
-                                            Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
-                                            intent.putExtra("DATE", date);
-                                            intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
-                                            intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
-                                            intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
-                                            intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
-                                            intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
-                                            intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                            finish();
-                                            progressBar.setVisibility(View.GONE);
+                                                                                        Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
+                                                                                        intent.putExtra("DATE", date);
+                                                                                        intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
+                                                                                        intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
+                                                                                        intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
+                                                                                        intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
+                                                                                        intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
+                                                                                        intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
+                                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                                        startActivity(intent);
+                                                                                        finish();
+                                                                                        progressBar.setVisibility(View.GONE);
 
-                                        } catch (Exception ex) {
+                                                                                    } catch (Exception ex) {
 
-                                        }
-                                    }
+                                                                                    }
+                                                                                }
 
-                                    @Override
-                                    public void onFailure(Call<DetailClaimReward> call, Throwable t) {
+                                                                                @Override
+                                                                                public void onFailure(Call<DetailClaimReward> call, Throwable t) {
 
-                                    }
-                                });
+                                                                                }
+                                                                            });
 
                                                                         }
                                                                     });

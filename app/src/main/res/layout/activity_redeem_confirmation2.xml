@@ -17,7 +17,6 @@
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout

@@ -122,6 +122,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
         recyclerProduk.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 RecyclerView.VERTICAL, false));
         recyclerProduk.setHasFixedSize(true);
+        recyclerProduk.setNestedScrollingEnabled(false);
         profilePoint.setText(final_point);
 
         apiService = ApiClient.getClient().create(ApiService.class);
