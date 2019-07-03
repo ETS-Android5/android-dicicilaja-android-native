@@ -54,7 +54,8 @@ public interface ApiService {
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
 
     @GET("claim-reward")
-    Call<ClaimRewards> getClaim(@Query("profile_id") int profile_id);
+    Call<ClaimRewards> getClaim(@Query("profile_id") int profile_id,
+                                @Query("page") int page);
 
     @GET("claim-reward")
     Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);

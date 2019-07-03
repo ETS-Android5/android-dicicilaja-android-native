@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,28 +15,37 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicicilaja.app.API.Model.Transaction;
+import com.dicicilaja.app.Adapter.RequestAdapter;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.Datum;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.DetailTransactionActivity;
+import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
+import com.dicicilaja.app.Model.ResRequestProcess;
 import com.dicicilaja.app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimRewardAdapter.MyViewHolder> {
+public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimRewardAdapter.MyViewHolder> implements Filterable {
 
     Context mContext;
+    List<Datum> requests;
     List<Datum> clList;
+    private TransactionActivity listener;
     String statusnya;
 
-    public ListClaimRewardAdapter(List<Datum> dataItems, Context baseContext) {
+    public ListClaimRewardAdapter(Context baseContext, List<Datum> dataItems, TransactionActivity listener) {
         this.clList = dataItems;
         this.mContext = baseContext;
+        this.listener = listener;
+        this.requests = dataItems;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -158,6 +169,70 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
 
     @Override
     public int getItemCount() {
-        return clList.size();
+        if(clList == null ) {
+            return 0;
+        } else {
+            return clList.size();
+        }
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    clList = requests;
+                } else {
+                    List<Datum> filteredList = new ArrayList<>();
+                    for (Datum row : requests) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+//                        if (row.getStatus().toLowerCase().contains(charString.toLowerCase()) || row.getBranch().toLowerCase().contains(charString.toLowerCase()) || row.getClient_name().toLowerCase().contains(charString.toLowerCase()) || row.getTrackingId().toString().toLowerCase().contains(charString.toLowerCase()) || row.getProgram().toLowerCase().contains(charString.toLowerCase()) || row.getCreatedAt().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+//                        }
+                    }
+
+                    clList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = clList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                clList = (ArrayList<Datum>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public interface ListClaimRewardAdapterListener {
+        void onDataSelected(com.dicicilaja.app.API.Model.Request.Datum datum);
+    }
+
+    private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
+        Log.d("REQUEST TC:::", "Transaction ID " + transaction_id);
+        Log.d("REQUEST TC:::", "Assigned ID " + assigned_id);
+//        Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
+//        call.enqueue(new Callback<ResRequestProcess>() {
+//            @Override
+//            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
+//
+//            }
+//        });
+    }
+
+    public void refreshAdapter(List<Datum> data) {
+        this.clList.addAll(data);
+        notifyItemRangeChanged(0, this.clList.size());
     }
 }
