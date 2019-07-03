@@ -57,7 +57,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     List<Datum> dataTemp;
     ListClaimRewardAdapter listClaimRewardAdapter;
-    String apiKey;
+
     int totalData = 1;
     int totalPage = 1;
     int currentPage = 1;
@@ -119,6 +119,7 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     private void doLoadData() {
+        showLoading(false);
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<ClaimRewards> call = apiService.getClaim(Integer.parseInt(session.getAxiId()), currentPage);
@@ -157,7 +158,7 @@ public class TransactionActivity extends AppCompatActivity {
                         }
                     }
                 } else {
-                    session.logoutUser();
+//                    session.logoutUser();
                 }
                 hideLoading();
             }

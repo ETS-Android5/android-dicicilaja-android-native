@@ -85,79 +85,83 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
         call.enqueue(new Callback<DetailProduk>() {
             @Override
             public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
-                String curString = cl.getAttributes().getCreatedAt();
-                String[] separated = curString.split("T");
-                String tgl = separated[0];
+                try{
+                    String curString = cl.getAttributes().getCreatedAt();
+                    String[] separated = curString.split("T");
+                    String tgl = separated[0];
 
-                String[] separated2 = tgl.split("-");
-                String bulan = separated2[1];
-                String tanggal = separated2[2];
+                    String[] separated2 = tgl.split("-");
+                    String bulan = separated2[1];
+                    String tanggal = separated2[2];
 
-                String finalBulan = null;
+                    String finalBulan = null;
 
-                if(bulan.equals("01")){
-                    finalBulan = "Jan";
-                }else if(bulan.equals("02")){
-                    finalBulan = "Feb";
-                }else if(bulan.equals("03")){
-                    finalBulan = "Mar";
-                }else if(bulan.equals("04")){
-                    finalBulan = "Apr";
-                }else if(bulan.equals("05")){
-                    finalBulan = "Mei";
-                }else if(bulan.equals("06")){
-                    finalBulan = "Jun";
-                }else if(bulan.equals("07")){
-                    finalBulan = "Juli";
-                }else if(bulan.equals("08")){
-                    finalBulan = "Agus";
-                }else if(bulan.equals("09")){
-                    finalBulan = "Sep";
-                }else if(bulan.equals("10")){
-                    finalBulan = "Okt";
-                }else if(bulan.equals("11")){
-                    finalBulan = "Nov";
-                }else if(bulan.equals("12")){
-                    finalBulan = "Des";
-                }
-
-                holder.tv_tgl.setText(tanggal+" "+finalBulan);
-                holder.tv_point.setText(response.body().getData().getAttributes().getPoint()+" POINT");
-                holder.tv_merk.setText(String.valueOf(response.body().getData().getAttributes().getNama()));
-                int status_id = cl.getAttributes().getStatusId();
-
-                switch(status_id) {
-                    case 5:
-                        holder.tv_status.setText("Sedang diproses");
-                        break;
-                    case 6:
-                        holder.tv_status.setText("Sedang diproses");
-                        break;
-                    case 7:
-                        holder.tv_status.setText("Packing");
-                        break;
-                    case 8:
-                        holder.tv_status.setText("Dikirim");
-                        break;
-                    case 9:
-                        holder.tv_status.setText("Sudah sampai di cabang");
-                        break;
-                    case 10:
-                        holder.tv_status.setText("Batal");
-                        break;
-                    default:
-                        break;
-                }
-
-                holder.card.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(mContext, DetailTransactionActivity.class);
-                        Log.d("IDNYAAA", String.valueOf(cl.getId()));
-                        intent.putExtra("ID", String.valueOf(cl.getId()));
-                        view.getContext().startActivity(intent);
+                    if(bulan.equals("01")){
+                        finalBulan = "Jan";
+                    }else if(bulan.equals("02")){
+                        finalBulan = "Feb";
+                    }else if(bulan.equals("03")){
+                        finalBulan = "Mar";
+                    }else if(bulan.equals("04")){
+                        finalBulan = "Apr";
+                    }else if(bulan.equals("05")){
+                        finalBulan = "Mei";
+                    }else if(bulan.equals("06")){
+                        finalBulan = "Jun";
+                    }else if(bulan.equals("07")){
+                        finalBulan = "Juli";
+                    }else if(bulan.equals("08")){
+                        finalBulan = "Agus";
+                    }else if(bulan.equals("09")){
+                        finalBulan = "Sep";
+                    }else if(bulan.equals("10")){
+                        finalBulan = "Okt";
+                    }else if(bulan.equals("11")){
+                        finalBulan = "Nov";
+                    }else if(bulan.equals("12")){
+                        finalBulan = "Des";
                     }
-                });
+
+                    holder.tv_tgl.setText(tanggal+" "+finalBulan);
+                    holder.tv_point.setText(response.body().getData().getAttributes().getPoint()+" POINT");
+                    holder.tv_merk.setText(String.valueOf(response.body().getData().getAttributes().getNama()));
+                    int status_id = cl.getAttributes().getStatusId();
+
+                    switch(status_id) {
+                        case 5:
+                            holder.tv_status.setText("Sedang diproses");
+                            break;
+                        case 6:
+                            holder.tv_status.setText("Sedang diproses");
+                            break;
+                        case 7:
+                            holder.tv_status.setText("Packing");
+                            break;
+                        case 8:
+                            holder.tv_status.setText("Dikirim");
+                            break;
+                        case 9:
+                            holder.tv_status.setText("Sudah sampai di cabang");
+                            break;
+                        case 10:
+                            holder.tv_status.setText("Batal");
+                            break;
+                        default:
+                            break;
+                    }
+
+                    holder.card.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(mContext, DetailTransactionActivity.class);
+                            Log.d("IDNYAAA", String.valueOf(cl.getId()));
+                            intent.putExtra("ID", String.valueOf(cl.getId()));
+                            view.getContext().startActivity(intent);
+                        }
+                    });
+                }catch(Exception ex){
+                    response.message();
+                }
             }
 
             @Override

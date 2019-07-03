@@ -510,13 +510,17 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                try {
+                    if (response2.isSuccessful()) {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                        contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                    }
+                } catch (Exception ex) {}
             }
 
             @Override
             public void onFailure(Call<Point> call, Throwable t) {
-
+                
             }
         });
     }

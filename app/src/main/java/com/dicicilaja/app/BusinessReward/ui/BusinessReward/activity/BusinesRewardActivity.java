@@ -129,20 +129,21 @@ public class BusinesRewardActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
-        call2.enqueue(new Callback<Point>() {
-            @Override
-            public void onResponse(Call<Point> call, Response<Point> response2) {
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
-                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
-            }
-
-            @Override
-            public void onFailure(Call<Point> call, Throwable t) {
-
-            }
-        });
+//        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+//        call2.enqueue(new Callback<Point>() {
+//            @Override
+//            public void onResponse(Call<Point> call, Response<Point> response2) {
+//
+//                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+//                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+//                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Point> call, Throwable t) {
+//
+//            }
+//        });
 
 
         Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
