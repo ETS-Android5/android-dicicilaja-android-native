@@ -751,6 +751,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.Transaction.activity.TransactionActivity" />
         </activity>
+        <activity
+            android:name=".BusinessReward.ui.DetailProduct.activity.PilihCabangVendorActivity"
+            android:label="Pilih Vendor Cabang"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity" />
+        </activity>
     </application>
 
 </manifest>

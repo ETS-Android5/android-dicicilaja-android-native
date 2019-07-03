@@ -51,8 +51,8 @@ public class DetailProductActivity extends AppCompatActivity {
     SessionManager session;
     String apiKey;
 
-    int pointR, pointS;
-    String noNpwp, noKtp;
+    int pointProduk;
+    String noNpwp, noKtp, pointUser;
 
     String branchId, areaId, crhId, productCatalogId, statusId, noResi, noPo, ongkir, namaCabang, namaArea;
     String profileId, alamatC;
@@ -82,6 +82,8 @@ public class DetailProductActivity extends AppCompatActivity {
     @BindView(R.id.klaim)
     Button klaim;
 
+    String gambar_barang;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
@@ -99,19 +101,21 @@ public class DetailProductActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        gambar_barang = getIntent().getStringExtra("IMAGE");
+
         productCatalogId = String.valueOf(getIntent().getIntExtra("ID", 0));
         titleBarang.setText(getIntent().getStringExtra("TITLE"));
-        tvPoint.setText(String.valueOf(getIntent().getIntExtra("POINT_PRODUCT", 0)) + " POINT");
+        tvPoint.setText(getIntent().getIntExtra("POINT_PRODUCT", 0) + " POINT");
         Glide.with(getBaseContext()).load(getIntent().getStringExtra("IMAGE")).into(barangPicture);
+
         String textt = getIntent().getStringExtra("DETAIL").replace("\\n", "\n");
         deskripsi.setText(textt);
-//        product_id = getIntent().getIntExtra("ID", 0);
-        pointS = getIntent().getIntExtra("POINT_REWARD", 0);
+        pointUser = getIntent().getStringExtra("POINT_REWARD");
+        Log.d("PORE", getIntent().getStringExtra("POINT_REWARD"));
+        pointProduk = getIntent().getIntExtra("POINT_PRODUCT", 0);
         ktpnpwp = getIntent().getStringExtra("KTP");
         no_ktp = getIntent().getStringExtra("NOKTP");
-
-
-        Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
 
         session = new SessionManager(getBaseContext());
@@ -217,7 +221,7 @@ public class DetailProductActivity extends AppCompatActivity {
                                                                 }
                                                             }
 
-                                                            if (pointR >= pointS) {
+                                                            if (Integer.valueOf(pointUser)>= pointProduk) {
                                                                 if (ktpnpwp.equals("Tidak")) {
                                                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
                                                                     alertDialog.setTitle("Perhatian!");
@@ -257,45 +261,52 @@ public class DetailProductActivity extends AppCompatActivity {
                                                                             Log.d("datainput", no_ktp);
                                                                             Log.d("datainput", statusId);
 
+                                                                            Date c = Calendar.getInstance().getTime();
 
-                                                                            Call<DetailClaimReward> call = apiService.postClaimReward(profileId, session.getName(), branchId, namaCabang, areaId, namaArea, crhId, null, productCatalogId, ktpnpwp, null, null, null, null, null, null, null, statusId, null);
-                                                                            call.enqueue(new Callback<DetailClaimReward>() {
-                                                                                @Override
-                                                                                public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
-                                                                                    try {
-                                                                                        Log.d("Responnya", String.valueOf(response.code()));
+                                                                            SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+                                                                            String date = df.format(c);
 
-                                                                                        Date c = Calendar.getInstance().getTime();
-
-                                                                                        SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-                                                                                        String date = df.format(c);
-
-                                                                                        Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
 
 
-                                                                                        Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
-                                                                                        intent.putExtra("DATE", date);
-                                                                                        intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
-                                                                                        intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
-                                                                                        intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
-                                                                                        intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
-                                                                                        intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
-                                                                                        intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
-                                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                        progressBar.setVisibility(View.GONE);
+                                                                            Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
+                                                                            intent.putExtra("DATE", date);
+//                                                                            intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
+//                                                                            intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
+//                                                                            intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
+//                                                                            intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
+//                                                                            intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
+//
+//                                                                            intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
+                                                                            intent.putExtra("TOTAL_POINT", pointUser);
+                                                                            intent.putExtra("POINT_BARANG", pointProduk);
+//                                                                            Log.d("POINTAAA", String.valueOf(pointUser + pointProduk));
+                                                                            intent.putExtra("NAMA", session.getName());
+                                                                            intent.putExtra("NAMA_BARANG", String.valueOf(titleBarang.getText()));
+                                                                            intent.putExtra("GAMBAR_BARANG", gambar_barang);
+//                                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                            startActivity(intent);
+                                                                            finish();
+                                                                            progressBar.setVisibility(View.GONE);
 
-                                                                                    } catch (Exception ex) {
 
-                                                                                    }
-                                                                                }
-
-                                                                                @Override
-                                                                                public void onFailure(Call<DetailClaimReward> call, Throwable t) {
-
-                                                                                }
-                                                                            });
+//                                                                            Call<DetailClaimReward> call = apiService.postClaimReward(profileId, session.getName(), branchId, namaCabang, areaId, namaArea, crhId, null, productCatalogId, ktpnpwp, null, null, null, null, null, null, null, statusId, null);
+//                                                                            call.enqueue(new Callback<DetailClaimReward>() {
+//                                                                                @Override
+//                                                                                public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
+//                                                                                    try {
+//                                                                                        Log.d("Responnya", String.valueOf(response.code()));
+//
+//                                                                                    } catch (Exception ex) {
+//
+//                                                                                    }
+//                                                                                }
+//
+//                                                                                @Override
+//                                                                                public void onFailure(Call<DetailClaimReward> call, Throwable t) {
+//
+//                                                                                }
+//                                                                            });
 
                                                                         }
                                                                     });

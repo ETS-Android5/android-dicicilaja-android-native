@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Pilih Vendor dan Cabang"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/open_sans_bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:padding="16dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            app:hintEnabled="true"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Vendor"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="16dp"
+                                android:textSize="12sp"/>
+
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerArea"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerCabang"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:background="@drawable/border_bottom">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Cabang"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="20dp"
+                                android:textSize="12sp"/>
+
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerCabang"
+                                android:layout_width="match_parent"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerType"
+                                android:textSize="14sp"
+                                android:layout_height="40dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/not_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="9dp"
+                            android:layout_marginRight="9dp"
+                            android:text="*Tahun kendaraan belum tersedia"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark"
+                            android:layout_marginTop="5dp"
+                            android:textSize="13sp"/>
+
+                        <Button
+                            android:id="@+id/next"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:text="OK"
+                            android:backgroundTint="@color/colorAccentDark2"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="5dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    </RelativeLayout>
+
+</LinearLayout>

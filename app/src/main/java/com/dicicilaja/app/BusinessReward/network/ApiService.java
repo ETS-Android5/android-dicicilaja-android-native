@@ -1,5 +1,6 @@
 package com.dicicilaja.app.BusinessReward.network;
 
+import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
 import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.ClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
@@ -44,7 +45,10 @@ public interface ApiService {
     Call<KategoriProduk> getKategori();
 
     @GET("branch")
-    Call<Branch> getCabang();
+    Call<Branch> getCabang(@Path("id") int cabang_id);
+
+    @GET("area")
+    Call<Area> getArea();
 
     @GET("axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
