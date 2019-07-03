@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.Activity.RedeemConfirmationActivity;
+import com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;

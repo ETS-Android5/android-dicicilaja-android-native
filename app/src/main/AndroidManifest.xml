@@ -688,16 +688,16 @@
                 android:value=".BusinessReward.ui.DetailProduct.activity.DetailProductActivity" />
         </activity>
         <activity
-            android:name=".Activity.RedeemConfirmationActivity"
+            android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".Activity.RedeemConfirmation2Activity"
+            android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity"
             android:label="Detail Penukaran"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.RedeemConfirmationActivity" />
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity" />
         </activity>
         <activity
             android:name=".Activity.TrackingOrderActivity"
@@ -705,7 +705,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.RedeemConfirmationActivity" />
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity" />
         </activity>
         <activity
             android:name=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity"
@@ -726,7 +726,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.RedeemConfirmation2Activity" />
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity" />
         </activity>
         <activity
             android:name=".BusinessReward.ui.Transaction.activity.TransactionActivity"

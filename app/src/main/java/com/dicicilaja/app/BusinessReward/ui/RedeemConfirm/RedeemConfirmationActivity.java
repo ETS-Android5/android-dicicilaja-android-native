@@ -1,16 +1,15 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.BusinessReward.ui.RedeemConfirm;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.dicicilaja.app.Activity.NotificationActivity;
 import com.dicicilaja.app.R;
 
 public class RedeemConfirmationActivity extends AppCompatActivity {
@@ -79,7 +78,7 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=08111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20produk%20yang%20saya%20telah%20tukar%20"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=+628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20produk%20yang%20saya%20telah%20tukar%20"));
                 startActivity(browserIntent);
                 break;
             case R.id.klaim:

@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.BusinessReward.ui.RedeemConfirm;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.Activity.ReviewActivity;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
