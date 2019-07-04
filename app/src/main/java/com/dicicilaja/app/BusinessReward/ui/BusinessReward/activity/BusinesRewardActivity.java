@@ -20,6 +20,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.dicicilaja.app.BusinessReward.ui.Search.activity.SearchResultActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
@@ -69,8 +71,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
 
     SessionManager session;
-    String final_point;
-    public static String ktpnpwp, no_ktp, point_reward;
+    public static String final_point;
+    public static String ktpnpwp, no_ktp, no_npwp, point_reward;
     ApiService apiService;
 
     @SuppressLint("WrongConstant")
@@ -111,6 +113,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
         session = new SessionManager(getBaseContext());
         try {
             final_point = getIntent().getStringExtra("POINT_REWARD");
+            Log.d("POINTGOBLOG", final_point);
             String imageUrl = session.getPhoto();
             Picasso.get()
                     .load(imageUrl)
@@ -129,21 +132,21 @@ public class BusinesRewardActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-//        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
-//        call2.enqueue(new Callback<Point>() {
-//            @Override
-//            public void onResponse(Call<Point> call, Response<Point> response2) {
-//
-//                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-//                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
-//                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Point> call, Throwable t) {
-//
-//            }
-//        });
+        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        call2.enqueue(new Callback<Point>() {
+            @Override
+            public void onResponse(Call<Point> call, Response<Point> response2) {
+
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
+            }
+
+            @Override
+            public void onFailure(Call<Point> call, Throwable t) {
+
+            }
+        });
 
 
         Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
@@ -158,6 +161,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
                 } else {
                     ktpnpwp = "Ada";
                     no_ktp = response.body().getData().get(0).getAttributes().getNoKtp();
+                    no_npwp = response.body().getData().get(0).getAttributes().getNoNpwp();
                 }
 
             }
@@ -219,12 +223,11 @@ public class BusinesRewardActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), TransactionActivity.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.search) {
+            Intent intent = new Intent(getBaseContext(), SearchResultActivity.class);
+            startActivity(intent);
+            return true;
         }
-//        else if (id == R.id.search) {
-//            Intent intent = new Intent(getBaseContext(), SearchResultActivity.class);
-//            startActivity(intent);
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }

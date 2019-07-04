@@ -384,8 +384,9 @@
                         android:id="@+id/title_ulasan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/open_sans"
-                        android:text="Beli Ulasan Produk"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Beri Ulasan Produk"
+                        android:textColor="@color/colorAccentDark2"
                         android:textSize="@dimen/font_medium" />
 
                 </RelativeLayout>

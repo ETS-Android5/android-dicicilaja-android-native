@@ -1,20 +1,20 @@
-package com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward;
+package com.dicicilaja.app.BusinessReward.dataAPI.cabang;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Testimonis {
+public class Cabang {
     @SerializedName("data")
     @Expose
-    private List<Object> data;
+    private List<Datum> data = null;
 
-    public List<Object> getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(List<Object> data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 }

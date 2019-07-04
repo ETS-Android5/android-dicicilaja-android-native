@@ -3,6 +3,7 @@ package com.dicicilaja.app.BusinessReward.ui.Transaction.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +67,8 @@ public class TransactionActivity extends AppCompatActivity {
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
 
+    String id;
+
     @SuppressLint("WrongConstant")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +125,7 @@ public class TransactionActivity extends AppCompatActivity {
         showLoading(false);
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<ClaimRewards> call = apiService.getClaim(Integer.parseInt(session.getAxiId()), currentPage);
+        Call<ClaimRewards> call = apiService.getClaim(Integer.parseInt(session.getAxiId()), currentPage, "id", "desc");
         call.enqueue(new Callback<ClaimRewards>() {
             @SuppressLint("WrongConstant")
             @Override

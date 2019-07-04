@@ -1,6 +1,7 @@
 package com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
-import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
-import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
+import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;
 import com.dicicilaja.app.BusinessReward.network.ApiClient2;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
@@ -33,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,16 +61,18 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
     @BindView(R.id.progressBar3)
     MaterialProgressBar progressBar3;
 
-    final List<String> AREA = new ArrayList<>();
+    final List<String> AREA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
-    final List<String> CABANG = new ArrayList<>();
+    final List<String> CABANG_ITEMS = new ArrayList<>();
+    final List<String> ALAMAT_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> CABANG_DATA = new HashMap<Integer, String>();
+
     ApiService apiService, apiService2;
     InterfaceAxiDetail apiServices;
     @BindView(R.id.not_available)
     TextView notAvailable;
 
-    String tipe_objek_id;
+    String tipe_objek_id, cabang_text;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +89,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        spinnerCabang.setEnabled(false);
+//        spinnerCabang.setEnabled(false);
 
         initAction();
         initLoadData();
@@ -99,6 +102,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         progressBar3.setVisibility(View.GONE);
         notAvailable.setVisibility(View.GONE);
         tipe_objek_id = "1";
+
         clearArea();
         clearCabang();
 
@@ -108,10 +112,10 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
 
     private void clearArea() {
         AREA_DATA.clear();
-        AREA.clear();
+        AREA_ITEMS.clear();
         AREA_DATA.put(0, "0");
-//        AREA.add("Pilih Area");
-        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA);
+        AREA_ITEMS.add("PilihArea");
+        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
         area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerArea.setAdapter(area_adapter);
         spinnerArea.setTitle("");
@@ -120,10 +124,11 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
 
     private void clearCabang() {
         CABANG_DATA.clear();
-        CABANG.clear();
+        CABANG_ITEMS.clear();
+        ALAMAT_ITEMS.clear();
         CABANG_DATA.put(0, "0");
-//        CABANG.add("Pilih Cabang");
-        ArrayAdapter<String> cabang_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG);
+        CABANG_ITEMS.add("PilihCabang");
+        ArrayAdapter<String> cabang_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
         cabang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCabang.setAdapter(cabang_adapter);
         spinnerCabang.setTitle("");
@@ -135,16 +140,16 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         initAction();
         progressBar0.setVisibility(View.VISIBLE);
 
-        Call<Area> area = apiService.getArea();
-        area.enqueue(new Callback<Area>() {
+        Call<Area2> area = apiService.getArea();
+        area.enqueue(new Callback<Area2>() {
             @Override
-            public void onResponse(Call<Area> call, Response<Area> response) {
+            public void onResponse(Call<Area2> call, Response<Area2> response) {
                 if (response.isSuccessful()) {
                     try {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 AREA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                AREA.add(String.valueOf(response.body().getData().get(i).getName()));
+                                AREA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                             }
                             progressBar0.setVisibility(View.GONE);
                         } else {
@@ -163,7 +168,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                             alertDialog.show();
                         }
                     } catch (Exception ex) {
-                        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA);
+                        ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
                         area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerArea.setAdapter(area_adapter);
                         spinnerArea.setTitle("");
@@ -187,7 +192,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Area> call, Throwable t) {
+            public void onFailure(Call<Area2> call, Throwable t) {
                 progressBar0.setVisibility(View.GONE);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PilihCabangVendorActivity.this);
                 alertDialog.setTitle("Perhatian");
@@ -207,21 +212,22 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 clearCabang();
-                if(Integer.parseInt(AREA.get(spinnerArea.getSelectedItemPosition())) > 0){
+                if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<Branch> branchCall = apiService.getCabang(Integer.parseInt(AREA.get(spinnerArea.getSelectedItemPosition())));
-                    branchCall.enqueue(new Callback<Branch>() {
+                    Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
+                    branchCall.enqueue(new Callback<Cabang>() {
                         @Override
-                        public void onResponse(Call<Branch> call, Response<Branch> response) {
-                            if (response.isSuccessful()){
+                        public void onResponse(Call<Cabang> call, Response<Cabang> response) {
+                            if (response.isSuccessful()) {
                                 try {
-                                    if(response.body().getData().size() > 0){
+                                    if (response.body().getData().size() > 0) {
                                         for (int i = 0; i < response.body().getData().size(); i++) {
                                             CABANG_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                            CABANG.add(String.valueOf(response.body().getData().get(i).getName()));
+                                            CABANG_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                            ALAMAT_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getAlamat()));
                                         }
                                         progressBar.setVisibility(View.GONE);
-                                    }else{
+                                    } else {
                                         clearCabang();
                                         progressBar.setVisibility(View.GONE);
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(PilihCabangVendorActivity.this);
@@ -236,16 +242,16 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                                         });
                                         alertDialog.show();
                                     }
-                                }catch (Exception ex){
-                                    ArrayAdapter<String> cabang_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG);
-                                    cabang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                                    spinnerCabang.setAdapter(cabang_adapter);
-                                    spinnerCabang.setTitle("");
-                                    spinnerCabang.setPositiveButton("OK");
-                                    spinnerCabang.setEnabled(true);
+                                } catch (Exception ex) {
                                 }
-                            }else{
+                                ArrayAdapter<String> cabang_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
+                                cabang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                spinnerCabang.setAdapter(cabang_adapter);
+                                spinnerCabang.setTitle("");
+                                spinnerCabang.setPositiveButton("OK");
+                                spinnerCabang.setEnabled(true);
+                            } else {
                                 clearCabang();
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PilihCabangVendorActivity.this);
@@ -263,7 +269,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<Branch> call, Throwable t) {
+                        public void onFailure(Call<Cabang> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(PilihCabangVendorActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -292,10 +298,10 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 notAvailable.setVisibility(View.GONE);
-                if(Integer.parseInt(CABANG.get(spinnerCabang.getSelectedItemPosition())) > 0){
-                    progressBar3.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())) > 0) {
+                    progressBar3.setVisibility(View.GONE);
+//                    CABANG_DATA.get(spinnerCabang.getSelectedItemPosition()));
                 }
-
             }
 
             @Override
@@ -303,5 +309,29 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.next)
+    public void onViewClicked() {
+//        Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
+        cabang_text = ALAMAT_ITEMS.get(spinnerArea.getSelectedItemPosition());
+//        Log.d("cabangtext", cabang_text);
+        Log.d("cabangtext", CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+        Log.d("cabangtext", ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+
+        Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
+        intent.putExtra("CABANGNYA", String.valueOf(CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
+        intent.putExtra("ALAMATNYA", String.valueOf(ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
+        intent.putExtra("AREANYA", String.valueOf(AREA_ITEMS.get(spinnerArea.getSelectedItemPosition())));
+        intent.putExtra("AREAIDNYA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
+        intent.putExtra("CABANGIDNYA", String.valueOf(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())));
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

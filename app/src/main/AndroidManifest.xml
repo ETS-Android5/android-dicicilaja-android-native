@@ -715,14 +715,14 @@
                 android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
-            android:name=".Activity.SearchResultActivity"
+            android:name=".BusinessReward.ui.Search.activity.SearchResultActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ReviewActivity"
+            android:name=".BusinessReward.ui.Transaction.activity.ReviewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

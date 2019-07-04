@@ -1,7 +1,9 @@
 package com.dicicilaja.app.BusinessReward.network;
 
 import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
+import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
 import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
+import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;
 import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.ClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
@@ -47,15 +49,20 @@ public interface ApiService {
     @GET("branch")
     Call<Branch> getCabang(@Path("id") int cabang_id);
 
+    @GET("cabang/get-by-area/{id}")
+    Call<Cabang> getAllCabang(@Path("id") int cabang_id);
+
     @GET("area")
-    Call<Area> getArea();
+    Call<Area2> getArea();
 
     @GET("axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
 
     @GET("claim-reward")
     Call<ClaimRewards> getClaim(@Query("profile_id") int profile_id,
-                                @Query("page") int page);
+                                @Query("page") int page,
+                                @Query("ob") String ob,
+                                @Query("ot") String ot);
 
     @GET("claim-reward")
     Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);
@@ -161,6 +168,15 @@ public interface ApiService {
                             @Field("status_id") String status_id,
                             @Field("total_harga") String total_harga);
 
+    @POST("testimoni")
+    @FormUrlEncoded
+    Call<Testimoni> postTestimoni(
+            @Field("profile_id") String profile_id,
+            @Field("claim_reward_id") String claim_reward_id,
+            @Field("status_id") String status_id,
+            @Field("testimoni") String testimoni,
+            @Field("rating") String rating);
+
     @POST("axi-foto")
     @FormUrlEncoded
     Call<Foto> postFoto(
@@ -169,17 +185,6 @@ public interface ApiService {
                             @Field("foto_npwp") String foto_npwp,
                             @Field("no_ktp") String no_ktp,
                             @Field("no_npwp") String no_npwp);
-
-
-    @POST("testimoni")
-    @FormUrlEncoded
-    Call<Testimoni> postTestimoni(@Field("type") String testimoni_type,
-                                  @Field("id") String testimoni_id,
-                                  @Field("profile_id") String profile_id,
-                                  @Field("claim_reward_id") String claim_id,
-                                  @Field("status_id") String status_id,
-                                  @Field("testimoni") String testimoni,
-                                  @Field("rating") String rating);
 
     //PUT
     @PUT("status/{id}")

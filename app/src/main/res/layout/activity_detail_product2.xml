@@ -89,7 +89,6 @@
                         android:padding="24dp"
                         android:background="@drawable/border_form">
 
-
                         <TextView
                             android:id="@+id/ubahB"
                             android:layout_gravity="center_vertical"
@@ -108,6 +107,7 @@
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:layout_toLeftOf="@+id/ubahB"
+                            android:layout_alignParentLeft="true"
                             android:layout_height="wrap_content">
 
                             <TextView
@@ -116,8 +116,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ziady Mubaraq"
-                                android:fontFamily="@font/open_sans"
+                                android:fontFamily="@font/open_sans_semibold"
                                 android:textAllCaps="true"
+                                android:textSize="@dimen/font_medium"/>
+
+                            <TextView
+                                android:id="@+id/tv_cabang"
+                                android:layout_below="@id/tv_nama"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textColor="@color/colorAccent"
+                                android:text="Jawa Barat"
+                                android:fontFamily="@font/open_sans_bold"
                                 android:textSize="@dimen/font_medium"/>
 
                             <TextView

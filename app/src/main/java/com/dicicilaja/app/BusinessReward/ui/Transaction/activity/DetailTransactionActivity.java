@@ -15,9 +15,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
+import com.dicicilaja.app.BusinessReward.dataAPI.testimoni.Testimoni;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
-import com.dicicilaja.app.Activity.ReviewActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
@@ -94,7 +94,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
     @BindView(R.id.ulasan_produk)
     RelativeLayout ulasanProduk;
 
-    String id;
+    String id, judulGambar, pointB, gambar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,6 +170,10 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     call2.enqueue(new Callback<DetailProduk>() {
                         @Override
                         public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
+                            judulGambar = response.body().getData().getAttributes().getNama();
+                            pointB = String.valueOf(response.body().getData().getAttributes().getPoint());
+                            gambar = response.body().getData().getAttributes().getFoto();
+
                             titleBarang.setText(response.body().getData().getAttributes().getNama());
                             point.setText(response.body().getData().getAttributes().getPoint() + " Point");
                             Glide.with(getBaseContext()).load(response.body().getData().getAttributes().getFoto()).into(barangPicture);
@@ -212,13 +216,23 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     }
 
                     if(response.body().getData().getAttributes().getStatusId().equals("9")){
-                        ulasanProduk.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-                                startActivity(intent);
-                            }
-                        });
+                        if(response.body().getData().getRelationships().getTestimonis().getData().size() != 0){
+                            ulasanProduk.setVisibility(View.GONE);
+                        }else{
+                            ulasanProduk.setVisibility(View.VISIBLE);
+                            ulasanProduk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+                                    intent.putExtra("ID", id);
+                                    intent.putExtra("USER_ID", session.getAxiId());
+                                    intent.putExtra("JUDUL", judulGambar);
+                                    intent.putExtra("POINT", pointB);
+                                    intent.putExtra("GAMBAR", gambar);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                     }
 
                 } catch(Exception ex) {
