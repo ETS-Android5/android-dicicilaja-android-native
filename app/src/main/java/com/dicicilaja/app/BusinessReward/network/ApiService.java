@@ -74,7 +74,7 @@ public interface ApiService {
     Call<Point> getPoint(@Query("profile_id") int profile_id);
 
     @GET("product-catalog")
-    Call<Produk> getProduk();
+    Call<Produk> getProduk(@Query("nama") String nama);
 
     @GET("kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);
