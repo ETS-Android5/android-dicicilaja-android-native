@@ -46,10 +46,29 @@
                     android:background="@color/colorWhite">
 
                     <TextView
+                        android:id="@+id/title_penerima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Penerima"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/font_title"/>
+
+                    <TextView
+                        android:id="@+id/tv_penerima"
+                        android:layout_below="@id/title_penerima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
+                        android:text="AXI Penerima"
+                        android:textSize="@dimen/font_medium"/>
+
+                    <TextView
                         android:id="@+id/title_tujuan"
+                        android:layout_below="@id/tv_penerima"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alamat Pengiriman"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/open_sans_bold"
                         android:textSize="@dimen/font_title"/>
 

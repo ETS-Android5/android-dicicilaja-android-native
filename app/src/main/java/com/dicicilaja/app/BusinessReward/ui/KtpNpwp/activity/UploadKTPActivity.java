@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -46,7 +48,10 @@ import retrofit2.Response;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class UploadKTPActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.upload)
@@ -92,6 +97,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
 
     String fKtp, fNpwp, nomorKtp, nomorNpwp, axiId;
+    int textlength;
     SessionManager session;
 
     @Override
@@ -121,6 +127,8 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         session = new SessionManager(getBaseContext());
 
         axiId = session.getAxiId();
+
+        noNpwp.addTextChangedListener(onTextChangedListener());
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -504,6 +512,38 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
             return false;
         }
         return true;
+    }
+
+    private TextWatcher onTextChangedListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = noNpwp.getText().toString();
+                textlength = noNpwp.getText().length();
+
+                if(text.endsWith(" "))
+                    return;
+
+                if(textlength == 3 || textlength == 7 || textlength == 11 || textlength == 17)
+                {
+                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, ".").toString());
+                    noNpwp.setSelection(noNpwp.getText().length());
+                }else if(textlength == 13){
+                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, "-").toString());
+                    noNpwp.setSelection(noNpwp.getText().length());
+                }
+            }
+        };
     }
 
     public void requestFocus(View view) {

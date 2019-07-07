@@ -2,6 +2,7 @@ package com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.Data;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.Included;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity.DetailProductActivity;
 import com.dicicilaja.app.R;
 
@@ -76,6 +78,16 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, DetailProductActivity.class);
                     intent.putExtra("ID", pcAll2.get(finalpos).getId());
+
+                    intent.putExtra("ID", pcAll2.get(finalpos).getId());
+                    intent.putExtra("IMAGE", pcAll2.get(finalpos).getAttributes().getFoto());
+                    intent.putExtra("TITLE", pcAll2.get(finalpos).getAttributes().getNama());
+                    intent.putExtra("DETAIL", pcAll2.get(finalpos).getAttributes().getDeskripsi());
+                    intent.putExtra("POINT_PRODUCT", pcAll2.get(finalpos).getAttributes().getPoint());
+                    intent.putExtra("POINT_REWARD", BusinesRewardActivity.point_reward);
+                    intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
+                    intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
+                    intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
                     view.getContext().startActivity(intent);
                 }
             });

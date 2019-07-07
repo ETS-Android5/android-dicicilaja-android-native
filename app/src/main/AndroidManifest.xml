@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="true">
+        android:fullBackupContent="true"
+        android:usesCleartextTraffic="true">
+
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
@@ -753,7 +755,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.DetailProduct.activity.PilihCabangVendorActivity"
-            android:label="Pilih Vendor Cabang"
+            android:label="Tujuan Pengiriman"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

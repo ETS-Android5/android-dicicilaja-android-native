@@ -49,7 +49,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="16dp"
-                        android:text="Pilih Vendor dan Cabang"
+                        android:text="Pilih Area dan Cabang"
                         android:textSize="16sp"
                         android:fontFamily="@font/open_sans_bold"/>
 
@@ -73,7 +73,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Vendor"
+                                android:text="Area"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="#FFB8B8B8"
                                 android:layout_marginTop="16dp"
@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="9dp"
                             android:layout_marginRight="9dp"
-                            android:text="*Tahun kendaraan belum tersedia"
+                            android:text="*Area / Cabang belum tersedia"
                             android:fontFamily="@font/open_sans"
                             android:textColor="@color/colorAccentDark"
                             android:layout_marginTop="5dp"
@@ -130,7 +130,7 @@
                             android:id="@+id/next"
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
-                            android:text="OK"
+                            android:text="Simpan"
                             android:backgroundTint="@color/colorAccentDark2"
                             android:textColor="@color/colorWhite"
                             android:fontFamily="@font/open_sans_bold"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,8 @@ import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
 import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;
 import com.dicicilaja.app.BusinessReward.network.ApiClient2;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.Search.activity.SearchResultActivity;
+import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -114,7 +118,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         AREA_DATA.clear();
         AREA_ITEMS.clear();
         AREA_DATA.put(0, "0");
-        AREA_ITEMS.add("PilihArea");
+        AREA_ITEMS.add("Pilih Area");
         ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
         area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerArea.setAdapter(area_adapter);
@@ -127,7 +131,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         CABANG_ITEMS.clear();
         ALAMAT_ITEMS.clear();
         CABANG_DATA.put(0, "0");
-        CABANG_ITEMS.add("PilihCabang");
+        CABANG_ITEMS.add("Pilih Cabang");
         ArrayAdapter<String> cabang_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
         cabang_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCabang.setAdapter(cabang_adapter);
@@ -317,21 +321,48 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
+        setResult(RESULT_CANCELED, intent);
+        finish();
+    }
+
     @OnClick(R.id.next)
     public void onViewClicked() {
 //        Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
-        cabang_text = ALAMAT_ITEMS.get(spinnerArea.getSelectedItemPosition());
-//        Log.d("cabangtext", cabang_text);
-        Log.d("cabangtext", CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
-        Log.d("cabangtext", ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
 
-        Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
-        intent.putExtra("CABANGNYA", String.valueOf(CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
-        intent.putExtra("ALAMATNYA", String.valueOf(ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
-        intent.putExtra("AREANYA", String.valueOf(AREA_ITEMS.get(spinnerArea.getSelectedItemPosition())));
-        intent.putExtra("AREAIDNYA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
-        intent.putExtra("CABANGIDNYA", String.valueOf(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())));
-        setResult(RESULT_OK, intent);
-        finish();
+        if(spinnerArea.getSelectedItemPosition() == 0 || spinnerCabang.getSelectedItemPosition() == 0){
+            Toast.makeText(this, "Mohon masukan data area dan cabang dengan benar!", Toast.LENGTH_SHORT).show();
+        }else{
+            cabang_text = ALAMAT_ITEMS.get(spinnerArea.getSelectedItemPosition());
+            Log.d("cabangtext", CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+            Log.d("cabangtext", ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+
+            Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
+            intent.putExtra("CABANGNYA", String.valueOf(CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
+            intent.putExtra("ALAMATNYA", String.valueOf(ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
+            intent.putExtra("AREANYA", String.valueOf(AREA_ITEMS.get(spinnerArea.getSelectedItemPosition())));
+            intent.putExtra("AREAIDNYA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
+            intent.putExtra("CABANGIDNYA", String.valueOf(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())));
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
+            setResult(RESULT_CANCELED, intent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

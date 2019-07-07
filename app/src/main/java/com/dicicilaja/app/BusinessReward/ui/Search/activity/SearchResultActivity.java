@@ -6,12 +6,15 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,8 +60,8 @@ public class SearchResultActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.inputCariBarang)
     EditText inputCariBarang;
-    @BindView(R.id.search_button)
-    ImageView searchButton;
+//    @BindView(R.id.search_button)
+//    ImageView searchButton;
 
     String barang_dicari;
 
@@ -113,24 +116,46 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        inputCariBarang.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                barang_dicari = inputCariBarang.getText().toString();
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    barang_dicari = inputCariBarang.getText().toString();
 
-                progress.setMessage("Sedang memuat data...");
-                progress.setCanceledOnTouchOutside(false);
-                progress.show();
+                    progress.setMessage("Sedang memuat data...");
+                    progress.setCanceledOnTouchOutside(false);
+                    progress.show();
 
-                doLoadData();
+                    doLoadData();
 
-                // Init recyleview listener
-                initListener();
+                    // Init recyleview listener
+                    initListener();
 
-                // Hide recyle
-                hideEmpty();
+                    // Hide recyle
+                    hideEmpty();
+                }
+                return true;
             }
         });
+
+//        searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                barang_dicari = inputCariBarang.getText().toString();
+//
+//                progress.setMessage("Sedang memuat data...");
+//                progress.setCanceledOnTouchOutside(false);
+//                progress.show();
+//
+//                doLoadData();
+//
+//                // Init recyleview listener
+//                initListener();
+//
+//                // Hide recyle
+//                hideEmpty();
+//            }
+//        });
 
         // Load data
     }

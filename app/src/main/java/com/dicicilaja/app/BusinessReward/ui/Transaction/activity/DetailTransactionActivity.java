@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
-import com.dicicilaja.app.BusinessReward.dataAPI.testimoni.Testimoni;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
@@ -95,6 +94,10 @@ public class DetailTransactionActivity extends AppCompatActivity {
     RelativeLayout ulasanProduk;
 
     String id, judulGambar, pointB, gambar;
+    @BindView(R.id.title_penerima)
+    TextView titlePenerima;
+    @BindView(R.id.tv_penerima)
+    TextView tvPenerima;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,42 +132,44 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
                     String finalBulan = null;
 
-                    if(bulan.equals("01")){
+                    if (bulan.equals("01")) {
                         finalBulan = "Jan";
-                    }else if(bulan.equals("02")){
+                    } else if (bulan.equals("02")) {
                         finalBulan = "Feb";
-                    }else if(bulan.equals("03")){
+                    } else if (bulan.equals("03")) {
                         finalBulan = "Mar";
-                    }else if(bulan.equals("04")){
+                    } else if (bulan.equals("04")) {
                         finalBulan = "Apr";
-                    }else if(bulan.equals("05")){
+                    } else if (bulan.equals("05")) {
                         finalBulan = "Mei";
-                    }else if(bulan.equals("06")){
+                    } else if (bulan.equals("06")) {
                         finalBulan = "Jun";
-                    }else if(bulan.equals("07")){
+                    } else if (bulan.equals("07")) {
                         finalBulan = "Juli";
-                    }else if(bulan.equals("08")){
+                    } else if (bulan.equals("08")) {
                         finalBulan = "Agus";
-                    }else if(bulan.equals("09")){
+                    } else if (bulan.equals("09")) {
                         finalBulan = "Sep";
-                    }else if(bulan.equals("10")){
+                    } else if (bulan.equals("10")) {
                         finalBulan = "Okt";
-                    }else if(bulan.equals("11")){
+                    } else if (bulan.equals("11")) {
                         finalBulan = "Nov";
-                    }else if(bulan.equals("12")){
+                    } else if (bulan.equals("12")) {
                         finalBulan = "Des";
                     }
 
                     String alamatnya;
-                    if(response.body().getData().getAttributes().getAlamat() == null){
+                    if (response.body().getData().getAttributes().getAlamat() == null) {
                         alamatnya = "-";
-                    }else{
+                    } else {
                         alamatnya = String.valueOf(response.body().getData().getAttributes().getAlamat());
                     }
 
+                    tvPenerima.setText(response.body().getData().getAttributes().getNamaAxi());
+
                     tvAlamat.setText(alamatnya);
                     tvTglTrans.setText(String.valueOf(response.body().getData().getAttributes().getTransaksiId()));
-                    tvTglPen2.setText(tanggal+" "+finalBulan);
+                    tvTglPen2.setText(tanggal + " " + finalBulan);
 
                     Call<DetailProduk> call2 = apiService.getDetailProduk(Integer.valueOf(response.body().getData().getAttributes().getProductCatalogId()));
                     call2.enqueue(new Callback<DetailProduk>() {
@@ -185,7 +190,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         }
                     });
 
-                    switch(response.body().getData().getAttributes().getStatusId()) {
+                    switch (response.body().getData().getAttributes().getStatusId()) {
                         case "5":
                             box1.setBackgroundResource(R.drawable.border_active);
                             statSelesai.setText("Sedang diproses");
@@ -215,10 +220,10 @@ public class DetailTransactionActivity extends AppCompatActivity {
                             break;
                     }
 
-                    if(response.body().getData().getAttributes().getStatusId().equals("9")){
-                        if(response.body().getData().getRelationships().getTestimonis().getData().size() != 0){
+                    if (response.body().getData().getAttributes().getStatusId().equals("9")) {
+                        if (response.body().getData().getRelationships().getTestimonis().getData().size() != 0) {
                             ulasanProduk.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             ulasanProduk.setVisibility(View.VISIBLE);
                             ulasanProduk.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -235,7 +240,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         }
                     }
 
-                } catch(Exception ex) {
+                } catch (Exception ex) {
 
                 }
             }

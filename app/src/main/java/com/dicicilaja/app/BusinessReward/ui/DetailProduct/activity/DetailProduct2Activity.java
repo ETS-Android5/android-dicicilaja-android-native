@@ -88,6 +88,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
     TextView tvCabang;
 
     String profileId, date;
+    int statusAlamat = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,37 +162,40 @@ public class DetailProduct2Activity extends AppCompatActivity {
 
     @OnClick(R.id.klaim)
     public void onViewClicked() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProduct2Activity.this);
-        alertDialog.setTitle("Penukaran");
-        alertDialog.setMessage("Apakah anda yakin ingin melakukan penukaran ?");
-        alertDialog.setCancelable(false);
+        if(statusAlamat == 0){
+            Toast.makeText(this, "Mohon masukan alamat terlebih dahulu!", Toast.LENGTH_SHORT).show();
+        }else{
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProduct2Activity.this);
+            alertDialog.setTitle("Penukaran");
+            alertDialog.setMessage("Apakah anda yakin ingin melakukan penukaran ?");
+            alertDialog.setCancelable(false);
 
-        alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+            alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
-                ApiService apiService = ApiClient.getClient().create(ApiService.class);
-                Call<DetailClaimReward> call = apiService.postClaimReward(profileId, nama, cabang_id, cabang, area_id, area, "0", null, produk_id, no_ktp+"/"+no_npwp, alamat, null, null, null, null, null, null, "5", null);
-                call.enqueue(new Callback<DetailClaimReward>() {
-                    @Override
-                    public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
-                        try {
-                            Log.d("Responnya", String.valueOf(response.code()));
+                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                    Call<DetailClaimReward> call = apiService.postClaimReward(profileId, nama, cabang_id, cabang, area_id, area, "0", null, produk_id, no_ktp+"/"+no_npwp, alamat, null, null, null, null, null, null, "5", null);
+                    call.enqueue(new Callback<DetailClaimReward>() {
+                        @Override
+                        public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
+                            try {
+                                Log.d("Responnya", String.valueOf(response.code()));
 
-                            Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
-                            intent.putExtra("DATE", date);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        } catch (Exception ex) {
+                                Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
+                                intent.putExtra("DATE", date);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception ex) {
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DetailClaimReward> call, Throwable t) {
 
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<DetailClaimReward> call, Throwable t) {
-
-                    }
-                });
+                    });
 
 //                ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
@@ -213,18 +217,19 @@ public class DetailProduct2Activity extends AppCompatActivity {
 //                                Log.d("datainput", statusId);
 
 
-                Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
 
 
-            }
-        });
-        alertDialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-                startActivity(getIntent());
-            }
-        });
-        alertDialog.show();
+                }
+            });
+            alertDialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    startActivity(getIntent());
+                }
+            });
+            alertDialog.show();
+        }
     }
 
 //    @OnClick(R.id.tambah_alamat)
@@ -250,6 +255,10 @@ public class DetailProduct2Activity extends AppCompatActivity {
                 tvAlamat.setText(data.getStringExtra("ALAMATNYA"));
                 tvCabang.setText(data.getStringExtra("CABANGNYA"));
                 tvNama.setText(nama);
+
+                statusAlamat = 1;
+            }else if(resultCode == RESULT_CANCELED){
+
             }
         }
     }

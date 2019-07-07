@@ -113,8 +113,8 @@ public class DetailProductActivity extends AppCompatActivity {
         deskripsi.setText(textt);
         pointUser = getIntent().getStringExtra("POINT_REWARD");
         pointProduk = getIntent().getIntExtra("POINT_PRODUCT", 0);
-        no_ktp = getIntent().getStringExtra("KTP");
-        ktpnpwp = getIntent().getStringExtra("NOKTP");
+        no_ktp = getIntent().getStringExtra("NOKTP");
+        ktpnpwp = getIntent().getStringExtra("KTP");
         no_npwp = getIntent().getStringExtra("NONPWP");
         id = intent.getIntExtra("ID", 0);
 
