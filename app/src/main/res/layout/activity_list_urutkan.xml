@@ -25,50 +25,31 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="23dp"
         android:layout_marginRight="16dp"
-        android:text="Pilih Kategori"
+        android:text="Urutkan Dengan"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:fontFamily="@font/open_sans_bold"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+    <RadioGroup
         android:padding="16dp"
-        android:background="@drawable/border_form"
+        android:id="@+id/radio_group"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-        <RadioGroup
-            android:padding="16dp"
-            android:id="@+id/radio_group"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans_bold"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+    </RadioGroup>
 
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/spek_barang_detail">
-
-        <Button
-            android:id="@+id/pilih_kat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pilih"
-            android:fontFamily="@font/open_sans"
-            android:textAllCaps="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorAccent"/>
-
-    </RelativeLayout>
+        android:id="@+id/pilih_kat"
+        android:text="Pilih"
+        android:layout_gravity="right"
+        android:textColor="@color/colorWhite"
+        android:layout_marginRight ="16dp"
+        android:layout_marginBottom ="16dp"
+        android:background="@color/colorAccent"/>
 
 </LinearLayout>

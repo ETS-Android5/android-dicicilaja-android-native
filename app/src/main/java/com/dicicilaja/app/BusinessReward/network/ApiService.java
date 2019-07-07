@@ -76,8 +76,18 @@ public interface ApiService {
     @GET("product-catalog")
     Call<Produk> getProduk(@Query("nama") String nama);
 
+    @GET("product-catalog")
+    Call<Produk> getProdukSort(@Query("kategori_id") String kategori_id,
+                               @Query("ob") String ob,
+                               @Query("ot") String ot);
+
     @GET("kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);
+
+    @GET("kategori/{id}")
+    Call<DetailKategori> getDetailKategoriSort(@Path("id") int id,
+                                               @Query("ob") String ob,
+                                               @Query("ot") String ot);
 
     @GET("status")
     Call<Status> getStatus();

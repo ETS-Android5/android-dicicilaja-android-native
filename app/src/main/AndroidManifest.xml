@@ -761,6 +761,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity" />
         </activity>
+        <activity
+            android:name=".BusinessReward.ui.BusinessReward.activity.ListKategori"
+            android:label="Pilih Kategori"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.BusinessReward.activity.ListUrutkan"
+            android:label="Pilih Kategori"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
+        </activity>
     </application>
 
 </manifest>
