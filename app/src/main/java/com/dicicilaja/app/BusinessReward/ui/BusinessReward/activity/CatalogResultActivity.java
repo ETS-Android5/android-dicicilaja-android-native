@@ -113,8 +113,8 @@ public class CatalogResultActivity extends AppCompatActivity {
             status_order = 1;
         }
 
-        Log.d("IDNYAINITEH", id);
-        Log.d("IDNYAINITEHSIZE", size);
+//        Log.d("IDNYAINITEH", id);
+//        Log.d("IDNYAINITEHSIZE", size);
 
         recyclerCatalog.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
         recyclerCatalog.setHasFixedSize(true);
@@ -166,12 +166,12 @@ public class CatalogResultActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.filter_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.filter_menu, menu);
+//        return true;
+//    }
 
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        // Handle action bar item clicks here. The action bar will
