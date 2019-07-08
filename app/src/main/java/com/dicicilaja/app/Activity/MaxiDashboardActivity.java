@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -256,6 +257,10 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                     case R.id.navbar_status:
                         Intent intent2 = new Intent(getBaseContext(),AllPengajuanMaxiActivity.class);
                         startActivity(intent2);
+                        break;
+                    case R.id.branch_office:
+                        Intent intent3 = new Intent(getBaseContext(), AreaBranchOfficeActivity.class);
+                        startActivity(intent3);
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MaxiDashboardActivity.this);

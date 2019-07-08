@@ -19,6 +19,9 @@
                 android:id="@+id/navbar_status"
                 android:title="STATUS PENGAJUAN"/>
             <item
+                android:id="@+id/branch_office"
+                android:title="KANTOR CABANG"/>
+            <item
                 android:id="@+id/navbar_exit"
                 android:title="KELUAR"/>
         </menu>

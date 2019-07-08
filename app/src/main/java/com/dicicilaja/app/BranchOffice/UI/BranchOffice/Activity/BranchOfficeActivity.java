@@ -41,7 +41,9 @@ public class BranchOfficeActivity extends AppCompatActivity {
 
     List<DataItem> dataItems;
     ApiService apiService;
-    String kota, fax1, fax2, fax3, nama, alamat;
+    String kota, fax1, fax2, fax3, nama, alamat, link;
+    String phone11, phone12, phone13, phone21, phone22, phone23, phone31, phone32, phone33;
+    int phone1size, phone2size, phone3size;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -120,6 +122,20 @@ public class BranchOfficeActivity extends AppCompatActivity {
                                         fax1 = dataItems.get(position).getAttributes().getDetail().getFax1();
                                         fax2 = dataItems.get(position).getAttributes().getDetail().getFax2();
                                         fax3 = dataItems.get(position).getAttributes().getDetail().getFax3();
+                                        link = dataItems.get(position).getAttributes().getLokasi();
+                                        phone1size = dataItems.get(position).getAttributes().getDetail().getTelp1().size();
+                                        phone2size = dataItems.get(position).getAttributes().getDetail().getTelp2().size();
+                                        phone3size = dataItems.get(position).getAttributes().getDetail().getTelp3().size();
+                                        phone11 = dataItems.get(position).getAttributes().getDetail().getTelp1().get(0);
+                                        phone12 = dataItems.get(position).getAttributes().getDetail().getTelp1().get(1);
+                                        phone13 = dataItems.get(position).getAttributes().getDetail().getTelp1().get(2);
+                                        phone21 = dataItems.get(position).getAttributes().getDetail().getTelp2().get(0);
+                                        phone22 = dataItems.get(position).getAttributes().getDetail().getTelp2().get(1);
+                                        phone23 = dataItems.get(position).getAttributes().getDetail().getTelp2().get(2);
+                                        phone31 = dataItems.get(position).getAttributes().getDetail().getTelp3().get(0);
+                                        phone32 = dataItems.get(position).getAttributes().getDetail().getTelp3().get(1);
+                                        phone33 = dataItems.get(position).getAttributes().getDetail().getTelp3().get(2);
+
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -131,6 +147,41 @@ public class BranchOfficeActivity extends AppCompatActivity {
                                     intent.putExtra("fax1", String.valueOf(fax1));
                                     intent.putExtra("fax2", String.valueOf(fax2));
                                     intent.putExtra("fax3", String.valueOf(fax3));
+                                    intent.putExtra("link", String.valueOf(link));
+
+                                    intent.putExtra("phone1size", String.valueOf(phone1size));
+                                    intent.putExtra("phone2size", String.valueOf(phone2size));
+                                    intent.putExtra("phone3size", String.valueOf(phone3size));
+
+                                    intent.putExtra("phone11", String.valueOf(phone11));
+                                    intent.putExtra("phone12", String.valueOf(phone12));
+                                    intent.putExtra("phone13", String.valueOf(phone13));
+
+                                    intent.putExtra("phone21", String.valueOf(phone21));
+                                    intent.putExtra("phone22", String.valueOf(phone22));
+                                    intent.putExtra("phone23", String.valueOf(phone23));
+
+                                    intent.putExtra("phone31", String.valueOf(phone31));
+                                    intent.putExtra("phone32", String.valueOf(phone32));
+                                    intent.putExtra("phone33", String.valueOf(phone33));
+
+                                    Log.d("TAGTAG", "phonesize 1: " + String.valueOf(phone1size));
+                                    Log.d("TAGTAG", "phonesize 2: " + String.valueOf(phone2size));
+                                    Log.d("TAGTAG", "phonesize 3: " + String.valueOf(phone3size));
+
+                                    Log.d("TAGTAG", "phone 1-1: " + String.valueOf(phone11));
+                                    Log.d("TAGTAG", "phone 1-2: " + String.valueOf(phone12));
+                                    Log.d("TAGTAG", "phone 1-3: " + String.valueOf(phone13));
+
+                                    Log.d("TAGTAG", "phone 2-1: " + String.valueOf(phone21));
+                                    Log.d("TAGTAG", "phone 2-2: " + String.valueOf(phone22));
+                                    Log.d("TAGTAG", "phone 2-3: " + String.valueOf(phone23));
+
+                                    Log.d("TAGTAG", "phone 3-1: " + String.valueOf(phone31));
+                                    Log.d("TAGTAG", "phone 3-2: " + String.valueOf(phone32));
+                                    Log.d("TAGTAG", "phone 3-3: " + String.valueOf(phone33));
+
+
                                     startActivity(intent);
                                 }
 

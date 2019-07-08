@@ -2,9 +2,13 @@ package com.dicicilaja.app.BranchOffice.UI.DetailBranchOffice;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +16,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,7 +62,10 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
     @BindView(R.id.line_fax3)
     ImageView lineFax3;
 
-    String fax1, fax2, fax3, nama, alamat, kota;
+    String fax1, fax2, fax3, nama, alamat, kota, link;
+    String phone11, phone12, phone13, phone21, phone22, phone23, phone31, phone32, phone33;
+    String phone1size, phone2size, phone3size;
+
     @BindView(R.id.phoneNumber)
     FrameLayout phoneNumber;
 
@@ -99,6 +107,23 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
         fax1 = getIntent().getStringExtra("fax1");
         fax2 = getIntent().getStringExtra("fax2");
         fax3 = getIntent().getStringExtra("fax3");
+        link = getIntent().getStringExtra("link");
+
+        phone1size = getIntent().getStringExtra("phone1size");
+        phone2size = getIntent().getStringExtra("phone2size");
+        phone3size = getIntent().getStringExtra("phone3size");
+
+        phone11 = getIntent().getStringExtra("phone11");
+        phone12 = getIntent().getStringExtra("phone12");
+        phone13 = getIntent().getStringExtra("phone13");
+
+        phone21 = getIntent().getStringExtra("phone21");
+        phone22 = getIntent().getStringExtra("phone22");
+        phone23 = getIntent().getStringExtra("phone23");
+
+        phone31 = getIntent().getStringExtra("phone31");
+        phone32 = getIntent().getStringExtra("phone32");
+        phone33 = getIntent().getStringExtra("phone33");
 
         if (fax1 == null || fax1.equals("null") || fax1.equals("-") || fax1.equals("0")) {
 
@@ -127,7 +152,6 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
         branchName.setText(nama);
         branchAddress.setText(alamat);
         branchCity.setText(kota);
-
     }
 
     @OnClick({R.id.copy_fax1, R.id.copy_fax2, R.id.copy_fax3, R.id.guide})
@@ -160,19 +184,43 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
                 Snackbar snackbar3 = Snackbar.make(view, "Nomor Fax berhasil disalin", Snackbar.LENGTH_SHORT);
                 snackbar3.show();
                 break;
-            case R.id.phoneNumber:
-                break;
             case R.id.guide:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                startActivity(intent);
                 break;
         }
     }
 
     @OnClick(R.id.phoneNumber)
     public void showBottomSheetDialog() {
-        View view = getLayoutInflater().inflate(R.layout.fragment_phone_detail, null);
+        Bundle args = new Bundle();
+        args.putString("phone1size", phone1size);
+        args.putString("phone1size", phone1size);
+        args.putString("phone1size", phone1size);
 
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
-        dialog.setContentView(view);
-        dialog.show();
+        args.putString("phone11", phone11);
+        args.putString("phone12", phone12);
+        args.putString("phone13", phone13);
+
+        args.putString("phone21", phone21);
+        args.putString("phone22", phone22);
+        args.putString("phone23", phone23);
+
+        args.putString("phone31", phone31);
+        args.putString("phone32", phone32);
+        args.putString("phone33", phone33);
+
+        DialogFragment newFragment = new PhoneDetailFragment();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "TAG");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.finish();
+        }
+        return true;
     }
 }

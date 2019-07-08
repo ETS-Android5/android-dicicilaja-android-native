@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
+import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -436,6 +437,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_add:
                         Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
                         startActivity(intent2);
+                        break;
+                    case R.id.branch_office:
+                        Intent intent3 = new Intent(getBaseContext(), AreaBranchOfficeActivity.class);
+                        startActivity(intent3);
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);

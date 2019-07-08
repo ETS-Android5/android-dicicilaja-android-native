@@ -28,6 +28,9 @@
                 android:id="@+id/navbar_materi"
                 android:title="UNDUH MATERI"/>
             <item
+                android:id="@+id/branch_office"
+                android:title="KANTOR CABANG"/>
+            <item
                 android:id="@+id/navbar_exit"
                 android:title="KELUAR"/>
         </menu>
