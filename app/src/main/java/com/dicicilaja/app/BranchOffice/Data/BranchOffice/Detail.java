@@ -30,10 +30,10 @@ public class Detail{
 	private String fax2;
 
 	@SerializedName("telp_2")
-	private List<String> telp2;
+	private List<Object> telp2;
 
 	@SerializedName("telp_3")
-	private List<String> telp3;
+	private List<Object> telp3;
 
 	@SerializedName("kelurahan")
 	private String kelurahan;
@@ -105,19 +105,19 @@ public class Detail{
 		return fax2;
 	}
 
-	public void setTelp2(List<String> telp2){
+	public void setTelp2(List<Object> telp2){
 		this.telp2 = telp2;
 	}
 
-	public List<String> getTelp2(){
+	public List<Object> getTelp2(){
 		return telp2;
 	}
 
-	public void setTelp3(List<String> telp3){
+	public void setTelp3(List<Object> telp3){
 		this.telp3 = telp3;
 	}
 
-	public List<String> getTelp3(){
+	public List<Object> getTelp3(){
 		return telp3;
 	}
 

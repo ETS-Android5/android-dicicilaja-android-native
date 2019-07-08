@@ -91,7 +91,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<BranchOffice> call = apiService.getBranch(kota);
+        Call<BranchOffice> call = apiService.getBranch(kota.toLowerCase());
         call.enqueue(new Callback<BranchOffice>() {
             @Override
             public void onResponse(Call<BranchOffice> call, Response<BranchOffice> response) {
@@ -128,9 +128,9 @@ public class BranchOfficeActivity extends AppCompatActivity {
                                     intent.putExtra("nama", nama);
                                     intent.putExtra("alamat", alamat);
                                     intent.putExtra("kota", kota);
-                                    intent.putExtra("fax1", fax1);
-                                    intent.putExtra("fax2", fax2);
-                                    intent.putExtra("fax3", fax3);
+                                    intent.putExtra("fax1", String.valueOf(fax1));
+                                    intent.putExtra("fax2", String.valueOf(fax2));
+                                    intent.putExtra("fax3", String.valueOf(fax3));
                                     startActivity(intent);
                                 }
 

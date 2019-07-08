@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
@@ -191,6 +192,10 @@ public class MarketplaceActivity extends AppCompatActivity
                     case R.id.navbar_tentang:
                         Intent intent7 = new Intent(getBaseContext(), AboutDicicilajaActivity.class);
                         startActivity(intent7);
+                        break;
+                    case R.id.navbar_branch:
+                        Intent intent8 = new Intent(getBaseContext(), AreaBranchOfficeActivity.class);
+                        startActivity(intent8);
                         break;
                     case R.id.navbar_bantuan:
                         viewPager.setCurrentItem(2);

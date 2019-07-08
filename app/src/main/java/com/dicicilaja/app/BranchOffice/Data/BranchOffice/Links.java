@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Links{
 
 	@SerializedName("next")
-	private String next;
+	private Object next;
 
 	@SerializedName("last")
 	private String last;
@@ -16,11 +16,11 @@ public class Links{
 	@SerializedName("first")
 	private String first;
 
-	public void setNext(String next){
+	public void setNext(Object next){
 		this.next = next;
 	}
 
-	public String getNext(){
+	public Object getNext(){
 		return next;
 	}
 

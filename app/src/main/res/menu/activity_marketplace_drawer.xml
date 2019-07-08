@@ -27,6 +27,9 @@
                 android:id="@+id/navbar_tentang"
                 android:title="Tentang"/>
             <item
+                android:id="@+id/navbar_branch"
+                android:title="Kantor Cabang"/>
+            <item
                 android:id="@+id/navbar_bantuan"
                 android:title="Bantuan"/>
             <item
