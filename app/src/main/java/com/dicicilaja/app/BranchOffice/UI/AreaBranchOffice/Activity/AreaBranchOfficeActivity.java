@@ -88,7 +88,7 @@ public class AreaBranchOfficeActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view, final int position) {
                                     Intent intent = new Intent(getBaseContext(), CityBranchOfficeActivity.class);
-                                    intent.putExtra("city", dataItems.get(position).getAttributes().getRegion());
+                                    intent.putExtra("area", dataItems.get(position).getAttributes().getRegion());
                                     startActivity(intent);
                                 }
 

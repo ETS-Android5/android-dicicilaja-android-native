@@ -35,7 +35,7 @@ public class CityBranchOfficeActivity extends AppCompatActivity {
 
     List<DataItem> dataItems;
     ApiService apiService;
-    String kota;
+    String area;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -69,7 +69,7 @@ public class CityBranchOfficeActivity extends AppCompatActivity {
     }
 
     private void initAction() {
-        kota = getIntent().getStringExtra("city");
+        area = getIntent().getStringExtra("area");
         progressBar.setVisibility(View.GONE);
         recyclerCity.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -77,7 +77,7 @@ public class CityBranchOfficeActivity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<KotaBranchOffice> call = apiService.getKota(kota);
+        Call<KotaBranchOffice> call = apiService.getKota(area);
         call.enqueue(new Callback<KotaBranchOffice>() {
             @Override
             public void onResponse(Call<KotaBranchOffice> call, Response<KotaBranchOffice> response) {
@@ -90,6 +90,7 @@ public class CityBranchOfficeActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view, final int position) {
                                     Intent intent = new Intent(getBaseContext(), BranchOfficeActivity.class);
+                                    intent.putExtra("area", area);
                                     intent.putExtra("city", dataItems.get(position).getAttributes().getKota());
                                     startActivity(intent);
                                 }

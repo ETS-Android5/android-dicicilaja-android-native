@@ -41,7 +41,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
 
     List<DataItem> dataItems;
     ApiService apiService;
-    String kota, fax1, fax2, fax3, nama, alamat, link;
+    String kota, area, fax1, fax2, fax3, nama, alamat, link;
     String phone11, phone12, phone13, phone21, phone22, phone23, phone31, phone32, phone33;
     int phone1size, phone2size, phone3size;
 
@@ -84,8 +84,9 @@ public class BranchOfficeActivity extends AppCompatActivity {
     }
 
     private void initAction() {
+        area = getIntent().getStringExtra("area");
         kota = getIntent().getStringExtra("city");
-        titleArea.setText(kota);
+        titleArea.setText(area + ", " +kota);
         progressBar.setVisibility(View.GONE);
         recyclerBranch.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         apiService = ApiClient.getClient().create(ApiService.class);

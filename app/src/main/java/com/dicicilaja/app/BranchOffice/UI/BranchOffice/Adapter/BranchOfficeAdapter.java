@@ -17,6 +17,7 @@ public class BranchOfficeAdapter extends RecyclerView.Adapter<BranchOfficeAdapte
 
     private List<DataItem> dataItems;
     private Context context;
+    String nama;
 
     public static class BranchOfficeViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,7 +53,12 @@ public class BranchOfficeAdapter extends RecyclerView.Adapter<BranchOfficeAdapte
     public void onBindViewHolder(@NonNull BranchOfficeAdapter.BranchOfficeViewHolder holder, int position) {
         try {
             holder.branch_name.setText(dataItems.get(position).getAttributes().getNama());
-            holder.address.setText(dataItems.get(position).getAttributes().getDetail().getAlamat());
+            if (dataItems.get(position).getAttributes().getDetail().getAlamat().length() >= 45) {
+                nama = dataItems.get(position).getAttributes().getDetail().getAlamat().substring(0, 44) + "...";
+            } else {
+                nama = dataItems.get(position).getAttributes().getDetail().getAlamat();
+            }
+            holder.address.setText(nama);
             holder.title_city.setText(dataItems.get(position).getAttributes().getDetail().getKota());
             holder.title_district.setText(dataItems.get(position).getAttributes().getDetail().getKecamatan());
         } catch (Exception ex) { }

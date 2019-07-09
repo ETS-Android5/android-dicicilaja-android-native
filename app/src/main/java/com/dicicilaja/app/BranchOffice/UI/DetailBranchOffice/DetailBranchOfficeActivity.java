@@ -2,6 +2,7 @@ package com.dicicilaja.app.BranchOffice.UI.DetailBranchOffice;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
@@ -185,8 +187,21 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
                 snackbar3.show();
                 break;
             case R.id.guide:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                startActivity(intent);
+                if (link == null || link.equals("null") || link.equals("-") || link.equals("0")) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailBranchOfficeActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Map belum tersedia untuk kantor cabang ini.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -195,8 +210,8 @@ public class DetailBranchOfficeActivity extends AppCompatActivity {
     public void showBottomSheetDialog() {
         Bundle args = new Bundle();
         args.putString("phone1size", phone1size);
-        args.putString("phone1size", phone1size);
-        args.putString("phone1size", phone1size);
+        args.putString("phone2size", phone2size);
+        args.putString("phone3size", phone3size);
 
         args.putString("phone11", phone11);
         args.putString("phone12", phone12);

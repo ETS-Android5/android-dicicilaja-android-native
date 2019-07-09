@@ -203,9 +203,9 @@ public class PhoneDetailFragment extends BottomSheetDialogFragment {
         phone32_text = mArgs.getString("phone32");
         phone33_text = mArgs.getString("phone33");
 
-        Log.d("TAGTAG", "phonesize 1: " + String.valueOf(phone1size));
-        Log.d("TAGTAG", "phonesize 2: " + String.valueOf(phone2size));
-        Log.d("TAGTAG", "phonesize 3: " + String.valueOf(phone3size));
+        Log.d("TAGTAG", "phonesize (1): " + String.valueOf(phone1size));
+        Log.d("TAGTAG", "phonesize (2): " + String.valueOf(phone2size));
+        Log.d("TAGTAG", "phonesize (3): " + String.valueOf(phone3size));
 
         Log.d("TAGTAG", "phone 1-1: " + String.valueOf(phone11_text));
         Log.d("TAGTAG", "phone 1-2: " + String.valueOf(phone12_text));
