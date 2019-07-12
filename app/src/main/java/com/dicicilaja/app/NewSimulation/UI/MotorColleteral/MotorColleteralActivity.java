@@ -83,7 +83,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
     List<ObjekTahun> objekTahuns;
     String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor;
-    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_tipe;
+    int text_total, text_max;
+    String text_total_prefix, text_max_prefix, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_tipe;
     boolean data_tahun;
     ApiService apiService, apiService2;
 
@@ -698,19 +699,43 @@ public class MotorColleteralActivity extends AppCompatActivity {
                             try {
                                 progressBar4.setVisibility(View.GONE);
 
+                                text_max = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairan();
+                                text_max_prefix = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairanPrefix();
                                 text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
+                                text_total_prefix = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterimaPrefix();
                                 text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
-                                text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
+                                text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
                                 text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
                                 text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
                                 text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
                                 text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
                                 text_year = response.body().getData().getAttributes().getInformasiJaminan().getTahunKendaraan();
-                                text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
                                 text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
 
                                 Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                                intent.putExtra("text_max", text_max);
                                 intent.putExtra("text_total", text_total);
+                                intent.putExtra("text_tenor", text_tenor);
+                                intent.putExtra("text_angsuran", text_angsuran);
+                                intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
+                                intent.putExtra("text_colleteral", text_colleteral);
+                                intent.putExtra("text_merk", text_merk);
+                                intent.putExtra("text_type", text_type);
+                                intent.putExtra("text_year", text_year);
+                                intent.putExtra("text_insurance", text_insurance);
+                                intent.putExtra("text_area", text_area);
+                                intent.putExtra("area_id", area_id);
+                                intent.putExtra("tipe_objek_id", tipe_objek_id);
+                                intent.putExtra("objek_model_id", type_id);
+
+                                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                                intent.putExtra("area_id", area_id);
+                                intent.putExtra("tenor_simulasi", tenor);
+
+                                intent.putExtra("text_max", text_max);
+                                intent.putExtra("text_max_prefix", text_max_prefix);
+                                intent.putExtra("text_total", text_total);
+                                intent.putExtra("text_total_prefix", text_total_prefix);
                                 intent.putExtra("text_tenor", text_tenor);
                                 intent.putExtra("text_angsuran", text_angsuran);
                                 intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);

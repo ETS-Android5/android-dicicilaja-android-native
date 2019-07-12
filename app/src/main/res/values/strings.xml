@@ -237,5 +237,6 @@
     <string name="angsuran_3"><b>TDP</b>, merupakan biaya yang harus dibayarkan di awal sebagai tanda jadi pembelian</string>
     <string name="asuransi_1"><b>Compare (All-risk)</b>, merupakan ganti rugi oleh perusahaan asuransi atas kerugian sebagian atau keseluruhan mobil akibat kejatuhan benda, kebakaran, perbuatan jahat, pencurian, perampasan, tabrakan, benturan atau kecelakaan lalu lintas lainnya.</string>
     <string name="asuransi_2"><b>TLO</b>, merupakan ganti rugi yang <b>HANYA</b> akan diberikan perusahaan jika mobil mengalami kerusakan total atau di atas 75%. Selain kedua jenis di atas, Anda juga perlu mengetahui adanya ‘perluasan’. Perluasan adalah penambahan cakupan perlindungan. Perluasan mencakup:</string>
+    <string name="rp_string">Rp</string>
 
 </resources>

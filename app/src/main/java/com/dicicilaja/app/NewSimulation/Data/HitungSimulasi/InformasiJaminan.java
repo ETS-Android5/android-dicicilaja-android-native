@@ -11,7 +11,7 @@ public class InformasiJaminan{
 	private String kendaraan;
 
 	@SerializedName("tenor")
-	private int tenor;
+	private String tenor;
 
 	@SerializedName("tipe_asuransi")
 	private String tipeAsuransi;
@@ -44,11 +44,11 @@ public class InformasiJaminan{
 		return kendaraan;
 	}
 
-	public void setTenor(int tenor){
+	public void setTenor(String tenor){
 		this.tenor = tenor;
 	}
 
-	public int getTenor(){
+	public String getTenor(){
 		return tenor;
 	}
 

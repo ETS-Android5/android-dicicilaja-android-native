@@ -4,208 +4,62 @@ import com.google.gson.annotations.SerializedName;
 
 public class HasilSimulasi{
 
-	@SerializedName("administrasi")
-	private String administrasi;
+	@SerializedName("maks_pencairan")
+	private int maksPencairan;
 
-	@SerializedName("rate_premi_ass_credit")
-	private String ratePremiAssCredit;
-
-	@SerializedName("provisi")
-	private String provisi;
+	@SerializedName("dana_diterima_prefix")
+	private String danaDiterimaPrefix;
 
 	@SerializedName("dana_diterima")
-	private String danaDiterima;
+	private int danaDiterima;
 
-	@SerializedName("flat_rate")
-	private String flatRate;
-
-	@SerializedName("rate_premi_ass_cash")
-	private String ratePremiAssCash;
-
-	@SerializedName("total_pembayaran_pertama")
-	private String totalPembayaranPertama;
-
-	@SerializedName("dp")
-	private String dp;
-
-	@SerializedName("premi_ass_credit")
-	private String premiAssCredit;
-
-	@SerializedName("personal_accident")
-	private String personalAccident;
-
-	@SerializedName("rate_bunga")
-	private String rateBunga;
-
-	@SerializedName("bunga")
-	private String bunga;
-
-	@SerializedName("ltv")
-	private String ltv;
-
-	@SerializedName("premi_ass_cash")
-	private String premiAssCash;
-
-	@SerializedName("rate_personal_accident")
-	private String ratePersonalAccident;
-
-	@SerializedName("nilai_otr")
-	private String nilaiOtr;
-
-	@SerializedName("total_angsuran")
-	private String totalAngsuran;
-
-	@SerializedName("effective_rate")
-	private String effectiveRate;
+	@SerializedName("maks_pencairan_prefix")
+	private String maksPencairanPrefix;
 
 	@SerializedName("angsuran_per_bulan")
 	private String angsuranPerBulan;
 
-	@SerializedName("total_pokok_hutang")
-	private String totalPokokHutang;
+	@SerializedName("angsuran_per_bulan_prefix")
+	private String angsuranPerBulanPrefix;
 
-	public void setAdministrasi(String administrasi){
-		this.administrasi = administrasi;
+	public String getAngsuranPerBulanPrefix() {
+		return angsuranPerBulanPrefix;
 	}
 
-	public String getAdministrasi(){
-		return administrasi;
+	public void setAngsuranPerBulanPrefix(String angsuranPerBulanPrefix) {
+		this.angsuranPerBulanPrefix = angsuranPerBulanPrefix;
 	}
 
-	public void setRatePremiAssCredit(String ratePremiAssCredit){
-		this.ratePremiAssCredit = ratePremiAssCredit;
+	public void setMaksPencairan(int maksPencairan){
+		this.maksPencairan = maksPencairan;
 	}
 
-	public String getRatePremiAssCredit(){
-		return ratePremiAssCredit;
+	public int getMaksPencairan(){
+		return maksPencairan;
 	}
 
-	public void setProvisi(String provisi){
-		this.provisi = provisi;
+	public void setDanaDiterimaPrefix(String danaDiterimaPrefix){
+		this.danaDiterimaPrefix = danaDiterimaPrefix;
 	}
 
-	public String getProvisi(){
-		return provisi;
+	public String getDanaDiterimaPrefix(){
+		return danaDiterimaPrefix;
 	}
 
-	public void setDanaDiterima(String danaDiterima){
+	public void setDanaDiterima(int danaDiterima){
 		this.danaDiterima = danaDiterima;
 	}
 
-	public String getDanaDiterima(){
+	public int getDanaDiterima(){
 		return danaDiterima;
 	}
 
-	public void setFlatRate(String flatRate){
-		this.flatRate = flatRate;
+	public void setMaksPencairanPrefix(String maksPencairanPrefix){
+		this.maksPencairanPrefix = maksPencairanPrefix;
 	}
 
-	public String getFlatRate(){
-		return flatRate;
-	}
-
-	public void setRatePremiAssCash(String ratePremiAssCash){
-		this.ratePremiAssCash = ratePremiAssCash;
-	}
-
-	public String getRatePremiAssCash(){
-		return ratePremiAssCash;
-	}
-
-	public void setTotalPembayaranPertama(String totalPembayaranPertama){
-		this.totalPembayaranPertama = totalPembayaranPertama;
-	}
-
-	public String getTotalPembayaranPertama(){
-		return totalPembayaranPertama;
-	}
-
-	public void setDp(String dp){
-		this.dp = dp;
-	}
-
-	public String getDp(){
-		return dp;
-	}
-
-	public void setPremiAssCredit(String premiAssCredit){
-		this.premiAssCredit = premiAssCredit;
-	}
-
-	public String getPremiAssCredit(){
-		return premiAssCredit;
-	}
-
-	public void setPersonalAccident(String personalAccident){
-		this.personalAccident = personalAccident;
-	}
-
-	public String getPersonalAccident(){
-		return personalAccident;
-	}
-
-	public void setRateBunga(String rateBunga){
-		this.rateBunga = rateBunga;
-	}
-
-	public String getRateBunga(){
-		return rateBunga;
-	}
-
-	public void setBunga(String bunga){
-		this.bunga = bunga;
-	}
-
-	public String getBunga(){
-		return bunga;
-	}
-
-	public void setLtv(String ltv){
-		this.ltv = ltv;
-	}
-
-	public String getLtv(){
-		return ltv;
-	}
-
-	public void setPremiAssCash(String premiAssCash){
-		this.premiAssCash = premiAssCash;
-	}
-
-	public String getPremiAssCash(){
-		return premiAssCash;
-	}
-
-	public void setRatePersonalAccident(String ratePersonalAccident){
-		this.ratePersonalAccident = ratePersonalAccident;
-	}
-
-	public String getRatePersonalAccident(){
-		return ratePersonalAccident;
-	}
-
-	public void setNilaiOtr(String nilaiOtr){
-		this.nilaiOtr = nilaiOtr;
-	}
-
-	public String getNilaiOtr(){
-		return nilaiOtr;
-	}
-
-	public void setTotalAngsuran(String totalAngsuran){
-		this.totalAngsuran = totalAngsuran;
-	}
-
-	public String getTotalAngsuran(){
-		return totalAngsuran;
-	}
-
-	public void setEffectiveRate(String effectiveRate){
-		this.effectiveRate = effectiveRate;
-	}
-
-	public String getEffectiveRate(){
-		return effectiveRate;
+	public String getMaksPencairanPrefix(){
+		return maksPencairanPrefix;
 	}
 
 	public void setAngsuranPerBulan(String angsuranPerBulan){
@@ -214,13 +68,5 @@ public class HasilSimulasi{
 
 	public String getAngsuranPerBulan(){
 		return angsuranPerBulan;
-	}
-
-	public void setTotalPokokHutang(String totalPokokHutang){
-		this.totalPokokHutang = totalPokokHutang;
-	}
-
-	public String getTotalPokokHutang(){
-		return totalPokokHutang;
 	}
 }

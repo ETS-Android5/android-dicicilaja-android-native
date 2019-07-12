@@ -86,7 +86,7 @@ public class BranchOfficeActivity extends AppCompatActivity {
     private void initAction() {
         area = getIntent().getStringExtra("area");
         kota = getIntent().getStringExtra("city");
-        titleArea.setText(area + ", " +kota);
+        titleArea.setText(kota + ", " + area);
         progressBar.setVisibility(View.GONE);
         recyclerBranch.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         apiService = ApiClient.getClient().create(ApiService.class);

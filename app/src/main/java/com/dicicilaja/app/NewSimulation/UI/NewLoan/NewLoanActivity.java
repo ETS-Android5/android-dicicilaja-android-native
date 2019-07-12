@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,8 +38,8 @@ public class NewLoanActivity extends AppCompatActivity {
 
     String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
 
-    String text_total, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
-
+    String text_total_prefix, text_max_prefix, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
+    int text_total, text_max;
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
 
@@ -185,6 +186,14 @@ public class NewLoanActivity extends AppCompatActivity {
 
                     ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
+                    Log.d("TAGTAG", "tipe_objek_id: " + tipe_objek_id);
+                    Log.d("TAGTAG", "objek_model_id: " + objek_model_id);
+                    Log.d("TAGTAG", "tahun_kendaraan: " + tahun_kendaraan);
+                    Log.d("TAGTAG", "area_id: " + area_id);
+                    Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
+                    Log.d("TAGTAG", "tipe_asuransi_id: " + tipe_asuransi_id);
+                    Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
+
                     Call<HitungSimulasi> call = apiService.hitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
                     call.enqueue(new Callback<HitungSimulasi>() {
 
@@ -193,9 +202,12 @@ public class NewLoanActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 try {
                                     progressBar.setVisibility(View.GONE);
+                                    text_max = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairan();
+                                    text_max_prefix = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairanPrefix();
                                     text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
+                                    text_total_prefix = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterimaPrefix();
                                     text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
-                                    text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulan();
+                                    text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
                                     text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
                                     text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
                                     text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
@@ -205,20 +217,6 @@ public class NewLoanActivity extends AppCompatActivity {
                                     text_insurance = response.body().getData().getAttributes().getInformasiJaminan().getTipeAsuransi();
                                     text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
 
-                                    Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
-                                    intent.putExtra("text_total", text_total);
-                                    intent.putExtra("text_tenor", text_tenor);
-                                    intent.putExtra("text_angsuran", text_angsuran);
-                                    intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
-                                    intent.putExtra("text_colleteral", text_colleteral);
-                                    intent.putExtra("text_merk", text_merk);
-                                    intent.putExtra("text_type", text_type);
-                                    intent.putExtra("text_year", text_year);
-                                    intent.putExtra("text_insurance", text_insurance);
-                                    intent.putExtra("text_angsuran_baru", text_angsuran_baru);
-                                    intent.putExtra("text_area", text_area);
-                                    intent.putExtra("area_id", area_id);
-                                    startActivity(intent);
                                 } catch (Exception ex) {
                                     progressBar.setVisibility(View.GONE);
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
@@ -233,6 +231,33 @@ public class NewLoanActivity extends AppCompatActivity {
                                     });
                                     alertDialog.show();
                                 }
+
+
+                                Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                                intent.putExtra("tipe_objek_id", tipe_objek_id);
+                                intent.putExtra("objek_model_id", objek_model_id);
+                                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                                intent.putExtra("area_id", area_id);
+                                intent.putExtra("tenor_simulasi", tenor_simulasi);
+                                intent.putExtra("tipe_asuransi_id", tipe_asuransi_id);
+
+                                intent.putExtra("text_max", text_max);
+                                intent.putExtra("text_max_prefix", text_max_prefix);
+                                intent.putExtra("text_total", text_total);
+                                intent.putExtra("text_total_prefix", text_total_prefix);
+                                intent.putExtra("text_tenor", text_tenor);
+                                intent.putExtra("text_angsuran", text_angsuran);
+                                intent.putExtra("text_tenor_angsuran", text_tenor_angsuran);
+                                intent.putExtra("text_colleteral", text_colleteral);
+                                intent.putExtra("text_merk", text_merk);
+                                intent.putExtra("text_type", text_type);
+                                intent.putExtra("text_year", text_year);
+                                intent.putExtra("text_insurance", text_insurance);
+                                intent.putExtra("text_angsuran_baru", text_angsuran_baru);
+                                intent.putExtra("text_area", text_area);
+                                intent.putExtra("area_id", area_id);
+                                intent.putExtra("value_tipe_angsuran_id", value_tipe_angsuran_id);
+                                startActivity(intent);
                             } else {
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewLoanActivity.this);
