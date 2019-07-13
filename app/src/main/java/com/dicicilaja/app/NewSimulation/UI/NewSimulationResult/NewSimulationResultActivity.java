@@ -191,7 +191,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungMcy2(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi);
+                        Call<HitungSimulasi> call = apiService.reHitungMcy(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -269,7 +269,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungCar2(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
+                        Call<HitungSimulasi> call = apiService.reHitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -362,14 +362,33 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                     int total_edit_value = Integer.parseInt(value);
                     Log.d("TAGTAGTAG", "text_total: " + total_edit_value);
                     Log.d("TAGTAGTAG", "text_max: " + text_max);
-                    if(total_edit_value > text_max) {
+                    if(total_edit_value < 3000000) {
                         progressBar.setVisibility(View.GONE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                         alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman");
+                        alertDialog.setMessage("Jumlah pinjaman kurang dari nilai minimum pinjaman.\n\nNilai minimum pinjaman Rp3.000.000");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
+                            }
+                        });
+                        alertDialog.show();
+                    } else if(total_edit_value > text_max) {
+                        progressBar.setVisibility(View.GONE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman.\n\nNilai maksimum pinjaman " + text_max_prefix);
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
                             }
                         });
                         alertDialog.show();
@@ -462,14 +481,33 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                     int total_edit_value = Integer.parseInt(value);
                     Log.d("TAGTAGTAG", "text_total: " + total_edit_value);
                     Log.d("TAGTAGTAG", "text_max: " + text_max);
-                    if(total_edit_value > text_max) {
+                    if(total_edit_value < 20000000) {
                         progressBar.setVisibility(View.GONE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                         alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman");
+                        alertDialog.setMessage("Jumlah pinjaman kurang dari nilai minimum pinjaman.\n\nNilai minimum pinjaman Rp20.000.000");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
+                            }
+                        });
+                        alertDialog.show();
+                    } else if(total_edit_value > text_max) {
+                        progressBar.setVisibility(View.GONE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman.\n\nNilai maksimum pinjaman " + text_max_prefix);
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
                             }
                         });
                         alertDialog.show();
