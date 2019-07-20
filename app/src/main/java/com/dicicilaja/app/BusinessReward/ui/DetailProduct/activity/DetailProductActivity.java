@@ -202,6 +202,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
                                 Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
+                                Log.d("Tanggalnya", date);
                                 intent.putExtra("DATE", date);
                                 intent.putExtra("PROFILE_ID", String.valueOf(profileId));
                                 intent.putExtra("NAMA", session.getName());

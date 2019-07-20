@@ -17,13 +17,14 @@
             android:id="@+id/card_pc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:contextClickable="true"
             android:minWidth="135dp"
             app:cardCornerRadius="4dp"
             app:cardElevation="2.5dp"
-            android:layout_marginLeft="10dp"
-            android:clickable="true"
-            android:background="?android:selectableItemBackground"
-            android:focusableInTouchMode="true"
+            android:background="@color/colorWhite"
+            android:layout_marginLeft="13dp"
             app:cardUseCompatPadding="true">
 
             <RelativeLayout

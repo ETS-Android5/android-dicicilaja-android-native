@@ -46,25 +46,7 @@
                     android:background="@color/colorWhite">
 
                     <TextView
-                        android:id="@+id/title_penerima"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Penerima"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:textSize="@dimen/font_title"/>
-
-                    <TextView
-                        android:id="@+id/tv_penerima"
-                        android:layout_below="@id/title_penerima"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/open_sans"
-                        android:text="AXI Penerima"
-                        android:textSize="@dimen/font_medium"/>
-
-                    <TextView
                         android:id="@+id/title_tujuan"
-                        android:layout_below="@id/tv_penerima"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alamat Pengiriman"
@@ -85,6 +67,16 @@
                             android:layout_weight="1"
                             android:layout_marginTop="10dp"
                             android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_cabang"
+                                android:layout_below="@id/tv_nama"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
+                                android:textAllCaps="true"
+                                android:text="KANTOR CABANG SETIABUDHI - BANDUNG"
+                                android:textSize="@dimen/font_medium"/>
 
                             <TextView
                                 android:id="@+id/tv_alamat"
@@ -213,6 +205,197 @@
 
                     <LinearLayout
                         android:layout_below="@id/tgltrans"
+                        android:id="@+id/no_resi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_no_resi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Nomor Resi"
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_no_resi2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="#1232121212"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="right"
+                                android:textSize="@dimen/font_medium"/>
+
+                            <ImageView
+                                android:id="@+id/copy_link"
+                                android:layout_toLeftOf="@+id/icon2_web"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_content_copy" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_below="@id/no_resi"
+                        android:id="@+id/jasa_ekspedisi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_no_jasa"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Jasa Ekspedisi"
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_no_jasa2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="JNE"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="right"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_below="@id/jasa_ekspedisi"
+                        android:id="@+id/penerimacabang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_title_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Penerima di Cabang"
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hamdan Ilham"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="right"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_below="@id/penerimacabang"
+                        android:id="@+id/hp_penerima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_title_hp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="No HP Penerima"
+                                android:fontFamily="@font/open_sans"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_hp_penerima"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="089512023255"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="right"
+                                android:textSize="@dimen/font_medium"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_below="@id/hp_penerima"
                         android:id="@+id/status_pengiriman"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

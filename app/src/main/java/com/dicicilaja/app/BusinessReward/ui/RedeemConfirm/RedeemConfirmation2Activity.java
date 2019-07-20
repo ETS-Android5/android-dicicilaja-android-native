@@ -13,9 +13,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.ReviewActivity;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.ReviewActivity;
 import com.dicicilaja.app.R;
 
 import butterknife.BindView;
@@ -92,6 +92,34 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
     ImageView box3;
     @BindView(R.id.box4)
     ImageView box4;
+    @BindView(R.id.tv_cabang)
+    TextView tvCabang;
+    @BindView(R.id.tv_no_resi)
+    TextView tvNoResi;
+    @BindView(R.id.tv_no_resi2)
+    TextView tvNoResi2;
+    @BindView(R.id.copy_link)
+    ImageView copyLink;
+    @BindView(R.id.no_resi)
+    LinearLayout noResi;
+    @BindView(R.id.tv_no_jasa)
+    TextView tvNoJasa;
+    @BindView(R.id.tv_no_jasa2)
+    TextView tvNoJasa2;
+    @BindView(R.id.jasa_ekspedisi)
+    LinearLayout jasaEkspedisi;
+    @BindView(R.id.tv_title_penerima)
+    TextView tvTitlePenerima;
+    @BindView(R.id.tv_penerima)
+    TextView tvPenerima;
+    @BindView(R.id.penerimacabang)
+    LinearLayout penerimacabang;
+    @BindView(R.id.tv_title_hp)
+    TextView tvTitleHp;
+    @BindView(R.id.tv_hp_penerima)
+    TextView tvHpPenerima;
+    @BindView(R.id.hp_penerima)
+    LinearLayout hpPenerima;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +152,7 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
         tvTglTrans.setText(no_transaksi);
         tvTglPen2.setText(tgl_penukaran);
 
-        switch(status_pengiriman) {
+        switch (status_pengiriman) {
             case "5":
                 box1.setBackgroundResource(R.drawable.border_active);
                 statSelesai.setText("Sedang diproses");

@@ -1,5 +1,8 @@
 package com.dicicilaja.app.BusinessReward.ui.Transaction.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +26,7 @@ import com.dicicilaja.app.Session.SessionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,10 +99,34 @@ public class DetailTransactionActivity extends AppCompatActivity {
     RelativeLayout ulasanProduk;
 
     String id, judulGambar, pointB, gambar;
-    @BindView(R.id.title_penerima)
+    @BindView(R.id.tv_title_penerima)
     TextView titlePenerima;
     @BindView(R.id.tv_penerima)
     TextView tvPenerima;
+    @BindView(R.id.tv_cabang)
+    TextView tvCabang;
+    @BindView(R.id.penerimacabang)
+    LinearLayout penerimacabang;
+    @BindView(R.id.tv_title_hp)
+    TextView tvTitleHp;
+    @BindView(R.id.tv_hp_penerima)
+    TextView tvHpPenerima;
+    @BindView(R.id.hp_penerima)
+    LinearLayout hpPenerima;
+    @BindView(R.id.tv_no_resi)
+    TextView tvNoResi;
+    @BindView(R.id.tv_no_resi2)
+    TextView tvNoResi2;
+    @BindView(R.id.copy_link)
+    ImageView copyLink;
+    @BindView(R.id.no_resi)
+    LinearLayout noResi;
+    @BindView(R.id.tv_no_jasa)
+    TextView tvNoJasa;
+    @BindView(R.id.tv_no_jasa2)
+    TextView tvNoJasa2;
+    @BindView(R.id.jasa_ekspedisi)
+    LinearLayout jasaEkspedisi;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,8 +154,14 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     String curString = response.body().getData().getAttributes().getCreatedAt();
                     String[] separated = curString.split("T");
                     String tgl = separated[0];
+                    String jam = separated[1];
+
+                    String[] separatedjam = jam.split(":");
+                    String jam1 = separatedjam[0];
+                    String jam2 = separatedjam[1];
 
                     String[] separated2 = tgl.split("-");
+                    String tahun = separated2[0];
                     String bulan = separated2[1];
                     String tanggal = separated2[2];
 
@@ -164,12 +199,32 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     } else {
                         alamatnya = String.valueOf(response.body().getData().getAttributes().getAlamat());
                     }
+                    String penerima = response.body().getData().getAttributes().getPenerima();
 
-                    tvPenerima.setText(response.body().getData().getAttributes().getNamaAxi());
+                    if (penerima == null) {
+                        tvPenerima.setText("-");
+                    } else {
+                        tvPenerima.setText(penerima);
+                    }
 
                     tvAlamat.setText(alamatnya);
+                    tvCabang.setText("KANTOR CABANG " + response.body().getData().getAttributes().getNamaCabang());
+                    tvHpPenerima.setText(response.body().getData().getAttributes().getNoHpCrh());
                     tvTglTrans.setText(String.valueOf(response.body().getData().getAttributes().getTransaksiId()));
-                    tvTglPen2.setText(tanggal + " " + finalBulan);
+                    tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam1 + ":" + jam2 + " WIB");
+//                    tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam);
+                    if (response.body().getData().getAttributes().getNoResi() == null) {
+                        tvNoResi2.setText("-");
+                        copyLink.setVisibility(View.GONE);
+                    } else {
+                        tvNoResi2.setText("#" + String.valueOf(response.body().getData().getAttributes().getNoResi()));
+                    }
+
+                    if (String.valueOf(response.body().getData().getAttributes().getEkspedisi()) == null) {
+                        tvNoJasa2.setText("-");
+                    } else {
+                        tvNoJasa2.setText(String.valueOf(response.body().getData().getAttributes().getEkspedisi()));
+                    }
 
                     Call<DetailProduk> call2 = apiService.getDetailProduk(Integer.valueOf(response.body().getData().getAttributes().getProductCatalogId()));
                     call2.enqueue(new Callback<DetailProduk>() {
@@ -250,5 +305,13 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.copy_link)
+    public void onViewClicked() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("link", tvNoResi2.getText().toString());
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
     }
 }
