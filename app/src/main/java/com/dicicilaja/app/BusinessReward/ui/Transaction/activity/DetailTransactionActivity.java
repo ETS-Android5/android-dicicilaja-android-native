@@ -23,6 +23,11 @@ import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.facebook.datasource.SimpleDataSource;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -151,22 +156,31 @@ public class DetailTransactionActivity extends AppCompatActivity {
                 try {
                     Log.d("Responnya", String.valueOf(response.code()));
 
-                    String curString = response.body().getData().getAttributes().getCreatedAt();
-                    String[] separated = curString.split("T");
+                    String curString = response.body().getData().getAttributes().getUpdatedAt();
+
+                    SimpleDateFormat readDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    readDate.setTimeZone(TimeZone.getTimeZone("GMT"));
+                    Date date = readDate.parse(curString);
+
+                    SimpleDateFormat writeData = new SimpleDateFormat("dd-MM-yyyy/HH:mm");
+                    writeData.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
+                    String s = writeData.format(date);
+
+                    String[] separated = s.split("/");
                     String tgl = separated[0];
                     String jam = separated[1];
-
-                    String[] separatedjam = jam.split(":");
-                    String jam1 = separatedjam[0];
-                    String jam2 = separatedjam[1];
+//
+//                    String[] separatedjam = jam.split("-");
+//                    String jam1 = separatedjam[0];
+//                    String jam2 = separatedjam[1];
 
                     String[] separated2 = tgl.split("-");
-                    String tahun = separated2[0];
+                    String tanggal = separated2[0];
                     String bulan = separated2[1];
-                    String tanggal = separated2[2];
-
+                    String tahun = separated2[2];
+//
                     String finalBulan = null;
-
+//
                     if (bulan.equals("01")) {
                         finalBulan = "Jan";
                     } else if (bulan.equals("02")) {
@@ -199,6 +213,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     } else {
                         alamatnya = String.valueOf(response.body().getData().getAttributes().getAlamat());
                     }
+
                     String penerima = response.body().getData().getAttributes().getPenerima();
 
                     if (penerima == null) {
@@ -209,10 +224,24 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
                     tvAlamat.setText(alamatnya);
                     tvCabang.setText("KANTOR CABANG " + response.body().getData().getAttributes().getNamaCabang());
-                    tvHpPenerima.setText(response.body().getData().getAttributes().getNoHpCrh());
-                    tvTglTrans.setText(String.valueOf(response.body().getData().getAttributes().getTransaksiId()));
-                    tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam1 + ":" + jam2 + " WIB");
-//                    tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam);
+
+                    if(response.body().getData().getAttributes().getNoHpCrh() == null){
+                        tvHpPenerima.setText("-");
+                    }else{
+                        tvHpPenerima.setText(response.body().getData().getAttributes().getNoHpCrh());
+                    }
+
+                    if (response.body().getData().getAttributes().getTransaksiId() == null) {
+                        tvTglTrans.setText("-");
+                    } else {
+                        tvTglTrans.setText(String.valueOf(response.body().getData().getAttributes().getTransaksiId()));
+                    }
+
+
+                    tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam + " WIB");
+//                    tvTglPen2.setText(tgl + " " + jam + " WIB");
+//                    tvTglPen2.setText(s);
+//                    tvTglPen2.setText(curString);
                     if (response.body().getData().getAttributes().getNoResi() == null) {
                         tvNoResi2.setText("-");
                         copyLink.setVisibility(View.GONE);
@@ -220,7 +249,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         tvNoResi2.setText("#" + String.valueOf(response.body().getData().getAttributes().getNoResi()));
                     }
 
-                    if (String.valueOf(response.body().getData().getAttributes().getEkspedisi()) == null) {
+                    if (response.body().getData().getAttributes().getEkspedisi() == null) {
                         tvNoJasa2.setText("-");
                     } else {
                         tvNoJasa2.setText(String.valueOf(response.body().getData().getAttributes().getEkspedisi()));
@@ -312,6 +341,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("link", tvNoResi2.getText().toString());
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Berhasil menyalin no resi", Toast.LENGTH_SHORT).show();
     }
 }
