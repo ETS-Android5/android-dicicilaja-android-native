@@ -1,61 +1,63 @@
 package com.dicicilaja.app.BusinessReward.dataAPI.testimoni;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Attributes{
 
-	@SerializedName("status_id")
-	private int statusId;
-
 	@SerializedName("profile_id")
-	private int profileId;
-
-	@SerializedName("testimoni")
-	private String testimoni;
-
+	@Expose
+	private Integer profileId;
 	@SerializedName("claim_reward_id")
-	private int claimRewardId;
-
+	@Expose
+	private Integer claimRewardId;
+	@SerializedName("status_id")
+	@Expose
+	private Integer statusId;
+	@SerializedName("testimoni")
+	@Expose
+	private String testimoni;
 	@SerializedName("rating")
-	private String rating;
+	@Expose
+	private float rating;
 
-	public void setStatusId(int statusId){
-		this.statusId = statusId;
-	}
-
-	public int getStatusId(){
-		return statusId;
-	}
-
-	public void setProfileId(int profileId){
-		this.profileId = profileId;
-	}
-
-	public int getProfileId(){
+	public Integer getProfileId() {
 		return profileId;
 	}
 
-	public void setTestimoni(String testimoni){
-		this.testimoni = testimoni;
+	public void setProfileId(Integer profileId) {
+		this.profileId = profileId;
 	}
 
-	public String getTestimoni(){
-		return testimoni;
-	}
-
-	public void setClaimRewardId(int claimRewardId){
-		this.claimRewardId = claimRewardId;
-	}
-
-	public int getClaimRewardId(){
+	public Integer getClaimRewardId() {
 		return claimRewardId;
 	}
 
-	public void setRating(String rating){
-		this.rating = rating;
+	public void setClaimRewardId(Integer claimRewardId) {
+		this.claimRewardId = claimRewardId;
 	}
 
-	public String getRating(){
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+
+	public String getTestimoni() {
+		return testimoni;
+	}
+
+	public void setTestimoni(String testimoni) {
+		this.testimoni = testimoni;
+	}
+
+	public float getRating() {
 		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
 	}
 }

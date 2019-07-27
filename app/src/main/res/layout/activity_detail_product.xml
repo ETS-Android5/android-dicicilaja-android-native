@@ -24,16 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:mpb_progressStyle="horizontal"
-            app:mpb_useIntrinsicPadding="false"
-            android:layout_alignParentTop="true"
-            app:mpb_showProgressBackground="false"
-            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+        <!--<me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
+            <!--android:id="@+id/progressBar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:indeterminate="true"-->
+            <!--app:mpb_progressStyle="horizontal"-->
+            <!--app:mpb_useIntrinsicPadding="false"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--app:mpb_showProgressBackground="false"-->
+            <!--style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />-->
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                         android:layout_marginTop="8dp"
                         android:padding="16dp"
                         android:background="@drawable/border_form"
-                        android:layout_marginBottom="66dp"
+                        android:layout_marginBottom="76dp"
                         android:orientation="vertical">
                         <RelativeLayout
                             android:id="@+id/spek_barang_detail"

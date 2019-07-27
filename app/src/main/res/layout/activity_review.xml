@@ -97,7 +97,6 @@
             android:layout_below="@+id/title_rating"
             android:layout_centerHorizontal="true"
             android:id="@+id/rt_bar"
-            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
@@ -128,6 +127,7 @@
             android:textSize="@dimen/font_medium" />
 
         <EditText
+            android:id="@+id/isi_ulasan_text"
             android:layout_below="@+id/title_ulasan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

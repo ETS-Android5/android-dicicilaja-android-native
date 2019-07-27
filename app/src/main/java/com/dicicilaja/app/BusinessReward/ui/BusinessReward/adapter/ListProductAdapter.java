@@ -107,6 +107,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                             intent.putExtra("POINT_REWARD", BusinesRewardActivity.point_reward);
                             intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
                             intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
+                            intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
 
                             Log.d("ListProductActivity", "ID: " + pcList2.get(finalj).getId());
                             Log.d("ListProductActivity", "IMAGE: " + pcList2.get(finalj).getAttributes().getFoto());

@@ -15,8 +15,9 @@
         android:roundIcon="@drawable/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
-        android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="true"
+        android:usesCleartextTraffic="true">
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity"></activity>
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity">
@@ -731,14 +732,14 @@
                 android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
-            android:name=".Activity.SearchResultActivity"
+            android:name=".BusinessReward.ui.Search.activity.SearchResultActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
         </activity>
         <activity
-            android:name=".Activity.ReviewActivity"
+            android:name=".BusinessReward.ui.Transaction.activity.ReviewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -766,6 +767,30 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.Transaction.activity.TransactionActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.DetailProduct.activity.PilihCabangVendorActivity"
+            android:label="Tujuan Pengiriman"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.BusinessReward.activity.ListKategori"
+            android:label="Pilih Kategori"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.BusinessReward.activity.ListUrutkan"
+            android:label="Pilih Kategori"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
         </activity>
     </application>
 

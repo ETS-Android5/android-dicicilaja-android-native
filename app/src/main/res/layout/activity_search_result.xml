@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,25 +18,110 @@
             android:background="?attr/colorAccent"
             app:titleTextColor="@color/colorWhite">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/search_button"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:src="@drawable/ic_search_white"-->
+                    <!--android:backgroundTint="@color/colorAccentDark"-->
+                    <!--android:layout_marginRight="@dimen/ib_fr_space_16"-->
+                    <!--android:layout_centerVertical="true"/>-->
+
                 <EditText
                     android:id="@+id/inputCariBarang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Cari Barang"
+                    android:layout_alignParentLeft="true"
                     android:textColorHighlight="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
                     android:layout_centerHorizontal="true"
                     android:inputType="textAutoComplete"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionSearch"
                     android:nextFocusDown="@+id/inputPassword"
                     android:textColorHint="@color/colorWhite"
                     android:padding="10dp"
+                    android:layout_centerVertical="true"
                     android:fontFamily="@font/open_sans"
                     android:textColor="@color/colorWhite"
+                    android:layout_toLeftOf="@id/search_button"
                     android:textSize="@dimen/font_medium"/>
+
+            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/dataSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:fitsSystemWindows="true">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_search"
+                    android:layout_below="@id/title_tujuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabScrollTop"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ib_fr_ic_arrow_upward"
+            android:tint="@color/colorWhite"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/warn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="300dp"
+            android:paddingTop="50dp"
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
+            android:src="@drawable/bg_not_open_program"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Produk yang kamu cari tidak\nditemukan."
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_semibold"
+            android:padding="@dimen/ib_fr_space_16"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

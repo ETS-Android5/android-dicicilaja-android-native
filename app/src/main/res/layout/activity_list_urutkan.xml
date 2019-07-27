@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="16dp"
+        android:text="Urutkan Dengan"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:fontFamily="@font/open_sans_bold"/>
+
+    <RadioGroup
+        android:padding="16dp"
+        android:id="@+id/radio_group"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pilih_kat"
+        android:text="Pilih"
+        android:layout_gravity="right"
+        android:textColor="@color/colorWhite"
+        android:layout_marginRight ="16dp"
+        android:layout_marginBottom ="16dp"
+        android:background="@color/colorAccent"/>
+
+</LinearLayout>

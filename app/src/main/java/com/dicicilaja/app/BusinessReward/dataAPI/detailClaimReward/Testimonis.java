@@ -3,16 +3,18 @@ package com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Testimonis {
     @SerializedName("data")
     @Expose
-    private Object data;
+    private List<Object> data;
 
-    public Object getData() {
+    public List<Object> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<Object> data) {
         this.data = data;
     }
 }

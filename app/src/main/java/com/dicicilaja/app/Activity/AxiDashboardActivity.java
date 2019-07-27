@@ -134,6 +134,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView contentBox6;
     @BindView(R.id.button_kedalaman_rb)
     LinearLayout buttonKedalamanRb;
+//    @BindView(R.id.title_ppob)
+//    TextView titlePpob;
+//    @BindView(R.id.desc_ppob)
+//    TextView descPpob;
+//    @BindView(R.id.icon_history)
+//    ImageView iconHistory;
+//    @BindView(R.id.see_all_history)
+//    TextView seeAllHistory;
+//    @BindView(R.id.see_history)
+//    RelativeLayout seeHistory;
+//    @BindView(R.id.top_pengajuan)
+//    RelativeLayout topPengajuan;
+//    @BindView(R.id.recycler_ppob)
+//    RecyclerView recyclerPpob;
     @BindView(R.id.title_replika)
     TextView titleReplika;
     @BindView(R.id.total_view)
@@ -230,8 +244,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        recyclerView =  findViewById(R.id.recycler_pengajuan);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
+        //KOMEN SEMENTARA PPOB
 //        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
-//
 //        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
 //        recyclerView.setLayoutManager(mLayoutManager);
 ////        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
@@ -447,17 +461,21 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         ApiService apiService =
                 ApiClient.getClient().create(ApiService.class);
 
-        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        Call<Point> call2 = apiService.getPoint(session.getUserId());
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                try {
+                    if (response2.isSuccessful()) {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                        contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                    }
+                } catch (Exception ex) {}
             }
 
             @Override
             public void onFailure(Call<Point> call, Throwable t) {
-
+                
             }
         });
 

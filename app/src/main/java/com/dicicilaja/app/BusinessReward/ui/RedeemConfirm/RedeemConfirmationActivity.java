@@ -10,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.Activity.NotificationActivity;
+import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.R;
 
 public class RedeemConfirmationActivity extends AppCompatActivity {
@@ -82,16 +83,13 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
                 startActivity(browserIntent);
                 break;
             case R.id.klaim:
-                Intent intent = new Intent(getBaseContext(), RedeemConfirmation2Activity.class);
-                intent.putExtra("ALAMAT", alamat);
-                intent.putExtra("NO_TRANSAKSI", no_transaksi);
-                intent.putExtra("NO_TRANSAKSI2", no_transaksi2);
-                intent.putExtra("TGL_PENUKARAN", tgl_penukaran);
-                intent.putExtra("STATUS_PENGIRIMAN", status_pengiriman);
-                intent.putExtra("PRODUK_ID", produk_id);
-//        intent.putExtra("Name", name);
-//        intent.putExtra("Point", point);
-//        intent.putExtra("Thumbnail", thumbnail);
+                Intent intent = new Intent(getBaseContext(), TransactionActivity.class);
+//                intent.putExtra("ALAMAT", alamat);
+//                intent.putExtra("NO_TRANSAKSI", no_transaksi);
+//                intent.putExtra("NO_TRANSAKSI2", no_transaksi2);
+//                intent.putExtra("TGL_PENUKARAN", tgl_penukaran);
+//                intent.putExtra("STATUS_PENGIRIMAN", status_pengiriman);
+//                intent.putExtra("PRODUK_ID", produk_id);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();

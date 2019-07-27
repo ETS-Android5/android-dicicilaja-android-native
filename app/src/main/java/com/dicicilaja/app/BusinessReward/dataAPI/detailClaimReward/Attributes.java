@@ -71,6 +71,17 @@ public class Attributes{
 	@SerializedName("updated_at")
 	@Expose
 	private String updatedAt;
+	@SerializedName("no_hp_crh")
+	@Expose
+	private String noHpCrh;
+
+	public String getNoHpCrh() {
+		return noHpCrh;
+	}
+
+	public void setNoHpCrh(String noHpCrh) {
+		this.noHpCrh = noHpCrh;
+	}
 
 	public String getProfileId() {
 		return profileId;
