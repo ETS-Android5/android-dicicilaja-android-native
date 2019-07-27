@@ -17,35 +17,53 @@ import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOf
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
+import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
+import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.squareup.picasso.Picasso;
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -54,19 +72,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
-import com.dicicilaja.app.R;
-import com.dicicilaja.app.Session.SessionManager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class AxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     SessionManager session;
@@ -74,23 +79,102 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
     com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
-    RelativeLayout allpengajuan;
-    InterfaceAxiDetail interfaceAxiDetail;
     SliderLayout mDemoSlider;
-    ImageView icon1_web, icon2_web, copy_link;
-    TextView link_web;
     List<Data> infoJaringan;
-    TextView title_pengumuman, title_info, title_info_jaringan, title_replika, total_view, title_ppob;
-    TextView title_box1, content_box1, title_box2, content_box2, title_box3, content_box3, title_box4, content_box4, title_box5, content_box5, title_box6, content_box6;
 
     String apiKey;
     RelativeLayout allpromo;
-    LinearLayout insentif_car, insentif_mcy, point_reward, point_trip, button_rb, button_kedalaman_rb, footer_item_1;
 
     HashMap<String, String> file_maps;
 
+    /*update*/
     ProgressDialog progress;
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.slider)
+    SliderLayout slider;
+    @BindView(R.id.sliderBannerIndicator)
+    PagerIndicator sliderBannerIndicator;
+    @BindView(R.id.title_info)
+    TextView titleInfo;
+    @BindView(R.id.title_box1)
+    TextView titleBox1;
+    @BindView(R.id.point_reward)
+    LinearLayout pointReward;
+    @BindView(R.id.title_box2)
+    TextView titleBox2;
+    @BindView(R.id.content_box2)
+    TextView contentBox2;
+    @BindView(R.id.point_trip)
+    LinearLayout pointTrip;
+    @BindView(R.id.card1)
+    LinearLayout card1;
+    @BindView(R.id.title_box3)
+    TextView titleBox3;
+    @BindView(R.id.content_box3)
+    TextView contentBox3;
+    @BindView(R.id.insentif_car)
+    LinearLayout insentifCar;
+    @BindView(R.id.title_box4)
+    TextView titleBox4;
+    @BindView(R.id.content_box4)
+    TextView contentBox4;
+    @BindView(R.id.insentif_mcy)
+    LinearLayout insentifMcy;
+    @BindView(R.id.card2)
+    LinearLayout card2;
+    @BindView(R.id.title_info_jaringan)
+    TextView titleInfoJaringan;
+    @BindView(R.id.top_jaringan)
+    RelativeLayout topJaringan;
+    @BindView(R.id.title_box5)
+    TextView titleBox5;
+    @BindView(R.id.content_box5)
+    TextView contentBox5;
+    @BindView(R.id.button_rb)
+    LinearLayout buttonRb;
+    @BindView(R.id.title_box6)
+    TextView titleBox6;
+    @BindView(R.id.content_box6)
+    TextView contentBox6;
+    @BindView(R.id.button_kedalaman_rb)
+    LinearLayout buttonKedalamanRb;
+    @BindView(R.id.title_ppob)
+    TextView titlePpob;
+    @BindView(R.id.desc_ppob)
+    TextView descPpob;
+    @BindView(R.id.icon_history)
+    ImageView iconHistory;
+    @BindView(R.id.see_all_history)
+    TextView seeAllHistory;
+    @BindView(R.id.see_history)
+    RelativeLayout seeHistory;
+    @BindView(R.id.top_pengajuan)
+    RelativeLayout topPengajuan;
+    @BindView(R.id.recycler_ppob)
+    RecyclerView recyclerPpob;
+    @BindView(R.id.title_replika)
+    TextView titleReplika;
+    @BindView(R.id.total_view)
+    TextView totalView;
+    @BindView(R.id.icon1_web)
+    ImageView icon1Web;
+    @BindView(R.id.link_web)
+    TextView linkWeb;
+    @BindView(R.id.copy_link)
+    ImageView copyLink;
+    @BindView(R.id.icon2_web)
+    ImageView icon2Web;
+    @BindView(R.id.footer_item_1)
+    LinearLayout footerItem1;
+    @BindView(R.id.nav_view3)
+    NavigationView navView3;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.content_box1)
+    TextView contentBox1;
+    @BindView(R.id.swipeToRefresh)
+    SwipeRefreshLayout swipeToRefresh;
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
@@ -101,48 +185,19 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int totalPage = 1;
     int currentPage = 1;
     boolean isLoading = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_axi_dashboard);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
+        ButterKnife.bind(this);
+        mDemoSlider = findViewById(R.id.slider);
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
-
-        icon2_web = findViewById(R.id.icon2_web);
-        copy_link = findViewById(R.id.copy_link);
-        icon1_web = findViewById(R.id.icon1_web);
-        link_web = findViewById(R.id.link_web);
-        title_info = findViewById(R.id.title_info);
-        title_info_jaringan = findViewById(R.id.title_info_jaringan);
-        title_replika = findViewById(R.id.title_replika);
-        title_ppob = findViewById(R.id.title_ppob);
-        total_view = findViewById(R.id.total_view);
-        title_box1 = findViewById(R.id.title_box1);
-        content_box1 = findViewById(R.id.content_box1);
-        title_box2 = findViewById(R.id.title_box2);
-        content_box2 = findViewById(R.id.content_box2);
-        title_box3 = findViewById(R.id.title_box3);
-        content_box3 = findViewById(R.id.content_box3);
-        title_box4 = findViewById(R.id.title_box4);
-        content_box4 = findViewById(R.id.content_box4);
-        title_box5 = findViewById(R.id.title_box5);
-        content_box5 = findViewById(R.id.content_box5);
-        title_box6 = findViewById(R.id.title_box6);
-        content_box6 = findViewById(R.id.content_box6);
-        insentif_car = findViewById(R.id.insentif_car);
-        insentif_mcy = findViewById(R.id.insentif_mcy);
-        point_reward = findViewById(R.id.point_reward);
-        point_trip= findViewById(R.id.point_trip);
-        button_kedalaman_rb = findViewById(R.id.button_kedalaman_rb);
-        button_rb = findViewById(R.id.button_rb);
-        footer_item_1 = findViewById(R.id.footer_item_1);
-        allpengajuan = findViewById(R.id.allpengajuan);
 
         /* Update to Microservices - Data */
         ppobList = new ArrayList<>();
@@ -153,23 +208,34 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_info.setTypeface(opensans_bold);
-        title_ppob.setTypeface(opensans_bold);
-        title_info_jaringan.setTypeface(opensans_bold);
-        title_replika.setTypeface(opensans_bold);
-        total_view.setTypeface(opensans_bold);
-        title_box1.setTypeface(opensans_bold);
-        content_box1.setTypeface(opensans_reguler);
-        title_box2.setTypeface(opensans_bold);
-        content_box2.setTypeface(opensans_reguler);
-        title_box3.setTypeface(opensans_bold);
-        content_box3.setTypeface(opensans_reguler);
-        title_box4.setTypeface(opensans_bold);
-        content_box4.setTypeface(opensans_reguler);
-        title_box5.setTypeface(opensans_bold);
-        content_box5.setTypeface(opensans_reguler);
-        title_box6.setTypeface(opensans_bold);
-        content_box6.setTypeface(opensans_reguler);
+        titleInfo.setTypeface(opensans_bold);
+        titlePpob.setTypeface(opensans_bold);
+        titleInfoJaringan.setTypeface(opensans_bold);
+        titleReplika.setTypeface(opensans_bold);
+        totalView.setTypeface(opensans_bold);
+        titleBox1.setTypeface(opensans_bold);
+        contentBox1.setTypeface(opensans_reguler);
+        titleBox2.setTypeface(opensans_bold);
+        contentBox2.setTypeface(opensans_reguler);
+        titleBox3.setTypeface(opensans_bold);
+        contentBox3.setTypeface(opensans_reguler);
+        titleBox4.setTypeface(opensans_bold);
+        contentBox4.setTypeface(opensans_reguler);
+        titleBox5.setTypeface(opensans_bold);
+        contentBox5.setTypeface(opensans_reguler);
+        titleBox6.setTypeface(opensans_bold);
+        contentBox6.setTypeface(opensans_reguler);
+
+        doLoadData();
+        swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
+
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                doLoadData();
+                swipeToRefresh.setRefreshing(false);
+            }
+        });
 
 //        allpromo.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -231,39 +297,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         // Load Data Pengajuan
 //        doLoadData();
 
-        link_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
-                startActivity(browserIntent);
-            }
-        });
-        icon1_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link_web.getText().toString()));
-                startActivity(browserIntent);
-            }
-        });
-        icon2_web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Temukan solusi kebutuhan Anda disini "+link_web.getText().toString());
-                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Link web replika");
-                startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
-            }
-        });
-        copy_link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("link",link_web.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getBaseContext(),"Berhasil menyalin link web replika",Toast.LENGTH_SHORT).show();
-            }
-        });
 //        allpengajuan.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -280,7 +313,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Log.e("AAAA::::", "AXI Profile loaded");
                     itemDetail = response.body().getData();
 
@@ -289,11 +322,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    content_box1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    content_box2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
-                    content_box3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
-                    content_box4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    link_web.setText(itemDetail.getReplicaWebLink());
+//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+                    contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
+                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
+                    linkWeb.setText(itemDetail.getReplicaWebLink());
                 }
                 hideLoading();
             }
@@ -312,11 +345,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
-                    content_box5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",","."));
+                    contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
 
                 }
 
@@ -329,73 +362,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 alertDialog.show();
             }
         });
-
-        insentif_car.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
-                startActivity(intent);
-            }
-        });
-
-        point_reward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),PointRewardActivity.class);
-                intent.putExtra("POINT_REWARD", String.valueOf(itemDetail.getPointReward()));
-                startActivity(intent);
-            }
-        });
-
-        point_trip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),PointTripActivity.class);
-                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
-                startActivity(intent);
-            }
-        });
-
-        insentif_mcy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
-                startActivity(intent);
-            }
-        });
-        button_rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),InfoJaringanActivity.class);
-                intent.putExtra("total_rb", content_box5.getText().toString());
-                startActivity(intent);
-            }
-        });
-        button_kedalaman_rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
-                startActivity(intent);
-            }
-        });
-        footer_item_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),MarketplaceActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -410,7 +376,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Intent intent;
-                switch( menuItem.getItemId() ) {
+                switch (menuItem.getItemId()) {
                     case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
@@ -423,7 +389,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         break;
                     case R.id.navbar_jaringan:
                         intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
-                        intent.putExtra("total_rb", content_box5.getText().toString());
+                        intent.putExtra("total_rb", contentBox5.getText().toString());
                         startActivity(intent);
                         break;
                     case R.id.navbar_news:
@@ -477,7 +443,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         });
 
-        CircleImageView profilePictures =  navigationView.getHeaderView(0).findViewById(R.id.profile_picture_axi);
+        CircleImageView profilePictures = navigationView.getHeaderView(0).findViewById(R.id.profile_picture_axi);
         View navbarView = navigationView.getHeaderView(0);
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         TextView name = navbarView.findViewById(R.id.nameView);
@@ -509,14 +475,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call6.enqueue(new Callback<AxiSlider>() {
             @Override
             public void onResponse(Call<AxiSlider> call6, Response<AxiSlider> response) {
-                List <Datum> slider = response.body().getData();
+                List<Datum> slider = response.body().getData();
                 Log.d("SLIDER AXI", slider.toString());
                 for (int i = 0; i < slider.size(); i++) {
                     Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
                     file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
                 }
 
-                for(final Datum s: slider) {
+                for (final Datum s : slider) {
                     Log.d("DASH::::", s.getImage());
                     DefaultSliderView sliderBannerItem = new DefaultSliderView(AxiDashboardActivity.this);
                     sliderBannerItem
@@ -551,6 +517,25 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         //mDemoSlider.addOnPageChangeListener(this);
     }
 
+    private void doLoadData() {
+        ApiService apiService =
+                ApiClient.getClient().create(ApiService.class);
+
+        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        call2.enqueue(new Callback<Point>() {
+            @Override
+            public void onResponse(Call<Point> call, Response<Point> response2) {
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+            }
+
+            @Override
+            public void onFailure(Call<Point> call, Throwable t) {
+
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -580,13 +565,16 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         mDemoSlider.stopAutoCycle();
         super.onStop();
     }
+
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(slider.getBundle().get("extra").toString()));
         startActivity(browserIntent);
     }
+
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 
     @Override
     public void onPageSelected(int position) {
@@ -594,7 +582,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
 
 //    private void doLoadData() {
 //        showLoading();
@@ -671,4 +660,79 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         isLoading = false;
         progress.dismiss();
     }
+
+    @OnClick(R.id.link_web)
+    public void onViewClicked() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkWeb.getText().toString()));
+        startActivity(browserIntent);
+    }
+
+    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.point_reward, R.id.point_trip, R.id.insentif_car, R.id.insentif_mcy, R.id.button_rb, R.id.button_kedalaman_rb, R.id.footer_item_1})
+    public void onViewClicked(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.icon1_web:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkWeb.getText().toString()));
+                startActivity(browserIntent);
+                break;
+            case R.id.copy_link:
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("link", linkWeb.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.icon2_web:
+                intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Temukan solusi kebutuhan Anda disini " + linkWeb.getText().toString());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Link web replika");
+                startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
+                break;
+            case R.id.point_reward:
+                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                intent.putExtra("POINT_REWARD", contentBox1.getText());
+                startActivity(intent);
+                break;
+            case R.id.point_trip:
+                intent = new Intent(getBaseContext(), PointTripActivity.class);
+                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
+                startActivity(intent);
+                break;
+            case R.id.insentif_car:
+                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+                startActivity(intent);
+                break;
+            case R.id.insentif_mcy:
+                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+                startActivity(intent);
+                break;
+            case R.id.card2:
+                break;
+            case R.id.button_rb:
+                intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
+                intent.putExtra("total_rb", contentBox5.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.button_kedalaman_rb:
+                intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.footer_item_1:
+                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    ;
 }

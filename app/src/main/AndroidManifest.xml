@@ -304,7 +304,7 @@
                 android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
         </activity>
         <activity
-            android:name=".Activity.PointRewardActivity"
+            android:name=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity"
             android:label="Poin Reward"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -686,7 +686,87 @@
             android:name=".Activity.Addon.UpgradeActivity"
             android:label="Update Aplikasi dicicilaja"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Addon.CompletePhoneEmailActivity" />
+        <activity android:name=".Activity.Addon.CompletePhoneEmailActivity"></activity>
+        <activity
+            android:name=".BusinessReward.ui.DetailProduct.activity.DetailProductActivity"
+            android:label="Detail Produk"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity"
+            android:label="Detail Produk"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.DetailProduct.activity.DetailProductActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity"
+            android:label="Detail Penukaran"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.TrackingOrderActivity"
+            android:label="Detail Penukaran"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.SearchResultActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.Transaction.activity.TransactionActivity"
+            android:label="Transaksi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.TrackingOrderActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity" />
+        </activity>
+        <activity
+            android:name=".BusinessReward.ui.Transaction.activity.DetailTransactionActivity"
+            android:label="Transaksi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BusinessReward.ui.Transaction.activity.TransactionActivity" />
+        </activity>
     </application>
 
 </manifest>

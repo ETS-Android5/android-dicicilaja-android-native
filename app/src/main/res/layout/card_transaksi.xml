@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/card_trans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_branch"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/ib_fr_space_16">
+
+            <TextView
+                android:id="@+id/tgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14 Mar"
+                android:fontFamily="@font/open_sans"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_mini"/>
+
+            <ImageView
+                android:id="@+id/coin_poin"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/tgl"
+                android:background="@drawable/border_circle"
+                android:padding="6dp"
+                android:src="@drawable/coins"/>
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/coin_poin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="450 POINT"
+                    android:textSize="@dimen/font_title"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:textColor="@color/colorAccent"/>
+
+                <TextView
+                    android:id="@+id/merk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xiaomi A2 Lite"
+                    android:fontFamily="@font/open_sans"
+                    android:textSize="@dimen/font_mini" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:textSize="12dp"
+                    android:background="@drawable/border_blue"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccent2"
+                    android:text="Sedang diproses"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/bmasuk"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_transaction_right"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

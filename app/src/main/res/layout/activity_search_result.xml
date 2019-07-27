@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+
+                <EditText
+                    android:id="@+id/inputCariBarang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cari Barang"
+                    android:textColorHighlight="@color/colorWhite"
+                    android:textColorLink="@color/colorWhite"
+                    android:layout_centerHorizontal="true"
+                    android:inputType="textAutoComplete"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/inputPassword"
+                    android:textColorHint="@color/colorWhite"
+                    android:padding="10dp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/font_medium"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</LinearLayout>
