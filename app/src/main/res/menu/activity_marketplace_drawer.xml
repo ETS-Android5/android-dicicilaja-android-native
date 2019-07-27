@@ -35,7 +35,4 @@
             <item
                 android:id="@+id/navbar_keluar"
                 android:title="Keluar"/>
-
-
-
 </menu>

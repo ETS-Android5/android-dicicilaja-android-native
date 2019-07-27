@@ -3,37 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/main_navbar">
-        <menu android:checkableBehavior="single">
-            <item
-                android:id="@+id/navbar_dashboard"
-                android:title="DASHBOARD"
-                android:checkable="true"/>
-            <item
-                android:id="@+id/navbar_create_request"
-                android:title="BUAT PENGAJUAN"/>
-            <item
-                android:id="@+id/navbar_add"
-                android:title="TAMBAH REKAN BISNIS"/>
-            <item
-                android:id="@+id/navbar_simulation"
-                android:title="SIMULASI CICILAN"/>
-            <item
-                android:id="@+id/navbar_jaringan"
-                android:title="INFO JARINGAN"/>
-            <item
-                android:id="@+id/navbar_news"
-                android:title="BERITA TERBARU"/>
-            <item
-                android:id="@+id/navbar_materi"
-                android:title="UNDUH MATERI"/>
-            <item
-                android:id="@+id/branch_office"
-                android:title="KANTOR CABANG"/>
-            <item
-                android:id="@+id/navbar_exit"
-                android:title="KELUAR"/>
-        </menu>
-    </item>
+    <item
+        android:id="@+id/navbar_dashboard"
+        android:title="DASHBOARD"
+        android:checkable="true"/>
+    <item
+        android:id="@+id/navbar_create_request"
+        android:title="BUAT PENGAJUAN"/>
+    <item
+        android:id="@+id/navbar_add"
+        android:title="TAMBAH REKAN BISNIS"/>
+    <item
+        android:id="@+id/navbar_simulation"
+        android:title="SIMULASI CICILAN"/>
+    <item
+        android:id="@+id/navbar_jaringan"
+        android:title="INFO JARINGAN"/>
+    <item
+        android:id="@+id/navbar_news"
+        android:title="BERITA TERBARU"/>
+    <item
+        android:id="@+id/navbar_materi"
+        android:title="UNDUH MATERI"/>
+    <item
+        android:id="@+id/branch_office"
+        android:title="KANTOR CABANG"/>
+    <item
+        android:id="@+id/navbar_exit"
+        android:title="KELUAR"/>
 
 </menu>
