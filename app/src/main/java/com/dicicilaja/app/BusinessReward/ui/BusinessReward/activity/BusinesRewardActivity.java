@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -132,14 +134,23 @@ public class BusinesRewardActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        Call<Point> call2 = apiService.getPoint(session.getUserId());
+//        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
 
                 final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
-                point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
+                if(dataItems.size() == 0){
+                    Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(response2.body().getData().get(0).getAttributes().getPointReward() == 0){
+                        profilePoint.setText("0");
+                    }else{
+                        profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                    }
+                    point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
+                }
             }
 
             @Override
@@ -149,7 +160,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
         });
 
 
-        Call<FotoKtpNpwp> callKtp = apiService.getFoto(Integer.parseInt(session.getUserId()));
+        Call<FotoKtpNpwp> callKtp = apiService.getFoto(session.getUserId());
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {

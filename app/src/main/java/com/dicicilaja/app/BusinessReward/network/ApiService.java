@@ -56,10 +56,10 @@ public interface ApiService {
     Call<Area2> getArea();
 
     @GET("axi-foto")
-    Call<FotoKtpNpwp> getFoto(@Query("axi_id") int axi_id);
+    Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
 
     @GET("claim-reward")
-    Call<ClaimRewards> getClaim(@Query("profile_id") int profile_id,
+    Call<ClaimRewards> getClaim(@Query("profile_id") String profile_id,
                                 @Query("page") int page,
                                 @Query("ob") String ob,
                                 @Query("ot") String ot);
@@ -71,7 +71,7 @@ public interface ApiService {
     Call<DetailProfile> getDetailProfile(@Header("Authorization") String apiKey);
 
     @GET("point")
-    Call<Point> getPoint(@Query("profile_id") int profile_id);
+    Call<Point> getPoint(@Query("profile_id") String profile_id);
 
     @GET("product-catalog")
     Call<Produk> getProduk(@Query("nama") String nama);
@@ -80,6 +80,9 @@ public interface ApiService {
     Call<Produk> getProdukSort(@Query("kategori_id") String kategori_id,
                                @Query("ob") String ob,
                                @Query("ot") String ot);
+
+    @GET("product-catalog")
+    Call<Produk> getProdukAll(@Query("kategori_id") String kategori_id);
 
     @GET("kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);

@@ -112,6 +112,7 @@ public class DetailProductActivity extends AppCompatActivity {
         String textt = getIntent().getStringExtra("DETAIL").replace("\\n", "\n");
         deskripsi.setText(textt);
         pointUser = getIntent().getStringExtra("POINT_REWARD");
+        Log.d("POINTUSER", String.valueOf(pointUser));
         pointProduk = getIntent().getIntExtra("POINT_PRODUCT", 0);
         no_ktp = getIntent().getStringExtra("NOKTP");
         ktpnpwp = getIntent().getStringExtra("KTP");
@@ -152,6 +153,8 @@ public class DetailProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                progressBar.setVisibility(View.VISIBLE);
+
+//                Log.d("POINTUSER", pointUser);
 
                 if (Integer.valueOf(pointUser)>= pointProduk) {
                     if (ktpnpwp.equals("Tidak")) {
@@ -236,6 +239,20 @@ public class DetailProductActivity extends AppCompatActivity {
                         });
                         alertDialog.show();
                     }
+                }else if(pointUser.equals("0")){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+                    alertDialog.setTitle("Point Kurang!");
+                    alertDialog.setMessage("Maaf point kamu belum ada!");
+
+                    alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+//                    finish();
+//                    startActivity(getIntent());
+                            Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
                     alertDialog.setTitle("Point Kurang!");

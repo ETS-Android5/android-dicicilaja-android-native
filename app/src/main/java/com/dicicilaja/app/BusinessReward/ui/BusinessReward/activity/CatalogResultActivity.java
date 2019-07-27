@@ -122,23 +122,43 @@ public class CatalogResultActivity extends AppCompatActivity {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         if(status_order == 0){
-            call = apiService.getDetailKategori(Integer.parseInt(id));
+//            call = apiService.getDetailKategori(Integer.parseInt(id));
+//
+//            call.enqueue(new Callback<DetailKategori>() {
+//                @SuppressLint("WrongConstant")
+//                @Override
+//                public void onResponse(Call<DetailKategori> call, Response<DetailKategori> response) {
+//                    final Data dataItems = response.body().getData();
+//                    final List<Included> dataItems2 = response.body().getIncluded();
+//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
+//
+//                    Log.d("Cek1", "" + response.code());
+//
+//                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, dataItems2, getBaseContext(), id, size));
+//                }
+//
+//                @Override
+//                public void onFailure(Call<DetailKategori> call, Throwable t) {
+//                    Log.d("dadada", t.getMessage());
+//                }
+//            });
 
-            call.enqueue(new Callback<DetailKategori>() {
+            call2 = apiService.getProdukAll(id);
+
+            call2.enqueue(new Callback<Produk>() {
                 @SuppressLint("WrongConstant")
                 @Override
-                public void onResponse(Call<DetailKategori> call, Response<DetailKategori> response) {
-                    final Data dataItems = response.body().getData();
-                    final List<Included> dataItems2 = response.body().getIncluded();
-                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
+                public void onResponse(Call<Produk> call, Response<Produk> response) {
+                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
 
-                    Log.d("Cek1", "" + response.code());
+                    Log.d("Cek2", "" + response.code());
 
-                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, dataItems2, getBaseContext(), id, size));
+                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
                 }
 
                 @Override
-                public void onFailure(Call<DetailKategori> call, Throwable t) {
+                public void onFailure(Call<Produk> call, Throwable t) {
                     Log.d("dadada", t.getMessage());
                 }
             });

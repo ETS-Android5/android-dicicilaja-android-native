@@ -128,20 +128,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView contentBox6;
     @BindView(R.id.button_kedalaman_rb)
     LinearLayout buttonKedalamanRb;
-    @BindView(R.id.title_ppob)
-    TextView titlePpob;
-    @BindView(R.id.desc_ppob)
-    TextView descPpob;
-    @BindView(R.id.icon_history)
-    ImageView iconHistory;
-    @BindView(R.id.see_all_history)
-    TextView seeAllHistory;
-    @BindView(R.id.see_history)
-    RelativeLayout seeHistory;
-    @BindView(R.id.top_pengajuan)
-    RelativeLayout topPengajuan;
-    @BindView(R.id.recycler_ppob)
-    RecyclerView recyclerPpob;
+//    @BindView(R.id.title_ppob)
+//    TextView titlePpob;
+//    @BindView(R.id.desc_ppob)
+//    TextView descPpob;
+//    @BindView(R.id.icon_history)
+//    ImageView iconHistory;
+//    @BindView(R.id.see_all_history)
+//    TextView seeAllHistory;
+//    @BindView(R.id.see_history)
+//    RelativeLayout seeHistory;
+//    @BindView(R.id.top_pengajuan)
+//    RelativeLayout topPengajuan;
+//    @BindView(R.id.recycler_ppob)
+//    RecyclerView recyclerPpob;
     @BindView(R.id.title_replika)
     TextView titleReplika;
     @BindView(R.id.total_view)
@@ -198,7 +198,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         titleInfo.setTypeface(opensans_bold);
-        titlePpob.setTypeface(opensans_bold);
+//        titlePpob.setTypeface(opensans_bold);
         titleInfoJaringan.setTypeface(opensans_bold);
         titleReplika.setTypeface(opensans_bold);
         totalView.setTypeface(opensans_bold);
@@ -241,13 +241,14 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        recyclerView =  findViewById(R.id.recycler_pengajuan);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
+        //KOMEN SEMENTARA PPOB
+//        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+//        recyclerView.setLayoutManager(mLayoutManager);
+////        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(adapter);
 
 
 //        recyclerPPOB.setHasFixedSize(true);
@@ -506,7 +507,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         ApiService apiService =
                 ApiClient.getClient().create(ApiService.class);
 
-        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
+        Call<Point> call2 = apiService.getPoint(session.getUserId());
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
