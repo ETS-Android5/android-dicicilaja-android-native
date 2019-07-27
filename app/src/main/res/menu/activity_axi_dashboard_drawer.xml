@@ -17,6 +17,9 @@
         android:id="@+id/navbar_simulation"
         android:title="SIMULASI CICILAN"/>
     <item
+        android:id="@+id/navbar_semua_produk"
+        android:title="PRODUK PEMBIAYAAN"/>
+    <item
         android:id="@+id/navbar_jaringan"
         android:title="INFO JARINGAN"/>
     <item

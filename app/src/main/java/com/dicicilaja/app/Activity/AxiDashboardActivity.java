@@ -1,48 +1,35 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.bumptech.glide.Glide;
-import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
-import com.dicicilaja.app.Adapter.ListPPOBAdapter;
-import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
-import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
-import com.google.android.material.navigation.NavigationView;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.*;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
+import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
+import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
@@ -51,14 +38,20 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlide
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
+import com.dicicilaja.app.Adapter.ListPPOBAdapter;
+import com.dicicilaja.app.Adapter.PengajuanAxiAdapter;
+import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
+import com.dicicilaja.app.Listener.RecyclerTouchListener;
+import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -99,6 +92,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView titleInfo;
     @BindView(R.id.title_box1)
     TextView titleBox1;
+    @BindView(R.id.content_box1)
+    TextView contentBox1;
     @BindView(R.id.point_reward)
     LinearLayout pointReward;
     @BindView(R.id.title_box2)
@@ -139,20 +134,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView contentBox6;
     @BindView(R.id.button_kedalaman_rb)
     LinearLayout buttonKedalamanRb;
-    @BindView(R.id.title_ppob)
-    TextView titlePpob;
-    @BindView(R.id.desc_ppob)
-    TextView descPpob;
-    @BindView(R.id.icon_history)
-    ImageView iconHistory;
-    @BindView(R.id.see_all_history)
-    TextView seeAllHistory;
-    @BindView(R.id.see_history)
-    RelativeLayout seeHistory;
-    @BindView(R.id.top_pengajuan)
-    RelativeLayout topPengajuan;
-    @BindView(R.id.recycler_ppob)
-    RecyclerView recyclerPpob;
     @BindView(R.id.title_replika)
     TextView titleReplika;
     @BindView(R.id.total_view)
@@ -165,16 +146,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     ImageView copyLink;
     @BindView(R.id.icon2_web)
     ImageView icon2Web;
-    @BindView(R.id.footer_item_1)
-    LinearLayout footerItem1;
+    @BindView(R.id.swipeToRefresh)
+    SwipeRefreshLayout swipeToRefresh;
     @BindView(R.id.nav_view3)
     NavigationView navView3;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @BindView(R.id.content_box1)
-    TextView contentBox1;
-    @BindView(R.id.swipeToRefresh)
-    SwipeRefreshLayout swipeToRefresh;
+
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
@@ -209,7 +187,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         titleInfo.setTypeface(opensans_bold);
-        titlePpob.setTypeface(opensans_bold);
+//        titlePpob.setTypeface(opensans_bold);
         titleInfoJaringan.setTypeface(opensans_bold);
         titleReplika.setTypeface(opensans_bold);
         totalView.setTypeface(opensans_bold);
@@ -252,13 +230,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        recyclerView =  findViewById(R.id.recycler_pengajuan);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
+//        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
+//
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+//        recyclerView.setLayoutManager(mLayoutManager);
+////        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(adapter);
 
 
 //        recyclerPPOB.setHasFixedSize(true);
@@ -305,63 +283,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //            }
 //        });
 
-        InterfaceAxiDetail apiService5 =
-                RetrofitClient.getClient().create(InterfaceAxiDetail.class);
 
-//        showLoading();
-        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
-        callProfile.enqueue(new Callback<AXIDetail>() {
-            @Override
-            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if (response.isSuccessful()) {
-                    Log.e("AAAA::::", "AXI Profile loaded");
-                    itemDetail = response.body().getData();
-
-                    Locale localeID = new Locale("in", "ID");
-                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
-                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
-                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    linkWeb.setText(itemDetail.getReplicaWebLink());
-                }
-                hideLoading();
-            }
-
-            @Override
-            public void onFailure(Call<AXIDetail> call, Throwable t) {
-                hideLoading();
-                t.printStackTrace();
-            }
-        });
-
-        InterfaceInfoJaringan apiService4 =
-                RetrofitClient.getClient().create(InterfaceInfoJaringan.class);
-
-        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
-        call4.enqueue(new Callback<InfoJaringan>() {
-            @Override
-            public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-                if (response.isSuccessful()) {
-                    infoJaringan = response.body().getData();
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-                    contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<InfoJaringan> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                alertDialog.setMessage(t.getMessage());
-                alertDialog.show();
-            }
-        });
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -386,6 +308,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_simulation:
                         intent = new Intent(getBaseContext(), NewSimulationActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.navbar_semua_produk:
+                        Intent intent4 = new Intent(getBaseContext(), SearchActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.navbar_jaringan:
                         intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
@@ -534,6 +460,85 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
             }
         });
+
+        InterfacePengajuanAxi apiService2 =
+                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+
+        Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage);
+        call3.enqueue(new Callback<PengajuanAxi>() {
+            @Override
+            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+                if(response.isSuccessful()) {
+                    pengajuan = response.body().getData();
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                    contentBox6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",", "."));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
+
+            }
+        });
+
+        InterfaceAxiDetail apiService5 =
+                RetrofitClient.getClient().create(InterfaceAxiDetail.class);
+
+//        showLoading();
+        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
+        callProfile.enqueue(new Callback<AXIDetail>() {
+            @Override
+            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
+                if (response.isSuccessful()) {
+                    Log.e("AAAA::::", "AXI Profile loaded");
+                    itemDetail = response.body().getData();
+
+                    Locale localeID = new Locale("in", "ID");
+                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+                    contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
+                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
+                    linkWeb.setText(itemDetail.getReplicaWebLink());
+                }
+                hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<AXIDetail> call, Throwable t) {
+                hideLoading();
+                t.printStackTrace();
+            }
+        });
+
+        InterfaceInfoJaringan apiService4 =
+                RetrofitClient.getClient().create(InterfaceInfoJaringan.class);
+
+        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
+        call4.enqueue(new Callback<InfoJaringan>() {
+            @Override
+            public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
+                if (response.isSuccessful()) {
+                    infoJaringan = response.body().getData();
+                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                    contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<InfoJaringan> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
+                alertDialog.setMessage(t.getMessage());
+                alertDialog.show();
+            }
+        });
     }
 
     @Override
@@ -594,6 +599,23 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
 //        call2.enqueue(new Callback<PengajuanAxi>() {
 //            @Override
+//            public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
+//                if(response.isSuccessful()) {
+//                    pengajuan = response.body().getData();
+//                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+//
+//                    contentBox6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",", "."));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
+//
+//            }
+//        });
+//
+//        call2.enqueue(new Callback<PengajuanAxi>() {
+//            @Override
 //            public void onResponse(Call<PengajuanAxi> call, ObjekModel<PengajuanAxi> response) {
 //                if(response.isSuccessful()) {
 //                    pengajuan = response.body().getData();
@@ -601,29 +623,29 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //
 //                    content_box6.setText(formatter.format(Integer.parseInt(String.valueOf(pengajuan.size()))).replace(",","."));
 //
-//                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext(), 3));
-//                    recyclerView.setNestedScrollingEnabled(false);
-//                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-//                        @Override
-//                        public void onClick(View view, final int position) {
-//                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-//                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
-//                            startActivity(intent);
-//
-//                        }
-//
-//                        @Override
-//                        public void onLongClick(View view, int position) {
-//                        }
-//                    }));
+////                    recyclerView.setAdapter(new PengajuanAxiAdapter(pengajuan, R.layout.card_pengajuan, getBaseContext(), 3));
+////                    recyclerView.setNestedScrollingEnabled(false);
+////                    recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
+////                        @Override
+////                        public void onClick(View view, final int position) {
+////                            Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
+////                            intent.putExtra("EXTRA_REQUEST_ID", pengajuan.get(position).getId().toString());
+////                            startActivity(intent);
+////
+////                        }
+////
+////                        @Override
+////                        public void onLongClick(View view, int position) {
+////                        }
+////                    }));
 //                }
-//                //progress.dismiss();
-////                hideLoading();
+//                progress.dismiss();
+//                hideLoading();
 //            }
 //
 //            @Override
 //            public void onFailure(Call<PengajuanAxi> call, Throwable t) {
-////                hideLoading();
+//                hideLoading();
 //                t.printStackTrace();
 //            }
 //        });
@@ -667,7 +689,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         startActivity(browserIntent);
     }
 
-    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.point_reward, R.id.point_trip, R.id.insentif_car, R.id.insentif_mcy, R.id.button_rb, R.id.button_kedalaman_rb, R.id.footer_item_1})
+    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.point_reward, R.id.point_trip, R.id.button_rb, R.id.button_kedalaman_rb})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -698,24 +720,24 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
                 startActivity(intent);
                 break;
-            case R.id.insentif_car:
-                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
-                startActivity(intent);
-                break;
-            case R.id.insentif_mcy:
-                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
-                startActivity(intent);
-                break;
+//            case R.id.insentif_car:
+//                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
+//                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+//                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+//                startActivity(intent);
+//                break;
+//            case R.id.insentif_mcy:
+//                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
+//                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+//                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+//                startActivity(intent);
+//                break;
             case R.id.card2:
                 break;
             case R.id.button_rb:
@@ -727,10 +749,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.footer_item_1:
-                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.footer_item_1:
+//                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+//                startActivity(intent);
+//                break;
         }
     }
 

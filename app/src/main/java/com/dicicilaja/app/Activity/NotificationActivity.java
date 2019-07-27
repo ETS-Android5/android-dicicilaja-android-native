@@ -99,8 +99,8 @@ public class NotificationActivity extends AppCompatActivity {
                         }));
                     }
                     progress.dismiss();
-
                 }
+                progress.dismiss();
 
             }
 

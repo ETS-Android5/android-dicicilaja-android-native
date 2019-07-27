@@ -1,5 +1,8 @@
 package com.dicicilaja.app.WebView;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.webkit.DownloadListener;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +36,17 @@ public class MateriActivity extends AppCompatActivity {
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("https://dicicilaja.com/axi/download-materi");
+        webView.setWebViewClient(new WebViewClient());
+
+        webView.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
     }
 
     @Override

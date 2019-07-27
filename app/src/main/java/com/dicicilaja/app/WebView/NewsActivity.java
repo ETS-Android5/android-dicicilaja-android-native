@@ -1,5 +1,8 @@
 package com.dicicilaja.app.WebView;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.webkit.DownloadListener;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +39,7 @@ public class NewsActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("https://dicicilaja.com/axi/berita-terbaru");
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

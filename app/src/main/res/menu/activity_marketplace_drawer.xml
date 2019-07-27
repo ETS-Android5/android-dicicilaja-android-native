@@ -16,10 +16,10 @@
 
             <item
                 android:id="@+id/navbar_simulasi"
-                android:title="Simulasi"/>
+                android:title="Simulasi Cicilan"/>
             <item
                 android:id="@+id/navbar_semua_produk"
-                android:title="Semua Produk Pembiayaan"/>
+                android:title="Produk Pembiayaan"/>
             <item
                 android:id="@+id/navbar_gudang_info"
                 android:title="Gudang Info"/>

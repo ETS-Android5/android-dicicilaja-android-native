@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -77,6 +78,10 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                     case R.id.navbar_statistics:
                         intent = new Intent(getBaseContext(), StatisticActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.branch_office:
+                        Intent intent3 = new Intent(getBaseContext(), AreaBranchOfficeActivity.class);
+                        startActivity(intent3);
                         break;
                     case R.id.navbar_exit:
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeDashboardActivity.this);

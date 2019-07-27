@@ -12,15 +12,18 @@
             <item
                 android:id="@+id/navbar_create_request"
                 android:title="BUAT PENGAJUAN"/>
-            <item
-                android:id="@+id/navbar_cek"
-                android:title="CEK STATUS"/>
+            <!--<item-->
+                <!--android:id="@+id/navbar_cek"-->
+                <!--android:title="CEK STATUS"/>-->
             <item
                 android:id="@+id/navbar_simulation"
                 android:title="SIMULASI CICILAN"/>
             <item
                 android:id="@+id/navbar_statistics"
                 android:title="STATISTICS"/>
+            <item
+                android:id="@+id/branch_office"
+                android:title="KANTOR CABANG"/>
             <item
                 android:id="@+id/navbar_exit"
                 android:title="KELUAR"/>

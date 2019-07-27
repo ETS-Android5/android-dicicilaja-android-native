@@ -62,10 +62,11 @@ public class ProgramMaxiAdapter extends RecyclerView.Adapter<ProgramMaxiAdapter.
 
     @Override
     public int getItemCount() {
-        if(program.size() > 2){
-            return 3;
-        }else{
-            return program.size();
-        }
+//        if(program.size() > 2){
+//            return 3;
+//        }else{
+//            return program.size();
+//        }
+        return program.size();
     }
 }

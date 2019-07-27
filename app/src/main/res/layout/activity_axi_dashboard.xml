@@ -21,24 +21,24 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_axi_dashboard"
         app:menu="@menu/activity_axi_dashboard_drawer">
-        <LinearLayout
-            android:id="@+id/footer_item_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:background="@color/colorAccent2"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:textColor="@color/colorWhite"
-                android:paddingLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="Beralih menjadi pengguna"
-                android:textAllCaps="true"
-                android:textStyle="bold"/>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/footer_item_1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:clickable="true"-->
+            <!--android:background="@color/colorAccent2"-->
+            <!--android:orientation="vertical">-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="Beralih menjadi pengguna"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="bold"/>-->
+        <!--</LinearLayout>-->
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
