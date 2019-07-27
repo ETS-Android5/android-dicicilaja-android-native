@@ -288,7 +288,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
 
-g//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
 //
 //                ApiService apiService2 =
 //                        ApiClient.getClient2().create(ApiService.class);
