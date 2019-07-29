@@ -1,18 +1,17 @@
 package com.dicicilaja.app.BusinessReward.dataAPI.point;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Semester {
-    @SerializedName("data")
-    @Expose
-    private Data data;
+public class Semester{
 
-    public Data getData() {
-        return data;
-    }
+	@SerializedName("data")
+	private Data data;
 
-    public void setData(Data data) {
-        this.data = data;
-    }
+	public void setData(Data data){
+		this.data = data;
+	}
+
+	public Data getData(){
+		return data;
+	}
 }

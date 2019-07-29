@@ -1,53 +1,40 @@
 package com.dicicilaja.app.BusinessReward.dataAPI.point;
 
-import com.google.gson.annotations.Expose;
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class Point{
 
-public class Point {
-    @SerializedName("data")
-    @Expose
-    private List<Datum> data = null;
-    @SerializedName("links")
-    @Expose
-    private Links links;
-    @SerializedName("meta")
-    @Expose
-    private Meta meta;
-    @SerializedName("included")
-    @Expose
-    private List<Included> included = null;
+	@SerializedName("data")
+	private List<DataItem> data;
 
-    public List<Datum> getData() {
-        return data;
-    }
+	@SerializedName("meta")
+	private Meta meta;
 
-    public void setData(List<Datum> data) {
-        this.data = data;
-    }
+	@SerializedName("links")
+	private Links links;
 
-    public Links getLinks() {
-        return links;
-    }
+	public void setData(List<DataItem> data){
+		this.data = data;
+	}
 
-    public void setLinks(Links links) {
-        this.links = links;
-    }
+	public List<DataItem> getData(){
+		return data;
+	}
 
-    public Meta getMeta() {
-        return meta;
-    }
+	public void setMeta(Meta meta){
+		this.meta = meta;
+	}
 
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
+	public Meta getMeta(){
+		return meta;
+	}
 
-    public List<Included> getIncluded() {
-        return included;
-    }
+	public void setLinks(Links links){
+		this.links = links;
+	}
 
-    public void setIncluded(List<Included> included) {
-        this.included = included;
-    }
+	public Links getLinks(){
+		return links;
+	}
 }

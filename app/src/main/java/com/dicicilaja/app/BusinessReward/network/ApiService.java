@@ -1,6 +1,5 @@
 package com.dicicilaja.app.BusinessReward.network;
 
-import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
 import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
 import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;

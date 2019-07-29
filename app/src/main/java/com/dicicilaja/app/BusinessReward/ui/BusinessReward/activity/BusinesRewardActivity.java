@@ -23,12 +23,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.ui.Search.activity.SearchResultActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
-import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
@@ -140,7 +140,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
 
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.DataItem> dataItems = response2.body().getData();
                 if(dataItems.size() == 0){
                     Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
                 }else{

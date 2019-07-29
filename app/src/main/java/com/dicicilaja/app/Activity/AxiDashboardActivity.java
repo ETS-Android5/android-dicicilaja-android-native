@@ -39,13 +39,11 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
-import com.dicicilaja.app.Adapter.PengajuanAxiAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
-import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
@@ -458,6 +456,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     }
 
     private void doLoadData() {
+
         ApiService apiService =
                 ApiClient.getClient().create(ApiService.class);
 
@@ -465,17 +464,18 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
+                Log.d("TAGTAGTAG", "status:" + response2.code());
                 try {
                     if (response2.isSuccessful()) {
-                        final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                        contentBox1.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                        DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+                        contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
                     }
                 } catch (Exception ex) {}
             }
 
             @Override
             public void onFailure(Call<Point> call, Throwable t) {
-                
+                Log.d("TAGTAGTAG", "data:" + t.getMessage());
             }
         });
 

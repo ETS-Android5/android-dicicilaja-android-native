@@ -1,62 +1,61 @@
 package com.dicicilaja.app.BusinessReward.dataAPI.point;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attributes {
-    @SerializedName("profile_id")
-    @Expose
-    private Integer profileId;
-    @SerializedName("point_reward")
-    @Expose
-    private Integer pointReward;
-    @SerializedName("point_trip")
-    @Expose
-    private Object pointTrip;
-    @SerializedName("insentif_mcy")
-    @Expose
-    private Object insentifMcy;
-    @SerializedName("insentif_car")
-    @Expose
-    private Object insentifCar;
+public class Attributes{
 
-    public Integer getProfileId() {
-        return profileId;
-    }
+	@SerializedName("insentif_mcy")
+	private int insentifMcy;
 
-    public void setProfileId(Integer profileId) {
-        this.profileId = profileId;
-    }
+	@SerializedName("insentif_car")
+	private int insentifCar;
 
-    public Integer getPointReward() {
-        return pointReward;
-    }
+	@SerializedName("profile_id")
+	private String profileId;
 
-    public void setPointReward(Integer pointReward) {
-        this.pointReward = pointReward;
-    }
+	@SerializedName("point_trip")
+	private int pointTrip;
 
-    public Object getPointTrip() {
-        return pointTrip;
-    }
+	@SerializedName("point_reward")
+	private int pointReward;
 
-    public void setPointTrip(Object pointTrip) {
-        this.pointTrip = pointTrip;
-    }
+	public void setInsentifMcy(int insentifMcy){
+		this.insentifMcy = insentifMcy;
+	}
 
-    public Object getInsentifMcy() {
-        return insentifMcy;
-    }
+	public int getInsentifMcy(){
+		return insentifMcy;
+	}
 
-    public void setInsentifMcy(Object insentifMcy) {
-        this.insentifMcy = insentifMcy;
-    }
+	public void setInsentifCar(int insentifCar){
+		this.insentifCar = insentifCar;
+	}
 
-    public Object getInsentifCar() {
-        return insentifCar;
-    }
+	public int getInsentifCar(){
+		return insentifCar;
+	}
 
-    public void setInsentifCar(Object insentifCar) {
-        this.insentifCar = insentifCar;
-    }
+	public void setProfileId(String profileId){
+		this.profileId = profileId;
+	}
+
+	public String getProfileId(){
+		return profileId;
+	}
+
+	public void setPointTrip(int pointTrip){
+		this.pointTrip = pointTrip;
+	}
+
+	public int getPointTrip(){
+		return pointTrip;
+	}
+
+	public void setPointReward(int pointReward){
+		this.pointReward = pointReward;
+	}
+
+	public int getPointReward(){
+		return pointReward;
+	}
 }

@@ -1,29 +1,28 @@
 package com.dicicilaja.app.BusinessReward.dataAPI.point;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
-    @SerializedName("type")
-    @Expose
-    private String type;
-    @SerializedName("id")
-    @Expose
-    private Integer id;
+public class Data{
 
-    public String getType() {
-        return type;
-    }
+	@SerializedName("id")
+	private int id;
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	@SerializedName("type")
+	private String type;
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(int id){
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public int getId(){
+		return id;
+	}
+
+	public void setType(String type){
+		this.type = type;
+	}
+
+	public String getType(){
+		return type;
+	}
 }
