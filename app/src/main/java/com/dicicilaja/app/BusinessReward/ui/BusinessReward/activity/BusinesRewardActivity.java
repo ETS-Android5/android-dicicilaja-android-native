@@ -179,7 +179,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
-
+                Log.d("sizenyaaa", "data: " + t.getMessage());
             }
         });
 

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Attributes {
     @SerializedName("axi_id")
     @Expose
-    private Integer axiId;
+    private String axiId;
     @SerializedName("foto_ktp")
     @Expose
     private String fotoKtp;
@@ -20,11 +20,11 @@ public class Attributes {
     @Expose
     private String noNpwp;
 
-    public Integer getAxiId() {
+    public String getAxiId() {
         return axiId;
     }
 
-    public void setAxiId(Integer axiId) {
+    public void setAxiId(String axiId) {
         this.axiId = axiId;
     }
 
