@@ -144,7 +144,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         initAction();
         progressBar0.setVisibility(View.VISIBLE);
 
-        Call<Area2> area = apiService.getArea();
+        Call<Area2> area = apiService.getArea("true");
         area.enqueue(new Callback<Area2>() {
             @Override
             public void onResponse(Call<Area2> call, Response<Area2> response) {

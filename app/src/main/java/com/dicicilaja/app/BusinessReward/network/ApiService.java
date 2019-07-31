@@ -52,7 +52,7 @@ public interface ApiService {
     Call<Cabang> getAllCabang(@Path("id") int cabang_id);
 
     @GET("area")
-    Call<Area2> getArea();
+    Call<Area2> getArea(@Query("simulasi") String simulasi);
 
     @GET("axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
