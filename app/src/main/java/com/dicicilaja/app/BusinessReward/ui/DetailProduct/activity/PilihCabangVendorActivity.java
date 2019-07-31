@@ -144,7 +144,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         initAction();
         progressBar0.setVisibility(View.VISIBLE);
 
-        Call<Area2> area = apiService.getArea("true");
+        Call<Area2> area = apiService.getArea();
         area.enqueue(new Callback<Area2>() {
             @Override
             public void onResponse(Call<Area2> call, Response<Area2> response) {
@@ -152,8 +152,10 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                     try {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
-                                AREA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                AREA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                if(response.body().getData().get(i).getAttributes().getIsAreaSimulasi() == false){
+                                    AREA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                    AREA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                }
                             }
                             progressBar0.setVisibility(View.GONE);
                         } else {
@@ -218,6 +220,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                 clearCabang();
                 if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
+                    Log.d("AREADATA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     branchCall.enqueue(new Callback<Cabang>() {
                         @Override
