@@ -16,6 +16,5 @@ public interface UserFirebase {
     @POST("login")
     @FormUrlEncoded
     Call<Login> login_token(@Field("username") String username,
-                            @Field("password") String password,
-                            @Field("firebase_token") String firebase_token);
+                            @Field("password") String password);
 }

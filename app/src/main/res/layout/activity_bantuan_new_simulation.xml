@@ -351,9 +351,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="Apabila ada pertanyaan lebih lanjut seputar simulasi pinjaman, calon peminjam bisa langsung menghubungi Tasya (tanya saya), Dicicil aja support team (link)"
+                android:text="Apabila ada pertanyaan lebih lanjut seputar simulasi pinjaman, calon peminjam bisa langsung menghubungi:"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/hubungi_tasya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="Tasya (tanya saya)"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+                <TextView
+                    android:id="@+id/support_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"
+                    android:text="Dicicil aja support team (link)"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans"/>
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"

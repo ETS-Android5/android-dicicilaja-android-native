@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "http://103.233.103.23:84/api/";
+    public static final String BASE_URL = "https://apibo.dicicilaja.com/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

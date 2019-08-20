@@ -232,6 +232,8 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                                             CABANG_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                             CABANG_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                                             ALAMAT_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getAlamat()));
+                                            Log.d("cabangtext", "data1: " + String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                            Log.d("cabangtext", "data1: " + String.valueOf(response.body().getData().get(i).getAttributes().getAlamat()));
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     } else {
@@ -338,12 +340,12 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             Toast.makeText(this, "Mohon masukan data area dan cabang dengan benar!", Toast.LENGTH_SHORT).show();
         }else{
             cabang_text = ALAMAT_ITEMS.get(spinnerArea.getSelectedItemPosition());
-            Log.d("cabangtext", CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
-            Log.d("cabangtext", ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+            Log.d("cabangtext", "data: " + CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
+            Log.d("cabangtext", "data: " + ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()-1));
 
             Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
             intent.putExtra("CABANGNYA", String.valueOf(CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
-            intent.putExtra("ALAMATNYA", String.valueOf(ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
+            intent.putExtra("ALAMATNYA", String.valueOf(ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()-1)));
             intent.putExtra("AREANYA", String.valueOf(AREA_ITEMS.get(spinnerArea.getSelectedItemPosition())));
             intent.putExtra("AREAIDNYA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
             intent.putExtra("CABANGIDNYA", String.valueOf(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())));

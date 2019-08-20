@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
                         progress.show();
-                        doLogin(username, password, refreshedToken);
+                        doLogin(username, password);
                     }
                 }
             });
@@ -213,9 +213,9 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void doLogin(final String username, final String password, final String firebase_token) {
+    private void doLogin(final String username, final String password) {
 
-        Call<Login> call = userFirebase.login_token(username, password, firebase_token);
+        Call<Login> call = userFirebase.login_token(username, password);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
@@ -310,11 +310,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-                Log.e("LOGINERR:::", "ERROR");
-                t.printStackTrace();
                 progress.dismiss();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+                alertDialog.setMessage("Gagal terhubung ke server");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

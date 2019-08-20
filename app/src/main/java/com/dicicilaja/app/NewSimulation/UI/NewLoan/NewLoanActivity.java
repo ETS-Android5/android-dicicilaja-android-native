@@ -180,7 +180,7 @@ public class NewLoanActivity extends AppCompatActivity {
                     objek_model_id = getIntent().getStringExtra("objek_model_id");
                     if (tipe_angsuran_id.equals("1")) {
                         value_tipe_angsuran_id = "addb";
-                    } else if (tipe_asuransi_id.equals("2")) {
+                    } else if (tipe_angsuran_id.equals("2")) {
                         value_tipe_angsuran_id = "addm";
                     }
 
