@@ -707,7 +707,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         startActivity(browserIntent);
     }
 
-    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.point_reward, R.id.point_trip, R.id.button_rb, R.id.button_kedalaman_rb})
+    @OnClick({R.id.icon1_web, R.id.copy_link, R.id.icon2_web, R.id.insentif_car, R.id.insentif_mcy, R.id.point_reward, R.id.point_trip, R.id.button_rb, R.id.button_kedalaman_rb})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -738,24 +738,24 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
                 startActivity(intent);
                 break;
-//            case R.id.insentif_car:
-//                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-//                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-//                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
-//                startActivity(intent);
-//                break;
-//            case R.id.insentif_mcy:
-//                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-//                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-//                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
-//                startActivity(intent);
-//                break;
+            case R.id.insentif_car:
+                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+                startActivity(intent);
+                break;
+            case R.id.insentif_mcy:
+                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
+                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+                startActivity(intent);
+                break;
             case R.id.card2:
                 break;
             case R.id.button_rb:
