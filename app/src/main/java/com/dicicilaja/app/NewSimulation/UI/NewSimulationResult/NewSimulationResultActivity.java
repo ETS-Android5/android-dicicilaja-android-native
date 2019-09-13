@@ -278,7 +278,12 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
-                                        text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                        int tenor_addm = Integer.parseInt(response.body().getData().getAttributes().getInformasiJaminan().getTenor())-1;
+                                        if (value_tipe_angsuran_id.equals("addm")) {
+                                            text_tenor_angsuran = "x " + tenor_addm + " Bulan";
+                                        } else {
+                                            text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                        }
                                         text_total_prefix = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterimaPrefix();
                                         text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
                                         text_max_prefix = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairanPrefix();
@@ -539,7 +544,12 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
-                                        text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                        int tenor_addm = Integer.parseInt(response.body().getData().getAttributes().getInformasiJaminan().getTenor())-1;
+                                        if (value_tipe_angsuran_id.equals("addm")) {
+                                            text_tenor_angsuran = "x " + tenor_addm + " Bulan";
+                                        } else {
+                                            text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                        }
                                         text_total_prefix = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterimaPrefix();
                                         text_total = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterima();
                                         text_max_prefix = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairanPrefix();
@@ -586,7 +596,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                                 alertDialog.setTitle("Perhatian");
-                                alertDialog.setMessage("Gagal melakukan perhitungan simulasi, silahkan coba beberapa saat lagi.");
+                                alertDialog.setMessage("Gagal melakukan perhitungan simulasi, silahkan coba beberapa saat lagi." + t.getMessage());
 
                                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -629,6 +639,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
             }
 
             tipe_asuransi_id = getIntent().getStringExtra("tipe_asuransi_id");
+            tipe_angsuran_id = getIntent().getStringExtra("tipe_angsuran_id");
             value_tipe_angsuran_id = getIntent().getStringExtra("value_tipe_angsuran_id");
 
         } catch (Exception ex) {

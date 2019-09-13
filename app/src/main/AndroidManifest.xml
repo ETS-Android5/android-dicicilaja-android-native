@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:name=".BaseApplication"
-        android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@drawable/ic_launcher_new"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="true"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity"></activity>
-        <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
-        <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".OrderIn.UI.OrderInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
+        <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
+        <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity"></activity>
         <activity android:name=".BranchOffice.UI.CityBranchOffice.Activity.CityBranchOfficeActivity" />
         <activity android:name=".NewSimulation.UI.BantuanNewSimulation.TipeAsuransiActivity" />
         <activity android:name=".NewSimulation.UI.BantuanNewSimulation.JenisAngsuranActivity" />
@@ -36,11 +36,7 @@
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity
@@ -506,13 +502,6 @@
                 android:value="com.dicicilaja.app.Activity.DetailRequestActivity" />
         </activity>
 
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher_round" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
         <activity
             android:name=".Activity.DatabaseCRH"
             android:label="Database CRH"
@@ -529,6 +518,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.ProsesPengajuanActivity" />
         </activity>
+
         <activity
             android:name=".Activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -575,17 +565,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.ProfileActivity" />
         </activity>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.dicicilaja.app."
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <activity
             android:name=".Activity.ProfileCustomerActivity"
             android:label="Akun Saya"
@@ -602,6 +581,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
+
         <activity
             android:name=".Activity.AllProductActivity"
             android:label="Semua Produk"
@@ -610,6 +590,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
+
         <activity
             android:name=".Activity.AllProductRecommendationActivity"
             android:label="Semua Rekomendasi"
@@ -687,7 +668,7 @@
             android:name=".Activity.Addon.UpgradeActivity"
             android:label="Update Aplikasi dicicilaja"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Addon.CompletePhoneEmailActivity"></activity>
+        <activity android:name=".Activity.Addon.CompletePhoneEmailActivity" />
         <activity
             android:name=".BusinessReward.ui.DetailProduct.activity.DetailProductActivity"
             android:label="Detail Produk"
@@ -706,8 +687,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity"
             android:label="Detail Penukaran"
@@ -792,6 +772,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
         </activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher_round" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.dicicilaja.app."
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

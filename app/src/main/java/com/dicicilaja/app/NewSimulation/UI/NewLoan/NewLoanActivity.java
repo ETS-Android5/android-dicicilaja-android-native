@@ -192,6 +192,7 @@ public class NewLoanActivity extends AppCompatActivity {
                     Log.d("TAGTAG", "area_id: " + area_id);
                     Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                     Log.d("TAGTAG", "tipe_asuransi_id: " + tipe_asuransi_id);
+                    Log.d("TAGTAG", "tipe_angsuran_id: " + tipe_angsuran_id);
                     Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
 
                     Call<HitungSimulasi> call = apiService.hitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
@@ -208,7 +209,12 @@ public class NewLoanActivity extends AppCompatActivity {
                                     text_total_prefix = response.body().getData().getAttributes().getHasilSimulasi().getDanaDiterimaPrefix();
                                     text_tenor = String.valueOf(response.body().getData().getAttributes().getInformasiJaminan().getTenor());
                                     text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
-                                    text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                    int tenor_addm = Integer.parseInt(response.body().getData().getAttributes().getInformasiJaminan().getTenor())-1;
+                                    if (tipe_angsuran_id.equals("1")) {
+                                        text_tenor_angsuran = "x " + response.body().getData().getAttributes().getInformasiJaminan().getTenor() + " Bulan";
+                                    } else if (tipe_angsuran_id.equals("2")) {
+                                        text_tenor_angsuran = "x " + tenor_addm + " Bulan";
+                                    }
                                     text_colleteral = response.body().getData().getAttributes().getInformasiJaminan().getKendaraan();
                                     text_merk = response.body().getData().getAttributes().getInformasiJaminan().getMerkKendaraan();
                                     text_type = response.body().getData().getAttributes().getInformasiJaminan().getTypeKendaraan();
@@ -256,6 +262,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                 intent.putExtra("text_angsuran_baru", text_angsuran_baru);
                                 intent.putExtra("text_area", text_area);
                                 intent.putExtra("area_id", area_id);
+                                intent.putExtra("tipe_angsuran_id", tipe_angsuran_id);
                                 intent.putExtra("value_tipe_angsuran_id", value_tipe_angsuran_id);
                                 startActivity(intent);
                             } else {

@@ -241,4 +241,5 @@
     <string name="rp_string">Rp</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP. Untuk mengurangi nilai pajak barang, segera upload file.]]></string>
+    <string name="data_and_informasi">Data &amp; Informasi</string>
 </resources>

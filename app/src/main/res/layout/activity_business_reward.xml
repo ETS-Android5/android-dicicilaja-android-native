@@ -127,7 +127,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/open_sans"
                                 android:textSize="12sp"
-                                android:text="Batas waktu klaim reward sampai 31 Agustus 2019"
+                                android:text="Batas waktu klaim reward sampai 31 September 2019"
                                 android:layout_marginLeft="4dp"/>
                         </LinearLayout>
                     </LinearLayout>

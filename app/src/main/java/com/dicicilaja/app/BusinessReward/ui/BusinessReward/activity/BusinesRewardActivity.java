@@ -115,7 +115,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
         session = new SessionManager(getBaseContext());
         try {
             final_point = getIntent().getStringExtra("POINT_REWARD");
-            Log.d("POINTGOBLOG", final_point);
             String imageUrl = session.getPhoto();
             Picasso.get()
                     .load(imageUrl)

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class  ApiClient2 {
 
-    public static final String BASE_URL = "http://103.233.103.23:82/api/";
+    public static final String BASE_URL = "https://apiarea.dicicilaja.com/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
