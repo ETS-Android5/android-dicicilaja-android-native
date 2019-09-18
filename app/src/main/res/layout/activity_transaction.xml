@@ -60,32 +60,36 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/warn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="gone"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="300dp"
-            android:paddingTop="50dp"
-            android:paddingRight="50dp"
-            android:paddingLeft="50dp"
-            android:src="@drawable/bg_not_open_program"/>
-
-        <TextView
-            android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kamu belum melakukan\npenukaran poin."
-            android:gravity="center"
-            android:fontFamily="@font/open_sans_semibold"
-            android:padding="@dimen/ib_fr_space_16"
-            android:textSize="16sp"/>
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_undraw_empty">
 
-    </LinearLayout>
+            </ImageView>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/open_sans"
+                android:text="Kamu belum melakukan\npenukaran poin.">
+
+            </TextView>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

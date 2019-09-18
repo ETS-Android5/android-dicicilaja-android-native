@@ -3,7 +3,6 @@ package com.dicicilaja.app.BusinessReward.ui.Transaction.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,8 +49,6 @@ public class TransactionActivity extends AppCompatActivity {
     TransaksiAdapter adapter;
     @BindView(R.id.dataTrans)
     LinearLayout dataTrans;
-    @BindView(R.id.warn)
-    LinearLayout warn;
     @BindView(R.id.fabScrollTop)
     FloatingActionButton fabScrollTop;
 
@@ -68,6 +66,8 @@ public class TransactionActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeToRefresh;
 
     String id;
+    @BindView(R.id.warn)
+    RelativeLayout warn;
 
     @SuppressLint("WrongConstant")
     protected void onCreate(Bundle savedInstanceState) {

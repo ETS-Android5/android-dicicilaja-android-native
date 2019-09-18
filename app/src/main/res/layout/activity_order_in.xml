@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".OrderIn.UI.OrderInActivity">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:background="?attr/colorAccent"-->
-<!--            app:titleTextColor="@color/colorWhite">-->
-<!--        </androidx.appcompat.widget.Toolbar>-->
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -118,7 +119,6 @@
                                 android:layout_centerHorizontal="true"
                                 android:inputType="number"
                                 android:imeOptions="actionNext"
-                                android:maxLength="16"
                                 android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
                                 android:nextFocusDown="@+id/jumlah_pinjaman"
@@ -141,17 +141,15 @@
                             app:hintEnabled="true">
 
                             <EditText
-                                android:id="@+id/et_jumlaj_pinjaman"
+                                android:id="@+id/et_jumlah_pinjaman"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Jumlah Pinjaman"
                                 android:layout_centerHorizontal="true"
                                 android:inputType="number"
-                                android:imeOptions="actionNext"
-                                android:maxLength="16"
+                                android:imeOptions="actionDone"
                                 android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/jumlah_pinjaman"
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="@color/new_text_black"
@@ -185,7 +183,10 @@
                         <RelativeLayout
                             android:id="@+id/btn_data_calon_peminjam"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:contextClickable="true">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -250,7 +251,10 @@
                         <RelativeLayout
                             android:id="@+id/btn_informasi_jaminan"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:contextClickable="true">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -315,7 +319,10 @@
                         <RelativeLayout
                             android:id="@+id/btn_informasi_pinjaman"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:contextClickable="true">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -402,7 +409,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/upload_layout"
-                                android:padding="10dp">
+                                android:padding="10dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:contextClickable="true">
 
                                 <LinearLayout
                                     android:layout_centerInParent="true"
@@ -430,7 +440,10 @@
                                 android:id="@+id/view_upload_ktp"
                                 android:visibility="gone"
                                 android:layout_width="match_parent"
-                                android:layout_margin="16dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginRight="25dp"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="16dp"
                                 android:layout_height="wrap_content">
 
                                 <RelativeLayout
@@ -442,8 +455,9 @@
                                     <TextView
                                         android:id="@+id/change_ktp"
                                         android:layout_centerHorizontal="true"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:textAlignment="textStart"
                                         android:fontFamily="@font/open_sans_semibold"
                                         android:textColor="#066AB2"
                                         android:text="Ganti Foto KTP"/>
@@ -452,7 +466,6 @@
                                 <ImageView
                                     android:id="@+id/image_ktp"
                                     android:layout_width="100dp"
-                                    android:layout_marginRight="5dp"
                                     android:scaleType="centerCrop"
                                     android:layout_centerVertical="true"
                                     android:layout_height="60dp"
@@ -479,7 +492,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginBottom="18dp"
                                 android:background="@drawable/upload_layout"
-                                android:padding="10dp">
+                                android:padding="10dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:contextClickable="true">
 
                                 <LinearLayout
                                     android:layout_centerInParent="true"
@@ -507,7 +523,10 @@
                                 android:id="@+id/view_upload_bpkb"
                                 android:visibility="gone"
                                 android:layout_width="match_parent"
-                                android:layout_margin="16dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginRight="25dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="18dp"
                                 android:layout_height="wrap_content">
 
                                 <RelativeLayout
@@ -519,8 +538,9 @@
                                     <TextView
                                         android:id="@+id/change_bpkb"
                                         android:layout_centerHorizontal="true"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:textAlignment="textStart"
                                         android:fontFamily="@font/open_sans_semibold"
                                         android:textColor="#066AB2"
                                         android:text="Ganti Foto BPKB"/>
@@ -529,7 +549,6 @@
                                 <ImageView
                                     android:id="@+id/image_bpkb"
                                     android:layout_width="100dp"
-                                    android:layout_marginRight="5dp"
                                     android:scaleType="centerCrop"
                                     android:layout_centerVertical="true"
                                     android:layout_height="60dp"
@@ -574,12 +593,11 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Plat Nomor Kendaraan"
                                 android:layout_centerHorizontal="true"
-                                android:inputType="number"
+                                android:inputType="textCapCharacters"
                                 android:imeOptions="actionNext"
-                                android:maxLength="16"
                                 android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/jumlah_pinjaman"
+                                android:nextFocusDown="@+id/et_voucher"
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="@color/new_text_black"
@@ -604,12 +622,10 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Voucher Code"
                                 android:layout_centerHorizontal="true"
-                                android:inputType="number"
-                                android:imeOptions="actionNext"
-                                android:maxLength="16"
+                                android:inputType="textCapCharacters"
+                                android:imeOptions="actionDone"
                                 android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/jumlah_pinjaman"
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="@color/new_text_black"
@@ -620,6 +636,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
                             android:src="@drawable/border_1dp"/>
                     </LinearLayout>
 
@@ -642,6 +659,7 @@
                         android:orientation="horizontal">
 
                         <CheckBox
+                            android:id="@+id/cb_confirm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
@@ -655,7 +673,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/upload"
+                    android:id="@+id/next"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginBottom="16dp"
@@ -669,15 +687,16 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-<!--        <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
-<!--            android:id="@+id/progressBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:indeterminate="true"-->
-<!--            app:mpb_progressStyle="horizontal"-->
-<!--            app:mpb_useIntrinsicPadding="false"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            app:mpb_showProgressBackground="false"-->
-<!--            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />-->
+        
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
     </RelativeLayout>
 </LinearLayout>

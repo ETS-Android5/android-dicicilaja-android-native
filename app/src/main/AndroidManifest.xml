@@ -13,16 +13,29 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderIn.UI.OrderInActivity">
+        <activity android:name=".OrderIn.UI.PengajuanSuksesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OrderIn.UI.InformasiPinjamanActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".OrderIn.UI.InformasiJaminanActivity" />
+        <activity android:name=".BusinessReward.ui.BusinessReward.activity.AvailableBRActivity" />
+        <activity
+            android:name=".OrderIn.UI.DataCalonPeminjamActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".OrderIn.UI.OrderInActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+
+        </activity>
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
-        <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity"></activity>
+        <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.CityBranchOffice.Activity.CityBranchOfficeActivity" />
         <activity android:name=".NewSimulation.UI.BantuanNewSimulation.TipeAsuransiActivity" />
         <activity android:name=".NewSimulation.UI.BantuanNewSimulation.JenisAngsuranActivity" />
@@ -35,9 +48,7 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
@@ -501,7 +512,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.DetailRequestActivity" />
         </activity>
-
         <activity
             android:name=".Activity.DatabaseCRH"
             android:label="Database CRH"
@@ -518,7 +528,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.ProsesPengajuanActivity" />
         </activity>
-
         <activity
             android:name=".Activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -581,7 +590,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
-
         <activity
             android:name=".Activity.AllProductActivity"
             android:label="Semua Produk"
@@ -590,7 +598,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
-
         <activity
             android:name=".Activity.AllProductRecommendationActivity"
             android:label="Semua Rekomendasi"
@@ -687,7 +694,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BusinessReward.ui.RedeemConfirm.RedeemConfirmation2Activity"
             android:label="Detail Penukaran"
@@ -772,12 +779,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
         </activity>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher_round" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.dicicilaja.app."
@@ -788,9 +797,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
