@@ -508,6 +508,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
                 break;
             case R.id.next:
+                intent = new Intent(getBaseContext(), KantorCabangActivity.class);
+                startActivity(intent);
                 break;
         }
     }

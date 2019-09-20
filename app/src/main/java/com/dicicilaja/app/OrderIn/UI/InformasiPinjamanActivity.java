@@ -83,7 +83,7 @@ public class InformasiPinjamanActivity extends AppCompatActivity {
     private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Informasi Jaminan");
+        getSupportActionBar().setTitle("Informasi Pinjaman");
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();

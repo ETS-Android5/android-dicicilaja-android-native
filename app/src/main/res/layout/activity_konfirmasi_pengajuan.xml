@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:paddingBottom="70dp"
+                    android:background="@color/colorPrimary">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Program Cicilan"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/open_sans_semibold"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/icon_help1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:padding="10dp"
+                                android:layout_marginLeft="20dp">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_support" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_toLeftOf="@id/icon_help1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16sp"
+                                    android:layout_centerVertical="true"
+                                    android:text="Pembiayaan Dana Multiguna"
+                                    android:textColor="@color/colorAccentDark2"
+                                    android:fontFamily="@font/open_sans_bold"/>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/border_1dp"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jumlah Pinjaman"
+                            android:textSize="13sp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/open_sans_semibold"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/angsuran"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="Rp98.000.000"
+                                android:textColor="@color/colorAccentDark2"
+                                android:fontFamily="@font/open_sans_bold"/>
+
+                            <TextView
+                                android:id="@+id/tenor_angsuran"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/open_sans"/>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="4dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jumlah Tenor"
+                            android:textSize="13sp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/open_sans_semibold"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="12"
+                                android:textColor="@color/colorAccentDark2"
+                                android:fontFamily="@font/open_sans_bold"/>
+
+                            <TextView
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="Bulan"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/open_sans"/>
+                        </RelativeLayout>
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/border_1dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Data Calon Peminjam"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/open_sans_bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/new_text_black"
+                                android:text="Budi Budiman"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans_semibold"/>
+
+                            <TextView
+                                android:id="@+id/txt_data_calon_pinjaman"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/new_text_black"
+                                android:text="3261276387230912"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/new_text_black"
+                                android:text="Jl. Condong Catur Blok Bumiputera C2, Bumi Putera, Bogor, Jawa Barat 42372"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Informasi Jaminan"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/open_sans_bold"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Jenis Jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="Mobil"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Merk Jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="Honda"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Type Jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="New Crv 2.0 M/T DOHC"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Tahun Kendaraan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="2017"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Plat Nomor"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="F 3127 AG"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Informasi Pinjaman"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/open_sans_bold"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Jenis Angsuran"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="ADDM"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="Type Asuransi"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="Task Lost Only"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layerType="software"
+                                android:src="@drawable/border_dotted_1dp"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="Kantor Cabang"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/open_sans_bold"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/new_text_black"
+                                android:text="Bogor 2 Car - Tajur"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans_semibold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="10sp"
+                                android:textColor="@color/new_text_title"
+                                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="10sp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/new_text_title"
+                                android:text="Bogor . Pakuan"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans_semibold"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/border_top">
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:text="Selanjutnya"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/open_sans_bold"
+                android:layout_centerInParent="true"
+                android:backgroundTint="@color/colorAccentDark2"/>
+        </RelativeLayout>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    </RelativeLayout>
+</LinearLayout>

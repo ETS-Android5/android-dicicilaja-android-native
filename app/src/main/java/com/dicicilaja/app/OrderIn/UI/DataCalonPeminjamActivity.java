@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.OrderIn.Data.Area;
 import com.dicicilaja.app.OrderIn.Network.ApiClient;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
 import com.dicicilaja.app.R;
@@ -31,6 +33,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DataCalonPeminjamActivity extends AppCompatActivity {
 
@@ -63,7 +68,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     @BindView(R.id.save)
     Button save;
 
-    ApiService apiService;
+    ApiService apiServiceArea;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
@@ -78,7 +83,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
         initToolbar();
         initAction();
-//        initLoadData();
+        initLoadData();
     }
 
     private void initToolbar() {
@@ -103,7 +108,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         clearKota();
 
         //Network
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiServiceArea = ApiClient.getArea().create(ApiService.class);
     }
 
     private void clearProvinsi() {
@@ -130,148 +135,79 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKota.setPositiveButton("OK");
     }
 
-//    private void initLoadData() {
-//        initAction();
-//        progressBar.setVisibility(View.VISIBLE);
-//        Call<AreaBranchOffice> call = apiService.getArea();
-//        call.enqueue(new Callback<AreaBranchOffice>() {
-//            @Override
-//            public void onResponse(Call<AreaBranchOffice> call, Response<AreaBranchOffice> response) {
-//                if (response.isSuccessful()) {
-//                    try {
-//                        dataItems = response.body().getData();
-//                        if (dataItems.size() > 0) {
-//                            recyclerArea.setAdapter(new AreaBranchOfficeAdapter(dataItems, getBaseContext()));
-//                            recyclerArea.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerArea, new ClickListener() {
-//                                @Override
-//                                public void onClick(View view, final int position) {
-//                                    Intent intent = new Intent(getBaseContext(), CityBranchOfficeActivity.class);
-//                                    intent.putExtra("area", dataItems.get(position).getAttributes().getRegion());
-//                                    startActivity(intent);
-//                                }
-//
-//                                @Override
-//                                public void onLongClick(View view, int position) {
-//                                }
-//                            }));
-//                            progressBar.setVisibility(View.GONE);
-//                        } else {
-//                            progressBar.setVisibility(View.GONE);
-//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AreaBranchOfficeActivity.this);
-//                            alertDialog.setTitle("Perhatian");
-//                            alertDialog.setMessage("Data area belum tersedia, silahkan coba beberapa saat lagi.");
-//
-//                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                    startActivity(getIntent());
-//                                }
-//                            });
-//                            alertDialog.show();
-//                        }
-//                    } catch (Exception ex) { }
-//                } else {
-//                    progressBar.setVisibility(View.GONE);
-//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(AreaBranchOfficeActivity.this);
-//                    alertDialog.setTitle("Perhatian");
-//                    alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
-//
-//                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            finish();
-//                            startActivity(getIntent());
-//                        }
-//                    });
-//                    alertDialog.show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AreaBranchOffice> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AreaBranchOfficeActivity.this);
-//                alertDialog.setTitle("Perhatian");
-//                alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
-//
-//                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                        startActivity(getIntent());
-//                    }
-//                });
-//                alertDialog.show();
-//            }
-//        });
-//
-//
-//        Call<AreaSimulasi> areaSimulasiCall = apiService2.getAreaSimulasi(true);
-//        areaSimulasiCall.enqueue(new Callback<AreaSimulasi>() {
-//            @Override
-//            public void onResponse(Call<AreaSimulasi> call, Response<AreaSimulasi> response) {
-//                if (response.isSuccessful()) {
-//                    try {
-//                        if (response.body().getData().size() > 0) {
-//                            for (int i = 0; i < response.body().getData().size(); i++) {
-//                                AREA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-//                                AREA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-//                            }
-//                            progressBar0.setVisibility(View.GONE);
-//                        } else {
-//                            clearArea();
-//                            progressBar0.setVisibility(View.GONE);
-//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-//                            alertDialog.setTitle("Perhatian");
-//                            alertDialog.setMessage("Data area belum tersedia, silahkan coba beberapa saat lagi.");
-//
-//                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                    startActivity(getIntent());
-//                                }
-//                            });
-//                            alertDialog.show();
-//                        }
-//                    } catch (Exception ex) { }
-//
-//                    ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-//                    area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinnerArea.setAdapter(area_adapter);
-//                    spinnerArea.setTitle("");
-//                    spinnerArea.setPositiveButton("OK");
-//                } else {
-//                    clearArea();
-//                    progressBar0.setVisibility(View.GONE);
-//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-//                    alertDialog.setTitle("Perhatian");
-//                    alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
-//
-//                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            finish();
-//                            startActivity(getIntent());
-//                        }
-//                    });
-//                    alertDialog.show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AreaSimulasi> call, Throwable t) {
-//                progressBar0.setVisibility(View.GONE);
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
-//                alertDialog.setTitle("Perhatian");
-//                alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
-//
-//                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                        startActivity(getIntent());
-//                    }
-//                });
-//                alertDialog.show();
-//            }
-//        });
-//    }
+    private void initLoadData() {
+        initAction();
+        progressBar.setVisibility(View.VISIBLE);
+        Call<Area> call = apiServiceArea.getArea();
+        call.enqueue(new Callback<Area>() {
+            @Override
+            public void onResponse(Call<Area> call, Response<Area> response) {
+                Log.d("DATACALON", "code: " + response.code());
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().getData().size() > 0) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                PROVINSI_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                Log.d("DATACALON", String.valueOf(response.body().getData().get(i).getId()));
+//                                PROVINSI_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            clearProvinsi();
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data area belum tersedia, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    } catch (Exception ex) { }
+
+                    ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
+                    area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerProvinsi.setAdapter(area_adapter);
+                    spinnerProvinsi.setTitle("");
+                    spinnerProvinsi.setPositiveButton("OK");
+                } else {
+                    clearProvinsi();
+                    progressBar.setVisibility(View.GONE);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Area> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Data area gagal dipanggillll, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
