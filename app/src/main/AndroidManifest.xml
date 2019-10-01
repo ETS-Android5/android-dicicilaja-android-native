@@ -13,7 +13,9 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity"></activity>
+        <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity">
+
+        </activity>
         <activity
             android:name=".OrderIn.UI.KantorCabangActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"></activity>
@@ -801,9 +803,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

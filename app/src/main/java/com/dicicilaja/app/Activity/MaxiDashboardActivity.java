@@ -361,7 +361,6 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                     DefaultSliderView sliderBannerItem = new DefaultSliderView(MaxiDashboardActivity.this);
                     sliderBannerItem
                             .image(s.getImage())
-                            .description(s.getUrl())
                             .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                             .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                                 @Override

@@ -428,7 +428,6 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                     DefaultSliderView sliderBannerItem = new DefaultSliderView(getContext());
                     sliderBannerItem
                             .image(s.getImage())
-                            .description(s.getUrl())
                             .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                             .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                                 @Override

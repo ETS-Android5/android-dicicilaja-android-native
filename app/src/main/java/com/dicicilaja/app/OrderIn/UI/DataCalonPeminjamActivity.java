@@ -1,15 +1,13 @@
 package com.dicicilaja.app.OrderIn.UI;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +16,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.dicicilaja.app.OrderIn.Data.Area;
-import com.dicicilaja.app.OrderIn.Network.ApiClient;
+import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
+import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
+import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
+import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -55,8 +56,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     TextInputLayout layoutProvinsi;
     @BindView(R.id.layoutKota)
     TextInputLayout layoutKota;
-    @BindView(R.id.et_kecamatan)
-    EditText etKecamatan;
     @BindView(R.id.et_alamat)
     EditText etAlamat;
     @BindView(R.id.et_kode_pos)
@@ -67,13 +66,19 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
     @BindView(R.id.save)
     Button save;
+    @BindView(R.id.spinnerKecamatan)
+    SearchableSpinner spinnerKecamatan;
+    @BindView(R.id.layoutKecamatan)
+    TextInputLayout layoutKecamatan;
 
-    ApiService apiServiceArea;
+    ApiService2 apiServiceArea;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
     final List<String> KOTA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> KOTA_DATA = new HashMap<Integer, String>();
+    final List<String> KECAMATAN_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> KECAMATAN_DATA = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,18 +102,21 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void initAction() {
         //Initialize
         progressBar.setVisibility(View.GONE);
         spinnerKota.setEnabled(false);
+        spinnerKecamatan.setEnabled(false);
 
         clearProvinsi();
         clearKota();
+        clearKecamatan();
 
         //Network
-        apiServiceArea = ApiClient.getArea().create(ApiService.class);
+        apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
     }
 
     private void clearProvinsi() {
@@ -135,21 +143,31 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKota.setPositiveButton("OK");
     }
 
+    private void clearKecamatan() {
+        KECAMATAN_DATA.clear();
+        KECAMATAN_ITEMS.clear();
+        KECAMATAN_DATA.put(0, "0");
+        KECAMATAN_ITEMS.add("Pilih Kecamatan");
+        ArrayAdapter<String> kecamatan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+        kecamatan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKecamatan.setAdapter(kecamatan_adapter);
+        spinnerKecamatan.setTitle("");
+        spinnerKecamatan.setPositiveButton("OK");
+        spinnerKecamatan.setEnabled(false);
+    }
+
     private void initLoadData() {
-        initAction();
         progressBar.setVisibility(View.VISIBLE);
-        Call<Area> call = apiServiceArea.getArea();
-        call.enqueue(new Callback<Area>() {
+        Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
+        call.enqueue(new Callback<Provinsi>() {
             @Override
-            public void onResponse(Call<Area> call, Response<Area> response) {
-                Log.d("DATACALON", "code: " + response.code());
+            public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
                 if (response.isSuccessful()) {
                     try {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 PROVINSI_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                Log.d("DATACALON", String.valueOf(response.body().getData().get(i).getId()));
-//                                PROVINSI_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                PROVINSI_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                             }
                             progressBar.setVisibility(View.GONE);
                         } else {
@@ -157,7 +175,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
                             alertDialog.setTitle("Perhatian");
-                            alertDialog.setMessage("Data area belum tersedia, silahkan coba beberapa saat lagi.");
+                            alertDialog.setMessage("Data provinsi belum tersedia, silahkan coba beberapa saat lagi.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -167,7 +185,8 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    } catch (Exception ex) { }
+                    } catch (Exception ex) {
+                    }
 
                     ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
                     area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -179,7 +198,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
                     alertDialog.setTitle("Perhatian");
-                    alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
+                    alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -192,11 +211,11 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Area> call, Throwable t) {
+            public void onFailure(Call<Provinsi> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Data area gagal dipanggillll, silahkan coba beberapa saat lagi.");
+                alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -205,6 +224,177 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog.show();
+            }
+        });
+
+        spinnerProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                clearKota();
+                clearKecamatan();
+                if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    Call<Kota> call = apiServiceArea.getKota(Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())), 1000);
+                    call.enqueue(new Callback<Kota>() {
+                        @Override
+                        public void onResponse(Call<Kota> call, Response<Kota> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        for (int i = 0; i < response.body().getData().size(); i++) {
+                                            KOTA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                            KOTA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                        }
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        clearKota();
+                                        progressBar.setVisibility(View.GONE);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                } catch (Exception ex) {
+                                }
+
+                                ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+                                brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                spinnerKota.setAdapter(brand_adapter);
+                                spinnerKota.setTitle("");
+                                spinnerKota.setPositiveButton("OK");
+                                spinnerKota.setEnabled(true);
+                            } else {
+                                clearKota();
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Kota> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
+
+                    spinnerKota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            clearKecamatan();
+                            if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
+                                progressBar.setVisibility(View.VISIBLE);
+                                Call<Kecamatan> call = apiServiceArea.getKecamatan(Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())), 1000);
+                                call.enqueue(new Callback<Kecamatan>() {
+                                    @Override
+                                    public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
+                                        if (response.isSuccessful()) {
+                                            try {
+                                                if (response.body().getData().size() > 0) {
+                                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                                        KECAMATAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                                        KECAMATAN_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                                    }
+                                                    progressBar.setVisibility(View.GONE);
+                                                } else {
+                                                    clearKota();
+                                                    progressBar.setVisibility(View.GONE);
+                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                                                    alertDialog.setTitle("Perhatian");
+                                                    alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+                                                    alertDialog.show();
+                                                }
+                                            } catch (Exception ex) {
+                                            }
+
+                                            ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+                                            brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                            spinnerKecamatan.setAdapter(brand_adapter);
+                                            spinnerKecamatan.setTitle("");
+                                            spinnerKecamatan.setPositiveButton("OK");
+                                            spinnerKecamatan.setEnabled(true);
+                                        } else {
+                                            clearKota();
+                                            progressBar.setVisibility(View.GONE);
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                                            alertDialog.setTitle("Perhatian");
+                                            alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Kecamatan> call, Throwable t) {
+                                        progressBar.setVisibility(View.GONE);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }

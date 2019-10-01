@@ -25,6 +25,7 @@ import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
@@ -427,7 +428,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     DefaultSliderView sliderBannerItem = new DefaultSliderView(AxiDashboardActivity.this);
                     sliderBannerItem
                             .image(s.getImage())
-                            .description(s.getUrl())
                             .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                             .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                                 @Override
@@ -449,12 +449,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
 
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-//        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
+//        mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
 //        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
         mDemoSlider.setDuration(4000);
 //        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-        //mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
 
     private void doLoadData() {

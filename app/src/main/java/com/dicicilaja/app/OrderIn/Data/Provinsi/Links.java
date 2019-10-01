@@ -1,4 +1,4 @@
-package com.dicicilaja.app.OrderIn.Data;
+package com.dicicilaja.app.OrderIn.Data.Provinsi;
 
 import com.google.gson.annotations.SerializedName;
 

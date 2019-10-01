@@ -1,19 +1,19 @@
-package com.dicicilaja.app.OrderIn.Data;
+package com.dicicilaja.app.OrderIn.Data.AreaSimulasi;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Page{
+public class Meta{
 
-	@SerializedName("per-page")
+	@SerializedName("path")
+	private String path;
+
+	@SerializedName("per_page")
 	private int perPage;
 
 	@SerializedName("total")
 	private int total;
 
-	@SerializedName("current-page")
-	private int currentPage;
-
-	@SerializedName("last-page")
+	@SerializedName("last_page")
 	private int lastPage;
 
 	@SerializedName("from")
@@ -21,6 +21,17 @@ public class Page{
 
 	@SerializedName("to")
 	private int to;
+
+	@SerializedName("current_page")
+	private int currentPage;
+
+	public void setPath(String path){
+		this.path = path;
+	}
+
+	public String getPath(){
+		return path;
+	}
 
 	public void setPerPage(int perPage){
 		this.perPage = perPage;
@@ -36,14 +47,6 @@ public class Page{
 
 	public int getTotal(){
 		return total;
-	}
-
-	public void setCurrentPage(int currentPage){
-		this.currentPage = currentPage;
-	}
-
-	public int getCurrentPage(){
-		return currentPage;
 	}
 
 	public void setLastPage(int lastPage){
@@ -68,5 +71,13 @@ public class Page{
 
 	public int getTo(){
 		return to;
+	}
+
+	public void setCurrentPage(int currentPage){
+		this.currentPage = currentPage;
+	}
+
+	public int getCurrentPage(){
+		return currentPage;
 	}
 }

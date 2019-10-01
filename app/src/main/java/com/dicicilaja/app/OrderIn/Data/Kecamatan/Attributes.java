@@ -1,4 +1,4 @@
-package com.dicicilaja.app.OrderIn.Data;
+package com.dicicilaja.app.OrderIn.Data.Kecamatan;
 
 import com.google.gson.annotations.SerializedName;
 

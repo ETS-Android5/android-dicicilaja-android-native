@@ -1,4 +1,4 @@
-package com.dicicilaja.app.OrderIn.Data;
+package com.dicicilaja.app.OrderIn.Data.ObjekModel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -11,7 +11,7 @@ public class DataItem{
 	private Links links;
 
 	@SerializedName("id")
-	private String id;
+	private int id;
 
 	@SerializedName("type")
 	private String type;
@@ -32,11 +32,11 @@ public class DataItem{
 		return links;
 	}
 
-	public void setId(String id){
+	public void setId(int id){
 		this.id = id;
 	}
 
-	public String getId(){
+	public int getId(){
 		return id;
 	}
 

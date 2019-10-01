@@ -228,26 +228,26 @@
                             android:src="@drawable/border_1dp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutKecamatan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             app:hintEnabled="true">
 
-                            <EditText
-                                android:id="@+id/et_kecamatan"
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Kecamatan"
-                                android:layout_centerHorizontal="true"
-                                android:inputType="textPersonName|textCapWords"
-                                android:imeOptions="actionNext"
-                                android:paddingTop="10dp"
-                                android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/et_alamat"
-                                android:layout_marginTop="25dp"
+                                android:text="Kecamatan"
                                 android:fontFamily="@font/open_sans"
-                                android:textColor="@color/new_text_black"
-                                android:textSize="15sp"/>
+                                android:textColor="#FFB8B8B8"
+                                android:layout_marginTop="20dp"
+                                android:textSize="12sp"/>
+
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/spinnerKecamatan"
+                                android:layout_width="match_parent"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_height="40dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView

@@ -75,12 +75,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     ImageView chev1;
     @BindView(R.id.btn_informasi_jaminan)
     RelativeLayout btnInformasiJaminan;
-    @BindView(R.id.txt_informasi_pinjaman)
-    TextView txtInformasiPinjaman;
-    @BindView(R.id.chev3)
-    ImageView chev3;
-    @BindView(R.id.btn_informasi_pinjaman)
-    RelativeLayout btnInformasiPinjaman;
     @BindView(R.id.btn_upload_ktp)
     RelativeLayout btnUploadKtp;
     @BindView(R.id.change_ktp)
@@ -180,6 +174,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void initAction() {
@@ -471,7 +466,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         }
     }
 
-    @OnClick({R.id.btn_data_calon_peminjam, R.id.btn_informasi_jaminan, R.id.btn_informasi_pinjaman, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
+    @OnClick({R.id.btn_data_calon_peminjam, R.id.btn_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -481,10 +476,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 break;
             case R.id.btn_informasi_jaminan:
                 intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_informasi_pinjaman:
-                intent = new Intent(getBaseContext(), InformasiPinjamanActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
