@@ -34,6 +34,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
+import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Utils.Helper;
@@ -52,6 +57,9 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import pub.devrel.easypermissions.EasyPermissions;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderInActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -91,8 +99,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     ImageView imageBpkb;
     @BindView(R.id.view_upload_bpkb)
     RelativeLayout viewUploadBpkb;
-    @BindView(R.id.jumlah_pinjaman)
-    EditText jumlahPinjaman;
     @BindView(R.id.et_voucher)
     EditText etVoucher;
     @BindView(R.id.cb_confirm)
@@ -104,6 +110,26 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     Intent intent;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
+    @BindView(R.id.cari_axi)
+    Button cariAxi;
+    @BindView(R.id.axi_available)
+    TextView axiAvailable;
+    @BindView(R.id.axi_not_available)
+    TextView axiNotAvailable;
+    @BindView(R.id.cari_plat_nomor)
+    Button cariPlatNomor;
+    @BindView(R.id.et_plat_nomor)
+    EditText etPlatNomor;
+    @BindView(R.id.plat_nomor_available)
+    TextView platNomorAvailable;
+    @BindView(R.id.plat_nomor_not_available)
+    TextView platNomorNotAvailable;
+    @BindView(R.id.cari_voucher)
+    Button cariVoucher;
+    @BindView(R.id.voucher_available)
+    TextView voucherAvailable;
+    @BindView(R.id.voucher_not_available)
+    TextView voucherNotAvailable;
 
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -117,6 +143,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
     String fKtp, fBpkb, axiId;
     SessionManager session;
+
+    ApiService3 apiService3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +212,26 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         fBpkb = "0";
         session = new SessionManager(getBaseContext());
         axiId = session.getAxiId();
+
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
+        clearVoucher();
+        clearPlatNomor();
+        clearAxi();
+    }
+
+    private void clearVoucher() {
+        voucherAvailable.setVisibility(View.GONE);
+        voucherNotAvailable.setVisibility(View.GONE);
+    }
+
+    private void clearPlatNomor() {
+        platNomorAvailable.setVisibility(View.GONE);
+        platNomorNotAvailable.setVisibility(View.GONE);
+    }
+
+    private void clearAxi() {
+        axiAvailable.setVisibility(View.GONE);
+        axiNotAvailable.setVisibility(View.GONE);
     }
 
     @Override
@@ -466,7 +514,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         }
     }
 
-    @OnClick({R.id.btn_data_calon_peminjam, R.id.btn_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
+    @OnClick({R.id.cari_axi, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.btn_data_calon_peminjam, R.id.btn_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -501,6 +549,168 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             case R.id.next:
                 intent = new Intent(getBaseContext(), KantorCabangActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.cari_axi:
+                progressBar.setVisibility(View.VISIBLE);
+                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
+                axiReff.enqueue(new Callback<Axi>() {
+                    @Override
+                    public void onResponse(Call<Axi> call, Response<Axi> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    clearAxi();
+                                    progressBar.setVisibility(View.GONE);
+                                    axiAvailable.setVisibility(View.VISIBLE);
+                                    axiAvailable.setText(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                } else {
+                                    clearAxi();
+                                    progressBar.setVisibility(View.GONE);
+                                    axiNotAvailable.setVisibility(View.VISIBLE);
+
+                                }
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Axi> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
+                break;
+            case R.id.cari_plat_nomor:
+                progressBar.setVisibility(View.VISIBLE);
+                Call<PlatNomor> platNomor = apiService3.getPlatNomor(etPlatNomor.getText().toString());
+                platNomor.enqueue(new Callback<PlatNomor>() {
+                    @Override
+                    public void onResponse(Call<PlatNomor> call, Response<PlatNomor> response) {
+
+                        if (response.isSuccessful()) {
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    clearPlatNomor();
+                                    progressBar.setVisibility(View.GONE);
+                                    platNomorNotAvailable.setVisibility(View.VISIBLE);
+                                } else {
+                                    clearPlatNomor();
+                                    progressBar.setVisibility(View.GONE);
+                                    platNomorAvailable.setVisibility(View.VISIBLE);
+
+                                }
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PlatNomor> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
+                break;
+            case R.id.cari_voucher:
+                progressBar.setVisibility(View.VISIBLE);
+                Call<VoucherCode> voucherCode = apiService3.getVoucherCode(etVoucher.getText().toString());
+                voucherCode.enqueue(new Callback<VoucherCode>() {
+                    @Override
+                    public void onResponse(Call<VoucherCode> call, Response<VoucherCode> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    clearVoucher();
+                                    progressBar.setVisibility(View.GONE);
+                                    voucherAvailable.setVisibility(View.VISIBLE);
+                                    voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
+                                } else {
+                                    clearVoucher();
+                                    progressBar.setVisibility(View.GONE);
+                                    voucherNotAvailable.setVisibility(View.VISIBLE);
+
+                                }
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<VoucherCode> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
                 break;
         }
     }

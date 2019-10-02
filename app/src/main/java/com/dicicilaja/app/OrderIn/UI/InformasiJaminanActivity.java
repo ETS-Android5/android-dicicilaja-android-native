@@ -1,6 +1,7 @@
 package com.dicicilaja.app.OrderIn.UI;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -263,7 +264,11 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 clearBrand();
                 clearType();
                 if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) > 0) {
-                    progressBar.setVisibility(View.VISIBLE);
+                    if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) == 1) {
+                        tipe_objek_id = "1";
+                    } else {
+                        tipe_objek_id = "2";
+                    }
                     Call<AreaSimulasi> areaSimulasiCall = apiService2.getAreaSimulasi(true);
                     areaSimulasiCall.enqueue(new Callback<AreaSimulasi>() {
                         @Override
@@ -340,7 +345,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             clearType();
                             if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<ObjekBrand> objekBrandCall = apiService2.getObjekBrand(Integer.parseInt(tipe_objek_id));
+                                Log.d("DASH::", "onItemSelected: " + Integer.parseInt(tipe_objek_id));
+                                Call<ObjekBrand> objekBrandCall = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
                                 objekBrandCall.enqueue(new Callback<ObjekBrand>() {
                                     @Override
                                     public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
@@ -417,7 +423,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                         clearType();
                                         if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<ObjekModel> objekModelCall = apiService2.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
+                                            Call<ObjekModel> objekModelCall = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
                                             objekModelCall.enqueue(new Callback<ObjekModel>() {
                                                 @Override
                                                 public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
@@ -534,15 +540,29 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
     @OnClick(R.id.save)
     public void onViewClicked() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
-        alertDialog.setTitle("Perhatian");
-        alertDialog.setMessage("Apakah data yang Anda pilih sudah benar?");
+        if (tipe_objek_id.equals("1")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Apakah data yang Anda pilih sudah benar?");
 
-        alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        alertDialog.show();
+            alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getBaseContext(), InformasiPinjamanActivity.class);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.show();
+        } else if (tipe_objek_id.equals("2")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Apakah data yang Anda pilih sudah benar?");
+
+            alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            alertDialog.show();
+        }
     }
 }
