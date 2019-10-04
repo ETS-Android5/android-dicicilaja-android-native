@@ -13,12 +13,10 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity">
-
-        </activity>
+        <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity"></activity>
         <activity
             android:name=".OrderIn.UI.KantorCabangActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".OrderIn.UI.PengajuanSuksesActivity" />
         <activity
             android:name=".OrderIn.UI.InformasiPinjamanActivity"
@@ -30,9 +28,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
@@ -803,9 +799,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
