@@ -1,4 +1,4 @@
-package com.dicicilaja.app.OrderIn.UI;
+package com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,17 +8,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
-import com.dicicilaja.app.OrderIn.Network.ApiClient;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
-import com.dicicilaja.app.OrderIn.Network.ApiService;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
 import com.dicicilaja.app.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +40,21 @@ public class KantorCabangActivity extends AppCompatActivity {
     Button save;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
+    @BindView(R.id.card_rekomendasi)
+    LinearLayout cardRekomendasi;
+    @BindView(R.id.card_terdekat)
+    LinearLayout cardTerdekat;
+    @BindView(R.id.card_lainnya)
+    LinearLayout cardLainnya;
+    @BindView(R.id.recycler_rekomendasi)
+    RecyclerView recyclerRekomendasi;
+    @BindView(R.id.recycler_terdekat)
+    RecyclerView recyclerTerdekat;
+    @BindView(R.id.recycler_lainnya)
+    RecyclerView recyclerLainnya;
 
     ApiService2 apiService;
+    List<DataItem> cabangRekomendasiList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,23 +87,49 @@ public class KantorCabangActivity extends AppCompatActivity {
 
         //Network
         apiService = ApiClient2.getClient().create(ApiService2.class);
+
+        hideRekomendasi();
+        hideTerdekat();
+        hideLainnya();
     }
+
+    private void hideRekomendasi() {
+        cardRekomendasi.setVisibility(View.GONE);
+    }
+
+    private void hideTerdekat() {
+        cardTerdekat.setVisibility(View.GONE);
+    }
+
+    private void hideLainnya() {
+        cardLainnya.setVisibility(View.GONE);
+    }
+
+    private void showRekomendasi() {
+        cardRekomendasi.setVisibility(View.VISIBLE);
+    }
+
+    private void showTerdekat() {
+        cardTerdekat.setVisibility(View.VISIBLE);
+    }
+
+    private void showLainnya() {
+        cardLainnya.setVisibility(View.VISIBLE);
+    }
+
 
     public void initLoadData() {
         Call<CabangRekomendasi> call = apiService.getCabangRekomendasi(10);
         call.enqueue(new Callback<CabangRekomendasi>() {
             @Override
             public void onResponse(Call<CabangRekomendasi> call, Response<CabangRekomendasi> response) {
-                if ( response.isSuccessful() ) {
-                    notifs = response.body().getData();
-                    if(notifs.size() == 0){
-                        recyclerView.setVisibility(View.GONE);
-                        order.setVisibility(View.VISIBLE);
-                    }else{
-                        recyclerView.setVisibility(View.VISIBLE);
-                        order.setVisibility(View.GONE);
-                        recyclerView.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
-
+                if (response.isSuccessful()) {
+                    cabangRekomendasiList = response.body().getData();
+                    if (cabangRekomendasiList.size() == 0) {
+                        hideRekomendasi();
+                    } else {
+                        showRekomendasi();
+                        recyclerRekomendasi.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
 
                         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
                             @Override
@@ -97,7 +138,6 @@ public class KantorCabangActivity extends AppCompatActivity {
                                 intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransaction_id().toString());
                                 intent.putExtra("STATUS", true);
                                 startActivity(intent);
-
                             }
 
                             @Override

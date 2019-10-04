@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderIn.UI.KantorCabangActivity">
+    tools:context=".OrderIn.UI.KantorCabang.Activity.KantorCabangActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -45,191 +45,134 @@
                     android:paddingBottom="70dp"
                     android:background="@color/colorPrimary">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Cabang Rekomendasi"
-                        android:textSize="16dp"
-                        android:fontFamily="@font/open_sans_bold"/>
-
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/card_rekomendasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:paddingTop="18dp"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:background="@drawable/border_form"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="@color/new_text_black"
-                                android:text="Bogor 2 Car - Tajur"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-
-                            <TextView
-                                android:id="@+id/txt_data_calon_pinjaman"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:layout_marginTop="10dp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Bogor . Pakuan"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-                        </LinearLayout>
-                        <RadioButton
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true">
-                        </RadioButton>
-                    </RelativeLayout>
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="Cabang Rekomendasi"
+                            android:textSize="16dp"
+                            android:fontFamily="@font/open_sans_bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="Cabang Terdekat"
-                        android:textSize="16dp"
-                        android:fontFamily="@font/open_sans_bold"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_rekomendasi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:clipToPadding="false"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-                    <RelativeLayout
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:paddingTop="18dp"
+                            android:paddingBottom="16dp"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:background="@drawable/border_form"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="Bogor 2 Car - Tajur"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+
+                                <TextView
+                                    android:id="@+id/txt_data_calon_pinjaman"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/new_text_title"
+                                    android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10sp"
+                                    android:layout_marginTop="10dp"
+                                    android:textColor="@color/new_text_title"
+                                    android:text="Bogor . Pakuan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </LinearLayout>
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true">
+                            </RadioButton>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/card_terdekat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:paddingTop="18dp"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:background="@drawable/border_form"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="@color/new_text_black"
-                                android:text="Bogor 2 Car - Tajur"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:layout_marginTop="10dp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Bogor . Pakuan"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-                        </LinearLayout>
-                        <RadioButton
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true">
-                        </RadioButton>
-                    </RelativeLayout>
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Cabang Terdekat"
+                            android:textSize="16dp"
+                            android:fontFamily="@font/open_sans_bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="Cabang Lainnya"
-                        android:textSize="16dp"
-                        android:fontFamily="@font/open_sans_bold"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_terdekat"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:clipToPadding="false"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/card_lainnya"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:paddingTop="18dp"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:background="@drawable/border_form"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="@color/new_text_black"
-                                android:text="Bogor 2 Car - Tajur"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:layout_marginTop="10dp"
-                                android:textColor="@color/new_text_title"
-                                android:text="Bogor . Pakuan"
-                                android:layout_centerVertical="true"
-                                android:fontFamily="@font/open_sans_semibold"/>
-                        </LinearLayout>
-                        <RadioButton
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true">
-                        </RadioButton>
-                    </RelativeLayout>
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Cabang Lainnya"
+                            android:textSize="16dp"
+                            android:fontFamily="@font/open_sans_bold"/>
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_lainnya"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:clipToPadding="false"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                    </LinearLayout>
 
                 </LinearLayout>
             </RelativeLayout>

@@ -10,8 +10,8 @@ import retrofit2.http.Query;
 
 public interface ApiService3 {
 
-    @GET("transaction/voucher-codes")
-    Call<VoucherCode> getVoucherCode(@Query("filter[code]") String code);
+    @GET("transaction/voucher-codes/search")
+    Call<VoucherCode> getVoucherCode(@Query("code") String code);
 
     @GET("transaction/transactions/check-vehicle-id")
     Call<PlatNomor> getPlatNomor(@Query("vehicle_id") String nomor);

@@ -4,28 +4,28 @@ package com.dicicilaja.app.OrderIn.Data.CabangRekomendasi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Village {
+public class District {
 
     @SerializedName("data")
     @Expose
-    private Data_ data;
+    private Data____ data;
     @SerializedName("links")
     @Expose
-    private Links__ links;
+    private Links________ links;
 
-    public Data_ getData() {
+    public Data____ getData() {
         return data;
     }
 
-    public void setData(Data_ data) {
+    public void setData(Data____ data) {
         this.data = data;
     }
 
-    public Links__ getLinks() {
+    public Links________ getLinks() {
         return links;
     }
 
-    public void setLinks(Links__ links) {
+    public void setLinks(Links________ links) {
         this.links = links;
     }
 

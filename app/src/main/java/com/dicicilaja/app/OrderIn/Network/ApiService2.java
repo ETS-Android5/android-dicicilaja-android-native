@@ -1,7 +1,6 @@
 package com.dicicilaja.app.OrderIn.Network;
 
 import com.dicicilaja.app.OrderIn.Data.CabangLainnya.CabangLainnya;
-import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
 import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
 import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
@@ -30,7 +29,8 @@ public interface ApiService2 {
                                  @Query("page[size]") int size);
 
     @GET("area/branches")
-    Call<CabangRekomendasi> getCabangRekomendasi(@Query("filter[district]") int id);
+    Call<CabangRekomendasi> getCabangRekomendasi(@Query("filter[district]") int id,
+                                                 @Query("include") String param);
 
     @GET("area/branches")
     Call<CabangTerdekat> getCabangTerdekat(@Query("filter[city]") int id);
