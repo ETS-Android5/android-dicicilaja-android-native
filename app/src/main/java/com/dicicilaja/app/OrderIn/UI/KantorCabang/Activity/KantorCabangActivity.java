@@ -1,22 +1,30 @@
 package com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
+import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Datum;
+import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Included;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.RekomendasiAdapter;
 import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
 import com.dicicilaja.app.R;
 
@@ -32,29 +40,28 @@ import retrofit2.Response;
 
 public class KantorCabangActivity extends AppCompatActivity {
 
+    ApiService2 apiService;
+    List<Datum> dataItems;
+    List<Included> dataIncludeds;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.txt_data_calon_pinjaman)
-    TextView txtDataCalonPinjaman;
+    @BindView(R.id.recycler_rekomendasi)
+    RecyclerView recyclerRekomendasi;
+    @BindView(R.id.card_rekomendasi)
+    LinearLayout cardRekomendasi;
+    @BindView(R.id.recycler_terdekat)
+    RecyclerView recyclerTerdekat;
+    @BindView(R.id.card_terdekat)
+    LinearLayout cardTerdekat;
+    @BindView(R.id.recycler_lainnya)
+    RecyclerView recyclerLainnya;
+    @BindView(R.id.card_lainnya)
+    LinearLayout cardLainnya;
     @BindView(R.id.save)
     Button save;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
-    @BindView(R.id.card_rekomendasi)
-    LinearLayout cardRekomendasi;
-    @BindView(R.id.card_terdekat)
-    LinearLayout cardTerdekat;
-    @BindView(R.id.card_lainnya)
-    LinearLayout cardLainnya;
-    @BindView(R.id.recycler_rekomendasi)
-    RecyclerView recyclerRekomendasi;
-    @BindView(R.id.recycler_terdekat)
-    RecyclerView recyclerTerdekat;
-    @BindView(R.id.recycler_lainnya)
-    RecyclerView recyclerLainnya;
-
-    ApiService2 apiService;
-    List<DataItem> cabangRekomendasiList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +92,14 @@ public class KantorCabangActivity extends AppCompatActivity {
         //Initialize
         progressBar.setVisibility(View.GONE);
 
+        recyclerRekomendasi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         //Network
         apiService = ApiClient2.getClient().create(ApiService2.class);
 
-        hideRekomendasi();
-        hideTerdekat();
-        hideLainnya();
+//        hideRekomendasi();
+//        hideLainnya();
+//        hideTerdekat();
+
     }
 
     private void hideRekomendasi() {
@@ -119,41 +128,34 @@ public class KantorCabangActivity extends AppCompatActivity {
 
 
     public void initLoadData() {
-        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi(10);
+        progressBar.setVisibility(View.VISIBLE);
+        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi("3171090", "village.district.city");
         call.enqueue(new Callback<CabangRekomendasi>() {
             @Override
             public void onResponse(Call<CabangRekomendasi> call, Response<CabangRekomendasi> response) {
                 if (response.isSuccessful()) {
-                    cabangRekomendasiList = response.body().getData();
-                    if (cabangRekomendasiList.size() == 0) {
-                        hideRekomendasi();
-                    } else {
-                        showRekomendasi();
-                        recyclerRekomendasi.setAdapter(new NotifAdapter(notifs, R.layout.card_notif, getBaseContext()));
+                    try {
+                        dataItems = response.body().getData();
+                        dataIncludeds = response.body().getIncluded();
+                        if (dataItems.size() > 0) {
+                            showRekomendasi();
+                            recyclerRekomendasi.setAdapter(new RekomendasiAdapter(dataItems, dataIncludeds, getBaseContext()));
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            hideRekomendasi();
+                            progressBar.setVisibility(View.GONE);
+                        }
 
-                        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerView, new ClickListener() {
-                            @Override
-                            public void onClick(View view, final int position) {
-                                Intent intent = new Intent(getBaseContext(), DetailRequestActivity.class);
-                                intent.putExtra("EXTRA_REQUEST_ID", notifs.get(position).getTransaction_id().toString());
-                                intent.putExtra("STATUS", true);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onLongClick(View view, int position) {
-                            }
-                        }));
-                    }
-                    progress.dismiss();
+                    } catch (Exception ex) { }
+                    progressBar.setVisibility(View.GONE);
                 }
-                progress.dismiss();
-
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<CabangRekomendasi> call, Throwable t) {
-                progress.dismiss();
+                progressBar.setVisibility(View.GONE);
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 

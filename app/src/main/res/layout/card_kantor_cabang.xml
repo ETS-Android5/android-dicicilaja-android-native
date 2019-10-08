@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/card_kantor_cabang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:paddingTop="18dp"
         android:paddingBottom="16dp"
         android:paddingLeft="25dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:paddingRight="25dp"
-        android:background="@drawable/border_form"
         android:orientation="vertical">
 
         <LinearLayout
@@ -28,7 +26,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="@color/new_text_black"
-                android:text="Bogor 2 Car - Tajur"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/open_sans_semibold"/>
 
@@ -38,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
                 android:textColor="@color/new_text_title"
-                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/open_sans"/>
 
@@ -49,7 +45,6 @@
                 android:textSize="10sp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/new_text_title"
-                android:text="Bogor . Pakuan"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/open_sans_semibold"/>
         </LinearLayout>
@@ -60,5 +55,10 @@
             android:layout_centerVertical="true">
         </RadioButton>
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@drawable/border_1dp"/>
 
 </LinearLayout>
