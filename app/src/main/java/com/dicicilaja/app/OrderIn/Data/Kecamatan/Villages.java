@@ -1,20 +1,21 @@
 package com.dicicilaja.app.OrderIn.Data.Kecamatan;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Kota{
+public class Villages{
 
 	@SerializedName("data")
-	private Data data;
+	private List<DataItem> data;
 
 	@SerializedName("links")
 	private Links links;
 
-	public void setData(Data data){
+	public void setData(List<DataItem> data){
 		this.data = data;
 	}
 
-	public Data getData(){
+	public List<DataItem> getData(){
 		return data;
 	}
 

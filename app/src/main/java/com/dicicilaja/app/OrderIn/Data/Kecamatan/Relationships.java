@@ -4,14 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class Relationships{
 
-	@SerializedName("kota")
-	private Kota kota;
+	@SerializedName("villages")
+	private Villages villages;
 
-	public void setKota(Kota kota){
-		this.kota = kota;
+	@SerializedName("city")
+	private City city;
+
+	public void setVillages(Villages villages){
+		this.villages = villages;
 	}
 
-	public Kota getKota(){
-		return kota;
+	public Villages getVillages(){
+		return villages;
+	}
+
+	public void setCity(City city){
+		this.city = city;
+	}
+
+	public City getCity(){
+		return city;
 	}
 }

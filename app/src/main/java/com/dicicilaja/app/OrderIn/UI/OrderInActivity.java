@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,8 +39,8 @@ import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
-import com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity.KantorCabangActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Utils.Helper;
@@ -76,14 +77,10 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     TextView txtDataCalonPinjaman;
     @BindView(R.id.chev)
     ImageView chev;
-    @BindView(R.id.btn_data_calon_peminjam)
-    RelativeLayout btnDataCalonPeminjam;
     @BindView(R.id.txt_informasi_jaminan)
     TextView txtInformasiJaminan;
     @BindView(R.id.chev1)
     ImageView chev1;
-    @BindView(R.id.btn_informasi_jaminan)
-    RelativeLayout btnInformasiJaminan;
     @BindView(R.id.btn_upload_ktp)
     RelativeLayout btnUploadKtp;
     @BindView(R.id.change_ktp)
@@ -112,13 +109,13 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
     @BindView(R.id.cari_axi)
-    Button cariAxi;
+    TextView cariAxi;
     @BindView(R.id.axi_available)
     TextView axiAvailable;
     @BindView(R.id.axi_not_available)
     TextView axiNotAvailable;
     @BindView(R.id.cari_plat_nomor)
-    Button cariPlatNomor;
+    TextView cariPlatNomor;
     @BindView(R.id.et_plat_nomor)
     EditText etPlatNomor;
     @BindView(R.id.plat_nomor_available)
@@ -126,11 +123,35 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     @BindView(R.id.plat_nomor_not_available)
     TextView platNomorNotAvailable;
     @BindView(R.id.cari_voucher)
-    Button cariVoucher;
+    TextView cariVoucher;
     @BindView(R.id.voucher_available)
     TextView voucherAvailable;
     @BindView(R.id.voucher_not_available)
     TextView voucherNotAvailable;
+    @BindView(R.id.cari_axi_close)
+    ImageView cariAxiClose;
+    @BindView(R.id.btn_cari_axi)
+    RelativeLayout btnCariAxi;
+    @BindView(R.id.btn_cari_plat_nomor)
+    RelativeLayout btnCariPlatNomor;
+    @BindView(R.id.btn_cari_voucher)
+    RelativeLayout btnCariVoucher;
+    @BindView(R.id.cari_plat_nomor_close)
+    ImageView cariPlatNomorClose;
+    @BindView(R.id.cari_voucher_close)
+    ImageView cariVoucherClose;
+    @BindView(R.id.txt_data_calon_pinjaman_value)
+    TextView txtDataCalonPinjamanValue;
+    @BindView(R.id.detail_data_calon_pinjaman)
+    LinearLayout detailDataCalonPinjaman;
+    @BindView(R.id.edit_data_calon_pinjaman)
+    LinearLayout editDataCalonPinjaman;
+    @BindView(R.id.txt_informasi_jaminan_value)
+    TextView txtInformasiJaminanValue;
+    @BindView(R.id.detail_informasi_jaminan)
+    LinearLayout detailInformasiJaminan;
+    @BindView(R.id.edit_informasi_jaminan)
+    LinearLayout editInformasiJaminan;
 
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -142,10 +163,14 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     RequestBody ktp_desc, bpkb_desc;
 
 
-    String fKtp, fBpkb, axiId;
+    String fKtp, fBpkb, axiId, district_id, district, province_id, province, city_id, city;
+    String jaminan, area, brand, model, angsuran, tipe_asuransi;
     SessionManager session;
 
     ApiService3 apiService3;
+    ApiService2 apiService2;
+
+    String jenis_pengajuan, product_id, agen_id, qty, area_id, photo_bpkp, photo_ktp, tipe_asuransi_id, jenis_angsuran, status_data_calon, status_informasi_jaminan, name, email, no_ktp, no_hp, year, jaminan_id, address, postal_code, program_id, amount, vehicle_id, voucher_code_id, objek_brand_id, objek_model_id, tenor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +180,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
         initToolbar();
         initAction();
+        initLoadData();
+        initView();
 
         etJumlahPinjaman.addTextChangedListener(new TextWatcher() {
             @Override
@@ -192,6 +219,167 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         });
     }
 
+    private void initLoadData() {
+        //===============
+        jenis_pengajuan = "1";
+
+        if (jenis_pengajuan.equals("1")) {
+            //Data Multi Guna
+        } else {
+            //Produk
+        }
+
+        program_id = "1";
+        agen_id = "111111111";
+        product_id = "1";
+        qty = "1";
+        amount = "15000000";
+
+
+
+        //===============
+        status_data_calon = "0";
+        if (getIntent().getStringExtra("status_data_calon") != null) {
+            try {
+                status_data_calon = getIntent().getStringExtra("status_data_calon");
+            } catch (Exception ex) {}
+        }
+
+        if (status_data_calon.equals("1")) {
+            name = getIntent().getStringExtra("name");
+            no_ktp = getIntent().getStringExtra("no_ktp");
+            email = getIntent().getStringExtra("email");
+            no_hp = getIntent().getStringExtra("no_hp");
+            province_id = getIntent().getStringExtra("province_id");
+            province = getIntent().getStringExtra("province");
+            city_id = getIntent().getStringExtra("city_id");
+            city = getIntent().getStringExtra("city");
+            district_id = getIntent().getStringExtra("district_id");
+            district = getIntent().getStringExtra("district");
+            address = getIntent().getStringExtra("address");
+            postal_code = getIntent().getStringExtra("postal_code");
+        }
+
+        Log.d("TAGTAG2", "name: " + name);
+        Log.d("TAGTAG2", "no_ktp: " + no_ktp);
+        Log.d("TAGTAG2", "email: " + email);
+        Log.d("TAGTAG2", "no_hp: " + no_hp);
+        Log.d("TAGTAG2", "province_id: " + province_id);
+        Log.d("TAGTAG2", "province: " + province);
+        Log.d("TAGTAG2", "city_id: " + city_id);
+        Log.d("TAGTAG2", "city: " + city);
+        Log.d("TAGTAG2", "district_id: " + district_id);
+        Log.d("TAGTAG2", "district: " + district);
+        Log.d("TAGTAG2", "address: " + address);
+        Log.d("TAGTAG2", "postal_code: " + postal_code);
+
+        //===============
+        status_informasi_jaminan = "2";
+        jaminan_id = "1";
+        jaminan = "Mobil";
+        area_id = "1";
+        area = "Jawa Barat";
+        objek_brand_id = "1";
+        brand = "Honda";
+        objek_model_id = "1";
+        model = "CRV";
+        year = "2019";
+        tenor = "12";
+        jenis_angsuran = "addb";
+        angsuran = "Angsuran Per Bulan (ADDB)";
+        tipe_asuransi_id = "1";
+        tipe_asuransi = "Total Lost Only";
+
+
+
+        //===============
+        photo_ktp = null;
+        photo_bpkp = null;
+        vehicle_id = null;
+        voucher_code_id = null;
+    }
+
+    private void initView() {
+        if (!agen_id.equals(null) || !agen_id.equals("") || !agen_id.equals(" ")) {
+            etAxiIdReff.setText(agen_id);
+        }
+
+        if (!amount.equals(null) || !amount.equals("") || !amount.equals(" ")) {
+            try {
+                String rp = getResources().getString(R.string.rp_string);
+                String originalString = amount;
+                originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                Double doubleval = Double.parseDouble(originalString);
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setDecimalSeparator(',');
+                symbols.setGroupingSeparator('.');
+                String pattern = "#,###.##";
+                DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                String formattedString = rp + formatter.format(doubleval);
+                etJumlahPinjaman.setText(formattedString);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+        } else {
+            etJumlahPinjaman.setText("");
+        }
+
+        if (status_data_calon.equals("1")) {
+            txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
+            txtDataCalonPinjaman.setVisibility(View.GONE);
+
+            editDataCalonPinjaman.setVisibility(View.VISIBLE);
+            detailDataCalonPinjaman.setVisibility(View.GONE);
+
+            //Data Calon Peminjam
+            txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
+            txtDataCalonPinjaman.setVisibility(View.GONE);
+            detailDataCalonPinjaman.setVisibility(View.GONE);
+            editDataCalonPinjaman.setVisibility(View.VISIBLE);
+            String value = name + ", " + no_ktp + ", " + email + ", " + no_hp + ", " + province + ", " + city + ", " + district + ", " + address + ", " + postal_code;
+            if (value.length() >= 35) {
+                value = value.substring(0, 36) + "...";
+                txtDataCalonPinjamanValue.setText(value);
+            } else {
+                txtDataCalonPinjamanValue.setText(value);
+            }
+        } else {
+            txtDataCalonPinjaman.setVisibility(View.VISIBLE);
+            txtDataCalonPinjamanValue.setVisibility(View.GONE);
+
+            detailDataCalonPinjaman.setVisibility(View.VISIBLE);
+            editDataCalonPinjaman.setVisibility(View.GONE);
+        }
+
+        if (status_informasi_jaminan.equals("1")) {
+            txtInformasiJaminanValue.setVisibility(View.VISIBLE);
+            txtInformasiJaminan.setVisibility(View.GONE);
+
+            editInformasiJaminan.setVisibility(View.VISIBLE);
+            detailInformasiJaminan.setVisibility(View.GONE);
+
+            //Data Calon Peminjam
+            txtInformasiJaminanValue.setVisibility(View.VISIBLE);
+            txtInformasiJaminan.setVisibility(View.GONE);
+            detailInformasiJaminan.setVisibility(View.GONE);
+            editInformasiJaminan.setVisibility(View.VISIBLE);
+            String value = jaminan + ", " + area + ", " + brand + ", " + model + ", " + angsuran + ", " + tipe_asuransi;
+            if (value.length() >= 35) {
+                value = value.substring(0, 36) + "...";
+                txtInformasiJaminanValue.setText(value);
+            } else {
+                txtInformasiJaminanValue.setText(value);
+            }
+        } else {
+            txtInformasiJaminan.setVisibility(View.VISIBLE);
+            txtInformasiJaminanValue.setVisibility(View.GONE);
+
+            detailInformasiJaminan.setVisibility(View.VISIBLE);
+            editInformasiJaminan.setVisibility(View.GONE);
+        }
+    }
+
     private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -215,6 +403,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         axiId = session.getAxiId();
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
+        apiService2 = ApiClient2.getClient().create(ApiService2.class);
         clearVoucher();
         clearPlatNomor();
         clearAxi();
@@ -233,6 +422,33 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     private void clearAxi() {
         axiAvailable.setVisibility(View.GONE);
         axiNotAvailable.setVisibility(View.GONE);
+    }
+
+    private void closeAxi() {
+        etAxiIdReff.setEnabled(true);
+        etAxiIdReff.setText("");
+        etAxiIdReff.setFocusable(true);
+        clearAxi();
+        cariAxi.setVisibility(View.VISIBLE);
+        cariAxiClose.setVisibility(View.GONE);
+    }
+
+    private void closePlatNomor() {
+        etPlatNomor.setEnabled(true);
+        etPlatNomor.setText("");
+        etPlatNomor.setFocusable(true);
+        clearPlatNomor();
+        cariPlatNomor.setVisibility(View.VISIBLE);
+        cariPlatNomorClose.setVisibility(View.GONE);
+    }
+
+    private void closeVoucher() {
+        etVoucher.setEnabled(true);
+        etVoucher.setText("");
+        etVoucher.setFocusable(true);
+        clearVoucher();
+        cariVoucher.setVisibility(View.VISIBLE);
+        cariVoucherClose.setVisibility(View.GONE);
     }
 
     @Override
@@ -515,15 +731,41 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         }
     }
 
-    @OnClick({R.id.cari_axi, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.btn_data_calon_peminjam, R.id.btn_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
+    @OnClick({R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman ,R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.btn_data_calon_peminjam:
+            case R.id.edit_data_calon_pinjaman:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Data calon peminjam yang anda isi akan hilang, apakah anda setuju?");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog.show();
+                break;
+            case R.id.edit_informasi_jaminan:
+                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog2.setTitle("Perhatian");
+                alertDialog2.setMessage("Data jaminan & pinjaman yang anda isi akan hilang, apakah anda setuju?");
+
+                alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog2.show();
+                break;
+            case R.id.detail_data_calon_pinjaman:
                 intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_informasi_jaminan:
+            case R.id.detail_informasi_jaminan:
                 intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                 startActivity(intent);
                 break;
@@ -548,11 +790,71 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
                 break;
             case R.id.next:
-                intent = new Intent(getBaseContext(), KantorCabangActivity.class);
+
+//                if (validateForm(jumlah_pinjaman, data_calon_peminjam, jaminan_pinjaman, plat_nomor, checkmark)) {
+
+                //DONE
+//                Log.d("TAGTAG", "district_id: " + district_id);
+//                Log.d("TAGTAG", "city_id: " + city_id);
+//                Log.d("TAGTAG", "province_id: " + province_id);
+//
+//                Log.d("TAGTAG", "agen_id: " + agen_id);
+//                Log.d("TAGTAG", "calon_nasabah_id: " + calon_nasabah_id);
+//                Log.d("TAGTAG", "pk_number: " + pk_number);
+//                Log.d("TAGTAG", "area_id: " + area_id);
+//                Log.d("TAGTAG", "cabang_id: " + cabang_id);
+//                Log.d("TAGTAG", "subproduk_id: " + subproduk_id);
+//                Log.d("TAGTAG", "program_id: " + program_id);
+//                Log.d("TAGTAG", "current_pic: " + current_pic);
+//                Log.d("TAGTAG", "amount: " + amount);
+//                Log.d("TAGTAG", "final_amount: " + final_amount);
+//                Log.d("TAGTAG", "status: " + status);
+//                Log.d("TAGTAG", "vehicle_id: " + vehicle_id);
+//                Log.d("TAGTAG", "no_pengajuan: " + no_pengajuan);
+//                Log.d("TAGTAG", "channel_id: " + channel_id);
+//                Log.d("TAGTAG", "voucher_code_id: " + voucher_code_id);
+//                Log.d("TAGTAG", "objek_brand_id: " + objek_brand_id);
+//                Log.d("TAGTAG", "objek_model_id: " + objek_model_id);
+//                Log.d("TAGTAG", "rate_asuransi_id: " + rate_asuransi_id);
+//                Log.d("TAGTAG", "mrp_id: " + mrp_id);
+//                Log.d("TAGTAG", "tenor: " + tenor);
+//
+//                intent = new Intent(getBaseContext(), KantorCabangActivity.class);
+//                intent.putExtra("district_id", district_id);
+//                intent.putExtra("city_id", city_id);
+//                intent.putExtra("province_id", province_id);
+//
+//                intent.putExtra("agen_id", agen_id);
+//                intent.putExtra("calon_nasabah_id", calon_nasabah_id);
+//                intent.putExtra("pk_number", pk_number);
+//                intent.putExtra("area_id", area_id);
+//                intent.putExtra("cabang_id", cabang_id);
+//                intent.putExtra("subproduk_id", subproduk_id);
+//                intent.putExtra("program_id", program_id);
+//                intent.putExtra("current_pic", current_pic);
+//                intent.putExtra("amount", amount);
+//                intent.putExtra("final_amount", final_amount);
+//                intent.putExtra("status", status);
+//                intent.putExtra("vehicle_id", vehicle_id);
+//                intent.putExtra("no_pengajuan", no_pengajuan);
+//                intent.putExtra("channel_id", channel_id);
+//                intent.putExtra("voucher_code_id", voucher_code_id);
+//                intent.putExtra("objek_brand_id", objek_brand_id);
+//                intent.putExtra("objek_model_id", objek_model_id);
+//                intent.putExtra("rate_asuransi_id", rate_asuransi_id);
+//                intent.putExtra("mrp_id", mrp_id);
+//                intent.putExtra("tenor", tenor);
+
                 startActivity(intent);
+
+//                }
                 break;
             case R.id.cari_axi:
                 progressBar.setVisibility(View.VISIBLE);
+                etAxiIdReff.setEnabled(false);
+                cariAxiClose.setVisibility(View.VISIBLE);
+                cariAxi.setVisibility(View.GONE);
+
                 Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
@@ -605,8 +907,15 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     }
                 });
                 break;
+            case R.id.cari_axi_close:
+                closeAxi();
+                break;
             case R.id.cari_plat_nomor:
                 progressBar.setVisibility(View.VISIBLE);
+                etPlatNomor.setEnabled(false);
+                cariPlatNomorClose.setVisibility(View.VISIBLE);
+                cariPlatNomor.setVisibility(View.GONE);
+
                 Call<PlatNomor> platNomor = apiService3.getPlatNomor(etPlatNomor.getText().toString());
                 platNomor.enqueue(new Callback<PlatNomor>() {
                     @Override
@@ -622,7 +931,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     clearPlatNomor();
                                     progressBar.setVisibility(View.GONE);
                                     platNomorAvailable.setVisibility(View.VISIBLE);
-
                                 }
                             } catch (Exception ex) {
                             }
@@ -659,25 +967,25 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     }
                 });
                 break;
+            case R.id.cari_plat_nomor_close:
+                closePlatNomor();
+                break;
             case R.id.cari_voucher:
                 progressBar.setVisibility(View.VISIBLE);
+                etVoucher.setEnabled(false);
+                cariVoucherClose.setVisibility(View.VISIBLE);
+                cariVoucher.setVisibility(View.GONE);
+
                 Call<VoucherCode> voucherCode = apiService3.getVoucherCode(etVoucher.getText().toString());
                 voucherCode.enqueue(new Callback<VoucherCode>() {
                     @Override
                     public void onResponse(Call<VoucherCode> call, Response<VoucherCode> response) {
                         if (response.isSuccessful()) {
                             try {
-                                if (response.body().getData().size() > 0) {
-                                    clearVoucher();
-                                    progressBar.setVisibility(View.GONE);
-                                    voucherAvailable.setVisibility(View.VISIBLE);
-                                    voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
-                                } else {
-                                    clearVoucher();
-                                    progressBar.setVisibility(View.GONE);
-                                    voucherNotAvailable.setVisibility(View.VISIBLE);
-
-                                }
+                                clearVoucher();
+                                progressBar.setVisibility(View.GONE);
+                                voucherAvailable.setVisibility(View.VISIBLE);
+                                voucherAvailable.setText(response.body().getData().getAttributes().getDeskripsi());
                             } catch (Exception ex) {
                             }
                         } else {
@@ -713,6 +1021,13 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     }
                 });
                 break;
+            case R.id.cari_voucher_close:
+                closeVoucher();
+                break;
         }
+    }
+
+    @OnClick(R.id.cari_axi_close)
+    public void onViewClicked() {
     }
 }

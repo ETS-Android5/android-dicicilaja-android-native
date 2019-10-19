@@ -264,6 +264,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 clearBrand();
                 clearType();
                 if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) > 0) {
+                    progressBar.setVisibility(View.VISIBLE);
                     if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) == 1) {
                         tipe_objek_id = "1";
                     } else {

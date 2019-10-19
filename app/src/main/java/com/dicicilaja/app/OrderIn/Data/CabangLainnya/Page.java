@@ -1,72 +1,76 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangLainnya;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Page{
+public class Page {
 
-	@SerializedName("per-page")
-	private int perPage;
+    @SerializedName("current-page")
+    @Expose
+    private Integer currentPage;
+    @SerializedName("per-page")
+    @Expose
+    private Integer perPage;
+    @SerializedName("from")
+    @Expose
+    private Integer from;
+    @SerializedName("to")
+    @Expose
+    private Integer to;
+    @SerializedName("total")
+    @Expose
+    private Integer total;
+    @SerializedName("last-page")
+    @Expose
+    private Integer lastPage;
 
-	@SerializedName("total")
-	private int total;
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
 
-	@SerializedName("current-page")
-	private int currentPage;
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
 
-	@SerializedName("last-page")
-	private int lastPage;
+    public Integer getPerPage() {
+        return perPage;
+    }
 
-	@SerializedName("from")
-	private int from;
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
+    }
 
-	@SerializedName("to")
-	private int to;
+    public Integer getFrom() {
+        return from;
+    }
 
-	public void setPerPage(int perPage){
-		this.perPage = perPage;
-	}
+    public void setFrom(Integer from) {
+        this.from = from;
+    }
 
-	public int getPerPage(){
-		return perPage;
-	}
+    public Integer getTo() {
+        return to;
+    }
 
-	public void setTotal(int total){
-		this.total = total;
-	}
+    public void setTo(Integer to) {
+        this.to = to;
+    }
 
-	public int getTotal(){
-		return total;
-	}
+    public Integer getTotal() {
+        return total;
+    }
 
-	public void setCurrentPage(int currentPage){
-		this.currentPage = currentPage;
-	}
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
-	public int getCurrentPage(){
-		return currentPage;
-	}
+    public Integer getLastPage() {
+        return lastPage;
+    }
 
-	public void setLastPage(int lastPage){
-		this.lastPage = lastPage;
-	}
+    public void setLastPage(Integer lastPage) {
+        this.lastPage = lastPage;
+    }
 
-	public int getLastPage(){
-		return lastPage;
-	}
-
-	public void setFrom(int from){
-		this.from = from;
-	}
-
-	public int getFrom(){
-		return from;
-	}
-
-	public void setTo(int to){
-		this.to = to;
-	}
-
-	public int getTo(){
-		return to;
-	}
 }

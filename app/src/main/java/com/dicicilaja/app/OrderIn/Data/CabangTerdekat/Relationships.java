@@ -1,28 +1,32 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangTerdekat;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Relationships{
+public class Relationships {
 
-	@SerializedName("area")
-	private Area area;
+    @SerializedName("area")
+    @Expose
+    private Area area;
+    @SerializedName("village")
+    @Expose
+    private Village village;
 
-	@SerializedName("village")
-	private Village village;
+    public Area getArea() {
+        return area;
+    }
 
-	public void setArea(Area area){
-		this.area = area;
-	}
+    public void setArea(Area area) {
+        this.area = area;
+    }
 
-	public Area getArea(){
-		return area;
-	}
+    public Village getVillage() {
+        return village;
+    }
 
-	public void setVillage(Village village){
-		this.village = village;
-	}
+    public void setVillage(Village village) {
+        this.village = village;
+    }
 
-	public Village getVillage(){
-		return village;
-	}
 }

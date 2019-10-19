@@ -1,21 +1,20 @@
-package com.dicicilaja.app.OrderIn.Data.VoucherCode;
+package com.dicicilaja.app.OrderIn.Data.Kecamatan;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Transaksi{
+public class City{
 
 	@SerializedName("data")
-	private List<Object> data;
+	private Data data;
 
 	@SerializedName("links")
 	private Links links;
 
-	public void setData(List<Object> data){
+	public void setData(Data data){
 		this.data = data;
 	}
 
-	public List<Object> getData(){
+	public Data getData(){
 		return data;
 	}
 

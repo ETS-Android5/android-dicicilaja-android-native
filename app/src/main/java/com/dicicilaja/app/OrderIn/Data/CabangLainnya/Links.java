@@ -1,61 +1,43 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangLainnya;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Links{
+public class Links {
 
-	@SerializedName("next")
-	private String next;
+    @SerializedName("first")
+    @Expose
+    private String first;
+    @SerializedName("next")
+    @Expose
+    private String next;
+    @SerializedName("last")
+    @Expose
+    private String last;
 
-	@SerializedName("last")
-	private String last;
+    public String getFirst() {
+        return first;
+    }
 
-	@SerializedName("first")
-	private String first;
+    public void setFirst(String first) {
+        this.first = first;
+    }
 
-	@SerializedName("self")
-	private String self;
+    public String getNext() {
+        return next;
+    }
 
-	@SerializedName("related")
-	private String related;
+    public void setNext(String next) {
+        this.next = next;
+    }
 
-	public void setNext(String next){
-		this.next = next;
-	}
+    public String getLast() {
+        return last;
+    }
 
-	public String getNext(){
-		return next;
-	}
+    public void setLast(String last) {
+        this.last = last;
+    }
 
-	public void setLast(String last){
-		this.last = last;
-	}
-
-	public String getLast(){
-		return last;
-	}
-
-	public void setFirst(String first){
-		this.first = first;
-	}
-
-	public String getFirst(){
-		return first;
-	}
-
-	public void setSelf(String self){
-		this.self = self;
-	}
-
-	public String getSelf(){
-		return self;
-	}
-
-	public void setRelated(String related){
-		this.related = related;
-	}
-
-	public String getRelated(){
-		return related;
-	}
 }

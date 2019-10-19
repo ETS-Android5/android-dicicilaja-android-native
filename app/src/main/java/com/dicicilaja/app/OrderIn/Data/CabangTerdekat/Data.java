@@ -1,28 +1,32 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangTerdekat;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data{
+public class Data {
 
-	@SerializedName("id")
-	private String id;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("id")
+    @Expose
+    private String id;
 
-	@SerializedName("type")
-	private String type;
+    public String getType() {
+        return type;
+    }
 
-	public void setId(String id){
-		this.id = id;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getId(){
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setType(String type){
-		this.type = type;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getType(){
-		return type;
-	}
 }

@@ -85,6 +85,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
+                            android:layout_marginTop="16dp"
                             android:text="Cabang Terdekat"
                             android:textSize="16dp"
                             android:fontFamily="@font/open_sans_bold"/>
@@ -93,8 +94,11 @@
                             android:id="@+id/recycler_terdekat"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/border_form"
                             android:clipToPadding="false"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
                     </LinearLayout>
@@ -110,6 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
+                            android:layout_marginTop="16dp"
                             android:text="Cabang Lainnya"
                             android:textSize="16dp"
                             android:fontFamily="@font/open_sans_bold"/>
@@ -118,8 +123,11 @@
                             android:id="@+id/recycler_lainnya"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/border_form"
                             android:clipToPadding="false"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
                     </LinearLayout>

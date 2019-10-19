@@ -116,16 +116,32 @@
                                 android:clickable="true"
                                 android:layout_marginTop="35dp">
 
-                                <Button
+                                <TextView
                                     android:id="@+id/cari_axi"
-                                    android:layout_width="60dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:text="Cari"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></Button>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_axi_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:src="@drawable/ic_close"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></ImageView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -232,12 +248,8 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:id="@+id/btn_data_calon_peminjam"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:contextClickable="true">
+                            android:layout_height="match_parent">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -265,9 +277,21 @@
                                     android:text="Isi data calon peminjam"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/txt_data_calon_pinjaman_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/colorAccent2"
+                                    android:text="Isi data calon peminjam"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/detail_data_calon_pinjaman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -292,6 +316,27 @@
                                     android:src="@drawable/ic_chevron_right_black_24dp">
                                 </ImageView>
                             </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/edit_data_calon_pinjaman"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="13sp"
+                                    android:layout_marginRight="5dp"
+                                    android:textColor="@color/colorAccentDark2"
+                                    android:text="EDIT"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </LinearLayout>
                         </RelativeLayout>
 
                         <ImageView
@@ -300,12 +345,8 @@
                             android:src="@drawable/border_1dp"/>
 
                         <RelativeLayout
-                            android:id="@+id/btn_informasi_jaminan"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:contextClickable="true">
+                            android:layout_height="match_parent">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -333,9 +374,21 @@
                                     android:text="Isi data informasi jaminan"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/txt_informasi_jaminan_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/colorAccent2"
+                                    android:text="Isi data informasi jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/detail_informasi_jaminan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -359,6 +412,27 @@
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_chevron_right_black_24dp">
                                 </ImageView>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/edit_informasi_jaminan"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="13sp"
+                                    android:layout_marginRight="5dp"
+                                    android:textColor="@color/colorAccentDark2"
+                                    android:text="EDIT"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/open_sans_semibold"/>
                             </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
@@ -577,16 +651,32 @@
                                 android:clickable="true"
                                 android:layout_marginTop="35dp">
 
-                                <Button
+                                <TextView
                                     android:id="@+id/cari_plat_nomor"
-                                    android:layout_width="60dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:text="Cari"
-                                    android:textSize="12sp"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></Button>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_plat_nomor_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:src="@drawable/ic_close"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></ImageView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -660,16 +750,32 @@
                                 android:clickable="true"
                                 android:layout_marginTop="35dp">
 
-                                <Button
+                                <TextView
                                     android:id="@+id/cari_voucher"
-                                    android:layout_width="60dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:text="Cari"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
-                                    android:textSize="12sp"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></Button>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_voucher_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:src="@drawable/ic_close"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="15sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></ImageView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -689,7 +795,7 @@
                                         android:id="@+id/et_voucher"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:hint="Voucher Code"
+                                        android:hint="Voucher Code (optional)"
                                         android:layout_centerHorizontal="true"
                                         android:inputType="textCapCharacters"
                                         android:imeOptions="actionDone"

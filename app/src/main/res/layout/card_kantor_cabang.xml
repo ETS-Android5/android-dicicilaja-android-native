@@ -10,8 +10,6 @@
         android:paddingTop="18dp"
         android:paddingBottom="16dp"
         android:paddingLeft="25dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         android:paddingRight="25dp"
         android:orientation="vertical">
 
@@ -49,6 +47,7 @@
                 android:fontFamily="@font/open_sans_semibold"/>
         </LinearLayout>
         <RadioButton
+            android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

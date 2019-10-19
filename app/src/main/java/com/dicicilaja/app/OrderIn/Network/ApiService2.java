@@ -25,19 +25,25 @@ public interface ApiService2 {
     Call<Kota> getKota(@Query("filter[provinsi_id]") String id,
                        @Query("page[size]") int size);
 
-    @GET("area/districts")
-    Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") String id,
-                                 @Query("page[size]") int size);
 
     @GET("area/branches")
     Call<CabangRekomendasi> getCabangRekomendasi(@Query("filter[district]") String id,
-                                                 @Query("include") String param);
+                                                 @Query("include") String param,
+                                                 @Query("page[size]") int size);
 
     @GET("area/branches")
-    Call<CabangTerdekat> getCabangTerdekat(@Query("filter[city]") int id);
+    Call<CabangTerdekat> getCabangTerdekat(@Query("filter[city]") String id,
+                                           @Query("include") String param,
+                                           @Query("page[size]") int size);
 
     @GET("area/branches")
-    Call<CabangLainnya> getCabangLainnya(@Query("filter[province]") int id);
+    Call<CabangLainnya> getCabangLainnya(@Query("filter[province]") String id,
+                                         @Query("include") String param,
+                                         @Query("page[size]") int size);
+
+    @GET("area/districts")
+    Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") String id,
+                                 @Query("page[size]") int size);
 
 
 }

@@ -1,9 +1,13 @@
 package com.dicicilaja.app.OrderIn.UI;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -72,6 +76,8 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     TextInputLayout layoutKecamatan;
 
     ApiService2 apiServiceArea;
+
+    String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, address, postal_code;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
@@ -142,7 +148,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKota.setTitle("");
         spinnerKota.setPositiveButton("OK");
     }
-
     private void clearKecamatan() {
         KECAMATAN_DATA.clear();
         KECAMATAN_ITEMS.clear();
@@ -153,7 +158,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKecamatan.setAdapter(kecamatan_adapter);
         spinnerKecamatan.setTitle("");
         spinnerKecamatan.setPositiveButton("OK");
-        spinnerKecamatan.setEnabled(false);
     }
 
     private void initLoadData() {
@@ -167,7 +171,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 PROVINSI_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                PROVINSI_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                PROVINSI_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
                             }
                             progressBar.setVisibility(View.GONE);
                         } else {
@@ -243,7 +247,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                                     if (response.body().getData().size() > 0) {
                                         for (int i = 0; i < response.body().getData().size(); i++) {
                                             KOTA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                            KOTA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                            KOTA_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     } else {
@@ -320,7 +324,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                                                 if (response.body().getData().size() > 0) {
                                                     for (int i = 0; i < response.body().getData().size(); i++) {
                                                         KECAMATAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                                        KECAMATAN_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                                        KECAMATAN_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
                                                     }
                                                     progressBar.setVisibility(View.GONE);
                                                 } else {
@@ -341,10 +345,10 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                                             } catch (Exception ex) {
                                             }
 
-                                            ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
-                                            brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                            ArrayAdapter<String> kecamatan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+                                            kecamatan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                                            spinnerKecamatan.setAdapter(brand_adapter);
+                                            spinnerKecamatan.setAdapter(kecamatan_adapter);
                                             spinnerKecamatan.setTitle("");
                                             spinnerKecamatan.setPositiveButton("OK");
                                             spinnerKecamatan.setEnabled(true);
@@ -382,6 +386,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                                     }
                                 });
                             }
+
                         }
 
                         @Override
@@ -416,15 +421,231 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
     @OnClick(R.id.save)
     public void onViewClicked() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
-        alertDialog.setTitle("Perhatian");
-        alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
+        try {
+            name = etNamaLengkap.getText().toString();
+            no_ktp = etNomorKtp.getText().toString();
+            email = etAlamatEmail.getText().toString();
+            no_hp = etNoHandphone.getText().toString();
+            province_id = PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition());
+            province = PROVINSI_ITEMS.get(spinnerProvinsi.getSelectedItemPosition());
+            city_id = KOTA_DATA.get(spinnerKota.getSelectedItemPosition());
+            city = KOTA_ITEMS.get(spinnerKota.getSelectedItemPosition());
+            district_id = KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition());
+            district = KECAMATAN_ITEMS.get(spinnerKecamatan.getSelectedItemPosition());
+            address = etAlamat.getText().toString();
+            postal_code = etKodePos.getText().toString();
 
-        alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
+        } catch (Exception ex) {
+        }
+
+        Log.d("TAGTAG", "name: " + name);
+        Log.d("TAGTAG", "no_ktp: " + no_ktp);
+        Log.d("TAGTAG", "email: " + email);
+        Log.d("TAGTAG", "no_hp: " + no_hp);
+        Log.d("TAGTAG", "province_id: " + province_id);
+        Log.d("TAGTAG", "province: " + province);
+        Log.d("TAGTAG", "city_id: " + city_id);
+        Log.d("TAGTAG", "city: " + city);
+        Log.d("TAGTAG", "district_id: " + district_id);
+        Log.d("TAGTAG", "district: " + district);
+        Log.d("TAGTAG", "address: " + address);
+        Log.d("TAGTAG", "postal_code: " + postal_code);
+
+        if (validateForm(name, no_ktp, email, no_hp, province_id, city_id, district_id, address, postal_code)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
+
+            alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getBaseContext(), OrderInActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("no_ktp", no_ktp);
+                    intent.putExtra("email", email);
+                    intent.putExtra("no_hp", no_hp);
+                    intent.putExtra("province_id", province_id);
+                    intent.putExtra("province", province);
+                    intent.putExtra("city_id", city_id);
+                    intent.putExtra("city", city);
+                    intent.putExtra("district_id", district_id);
+                    intent.putExtra("district", district);
+                    intent.putExtra("address", address);
+                    intent.putExtra("postal_code", postal_code);
+                    intent.putExtra("status_data_calon", "1");
+                    setResult(Activity.RESULT_OK, intent);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.show();
+        }
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private boolean validateForm(String name, String no_ktp, String email, String no_hp, String province_id, String city_id, String district_id, String address, String postal_code) {
+        if (name == null || name.trim().length() == 0 || name.equals("0") || name.equals("") || name.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan nama lengkap");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etNamaLengkap);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0") || no_ktp.equals("") || no_ktp.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan nomor KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etNomorKtp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (email == null || email.trim().length() == 0 || email.equals("0") || email.equals("") || email.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan alamat email");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etAlamatEmail);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (no_hp == null || no_hp.trim().length() == 0 || no_hp.equals("0") || no_hp.equals("") || no_hp.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan nomor HP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etNoHandphone);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (province_id == null || province_id.trim().length() == 0 || province_id.equals("0") || province_id.equals("") || province_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih provinsi");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerProvinsi);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerProvinsi.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (city_id == null || city_id.trim().length() == 0 || city_id.equals("0") || city_id.equals("") || city_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih kota");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerKota);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerKota.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (district_id == null || district_id.trim().length() == 0 || district_id.equals("0") || district_id.equals("") || district_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih kecamatan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerKecamatan);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerKecamatan.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (address == null || address.trim().length() == 0 || address.equals("0") || address.equals("") || address.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan alamat");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etAlamat);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (postal_code == null || postal_code.trim().length() == 0 || postal_code.equals("0") || postal_code.equals("") || postal_code.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan kode pos");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etKodePos);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    public static String toTitleCase(String str) {
+
+        if (str == null) {
+            return null;
+        }
+
+        boolean space = true;
+        StringBuilder builder = new StringBuilder(str);
+        final int len = builder.length();
+
+        for (int i = 0; i < len; ++i) {
+            char c = builder.charAt(i);
+            if (space) {
+                if (!Character.isWhitespace(c)) {
+                    // Convert to title case and switch out of whitespace mode.
+                    builder.setCharAt(i, Character.toTitleCase(c));
+                    space = false;
+                }
+            } else if (Character.isWhitespace(c)) {
+                space = true;
+            } else {
+                builder.setCharAt(i, Character.toLowerCase(c));
             }
-        });
-        alertDialog.show();
+        }
+
+        return builder.toString();
     }
 }

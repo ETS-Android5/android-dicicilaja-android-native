@@ -1,17 +1,21 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangTerdekat;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meta{
+public class Meta {
 
-	@SerializedName("page")
-	private Page page;
+    @SerializedName("page")
+    @Expose
+    private Page page;
 
-	public void setPage(Page page){
-		this.page = page;
-	}
+    public Page getPage() {
+        return page;
+    }
 
-	public Page getPage(){
-		return page;
-	}
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
 }

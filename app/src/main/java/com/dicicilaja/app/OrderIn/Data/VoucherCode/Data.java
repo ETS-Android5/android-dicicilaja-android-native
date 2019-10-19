@@ -2,30 +2,16 @@ package com.dicicilaja.app.OrderIn.Data.VoucherCode;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
-
-	@SerializedName("relationships")
-	private Relationships relationships;
+public class Data{
 
 	@SerializedName("attributes")
 	private Attributes attributes;
 
-	@SerializedName("links")
-	private Links links;
-
 	@SerializedName("id")
-	private String id;
+	private int id;
 
 	@SerializedName("type")
 	private String type;
-
-	public void setRelationships(Relationships relationships){
-		this.relationships = relationships;
-	}
-
-	public Relationships getRelationships(){
-		return relationships;
-	}
 
 	public void setAttributes(Attributes attributes){
 		this.attributes = attributes;
@@ -35,19 +21,11 @@ public class DataItem{
 		return attributes;
 	}
 
-	public void setLinks(Links links){
-		this.links = links;
-	}
-
-	public Links getLinks(){
-		return links;
-	}
-
-	public void setId(String id){
+	public void setId(int id){
 		this.id = id;
 	}
 
-	public String getId(){
+	public int getId(){
 		return id;
 	}
 

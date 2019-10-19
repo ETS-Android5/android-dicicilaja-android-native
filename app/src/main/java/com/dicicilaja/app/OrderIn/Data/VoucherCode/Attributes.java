@@ -13,12 +13,6 @@ public class Attributes{
 	@SerializedName("nama")
 	private String nama;
 
-	@SerializedName("updated-at")
-	private String updatedAt;
-
-	@SerializedName("created-at")
-	private String createdAt;
-
 	@SerializedName("deskripsi")
 	private String deskripsi;
 
@@ -44,22 +38,6 @@ public class Attributes{
 
 	public String getNama(){
 		return nama;
-	}
-
-	public void setUpdatedAt(String updatedAt){
-		this.updatedAt = updatedAt;
-	}
-
-	public String getUpdatedAt(){
-		return updatedAt;
-	}
-
-	public void setCreatedAt(String createdAt){
-		this.createdAt = createdAt;
-	}
-
-	public String getCreatedAt(){
-		return createdAt;
 	}
 
 	public void setDeskripsi(String deskripsi){

@@ -1,28 +1,32 @@
+
 package com.dicicilaja.app.OrderIn.Data.CabangTerdekat;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Area{
+public class Area {
 
-	@SerializedName("data")
-	private Data data;
+    @SerializedName("data")
+    @Expose
+    private Data data;
+    @SerializedName("links")
+    @Expose
+    private Links_ links;
 
-	@SerializedName("links")
-	private Links links;
+    public Data getData() {
+        return data;
+    }
 
-	public void setData(Data data){
-		this.data = data;
-	}
+    public void setData(Data data) {
+        this.data = data;
+    }
 
-	public Data getData(){
-		return data;
-	}
+    public Links_ getLinks() {
+        return links;
+    }
 
-	public void setLinks(Links links){
-		this.links = links;
-	}
+    public void setLinks(Links_ links) {
+        this.links = links;
+    }
 
-	public Links getLinks(){
-		return links;
-	}
 }

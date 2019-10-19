@@ -1,6 +1,5 @@
 package com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -19,12 +18,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicicilaja.app.OrderIn.Data.CabangLainnya.CabangLainnya;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Datum;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Included;
+import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.LainnyaAdapter;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.RekomendasiAdapter;
+import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.TerdekatAdapter;
 import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
 import com.dicicilaja.app.R;
 
@@ -41,8 +44,12 @@ import retrofit2.Response;
 public class KantorCabangActivity extends AppCompatActivity {
 
     ApiService2 apiService;
-    List<Datum> dataItems;
-    List<Included> dataIncludeds;
+    List<Datum> rekomendasiItems;
+    List<Included> rekomendasiIncludeds;
+    List<com.dicicilaja.app.OrderIn.Data.CabangTerdekat.Datum> terdekatItems;
+    List<com.dicicilaja.app.OrderIn.Data.CabangTerdekat.Included> terdekatIncludeds;
+    List<com.dicicilaja.app.OrderIn.Data.CabangLainnya.Datum> lainnyaItems;
+    List<com.dicicilaja.app.OrderIn.Data.CabangLainnya.Included> lainnyaIncludeds;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -93,12 +100,14 @@ public class KantorCabangActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
 
         recyclerRekomendasi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerTerdekat.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerLainnya.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         //Network
         apiService = ApiClient2.getClient().create(ApiService2.class);
 
-//        hideRekomendasi();
-//        hideLainnya();
-//        hideTerdekat();
+        hideRekomendasi();
+        hideLainnya();
+        hideTerdekat();
 
     }
 
@@ -129,17 +138,18 @@ public class KantorCabangActivity extends AppCompatActivity {
 
     public void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi("3171090", "village.district.city");
+        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi("3171090", "village.district.city", 3);
         call.enqueue(new Callback<CabangRekomendasi>() {
             @Override
             public void onResponse(Call<CabangRekomendasi> call, Response<CabangRekomendasi> response) {
                 if (response.isSuccessful()) {
                     try {
-                        dataItems = response.body().getData();
-                        dataIncludeds = response.body().getIncluded();
-                        if (dataItems.size() > 0) {
+                        rekomendasiItems = response.body().getData();
+                        rekomendasiIncludeds = response.body().getIncluded();
+                        Log.d("TAGTAG", "rekomendasiSize: " + rekomendasiItems.size());
+                        if (rekomendasiItems.size() > 0) {
                             showRekomendasi();
-                            recyclerRekomendasi.setAdapter(new RekomendasiAdapter(dataItems, dataIncludeds, getBaseContext()));
+                            recyclerRekomendasi.setAdapter(new RekomendasiAdapter(rekomendasiItems, rekomendasiIncludeds, getBaseContext()));
                             progressBar.setVisibility(View.GONE);
                         } else {
                             hideRekomendasi();
@@ -167,6 +177,91 @@ public class KantorCabangActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        Call<CabangTerdekat> call2 = apiService.getCabangTerdekat("3273", "village.district.city", 3);
+        call2.enqueue(new Callback<CabangTerdekat>() {
+            @Override
+            public void onResponse(Call<CabangTerdekat> call, Response<CabangTerdekat> response) {
+
+                if (response.isSuccessful()) {
+                    try {
+                        terdekatItems = response.body().getData();
+                        terdekatIncludeds = response.body().getIncluded();
+                        Log.d("TAGTAG", "terdekatSize: " + terdekatItems.size());
+                        if (terdekatItems.size() > 0) {
+                            showTerdekat();
+                            recyclerTerdekat.setAdapter(new TerdekatAdapter(terdekatItems, terdekatIncludeds, getBaseContext()));
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            hideTerdekat();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception ex) { }
+                    progressBar.setVisibility(View.GONE);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<CabangTerdekat> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        Call<CabangLainnya> call3 = apiService.getCabangLainnya("32", "village.district.city", 3);
+        call3.enqueue(new Callback<CabangLainnya>() {
+            @Override
+            public void onResponse(Call<CabangLainnya> call, Response<CabangLainnya> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        lainnyaItems = response.body().getData();
+                        lainnyaIncludeds = response.body().getIncluded();
+                        Log.d("TAGTAG", "lainnyaSize: " + lainnyaItems.size());
+                        if (lainnyaItems.size() > 0) {
+                            showLainnya();
+                            recyclerLainnya.setAdapter(new LainnyaAdapter(lainnyaItems, lainnyaIncludeds, getBaseContext()));
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            hideLainnya();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception ex) { }
+                    progressBar.setVisibility(View.GONE);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<CabangLainnya> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+
+
+
     }
 
     @Override
