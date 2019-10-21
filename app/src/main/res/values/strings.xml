@@ -243,5 +243,5 @@
     <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP. Untuk mengurangi nilai pajak barang, segera upload file.]]></string>
     <string name="data_and_informasi">Data &amp; Informasi</string>
     <string name="lihat_riwayat"><u>Lihat Riwayat</u></string>
-    <string name="informasi_jaminan_pinjaman">Jaminan &amp; Pinjaman</string>
+    <string name="informasi_jaminan_pinjaman">Data Jaminan &amp; Pinjaman</string>
 </resources>

@@ -136,26 +136,6 @@
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/border_top">
-            <Button
-                android:id="@+id/save"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginLeft="13dp"
-                android:text="Selanjutnya"
-                android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                android:fontFamily="@font/open_sans_bold"
-                android:layout_centerInParent="true"
-                android:backgroundTint="@color/colorAccentDark2"/>
-        </RelativeLayout>
-
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"
             android:layout_width="match_parent"

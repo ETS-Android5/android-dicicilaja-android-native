@@ -19,6 +19,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,6 +42,9 @@ import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
+import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity;
+import com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity.KantorCabangActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Utils.Helper;
@@ -152,6 +156,11 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     LinearLayout detailInformasiJaminan;
     @BindView(R.id.edit_informasi_jaminan)
     LinearLayout editInformasiJaminan;
+    @BindView(R.id.plat_nomor_error)
+    TextView platNomorError;
+
+    SessionOrderIn session;
+    SessionManager sessionUser;
 
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -162,21 +171,28 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     MultipartBody.Part file_ktp, file_bpkb;
     RequestBody ktp_desc, bpkb_desc;
 
+    String jumlah_pinjaman, plat_nomor;
+
+    boolean simulasi, data_calon_peminjam, jaminan_pinjaman, checkmark;
 
     String fKtp, fBpkb, axiId, district_id, district, province_id, province, city_id, city;
     String jaminan, area, brand, model, angsuran, tipe_asuransi;
-    SessionManager session;
 
     ApiService3 apiService3;
     ApiService2 apiService2;
 
-    String jenis_pengajuan, product_id, agen_id, qty, area_id, photo_bpkp, photo_ktp, tipe_asuransi_id, jenis_angsuran, status_data_calon, status_informasi_jaminan, name, email, no_ktp, no_hp, year, jaminan_id, address, postal_code, program_id, amount, vehicle_id, voucher_code_id, objek_brand_id, objek_model_id, tenor;
+    String jenis_pengajuan, product_id, agen_id, qty, area_id, bpkb, ktp_image, tipe_asuransi_id, jenis_angsuran, name, email, no_ktp, no_hp, year, jaminan_id, address, postal_code, program_id, amount, vehicle_id, voucher_code_id, objek_brand_id, objek_model_id, tenor, tenor_simulasi_id, tenor_simulasi, jenis_angsuran_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_in);
         ButterKnife.bind(this);
+
+        session = new SessionOrderIn(OrderInActivity.this);
+        sessionUser = new SessionManager(OrderInActivity.this);
+
+        session.clearOrderIn();
 
         initToolbar();
         initAction();
@@ -219,125 +235,103 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("REFRESH", "status_data_calon: " + session.getStatus_data_calon() + "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
+        initView();
+    }
+
     private void initLoadData() {
-        //===============
-        jenis_pengajuan = "1";
-
-        if (jenis_pengajuan.equals("1")) {
-            //Data Multi Guna
-        } else {
-            //Produk
-        }
-
-        program_id = "1";
-        agen_id = "111111111";
-        product_id = "1";
-        qty = "1";
-        amount = "15000000";
-
-
-
-        //===============
-        status_data_calon = "0";
-        if (getIntent().getStringExtra("status_data_calon") != null) {
+        simulasi = false;
+        if (getIntent().getStringExtra("simulasi") != null) {
             try {
-                status_data_calon = getIntent().getStringExtra("status_data_calon");
-            } catch (Exception ex) {}
+                simulasi = true;
+            } catch (Exception ex) {
+            }
+        } else {
+            simulasi = false;
         }
 
-        if (status_data_calon.equals("1")) {
-            name = getIntent().getStringExtra("name");
-            no_ktp = getIntent().getStringExtra("no_ktp");
-            email = getIntent().getStringExtra("email");
-            no_hp = getIntent().getStringExtra("no_hp");
-            province_id = getIntent().getStringExtra("province_id");
-            province = getIntent().getStringExtra("province");
-            city_id = getIntent().getStringExtra("city_id");
-            city = getIntent().getStringExtra("city");
-            district_id = getIntent().getStringExtra("district_id");
-            district = getIntent().getStringExtra("district");
-            address = getIntent().getStringExtra("address");
-            postal_code = getIntent().getStringExtra("postal_code");
+        if (simulasi) {
+            session.createOrderInSession(
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    sessionUser.getAxiId(),
+                    getIntent().getStringExtra("amount"),
+                    "",
+                    "",
+                    "",
+                    "",
+                    getIntent().getBooleanExtra("status_data_calon", false),
+                    getIntent().getStringExtra("name"),
+                    getIntent().getStringExtra("no_ktp"),
+                    getIntent().getStringExtra("email"),
+                    getIntent().getStringExtra("no_hp"),
+                    getIntent().getStringExtra("province_id"),
+                    getIntent().getStringExtra("province"),
+                    getIntent().getStringExtra("city"),
+                    getIntent().getStringExtra("city"),
+                    getIntent().getStringExtra("district_id"),
+                    getIntent().getStringExtra("district"),
+                    getIntent().getStringExtra("address"),
+                    getIntent().getStringExtra("postal_code"),
+                    getIntent().getBooleanExtra("status_informasi_jaminan", true),
+                    getIntent().getStringExtra("jaminan_id"),
+                    getIntent().getStringExtra("jaminan"),
+                    getIntent().getStringExtra("area_id"),
+                    getIntent().getStringExtra("area"),
+                    getIntent().getStringExtra("objek_brand_id"),
+                    getIntent().getStringExtra("brand"),
+                    getIntent().getStringExtra("objek_model_id"),
+                    getIntent().getStringExtra("model"),
+                    getIntent().getStringExtra("year"),
+                    getIntent().getStringExtra("tenor_simulasi_id"),
+                    getIntent().getStringExtra("tenor_simulasi"),
+                    getIntent().getStringExtra("tipe_asuransi_id"),
+                    getIntent().getStringExtra("tipe_asuransi"),
+                    getIntent().getStringExtra("jenis_angsuran_id"),
+                    getIntent().getStringExtra("jenis_angsuran"),
+                    "",
+                    "",
+                    ""
+            );
         }
-
-        Log.d("TAGTAG2", "name: " + name);
-        Log.d("TAGTAG2", "no_ktp: " + no_ktp);
-        Log.d("TAGTAG2", "email: " + email);
-        Log.d("TAGTAG2", "no_hp: " + no_hp);
-        Log.d("TAGTAG2", "province_id: " + province_id);
-        Log.d("TAGTAG2", "province: " + province);
-        Log.d("TAGTAG2", "city_id: " + city_id);
-        Log.d("TAGTAG2", "city: " + city);
-        Log.d("TAGTAG2", "district_id: " + district_id);
-        Log.d("TAGTAG2", "district: " + district);
-        Log.d("TAGTAG2", "address: " + address);
-        Log.d("TAGTAG2", "postal_code: " + postal_code);
-
-        //===============
-        status_informasi_jaminan = "2";
-        jaminan_id = "1";
-        jaminan = "Mobil";
-        area_id = "1";
-        area = "Jawa Barat";
-        objek_brand_id = "1";
-        brand = "Honda";
-        objek_model_id = "1";
-        model = "CRV";
-        year = "2019";
-        tenor = "12";
-        jenis_angsuran = "addb";
-        angsuran = "Angsuran Per Bulan (ADDB)";
-        tipe_asuransi_id = "1";
-        tipe_asuransi = "Total Lost Only";
-
-
-
-        //===============
-        photo_ktp = null;
-        photo_bpkp = null;
-        vehicle_id = null;
-        voucher_code_id = null;
     }
 
     private void initView() {
-        if (!agen_id.equals(null) || !agen_id.equals("") || !agen_id.equals(" ")) {
-            etAxiIdReff.setText(agen_id);
+        etAxiIdReff.setText(session.getAgen_id());
+
+        try {
+            String rp = getResources().getString(R.string.rp_string);
+            String originalString = session.getAmount();
+            originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+            originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+            Double doubleval = Double.parseDouble(originalString);
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setDecimalSeparator(',');
+            symbols.setGroupingSeparator('.');
+            String pattern = "#,###.##";
+            DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+            String formattedString = rp + formatter.format(doubleval);
+            etJumlahPinjaman.setText(formattedString);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
         }
 
-        if (!amount.equals(null) || !amount.equals("") || !amount.equals(" ")) {
-            try {
-                String rp = getResources().getString(R.string.rp_string);
-                String originalString = amount;
-                originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
-                originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
-                Double doubleval = Double.parseDouble(originalString);
-                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                symbols.setDecimalSeparator(',');
-                symbols.setGroupingSeparator('.');
-                String pattern = "#,###.##";
-                DecimalFormat formatter = new DecimalFormat(pattern, symbols);
-                String formattedString = rp + formatter.format(doubleval);
-                etJumlahPinjaman.setText(formattedString);
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        } else {
-            etJumlahPinjaman.setText("");
-        }
-
-        if (status_data_calon.equals("1")) {
+        if (session.getStatus_data_calon()) {
             txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
             txtDataCalonPinjaman.setVisibility(View.GONE);
 
             editDataCalonPinjaman.setVisibility(View.VISIBLE);
             detailDataCalonPinjaman.setVisibility(View.GONE);
-
-            //Data Calon Peminjam
             txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
             txtDataCalonPinjaman.setVisibility(View.GONE);
             detailDataCalonPinjaman.setVisibility(View.GONE);
             editDataCalonPinjaman.setVisibility(View.VISIBLE);
-            String value = name + ", " + no_ktp + ", " + email + ", " + no_hp + ", " + province + ", " + city + ", " + district + ", " + address + ", " + postal_code;
+            String value = session.getName() + ", " + session.getNo_ktp() + ", " + session.getEmail() + ", " + session.getNo_hp() + ", " + session.getProvince() + ", " + session.getCity() + ", " + session.getDistrict() + ", " + session.getAddress() + ", " + session.getPostal_code();
             if (value.length() >= 35) {
                 value = value.substring(0, 36) + "...";
                 txtDataCalonPinjamanValue.setText(value);
@@ -352,19 +346,18 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             editDataCalonPinjaman.setVisibility(View.GONE);
         }
 
-        if (status_informasi_jaminan.equals("1")) {
+        if (session.getStatus_informasi_jaminan()) {
             txtInformasiJaminanValue.setVisibility(View.VISIBLE);
             txtInformasiJaminan.setVisibility(View.GONE);
 
             editInformasiJaminan.setVisibility(View.VISIBLE);
             detailInformasiJaminan.setVisibility(View.GONE);
 
-            //Data Calon Peminjam
             txtInformasiJaminanValue.setVisibility(View.VISIBLE);
             txtInformasiJaminan.setVisibility(View.GONE);
             detailInformasiJaminan.setVisibility(View.GONE);
             editInformasiJaminan.setVisibility(View.VISIBLE);
-            String value = jaminan + ", " + area + ", " + brand + ", " + model + ", " + angsuran + ", " + tipe_asuransi;
+            String value = session.getJaminan() + ", " + session.getArea() + ", " + session.getBrand() + ", " + session.getModel() + ", " + session.getJenis_angsuran() + ", " + session.getTipe_asuransi();
             if (value.length() >= 35) {
                 value = value.substring(0, 36) + "...";
                 txtInformasiJaminanValue.setText(value);
@@ -399,8 +392,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
         fKtp = "0";
         fBpkb = "0";
-        session = new SessionManager(getBaseContext());
-        axiId = session.getAxiId();
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
         apiService2 = ApiClient2.getClient().create(ApiService2.class);
@@ -417,6 +408,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     private void clearPlatNomor() {
         platNomorAvailable.setVisibility(View.GONE);
         platNomorNotAvailable.setVisibility(View.GONE);
+        platNomorError.setVisibility(View.GONE);
     }
 
     private void clearAxi() {
@@ -467,8 +459,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
         switch (id) {
             case R.id.help:
-//                Intent intent = new Intent(getBaseContext(), BantuanNewSimulationActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), BantuanOrderInActivity.class);
+                startActivity(intent);
                 return true;
             case android.R.id.home:
                 super.finish();
@@ -688,35 +680,57 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         return null;
     }
 
-    private boolean validateForm(String fKtp, String nomorKtp) {
-        if (fKtp == null || fKtp.trim().length() == 0 || fKtp.equals("0")) {
+    private boolean validateForm(String jumlah_pinjaman, boolean data_calon_peminjam, boolean jaminan_pinjaman, String plat_nomor) {
+        if (jumlah_pinjaman == null || jumlah_pinjaman.trim().length() == 0 || jumlah_pinjaman.equals("0") || jumlah_pinjaman.equals("") || jumlah_pinjaman.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan upload foto KTP");
+            alertDialog.setMessage("Silahkan masukan jumlah pinjaman");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                    requestFocus(etJumlahPinjaman);
                 }
             });
             alertDialog.show();
             return false;
         }
 
-        if (fBpkb == null || fBpkb.trim().length() == 0 || fBpkb.equals("0")) {
+        if (!data_calon_peminjam) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan upload foto KTP");
+            alertDialog.setMessage("Silahkan masukan data calon peminjam");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
+                    detailDataCalonPinjaman.setFocusable(true);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (!jaminan_pinjaman) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan data jaminan & pinjaman");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    detailInformasiJaminan.setFocusable(true);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etPlatNomor);
                 }
             });
             alertDialog.show();
@@ -725,13 +739,15 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         return true;
     }
 
+
+
     public void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
-    @OnClick({R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman ,R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
+    @OnClick({R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman, R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -755,7 +771,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
                 alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
+                        Intent intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -763,10 +779,22 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 break;
             case R.id.detail_data_calon_pinjaman:
                 intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
+                intent.putExtra("agen_id", agen_id);
+                intent.putExtra("amount", amount);
+                intent.putExtra("ktp_image", ktp_image);
+                intent.putExtra("bpkb", bpkb);
+                intent.putExtra("vehicle_id", vehicle_id);
+                intent.putExtra("voucher_code_id", voucher_code_id);
                 startActivity(intent);
                 break;
             case R.id.detail_informasi_jaminan:
                 intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
+                intent.putExtra("agen_id", agen_id);
+                intent.putExtra("amount", amount);
+                intent.putExtra("ktp_image", ktp_image);
+                intent.putExtra("bpkb", bpkb);
+                intent.putExtra("vehicle_id", vehicle_id);
+                intent.putExtra("voucher_code_id", voucher_code_id);
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
@@ -790,64 +818,33 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
                 break;
             case R.id.next:
+                try {
+                    jumlah_pinjaman = etJumlahPinjaman.getText().toString();
+                    data_calon_peminjam = session.getStatus_data_calon();
+                    jaminan_pinjaman = session.getStatus_informasi_jaminan();
+                    plat_nomor = session.getVehicle_id();
 
-//                if (validateForm(jumlah_pinjaman, data_calon_peminjam, jaminan_pinjaman, plat_nomor, checkmark)) {
+                } catch (Exception ex) {
+                }
 
-                //DONE
-//                Log.d("TAGTAG", "district_id: " + district_id);
-//                Log.d("TAGTAG", "city_id: " + city_id);
-//                Log.d("TAGTAG", "province_id: " + province_id);
-//
-//                Log.d("TAGTAG", "agen_id: " + agen_id);
-//                Log.d("TAGTAG", "calon_nasabah_id: " + calon_nasabah_id);
-//                Log.d("TAGTAG", "pk_number: " + pk_number);
-//                Log.d("TAGTAG", "area_id: " + area_id);
-//                Log.d("TAGTAG", "cabang_id: " + cabang_id);
-//                Log.d("TAGTAG", "subproduk_id: " + subproduk_id);
-//                Log.d("TAGTAG", "program_id: " + program_id);
-//                Log.d("TAGTAG", "current_pic: " + current_pic);
-//                Log.d("TAGTAG", "amount: " + amount);
-//                Log.d("TAGTAG", "final_amount: " + final_amount);
-//                Log.d("TAGTAG", "status: " + status);
-//                Log.d("TAGTAG", "vehicle_id: " + vehicle_id);
-//                Log.d("TAGTAG", "no_pengajuan: " + no_pengajuan);
-//                Log.d("TAGTAG", "channel_id: " + channel_id);
-//                Log.d("TAGTAG", "voucher_code_id: " + voucher_code_id);
-//                Log.d("TAGTAG", "objek_brand_id: " + objek_brand_id);
-//                Log.d("TAGTAG", "objek_model_id: " + objek_model_id);
-//                Log.d("TAGTAG", "rate_asuransi_id: " + rate_asuransi_id);
-//                Log.d("TAGTAG", "mrp_id: " + mrp_id);
-//                Log.d("TAGTAG", "tenor: " + tenor);
-//
-//                intent = new Intent(getBaseContext(), KantorCabangActivity.class);
-//                intent.putExtra("district_id", district_id);
-//                intent.putExtra("city_id", city_id);
-//                intent.putExtra("province_id", province_id);
-//
-//                intent.putExtra("agen_id", agen_id);
-//                intent.putExtra("calon_nasabah_id", calon_nasabah_id);
-//                intent.putExtra("pk_number", pk_number);
-//                intent.putExtra("area_id", area_id);
-//                intent.putExtra("cabang_id", cabang_id);
-//                intent.putExtra("subproduk_id", subproduk_id);
-//                intent.putExtra("program_id", program_id);
-//                intent.putExtra("current_pic", current_pic);
-//                intent.putExtra("amount", amount);
-//                intent.putExtra("final_amount", final_amount);
-//                intent.putExtra("status", status);
-//                intent.putExtra("vehicle_id", vehicle_id);
-//                intent.putExtra("no_pengajuan", no_pengajuan);
-//                intent.putExtra("channel_id", channel_id);
-//                intent.putExtra("voucher_code_id", voucher_code_id);
-//                intent.putExtra("objek_brand_id", objek_brand_id);
-//                intent.putExtra("objek_model_id", objek_model_id);
-//                intent.putExtra("rate_asuransi_id", rate_asuransi_id);
-//                intent.putExtra("mrp_id", mrp_id);
-//                intent.putExtra("tenor", tenor);
+                if (validateForm(jumlah_pinjaman, data_calon_peminjam, jaminan_pinjaman, plat_nomor)) {
+                    if (cbConfirm.isChecked()) {
+                        intent = new Intent(getBaseContext(), KantorCabangActivity.class);
+                        startActivity(intent);
+                    } else {
+                        AlertDialog.Builder alertDialog3 = new AlertDialog.Builder(OrderInActivity.this);
+                        alertDialog3.setTitle("Perhatian");
+                        alertDialog3.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
 
-                startActivity(intent);
+                        alertDialog3.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestFocus(cbConfirm);
+                            }
+                        });
+                        alertDialog3.show();
+                    }
 
-//                }
+                }
                 break;
             case R.id.cari_axi:
                 progressBar.setVisibility(View.VISIBLE);
@@ -866,10 +863,12 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     progressBar.setVisibility(View.GONE);
                                     axiAvailable.setVisibility(View.VISIBLE);
                                     axiAvailable.setText(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                    agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
                                 } else {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiNotAvailable.setVisibility(View.VISIBLE);
+                                    agen_id = "";
 
                                 }
                             } catch (Exception ex) {
@@ -911,6 +910,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 closeAxi();
                 break;
             case R.id.cari_plat_nomor:
+                session.setVehicle_id("");
                 progressBar.setVisibility(View.VISIBLE);
                 etPlatNomor.setEnabled(false);
                 cariPlatNomorClose.setVisibility(View.VISIBLE);
@@ -921,7 +921,11 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     @Override
                     public void onResponse(Call<PlatNomor> call, Response<PlatNomor> response) {
 
-                        if (response.isSuccessful()) {
+                        if (response.code() == 400) {
+                            clearPlatNomor();
+                            progressBar.setVisibility(View.GONE);
+                            platNomorError.setVisibility(View.VISIBLE);
+                        } else if (response.isSuccessful()) {
                             try {
                                 if (response.body().getData().size() > 0) {
                                     clearPlatNomor();
@@ -931,6 +935,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     clearPlatNomor();
                                     progressBar.setVisibility(View.GONE);
                                     platNomorAvailable.setVisibility(View.VISIBLE);
+                                    session.setVehicle_id(etPlatNomor.getText().toString());
                                 }
                             } catch (Exception ex) {
                             }
@@ -982,10 +987,17 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     public void onResponse(Call<VoucherCode> call, Response<VoucherCode> response) {
                         if (response.isSuccessful()) {
                             try {
-                                clearVoucher();
-                                progressBar.setVisibility(View.GONE);
-                                voucherAvailable.setVisibility(View.VISIBLE);
-                                voucherAvailable.setText(response.body().getData().getAttributes().getDeskripsi());
+                                if (response.body().getData().size() > 0) {
+                                    clearVoucher();
+                                    progressBar.setVisibility(View.GONE);
+                                    voucherAvailable.setVisibility(View.VISIBLE);
+                                    voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
+                                } else {
+                                    clearVoucher();
+                                    progressBar.setVisibility(View.GONE);
+                                    voucherNotAvailable.setVisibility(View.VISIBLE);
+                                }
+
                             } catch (Exception ex) {
                             }
                         } else {
@@ -1025,9 +1037,5 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 closeVoucher();
                 break;
         }
-    }
-
-    @OnClick(R.id.cari_axi_close)
-    public void onViewClicked() {
     }
 }

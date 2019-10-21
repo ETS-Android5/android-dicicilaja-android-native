@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    tools:context=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="# Tipe Asuransi"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="TLO"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="TLO (Total Loss Only) adalah klaim asuransi yang dapat diajukan apabila terjadi ‘kehilangan total’ ketika kerusakan yang terjadi di atas 75% atau kehilangan pencurian ataupun karena perampasan. Bila kerusakan yang dialami kurang dari itu, Anda tidak akan mendapatkan ganti rugi atas kerusakan. Patokan 75% diambil karena mobil dipastikan tidak dapat digunakan lagi."
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="All Risk"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="All Risk dapat diartikan menjadi ‘segala risiko’. Asuransi ini disebut juga Comprehensive atau keseluruhan. Ini berarti asuransi akan membayar klaim untuk segala jenis kerusakan, mulai dari kerusakan ringan, rusak berat, hingga kehilangan. Berbeda dengan TLO, lecet sedikit saja pada mobil, asuransi akan membayarkan klaim asuransi. Hanya saja asuransi mobil All Risk pembiayaannya lebih mahal daripada TLO."
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/open_sans"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

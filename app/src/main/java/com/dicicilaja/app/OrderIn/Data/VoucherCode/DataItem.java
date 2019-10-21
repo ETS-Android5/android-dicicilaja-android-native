@@ -2,7 +2,7 @@ package com.dicicilaja.app.OrderIn.Data.VoucherCode;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data{
+public class DataItem{
 
 	@SerializedName("attributes")
 	private Attributes attributes;

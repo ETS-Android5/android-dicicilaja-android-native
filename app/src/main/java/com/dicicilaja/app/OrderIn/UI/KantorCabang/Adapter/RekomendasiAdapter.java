@@ -1,6 +1,7 @@
 package com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Datum;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Included;
+import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
+import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
 import com.dicicilaja.app.R;
 
 import java.util.List;
@@ -23,7 +26,7 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
     private List<Included> dataIncluded;
     private Context context;
 
-    private int lastSelectedPosition = -1;
+    SessionOrderIn session;
 
     public class RekomendasiViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,7 +34,6 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
         TextView nama_kantor_cabang;
         TextView alamat_kantor_cabang;
         TextView area_kantor_cabang;
-        public RadioButton radioButton;
 
         public RekomendasiViewHolder(View v) {
             super(v);
@@ -39,15 +41,6 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
             nama_kantor_cabang = v.findViewById(R.id.nama_kantor_cabang);
             alamat_kantor_cabang = v.findViewById(R.id.alamat_kantor_cabang);
             area_kantor_cabang = v.findViewById(R.id.area_kantor_cabang);
-            radioButton = v.findViewById(R.id.radioButton);
-
-            radioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    lastSelectedPosition = getAdapterPosition();
-                    notifyDataSetChanged();
-                }
-            });
         }
     }
 
@@ -66,10 +59,22 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RekomendasiAdapter.RekomendasiViewHolder holder, int position) {
+        session = new SessionOrderIn(context);
+
         holder.nama_kantor_cabang.setText(dataItem.get(position).getAttributes().getNama());
         holder.alamat_kantor_cabang.setText(dataItem.get(position).getAttributes().getAlamat());
         holder.area_kantor_cabang.setText(dataIncluded.get(0).getAttributes().getNama() + " • " + dataIncluded.get(1).getAttributes().getNama());
-        holder.radioButton.setChecked(lastSelectedPosition == position);
+        holder.card_kantor_cabang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                session.setBranch_id(dataItem.get(position).getAttributes().getKode());
+                session.setBranch(dataItem.get(position).getAttributes().getNama());
+                session.setBranch_address(dataItem.get(position).getAttributes().getAlamat());
+
+                Intent intent = new Intent(context, KonfirmasiPengajuanActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

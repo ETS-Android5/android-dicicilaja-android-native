@@ -11,6 +11,9 @@
         android:paddingBottom="16dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:contextClickable="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -46,13 +49,6 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/open_sans_semibold"/>
         </LinearLayout>
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-        </RadioButton>
     </RelativeLayout>
 
     <ImageView

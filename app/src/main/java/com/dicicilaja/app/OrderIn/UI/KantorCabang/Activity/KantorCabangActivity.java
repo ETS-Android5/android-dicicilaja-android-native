@@ -25,10 +25,12 @@ import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Included;
 import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.LainnyaAdapter;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.RekomendasiAdapter;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.TerdekatAdapter;
 import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 
 import java.util.List;
@@ -65,16 +67,18 @@ public class KantorCabangActivity extends AppCompatActivity {
     RecyclerView recyclerLainnya;
     @BindView(R.id.card_lainnya)
     LinearLayout cardLainnya;
-    @BindView(R.id.save)
-    Button save;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
+
+    SessionOrderIn session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kantor_cabang);
         ButterKnife.bind(this);
+
+        session = new SessionOrderIn(KantorCabangActivity.this);
 
         initToolbar();
         initAction();
@@ -138,7 +142,7 @@ public class KantorCabangActivity extends AppCompatActivity {
 
     public void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi("3171090", "village.district.city", 3);
+        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi(session.getDistrict_id(), "village.district.city", 5);
         call.enqueue(new Callback<CabangRekomendasi>() {
             @Override
             public void onResponse(Call<CabangRekomendasi> call, Response<CabangRekomendasi> response) {
@@ -178,7 +182,7 @@ public class KantorCabangActivity extends AppCompatActivity {
             }
         });
 
-        Call<CabangTerdekat> call2 = apiService.getCabangTerdekat("3273", "village.district.city", 3);
+        Call<CabangTerdekat> call2 = apiService.getCabangTerdekat(session.getCity_id(), "village.district.city", 5);
         call2.enqueue(new Callback<CabangTerdekat>() {
             @Override
             public void onResponse(Call<CabangTerdekat> call, Response<CabangTerdekat> response) {
@@ -219,7 +223,7 @@ public class KantorCabangActivity extends AppCompatActivity {
             }
         });
 
-        Call<CabangLainnya> call3 = apiService.getCabangLainnya("32", "village.district.city", 3);
+        Call<CabangLainnya> call3 = apiService.getCabangLainnya(session.getProvince_id(), "village.district.city", 5);
         call3.enqueue(new Callback<CabangLainnya>() {
             @Override
             public void onResponse(Call<CabangLainnya> call, Response<CabangLainnya> response) {
@@ -277,11 +281,5 @@ public class KantorCabangActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.save)
-    public void onViewClicked() {
-        Intent intent = new Intent(getBaseContext(), KonfirmasiPengajuanActivity.class);
-        startActivity(intent);
     }
 }

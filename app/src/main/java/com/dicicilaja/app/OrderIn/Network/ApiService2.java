@@ -4,6 +4,7 @@ import com.dicicilaja.app.OrderIn.Data.CabangLainnya.CabangLainnya;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
 import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
+import com.dicicilaja.app.OrderIn.Data.Kelurahan.Kelurahan;
 import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 
@@ -43,6 +44,10 @@ public interface ApiService2 {
 
     @GET("area/districts")
     Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") String id,
+                                 @Query("page[size]") int size);
+
+    @GET("area/villages")
+    Call<Kelurahan> getKelurahan(@Query("filter[distrik_id]") String id,
                                  @Query("page[size]") int size);
 
 

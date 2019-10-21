@@ -262,7 +262,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
                                     android:textColor="@color/new_text_black"
                                     android:text="Data Calon Peminjam"
                                     android:layout_centerVertical="true"
@@ -359,7 +359,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
                                     android:textColor="@color/new_text_black"
                                     android:text="@string/informasi_jaminan_pinjaman"
                                     android:layout_centerVertical="true"
@@ -696,7 +696,7 @@
                                         android:id="@+id/et_plat_nomor"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:hint="Plat Nomor Kendaraan"
+                                        android:hint="Plat Nomor Jaminan"
                                         android:layout_centerHorizontal="true"
                                         android:inputType="textCapCharacters"
                                         android:imeOptions="actionNext"
@@ -727,13 +727,24 @@
                             android:textColor="@color/colorAccentDark2"
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"/>
+
                         <TextView
                             android:id="@+id/plat_nomor_not_available"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Plat Nomor sudah pernah digunakan"
                             android:fontFamily="@font/open_sans"
-                            android:textColor="@color/colorAccentDark"
+                            android:textColor="@color/colorRed"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/plat_nomor_error"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Format yang dimasukan salah"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorRed"
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"/>
 
@@ -820,7 +831,6 @@
                             android:id="@+id/voucher_available"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Dapatkan cashback 10% maksimal Rp100.000"
                             android:fontFamily="@font/open_sans"
                             android:textColor="@color/colorAccentDark2"
                             android:layout_marginTop="5dp"
@@ -831,7 +841,7 @@
                             android:layout_height="wrap_content"
                             android:text="Kode voucher tidak ditemukan"
                             android:fontFamily="@font/open_sans"
-                            android:textColor="@color/colorAccentDark"
+                            android:textColor="@color/colorRed"
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"/>
                     </LinearLayout>
