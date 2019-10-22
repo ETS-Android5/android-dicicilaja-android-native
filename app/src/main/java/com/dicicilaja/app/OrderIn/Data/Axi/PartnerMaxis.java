@@ -4,28 +4,28 @@ package com.dicicilaja.app.OrderIn.Data.Axi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Referrers {
+public class PartnerMaxis {
 
     @SerializedName("data")
     @Expose
-    private Data___ data;
+    private Object data;
     @SerializedName("links")
     @Expose
-    private Links____ links;
+    private Links_________ links;
 
-    public Data___ getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(Data___ data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    public Links____ getLinks() {
+    public Links_________ getLinks() {
         return links;
     }
 
-    public void setLinks(Links____ links) {
+    public void setLinks(Links_________ links) {
         this.links = links;
     }
 

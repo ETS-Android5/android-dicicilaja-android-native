@@ -1,61 +1,65 @@
+
 package com.dicicilaja.app.OrderIn.Data.Axi;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Relationships{
+public class Relationships {
 
-	@SerializedName("referrers")
-	private Referrers referrers;
+    @SerializedName("accounts")
+    @Expose
+    private Accounts accounts;
+    @SerializedName("profiles")
+    @Expose
+    private Profiles profiles;
+    @SerializedName("npwps")
+    @Expose
+    private Npwps npwps;
+    @SerializedName("referrers")
+    @Expose
+    private Referrers referrers;
+    @SerializedName("referees")
+    @Expose
+    private Referees referees;
 
-	@SerializedName("profiles")
-	private Profiles profiles;
+    public Accounts getAccounts() {
+        return accounts;
+    }
 
-	@SerializedName("npwps")
-	private Npwps npwps;
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
+    }
 
-	@SerializedName("accounts")
-	private Accounts accounts;
+    public Profiles getProfiles() {
+        return profiles;
+    }
 
-	@SerializedName("referees")
-	private Referees referees;
+    public void setProfiles(Profiles profiles) {
+        this.profiles = profiles;
+    }
 
-	public void setReferrers(Referrers referrers){
-		this.referrers = referrers;
-	}
+    public Npwps getNpwps() {
+        return npwps;
+    }
 
-	public Referrers getReferrers(){
-		return referrers;
-	}
+    public void setNpwps(Npwps npwps) {
+        this.npwps = npwps;
+    }
 
-	public void setProfiles(Profiles profiles){
-		this.profiles = profiles;
-	}
+    public Referrers getReferrers() {
+        return referrers;
+    }
 
-	public Profiles getProfiles(){
-		return profiles;
-	}
+    public void setReferrers(Referrers referrers) {
+        this.referrers = referrers;
+    }
 
-	public void setNpwps(Npwps npwps){
-		this.npwps = npwps;
-	}
+    public Referees getReferees() {
+        return referees;
+    }
 
-	public Npwps getNpwps(){
-		return npwps;
-	}
+    public void setReferees(Referees referees) {
+        this.referees = referees;
+    }
 
-	public void setAccounts(Accounts accounts){
-		this.accounts = accounts;
-	}
-
-	public Accounts getAccounts(){
-		return accounts;
-	}
-
-	public void setReferees(Referees referees){
-		this.referees = referees;
-	}
-
-	public Referees getReferees(){
-		return referees;
-	}
 }

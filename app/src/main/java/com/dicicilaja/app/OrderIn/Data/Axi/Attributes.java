@@ -1,138 +1,142 @@
+
 package com.dicicilaja.app.OrderIn.Data.Axi;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attributes{
+public class Attributes {
 
-	@SerializedName("nomor_axi_id")
-	private String nomorAxiId;
+    @SerializedName("profile_id")
+    @Expose
+    private Integer profileId;
+    @SerializedName("status_id")
+    @Expose
+    private Integer statusId;
+    @SerializedName("npwp_id")
+    @Expose
+    private Integer npwpId;
+    @SerializedName("nomor_axi_id")
+    @Expose
+    private String nomorAxiId;
+    @SerializedName("axi_id_reff")
+    @Expose
+    private Integer axiIdReff;
+    @SerializedName("cabang_id")
+    @Expose
+    private Integer cabangId;
+    @SerializedName("tanggal_daftar")
+    @Expose
+    private String tanggalDaftar;
+    @SerializedName("cabang_daftar")
+    @Expose
+    private Integer cabangDaftar;
+    @SerializedName("nomor_tagihan")
+    @Expose
+    private String nomorTagihan;
+    @SerializedName("deleted_at")
+    @Expose
+    private Object deletedAt;
+    @SerializedName("created-at")
+    @Expose
+    private String createdAt;
+    @SerializedName("updated-at")
+    @Expose
+    private String updatedAt;
 
-	@SerializedName("npwp_id")
-	private int npwpId;
+    public Integer getProfileId() {
+        return profileId;
+    }
 
-	@SerializedName("axi_id_reff")
-	private int axiIdReff;
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
+    }
 
-	@SerializedName("cabang_daftar")
-	private int cabangDaftar;
+    public Integer getStatusId() {
+        return statusId;
+    }
 
-	@SerializedName("status_id")
-	private int statusId;
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
+    }
 
-	@SerializedName("cabang_id")
-	private int cabangId;
+    public Integer getNpwpId() {
+        return npwpId;
+    }
 
-	@SerializedName("profile_id")
-	private int profileId;
+    public void setNpwpId(Integer npwpId) {
+        this.npwpId = npwpId;
+    }
 
-	@SerializedName("updated-at")
-	private String updatedAt;
+    public String getNomorAxiId() {
+        return nomorAxiId;
+    }
 
-	@SerializedName("created-at")
-	private String createdAt;
+    public void setNomorAxiId(String nomorAxiId) {
+        this.nomorAxiId = nomorAxiId;
+    }
 
-	@SerializedName("nomor_tagihan")
-	private String nomorTagihan;
+    public Integer getAxiIdReff() {
+        return axiIdReff;
+    }
 
-	@SerializedName("tanggal_daftar")
-	private String tanggalDaftar;
+    public void setAxiIdReff(Integer axiIdReff) {
+        this.axiIdReff = axiIdReff;
+    }
 
-	@SerializedName("deleted_at")
-	private Object deletedAt;
+    public Integer getCabangId() {
+        return cabangId;
+    }
 
-	public void setNomorAxiId(String nomorAxiId){
-		this.nomorAxiId = nomorAxiId;
-	}
+    public void setCabangId(Integer cabangId) {
+        this.cabangId = cabangId;
+    }
 
-	public String getNomorAxiId(){
-		return nomorAxiId;
-	}
+    public String getTanggalDaftar() {
+        return tanggalDaftar;
+    }
 
-	public void setNpwpId(int npwpId){
-		this.npwpId = npwpId;
-	}
+    public void setTanggalDaftar(String tanggalDaftar) {
+        this.tanggalDaftar = tanggalDaftar;
+    }
 
-	public int getNpwpId(){
-		return npwpId;
-	}
+    public Integer getCabangDaftar() {
+        return cabangDaftar;
+    }
 
-	public void setAxiIdReff(int axiIdReff){
-		this.axiIdReff = axiIdReff;
-	}
+    public void setCabangDaftar(Integer cabangDaftar) {
+        this.cabangDaftar = cabangDaftar;
+    }
 
-	public int getAxiIdReff(){
-		return axiIdReff;
-	}
+    public String getNomorTagihan() {
+        return nomorTagihan;
+    }
 
-	public void setCabangDaftar(int cabangDaftar){
-		this.cabangDaftar = cabangDaftar;
-	}
+    public void setNomorTagihan(String nomorTagihan) {
+        this.nomorTagihan = nomorTagihan;
+    }
 
-	public int getCabangDaftar(){
-		return cabangDaftar;
-	}
+    public Object getDeletedAt() {
+        return deletedAt;
+    }
 
-	public void setStatusId(int statusId){
-		this.statusId = statusId;
-	}
+    public void setDeletedAt(Object deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 
-	public int getStatusId(){
-		return statusId;
-	}
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCabangId(int cabangId){
-		this.cabangId = cabangId;
-	}
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public int getCabangId(){
-		return cabangId;
-	}
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setProfileId(int profileId){
-		this.profileId = profileId;
-	}
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	public int getProfileId(){
-		return profileId;
-	}
-
-	public void setUpdatedAt(String updatedAt){
-		this.updatedAt = updatedAt;
-	}
-
-	public String getUpdatedAt(){
-		return updatedAt;
-	}
-
-	public void setCreatedAt(String createdAt){
-		this.createdAt = createdAt;
-	}
-
-	public String getCreatedAt(){
-		return createdAt;
-	}
-
-	public void setNomorTagihan(String nomorTagihan){
-		this.nomorTagihan = nomorTagihan;
-	}
-
-	public String getNomorTagihan(){
-		return nomorTagihan;
-	}
-
-	public void setTanggalDaftar(String tanggalDaftar){
-		this.tanggalDaftar = tanggalDaftar;
-	}
-
-	public String getTanggalDaftar(){
-		return tanggalDaftar;
-	}
-
-	public void setDeletedAt(Object deletedAt){
-		this.deletedAt = deletedAt;
-	}
-
-	public Object getDeletedAt(){
-		return deletedAt;
-	}
 }

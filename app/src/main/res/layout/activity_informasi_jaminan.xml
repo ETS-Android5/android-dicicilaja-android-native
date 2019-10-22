@@ -25,7 +25,7 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -180,6 +180,7 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
                                 android:hint="Tahun Kendaraan"
                                 android:layout_centerHorizontal="true"
                                 android:inputType="number"
+                                android:maxLength="4"
                                 android:imeOptions="actionDone"
                                 android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
@@ -346,7 +347,7 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
                         android:backgroundTint="@color/colorAccentDark2"/>
                 </LinearLayout>
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"

@@ -17,5 +17,6 @@ public interface ApiService3 {
     Call<PlatNomor> getPlatNomor(@Query("vehicle_id") String nomor);
 
     @GET("profile/detail-axis")
-    Call<Axi> getAxi(@Query("filter[axi_id_reff]") String id);
+    Call<Axi> getAxi(@Query("filter[axi_id_reff]") String id,
+                     @Query("include") String param);
 }

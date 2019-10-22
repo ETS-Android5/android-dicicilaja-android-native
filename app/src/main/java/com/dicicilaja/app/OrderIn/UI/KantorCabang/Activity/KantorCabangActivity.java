@@ -142,7 +142,7 @@ public class KantorCabangActivity extends AppCompatActivity {
 
     public void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi(session.getDistrict_id(), "village.district.city", 5);
+        Call<CabangRekomendasi> call = apiService.getCabangRekomendasi(session.getDistrict_id(), "village.district.city", 1000);
         call.enqueue(new Callback<CabangRekomendasi>() {
             @Override
             public void onResponse(Call<CabangRekomendasi> call, Response<CabangRekomendasi> response) {
@@ -182,7 +182,7 @@ public class KantorCabangActivity extends AppCompatActivity {
             }
         });
 
-        Call<CabangTerdekat> call2 = apiService.getCabangTerdekat(session.getCity_id(), "village.district.city", 5);
+        Call<CabangTerdekat> call2 = apiService.getCabangTerdekat(session.getCity_id(), "village.district.city", 1000);
         call2.enqueue(new Callback<CabangTerdekat>() {
             @Override
             public void onResponse(Call<CabangTerdekat> call, Response<CabangTerdekat> response) {
@@ -223,7 +223,7 @@ public class KantorCabangActivity extends AppCompatActivity {
             }
         });
 
-        Call<CabangLainnya> call3 = apiService.getCabangLainnya(session.getProvince_id(), "village.district.city", 5);
+        Call<CabangLainnya> call3 = apiService.getCabangLainnya(session.getProvince_id(), "village.district.city", 1000);
         call3.enqueue(new Callback<CabangLainnya>() {
             @Override
             public void onResponse(Call<CabangLainnya> call, Response<CabangLainnya> response) {

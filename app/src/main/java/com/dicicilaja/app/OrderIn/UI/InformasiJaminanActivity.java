@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -146,7 +147,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         spinnerArea.setEnabled(false);
         spinnerBrand.setEnabled(false);
         spinnerType.setEnabled(false);
-        etTahunKendaraan.setEnabled(false);
         spinnerTenor.setEnabled(false);
         spinnerInstallment.setEnabled(false);
         spinnerInsurance.setEnabled(false);
@@ -292,11 +292,11 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                 JAMINAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                 switch (String.valueOf(response.body().getData().get(i).getAttributes().getNama())) {
                                     case "car":
-                                        JAMINAN_ITEMS.add("Mobil");
+                                        JAMINAN_ITEMS.add("BPKB Mobil");
                                         break;
 
                                     case "mcy":
-                                        JAMINAN_ITEMS.add("Motor");
+                                        JAMINAN_ITEMS.add("BPKB Motor");
                                         break;
 
                                     default:
@@ -452,8 +452,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             clearBrand();
                             clearType();
-                            etTahunKendaraan.setText("");
-                            etTahunKendaraan.setEnabled(false);
                             clearTenor();
                             clearAngsuran();
                             clearAsuransi();
@@ -535,8 +533,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                         clearType();
-                                        etTahunKendaraan.setText("");
-                                        etTahunKendaraan.setEnabled(false);
                                         clearTenor();
                                         clearAngsuran();
                                         clearAsuransi();
@@ -619,13 +615,9 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                                     if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
-                                                        etTahunKendaraan.setText("");
-                                                        etTahunKendaraan.setEnabled(false);
                                                         clearTenor();
                                                         clearAngsuran();
                                                         clearAsuransi();
-
-                                                        etTahunKendaraan.setEnabled(true);
                                                         spinnerTenor.setEnabled(true);
 
 
@@ -839,10 +831,23 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
     }
 
-    private void requestFocus(View view) {
+    public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
         }
+    }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
     }
 
     private boolean validateFormMobil(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String tenor_simulasi, String jenis_angsuran_id, String tipe_asuransi_id) {
@@ -857,6 +862,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerJaminan);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerJaminan.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -873,6 +879,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerArea);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerArea.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -889,6 +896,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerBrand);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerBrand.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -905,6 +913,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerType);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerType.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -915,6 +924,18 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etTahunKendaraan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (year.length() < 4) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -935,6 +956,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerTenor);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerTenor.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -951,6 +973,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerInstallment);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerInstallment.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -967,6 +990,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerInsurance);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerInsurance.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -987,6 +1011,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerJaminan);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerJaminan.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -1003,6 +1028,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerArea);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerArea.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -1019,6 +1045,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerBrand);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerBrand.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -1035,6 +1062,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerType);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerType.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -1045,6 +1073,18 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etTahunKendaraan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (year.length() < 4) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -1065,6 +1105,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     requestFocus(spinnerTenor);
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerTenor.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();

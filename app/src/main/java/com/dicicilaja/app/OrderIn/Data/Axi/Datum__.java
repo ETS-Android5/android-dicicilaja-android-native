@@ -4,7 +4,7 @@ package com.dicicilaja.app.OrderIn.Data.Axi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+public class Datum__ {
 
     @SerializedName("type")
     @Expose

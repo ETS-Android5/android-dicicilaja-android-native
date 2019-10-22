@@ -1,50 +1,32 @@
+
 package com.dicicilaja.app.OrderIn.Data.Axi;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Links{
+public class Links {
 
-	@SerializedName("last")
-	private String last;
+    @SerializedName("first")
+    @Expose
+    private String first;
+    @SerializedName("last")
+    @Expose
+    private String last;
 
-	@SerializedName("first")
-	private String first;
+    public String getFirst() {
+        return first;
+    }
 
-	@SerializedName("self")
-	private String self;
+    public void setFirst(String first) {
+        this.first = first;
+    }
 
-	@SerializedName("related")
-	private String related;
+    public String getLast() {
+        return last;
+    }
 
-	public void setLast(String last){
-		this.last = last;
-	}
+    public void setLast(String last) {
+        this.last = last;
+    }
 
-	public String getLast(){
-		return last;
-	}
-
-	public void setFirst(String first){
-		this.first = first;
-	}
-
-	public String getFirst(){
-		return first;
-	}
-
-	public void setSelf(String self){
-		this.self = self;
-	}
-
-	public String getSelf(){
-		return self;
-	}
-
-	public void setRelated(String related){
-		this.related = related;
-	}
-
-	public String getRelated(){
-		return related;
-	}
 }

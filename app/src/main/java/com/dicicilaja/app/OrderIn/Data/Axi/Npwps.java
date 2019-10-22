@@ -1,28 +1,32 @@
+
 package com.dicicilaja.app.OrderIn.Data.Axi;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Npwps{
+public class Npwps {
 
-	@SerializedName("data")
-	private Data data;
+    @SerializedName("data")
+    @Expose
+    private Data__ data;
+    @SerializedName("links")
+    @Expose
+    private Links___ links;
 
-	@SerializedName("links")
-	private Links links;
+    public Data__ getData() {
+        return data;
+    }
 
-	public void setData(Data data){
-		this.data = data;
-	}
+    public void setData(Data__ data) {
+        this.data = data;
+    }
 
-	public Data getData(){
-		return data;
-	}
+    public Links___ getLinks() {
+        return links;
+    }
 
-	public void setLinks(Links links){
-		this.links = links;
-	}
+    public void setLinks(Links___ links) {
+        this.links = links;
+    }
 
-	public Links getLinks(){
-		return links;
-	}
 }

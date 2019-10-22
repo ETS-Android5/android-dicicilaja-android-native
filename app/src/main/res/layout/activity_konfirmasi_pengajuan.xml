@@ -25,7 +25,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -578,7 +578,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
 
                 </LinearLayout>
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -19,10 +19,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -133,7 +133,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     @BindView(R.id.voucher_not_available)
     TextView voucherNotAvailable;
     @BindView(R.id.cari_axi_close)
-    ImageView cariAxiClose;
+    TextView cariAxiClose;
     @BindView(R.id.btn_cari_axi)
     RelativeLayout btnCariAxi;
     @BindView(R.id.btn_cari_plat_nomor)
@@ -141,9 +141,9 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     @BindView(R.id.btn_cari_voucher)
     RelativeLayout btnCariVoucher;
     @BindView(R.id.cari_plat_nomor_close)
-    ImageView cariPlatNomorClose;
+    TextView cariPlatNomorClose;
     @BindView(R.id.cari_voucher_close)
-    ImageView cariVoucherClose;
+    TextView cariVoucherClose;
     @BindView(R.id.txt_data_calon_pinjaman_value)
     TextView txtDataCalonPinjamanValue;
     @BindView(R.id.detail_data_calon_pinjaman)
@@ -238,6 +238,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     @Override
     protected void onResume() {
         super.onResume();
+        hideSoftKeyboard();
         Log.d("REFRESH", "status_data_calon: " + session.getStatus_data_calon() + "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
         initView();
     }
@@ -418,6 +419,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
     private void closeAxi() {
         etAxiIdReff.setEnabled(true);
+        etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBlack));
         etAxiIdReff.setText("");
         etAxiIdReff.setFocusable(true);
         clearAxi();
@@ -483,7 +485,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     imageKtp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-                    fKtp = Helper.ConvertBitmapToString(resizedBitmap);
+                    session.setKtp_image(Helper.ConvertBitmapToString(resizedBitmap));
 
                     btnUploadKtp.setVisibility(View.GONE);
                     viewUploadKtp.setVisibility(View.VISIBLE);
@@ -513,7 +515,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     imageBpkb.setImageBitmap(getResizedBitmap(bitmap, 350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-                    fBpkb = Helper.ConvertBitmapToString(resizedBitmap);
+                    session.setBpkb(Helper.ConvertBitmapToString(resizedBitmap));
 
                     btnUploadBpkb.setVisibility(View.GONE);
                     viewUploadBpkb.setVisibility(View.VISIBLE);
@@ -703,6 +705,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     detailDataCalonPinjaman.setFocusable(true);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -717,6 +720,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     detailInformasiJaminan.setFocusable(true);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -743,8 +747,21 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
         }
+    }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
     }
 
     @OnClick({R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman, R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
@@ -779,22 +796,10 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 break;
             case R.id.detail_data_calon_pinjaman:
                 intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
-                intent.putExtra("agen_id", agen_id);
-                intent.putExtra("amount", amount);
-                intent.putExtra("ktp_image", ktp_image);
-                intent.putExtra("bpkb", bpkb);
-                intent.putExtra("vehicle_id", vehicle_id);
-                intent.putExtra("voucher_code_id", voucher_code_id);
                 startActivity(intent);
                 break;
             case R.id.detail_informasi_jaminan:
                 intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
-                intent.putExtra("agen_id", agen_id);
-                intent.putExtra("amount", amount);
-                intent.putExtra("ktp_image", ktp_image);
-                intent.putExtra("bpkb", bpkb);
-                intent.putExtra("vehicle_id", vehicle_id);
-                intent.putExtra("voucher_code_id", voucher_code_id);
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
@@ -838,7 +843,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
                         alertDialog3.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                requestFocus(cbConfirm);
+                                cbConfirm.setFocusable(true);
                             }
                         });
                         alertDialog3.show();
@@ -849,10 +854,11 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             case R.id.cari_axi:
                 progressBar.setVisibility(View.VISIBLE);
                 etAxiIdReff.setEnabled(false);
+                etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
                 cariAxiClose.setVisibility(View.VISIBLE);
                 cariAxi.setVisibility(View.GONE);
 
-                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
+                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString(), "profiles");
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -862,13 +868,13 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiAvailable.setVisibility(View.VISIBLE);
-                                    axiAvailable.setText(response.body().getData().get(0).getAttributes().getNomorAxiId());
-                                    agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                    axiAvailable.setText(response.body().getIncluded().get(0).getAttributes().getNama());
+                                    session.setAgen_id(response.body().getData().get(0).getAttributes().getNomorAxiId());
                                 } else {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiNotAvailable.setVisibility(View.VISIBLE);
-                                    agen_id = "";
+                                    session.setAgen_id("");
 
                                 }
                             } catch (Exception ex) {

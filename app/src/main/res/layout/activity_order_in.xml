@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -129,19 +129,19 @@
                                     android:textColor="@color/colorAccentDark"
                                     android:backgroundTint="@color/colorWhite"></TextView>
 
-                                <ImageView
+                                <TextView
                                     android:visibility="gone"
                                     android:id="@+id/cari_axi_close"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:src="@drawable/ic_close"
+                                    android:text="HAPUS"
                                     android:paddingTop="5dp"
                                     android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
-                                    android:textSize="15sp"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></ImageView>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -197,7 +197,7 @@
                             android:layout_height="wrap_content"
                             android:text="AXI tidak ditemukan"
                             android:fontFamily="@font/open_sans"
-                            android:textColor="@color/colorAccentDark"
+                            android:textColor="@color/colorRed"
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"/>
 
@@ -664,19 +664,19 @@
                                     android:textColor="@color/colorAccentDark"
                                     android:backgroundTint="@color/colorWhite"></TextView>
 
-                                <ImageView
+                                <TextView
                                     android:visibility="gone"
                                     android:id="@+id/cari_plat_nomor_close"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:src="@drawable/ic_close"
+                                    android:text="HAPUS"
                                     android:paddingTop="5dp"
                                     android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
-                                    android:textSize="15sp"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></ImageView>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -774,19 +774,19 @@
                                     android:textColor="@color/colorAccentDark"
                                     android:backgroundTint="@color/colorWhite"></TextView>
 
-                                <ImageView
+                                <TextView
                                     android:visibility="gone"
                                     android:id="@+id/cari_voucher_close"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAllCaps="false"
-                                    android:src="@drawable/ic_close"
+                                    android:text="HAPUS"
                                     android:paddingTop="5dp"
                                     android:layout_centerInParent="true"
                                     android:fontFamily="@font/open_sans_semibold"
-                                    android:textSize="15sp"
+                                    android:textSize="13sp"
                                     android:textColor="@color/colorAccentDark"
-                                    android:backgroundTint="@color/colorWhite"></ImageView>
+                                    android:backgroundTint="@color/colorWhite"></TextView>
                             </RelativeLayout>
 
                             <LinearLayout
@@ -892,7 +892,7 @@
                     android:backgroundTint="@color/colorAccentDark2"/>
                 </LinearLayout>
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
         
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"
