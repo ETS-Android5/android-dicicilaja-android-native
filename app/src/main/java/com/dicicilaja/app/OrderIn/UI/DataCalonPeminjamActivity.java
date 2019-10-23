@@ -603,6 +603,8 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                             city,
                             district_id,
                             district,
+                            village_id,
+                            village,
                             address,
                             postal_code
                     );

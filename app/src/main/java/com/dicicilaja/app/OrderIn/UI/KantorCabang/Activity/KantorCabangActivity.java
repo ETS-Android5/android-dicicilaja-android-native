@@ -1,7 +1,6 @@
 package com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dicicilaja.app.OrderIn.Data.CabangLainnya.CabangLainnya;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.CabangRekomendasi;
 import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Datum;
-import com.dicicilaja.app.OrderIn.Data.CabangRekomendasi.Included;
 import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
@@ -29,15 +26,12 @@ import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.LainnyaAdapter;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.RekomendasiAdapter;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Adapter.TerdekatAdapter;
-import com.dicicilaja.app.OrderIn.UI.KonfirmasiPengajuanActivity;
-import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,11 +41,8 @@ public class KantorCabangActivity extends AppCompatActivity {
 
     ApiService2 apiService;
     List<Datum> rekomendasiItems;
-    List<Included> rekomendasiIncludeds;
     List<com.dicicilaja.app.OrderIn.Data.CabangTerdekat.Datum> terdekatItems;
-    List<com.dicicilaja.app.OrderIn.Data.CabangTerdekat.Included> terdekatIncludeds;
     List<com.dicicilaja.app.OrderIn.Data.CabangLainnya.Datum> lainnyaItems;
-    List<com.dicicilaja.app.OrderIn.Data.CabangLainnya.Included> lainnyaIncludeds;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -149,11 +140,10 @@ public class KantorCabangActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         rekomendasiItems = response.body().getData();
-                        rekomendasiIncludeds = response.body().getIncluded();
                         Log.d("TAGTAG", "rekomendasiSize: " + rekomendasiItems.size());
                         if (rekomendasiItems.size() > 0) {
                             showRekomendasi();
-                            recyclerRekomendasi.setAdapter(new RekomendasiAdapter(rekomendasiItems, rekomendasiIncludeds, getBaseContext()));
+                            recyclerRekomendasi.setAdapter(new RekomendasiAdapter(rekomendasiItems, getBaseContext()));
                             progressBar.setVisibility(View.GONE);
                         } else {
                             hideRekomendasi();
@@ -190,11 +180,10 @@ public class KantorCabangActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         terdekatItems = response.body().getData();
-                        terdekatIncludeds = response.body().getIncluded();
                         Log.d("TAGTAG", "terdekatSize: " + terdekatItems.size());
                         if (terdekatItems.size() > 0) {
                             showTerdekat();
-                            recyclerTerdekat.setAdapter(new TerdekatAdapter(terdekatItems, terdekatIncludeds, getBaseContext()));
+                            recyclerTerdekat.setAdapter(new TerdekatAdapter(terdekatItems, getBaseContext()));
                             progressBar.setVisibility(View.GONE);
                         } else {
                             hideTerdekat();
@@ -230,11 +219,10 @@ public class KantorCabangActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         lainnyaItems = response.body().getData();
-                        lainnyaIncludeds = response.body().getIncluded();
                         Log.d("TAGTAG", "lainnyaSize: " + lainnyaItems.size());
                         if (lainnyaItems.size() > 0) {
                             showLainnya();
-                            recyclerLainnya.setAdapter(new LainnyaAdapter(lainnyaItems, lainnyaIncludeds, getBaseContext()));
+                            recyclerLainnya.setAdapter(new LainnyaAdapter(lainnyaItems, getBaseContext()));
                             progressBar.setVisibility(View.GONE);
                         } else {
                             hideLainnya();

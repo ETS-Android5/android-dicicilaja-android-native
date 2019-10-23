@@ -196,6 +196,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
 
         initToolbar();
         initAction();
+        initShowData();
         initLoadData();
         initView();
 
@@ -241,6 +242,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         hideSoftKeyboard();
         Log.d("REFRESH", "status_data_calon: " + session.getStatus_data_calon() + "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
         initView();
+        initShowData();
     }
 
     private void initLoadData() {
@@ -261,7 +263,9 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     "1",
                     "1",
                     sessionUser.getAxiId(),
+                    "",
                     getIntent().getStringExtra("amount"),
+                    "",
                     "",
                     "",
                     "",
@@ -277,6 +281,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     getIntent().getStringExtra("city"),
                     getIntent().getStringExtra("district_id"),
                     getIntent().getStringExtra("district"),
+                    getIntent().getStringExtra("village_id"),
+                    getIntent().getStringExtra("village"),
                     getIntent().getStringExtra("address"),
                     getIntent().getStringExtra("postal_code"),
                     getIntent().getBooleanExtra("status_informasi_jaminan", true),
@@ -295,6 +301,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                     getIntent().getStringExtra("tipe_asuransi"),
                     getIntent().getStringExtra("jenis_angsuran_id"),
                     getIntent().getStringExtra("jenis_angsuran"),
+                    "",
                     "",
                     "",
                     ""
@@ -443,6 +450,56 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         clearVoucher();
         cariVoucher.setVisibility(View.VISIBLE);
         cariVoucherClose.setVisibility(View.GONE);
+    }
+
+    private void initShowData() {
+        Log.d("ORDERDONE", "jenis_pengajuan: " + session.getJenis_pengajuan());
+        Log.d("ORDERDONE", "program_id: " + session.getProgram_id());
+        Log.d("ORDERDONE", "product_id: " + session.getProduct_id());
+        Log.d("ORDERDONE", "qty: " + session.getQty());
+        Log.d("ORDERDONE", "agen_id: " + session.getAgen_id());
+        Log.d("ORDERDONE", "agen_name: " + session.getAgen_name());
+        Log.d("ORDERDONE", "amount: " + session.getAmount());
+        Log.d("ORDERDONE", "ktp_image: " + session.getKtp_image());
+        Log.d("ORDERDONE", "bpkb: " + session.getBpkb());
+        Log.d("ORDERDONE", "vehicle_id: " + session.getVehicle_id());
+        Log.d("ORDERDONE", "voucher_code_id: " + session.getVoucher_code_id());
+        Log.d("ORDERDONE", "voucher_code: " + session.getVoucher_code());
+        Log.d("ORDERDONE", "status_data_calon: " + session.getStatus_data_calon());
+        Log.d("ORDERDONE", "name: " + session.getName());
+        Log.d("ORDERDONE", "no_ktp: " + session.getNo_ktp());
+        Log.d("ORDERDONE", "email: " + session.getEmail());
+        Log.d("ORDERDONE", "no_hp: " + session.getNo_hp());
+        Log.d("ORDERDONE", "province_id: " + session.getProvince_id());
+        Log.d("ORDERDONE", "province: " + session.getProvince());
+        Log.d("ORDERDONE", "city_id: " + session.getCity_id());
+        Log.d("ORDERDONE", "city: " + session.getCity());
+        Log.d("ORDERDONE", "district_id: " + session.getDistrict_id());
+        Log.d("ORDERDONE", "district: " + session.getDistrict());
+        Log.d("ORDERDONE", "village_id: " + session.getVillage_id());
+        Log.d("ORDERDONE", "village: " + session.getVillage());
+        Log.d("ORDERDONE", "address: " + session.getAddress());
+        Log.d("ORDERDONE", "postal_code: " + session.getPostal_code());
+        Log.d("ORDERDONE", "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
+        Log.d("ORDERDONE", "jaminan_id: " + session.getJaminan_id());
+        Log.d("ORDERDONE", "jaminan: " + session.getJaminan());
+        Log.d("ORDERDONE", "area_id: " + session.getArea_id());
+        Log.d("ORDERDONE", "area: " + session.getArea());
+        Log.d("ORDERDONE", "objek_brand_id: " + session.getObjek_brand_id());
+        Log.d("ORDERDONE", "brand: " + session.getBrand());
+        Log.d("ORDERDONE", "objek_model_id: " + session.getObjek_model_id());
+        Log.d("ORDERDONE", "model: " + session.getModel());
+        Log.d("ORDERDONE", "year: " + session.getYear());
+        Log.d("ORDERDONE", "tenor_simulasi_id: " + session.getTenor_simulasi_id());
+        Log.d("ORDERDONE", "tenor_simulasi: " + session.getTenor_simulasi());
+        Log.d("ORDERDONE", "tipe_asuransi_id: " + session.getTipe_asuransi_id());
+        Log.d("ORDERDONE", "tipe_asuransi: " + session.getTipe_asuransi());
+        Log.d("ORDERDONE", "jenis_angsuran_id: " + session.getJenis_angsuran_id());
+        Log.d("ORDERDONE", "jenis_angsuran: " + session.getJenis_angsuran());
+        Log.d("ORDERDONE", "branch_id: " + session.getBranch_id());
+        Log.d("ORDERDONE", "branch: " + session.getBranch());
+        Log.d("ORDERDONE", "branch_address: " + session.getBranch_address());
+        Log.d("ORDERDONE", "branch_district: " + session.getBranch_district());
     }
 
     @Override
@@ -824,6 +881,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 break;
             case R.id.next:
                 try {
+                    session.setAmount(etJumlahPinjaman.getText().toString());
                     jumlah_pinjaman = etJumlahPinjaman.getText().toString();
                     data_calon_peminjam = session.getStatus_data_calon();
                     jaminan_pinjaman = session.getStatus_informasi_jaminan();
@@ -870,11 +928,13 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     axiAvailable.setVisibility(View.VISIBLE);
                                     axiAvailable.setText(response.body().getIncluded().get(0).getAttributes().getNama());
                                     session.setAgen_id(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                    session.setAgen_name(response.body().getIncluded().get(0).getAttributes().getNama());
                                 } else {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiNotAvailable.setVisibility(View.VISIBLE);
-                                    session.setAgen_id("");
+                                    session.setAgen_id(null);
+                                    session.setAgen_name(null);
 
                                 }
                             } catch (Exception ex) {
@@ -883,7 +943,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                             alertDialog.setTitle("Perhatian");
-                            alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+                            alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -900,7 +960,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                         progressBar.setVisibility(View.GONE);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                         alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
+                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -937,6 +997,7 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     clearPlatNomor();
                                     progressBar.setVisibility(View.GONE);
                                     platNomorNotAvailable.setVisibility(View.VISIBLE);
+                                    session.setVehicle_id(null);
                                 } else {
                                     clearPlatNomor();
                                     progressBar.setVisibility(View.GONE);
@@ -998,10 +1059,14 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                                     progressBar.setVisibility(View.GONE);
                                     voucherAvailable.setVisibility(View.VISIBLE);
                                     voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
+                                    session.setVoucher_code_id(String.valueOf(response.body().getData().get(0).getId()));
+                                    session.setVoucher_code(String.valueOf(response.body().getData().get(0).getAttributes().getCode()));
                                 } else {
                                     clearVoucher();
                                     progressBar.setVisibility(View.GONE);
                                     voucherNotAvailable.setVisibility(View.VISIBLE);
+                                    session.setVoucher_code_id(null);
+                                    session.setVoucher_code(null);
                                 }
 
                             } catch (Exception ex) {

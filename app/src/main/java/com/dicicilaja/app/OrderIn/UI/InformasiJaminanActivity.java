@@ -109,6 +109,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
+    final List<String> TENOR_DATA = new ArrayList<>();
     final List<String> JENISANGSURAN_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> JENISANGSURAN_MAP = new HashMap<Integer, String>();
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
@@ -219,6 +220,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     private void clearTenor() {
         TENOR_MAP.clear();
         TENOR_ITEMS.clear();
+        TENOR_DATA.clear();
 
         TENOR_MAP.put(0, "0");
         TENOR_MAP.put(1, "1");
@@ -231,6 +233,12 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         TENOR_ITEMS.add("2 Tahun");
         TENOR_ITEMS.add("3 Tahun");
         TENOR_ITEMS.add("4 Tahun");
+
+        TENOR_DATA.add("0");
+        TENOR_DATA.add("12");
+        TENOR_DATA.add("24");
+        TENOR_DATA.add("36");
+        TENOR_DATA.add("48");
 
         ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -726,7 +734,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     model = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
                     year = etTahunKendaraan.getText().toString();
                     tenor_simulasi_id = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
-                    tenor_simulasi = TENOR_MAP.get(spinnerTenor.getSelectedItemPosition());
+                    tenor_simulasi = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
                     tipe_asuransi_id = TIPEASURANSI_MAP.get(spinnerInsurance.getSelectedItemPosition());
                     tipe_asuransi = TIPEASURANSI_ITEMS.get(spinnerInsurance.getSelectedItemPosition());
                     jenis_angsuran_id = JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition());

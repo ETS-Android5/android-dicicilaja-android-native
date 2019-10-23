@@ -22,11 +22,13 @@ public class SessionOrderIn {
                                      String product_id,
                                      String qty,
                                      String agen_id,
+                                     String agen_name,
                                      String amount,
                                      String ktp_image,
                                      String bpkb,
                                      String vehicle_id,
                                      String voucher_code_id,
+                                     String voucher_code,
                                      boolean status_data_calon,
                                      String name,
                                      String no_ktp,
@@ -38,6 +40,8 @@ public class SessionOrderIn {
                                      String city,
                                      String district_id,
                                      String district,
+                                     String village_id,
+                                     String village,
                                      String address,
                                      String postal_code,
                                      boolean status_informasi_jaminan,
@@ -58,17 +62,20 @@ public class SessionOrderIn {
                                      String jenis_angsuran,
                                      String branch_id,
                                      String branch,
-                                     String branch_address){
+                                     String branch_address,
+                                     String branch_district){
         editor.putString("jenis_pengajuan", jenis_pengajuan);
         editor.putString("program_id", program_id);
         editor.putString("product_id", product_id);
         editor.putString("qty", qty);
         editor.putString("agen_id", agen_id);
+        editor.putString("agen_name", agen_name);
         editor.putString("amount", amount);
         editor.putString("ktp_image", ktp_image);
         editor.putString("bpkb", bpkb);
         editor.putString("vehicle_id", vehicle_id);
         editor.putString("voucher_code_id", voucher_code_id);
+        editor.putString("voucher_code", voucher_code);
         editor.putBoolean("status_data_calon", status_data_calon);
         editor.putString("name", name);
         editor.putString("no_ktp", no_ktp);
@@ -80,6 +87,8 @@ public class SessionOrderIn {
         editor.putString("city", city);
         editor.putString("district_id", district_id);
         editor.putString("district", district);
+        editor.putString("village_id", village_id);
+        editor.putString("village", village);
         editor.putString("address", address);
         editor.putString("postal_code", postal_code);
         editor.putBoolean("status_informasi_jaminan", status_informasi_jaminan);
@@ -101,6 +110,7 @@ public class SessionOrderIn {
         editor.putString("branch_id", branch_id);
         editor.putString("branch", branch);
         editor.putString("branch_address", branch_address);
+        editor.putString("branch_district", branch_district);
         editor.commit();
     }
 
@@ -115,6 +125,8 @@ public class SessionOrderIn {
                                       String city,
                                       String district_id,
                                       String district,
+                                      String village_id,
+                                      String village,
                                       String address,
                                       String postal_code){
         editor.putBoolean("status_data_calon", status_data_calon);
@@ -128,6 +140,8 @@ public class SessionOrderIn {
         editor.putString("city", city);
         editor.putString("district_id", district_id);
         editor.putString("district", district);
+        editor.putString("village_id", village_id);
+        editor.putString("village", village);
         editor.putString("address", address);
         editor.putString("postal_code", postal_code);
         editor.commit();
@@ -169,7 +183,7 @@ public class SessionOrderIn {
     }
 
     public String getJenis_pengajuan() {
-        return pref.getString("jenis_pengajuan", null);
+        return pref.getString("jenis_pengajuan", "1");
     }
 
     public void setJenis_pengajuan(String jenis_pengajuan) {
@@ -178,7 +192,7 @@ public class SessionOrderIn {
     }
 
     public String getProgram_id() {
-        return pref.getString("program_id", null);
+        return pref.getString("program_id", "1");
     }
 
     public void setProgram_id(String program_id) {
@@ -187,7 +201,7 @@ public class SessionOrderIn {
     }
 
     public String getProduct_id() {
-        return pref.getString("product_id", null);
+        return pref.getString("product_id", "1");
     }
 
     public void setProduct_id(String product_id) {
@@ -196,7 +210,7 @@ public class SessionOrderIn {
     }
 
     public String getQty() {
-        return pref.getString("qty", null);
+        return pref.getString("qty", "1");
     }
 
     public void setQty(String qty) {
@@ -210,6 +224,15 @@ public class SessionOrderIn {
 
     public void setAgen_id(String agen_id) {
         editor.putString("agen_id", agen_id);
+        editor.commit();
+    }
+
+    public String getAgen_name() {
+        return pref.getString("agen_name", null);
+    }
+
+    public void setAgen_name(String agen_name) {
+        editor.putString("agen_name", agen_name);
         editor.commit();
     }
 
@@ -255,6 +278,15 @@ public class SessionOrderIn {
 
     public void setVoucher_code_id(String voucher_code_id) {
         editor.putString("voucher_code_id", voucher_code_id);
+        editor.commit();
+    }
+
+    public String getVoucher_code() {
+        return pref.getString("voucher_code", null);
+    }
+
+    public void setVoucher_code(String voucher_code) {
+        editor.putString("voucher_code", voucher_code);
         editor.commit();
     }
 
@@ -346,6 +378,24 @@ public class SessionOrderIn {
 
     public void setDistrict(String district) {
         editor.putString("district", district);
+        editor.commit();
+    }
+
+    public String getVillage_id() {
+        return pref.getString("village_id", null);
+    }
+
+    public void setVillage_id(String village_id) {
+        editor.putString("village_id", village_id);
+        editor.commit();
+    }
+
+    public String getVillage() {
+        return pref.getString("village", null);
+    }
+
+    public void setVillage(String village) {
+        editor.putString("village", village);
         editor.commit();
     }
 
@@ -485,7 +535,7 @@ public class SessionOrderIn {
     }
 
     public String getTipe_asuransi_id() {
-        return pref.getString("tipe_asuransi_id", null);
+        return pref.getString("tipe_asuransi_id", "1");
     }
 
     public void setTipe_asuransi_id(String tipe_asuransi_id) {
@@ -494,7 +544,7 @@ public class SessionOrderIn {
     }
 
     public String getTipe_asuransi() {
-        return pref.getString("tipe_asuransi", null);
+        return pref.getString("tipe_asuransi", "1");
     }
 
     public void setTipe_asuransi(String tipe_asuransi) {
@@ -503,7 +553,7 @@ public class SessionOrderIn {
     }
 
     public String getJenis_angsuran_id() {
-        return pref.getString("jenis_angsuran_id", null);
+        return pref.getString("jenis_angsuran_id", "1");
     }
 
     public void setJenis_angsuran_id(String jenis_angsuran_id) {
@@ -512,7 +562,7 @@ public class SessionOrderIn {
     }
 
     public String getJenis_angsuran() {
-        return pref.getString("jenis_angsuran", null);
+        return pref.getString("jenis_angsuran", "1");
     }
 
     public void setJenis_angsuran(String jenis_angsuran) {
@@ -544,6 +594,15 @@ public class SessionOrderIn {
 
     public void setBranch_address(String branch_address) {
         editor.putString("branch_address", branch_address);
+        editor.commit();
+    }
+
+    public String getBranch_district() {
+        return pref.getString("branch_district", null);
+    }
+
+    public void setBranch_district(String branch_district) {
+        editor.putString("branch_district", branch_district);
         editor.commit();
     }
 

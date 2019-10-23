@@ -16,9 +16,6 @@ public class CabangRekomendasi {
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
-    @SerializedName("included")
-    @Expose
-    private List<Included> included = null;
 
     public Meta getMeta() {
         return meta;
@@ -42,14 +39,6 @@ public class CabangRekomendasi {
 
     public void setData(List<Datum> data) {
         this.data = data;
-    }
-
-    public List<Included> getIncluded() {
-        return included;
-    }
-
-    public void setIncluded(List<Included> included) {
-        this.included = included;
     }
 
 }

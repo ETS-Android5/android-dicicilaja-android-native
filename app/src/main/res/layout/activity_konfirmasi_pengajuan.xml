@@ -104,7 +104,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="2dp"
-                                    android:layout_marginTop="10dp"
+                                    android:layout_marginTop="4dp"
                                     android:src="@drawable/border_1dp"/>
                             </LinearLayout>
                         </RelativeLayout>
@@ -123,11 +123,11 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/angsuran"
+                                android:id="@+id/jumlah_pinjaman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="Rp98.000.000"
+                                android:text="-"
                                 android:textColor="@color/colorAccentDark2"
                                 android:fontFamily="@font/open_sans_bold"/>
 
@@ -161,10 +161,11 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/jumlah_tenor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="12"
+                                android:text="-"
                                 android:textColor="@color/colorAccentDark2"
                                 android:fontFamily="@font/open_sans_bold"/>
 
@@ -182,7 +183,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="4dp"
                             android:layout_marginBottom="5dp"
                             android:src="@drawable/border_1dp"/>
 
@@ -210,25 +211,26 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
 
                         <LinearLayout
                             android:orientation="vertical"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/nama"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
                                 android:textColor="@color/new_text_black"
-                                android:text="Budi Budiman"
+                                android:text="-"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans_semibold"/>
 
                             <TextView
-                                android:id="@+id/txt_data_calon_pinjaman"
+                                android:id="@+id/no_ktp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:textColor="@color/new_text_black"
-                                android:text="3261276387230912"
+                                android:text="-"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans"/>
 
@@ -240,12 +242,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                 android:src="@drawable/border_dotted_1dp"/>
 
                             <TextView
+                                android:id="@+id/alamat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
                                 android:layout_marginTop="10dp"
                                 android:textColor="@color/new_text_black"
-                                android:text="Jl. Condong Catur Blok Bumiputera C2, Bumi Putera, Bogor, Jawa Barat 42372"
+                                android:text="-"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans"/>
                         </LinearLayout>
@@ -289,12 +292,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                     android:fontFamily="@font/open_sans"/>
 
                                 <TextView
+                                    android:id="@+id/jenis_jaminan"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:textSize="12sp"
                                     android:textColor="@color/new_text_black"
-                                    android:text="Mobil"
+                                    android:text="-"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans_semibold"/>
                             </RelativeLayout>
@@ -320,12 +324,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                     android:fontFamily="@font/open_sans"/>
 
                                 <TextView
+                                    android:id="@+id/merk"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:textSize="12sp"
                                     android:textColor="@color/new_text_black"
-                                    android:text="Honda"
+                                    android:text="-"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans_semibold"/>
                             </RelativeLayout>
@@ -351,12 +356,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                     android:fontFamily="@font/open_sans"/>
 
                                 <TextView
+                                    android:id="@+id/type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:textSize="12sp"
                                     android:textColor="@color/new_text_black"
-                                    android:text="New Crv 2.0 M/T DOHC"
+                                    android:text="-"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans_semibold"/>
                             </RelativeLayout>
@@ -382,12 +388,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                     android:fontFamily="@font/open_sans"/>
 
                                 <TextView
+                                    android:id="@+id/tahun"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:textSize="12sp"
                                     android:textColor="@color/new_text_black"
-                                    android:text="2017"
+                                    android:text="-"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans_semibold"/>
                             </RelativeLayout>
@@ -413,12 +420,13 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                                     android:fontFamily="@font/open_sans"/>
 
                                 <TextView
+                                    android:id="@+id/plat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:textSize="12sp"
                                     android:textColor="@color/new_text_black"
-                                    android:text="F 3127 AG"
+                                    android:text="-"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans_semibold"/>
                             </RelativeLayout>
@@ -432,93 +440,102 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="Informasi Pinjaman"
-                        android:textSize="16dp"
-                        android:fontFamily="@font/open_sans_bold"/>
-
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/angsuran_asuransi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:paddingTop="18dp"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:background="@drawable/border_form"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:orientation="vertical"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Informasi Pinjaman"
+                            android:textSize="16dp"
+                            android:fontFamily="@font/open_sans_bold"/>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:paddingTop="18dp"
+                            android:paddingBottom="16dp"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:background="@drawable/border_form"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="12sp"
+                                        android:text="Jenis Angsuran"
+                                        android:layout_centerVertical="true"
+                                        android:fontFamily="@font/open_sans"/>
+
+                                    <TextView
+                                        android:id="@+id/angsuran"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/new_text_black"
+                                        android:text="-"
+                                        android:layout_centerVertical="true"
+                                        android:fontFamily="@font/open_sans_semibold"/>
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layerType="software"
+                                    android:src="@drawable/border_dotted_1dp"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text="Jenis Angsuran"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans"/>
+                                    android:layout_marginTop="10dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/new_text_black"
-                                    android:text="ADDM"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans_semibold"/>
-                            </RelativeLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="12sp"
+                                        android:text="Type Asuransi"
+                                        android:layout_centerVertical="true"
+                                        android:fontFamily="@font/open_sans"/>
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="10dp"
-                                android:layerType="software"
-                                android:src="@drawable/border_dotted_1dp"/>
+                                    <TextView
+                                        android:id="@+id/asuransi"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/new_text_black"
+                                        android:text="-"
+                                        android:layout_centerVertical="true"
+                                        android:fontFamily="@font/open_sans_semibold"/>
+                                </RelativeLayout>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:text="Type Asuransi"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/new_text_black"
-                                    android:text="Task Lost Only"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans_semibold"/>
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="10dp"
-                                android:layerType="software"
-                                android:src="@drawable/border_dotted_1dp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layerType="software"
+                                    android:src="@drawable/border_dotted_1dp"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -532,7 +549,10 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:paddingTop="18dp"
                         android:paddingBottom="16dp"
                         android:paddingLeft="25dp"
@@ -546,36 +566,117 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/nama_cabang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
                                 android:textColor="@color/new_text_black"
-                                android:text="Bogor 2 Car - Tajur"
+                                android:text="-"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans_semibold"/>
 
                             <TextView
+                                android:id="@+id/alamat_cabang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10sp"
                                 android:textColor="@color/new_text_title"
-                                android:text="Jl. Raya Tajur No.158 A-C RT.01 / RW.07"
+                                android:text="-"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans"/>
 
                             <TextView
+                                android:id="@+id/kota_cabang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10sp"
                                 android:layout_marginTop="10dp"
                                 android:textColor="@color/new_text_title"
-                                android:text="Bogor . Pakuan"
+                                android:text="- • -"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/open_sans_semibold"/>
                         </LinearLayout>
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_form"
+                        android:orientation="vertical">
 
+                        <RelativeLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="Voucher Code"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/voucher"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:textSize="12sp"
+                                android:textColor="@color/new_text_black"
+                                android:text="-"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans_semibold"/>
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:background="@drawable/border_axi"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/colorAccentDark"
+                                android:text="ID AXI Refferal "
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans"/>
+
+                            <TextView
+                                android:id="@+id/axi_reff"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/colorAccentDark"
+                                android:text="-"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/open_sans_bold"/>
+
+                        </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
@@ -592,7 +693,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                 android:layout_marginBottom="16dp"
                 android:layout_marginRight="13dp"
                 android:layout_marginLeft="13dp"
-                android:text="Selanjutnya"
+                android:text="Ajukan Pengajuan"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/open_sans_bold"

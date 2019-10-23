@@ -15,12 +15,24 @@ public class Attributes {
     @SerializedName("alamat")
     @Expose
     private String alamat;
+    @SerializedName("desa")
+    @Expose
+    private String desa;
+    @SerializedName("distrik")
+    @Expose
+    private String distrik;
+    @SerializedName("kota")
+    @Expose
+    private String kota;
+    @SerializedName("provinsi")
+    @Expose
+    private String provinsi;
     @SerializedName("no_telp_1")
     @Expose
     private String noTelp1;
     @SerializedName("no_telp_2")
     @Expose
-    private Object noTelp2;
+    private String noTelp2;
     @SerializedName("created-at")
     @Expose
     private String createdAt;
@@ -52,6 +64,38 @@ public class Attributes {
         this.alamat = alamat;
     }
 
+    public String getDesa() {
+        return desa;
+    }
+
+    public void setDesa(String desa) {
+        this.desa = desa;
+    }
+
+    public String getDistrik() {
+        return distrik;
+    }
+
+    public void setDistrik(String distrik) {
+        this.distrik = distrik;
+    }
+
+    public String getKota() {
+        return kota;
+    }
+
+    public void setKota(String kota) {
+        this.kota = kota;
+    }
+
+    public String getProvinsi() {
+        return provinsi;
+    }
+
+    public void setProvinsi(String provinsi) {
+        this.provinsi = provinsi;
+    }
+
     public String getNoTelp1() {
         return noTelp1;
     }
@@ -60,11 +104,11 @@ public class Attributes {
         this.noTelp1 = noTelp1;
     }
 
-    public Object getNoTelp2() {
+    public String getNoTelp2() {
         return noTelp2;
     }
 
-    public void setNoTelp2(Object noTelp2) {
+    public void setNoTelp2(String noTelp2) {
         this.noTelp2 = noTelp2;
     }
 
