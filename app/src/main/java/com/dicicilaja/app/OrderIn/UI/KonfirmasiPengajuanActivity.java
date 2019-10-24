@@ -90,6 +90,10 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     TextView voucher;
     @BindView(R.id.axi_reff)
     TextView axiReff;
+    @BindView(R.id.voucher_card)
+    RelativeLayout voucherCard;
+    @BindView(R.id.axi_card)
+    RelativeLayout axiCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
         initToolbar();
         initAction();
+        initView();
         initShowData();
         initLoadData();
     }
@@ -126,6 +131,26 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         //Network
         apiService2 = ApiClient2.getClient().create(ApiService2.class);
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
+    }
+
+    private void initView() {
+        if (session.getJaminan_id().equals("1")) {
+            angsuranAsuransi.setVisibility(View.VISIBLE);
+        } else {
+            angsuranAsuransi.setVisibility(View.GONE);
+        }
+
+        if (session.getVoucher_code_id() == "") {
+            voucherCard.setVisibility(View.GONE);
+        } else {
+            voucherCard.setVisibility(View.VISIBLE);
+        }
+
+        if (session.getAgen_id() == null) {
+            axiCard.setVisibility(View.GONE);
+        } else {
+            axiCard.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initShowData() {
@@ -181,7 +206,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
     private void initLoadData() {
         jumlahPinjaman.setText(session.getAmount());
-        jumlahTenor.setText(session.getTenor_simulasi());
+        jumlahTenor.setText(session.getTenor_simulasi_id());
         nama.setText(session.getName());
         noKtp.setText(session.getNo_ktp());
         alamat.setText(session.getAddress());
@@ -220,7 +245,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
         alertDialog.setTitle("Perhatian");
-        alertDialog.setMessage("Apakah Anda yakin ingin mengajukan pengajuan?");
+        alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
 
         alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -238,6 +263,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<Profile> call, Response<Profile> response) {
+                        Log.d("HERE", "onResponse: " + response.code());
                         if (response.isSuccessful()) {
                             try {
                                 String calon_nasabah_id = response.body().getData().getId();
@@ -268,6 +294,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                     public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
                                         progressBar.setVisibility(View.GONE);
                                         Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
 
                                     }

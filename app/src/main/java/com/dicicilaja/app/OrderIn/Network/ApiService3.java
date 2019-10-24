@@ -7,6 +7,8 @@ import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
 import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -23,31 +25,33 @@ public interface ApiService3 {
     Call<Axi> getAxi(@Query("filter[axi_id_reff]") String id,
                      @Query("include") String param);
 
-    @POST("profile/profiles")
-    Call<Profile> postProfil(@Query("name") String name,
-                             @Query("email") String email,
-                             @Query("no_hp") String no_hp,
-                             @Query("no_ktp") String no_ktp,
-                             @Query("village_id") String village_id,
-                             @Query("jalan") String jalan);
+    @POST("profile/profiles/order-in")
+    @FormUrlEncoded
+    Call<Profile> postProfil(@Field("nama") String name,
+                             @Field("email") String email,
+                             @Field("no_hp") String no_hp,
+                             @Field("no_ktp") String no_ktp,
+                             @Field("desa_id") String village_id,
+                             @Field("jalan") String jalan);
 
     @POST("transaction/transactions")
-    Call<Transaksi> postTransaksi(@Query("agen_id") String agen_id,
-                                  @Query("calon_nasabah_id") String calon_nasabah_id,
-                                  @Query("area_id") String area_id,
-                                  @Query("cabang_id") String cabang_id,
-                                  @Query("subproduk_id") String subproduk_id,
-                                  @Query("program_id") String program_id,
-                                  @Query("amount") String amount,
-                                  @Query("status") String status,
-                                  @Query("vehicle_id") String vehicle_id,
-                                  @Query("channel_id") String channel_id,
-                                  @Query("voucher_code_id") String voucher_code_id,
-                                  @Query("objek_brand_id") String objek_brand_id,
-                                  @Query("objek_model_id") String objek_model_id,
-                                  @Query("tipe_asuransi_id") String tipe_asuransi_id,
-                                  @Query("jenis_angsuran") String jenis_angsuran,
-                                  @Query("tenor") String tenor,
-                                  @Query("ktp_image") String ktp_image,
-                                  @Query("bpkb") String bpkb);
+    @FormUrlEncoded
+    Call<Transaksi> postTransaksi(@Field("agen_id") String agen_id,
+                                  @Field("calon_nasabah_id") String calon_nasabah_id,
+                                  @Field("area_id") String area_id,
+                                  @Field("cabang_id") String cabang_id,
+                                  @Field("subproduk_id") String subproduk_id,
+                                  @Field("program_id") String program_id,
+                                  @Field("amount") String amount,
+                                  @Field("status") String status,
+                                  @Field("vehicle_id") String vehicle_id,
+                                  @Field("channel_id") String channel_id,
+                                  @Field("voucher_code_id") String voucher_code_id,
+                                  @Field("objek_brand_id") String objek_brand_id,
+                                  @Field("objek_model_id") String objek_model_id,
+                                  @Field("tipe_asuransi_id") String tipe_asuransi_id,
+                                  @Field("jenis_angsuran") String jenis_angsuran,
+                                  @Field("tenor") String tenor,
+                                  @Field("ktp_image") String ktp_image,
+                                  @Field("bpkb") String bpkb);
 }

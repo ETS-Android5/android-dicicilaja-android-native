@@ -616,10 +616,11 @@ public class NewColleteralActivity extends AppCompatActivity {
 
             if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
                 Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
-                intent.putExtra("tipe_objek_id", tipe_objek_id);
-                intent.putExtra("area_id", area_id);
-                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                intent.putExtra("objek_brand_id", model_id);
                 intent.putExtra("objek_model_id", type_id);
+                intent.putExtra("area_id", area_id);
+                intent.putExtra("tipe_objek_id", tipe_objek_id);
+                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
                 startActivity(intent);
             }
         }

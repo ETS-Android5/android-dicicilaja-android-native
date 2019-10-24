@@ -6,13 +6,11 @@ import com.dicicilaja.app.OrderIn.Data.CabangTerdekat.CabangTerdekat;
 import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
 import com.dicicilaja.app.OrderIn.Data.Kelurahan.Kelurahan;
 import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
-import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService2 {

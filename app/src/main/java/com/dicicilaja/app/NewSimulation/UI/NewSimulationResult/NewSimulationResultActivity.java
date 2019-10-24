@@ -26,7 +26,9 @@ import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
@@ -66,7 +68,9 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     @BindView(R.id.simulation)
     TextView simulation;
 
-    String text_total_prefix, text_max_prefix, tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id, max_simulasi, value_tipe_angsuran_id;
+    SessionManager sessionUser;
+
+    String text_total_prefix, jaminan, tipe_angsuran, tipe_asuransi, text_max_prefix, tipe_objek_id, objek_brand_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id, max_simulasi, value_tipe_angsuran_id;
     int text_total, text_max;
     String spinner_jaminan, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
     @BindView(R.id.asuransi_card)
@@ -77,6 +81,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     int check;
 
     final List<String> TENOR_ITEMS = new ArrayList<>();
+    final List<String> TENOR_DATA = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
     @BindView(R.id.edit)
     TextView edit;
@@ -104,6 +109,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_simulation_result);
         ButterKnife.bind(this);
 
+        sessionUser = new SessionManager(NewSimulationResultActivity.this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -118,6 +125,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
         TENOR_MAP.clear();
         TENOR_ITEMS.clear();
+        TENOR_DATA.clear();
 
         TENOR_MAP.put(1, "1");
         TENOR_MAP.put(2, "2");
@@ -128,6 +136,11 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         TENOR_ITEMS.add("2 Tahun");
         TENOR_ITEMS.add("3 Tahun");
         TENOR_ITEMS.add("4 Tahun");
+
+        TENOR_DATA.add("12");
+        TENOR_DATA.add("24");
+        TENOR_DATA.add("36");
+        TENOR_DATA.add("48");
 
         MySpinnerAdapter tenor_adapter = new MySpinnerAdapter(getBaseContext(), R.layout.spinner_color, TENOR_ITEMS);
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -343,18 +356,6 @@ public class NewSimulationResultActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hide.setVisibility(View.VISIBLE);
-                show.setVisibility(View.GONE);
-                totalEdit.requestFocus();
-                totalEdit.setSelection(totalEdit.getText().length());
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
             }
         });
 
@@ -615,6 +616,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
     private void LoadData() {
         try {
+            objek_brand_id = getIntent().getStringExtra("objek_brand_id");
+
             text_max = getIntent().getIntExtra("text_max", 0);
             text_max_prefix = getIntent().getStringExtra("text_max_prefix");
             text_total = getIntent().getIntExtra("text_total", 0);
@@ -727,7 +730,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.call_tasya, R.id.next, R.id.simulation})
+    @OnClick({R.id.call_tasya, R.id.next, R.id.simulation, R.id.edit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
@@ -792,13 +795,65 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.next:
-                Intent intent2 = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
-                intent2.putExtra("text_tenor", String.valueOf(text_tenor));
-                intent2.putExtra("text_year", String.valueOf(text_year));
-                intent2.putExtra("text_area", String.valueOf(text_area));
-                intent2.putExtra("text_harga", String.valueOf(text_total));
-                intent2.putExtra("text_merk", text_merk + " " + text_type);
-                intent2.putExtra("spinner_jaminan", spinner_jaminan);
+
+                if (spinner_jaminan.equals("1")) {
+                    jaminan = "BPKB Mobil";
+                } else if (spinner_jaminan.equals("2")) {
+                    jaminan = "BPKB Motor";
+                }
+
+                if (tipe_angsuran_id != null) {
+                    if (tipe_asuransi_id.equals("1")) {
+                        tipe_asuransi = "Total Lost Only";
+                    } else if (tipe_asuransi_id.equals("2")) {
+                        tipe_asuransi = "All Risk";
+                    }
+                }
+
+                if (tipe_angsuran_id != null) {
+                    if (tipe_angsuran_id.equals("1")) {
+                        tipe_angsuran = "Angsuran Per Bulan (ADDB)";
+                    } else if (tipe_angsuran_id.equals("2")) {
+                        tipe_angsuran = "Pembayaran Pertama (ADDM)";
+                    }
+                }
+
+                Log.d("ORDERDONE", "jenis_pengajuan: " + "1");
+                Log.d("ORDERDONE", "program_id: " + "1");
+                Log.d("ORDERDONE", "product_id: " + "1");
+                Log.d("ORDERDONE", "qty: " + "1");
+                Log.d("ORDERDONE", "agen_id: " + sessionUser.getAxiId());
+                Log.d("ORDERDONE", "amount: " + text_total);
+                Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
+                Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
+                Log.d("ORDERDONE", "area_id: " + area_id);
+                Log.d("ORDERDONE", "area: " + text_area);
+                Log.d("ORDERDONE", "objek_brand_id: " + objek_brand_id);
+                Log.d("ORDERDONE", "brand: " + text_merk);
+                Log.d("ORDERDONE", "objek_model_id: " + objek_model_id);
+                Log.d("ORDERDONE", "model: " + text_type);
+                Log.d("ORDERDONE", "year: " + text_year);
+                Log.d("ORDERDONE", "tenor_simulasi_id: " + text_tenor);
+                Log.d("ORDERDONE", "tipe_asuransi_id: " + tipe_asuransi_id);
+                Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
+
+                Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                intent2.putExtra("amount", total.getText().toString());
+                intent2.putExtra("simulasi", "1");
+                intent2.putExtra("jaminan_id", spinner_jaminan);
+                intent2.putExtra("jaminan", jaminan);
+                intent2.putExtra("area_id", area_id);
+                intent2.putExtra("area", text_area);
+                intent2.putExtra("objek_brand_id", objek_brand_id);
+                intent2.putExtra("brand", text_merk);
+                intent2.putExtra("objek_model_id", objek_model_id);
+                intent2.putExtra("model", text_type);
+                intent2.putExtra("year", text_year);
+                intent2.putExtra("tenor_simulasi_id", text_tenor);
+                intent2.putExtra("tipe_asuransi_id", tipe_asuransi_id);
+                intent2.putExtra("tipe_asuransi", tipe_asuransi);
+                intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
+                intent2.putExtra("jenis_angsuran", tipe_angsuran);
                 startActivity(intent2);
                 break;
             case R.id.simulation:
@@ -808,7 +863,12 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.edit:
-
+                hide.setVisibility(View.VISIBLE);
+                show.setVisibility(View.GONE);
+                totalEdit.requestFocus();
+                totalEdit.setSelection(totalEdit.getText().length());
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(totalEdit, InputMethodManager.SHOW_IMPLICIT);
                 break;
         }
     }

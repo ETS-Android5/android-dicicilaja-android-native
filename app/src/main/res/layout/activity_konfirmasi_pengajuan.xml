@@ -599,6 +599,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/voucher_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -639,6 +640,7 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/axi_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"

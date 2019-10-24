@@ -59,14 +59,14 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
 
         holder.nama_kantor_cabang.setText(dataItem.get(position).getAttributes().getNama());
         holder.alamat_kantor_cabang.setText(dataItem.get(position).getAttributes().getAlamat());
-        holder.area_kantor_cabang.setText(toTitleCase(dataItem.get(position).getAttributes().getKota() + " • " + dataItem.get(1).getAttributes().getDistrik()));
+        holder.area_kantor_cabang.setText(toTitleCase(dataItem.get(position).getAttributes().getKota() + " • " + dataItem.get(position).getAttributes().getDistrik()));
         holder.card_kantor_cabang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 session.setBranch_id(dataItem.get(position).getAttributes().getKode());
                 session.setBranch(dataItem.get(position).getAttributes().getNama());
                 session.setBranch_address(dataItem.get(position).getAttributes().getAlamat());
-                session.setBranch_district(toTitleCase(dataItem.get(position).getAttributes().getKota() + " • " + dataItem.get(1).getAttributes().getDistrik()));
+                session.setBranch_district(toTitleCase(dataItem.get(position).getAttributes().getKota() + " • " + dataItem.get(position).getAttributes().getDistrik()));
 
                 Intent intent = new Intent(context, KonfirmasiPengajuanActivity.class);
                 view.getContext().startActivity(intent);

@@ -36,7 +36,7 @@ import java.util.List;
 
 public class NewLoanActivity extends AppCompatActivity {
 
-    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
+    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, objek_brand_id, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
 
     String text_total_prefix, text_max_prefix, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
     int text_total, text_max;
@@ -92,9 +92,10 @@ public class NewLoanActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
 
         tipe_objek_id = getIntent().getStringExtra("tipe_objek_id");
-        area_id = getIntent().getStringExtra("area_id");
         tahun_kendaraan = getIntent().getStringExtra("tahun_kendaraan");
         objek_model_id = getIntent().getStringExtra("objek_model_id");
+        objek_brand_id = getIntent().getStringExtra("objek_brand_id");
+        area_id = getIntent().getStringExtra("area_id");
 
         TENOR_MAP.clear();
         TENOR_ITEMS.clear();
@@ -184,6 +185,7 @@ public class NewLoanActivity extends AppCompatActivity {
                         value_tipe_angsuran_id = "addm";
                     }
 
+
                     ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
                     Log.d("TAGTAG", "tipe_objek_id: " + tipe_objek_id);
@@ -242,6 +244,7 @@ public class NewLoanActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
                                 intent.putExtra("tipe_objek_id", tipe_objek_id);
                                 intent.putExtra("objek_model_id", objek_model_id);
+                                intent.putExtra("objek_brand_id", objek_brand_id);
                                 intent.putExtra("tahun_kendaraan", tahun_kendaraan);
                                 intent.putExtra("area_id", area_id);
                                 intent.putExtra("tenor_simulasi", tenor_simulasi);
