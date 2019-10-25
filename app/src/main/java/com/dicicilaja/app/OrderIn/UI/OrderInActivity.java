@@ -6,16 +6,20 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,12 +34,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
@@ -45,14 +54,29 @@ import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity;
 import com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity.KantorCabangActivity;
+import com.dicicilaja.app.OrderIn.Utility.FileCompressor;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Utils.Helper;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,7 +91,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderInActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class OrderInActivity extends AppCompatActivity {
 
     @BindView(R.id.txt_program_cicilan)
     TextView txtProgramCicilan;
@@ -162,12 +186,10 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     SessionOrderIn session;
     SessionManager sessionUser;
 
-    private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
     private static final String TAG = OrderInActivity.class.getSimpleName();
     private static final int READ_REQUEST_CODE = 400;
-    private Uri uri;
     MultipartBody.Part file_ktp, file_bpkb;
     RequestBody ktp_desc, bpkb_desc;
 
@@ -181,6 +203,9 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
     ApiService3 apiService3;
     ApiService2 apiService2;
 
+    File mPhotoFile;
+    FileCompressor mCompressor;
+
     String jenis_pengajuan, product_id, agen_id, qty, area_id, bpkb, ktp_image, tipe_asuransi_id, jenis_angsuran, name, email, no_ktp, no_hp, year, jaminan_id, address, postal_code, program_id, amount, vehicle_id, voucher_code_id, objek_brand_id, objek_model_id, tenor, tenor_simulasi_id, tenor_simulasi, jenis_angsuran_id;
 
     @Override
@@ -188,6 +213,8 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_in);
         ButterKnife.bind(this);
+
+        mCompressor = new FileCompressor(this);
 
         session = new SessionOrderIn(OrderInActivity.this);
         sessionUser = new SessionManager(OrderInActivity.this);
@@ -528,177 +555,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode " + requestCode);
-        Log.d(TAG, "onActivityResult: resultCode == RESULT_OK ? " + (resultCode == RESULT_OK));
-        if (requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK) {
-            uri = data.getData();
-            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
-
-                    imageKtp.setImageBitmap(resizedBitmap);
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-                    session.setKtp_image(Helper.ConvertBitmapToString(resizedBitmap));
-
-                    btnUploadKtp.setVisibility(View.GONE);
-                    viewUploadKtp.setVisibility(View.VISIBLE);
-                    String filePath = getRealPathFromURIPath(uri, this);
-                    File file = new File(filePath);
-
-//                    Log.d("REGISTER AXI:::", fileKtp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                Log.d(TAG, "file_ktp " + file_ktp);
-//                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            } else {
-                EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
-            }
-        } else if (requestCode == PICK_IMAGE_BPKB && resultCode == Activity.RESULT_OK) {
-            uri = data.getData();
-            if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
-
-                    imageBpkb.setImageBitmap(getResizedBitmap(bitmap, 350));
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-                    session.setBpkb(Helper.ConvertBitmapToString(resizedBitmap));
-
-                    btnUploadBpkb.setVisibility(View.GONE);
-                    viewUploadBpkb.setVisibility(View.VISIBLE);
-                    String filePath = getRealPathFromURIPath(uri, this);
-                    File file = new File(filePath);
-
-//                    Log.d("REGISTER AXI:::", fileNpwp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-//                String filePath = getRealPathFromURIPath(uri, this);
-//                File file = new File(filePath);
-//                Log.d(TAG, "Filename " + file.getName());
-////                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            } else {
-                EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
-            }
-        }
-    }
-
-    private String getRealPathFromURIPath(Uri uri, Activity activity) {
-        // DocumentProvider
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(activity, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(activity, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
-                };
-
-                return getDataColumn(activity, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
-            // Return the remote address
-            if (isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return getDataColumn(activity, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        if (requestCode == PICK_IMAGE_KTP) {
-            if (uri != null) {
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            }
-        } else if (requestCode == PICK_IMAGE_BPKB) {
-            if (uri != null) {
-                String filePath = getRealPathFromURIPath(uri, this);
-                File file = new File(filePath);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                file_bpkb = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                bpkb_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
-            }
-        }
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-
-    }
-
-    private boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    private boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    private boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    private boolean isGooglePhotosUri(Uri uri) {
-        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
-    }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
@@ -714,29 +570,6 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
         }
 
         return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    private String getDataColumn(Context context, Uri uri, String selection,
-                                 String[] selectionArgs) {
-
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return null;
     }
 
     private boolean validateForm(String jumlah_pinjaman, boolean data_calon_peminjam, boolean jaminan_pinjaman, String plat_nomor) {
@@ -860,24 +693,16 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                requestStoragePermission(true, PICK_IMAGE_KTP);
                 break;
             case R.id.btn_upload_bpkb:
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
+                requestStoragePermission(true, PICK_IMAGE_BPKB);
                 break;
             case R.id.change_ktp:
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                requestStoragePermission(true, PICK_IMAGE_KTP);
                 break;
             case R.id.change_bpkb:
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_BPKB);
+                requestStoragePermission(true, PICK_IMAGE_BPKB);
                 break;
             case R.id.next:
                 try {
@@ -1107,6 +932,152 @@ public class OrderInActivity extends AppCompatActivity implements EasyPermission
             case R.id.cari_voucher_close:
                 closeVoucher();
                 break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * Requesting multiple permissions (storage and camera) at once
+     * This uses multiple permission model from dexter
+     * On permanent denial opens settings dialog
+     */
+    private void requestStoragePermission(boolean isCamera, int requestCode) {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            if (isCamera) {
+                                dispatchTakePictureIntent(requestCode);
+                            }
+                        }
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions,
+                                                                   PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .withErrorListener(
+                        error -> Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT)
+                                .show())
+                .onSameThread()
+                .check();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE_KTP) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                btnUploadKtp.setVisibility(View.GONE);
+                viewUploadKtp.setVisibility(View.VISIBLE);
+                Glide.with(OrderInActivity.this)
+                        .load(mPhotoFile)
+                        .centerCrop()
+                        .into(imageKtp);
+
+            } else if (requestCode == PICK_IMAGE_BPKB) {
+                try {
+                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                btnUploadBpkb.setVisibility(View.GONE);
+                viewUploadBpkb.setVisibility(View.VISIBLE);
+                Glide.with(OrderInActivity.this)
+                        .load(mPhotoFile)
+                        .centerCrop()
+                        .into(imageBpkb);
+
+            }
+        }
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Need Permissions");
+        builder.setMessage(
+                "This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+
+    /**
+     * Create file with current timestamp name
+     * @throws IOException
+     */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String mFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File mFile = File.createTempFile(mFileName, ".jpg", storageDir);
+        return mFile;
+    }
+
+    /**
+     * Capture image from camera
+     */
+    private void dispatchTakePictureIntent(int requestCode) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        photoFile);
+
+                mPhotoFile = photoFile;
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, requestCode);
+            }
         }
     }
 }

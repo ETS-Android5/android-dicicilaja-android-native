@@ -13,7 +13,10 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity"></activity>
+        <activity android:name=".OrderIn.UI.OrderInProduct">
+
+        </activity>
+        <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity" />
         <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity" />
@@ -27,7 +30,11 @@
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
             android:windowSoftInputMode="stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
@@ -41,11 +48,7 @@
         <activity android:name=".NewSimulation.UI.NewLoan.NewLoanActivity" />
         <activity android:name=".NewSimulation.UI.NewColleteral.NewColleteralActivity" />
         <activity android:name=".NewSimulation.UI.NewSimulation.NewSimulationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.SplashActivity"
@@ -152,9 +155,10 @@
             android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <meta-data-->
-<!--                android:name="android.support.PARENT_ACTIVITY"-->
-<!--                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />-->
+
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value="com.dicicilaja.app.Activity.MarketplaceActivity" /> -->
 
         </activity>
         <activity
@@ -792,17 +796,20 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.dicicilaja.app."
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera.flash"/>
 </manifest>
