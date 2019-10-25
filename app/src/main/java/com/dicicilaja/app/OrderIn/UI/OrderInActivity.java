@@ -204,6 +204,7 @@ public class OrderInActivity extends AppCompatActivity {
     ApiService2 apiService2;
 
     File mPhotoFile;
+    Bitmap mPhotoBitmap;
     FileCompressor mCompressor;
 
     String jenis_pengajuan, product_id, agen_id, qty, area_id, bpkb, ktp_image, tipe_asuransi_id, jenis_angsuran, name, email, no_ktp, no_hp, year, jaminan_id, address, postal_code, program_id, amount, vehicle_id, voucher_code_id, objek_brand_id, objek_model_id, tenor, tenor_simulasi_id, tenor_simulasi, jenis_angsuran_id;
@@ -987,10 +988,11 @@ public class OrderInActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE_KTP) {
                 try {
-                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    mPhotoBitmap = mCompressor.compressToBitmap(mPhotoFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 btnUploadKtp.setVisibility(View.GONE);
                 viewUploadKtp.setVisibility(View.VISIBLE);
                 Glide.with(OrderInActivity.this)
@@ -998,9 +1000,10 @@ public class OrderInActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageKtp);
 
+                session.setKtp_image(Helper.ConvertBitmapToString(mPhotoBitmap));
             } else if (requestCode == PICK_IMAGE_BPKB) {
                 try {
-                    mPhotoFile = mCompressor.compressToFile(mPhotoFile);
+                    mPhotoBitmap = mCompressor.compressToBitmap(mPhotoFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1011,6 +1014,7 @@ public class OrderInActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageBpkb);
 
+                session.setBpkb(Helper.ConvertBitmapToString(mPhotoBitmap));
             }
         }
     }
