@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context=".OrderIn.UI.InformasiJaminanActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderIn.UI.InformasiJaminan2Activity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -196,43 +196,6 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:src="@drawable/border_1dp"/>
-
-                        <LinearLayout
-                            android:id="@+id/card_tenor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/layoutTenor"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:hintEnabled="true">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pilih Tenor Pinjaman"
-                                    android:fontFamily="@font/open_sans"
-                                    android:textColor="#FFB8B8B8"
-                                    android:layout_marginTop="20dp"
-                                    android:textSize="12sp"/>
-
-                                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                                    android:id="@+id/spinnerTenor"
-                                    android:layout_width="match_parent"
-                                    android:textSize="15sp"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_height="40dp"/>
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:src="@drawable/border_1dp"/>
-
-                        </LinearLayout>
-
 
                         <LinearLayout
                             android:id="@+id/angsuran_asuransi"

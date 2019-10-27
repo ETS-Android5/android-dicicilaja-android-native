@@ -43,7 +43,15 @@ public class ListProdukAdapter extends RecyclerView.Adapter<ListProdukAdapter.Si
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Datum itemModel = produk.get(position);
-        holder.tv_title.setText(itemModel.getTitleProgram());
+
+        try {
+            if (itemModel.getTitleProgram().length() >= 24) {
+                holder.tv_title.setText(itemModel.getTitleProgram().substring(0, 25) + "...");
+            } else {
+                holder.tv_title.setText(itemModel.getTitleProgram());
+            }
+        } catch (Exception ex) {}
+
         holder.tv_jenis.setText(itemModel.getJenisProgram());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
         Picasso.get().load(itemModel.getImageUrl()).into(holder.discount_image);

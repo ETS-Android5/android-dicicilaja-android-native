@@ -54,7 +54,6 @@ public class SessionOrderIn {
                                      String objek_model_id,
                                      String model,
                                      String year,
-                                     String tenor_simulasi_id,
                                      String tenor_simulasi,
                                      String tipe_asuransi_id,
                                      String tipe_asuransi,
@@ -101,7 +100,6 @@ public class SessionOrderIn {
         editor.putString("objek_model_id", objek_model_id);
         editor.putString("model", model);
         editor.putString("year", year);
-        editor.putString("tenor_simulasi_id", tenor_simulasi_id);
         editor.putString("tenor_simulasi", tenor_simulasi);
         editor.putString("tipe_asuransi_id", tipe_asuransi_id);
         editor.putString("tipe_asuransi", tipe_asuransi);
@@ -157,7 +155,6 @@ public class SessionOrderIn {
                                      String objek_model_id,
                                      String model,
                                      String year,
-                                     String tenor_simulasi_id,
                                      String tenor_simulasi,
                                      String tipe_asuransi_id,
                                      String tipe_asuransi,
@@ -173,7 +170,6 @@ public class SessionOrderIn {
         editor.putString("objek_model_id", objek_model_id);
         editor.putString("model", model);
         editor.putString("year", year);
-        editor.putString("tenor_simulasi_id", tenor_simulasi_id);
         editor.putString("tenor_simulasi", tenor_simulasi);
         editor.putString("tipe_asuransi_id", tipe_asuransi_id);
         editor.putString("tipe_asuransi", tipe_asuransi);
@@ -516,15 +512,6 @@ public class SessionOrderIn {
         editor.commit();
     }
 
-    public String getTenor_simulasi_id() {
-        return pref.getString("tenor_simulasi_id", null);
-    }
-
-    public void setTenor_simulasi_id(String tenor_simulasi_id) {
-        editor.putString("tenor_simulasi_id", tenor_simulasi_id);
-        editor.commit();
-    }
-
     public String getTenor_simulasi() {
         return pref.getString("tenor_simulasi", null);
     }
@@ -603,6 +590,42 @@ public class SessionOrderIn {
 
     public void setBranch_district(String branch_district) {
         editor.putString("branch_district", branch_district);
+        editor.commit();
+    }
+
+    public String getGambar() {
+        return pref.getString("gambar", null);
+    }
+
+    public void setGambar(String gambar) {
+        editor.putString("gambar", gambar);
+        editor.commit();
+    }
+
+    public String getTitle() {
+        return pref.getString("title", null);
+    }
+
+    public void setTitle(String title) {
+        editor.putString("title", title);
+        editor.commit();
+    }
+
+    public String getMitra() {
+        return pref.getString("mitra", null);
+    }
+
+    public void setMitra(String mitra) {
+        editor.putString("mitra", mitra);
+        editor.commit();
+    }
+
+    public String getHarga() {
+        return pref.getString("harga", null);
+    }
+
+    public void setHarga(String harga) {
+        editor.putString("harga", harga);
         editor.commit();
     }
 

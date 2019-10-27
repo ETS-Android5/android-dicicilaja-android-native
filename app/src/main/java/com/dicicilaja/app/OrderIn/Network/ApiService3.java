@@ -41,7 +41,7 @@ public interface ApiService3 {
                                   @Field("area_id") String area_id,
                                   @Field("cabang_id") String cabang_id,
                                   @Field("subproduk_id") String subproduk_id,
-                                  @Field("program_id") String program_id,
+                                  @Field("produk_id") String program_id,
                                   @Field("amount") String amount,
                                   @Field("status") String status,
                                   @Field("vehicle_id") String vehicle_id,

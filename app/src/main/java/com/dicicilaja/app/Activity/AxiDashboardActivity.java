@@ -48,6 +48,7 @@ import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRA
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
@@ -317,7 +318,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
+                        intent = new Intent(getBaseContext(), OrderInActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navbar_simulation:

@@ -13,9 +13,8 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderIn.UI.OrderInProduct">
-
-        </activity>
+        <activity android:name=".OrderIn.UI.InformasiJaminan2Activity"></activity>
+        <activity android:name=".OrderIn.UI.OrderInProductActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity" />
@@ -29,13 +28,7 @@
         <activity android:name=".OrderIn.UI.DataCalonPeminjamActivity" />
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
@@ -47,14 +40,18 @@
         <activity android:name=".NewSimulation.UI.NewSimulationResult.NewSimulationResultActivity" />
         <activity android:name=".NewSimulation.UI.NewLoan.NewLoanActivity" />
         <activity android:name=".NewSimulation.UI.NewColleteral.NewColleteralActivity" />
-        <activity android:name=".NewSimulation.UI.NewSimulation.NewSimulationActivity">
-
-        </activity>
+        <activity android:name=".NewSimulation.UI.NewSimulation.NewSimulationActivity" />
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -114,7 +111,7 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -801,15 +798,17 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
-    <uses-feature android:name="android.hardware.camera.flash"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

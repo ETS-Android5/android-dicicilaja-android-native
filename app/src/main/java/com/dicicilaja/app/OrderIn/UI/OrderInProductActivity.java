@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +25,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
@@ -51,6 +51,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -58,34 +59,69 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderInActivity extends AppCompatActivity {
+public class OrderInProductActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.gambar)
+    ImageView gambar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_mitra)
+    TextView tvMitra;
+    @BindView(R.id.tv_harga)
+    TextView tvHarga;
+    @BindView(R.id.minus)
+    ImageView minus;
+    @BindView(R.id.value)
+    TextView value;
+    @BindView(R.id.plus)
+    ImageView plus;
     @BindView(R.id.txt_program_cicilan)
     TextView txtProgramCicilan;
     @BindView(R.id.hide)
     RelativeLayout hide;
+    @BindView(R.id.cari_axi)
+    TextView cariAxi;
+    @BindView(R.id.cari_axi_close)
+    TextView cariAxiClose;
+    @BindView(R.id.btn_cari_axi)
+    RelativeLayout btnCariAxi;
     @BindView(R.id.et_axi_id_reff)
     EditText etAxiIdReff;
-    @BindView(R.id.et_jumlah_pinjaman)
-    EditText etJumlahPinjaman;
+    @BindView(R.id.axi_available)
+    TextView axiAvailable;
+    @BindView(R.id.axi_not_available)
+    TextView axiNotAvailable;
     @BindView(R.id.txt_data_calon_pinjaman)
     TextView txtDataCalonPinjaman;
+    @BindView(R.id.txt_data_calon_pinjaman_value)
+    TextView txtDataCalonPinjamanValue;
     @BindView(R.id.chev)
     ImageView chev;
+    @BindView(R.id.detail_data_calon_pinjaman)
+    LinearLayout detailDataCalonPinjaman;
+    @BindView(R.id.edit_data_calon_pinjaman)
+    LinearLayout editDataCalonPinjaman;
     @BindView(R.id.txt_informasi_jaminan)
     TextView txtInformasiJaminan;
+    @BindView(R.id.txt_informasi_jaminan_value)
+    TextView txtInformasiJaminanValue;
     @BindView(R.id.chev1)
     ImageView chev1;
+    @BindView(R.id.detail_informasi_jaminan)
+    LinearLayout detailInformasiJaminan;
+    @BindView(R.id.edit_informasi_jaminan)
+    LinearLayout editInformasiJaminan;
     @BindView(R.id.btn_upload_ktp)
     RelativeLayout btnUploadKtp;
     @BindView(R.id.change_ktp)
@@ -102,74 +138,51 @@ public class OrderInActivity extends AppCompatActivity {
     ImageView imageBpkb;
     @BindView(R.id.view_upload_bpkb)
     RelativeLayout viewUploadBpkb;
-    @BindView(R.id.et_voucher)
-    EditText etVoucher;
-    @BindView(R.id.cb_confirm)
-    CheckBox cbConfirm;
-    @BindView(R.id.next)
-    Button next;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    Intent intent;
-    @BindView(R.id.progressBar)
-    MaterialProgressBar progressBar;
-    @BindView(R.id.cari_axi)
-    TextView cariAxi;
-    @BindView(R.id.axi_available)
-    TextView axiAvailable;
-    @BindView(R.id.axi_not_available)
-    TextView axiNotAvailable;
     @BindView(R.id.cari_plat_nomor)
     TextView cariPlatNomor;
+    @BindView(R.id.cari_plat_nomor_close)
+    TextView cariPlatNomorClose;
+    @BindView(R.id.btn_cari_plat_nomor)
+    RelativeLayout btnCariPlatNomor;
     @BindView(R.id.et_plat_nomor)
     EditText etPlatNomor;
     @BindView(R.id.plat_nomor_available)
     TextView platNomorAvailable;
     @BindView(R.id.plat_nomor_not_available)
     TextView platNomorNotAvailable;
+    @BindView(R.id.plat_nomor_error)
+    TextView platNomorError;
     @BindView(R.id.cari_voucher)
     TextView cariVoucher;
+    @BindView(R.id.cari_voucher_close)
+    TextView cariVoucherClose;
+    @BindView(R.id.btn_cari_voucher)
+    RelativeLayout btnCariVoucher;
+    @BindView(R.id.et_voucher)
+    EditText etVoucher;
     @BindView(R.id.voucher_available)
     TextView voucherAvailable;
     @BindView(R.id.voucher_not_available)
     TextView voucherNotAvailable;
-    @BindView(R.id.cari_axi_close)
-    TextView cariAxiClose;
-    @BindView(R.id.btn_cari_axi)
-    RelativeLayout btnCariAxi;
-    @BindView(R.id.btn_cari_plat_nomor)
-    RelativeLayout btnCariPlatNomor;
-    @BindView(R.id.btn_cari_voucher)
-    RelativeLayout btnCariVoucher;
-    @BindView(R.id.cari_plat_nomor_close)
-    TextView cariPlatNomorClose;
-    @BindView(R.id.cari_voucher_close)
-    TextView cariVoucherClose;
-    @BindView(R.id.txt_data_calon_pinjaman_value)
-    TextView txtDataCalonPinjamanValue;
-    @BindView(R.id.detail_data_calon_pinjaman)
-    LinearLayout detailDataCalonPinjaman;
-    @BindView(R.id.edit_data_calon_pinjaman)
-    LinearLayout editDataCalonPinjaman;
-    @BindView(R.id.txt_informasi_jaminan_value)
-    TextView txtInformasiJaminanValue;
-    @BindView(R.id.detail_informasi_jaminan)
-    LinearLayout detailInformasiJaminan;
-    @BindView(R.id.edit_informasi_jaminan)
-    LinearLayout editInformasiJaminan;
-    @BindView(R.id.plat_nomor_error)
-    TextView platNomorError;
+    @BindView(R.id.cb_confirm)
+    CheckBox cbConfirm;
+    @BindView(R.id.next)
+    Button next;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
     SessionOrderIn session;
     SessionManager sessionUser;
+    @BindView(R.id.tv_tenor_display)
+    TextView tvTenorDisplay;
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
-    private static final String TAG = OrderInActivity.class.getSimpleName();
+    private static final String TAG = OrderInProductActivity.class.getSimpleName();
 
-    String jumlah_pinjaman, plat_nomor, fKtp, fBpkb;
+    String jumlah_pinjaman, plat_nomor, fKtp, fBpkb, program_id;
 
-    boolean simulasi, data_calon_peminjam, jaminan_pinjaman;
+    boolean data_calon_peminjam, jaminan_pinjaman;
 
     ApiService3 apiService3;
     ApiService2 apiService2;
@@ -178,59 +191,28 @@ public class OrderInActivity extends AppCompatActivity {
     Bitmap mPhotoBitmap;
     FileCompressor mCompressor;
 
+    Integer qty, hasil;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_in);
+        setContentView(R.layout.activity_order_in_product);
         ButterKnife.bind(this);
 
         mCompressor = new FileCompressor(this);
 
-        session = new SessionOrderIn(OrderInActivity.this);
-        sessionUser = new SessionManager(OrderInActivity.this);
+        session = new SessionOrderIn(OrderInProductActivity.this);
+        sessionUser = new SessionManager(OrderInProductActivity.this);
 
         session.clearOrderIn();
+        session.setTenor_simulasi(getIntent().getStringExtra("tenor"));
 
         initToolbar();
         initAction();
         initShowData();
         initLoadData();
         initView();
-
-        etJumlahPinjaman.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etJumlahPinjaman.removeTextChangedListener(this);
-                try {
-                    String rp = getResources().getString(R.string.rp_string);
-                    String originalString = editable.toString();
-                    originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
-                    originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
-                    Double doubleval = Double.parseDouble(originalString);
-                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                    symbols.setDecimalSeparator(',');
-                    symbols.setGroupingSeparator('.');
-                    String pattern = "#,###.##";
-                    DecimalFormat formatter = new DecimalFormat(pattern, symbols);
-                    String formattedString = rp + formatter.format(doubleval);
-                    etJumlahPinjaman.setText(formattedString);
-                    etJumlahPinjaman.setSelection(etJumlahPinjaman.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
-                etJumlahPinjaman.addTextChangedListener(this);
-            }
-        });
     }
 
     @Override
@@ -243,70 +225,78 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        simulasi = false;
-        if (getIntent().getStringExtra("simulasi") != null) {
-            try {
-                simulasi = true;
-            } catch (Exception ex) {
-            }
-        } else {
-            simulasi = false;
-        }
+        session.setHarga(getIntent().getStringExtra("amount"));
 
-        if (simulasi) {
-            session.createOrderInSession(
-                    "1",
-                    "1",
-                    "1",
-                    "1",
-                    sessionUser.getAxiId(),
-                    "",
-                    getIntent().getStringExtra("amount"),
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    getIntent().getBooleanExtra("status_data_calon", false),
-                    getIntent().getStringExtra("name"),
-                    getIntent().getStringExtra("no_ktp"),
-                    getIntent().getStringExtra("email"),
-                    getIntent().getStringExtra("no_hp"),
-                    getIntent().getStringExtra("province_id"),
-                    getIntent().getStringExtra("province"),
-                    getIntent().getStringExtra("city"),
-                    getIntent().getStringExtra("city"),
-                    getIntent().getStringExtra("district_id"),
-                    getIntent().getStringExtra("district"),
-                    getIntent().getStringExtra("village_id"),
-                    getIntent().getStringExtra("village"),
-                    getIntent().getStringExtra("address"),
-                    getIntent().getStringExtra("postal_code"),
-                    getIntent().getBooleanExtra("status_informasi_jaminan", true),
-                    getIntent().getStringExtra("jaminan_id"),
-                    getIntent().getStringExtra("jaminan"),
-                    getIntent().getStringExtra("area_id"),
-                    getIntent().getStringExtra("area"),
-                    getIntent().getStringExtra("objek_brand_id"),
-                    getIntent().getStringExtra("brand"),
-                    getIntent().getStringExtra("objek_model_id"),
-                    getIntent().getStringExtra("model"),
-                    getIntent().getStringExtra("year"),
-                    getIntent().getStringExtra("tenor_simulasi"),
-                    getIntent().getStringExtra("tipe_asuransi_id"),
-                    getIntent().getStringExtra("tipe_asuransi"),
-                    getIntent().getStringExtra("jenis_angsuran_id"),
-                    getIntent().getStringExtra("jenis_angsuran"),
-                    "",
-                    "",
-                    "",
-                    ""
-            );
-        }
+        session.setGambar(getIntent().getStringExtra("gambar"));
+        session.setTitle(getIntent().getStringExtra("title"));
+        session.setMitra(getIntent().getStringExtra("mitra"));
+
+        session.createOrderInSession(
+                "1",
+                program_id,
+                getIntent().getStringExtra("product_id"),
+                "1",
+                getIntent().getStringExtra("agen_id"),
+                getIntent().getStringExtra("agen_name"),
+                getIntent().getStringExtra("amount"),
+                "",
+                "",
+                "",
+                "",
+                "",
+                getIntent().getBooleanExtra("status_data_calon", false),
+                getIntent().getStringExtra("name"),
+                getIntent().getStringExtra("no_ktp"),
+                getIntent().getStringExtra("email"),
+                getIntent().getStringExtra("no_hp"),
+                getIntent().getStringExtra("province_id"),
+                getIntent().getStringExtra("province"),
+                getIntent().getStringExtra("city"),
+                getIntent().getStringExtra("city"),
+                getIntent().getStringExtra("district_id"),
+                getIntent().getStringExtra("district"),
+                getIntent().getStringExtra("village_id"),
+                getIntent().getStringExtra("village"),
+                getIntent().getStringExtra("address"),
+                getIntent().getStringExtra("postal_code"),
+                getIntent().getBooleanExtra("status_informasi_jaminan", false),
+                getIntent().getStringExtra("jaminan_id"),
+                getIntent().getStringExtra("jaminan"),
+                getIntent().getStringExtra("area_id"),
+                getIntent().getStringExtra("area"),
+                getIntent().getStringExtra("objek_brand_id"),
+                getIntent().getStringExtra("brand"),
+                getIntent().getStringExtra("objek_model_id"),
+                getIntent().getStringExtra("model"),
+                getIntent().getStringExtra("year"),
+                getIntent().getStringExtra("tenor"),
+                getIntent().getStringExtra("tipe_asuransi_id"),
+                getIntent().getStringExtra("tipe_asuransi"),
+                getIntent().getStringExtra("jenis_angsuran_id"),
+                getIntent().getStringExtra("jenis_angsuran"),
+                "",
+                "",
+                "",
+                ""
+        );
     }
 
     private void initView() {
-        etAxiIdReff.setText(session.getAgen_id());
+
+
+        if (getIntent().getStringExtra("program").equals("MAXI Travel")) {
+            program_id = "2";
+        } else if (getIntent().getStringExtra("program").equals("MAXI Edukasi")) {
+            program_id = "3";
+        } else if (getIntent().getStringExtra("program").equals("MAXI Usaha")) {
+            program_id = "4";
+        } else if (getIntent().getStringExtra("program").equals("MAXI Sehat")) {
+            program_id = "5";
+        } else if (getIntent().getStringExtra("program").equals("MAXI Ekstraguna")) {
+            program_id = "6";
+        }
+
+        tvTenorDisplay.setText("Tenor cicilan " + session.getTenor_simulasi() + " bulan");
 
         if (session.getAgen_id() != null) {
             etAxiIdReff.setEnabled(false);
@@ -318,22 +308,63 @@ public class OrderInActivity extends AppCompatActivity {
 
         }
 
-        try {
-            String rp = getResources().getString(R.string.rp_string);
-            String originalString = session.getAmount();
-            originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
-            originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
-            Double doubleval = Double.parseDouble(originalString);
-            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-            symbols.setDecimalSeparator(',');
-            symbols.setGroupingSeparator('.');
-            String pattern = "#,###.##";
-            DecimalFormat formatter = new DecimalFormat(pattern, symbols);
-            String formattedString = rp + formatter.format(doubleval);
-            etJumlahPinjaman.setText(formattedString);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        if (session.getQty() == null) {
+            qty = 1;
+            value.setText(String.valueOf(qty));
+        } else {
+            qty = Integer.parseInt(session.getQty());
+            value.setText(String.valueOf(qty));
         }
+
+        if (session.getAmount() == null) {
+            hasil = Integer.parseInt(getIntent().getStringExtra("amount"));
+            try {
+                String rp = getResources().getString(R.string.rp_string);
+                String originalString = String.valueOf(hasil);
+                originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                Double doubleval = Double.parseDouble(originalString);
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setDecimalSeparator(',');
+                symbols.setGroupingSeparator('.');
+                String pattern = "#,###.##";
+                DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                String formattedString = rp + formatter.format(doubleval);
+                tvHarga.setText(formattedString);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+        } else {
+            hasil = Integer.parseInt(session.getAmount());
+            try {
+                String rp = getResources().getString(R.string.rp_string);
+                String originalString = String.valueOf(hasil);
+                originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                Double doubleval = Double.parseDouble(originalString);
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setDecimalSeparator(',');
+                symbols.setGroupingSeparator('.');
+                String pattern = "#,###.##";
+                DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                String formattedString = rp + formatter.format(doubleval);
+                tvHarga.setText(formattedString);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+        }
+
+        tvMitra.setText(getIntent().getStringExtra("mitra").toUpperCase());
+        tvTitle.setText(getIntent().getStringExtra("title"));
+
+        txtProgramCicilan.setText(getIntent().getStringExtra("program"));
+
+        Glide.with(OrderInProductActivity.this)
+                .load(getIntent().getStringExtra("gambar"))
+                .centerCrop()
+                .into(gambar);
+
+        etAxiIdReff.setText(session.getAgen_id());
 
         if (session.getStatus_data_calon()) {
             txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
@@ -550,23 +581,10 @@ public class OrderInActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    private boolean validateForm(String jumlah_pinjaman, boolean data_calon_peminjam, boolean jaminan_pinjaman, String plat_nomor) {
-        if (jumlah_pinjaman == null || jumlah_pinjaman.trim().length() == 0 || jumlah_pinjaman.equals("0") || jumlah_pinjaman.equals("") || jumlah_pinjaman.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan masukan jumlah pinjaman");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(etJumlahPinjaman);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
+    private boolean validateForm(boolean data_calon_peminjam, boolean jaminan_pinjaman, String plat_nomor) {
 
         if (!data_calon_peminjam) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan data calon peminjam");
 
@@ -581,7 +599,7 @@ public class OrderInActivity extends AppCompatActivity {
         }
 
         if (!jaminan_pinjaman) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan data jaminan & pinjaman");
 
@@ -596,7 +614,7 @@ public class OrderInActivity extends AppCompatActivity {
         }
 
         if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
 
@@ -612,7 +630,6 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
 
-
     public void requestFocus(View view) {
         if (view.requestFocus()) {
             showSoftKeyboard(view);
@@ -620,7 +637,7 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
+        if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
@@ -632,12 +649,70 @@ public class OrderInActivity extends AppCompatActivity {
         inputMethodManager.showSoftInput(view, 0);
     }
 
-    @OnClick({R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman, R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
+    @OnClick({R.id.plus, R.id.minus, R.id.edit_informasi_jaminan, R.id.edit_data_calon_pinjaman, R.id.cari_axi, R.id.cari_axi_close, R.id.cari_plat_nomor_close, R.id.cari_voucher_close, R.id.cari_plat_nomor, R.id.cari_voucher, R.id.detail_data_calon_pinjaman, R.id.detail_informasi_jaminan, R.id.btn_upload_ktp, R.id.btn_upload_bpkb, R.id.next, R.id.change_ktp, R.id.change_bpkb})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.plus:
+                if (qty <= 99) {
+                    if (qty != 99) {
+                        qty = qty + 1;
+                    }
+                }
+                value.setText(String.valueOf(qty));
+                hasil = qty * Integer.valueOf(session.getHarga());
+
+                session.setAmount(hasil.toString());
+                session.setQty(qty.toString());
+
+                try {
+                    String rp = getResources().getString(R.string.rp_string);
+                    String originalString = hasil.toString();
+                    originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                    originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                    Double doubleval = Double.parseDouble(originalString);
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    symbols.setGroupingSeparator('.');
+                    String pattern = "#,###.##";
+                    DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                    String formattedString = rp + formatter.format(doubleval);
+                    tvHarga.setText(formattedString);
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                }
+                break;
+            case R.id.minus:
+                if (qty > 1 && qty <= 99) {
+                    if (qty != 99) {
+                        qty = qty - 1;
+                    }
+                }
+                value.setText(String.valueOf(qty));
+                hasil = qty * Integer.valueOf(session.getHarga());
+
+                session.setAmount(hasil.toString());
+                session.setQty(qty.toString());
+
+                try {
+                    String rp = getResources().getString(R.string.rp_string);
+                    String originalString = hasil.toString();
+                    originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                    originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                    Double doubleval = Double.parseDouble(originalString);
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    symbols.setGroupingSeparator('.');
+                    String pattern = "#,###.##";
+                    DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                    String formattedString = rp + formatter.format(doubleval);
+                    tvHarga.setText(formattedString);
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                }
+                break;
             case R.id.edit_data_calon_pinjaman:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                 alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Data calon peminjam yang anda isi akan hilang, apakah anda setuju?");
 
@@ -650,13 +725,13 @@ public class OrderInActivity extends AppCompatActivity {
                 alertDialog.show();
                 break;
             case R.id.edit_informasi_jaminan:
-                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(OrderInActivity.this);
+                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(OrderInProductActivity.this);
                 alertDialog2.setTitle("Perhatian");
                 alertDialog2.setMessage("Data jaminan & pinjaman yang anda isi akan hilang, apakah anda setuju?");
 
                 alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
+                        Intent intent = new Intent(getBaseContext(), InformasiJaminan2Activity.class);
                         startActivity(intent);
                     }
                 });
@@ -667,7 +742,7 @@ public class OrderInActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.detail_informasi_jaminan:
-                intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
+                intent = new Intent(getBaseContext(), InformasiJaminan2Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
@@ -684,8 +759,8 @@ public class OrderInActivity extends AppCompatActivity {
                 break;
             case R.id.next:
                 try {
-                    session.setAmount(etJumlahPinjaman.getText().toString());
-                    jumlah_pinjaman = etJumlahPinjaman.getText().toString();
+                    session.setAmount(tvHarga.getText().toString());
+                    jumlah_pinjaman = tvHarga.getText().toString();
                     data_calon_peminjam = session.getStatus_data_calon();
                     jaminan_pinjaman = session.getStatus_informasi_jaminan();
                     plat_nomor = session.getVehicle_id();
@@ -693,12 +768,14 @@ public class OrderInActivity extends AppCompatActivity {
                 } catch (Exception ex) {
                 }
 
-                if (validateForm(jumlah_pinjaman, data_calon_peminjam, jaminan_pinjaman, plat_nomor)) {
+                if (validateForm(data_calon_peminjam, jaminan_pinjaman, plat_nomor)) {
                     if (cbConfirm.isChecked()) {
+                        session.setQty(qty.toString());
+                        session.setAmount(hasil.toString());
                         intent = new Intent(getBaseContext(), KantorCabangActivity.class);
                         startActivity(intent);
                     } else {
-                        AlertDialog.Builder alertDialog3 = new AlertDialog.Builder(OrderInActivity.this);
+                        AlertDialog.Builder alertDialog3 = new AlertDialog.Builder(OrderInProductActivity.this);
                         alertDialog3.setTitle("Perhatian");
                         alertDialog3.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
 
@@ -744,7 +821,7 @@ public class OrderInActivity extends AppCompatActivity {
                             }
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -761,7 +838,7 @@ public class OrderInActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Axi> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -811,7 +888,7 @@ public class OrderInActivity extends AppCompatActivity {
                             }
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -828,7 +905,7 @@ public class OrderInActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<PlatNomor> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -876,7 +953,7 @@ public class OrderInActivity extends AppCompatActivity {
                             }
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -893,7 +970,7 @@ public class OrderInActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<VoucherCode> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -959,7 +1036,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 btnUploadKtp.setVisibility(View.GONE);
                 viewUploadKtp.setVisibility(View.VISIBLE);
-                Glide.with(OrderInActivity.this)
+                Glide.with(OrderInProductActivity.this)
                         .load(mPhotoFile)
                         .centerCrop()
                         .into(imageKtp);
@@ -973,7 +1050,7 @@ public class OrderInActivity extends AppCompatActivity {
                 }
                 btnUploadBpkb.setVisibility(View.GONE);
                 viewUploadBpkb.setVisibility(View.VISIBLE);
-                Glide.with(OrderInActivity.this)
+                Glide.with(OrderInProductActivity.this)
                         .load(mPhotoFile)
                         .centerCrop()
                         .into(imageBpkb);

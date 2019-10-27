@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +31,10 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceFavor
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
 import com.dicicilaja.app.Adapter.ListRelatedAdapter;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.UI.OrderInProductActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -42,6 +49,8 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.DetailProgramMaxi;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,14 +62,18 @@ public class ProductMaxiActivity extends AppCompatActivity {
     List<Data> detailProducts;
     SimpleDraweeView head_image;
     RelativeLayout rute, syarat, deskripsi_lengkap;
-    String apiKey;
+    String apiKey, agen_id, agen_name;
     MaterialSpinner spinnerJaminan;
     TextView tv_tenor, tv_title, tv_mitra, tv_harga;
     Button ajukan_produk;
+    MaterialProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_maxi);
+
+        ApiService3 apiService3;
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,12 +93,15 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
         head_image = findViewById(R.id.head_image);
         spinnerJaminan = findViewById(R.id.jaminan);
+        progressBar = findViewById(R.id.progressBar);
         tv_tenor = findViewById(R.id.tv_tenor);
         tv_title = findViewById(R.id.tv_title);
         tv_mitra = findViewById(R.id.tv_mitra);
         tv_harga = findViewById(R.id.tv_harga);
         ajukan_produk = findViewById(R.id.ajukan_produk);
         deskripsi_lengkap = findViewById(R.id.deskripsi_lengkap);
+
+        progressBar.setVisibility(View.GONE);
 
 //        rute = findViewById(R.id.rute);
 //        syarat = findViewById(R.id.syarat);
@@ -199,17 +215,92 @@ public class ProductMaxiActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), GuestActivity.class);
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
-                    intent.putExtra("pinjaman", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
-                    intent.putExtra("spinner_tenor",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
-                    intent.putExtra("program",detailProducts.get(0).getJenisProgram());
-                    intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
-                    intent.putExtra("title", detailProducts.get(0).getTitleProgram());
-                    intent.putExtra("mitra", detailProducts.get(0).getPartner());
-                    intent.putExtra("harga", detailProducts.get(0).getPrice());
-                    intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
-                    intent.putExtra("id_partner",detailProducts.get(0).getIdPartner().toString());
-                    startActivity(intent);
+                    progressBar.setVisibility(View.VISIBLE);
+//                    Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
+//                    intent.putExtra("pinjaman", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
+//                    intent.putExtra("spinner_tenor",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
+//                    intent.putExtra("program",detailProducts.get(0).getJenisProgram());
+//                    intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
+//                    intent.putExtra("title", detailProducts.get(0).getTitleProgram());
+//                    intent.putExtra("mitra", detailProducts.get(0).getPartner());
+//                    intent.putExtra("harga", detailProducts.get(0).getPrice());
+//                    intent.putExtra("tenor", TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
+//                    intent.putExtra("id_partner",detailProducts.get(0).getIdPartner().toString());
+//                    startActivity(intent);
+
+                    Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                    axiReff.enqueue(new Callback<Axi>() {
+                        @Override
+                        public void onResponse(Call<Axi> call, Response<Axi> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                        agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                        Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
+                                        intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
+                                        intent.putExtra("product_id",detailProducts.get(0).getId());
+                                        intent.putExtra("program",detailProducts.get(0).getJenisProgram());
+                                        intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
+                                        intent.putExtra("title", detailProducts.get(0).getTitleProgram());
+                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
+                                        intent.putExtra("mitra", detailProducts.get(0).getPartner());
+                                        intent.putExtra("agen_id", agen_id);
+                                        intent.putExtra("agen_name", agen_name);
+                                        startActivity(intent);
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        agen_id = null;
+                                        agen_name = null;
+                                        Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
+                                        intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
+                                        intent.putExtra("product_id",detailProducts.get(0).getId());
+                                        intent.putExtra("program",detailProducts.get(0).getJenisProgram());
+                                        intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
+                                        intent.putExtra("title", detailProducts.get(0).getTitleProgram());
+                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
+                                        intent.putExtra("mitra", detailProducts.get(0).getPartner());
+                                        intent.putExtra("agen_id", agen_id);
+                                        intent.putExtra("agen_name", agen_name);
+                                        startActivity(intent);
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+
+
+                                } catch (Exception ex) {
+                                }
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProductMaxiActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Axi> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProductMaxiActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
                 }
 
             }

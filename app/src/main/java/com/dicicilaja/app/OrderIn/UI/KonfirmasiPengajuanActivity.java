@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -25,6 +27,9 @@ import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.R;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +99,18 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     RelativeLayout voucherCard;
     @BindView(R.id.axi_card)
     RelativeLayout axiCard;
+    @BindView(R.id.gambar)
+    ImageView gambar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_mitra)
+    TextView tvMitra;
+    @BindView(R.id.tv_harga)
+    TextView tvHarga;
+    @BindView(R.id.tv_package)
+    TextView tvPackage;
+    @BindView(R.id.product_maxi)
+    LinearLayout productMaxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +151,50 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        if (!session.getProgram_id().equals("1")) {
+            productMaxi.setVisibility(View.GONE);
+        } else  {
+            productMaxi.setVisibility(View.VISIBLE);
+            try {
+                try {
+                    String rp = getResources().getString(R.string.rp_string);
+                    String originalString = session.getAmount();
+                    originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+                    originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+                    Double doubleval = Double.parseDouble(originalString);
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    symbols.setGroupingSeparator('.');
+                    String pattern = "#,###.##";
+                    DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+                    String formattedString = rp + formatter.format(doubleval);
+                    tvHarga.setText(formattedString);
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                }
+
+                tvMitra.setText(session.getMitra().toUpperCase());
+                tvTitle.setText(session.getTitle());
+
+                Glide.with(KonfirmasiPengajuanActivity.this)
+                        .load(session.getGambar())
+                        .centerCrop()
+                        .into(gambar);
+
+                if (Integer.parseInt(session.getQty()) > 1) {
+                    tvPackage.setText(session.getQty() + " Packages");
+                } else {
+                    tvPackage.setText(session.getQty() + " Package");
+                }
+            } catch (Exception ex) {}
+
+        }
+
+
+
+
+
         if (session.getJaminan_id().equals("1")) {
             angsuranAsuransi.setVisibility(View.VISIBLE);
         } else {
@@ -191,7 +252,6 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         Log.d("ORDERDONE", "objek_model_id: " + session.getObjek_model_id());
         Log.d("ORDERDONE", "model: " + session.getModel());
         Log.d("ORDERDONE", "year: " + session.getYear());
-        Log.d("ORDERDONE", "tenor_simulasi_id: " + session.getTenor_simulasi_id());
         Log.d("ORDERDONE", "tenor_simulasi: " + session.getTenor_simulasi());
         Log.d("ORDERDONE", "tipe_asuransi_id: " + session.getTipe_asuransi_id());
         Log.d("ORDERDONE", "tipe_asuransi: " + session.getTipe_asuransi());
@@ -205,8 +265,24 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
 
     private void initLoadData() {
-        jumlahPinjaman.setText(session.getAmount());
-        jumlahTenor.setText(session.getTenor_simulasi_id());
+        try {
+            String rp = getResources().getString(R.string.rp_string);
+            String originalString = session.getAmount();
+            originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
+            originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
+            Double doubleval = Double.parseDouble(originalString);
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setDecimalSeparator(',');
+            symbols.setGroupingSeparator('.');
+            String pattern = "#,###.##";
+            DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+            String formattedString = rp + formatter.format(doubleval);
+            jumlahPinjaman.setText(formattedString);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+
+        jumlahTenor.setText(session.getTenor_simulasi());
         nama.setText(session.getName());
         noKtp.setText(session.getNo_ktp());
         alamat.setText(session.getAddress());

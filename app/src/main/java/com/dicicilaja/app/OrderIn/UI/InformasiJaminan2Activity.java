@@ -48,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InformasiJaminanActivity extends AppCompatActivity {
+public class InformasiJaminan2Activity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -68,16 +68,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     SearchableSpinner spinnerType;
     @BindView(R.id.layoutType)
     TextInputLayout layoutType;
-    @BindView(R.id.save)
-    Button save;
-    @BindView(R.id.progressBar)
-    MaterialProgressBar progressBar;
     @BindView(R.id.et_tahun_kendaraan)
     EditText etTahunKendaraan;
-    @BindView(R.id.spinnerTenor)
-    SearchableSpinner spinnerTenor;
-    @BindView(R.id.layoutTenor)
-    TextInputLayout layoutTenor;
     @BindView(R.id.icon_help1)
     RelativeLayout iconHelp1;
     @BindView(R.id.spinnerInstallment)
@@ -92,11 +84,12 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     TextInputLayout layoutInsurance;
     @BindView(R.id.angsuran_asuransi)
     LinearLayout angsuranAsuransi;
+    @BindView(R.id.save)
+    Button save;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
     SessionOrderIn session;
-    @BindView(R.id.card_tenor)
-    LinearLayout cardTenor;
-
     private String jaminan_id, jaminan, area_id, area, objek_brand_id, brand, objek_model_id, model, year, tenor_simulasi, tipe_asuransi_id, tipe_asuransi, jenis_angsuran_id, jenis_angsuran;
     ApiService apiService, apiService2;
 
@@ -108,9 +101,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     final HashMap<Integer, String> MERK_DATA = new HashMap<Integer, String>();
     final List<String> TYPE_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
-    final List<String> TENOR_ITEMS = new ArrayList<>();
-    final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
-    final List<String> TENOR_DATA = new ArrayList<>();
     final List<String> JENISANGSURAN_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> JENISANGSURAN_MAP = new HashMap<Integer, String>();
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
@@ -119,10 +109,10 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_informasi_jaminan);
+        setContentView(R.layout.activity_informasi_jaminan2);
         ButterKnife.bind(this);
 
-        session = new SessionOrderIn(InformasiJaminanActivity.this);
+        session = new SessionOrderIn(InformasiJaminan2Activity.this);
 
         initToolbar();
         initAction();
@@ -149,7 +139,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         spinnerArea.setEnabled(false);
         spinnerBrand.setEnabled(false);
         spinnerType.setEnabled(false);
-        spinnerTenor.setEnabled(false);
         spinnerInstallment.setEnabled(false);
         spinnerInsurance.setEnabled(false);
         angsuranAsuransi.setVisibility(View.VISIBLE);
@@ -158,7 +147,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         clearArea();
         clearBrand();
         clearType();
-        clearTenor();
         clearAngsuran();
         clearAsuransi();
 
@@ -216,37 +204,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         spinnerType.setTitle("");
         spinnerType.setPositiveButton("OK");
         spinnerType.setEnabled(false);
-    }
-
-    private void clearTenor() {
-        TENOR_MAP.clear();
-        TENOR_ITEMS.clear();
-        TENOR_DATA.clear();
-
-        TENOR_MAP.put(0, "0");
-        TENOR_MAP.put(1, "1");
-        TENOR_MAP.put(2, "2");
-        TENOR_MAP.put(3, "3");
-        TENOR_MAP.put(4, "4");
-
-        TENOR_ITEMS.add("Pilih Tenor Pinjaman");
-        TENOR_ITEMS.add("1 Tahun");
-        TENOR_ITEMS.add("2 Tahun");
-        TENOR_ITEMS.add("3 Tahun");
-        TENOR_ITEMS.add("4 Tahun");
-
-        TENOR_DATA.add("0");
-        TENOR_DATA.add("12");
-        TENOR_DATA.add("24");
-        TENOR_DATA.add("36");
-        TENOR_DATA.add("48");
-
-        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
-        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTenor.setAdapter(tenor_adapter);
-        spinnerTenor.setTitle("");
-        spinnerTenor.setPositiveButton("OK");
-        spinnerTenor.setEnabled(false);
     }
 
     private void clearAngsuran() {
@@ -317,7 +274,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         } else {
                             clearJaminan();
                             progressBar.setVisibility(View.GONE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data jaminan belum tersedia, silahkan coba beberapa saat lagi." + response.message());
 
@@ -340,7 +297,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 } else {
                     clearJaminan();
                     progressBar.setVisibility(View.GONE);
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                     alertDialog.setTitle("Perhatian");
                     alertDialog.setMessage("Data jaminan gagal dipanggil, silahkan coba beberapa saat lagi." + response.message());
 
@@ -357,7 +314,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TipeObjek> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                 alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Data jaminan gagal dipanggil, silahkan coba beberapa saat lagi." + t.getMessage());
 
@@ -401,7 +358,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     } else {
                                         clearArea();
                                         progressBar.setVisibility(View.GONE);
-                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                         alertDialog.setTitle("Perhatian");
                                         alertDialog.setMessage("Data area belum tersedia, silahkan coba beberapa saat lagi." + response.message());
 
@@ -425,7 +382,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             } else {
                                 clearArea();
                                 progressBar.setVisibility(View.GONE);
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                 alertDialog.setTitle("Perhatian");
                                 alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi." + response.message());
 
@@ -442,7 +399,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<AreaSimulasi> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi." + t.getMessage());
 
@@ -461,7 +418,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             clearBrand();
                             clearType();
-                            clearTenor();
                             clearAngsuran();
                             clearAsuransi();
                             if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
@@ -482,7 +438,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                 } else {
                                                     clearBrand();
                                                     progressBar.setVisibility(View.GONE);
-                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                                     alertDialog.setTitle("Perhatian");
                                                     alertDialog.setMessage("Data merk kendaraan belum tersedia, silahkan coba beberapa saat lagi.");
 
@@ -507,7 +463,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                         } else {
                                             clearBrand();
                                             progressBar.setVisibility(View.GONE);
-                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                             alertDialog.setTitle("Perhatian");
                                             alertDialog.setMessage("Data merk kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -524,7 +480,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(Call<ObjekBrand> call, Throwable t) {
                                         progressBar.setVisibility(View.GONE);
-                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                         alertDialog.setTitle("Perhatian");
                                         alertDialog.setMessage("Data merk kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -542,7 +498,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                         clearType();
-                                        clearTenor();
                                         clearAngsuran();
                                         clearAsuransi();
                                         if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
@@ -563,7 +518,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                             } else {
                                                                 clearType();
                                                                 progressBar.setVisibility(View.GONE);
-                                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                                                 alertDialog.setTitle("Perhatian");
                                                                 alertDialog.setMessage("Data tipe kendaraan belum tersedia, silahkan coba beberapa saat lagi.");
 
@@ -588,7 +543,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                     } else {
                                                         clearType();
                                                         progressBar.setVisibility(View.GONE);
-                                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                                         alertDialog.setTitle("Perhatian");
                                                         alertDialog.setMessage("Data tipe kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -606,7 +561,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                 public void onFailure(Call<ObjekModel> call, Throwable t) {
                                                     clearType();
                                                     progressBar.setVisibility(View.GONE);
-                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                                                     alertDialog.setTitle("Perhatian");
                                                     alertDialog.setMessage("Data tipe kendaraan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -624,34 +579,16 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                                     if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
-                                                        clearTenor();
                                                         clearAngsuran();
                                                         clearAsuransi();
-                                                        spinnerTenor.setEnabled(true);
+                                                        spinnerInstallment.setEnabled(true);
 
-
-                                                        spinnerTenor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                        spinnerInstallment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                             @Override
                                                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                                                if (Integer.parseInt(TENOR_MAP.get(spinnerTenor.getSelectedItemPosition())) > 0) {
-                                                                    clearAngsuran();
+                                                                if (Integer.parseInt(JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition())) > 0) {
                                                                     clearAsuransi();
-                                                                    spinnerInstallment.setEnabled(true);
-
-                                                                    spinnerInstallment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                                        @Override
-                                                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                                                            if (Integer.parseInt(JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition())) > 0) {
-                                                                                clearAsuransi();
-                                                                                spinnerInsurance.setEnabled(true);
-                                                                            }
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                                                        }
-                                                                    });
+                                                                    spinnerInsurance.setEnabled(true);
                                                                 }
                                                             }
 
@@ -734,7 +671,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     objek_model_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
                     model = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
                     year = etTahunKendaraan.getText().toString();
-                    tenor_simulasi = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
                     tipe_asuransi_id = TIPEASURANSI_MAP.get(spinnerInsurance.getSelectedItemPosition());
                     tipe_asuransi = TIPEASURANSI_ITEMS.get(spinnerInsurance.getSelectedItemPosition());
                     jenis_angsuran_id = JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition());
@@ -760,8 +696,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
 
                 if (jaminan_id.equals("1")) {
-                    if (validateFormMobil(jaminan_id, area_id, objek_brand_id, objek_model_id, year, tenor_simulasi, jenis_angsuran_id, tipe_asuransi_id)) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                    if (validateFormMobil(jaminan_id, area_id, objek_brand_id, objek_model_id, year, jenis_angsuran_id, tipe_asuransi_id)) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
 
@@ -790,7 +726,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
                 } else if (jaminan_id.equals("2")) {
                     if (validateFormMotor(jaminan_id, area_id, objek_brand_id, objek_model_id, year, tenor_simulasi)) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
 
@@ -818,7 +754,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     }
                 } else {
                     if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Silahkan pilih jaminan");
 
@@ -855,10 +791,10 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         inputMethodManager.showSoftInput(view, 0);
     }
 
-    private boolean validateFormMobil(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String tenor_simulasi, String jenis_angsuran_id, String tipe_asuransi_id) {
+    private boolean validateFormMobil(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String jenis_angsuran_id, String tipe_asuransi_id) {
 
         if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih jaminan");
 
@@ -875,7 +811,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0") || area_id.equals("") || area_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih area");
 
@@ -892,7 +828,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (objek_brand_id == null || objek_brand_id.trim().length() == 0 || objek_brand_id.equals("0") || objek_brand_id.equals("") || objek_brand_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih merk kendaraan");
 
@@ -909,7 +845,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (objek_model_id == null || objek_model_id.trim().length() == 0 || objek_model_id.equals("0") || objek_model_id.equals("") || objek_model_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih tipe kendaraan");
 
@@ -926,7 +862,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (year == null || year.trim().length() == 0 || year.equals("0") || year.equals("") || year.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
 
@@ -938,7 +874,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             alertDialog.show();
             return false;
         } else if (year.length() < 4) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
@@ -951,25 +887,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             return false;
         }
 
-        if (tenor_simulasi == null || tenor_simulasi.trim().length() == 0 || tenor_simulasi.equals("0") || tenor_simulasi.equals("") || tenor_simulasi.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan pilih tenor pinjaman");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(spinnerTenor);
-                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
-                    spinnerTenor.dispatchTouchEvent(motionEvent);
-                    hideSoftKeyboard();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
         if (jenis_angsuran_id == null || jenis_angsuran_id.trim().length() == 0 || jenis_angsuran_id.equals("0") || jenis_angsuran_id.equals("") || jenis_angsuran_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih jenis angsuran");
 
@@ -986,7 +905,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (tipe_asuransi_id == null || tipe_asuransi_id.trim().length() == 0 || tipe_asuransi_id.equals("0") || tipe_asuransi_id.equals("") || tipe_asuransi_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih tipe asuransi");
 
@@ -1007,7 +926,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     private boolean validateFormMotor(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String tenor_simulasi) {
 
         if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih jaminan");
 
@@ -1024,7 +943,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0") || area_id.equals("") || area_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih area");
 
@@ -1041,7 +960,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (objek_brand_id == null || objek_brand_id.trim().length() == 0 || objek_brand_id.equals("0") || objek_brand_id.equals("") || objek_brand_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih merk kendaraan");
 
@@ -1058,7 +977,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (objek_model_id == null || objek_model_id.trim().length() == 0 || objek_model_id.equals("0") || objek_model_id.equals("") || objek_model_id.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan pilih tipe kendaraan");
 
@@ -1075,7 +994,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
 
         if (year == null || year.trim().length() == 0 || year.equals("0") || year.equals("") || year.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
 
@@ -1087,30 +1006,13 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             alertDialog.show();
             return false;
         } else if (year.length() < 4) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(etTahunKendaraan);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if (tenor_simulasi == null || tenor_simulasi.trim().length() == 0 || tenor_simulasi.equals("0") || tenor_simulasi.equals("") || tenor_simulasi.equals(" ")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan pilih tenor pinjaman");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(spinnerTenor);
-                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
-                    spinnerTenor.dispatchTouchEvent(motionEvent);
-                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
