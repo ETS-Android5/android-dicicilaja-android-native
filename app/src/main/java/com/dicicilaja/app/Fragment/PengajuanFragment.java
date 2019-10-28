@@ -1,14 +1,18 @@
 package com.dicicilaja.app.Fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -21,9 +25,14 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePenga
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;
 import com.dicicilaja.app.Adapter.ListPengajuanAdapter;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +49,8 @@ public class PengajuanFragment extends Fragment {
     SessionManager session;
     Button pengajuan;
     String apiKey;
+    MaterialProgressBar progressBar;
+    String agen_id, agen_name;
     public PengajuanFragment() {
         // Required empty public constructor
     }
@@ -53,6 +64,9 @@ public class PengajuanFragment extends Fragment {
 
         session = new SessionManager(getContext());
 
+        ApiService3 apiService3;
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
+
         apiKey = "Bearer " + session.getToken();
 
         order = view.findViewById(R.id.order);
@@ -60,12 +74,78 @@ public class PengajuanFragment extends Fragment {
         order.setVisibility(View.GONE);
         recyclerPengajuan =  view.findViewById(R.id.recycler_pengajuan);
         pengajuan = view.findViewById(R.id.pengajuan);
+        progressBar = view.findViewById(R.id.progressBar);
 
         pengajuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), AjukanPengajuanAxiActivity.class);
-                startActivity(intent);
+
+                progressBar.setVisibility(View.VISIBLE);
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                axiReff.enqueue(new Callback<Axi>() {
+                    @Override
+                    public void onResponse(Call<Axi> call, Response<Axi> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                    agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                    Intent intent2 = new Intent(getContext(), OrderInActivity.class);
+                                    intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_name", agen_name);
+                                    startActivity(intent2);
+                                    progressBar.setVisibility(View.GONE);
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                } else {
+                                    agen_id = null;
+                                    agen_name = null;
+                                    Intent intent2 = new Intent(getContext(), OrderInActivity.class);
+                                    intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_name", agen_name);
+                                    startActivity(intent2);
+                                    progressBar.setVisibility(View.GONE);
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                }
+
+
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    getActivity().finish();
+                                    startActivity(getActivity().getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Axi> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
             }
         });
 

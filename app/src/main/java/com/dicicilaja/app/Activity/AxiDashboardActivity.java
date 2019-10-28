@@ -1,7 +1,11 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.content.*;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +27,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
@@ -45,9 +52,10 @@ import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
-import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
-import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
@@ -55,10 +63,6 @@ import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
-import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -66,6 +70,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AxiDashboardActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
@@ -79,6 +92,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     String apiKey;
     RelativeLayout allpromo;
+
+    ApiService3 apiService3;
 
     HashMap<String, String> file_maps;
 
@@ -136,7 +151,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     TextView contentBox6;
     @BindView(R.id.button_kedalaman_rb)
     LinearLayout buttonKedalamanRb;
-//    @BindView(R.id.title_ppob)
+    //    @BindView(R.id.title_ppob)
 //    TextView titlePpob;
 //    @BindView(R.id.desc_ppob)
 //    TextView descPpob;
@@ -168,6 +183,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     NavigationView navView3;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.progressBar)
+    MaterialProgressBar progressBar;
 
 
     /* Update to Microservices - Variable */
@@ -179,6 +196,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int totalPage = 1;
     int currentPage = 1;
     boolean isLoading = false;
+    String agen_id, agen_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +207,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
+
+
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -300,7 +321,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //        });
 
 
-
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -318,8 +338,71 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), OrderInActivity.class);
-                        startActivity(intent);
+                        progressBar.setVisibility(View.VISIBLE);
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                        axiReff.enqueue(new Callback<Axi>() {
+                            @Override
+                            public void onResponse(Call<Axi> call, Response<Axi> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        if (response.body().getData().size() > 0) {
+                                            agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                            agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progressBar.setVisibility(View.GONE);
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        } else {
+                                            agen_id = null;
+                                            agen_name = null;
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progressBar.setVisibility(View.GONE);
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        }
+
+
+                                    } catch (Exception ex) {
+                                    }
+                                } else {
+                                    progressBar.setVisibility(View.GONE);
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
+                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    });
+                                    alertDialog.show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Axi> call, Throwable t) {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        });
                         break;
                     case R.id.navbar_simulation:
                         intent = new Intent(getBaseContext(), NewSimulationActivity.class);
@@ -472,7 +555,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                         contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
                     }
-                } catch (Exception ex) {}
+                } catch (Exception ex) {
+                }
             }
 
             @Override
@@ -488,7 +572,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call3.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     pengajuan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 

@@ -703,16 +703,16 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                session.editInformasiJaminan(true,
+                                session.editInformasiJaminanMaxi(true,
                                         jaminan_id,
                                         jaminan,
                                         area_id,
                                         area,
                                         objek_brand_id,
-                                        brand, objek_model_id,
+                                        brand,
+                                        objek_model_id,
                                         model,
                                         year,
-                                        tenor_simulasi,
                                         tipe_asuransi_id,
                                         tipe_asuransi,
                                         jenis_angsuran_id,
@@ -732,16 +732,16 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                session.editInformasiJaminan(true,
+                                session.editInformasiJaminanMaxi(true,
                                         jaminan_id,
                                         jaminan,
                                         area_id,
                                         area,
                                         objek_brand_id,
-                                        brand, objek_model_id,
+                                        brand,
+                                        objek_model_id,
                                         model,
                                         year,
-                                        tenor_simulasi,
                                         "1",
                                         "1",
                                         "1",

@@ -206,7 +206,6 @@ public class OrderInProductActivity extends AppCompatActivity {
         sessionUser = new SessionManager(OrderInProductActivity.this);
 
         session.clearOrderIn();
-        session.setTenor_simulasi(getIntent().getStringExtra("tenor"));
 
         initToolbar();
         initAction();
@@ -239,8 +238,6 @@ public class OrderInProductActivity extends AppCompatActivity {
                 getIntent().getStringExtra("agen_id"),
                 getIntent().getStringExtra("agen_name"),
                 getIntent().getStringExtra("amount"),
-                "",
-                "",
                 "",
                 "",
                 "",
@@ -286,19 +283,25 @@ public class OrderInProductActivity extends AppCompatActivity {
 
         if (getIntent().getStringExtra("program").equals("MAXI Travel")) {
             program_id = "2";
+            session.setProgram_id("2");
         } else if (getIntent().getStringExtra("program").equals("MAXI Edukasi")) {
             program_id = "3";
+            session.setProgram_id("3");
         } else if (getIntent().getStringExtra("program").equals("MAXI Usaha")) {
             program_id = "4";
+            session.setProgram_id("4");
         } else if (getIntent().getStringExtra("program").equals("MAXI Sehat")) {
             program_id = "5";
+            session.setProgram_id("5");
         } else if (getIntent().getStringExtra("program").equals("MAXI Ekstraguna")) {
             program_id = "6";
+            session.setProgram_id("6");
         }
 
         tvTenorDisplay.setText("Tenor cicilan " + session.getTenor_simulasi() + " bulan");
 
         if (session.getAgen_id() != null) {
+            etAxiIdReff.setText(session.getAgen_id());
             etAxiIdReff.setEnabled(false);
             etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
             cariAxiClose.setVisibility(View.GONE);
@@ -363,8 +366,6 @@ public class OrderInProductActivity extends AppCompatActivity {
                 .load(getIntent().getStringExtra("gambar"))
                 .centerCrop()
                 .into(gambar);
-
-        etAxiIdReff.setText(session.getAgen_id());
 
         if (session.getStatus_data_calon()) {
             txtDataCalonPinjamanValue.setVisibility(View.VISIBLE);
@@ -481,6 +482,8 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void closeVoucher() {
+        session.setVoucher_code_id(null);
+        session.setVoucher_code(null);
         etVoucher.setEnabled(true);
         etVoucher.setText("");
         etVoucher.setFocusable(true);

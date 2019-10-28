@@ -211,6 +211,8 @@ public class ProductMaxiActivity extends AppCompatActivity {
         ajukan_produk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 if(session.isLoggedIn() == FALSE) {
                     Intent intent = new Intent(getBaseContext(), GuestActivity.class);
                     startActivity(intent);
@@ -249,6 +251,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
                                         progressBar.setVisibility(View.GONE);
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     } else {
                                         agen_id = null;
                                         agen_name = null;
@@ -264,6 +267,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
                                         progressBar.setVisibility(View.GONE);
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     }
 
 
@@ -271,6 +275,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                 }
                             } else {
                                 progressBar.setVisibility(View.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProductMaxiActivity.this);
                                 alertDialog.setTitle("Perhatian");
                                 alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");

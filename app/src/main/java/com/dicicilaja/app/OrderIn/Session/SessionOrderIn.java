@@ -27,8 +27,6 @@ public class SessionOrderIn {
                                      String ktp_image,
                                      String bpkb,
                                      String vehicle_id,
-                                     String voucher_code_id,
-                                     String voucher_code,
                                      boolean status_data_calon,
                                      String name,
                                      String no_ktp,
@@ -73,8 +71,6 @@ public class SessionOrderIn {
         editor.putString("ktp_image", ktp_image);
         editor.putString("bpkb", bpkb);
         editor.putString("vehicle_id", vehicle_id);
-        editor.putString("voucher_code_id", voucher_code_id);
-        editor.putString("voucher_code", voucher_code);
         editor.putBoolean("status_data_calon", status_data_calon);
         editor.putString("name", name);
         editor.putString("no_ktp", no_ktp);
@@ -171,6 +167,37 @@ public class SessionOrderIn {
         editor.putString("model", model);
         editor.putString("year", year);
         editor.putString("tenor_simulasi", tenor_simulasi);
+        editor.putString("tipe_asuransi_id", tipe_asuransi_id);
+        editor.putString("tipe_asuransi", tipe_asuransi);
+        editor.putString("jenis_angsuran_id", jenis_angsuran_id);
+        editor.putString("jenis_angsuran", jenis_angsuran);
+        editor.commit();
+    }
+
+    public void editInformasiJaminanMaxi(boolean status_informasi_jaminan,
+                                     String jaminan_id,
+                                     String jaminan,
+                                     String area_id,
+                                     String area,
+                                     String objek_brand_id,
+                                     String brand,
+                                     String objek_model_id,
+                                     String model,
+                                     String year,
+                                     String tipe_asuransi_id,
+                                     String tipe_asuransi,
+                                     String jenis_angsuran_id,
+                                     String jenis_angsuran){
+        editor.putBoolean("status_informasi_jaminan", status_informasi_jaminan);
+        editor.putString("jaminan_id", jaminan_id);
+        editor.putString("jaminan", jaminan);
+        editor.putString("area_id", area_id);
+        editor.putString("area", area);
+        editor.putString("objek_brand_id", objek_brand_id);
+        editor.putString("brand", brand);
+        editor.putString("objek_model_id", objek_model_id);
+        editor.putString("model", model);
+        editor.putString("year", year);
         editor.putString("tipe_asuransi_id", tipe_asuransi_id);
         editor.putString("tipe_asuransi", tipe_asuransi);
         editor.putString("jenis_angsuran_id", jenis_angsuran_id);

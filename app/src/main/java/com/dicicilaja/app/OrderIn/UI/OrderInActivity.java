@@ -237,9 +237,7 @@ public class OrderInActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideSoftKeyboard();
-        Log.d("REFRESH", "status_data_calon: " + session.getStatus_data_calon() + "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
         initView();
-        initShowData();
     }
 
     private void initLoadData() {
@@ -259,11 +257,9 @@ public class OrderInActivity extends AppCompatActivity {
                     "1",
                     "1",
                     "1",
-                    sessionUser.getAxiId(),
-                    "",
+                    getIntent().getStringExtra("agen_id"),
+                    getIntent().getStringExtra("agen_name"),
                     getIntent().getStringExtra("amount"),
-                    "",
-                    "",
                     "",
                     "",
                     "",
@@ -292,7 +288,7 @@ public class OrderInActivity extends AppCompatActivity {
                     getIntent().getStringExtra("objek_model_id"),
                     getIntent().getStringExtra("model"),
                     getIntent().getStringExtra("year"),
-                    getIntent().getStringExtra("tenor_simulasi"),
+                    getIntent().getStringExtra("tenor_simulasi_id"),
                     getIntent().getStringExtra("tipe_asuransi_id"),
                     getIntent().getStringExtra("tipe_asuransi"),
                     getIntent().getStringExtra("jenis_angsuran_id"),
@@ -302,13 +298,16 @@ public class OrderInActivity extends AppCompatActivity {
                     "",
                     ""
             );
+        } else {
+            session.setAgen_id(getIntent().getStringExtra("agen_id"));
+            session.setAgen_name(getIntent().getStringExtra("agen_name"));
         }
     }
 
     private void initView() {
-        etAxiIdReff.setText(session.getAgen_id());
 
         if (session.getAgen_id() != null) {
+            etAxiIdReff.setText(session.getAgen_id());
             etAxiIdReff.setEnabled(false);
             etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
             cariAxiClose.setVisibility(View.GONE);
@@ -450,6 +449,8 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     private void closeVoucher() {
+        session.setVoucher_code_id(null);
+        session.setVoucher_code(null);
         etVoucher.setEnabled(true);
         etVoucher.setText("");
         etVoucher.setFocusable(true);

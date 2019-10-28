@@ -152,7 +152,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
     private void initView() {
 
-        if (!session.getProgram_id().equals("1")) {
+        if (session.getProgram_id().equals("1")) {
             productMaxi.setVisibility(View.GONE);
         } else  {
             productMaxi.setVisibility(View.VISIBLE);
@@ -192,25 +192,22 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         }
 
 
-
-
-
         if (session.getJaminan_id().equals("1")) {
             angsuranAsuransi.setVisibility(View.VISIBLE);
         } else {
             angsuranAsuransi.setVisibility(View.GONE);
         }
 
-        if (session.getVoucher_code_id() == "") {
-            voucherCard.setVisibility(View.GONE);
-        } else {
+        if (session.getVoucher_code_id() != null) {
             voucherCard.setVisibility(View.VISIBLE);
+        } else {
+            voucherCard.setVisibility(View.GONE);
         }
 
-        if (session.getAgen_id() == null) {
-            axiCard.setVisibility(View.GONE);
-        } else {
+        if (session.getAgen_id() != null) {
             axiCard.setVisibility(View.VISIBLE);
+        } else {
+            axiCard.setVisibility(View.GONE);
         }
     }
 
@@ -297,7 +294,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         alamatCabang.setText(session.getBranch_address());
         kotaCabang.setText(session.getBranch_district());
         voucher.setText(session.getVoucher_code());
-        axiReff.setText(session.getAgen_name() + " (" + session.getAgen_id() + ")");
+        axiReff.setText(session.getAgen_id() + " (" + session.getAgen_name() + ")");
 
     }
 
@@ -326,6 +323,8 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 progressBar.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 Call<Profile> call = apiService3.postProfil(
                         session.getName(),
@@ -369,6 +368,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
                                         progressBar.setVisibility(View.GONE);
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
@@ -383,6 +383,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                             } catch (Exception ex) {
                                 progressBar.setVisibility(View.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                                 alertDialog.setTitle("Perhatian");
                                 alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
@@ -399,6 +400,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                         } else {
                             progressBar.setVisibility(View.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
