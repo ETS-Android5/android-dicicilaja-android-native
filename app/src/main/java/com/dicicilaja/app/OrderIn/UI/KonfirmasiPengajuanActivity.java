@@ -1,7 +1,6 @@
 package com.dicicilaja.app.OrderIn.UI;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +29,7 @@ import com.dicicilaja.app.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -198,13 +198,13 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
             angsuranAsuransi.setVisibility(View.GONE);
         }
 
-        if (session.getVoucher_code_id() != null) {
+        if (session.getVoucher_code_id() != "") {
             voucherCard.setVisibility(View.VISIBLE);
         } else {
             voucherCard.setVisibility(View.GONE);
         }
 
-        if (session.getAgen_id() != null) {
+        if (session.getAgen_id() != "") {
             axiCard.setVisibility(View.VISIBLE);
         } else {
             axiCard.setVisibility(View.GONE);
@@ -238,7 +238,6 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         Log.d("ORDERDONE", "village_id: " + session.getVillage_id());
         Log.d("ORDERDONE", "village: " + session.getVillage());
         Log.d("ORDERDONE", "address: " + session.getAddress());
-        Log.d("ORDERDONE", "postal_code: " + session.getPostal_code());
         Log.d("ORDERDONE", "status_informasi_jaminan: " + session.getStatus_informasi_jaminan());
         Log.d("ORDERDONE", "jaminan_id: " + session.getJaminan_id());
         Log.d("ORDERDONE", "jaminan: " + session.getJaminan());
@@ -259,7 +258,6 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         Log.d("ORDERDONE", "branch_address: " + session.getBranch_address());
         Log.d("ORDERDONE", "branch_district: " + session.getBranch_district());
     }
-
 
     private void initLoadData() {
         try {
@@ -338,10 +336,29 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<Profile> call, Response<Profile> response) {
-                        Log.d("HERE", "onResponse: " + response.code());
                         if (response.isSuccessful()) {
                             try {
                                 String calon_nasabah_id = response.body().getData().getId();
+
+                                Log.d("HASIL", "agen_id: " + session.getAgen_id());
+                                Log.d("HASIL", "calon_nasabah_id: " + calon_nasabah_id);
+                                Log.d("HASIL", "area_id: " + session.getArea_id());
+                                Log.d("HASIL", "branch_id: " + session.getBranch_id());
+                                Log.d("HASIL", "produk_id: " + session.getProduct_id());
+                                Log.d("HASIL", "program_id: " + session.getProgram_id());
+                                Log.d("HASIL", "amount: " + session.getAmount());
+                                Log.d("HASIL", "stats: " + "15");
+                                Log.d("HASIL", "vehicle_id: " + session.getVehicle_id());
+                                Log.d("HASIL", "channel_id: " + "1");
+                                Log.d("HASIL", "vocuher_code_id: " + session.getVoucher_code_id());
+                                Log.d("HASIL", "objek_brand_id: " + session.getObjek_brand_id());
+                                Log.d("HASIL", "objek_model_id: " + session.getObjek_model_id());
+                                Log.d("HASIL", "tipe_asuransi_id: " + session.getTipe_asuransi_id());
+                                Log.d("HASIL", "jenis_angsuran_id: " + session.getJenis_angsuran_id());
+                                Log.d("HASIL", "jaminan_id: " + session.getJaminan_id());
+                                Log.d("HASIL", "tenor_simulasi: " + session.getTenor_simulasi());
+                                Log.d("HASIL", "ktp_image: " + session.getKtp_image());
+                                Log.d("HASIL", "bpkb: " + session.getBpkb());
 
                                 Call<Transaksi> call1 = apiService3.postTransaksi(
                                         session.getAgen_id(),
@@ -359,6 +376,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         session.getObjek_model_id(),
                                         session.getTipe_asuransi_id(),
                                         session.getJenis_angsuran_id(),
+                                        session.getJaminan_id(),
                                         session.getTenor_simulasi(),
                                         session.getKtp_image(),
                                         session.getBpkb()
@@ -367,17 +385,47 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                 call1.enqueue(new Callback<Transaksi>() {
                                     @Override
                                     public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
-                                        progressBar.setVisibility(View.GONE);
-                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+                                        if (response.isSuccessful()) {
+                                            Log.d("HASIL", "code: " + response.code());
+
+                                            progressBar.setVisibility(View.GONE);
+//                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        startActivity(intent);
+                                        } else {
+                                            progressBar.setVisibility(View.GONE);
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                                            alertDialog.setTitle("Perhatian");
+                                            alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
+
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        }
+
 
                                     }
 
                                     @Override
                                     public void onFailure(Call<Transaksi> call, Throwable t) {
+                                        progressBar.setVisibility(View.GONE);
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
                                     }
                                 });
 

@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -21,9 +22,8 @@ public interface ApiService3 {
     @GET("transaction/transactions/check-vehicle-id")
     Call<PlatNomor> getPlatNomor(@Query("vehicle_id") String nomor);
 
-    @GET("profile/detail-axis")
-    Call<Axi> getAxi(@Query("filter[axi_id_reff]") String id,
-                     @Query("include") String param);
+    @GET("profile/detail-axis/search")
+    Call<Axi> getAxi(@Query("nomor_axi_id") String id);
 
     @POST("profile/profiles/order-in")
     @FormUrlEncoded
@@ -41,7 +41,7 @@ public interface ApiService3 {
                                   @Field("area_id") String area_id,
                                   @Field("cabang_id") String cabang_id,
                                   @Field("subproduk_id") String subproduk_id,
-                                  @Field("produk_id") String program_id,
+                                  @Field("produk_id") String produk_id,
                                   @Field("amount") String amount,
                                   @Field("status") String status,
                                   @Field("vehicle_id") String vehicle_id,
@@ -50,8 +50,9 @@ public interface ApiService3 {
                                   @Field("objek_brand_id") String objek_brand_id,
                                   @Field("objek_model_id") String objek_model_id,
                                   @Field("tipe_asuransi_id") String tipe_asuransi_id,
-                                  @Field("jenis_angsuran") String jenis_angsuran,
+                                  @Field("jenis_angsuran_id") String jenis_angsuran_id,
                                   @Field("tenor") String tenor,
+                                  @Field("jaminan_id") String jaminan_id,
                                   @Field("ktp_image") String ktp_image,
                                   @Field("bpkb") String bpkb);
 }

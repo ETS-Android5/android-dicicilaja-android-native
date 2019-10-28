@@ -242,7 +242,7 @@ public class SessionOrderIn {
     }
 
     public String getAgen_id() {
-        return pref.getString("agen_id", null);
+        return pref.getString("agen_id", "");
     }
 
     public void setAgen_id(String agen_id) {
@@ -269,7 +269,7 @@ public class SessionOrderIn {
     }
 
     public String getKtp_image() {
-        return pref.getString("ktp_image", null);
+        return pref.getString("ktp_image", "");
     }
 
     public void setKtp_image(String ktp_image) {
@@ -278,7 +278,7 @@ public class SessionOrderIn {
     }
 
     public String getBpkb() {
-        return pref.getString("bpkb", null);
+        return pref.getString("bpkb", "");
     }
 
     public void setBpkb(String bpkb) {
@@ -296,7 +296,7 @@ public class SessionOrderIn {
     }
 
     public String getVoucher_code_id() {
-        return pref.getString("voucher_code_id", null);
+        return pref.getString("voucher_code_id", "");
     }
 
     public void setVoucher_code_id(String voucher_code_id) {

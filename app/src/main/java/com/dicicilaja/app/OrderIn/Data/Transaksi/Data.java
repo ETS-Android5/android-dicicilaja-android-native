@@ -20,7 +20,7 @@ public class Data {
     private Relationships relationships;
     @SerializedName("links")
     @Expose
-    private Links__ links;
+    private Links___ links;
 
     public String getType() {
         return type;
@@ -54,11 +54,11 @@ public class Data {
         this.relationships = relationships;
     }
 
-    public Links__ getLinks() {
+    public Links___ getLinks() {
         return links;
     }
 
-    public void setLinks(Links__ links) {
+    public void setLinks(Links___ links) {
         this.links = links;
     }
 

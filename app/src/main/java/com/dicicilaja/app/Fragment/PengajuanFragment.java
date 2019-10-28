@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePengajuanMarketplace;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;
@@ -83,7 +82,7 @@ public class PengajuanFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -91,7 +90,7 @@ public class PengajuanFragment extends Fragment {
                             try {
                                 if (response.body().getData().size() > 0) {
                                     agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
-                                    agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                    agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getContext(), OrderInActivity.class);
                                     intent2.putExtra("agen_id", agen_id);
                                     intent2.putExtra("agen_name", agen_name);

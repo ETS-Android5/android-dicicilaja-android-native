@@ -9,6 +9,9 @@ public class Links__ {
     @SerializedName("self")
     @Expose
     private String self;
+    @SerializedName("related")
+    @Expose
+    private String related;
 
     public String getSelf() {
         return self;
@@ -16,6 +19,14 @@ public class Links__ {
 
     public void setSelf(String self) {
         this.self = self;
+    }
+
+    public String getRelated() {
+        return related;
+    }
+
+    public void setRelated(String related) {
+        this.related = related;
     }
 
 }

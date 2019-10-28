@@ -12,7 +12,7 @@ public class TransaksiDetails {
     private List<Object> data = null;
     @SerializedName("links")
     @Expose
-    private Links links;
+    private Links_ links;
 
     public List<Object> getData() {
         return data;
@@ -22,11 +22,11 @@ public class TransaksiDetails {
         this.data = data;
     }
 
-    public Links getLinks() {
+    public Links_ getLinks() {
         return links;
     }
 
-    public void setLinks(Links links) {
+    public void setLinks(Links_ links) {
         this.links = links;
     }
 

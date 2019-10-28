@@ -713,6 +713,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                                 text_area = response.body().getData().getAttributes().getInformasiJaminan().getArea();
 
                                 Intent intent = new Intent(getBaseContext(), NewSimulationResultActivity.class);
+                                intent.putExtra("objek_brand_id", model_id);
                                 intent.putExtra("text_max", text_max);
                                 intent.putExtra("text_total", text_total);
                                 intent.putExtra("text_tenor", text_tenor);

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -230,7 +229,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 //                    intent.putExtra("id_partner",detailProducts.get(0).getIdPartner().toString());
 //                    startActivity(intent);
 
-                    Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                    Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -238,7 +237,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
-                                        agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                        agen_name = response.body().getData().get(0).getAttributes().getNama();
                                         Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
                                         intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
                                         intent.putExtra("product_id",detailProducts.get(0).getId());

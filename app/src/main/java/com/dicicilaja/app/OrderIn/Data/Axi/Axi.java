@@ -1,55 +1,18 @@
-
 package com.dicicilaja.app.OrderIn.Data.Axi;
 
 import java.util.List;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Axi {
+public class Axi{
 
-    @SerializedName("meta")
-    @Expose
-    private Meta meta;
-    @SerializedName("links")
-    @Expose
-    private Links links;
-    @SerializedName("data")
-    @Expose
-    private List<Datum> data = null;
-    @SerializedName("included")
-    @Expose
-    private List<Included> included = null;
+	@SerializedName("data")
+	private List<DataItem> data;
 
-    public Meta getMeta() {
-        return meta;
-    }
+	public void setData(List<DataItem> data){
+		this.data = data;
+	}
 
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
-
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-
-    public List<Datum> getData() {
-        return data;
-    }
-
-    public void setData(List<Datum> data) {
-        this.data = data;
-    }
-
-    public List<Included> getIncluded() {
-        return included;
-    }
-
-    public void setIncluded(List<Included> included) {
-        this.included = included;
-    }
-
+	public List<DataItem> getData(){
+		return data;
+	}
 }

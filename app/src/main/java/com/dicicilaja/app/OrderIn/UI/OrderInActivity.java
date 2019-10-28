@@ -62,8 +62,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -194,8 +192,8 @@ public class OrderInActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initShowData();
-        initLoadData();
         initView();
+        initLoadData();
 
         etJumlahPinjaman.addTextChangedListener(new TextWatcher() {
             @Override
@@ -238,6 +236,7 @@ public class OrderInActivity extends AppCompatActivity {
         super.onResume();
         hideSoftKeyboard();
         initView();
+        initShowData();
     }
 
     private void initLoadData() {
@@ -306,7 +305,7 @@ public class OrderInActivity extends AppCompatActivity {
 
     private void initView() {
 
-        if (session.getAgen_id() != null) {
+        if (sessionUser.getRole().equals("axi")) {
             etAxiIdReff.setText(session.getAgen_id());
             etAxiIdReff.setEnabled(false);
             etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
@@ -314,7 +313,6 @@ public class OrderInActivity extends AppCompatActivity {
             cariAxi.setVisibility(View.GONE);
             axiAvailable.setVisibility(View.VISIBLE);
             axiAvailable.setText(session.getAgen_name());
-
         }
 
         try {
@@ -430,6 +428,8 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     private void closeAxi() {
+        session.setAgen_id("");
+        session.setAgen_name("");
         etAxiIdReff.setEnabled(true);
         etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBlack));
         etAxiIdReff.setText("");
@@ -644,6 +644,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        session.setAmount(jumlah_pinjaman);
                         Intent intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
                         startActivity(intent);
                     }
@@ -657,6 +658,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        session.setAmount(jumlah_pinjaman);
                         Intent intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                         startActivity(intent);
                     }
@@ -664,10 +666,12 @@ public class OrderInActivity extends AppCompatActivity {
                 alertDialog2.show();
                 break;
             case R.id.detail_data_calon_pinjaman:
+                session.setAmount(jumlah_pinjaman);
                 intent = new Intent(getBaseContext(), DataCalonPeminjamActivity.class);
                 startActivity(intent);
                 break;
             case R.id.detail_informasi_jaminan:
+                session.setAmount(jumlah_pinjaman);
                 intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                 startActivity(intent);
                 break;
@@ -696,6 +700,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 if (validateForm(jumlah_pinjaman, data_calon_peminjam, jaminan_pinjaman, plat_nomor)) {
                     if (cbConfirm.isChecked()) {
+                        session.setAmount(jumlah_pinjaman);
                         intent = new Intent(getBaseContext(), KantorCabangActivity.class);
                         startActivity(intent);
                     } else {
@@ -720,7 +725,7 @@ public class OrderInActivity extends AppCompatActivity {
                 cariAxiClose.setVisibility(View.VISIBLE);
                 cariAxi.setVisibility(View.GONE);
 
-                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString(), "profiles");
+                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -730,9 +735,9 @@ public class OrderInActivity extends AppCompatActivity {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiAvailable.setVisibility(View.VISIBLE);
-                                    axiAvailable.setText(response.body().getIncluded().get(0).getAttributes().getNama());
+                                    axiAvailable.setText(response.body().getData().get(0).getAttributes().getNama());
                                     session.setAgen_id(response.body().getData().get(0).getAttributes().getNomorAxiId());
-                                    session.setAgen_name(response.body().getIncluded().get(0).getAttributes().getNama());
+                                    session.setAgen_name(response.body().getData().get(0).getAttributes().getNama());
                                 } else {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);

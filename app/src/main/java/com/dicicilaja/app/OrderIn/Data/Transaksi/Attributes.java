@@ -30,9 +30,9 @@ public class Attributes {
     @SerializedName("subproduk_id")
     @Expose
     private String subprodukId;
-    @SerializedName("program_id")
+    @SerializedName("produk_id")
     @Expose
-    private String programId;
+    private String produkId;
     @SerializedName("current_pic")
     @Expose
     private Object currentPic;
@@ -60,24 +60,27 @@ public class Attributes {
     @SerializedName("tipe_asuransi_id")
     @Expose
     private String tipeAsuransiId;
-    @SerializedName("jenis_angsuran")
+    @SerializedName("jenis_angsuran_id")
     @Expose
-    private String jenisAngsuran;
+    private String jenisAngsuranId;
     @SerializedName("mrp_id")
     @Expose
-    private String mrpId;
+    private Object mrpId;
     @SerializedName("tenor")
     @Expose
     private String tenor;
+    @SerializedName("bpkb")
+    @Expose
+    private Object bpkb;
+    @SerializedName("ktp_image")
+    @Expose
+    private Object ktpImage;
     @SerializedName("created-at")
     @Expose
     private String createdAt;
     @SerializedName("updated-at")
     @Expose
     private String updatedAt;
-    @SerializedName("deleted-at")
-    @Expose
-    private Object deletedAt;
 
     public String getAgenId() {
         return agenId;
@@ -143,12 +146,12 @@ public class Attributes {
         this.subprodukId = subprodukId;
     }
 
-    public String getProgramId() {
-        return programId;
+    public String getProdukId() {
+        return produkId;
     }
 
-    public void setProgramId(String programId) {
-        this.programId = programId;
+    public void setProdukId(String produkId) {
+        this.produkId = produkId;
     }
 
     public Object getCurrentPic() {
@@ -223,19 +226,19 @@ public class Attributes {
         this.tipeAsuransiId = tipeAsuransiId;
     }
 
-    public String getJenisAngsuran() {
-        return jenisAngsuran;
+    public String getJenisAngsuranId() {
+        return jenisAngsuranId;
     }
 
-    public void setJenisAngsuran(String jenisAngsuran) {
-        this.jenisAngsuran = jenisAngsuran;
+    public void setJenisAngsuranId(String jenisAngsuranId) {
+        this.jenisAngsuranId = jenisAngsuranId;
     }
 
-    public String getMrpId() {
+    public Object getMrpId() {
         return mrpId;
     }
 
-    public void setMrpId(String mrpId) {
+    public void setMrpId(Object mrpId) {
         this.mrpId = mrpId;
     }
 
@@ -245,6 +248,22 @@ public class Attributes {
 
     public void setTenor(String tenor) {
         this.tenor = tenor;
+    }
+
+    public Object getBpkb() {
+        return bpkb;
+    }
+
+    public void setBpkb(Object bpkb) {
+        this.bpkb = bpkb;
+    }
+
+    public Object getKtpImage() {
+        return ktpImage;
+    }
+
+    public void setKtpImage(Object ktpImage) {
+        this.ktpImage = ktpImage;
     }
 
     public String getCreatedAt() {
@@ -261,14 +280,6 @@ public class Attributes {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Object getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(Object deletedAt) {
-        this.deletedAt = deletedAt;
     }
 
 }

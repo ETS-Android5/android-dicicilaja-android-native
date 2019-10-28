@@ -11,7 +11,7 @@ public class VoucherCode {
     private Data_ data;
     @SerializedName("links")
     @Expose
-    private Links_ links;
+    private Links__ links;
 
     public Data_ getData() {
         return data;
@@ -21,11 +21,11 @@ public class VoucherCode {
         this.data = data;
     }
 
-    public Links_ getLinks() {
+    public Links__ getLinks() {
         return links;
     }
 
-    public void setLinks(Links_ links) {
+    public void setLinks(Links__ links) {
         this.links = links;
     }
 

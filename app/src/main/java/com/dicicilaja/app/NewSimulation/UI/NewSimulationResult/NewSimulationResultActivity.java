@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
+
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
@@ -828,27 +828,27 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                     }
                 }
 
-//                Log.d("ORDERDONE", "jenis_pengajuan: " + "1");
-//                Log.d("ORDERDONE", "program_id: " + "1");
-//                Log.d("ORDERDONE", "product_id: " + "1");
-//                Log.d("ORDERDONE", "qty: " + "1");
-//                Log.d("ORDERDONE", "agen_id: " + sessionUser.getAxiId());
-//                Log.d("ORDERDONE", "amount: " + text_total);
-//                Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
-//                Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
-//                Log.d("ORDERDONE", "area_id: " + area_id);
-//                Log.d("ORDERDONE", "area: " + text_area);
-//                Log.d("ORDERDONE", "objek_brand_id: " + objek_brand_id);
-//                Log.d("ORDERDONE", "brand: " + text_merk);
-//                Log.d("ORDERDONE", "objek_model_id: " + objek_model_id);
-//                Log.d("ORDERDONE", "model: " + text_type);
-//                Log.d("ORDERDONE", "year: " + text_year);
-//                Log.d("ORDERDONE", "tenor_simulasi_id: " + text_tenor);
-//                Log.d("ORDERDONE", "tipe_asuransi_id: " + tipe_asuransi_id);
-//                Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
+                Log.d("ORDERDONE", "jenis_pengajuan: " + "1");
+                Log.d("ORDERDONE", "program_id: " + "1");
+                Log.d("ORDERDONE", "product_id: " + "1");
+                Log.d("ORDERDONE", "qty: " + "1");
+                Log.d("ORDERDONE", "agen_id: " + sessionUser.getAxiId());
+                Log.d("ORDERDONE", "amount: " + text_total);
+                Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
+                Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
+                Log.d("ORDERDONE", "area_id: " + area_id);
+                Log.d("ORDERDONE", "area: " + text_area);
+                Log.d("ORDERDONE", "objek_brand_id: " + objek_brand_id);
+                Log.d("ORDERDONE", "brand: " + text_merk);
+                Log.d("ORDERDONE", "objek_model_id: " + objek_model_id);
+                Log.d("ORDERDONE", "model: " + text_type);
+                Log.d("ORDERDONE", "year: " + text_year);
+                Log.d("ORDERDONE", "tenor_simulasi_id: " + text_tenor);
+                Log.d("ORDERDONE", "tipe_asuransi_id: " + tipe_asuransi_id);
+                Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
 
 
-                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId(), "profiles");
+                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -856,7 +856,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                             try {
                                 if (response.body().getData().size() > 0) {
                                     agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
-                                    agen_name = response.body().getIncluded().get(0).getAttributes().getNama();
+                                    agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
                                     intent2.putExtra("simulasi", "1");

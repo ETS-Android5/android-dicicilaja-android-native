@@ -210,8 +210,8 @@ public class OrderInProductActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initShowData();
-        initLoadData();
         initView();
+        initLoadData();
     }
 
     @Override
@@ -300,7 +300,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
         tvTenorDisplay.setText("Tenor cicilan " + session.getTenor_simulasi() + " bulan");
 
-        if (session.getAgen_id() != null) {
+        if (sessionUser.getRole().equals("axi")) {
             etAxiIdReff.setText(session.getAgen_id());
             etAxiIdReff.setEnabled(false);
             etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
@@ -308,7 +308,6 @@ public class OrderInProductActivity extends AppCompatActivity {
             cariAxi.setVisibility(View.GONE);
             axiAvailable.setVisibility(View.VISIBLE);
             axiAvailable.setText(session.getAgen_name());
-
         }
 
         if (session.getQty() == null) {
@@ -463,6 +462,8 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void closeAxi() {
+        session.setAgen_id("");
+        session.setAgen_name("");
         etAxiIdReff.setEnabled(true);
         etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBlack));
         etAxiIdReff.setText("");
@@ -799,7 +800,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 cariAxiClose.setVisibility(View.VISIBLE);
                 cariAxi.setVisibility(View.GONE);
 
-                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString(), "profiles");
+                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -809,9 +810,9 @@ public class OrderInProductActivity extends AppCompatActivity {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);
                                     axiAvailable.setVisibility(View.VISIBLE);
-                                    axiAvailable.setText(response.body().getIncluded().get(0).getAttributes().getNama());
+                                    axiAvailable.setText(response.body().getData().get(0).getAttributes().getNama());
                                     session.setAgen_id(response.body().getData().get(0).getAttributes().getNomorAxiId());
-                                    session.setAgen_name(response.body().getIncluded().get(0).getAttributes().getNama());
+                                    session.setAgen_name(response.body().getData().get(0).getAttributes().getNama());
                                 } else {
                                     clearAxi();
                                     progressBar.setVisibility(View.GONE);

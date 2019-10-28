@@ -1,31 +1,31 @@
 
-package com.dicicilaja.app.OrderIn.Data.Axi;
+package com.dicicilaja.app.OrderIn.Data.Transaksi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Referrers {
+public class Jaminan {
 
     @SerializedName("data")
     @Expose
-    private Data___ data;
+    private Object data;
     @SerializedName("links")
     @Expose
-    private Links____ links;
+    private Links links;
 
-    public Data___ getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(Data___ data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    public Links____ getLinks() {
+    public Links getLinks() {
         return links;
     }
 
-    public void setLinks(Links____ links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 
