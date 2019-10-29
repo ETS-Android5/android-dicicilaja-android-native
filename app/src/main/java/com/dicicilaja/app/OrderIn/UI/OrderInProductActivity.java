@@ -210,8 +210,8 @@ public class OrderInProductActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initShowData();
-        initView();
         initLoadData();
+        initView();
     }
 
     @Override
@@ -224,6 +224,24 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
+
+        if (getIntent().getStringExtra("program").equals("MAXI Travel")) {
+            program_id = "2";
+            session.setProgram_id("2");
+        } else if (getIntent().getStringExtra("program").equals("MAXI Edukasi")) {
+            program_id = "3";
+            session.setProgram_id("3");
+        } else if (getIntent().getStringExtra("program").equals("MAXI Usaha")) {
+            program_id = "4";
+            session.setProgram_id("4");
+        } else if (getIntent().getStringExtra("program").equals("MAXI Sehat")) {
+            program_id = "5";
+            session.setProgram_id("5");
+        } else if (getIntent().getStringExtra("program").equals("MAXI Ekstraguna")) {
+            program_id = "6";
+            session.setProgram_id("6");
+        }
+
         session.setHarga(getIntent().getStringExtra("amount"));
 
         session.setGambar(getIntent().getStringExtra("gambar"));
@@ -279,24 +297,6 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
-
-        if (getIntent().getStringExtra("program").equals("MAXI Travel")) {
-            program_id = "2";
-            session.setProgram_id("2");
-        } else if (getIntent().getStringExtra("program").equals("MAXI Edukasi")) {
-            program_id = "3";
-            session.setProgram_id("3");
-        } else if (getIntent().getStringExtra("program").equals("MAXI Usaha")) {
-            program_id = "4";
-            session.setProgram_id("4");
-        } else if (getIntent().getStringExtra("program").equals("MAXI Sehat")) {
-            program_id = "5";
-            session.setProgram_id("5");
-        } else if (getIntent().getStringExtra("program").equals("MAXI Ekstraguna")) {
-            program_id = "6";
-            session.setProgram_id("6");
-        }
 
         tvTenorDisplay.setText("Tenor cicilan " + session.getTenor_simulasi() + " bulan");
 

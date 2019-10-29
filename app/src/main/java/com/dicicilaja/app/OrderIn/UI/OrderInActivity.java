@@ -192,8 +192,8 @@ public class OrderInActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initShowData();
-        initView();
         initLoadData();
+        initView();
 
         etJumlahPinjaman.addTextChangedListener(new TextWatcher() {
             @Override
@@ -305,15 +305,17 @@ public class OrderInActivity extends AppCompatActivity {
 
     private void initView() {
 
-        if (sessionUser.getRole().equals("axi")) {
-            etAxiIdReff.setText(session.getAgen_id());
-            etAxiIdReff.setEnabled(false);
-            etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
-            cariAxiClose.setVisibility(View.GONE);
-            cariAxi.setVisibility(View.GONE);
-            axiAvailable.setVisibility(View.VISIBLE);
-            axiAvailable.setText(session.getAgen_name());
-        }
+        try {
+            if (sessionUser.getRole().equals("axi")) {
+                etAxiIdReff.setText(session.getAgen_id());
+                etAxiIdReff.setEnabled(false);
+                etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
+                cariAxiClose.setVisibility(View.GONE);
+                cariAxi.setVisibility(View.GONE);
+                axiAvailable.setVisibility(View.VISIBLE);
+                axiAvailable.setText(session.getAgen_name());
+            }
+        } catch (Exception ex) {}
 
         try {
             String rp = getResources().getString(R.string.rp_string);
