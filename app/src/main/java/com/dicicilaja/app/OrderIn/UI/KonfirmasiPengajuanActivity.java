@@ -323,169 +323,171 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 progressBar.setVisibility(View.VISIBLE);
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
 
 
-//                Call<Profile> call = apiService3.postProfil(
-//                        session.getName(),
-//                        session.getEmail(),
-//                        session.getNo_hp(),
-//                        session.getNo_ktp(),
-//                        session.getVillage_id(),
-//                        session.getAddress()
-//                );
-//                call.enqueue(new Callback<Profile>() {
+                Call<Profile> call = apiService3.postProfil(
+                        session.getName(),
+                        session.getEmail(),
+                        session.getNo_hp(),
+                        session.getNo_ktp(),
+                        session.getVillage_id(),
+                        session.getAddress()
+                );
+                call.enqueue(new Callback<Profile>() {
+
+                    @Override
+                    public void onResponse(Call<Profile> call, Response<Profile> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                String calon_nasabah_id = response.body().getData().getId();
+
+                                Log.d("HASIL", "agen_id: " + session.getAgen_id());
+                                Log.d("HASIL", "calon_nasabah_id: " + calon_nasabah_id);
+                                Log.d("HASIL", "area_id: " + session.getArea_id());
+                                Log.d("HASIL", "branch_id: " + session.getBranch_id());
+                                Log.d("HASIL", "produk_id: " + session.getProduct_id());
+                                Log.d("HASIL", "program_id: " + session.getProgram_id());
+                                Log.d("HASIL", "amount: " + session.getAmount());
+                                Log.d("HASIL", "vehicle_id: " + session.getVehicle_id());
+                                Log.d("HASIL", "channel_id: " + "1");
+                                Log.d("HASIL", "voucher_code_id: " + session.getVoucher_code_id());
+                                Log.d("HASIL", "objek_brand_id: " + session.getObjek_brand_id());
+                                Log.d("HASIL", "objek_model_id: " + session.getObjek_model_id());
+                                Log.d("HASIL", "tipe_asuransi_id: " + session.getTipe_asuransi_id());
+                                Log.d("HASIL", "jenis_angsuran_id: " + session.getJenis_angsuran_id());
+                                Log.d("HASIL", "jaminan_id: " + session.getJaminan_id());
+                                Log.d("HASIL", "tenor_simulasi: " + session.getTenor_simulasi());
+                                Log.d("HASIL", "ktp_image: " + session.getKtp_image());
+                                Log.d("HASIL", "bpkb: " + session.getBpkb());
+
+
+                                Call<Transaksi> call1 = apiService3.postTransaksi(
+                                        session.getAgen_id(),
+                                        calon_nasabah_id,
+                                        session.getArea_id(),
+                                        session.getBranch_id(),
+                                        session.getProduct_id(),
+                                        session.getProgram_id(),
+                                        session.getAmount(),
+                                        session.getVehicle_id(),
+                                        "1",
+                                        session.getVoucher_code_id(),
+                                        session.getObjek_brand_id(),
+                                        session.getObjek_model_id(),
+                                        session.getTipe_asuransi_id(),
+                                        session.getJenis_angsuran_id(),
+                                        session.getJaminan_id(),
+                                        session.getTenor_simulasi(),
+                                        session.getKtp_image(),
+                                        session.getBpkb()
+                                );
+
+                                call1.enqueue(new Callback<Transaksi>() {
+                                    @Override
+                                    public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
+                                        Log.d("HASIL", "code: " + response.code());
+                                        Log.d("HASIL", "message: " + response.message());
+                                        Log.d("HASIL", "bode: " + response.body().toString());
+                                        Log.d("HASIL", "header: " + response.headers().toString());
+                                        if (response.isSuccessful()) {
+
+                                            progressBar.setVisibility(View.GONE);
+//                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        startActivity(intent);
+                                        } else {
+                                            progressBar.setVisibility(View.GONE);
+//                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+//                                            alertDialog.setTitle("Perhatian");
+//                                            alertDialog.setMessage("Gagal melakukan pengajuan 1, silahkan coba beberapa saat lagi.");
 //
-//                    @Override
-//                    public void onResponse(Call<Profile> call, Response<Profile> response) {
-//                        if (response.isSuccessful()) {
-//                            try {
-//                                String calon_nasabah_id = response.body().getData().getId();
+//                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    finish();
+//                                                    startActivity(getIntent());
+//                                                }
+//                                            });
+//                                            alertDialog.show();
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Transaksi> call, Throwable t) {
+                                        Log.d("HASIL", "message: " + t.toString());
+//                                        progressBar.setVisibility(View.GONE);
+//                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+//                                        alertDialog.setTitle("Perhatian");
+//                                        alertDialog.setMessage("Gagal melakukan pengajuan 2, silahkan coba beberapa saat lagi.");
 //
-//                                Log.d("HASIL", "agen_id: " + session.getAgen_id());
-//                                Log.d("HASIL", "calon_nasabah_id: " + calon_nasabah_id);
-//                                Log.d("HASIL", "area_id: " + session.getArea_id());
-//                                Log.d("HASIL", "branch_id: " + session.getBranch_id());
-//                                Log.d("HASIL", "produk_id: " + session.getProduct_id());
-//                                Log.d("HASIL", "program_id: " + session.getProgram_id());
-//                                Log.d("HASIL", "amount: " + session.getAmount());
-//                                Log.d("HASIL", "vehicle_id: " + session.getVehicle_id());
-//                                Log.d("HASIL", "channel_id: " + "1");
-//                                Log.d("HASIL", "voucher_code_id: " + session.getVoucher_code_id());
-//                                Log.d("HASIL", "objek_brand_id: " + session.getObjek_brand_id());
-//                                Log.d("HASIL", "objek_model_id: " + session.getObjek_model_id());
-//                                Log.d("HASIL", "tipe_asuransi_id: " + session.getTipe_asuransi_id());
-//                                Log.d("HASIL", "jenis_angsuran_id: " + session.getJenis_angsuran_id());
-//                                Log.d("HASIL", "jaminan_id: " + session.getJaminan_id());
-//                                Log.d("HASIL", "tenor_simulasi: " + session.getTenor_simulasi());
-//                                Log.d("HASIL", "ktp_image: " + session.getKtp_image());
-//                                Log.d("HASIL", "bpkb: " + session.getBpkb());
-//
-//
-//                                Call<Transaksi> call1 = apiService3.postTransaksi(
-//                                        session.getAgen_id(),
-//                                        calon_nasabah_id,
-//                                        session.getArea_id(),
-//                                        session.getBranch_id(),
-//                                        session.getProduct_id(),
-//                                        session.getProgram_id(),
-//                                        session.getAmount(),
-//                                        session.getVehicle_id(),
-//                                        "1",
-//                                        session.getVoucher_code_id(),
-//                                        session.getObjek_brand_id(),
-//                                        session.getObjek_model_id(),
-//                                        session.getTipe_asuransi_id(),
-//                                        session.getJenis_angsuran_id(),
-//                                        session.getJaminan_id(),
-//                                        session.getTenor_simulasi(),
-//                                        session.getKtp_image(),
-//                                        session.getBpkb()
-//                                );
-//
-//                                call1.enqueue(new Callback<Transaksi>() {
-//                                    @Override
-//                                    public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
-//                                        if (response.isSuccessful()) {
-//                                            Log.d("HASIL", "code: " + response.code());
-//
-//                                            progressBar.setVisibility(View.GONE);
-////                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-////                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
-////                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                                        startActivity(intent);
-//                                        } else {
-//                                            Log.d("HASIL", "code: " + response.code());
-//                                            progressBar.setVisibility(View.GONE);
-////                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-////                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-////                                            alertDialog.setTitle("Perhatian");
-////                                            alertDialog.setMessage("Gagal melakukan pengajuan 1, silahkan coba beberapa saat lagi.");
-////
-////                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-////                                                public void onClick(DialogInterface dialog, int which) {
-////                                                    finish();
-////                                                    startActivity(getIntent());
-////                                                }
-////                                            });
-////                                            alertDialog.show();
-//                                        }
-//
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<Transaksi> call, Throwable t) {
-//                                        Log.d("HASIL", "message: " + t.getMessage());
-////                                        progressBar.setVisibility(View.GONE);
-////                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-////                                        alertDialog.setTitle("Perhatian");
-////                                        alertDialog.setMessage("Gagal melakukan pengajuan 2, silahkan coba beberapa saat lagi.");
-////
-////                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-////                                            public void onClick(DialogInterface dialog, int which) {
-////                                                finish();
-////                                                startActivity(getIntent());
-////                                            }
-////                                        });
-////                                        alertDialog.show();
-//                                    }
-//                                });
-//
-//                            } catch (Exception ex) {
-//                                progressBar.setVisibility(View.GONE);
-//                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-//                                alertDialog.setTitle("Perhatian");
-//                                alertDialog.setMessage("Gagal melakukan pengajuan 3, silahkan coba beberapa saat lagi.");
-//
-//                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        finish();
-//                                        startActivity(getIntent());
-//                                    }
-//                                });
-//                                alertDialog.show();
-//                            }
-//
-//
-//                        } else {
-//                            progressBar.setVisibility(View.GONE);
-//                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-//                            alertDialog.setTitle("Perhatian");
-//                            alertDialog.setMessage("Gagal melakukan pengajuan 4, silahkan coba beberapa saat lagi.");
-//
-//                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    finish();
-//                                    startActivity(getIntent());
-//                                }
-//                            });
-//                            alertDialog.show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Profile> call, Throwable t) {
-//                        progressBar.setVisibility(View.GONE);
-//                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-//                        alertDialog.setTitle("Perhatian");
-//                        alertDialog.setMessage("Gagal melakukan pengajuan 5, silahkan coba beberapa saat lagi.");
-//
-//                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                finish();
-//                                startActivity(getIntent());
-//                            }
-//                        });
-//                        alertDialog.show();
-//                    }
-//                });
+//                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                finish();
+//                                                startActivity(getIntent());
+//                                            }
+//                                        });
+//                                        alertDialog.show();
+                                    }
+                                });
+
+                            } catch (Exception ex) {
+                                progressBar.setVisibility(View.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Gagal melakukan pengajuan 3, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+
+
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Gagal melakukan pengajuan 4, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Profile> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Gagal melakukan pengajuan 5, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
             }
         });
         alertDialog.show();

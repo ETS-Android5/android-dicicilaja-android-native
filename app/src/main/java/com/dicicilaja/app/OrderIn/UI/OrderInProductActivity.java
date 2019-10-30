@@ -1038,6 +1038,8 @@ public class OrderInProductActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                Bitmap resizedBitmap = getResizedBitmap(mPhotoBitmap, 750);
+
                 btnUploadKtp.setVisibility(View.GONE);
                 viewUploadKtp.setVisibility(View.VISIBLE);
                 Glide.with(OrderInProductActivity.this)
@@ -1045,13 +1047,16 @@ public class OrderInProductActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageKtp);
 
-                session.setKtp_image(Helper.ConvertBitmapToString(mPhotoBitmap));
+                session.setKtp_image("data:image/jpeg;base64," + Helper.ConvertBitmapToString(resizedBitmap));
             } else if (requestCode == PICK_IMAGE_BPKB) {
                 try {
                     mPhotoBitmap = mCompressor.compressToBitmap(mPhotoFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Bitmap resizedBitmap = getResizedBitmap(mPhotoBitmap, 750);
+
                 btnUploadBpkb.setVisibility(View.GONE);
                 viewUploadBpkb.setVisibility(View.VISIBLE);
                 Glide.with(OrderInProductActivity.this)
@@ -1059,7 +1064,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageBpkb);
 
-                session.setBpkb(Helper.ConvertBitmapToString(mPhotoBitmap));
+                session.setBpkb("data:image/jpeg;base64," + Helper.ConvertBitmapToString(resizedBitmap));
             }
         }
     }

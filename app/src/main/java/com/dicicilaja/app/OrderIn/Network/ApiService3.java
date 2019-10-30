@@ -37,8 +37,7 @@ public interface ApiService3 {
                              @Field("jalan") String jalan);
 
     @Headers({
-        "Accept: application/vnd.api+json",
-        "Content-Type: multipart/form-data"
+        "Accept: application/vnd.api+json"
     })
 
     @POST("transaction/transactions")
