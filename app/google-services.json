@@ -1,39 +1,45 @@
 {
   "project_info": {
-    "project_number": "830597415011",
-    "firebase_url": "https://dicicilaja-db65b.firebaseio.com",
-    "project_id": "dicicilaja-db65b",
-    "storage_bucket": "dicicilaja-db65b.appspot.com"
+    "project_number": "32853510999",
+    "firebase_url": "https://dicicilaja-notif.firebaseio.com",
+    "project_id": "dicicilaja-notif",
+    "storage_bucket": "dicicilaja-notif.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:830597415011:android:c28a2daefd6933d4",
+        "mobilesdk_app_id": "1:32853510999:android:7826ea2df61f0eba8a8c12",
         "android_client_info": {
           "package_name": "com.dicicilaja.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "830597415011-jcan45fvar6f2uadn5d52pckddq3mr02.apps.googleusercontent.com",
+          "client_id": "32853510999-763fr50epudchv8lsvpa1lepjgbbr19l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dicicilaja.app",
+            "certificate_hash": "d4097d2939023b6da31ca7ae31d74b75580a261c"
+          }
+        },
+        {
+          "client_id": "32853510999-lu6ih9mqh8b28l2vdu6n17jfj160iu1q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBdSuZWOQKA42dqdUjNS5mWFgWtq_82CNc"
+          "current_key": "AIzaSyBF9j02W20Ij50dlU3fny5v2E7XfNkGaMs"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32853510999-lu6ih9mqh8b28l2vdu6n17jfj160iu1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
