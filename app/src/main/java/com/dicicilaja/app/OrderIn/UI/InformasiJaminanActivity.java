@@ -1,7 +1,10 @@
 package com.dicicilaja.app.OrderIn.UI;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,15 +34,18 @@ import com.dicicilaja.app.OrderIn.Network.ApiClient;
 import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
-import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity;
 import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -116,11 +123,15 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
 
+    int choosenYear = Calendar.getInstance().get(Calendar.YEAR);;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informasi_jaminan);
         ButterKnife.bind(this);
+
+        etTahunKendaraan.setKeyListener(null);
 
         session = new SessionOrderIn(InformasiJaminanActivity.this);
 
@@ -712,12 +723,65 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.save, R.id.icon_help1, R.id.icon_help2})
+    @OnClick({R.id.save, R.id.icon_help1, R.id.icon_help2, R.id.et_tahun_kendaraan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.et_tahun_kendaraan:
+
+                Calendar calendar = Calendar.getInstance();
+                int tahun = calendar.get(Calendar.YEAR);
+
+                MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InformasiJaminanActivity.this, new MonthPickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(int selectedMonth, int selectedYear) {
+                        etTahunKendaraan.setText(Integer.toString(selectedYear));
+                        choosenYear = selectedYear;
+                    }
+                }, choosenYear, 0);
+
+                builder.showYearOnly()
+                        .setYearRange(2000, tahun)
+                        .build()
+                        .show();
+                break;
             case R.id.icon_help1:
-                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
-                startActivity(intent);
+
+//                MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InformasiJaminanActivity.this,
+//                        new MonthPickerDialog.OnDateSetListener() {
+//                            @Override
+//                            public void onDateSet(int selectedMonth, int selectedYear) { // on date set
+//                                }
+//                            }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH));
+//
+//                builder.setActivatedMonth(Calendar.JULY)
+//                        .setMinYear(1990)
+//                        .setActivatedYear(2017)
+//                        .setMaxYear(2030)
+//                        .setMinMonth(Calendar.FEBRUARY)
+//                        .setTitle("Select trading month")
+//                        .setMonthRange(Calendar.FEBRUARY, Calendar.NOVEMBER)
+//                        // .setMaxMonth(Calendar.OCTOBER)
+//                        // .setYearRange(1890, 1890)
+//                        // .setMonthAndYearRange(Calendar.FEBRUARY, Calendar.OCTOBER, 1890, 1890)
+//                        //.showMonthOnly()
+//                        // .showYearOnly()
+//                        .setOnMonthChangedListener(new MonthPickerDialog.OnMonthChangedListener() {
+//                            @Override
+//                            public void onMonthChanged(int selectedMonth) { // on month selected
+//                                }
+//                        })
+//                        .setOnYearChangedListener(new MonthPickerDialog.OnYearChangedListener() {
+//                            @Override
+//                            public void onYearChanged(int selectedYear) { // on year selected
+//                                }
+//                        })
+//                        .build()
+//                        .show();
+
+
+//                createDialogWithoutDateField().show();
+//                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.icon_help2:
                 Intent intent2 = new Intent(getBaseContext(), TipeAsuransiActivity.class);
@@ -1118,4 +1182,29 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private DatePickerDialog createDialogWithoutDateField() {
+        DatePickerDialog dpd = new DatePickerDialog(this, null, 2014, 1, 24);
+        try {
+            Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
+            for (Field datePickerDialogField : datePickerDialogFields) {
+                if (datePickerDialogField.getName().equals("mDatePicker")) {
+                    datePickerDialogField.setAccessible(true);
+                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(dpd);
+                    Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
+                    for (Field datePickerField : datePickerFields) {
+                        Log.i("test", datePickerField.getName());
+                        if ("mDaySpinner".equals(datePickerField.getName())) {
+                            datePickerField.setAccessible(true);
+                            Object dayPicker = datePickerField.get(datePicker);
+                            ((View) dayPicker).setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+        }
+        return dpd;
+    }
+
 }

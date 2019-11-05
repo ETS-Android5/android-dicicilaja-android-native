@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
         <activity android:name=".OrderIn.UI.InformasiJaminan2Activity"></activity>
         <activity android:name=".OrderIn.UI.OrderInProductActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
