@@ -34,6 +34,7 @@ import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.UI.OrderInProductActivity;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -62,13 +63,15 @@ public class ProductMaxiActivity extends AppCompatActivity {
     SimpleDraweeView head_image;
     RelativeLayout rute, syarat, deskripsi_lengkap;
     String apiKey, agen_id, agen_name;
-    MaterialSpinner spinnerJaminan;
-    TextView tv_tenor, tv_title, tv_mitra, tv_harga;
+//    MaterialSpinner spinnerJaminan;
+    TextView tv_title, tv_mitra, tv_harga;
     Button ajukan_produk;
+    String extra_id;
     MaterialProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_product_maxi);
 
         ApiService3 apiService3;
@@ -91,9 +94,9 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
 
         head_image = findViewById(R.id.head_image);
-        spinnerJaminan = findViewById(R.id.jaminan);
+//        spinnerJaminan = findViewById(R.id.jaminan);
         progressBar = findViewById(R.id.progressBar);
-        tv_tenor = findViewById(R.id.tv_tenor);
+//        tv_tenor = findViewById(R.id.tv_tenor);
         tv_title = findViewById(R.id.tv_title);
         tv_mitra = findViewById(R.id.tv_mitra);
         tv_harga = findViewById(R.id.tv_harga);
@@ -125,8 +128,8 @@ public class ProductMaxiActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        final List<String> TENOR_ITEMS = new ArrayList<>();
-        final HashMap<String, String> TENOR_MAP = new HashMap<String, String>();
+//        final List<String> TENOR_ITEMS = new ArrayList<>();
+//        final HashMap<String, String> TENOR_MAP = new HashMap<String, String>();
 
         final RecyclerView recyclerPromo = (RecyclerView) findViewById(R.id.recycler_related);
         recyclerPromo.setHasFixedSize(true);
@@ -138,7 +141,11 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
         InterfaceDetailProgramMaxi apiService = RetrofitClient.getClient().create(InterfaceDetailProgramMaxi.class);
 
-        Call<DetailProgramMaxi> call = apiService.getDetail(apiKey,getIntent().getStringExtra("EXTRA_REQUEST_ID"));
+        try {
+            extra_id = getIntent().getStringExtra("EXTRA_REQUEST_ID");
+        } catch (Exception ex) {}
+
+        Call<DetailProgramMaxi> call = apiService.getDetail(apiKey, extra_id);
         call.enqueue(new Callback<DetailProgramMaxi>() {
             @Override
             public void onResponse(Call<DetailProgramMaxi> call, Response<DetailProgramMaxi> response) {
@@ -158,47 +165,45 @@ public class ProductMaxiActivity extends AppCompatActivity {
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());
 
-                TENOR_MAP.clear();
-                TENOR_ITEMS.clear();
-                TENOR_ITEMS.add("12");
-                TENOR_ITEMS.add("18");
-                TENOR_ITEMS.add("24");
-                TENOR_ITEMS.add("30");
-                TENOR_ITEMS.add("36");
-                TENOR_ITEMS.add("42");
-                TENOR_ITEMS.add("48");
-
-                for (int i = 0; i < response.body().getData().get(0).getTenor().size(); i++) {
-                    TENOR_MAP.put(response.body().getData().get(0).getTenor().get(i).getBulan(), response.body().getData().get(0).getTenor().get(i).getCicilan());
-                }
-
-                ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
-                tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerJaminan.setAdapter(tenor_adapter);
-                spinnerJaminan.setSelection(1);
+//                TENOR_MAP.clear();
+//                TENOR_ITEMS.clear();
+//                TENOR_ITEMS.add("12");
+//                TENOR_ITEMS.add("18");
+//                TENOR_ITEMS.add("24");
+//                TENOR_ITEMS.add("30");
+//                TENOR_ITEMS.add("36");
+//                TENOR_ITEMS.add("42");
+//                TENOR_ITEMS.add("48");
+//
+//                for (int i = 0; i < response.body().getData().get(0).getTenor().size(); i++) {
+//                    TENOR_MAP.put(response.body().getData().get(0).getTenor().get(i).getBulan(), response.body().getData().get(0).getTenor().get(i).getCicilan());
+//                }
+//
+//                ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
+//                tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                spinnerJaminan.setAdapter(tenor_adapter);
+//                spinnerJaminan.setSelection(1);
 
             }
 
             @Override
             public void onFailure(Call<DetailProgramMaxi> call, Throwable t) {
                 progress.dismiss();
-                TENOR_MAP.clear();
-                TENOR_ITEMS.clear();
 
             }
         });
 
-        spinnerJaminan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                tv_tenor.setText(TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        spinnerJaminan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                tv_tenor.setText(TENOR_MAP.get(String.valueOf(spinnerJaminan.getSelectedItemPosition())));
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         deskripsi_lengkap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,7 +249,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("program",detailProducts.get(0).getJenisProgram());
                                         intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
                                         intent.putExtra("title", detailProducts.get(0).getTitleProgram());
-                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
+//                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
                                         intent.putExtra("mitra", detailProducts.get(0).getPartner());
                                         intent.putExtra("agen_id", agen_id);
                                         intent.putExtra("agen_name", agen_name);
@@ -260,7 +265,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("program",detailProducts.get(0).getJenisProgram());
                                         intent.putExtra("gambar", detailProducts.get(0).getImageUrl());
                                         intent.putExtra("title", detailProducts.get(0).getTitleProgram());
-                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
+//                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
                                         intent.putExtra("mitra", detailProducts.get(0).getPartner());
                                         intent.putExtra("agen_id", agen_id);
                                         intent.putExtra("agen_name", agen_name);

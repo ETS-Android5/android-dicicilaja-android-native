@@ -35,8 +35,10 @@ import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -106,11 +108,15 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
 
+    int choosenYear = Calendar.getInstance().get(Calendar.YEAR);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informasi_jaminan2);
         ButterKnife.bind(this);
+
+        etTahunKendaraan.setKeyListener(null);
 
         session = new SessionOrderIn(InformasiJaminan2Activity.this);
 
@@ -649,9 +655,27 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.save, R.id.icon_help1, R.id.icon_help2})
+    @OnClick({R.id.save, R.id.icon_help1, R.id.icon_help2, R.id.et_tahun_kendaraan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.et_tahun_kendaraan:
+
+                Calendar calendar = Calendar.getInstance();
+                int tahun = calendar.get(Calendar.YEAR);
+
+                MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InformasiJaminan2Activity.this, new MonthPickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(int selectedMonth, int selectedYear) {
+                        etTahunKendaraan.setText(Integer.toString(selectedYear));
+                        choosenYear = selectedYear;
+                    }
+                }, choosenYear, 0);
+
+                builder.showYearOnly()
+                        .setYearRange(2000, tahun)
+                        .build()
+                        .show();
+                break;
             case R.id.icon_help1:
                 Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
                 startActivity(intent);
@@ -865,18 +889,6 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(etTahunKendaraan);
-                }
-            });
-            alertDialog.show();
-            return false;
-        } else if (year.length() < 4) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminan2Activity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

@@ -58,6 +58,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -568,21 +571,6 @@ public class OrderInActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!data_calon_peminjam) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan masukan data calon peminjam");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    detailDataCalonPinjaman.setFocusable(true);
-                    hideSoftKeyboard();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
         if (!jaminan_pinjaman) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
@@ -598,10 +586,37 @@ public class OrderInActivity extends AppCompatActivity {
             return false;
         }
 
+        if (!data_calon_peminjam) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan data calon peminjam");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    detailDataCalonPinjaman.setFocusable(true);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etPlatNomor);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }  else if (!isVehicleIdValid(plat_nomor)){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan plat nomor dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -1046,5 +1061,12 @@ public class OrderInActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, requestCode);
             }
         }
+    }
+
+    public static boolean isVehicleIdValid(String vehicle_id) {
+        String expression = "^[A-Z]{1,2}[0-9]{1,4}[A-Z]{0,3}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(vehicle_id);
+        return matcher.matches();
     }
 }

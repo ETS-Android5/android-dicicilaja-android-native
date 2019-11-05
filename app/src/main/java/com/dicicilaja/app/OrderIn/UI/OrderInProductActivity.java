@@ -59,6 +59,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -173,14 +175,12 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     SessionOrderIn session;
     SessionManager sessionUser;
-    @BindView(R.id.tv_tenor_display)
-    TextView tvTenorDisplay;
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
     private static final String TAG = OrderInProductActivity.class.getSimpleName();
 
-    String jumlah_pinjaman, plat_nomor, fKtp, fBpkb, program_id;
+    String jumlah_pinjaman, plat_nomor, voucher_code, axi_reff, fKtp, fBpkb, program_id;
 
     boolean data_calon_peminjam, jaminan_pinjaman;
 
@@ -298,8 +298,6 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     private void initView() {
 
-        tvTenorDisplay.setText("Tenor cicilan " + session.getTenor_simulasi() + " bulan");
-
         if (sessionUser.getRole().equals("axi")) {
             etAxiIdReff.setText(session.getAgen_id());
             etAxiIdReff.setEnabled(false);
@@ -337,7 +335,9 @@ public class OrderInProductActivity extends AppCompatActivity {
                 nfe.printStackTrace();
             }
         } else {
-            hasil = Integer.parseInt(session.getAmount());
+            String cleanString = session.getAmount().replaceAll("[A-Z]", "").replaceAll("[a-z]", "").replaceAll("[$,.]", "");
+
+            hasil = Integer.parseInt(cleanString);
             try {
                 String rp = getResources().getString(R.string.rp_string);
                 String originalString = String.valueOf(hasil);
@@ -585,22 +585,12 @@ public class OrderInProductActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    private boolean validateForm(boolean data_calon_peminjam, boolean jaminan_pinjaman, String plat_nomor) {
+    private boolean validateSecond(String axi_reff, String plat_nomor, String voucher_code) {
 
-        if (!data_calon_peminjam) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan masukan data calon peminjam");
+        return true;
+    }
 
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    detailDataCalonPinjaman.setFocusable(true);
-                    hideSoftKeyboard();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
+    private boolean validateForm(boolean data_calon_peminjam, boolean jaminan_pinjaman, String axi_reff, String plat_nomor, String voucher_code) {
 
         if (!jaminan_pinjaman) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
@@ -617,6 +607,36 @@ public class OrderInProductActivity extends AppCompatActivity {
             return false;
         }
 
+        if (!data_calon_peminjam) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan data calon peminjam");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    detailDataCalonPinjaman.setFocusable(true);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if ( (axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" ")) ) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan tekan cari AXI Refferal");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    etAxiIdReff.setFocusable(true);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
@@ -625,6 +645,34 @@ public class OrderInProductActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(etPlatNomor);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if ( (plat_nomor.trim().length() != 0) && (session.getVehicle_id() == null || session.getVehicle_id().trim().length() == 0 || session.getVehicle_id().equals("") || session.getVehicle_id().equals(" ")) ) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan tekan cari Plat Nomor");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    etPlatNomor.setFocusable(true);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan tekan cari Kode Voucher");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    etVoucher.setFocusable(true);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -688,9 +736,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 break;
             case R.id.minus:
                 if (qty > 1 && qty <= 99) {
-                    if (qty != 99) {
-                        qty = qty - 1;
-                    }
+                    qty = qty - 1;
                 }
                 value.setText(String.valueOf(qty));
                 hasil = qty * Integer.valueOf(session.getHarga());
@@ -767,12 +813,13 @@ public class OrderInProductActivity extends AppCompatActivity {
                     jumlah_pinjaman = tvHarga.getText().toString();
                     data_calon_peminjam = session.getStatus_data_calon();
                     jaminan_pinjaman = session.getStatus_informasi_jaminan();
-                    plat_nomor = session.getVehicle_id();
 
+                    axi_reff = etAxiIdReff.getText().toString();
+                    plat_nomor = etPlatNomor.getText().toString();
+                    voucher_code = etVoucher.getText().toString();
                 } catch (Exception ex) {
                 }
-
-                if (validateForm(data_calon_peminjam, jaminan_pinjaman, plat_nomor)) {
+                if (validateForm(data_calon_peminjam, jaminan_pinjaman, axi_reff, plat_nomor, voucher_code)) {
                     if (cbConfirm.isChecked()) {
                         session.setQty(qty.toString());
                         session.setAmount(hasil.toString());
@@ -789,8 +836,8 @@ public class OrderInProductActivity extends AppCompatActivity {
                             }
                         });
                         alertDialog3.show();
-                    }
 
+                    }
                 }
                 break;
             case R.id.cari_axi:
@@ -860,37 +907,66 @@ public class OrderInProductActivity extends AppCompatActivity {
                 closeAxi();
                 break;
             case R.id.cari_plat_nomor:
-                session.setVehicle_id("");
-                progressBar.setVisibility(View.VISIBLE);
-                etPlatNomor.setEnabled(false);
-                cariPlatNomorClose.setVisibility(View.VISIBLE);
-                cariPlatNomor.setVisibility(View.GONE);
+                if (!isVehicleIdValid(etPlatNomor.getText().toString())){
+                    AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInProductActivity.this);
+                    alertDialog5.setTitle("Perhatian");
+                    alertDialog5.setMessage("Masukan plat nomor dengan benar");
 
-                Call<PlatNomor> platNomor = apiService3.getPlatNomor(etPlatNomor.getText().toString());
-                platNomor.enqueue(new Callback<PlatNomor>() {
-                    @Override
-                    public void onResponse(Call<PlatNomor> call, Response<PlatNomor> response) {
+                    alertDialog5.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestFocus(etPlatNomor);
+                        }
+                    });
+                    alertDialog5.show();
+                } else {
+                    session.setVehicle_id("");
+                    progressBar.setVisibility(View.VISIBLE);
+                    etPlatNomor.setEnabled(false);
+                    cariPlatNomorClose.setVisibility(View.VISIBLE);
+                    cariPlatNomor.setVisibility(View.GONE);
 
-                        if (response.code() == 400) {
-                            clearPlatNomor();
-                            progressBar.setVisibility(View.GONE);
-                            platNomorError.setVisibility(View.VISIBLE);
-                        } else if (response.isSuccessful()) {
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    clearPlatNomor();
-                                    progressBar.setVisibility(View.GONE);
-                                    platNomorNotAvailable.setVisibility(View.VISIBLE);
-                                    session.setVehicle_id(null);
-                                } else {
-                                    clearPlatNomor();
-                                    progressBar.setVisibility(View.GONE);
-                                    platNomorAvailable.setVisibility(View.VISIBLE);
-                                    session.setVehicle_id(etPlatNomor.getText().toString());
+                    Call<PlatNomor> platNomor = apiService3.getPlatNomor(etPlatNomor.getText().toString());
+                    platNomor.enqueue(new Callback<PlatNomor>() {
+                        @Override
+                        public void onResponse(Call<PlatNomor> call, Response<PlatNomor> response) {
+
+                            if (response.code() == 400) {
+                                clearPlatNomor();
+                                progressBar.setVisibility(View.GONE);
+                                platNomorError.setVisibility(View.VISIBLE);
+                            } else if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        clearPlatNomor();
+                                        progressBar.setVisibility(View.GONE);
+                                        platNomorNotAvailable.setVisibility(View.VISIBLE);
+                                        session.setVehicle_id(null);
+                                    } else {
+                                        clearPlatNomor();
+                                        progressBar.setVisibility(View.GONE);
+                                        platNomorAvailable.setVisibility(View.VISIBLE);
+                                        session.setVehicle_id(etPlatNomor.getText().toString());
+                                    }
+                                } catch (Exception ex) {
                                 }
-                            } catch (Exception ex) {
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<PlatNomor> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -904,24 +980,8 @@ public class OrderInProductActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PlatNomor> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
-                        alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data plat nomor gagal dipanggil, silahkan coba beberapa saat lagi.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                                startActivity(getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                });
+                    });
+                }
                 break;
             case R.id.cari_plat_nomor_close:
                 closePlatNomor();
@@ -1119,5 +1179,12 @@ public class OrderInProductActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, requestCode);
             }
         }
+    }
+
+    public static boolean isVehicleIdValid(String vehicle_id) {
+        String expression = "^[A-Z]{1,2}[0-9]{1,4}[A-Z]{0,3}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(vehicle_id);
+        return matcher.matches();
     }
 }

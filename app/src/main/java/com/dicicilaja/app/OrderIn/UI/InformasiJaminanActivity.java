@@ -34,6 +34,7 @@ import com.dicicilaja.app.OrderIn.Network.ApiClient;
 import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
+import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity;
 import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -123,7 +124,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
 
-    int choosenYear = Calendar.getInstance().get(Calendar.YEAR);;
+    int choosenYear = Calendar.getInstance().get(Calendar.YEAR);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -745,43 +746,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         .show();
                 break;
             case R.id.icon_help1:
-
-//                MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InformasiJaminanActivity.this,
-//                        new MonthPickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(int selectedMonth, int selectedYear) { // on date set
-//                                }
-//                            }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH));
-//
-//                builder.setActivatedMonth(Calendar.JULY)
-//                        .setMinYear(1990)
-//                        .setActivatedYear(2017)
-//                        .setMaxYear(2030)
-//                        .setMinMonth(Calendar.FEBRUARY)
-//                        .setTitle("Select trading month")
-//                        .setMonthRange(Calendar.FEBRUARY, Calendar.NOVEMBER)
-//                        // .setMaxMonth(Calendar.OCTOBER)
-//                        // .setYearRange(1890, 1890)
-//                        // .setMonthAndYearRange(Calendar.FEBRUARY, Calendar.OCTOBER, 1890, 1890)
-//                        //.showMonthOnly()
-//                        // .showYearOnly()
-//                        .setOnMonthChangedListener(new MonthPickerDialog.OnMonthChangedListener() {
-//                            @Override
-//                            public void onMonthChanged(int selectedMonth) { // on month selected
-//                                }
-//                        })
-//                        .setOnYearChangedListener(new MonthPickerDialog.OnYearChangedListener() {
-//                            @Override
-//                            public void onYearChanged(int selectedYear) { // on year selected
-//                                }
-//                        })
-//                        .build()
-//                        .show();
-
-
-//                createDialogWithoutDateField().show();
-//                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
+                startActivity(intent);
                 break;
             case R.id.icon_help2:
                 Intent intent2 = new Intent(getBaseContext(), TipeAsuransiActivity.class);
@@ -1142,18 +1108,6 @@ public class InformasiJaminanActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan tahun kendaraan");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(etTahunKendaraan);
-                }
-            });
-            alertDialog.show();
-            return false;
-        } else if (year.length() < 4) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
