@@ -139,6 +139,21 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initLoadData();
+
+        try {
+            if (getIntent().getStringExtra("edited") != null) {
+                etTahunKendaraan.setText(session.getYear());
+
+                spinnerTenor.setEnabled(true);
+                spinnerInstallment.setEnabled(true);
+                spinnerInsurance.setEnabled(true);
+
+                spinnerTenor.setSelection(Integer.parseInt(session.getTenor_simulasi_position()));
+                spinnerInstallment.setSelection(Integer.parseInt(session.getJenis_angsuran_position()));
+                spinnerInsurance.setSelection(Integer.parseInt(session.getTipe_asuransi_position()));
+
+            }
+        } catch (Exception ex) {}
     }
 
     private void initToolbar() {
@@ -242,10 +257,10 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         TENOR_MAP.put(4, "4");
 
         TENOR_ITEMS.add("Pilih Tenor Pinjaman");
-        TENOR_ITEMS.add("1 Tahun");
-        TENOR_ITEMS.add("2 Tahun");
-        TENOR_ITEMS.add("3 Tahun");
-        TENOR_ITEMS.add("4 Tahun");
+        TENOR_ITEMS.add("12 Bulan");
+        TENOR_ITEMS.add("24 Bulan");
+        TENOR_ITEMS.add("36 Bulan");
+        TENOR_ITEMS.add("48 Bulan");
 
         TENOR_DATA.add("0");
         TENOR_DATA.add("12");
@@ -797,6 +812,10 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
                                 session.editInformasiJaminan(true,
                                         jaminan_id,
                                         jaminan,
@@ -826,6 +845,10 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
                                 session.editInformasiJaminan(true,
                                         jaminan_id,
                                         jaminan,

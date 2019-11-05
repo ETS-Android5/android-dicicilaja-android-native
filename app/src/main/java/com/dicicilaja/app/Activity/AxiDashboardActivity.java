@@ -339,6 +339,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         break;
                     case R.id.navbar_create_request:
                         progressBar.setVisibility(View.VISIBLE);
+                        progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
@@ -355,6 +356,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
                                             progressBar.setVisibility(View.GONE);
+                                            progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         } else {
                                             agen_id = null;
@@ -364,6 +366,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
                                             progressBar.setVisibility(View.GONE);
+                                            progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         }
 

@@ -727,6 +727,10 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+//                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
                                 session.editInformasiJaminanMaxi(true,
                                         jaminan_id,
                                         jaminan,
@@ -756,6 +760,10 @@ public class InformasiJaminan2Activity extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+//                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
                                 session.editInformasiJaminanMaxi(true,
                                         jaminan_id,
                                         jaminan,

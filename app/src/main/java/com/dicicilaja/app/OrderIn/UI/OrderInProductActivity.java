@@ -182,7 +182,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     String jumlah_pinjaman, plat_nomor, voucher_code, axi_reff, fKtp, fBpkb, program_id;
 
-    boolean data_calon_peminjam, jaminan_pinjaman;
+    boolean data_calon_peminjam, jaminan_pinjaman, plat_number;
 
     ApiService3 apiService3;
     ApiService2 apiService2;
@@ -200,6 +200,7 @@ public class OrderInProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_in_product);
         ButterKnife.bind(this);
 
+        plat_number = false;
         mCompressor = new FileCompressor(this);
 
         session = new SessionOrderIn(OrderInProductActivity.this);
@@ -260,20 +261,6 @@ public class OrderInProductActivity extends AppCompatActivity {
                 "",
                 "",
                 getIntent().getBooleanExtra("status_data_calon", false),
-                getIntent().getStringExtra("name"),
-                getIntent().getStringExtra("no_ktp"),
-                getIntent().getStringExtra("email"),
-                getIntent().getStringExtra("no_hp"),
-                getIntent().getStringExtra("province_id"),
-                getIntent().getStringExtra("province"),
-                getIntent().getStringExtra("city"),
-                getIntent().getStringExtra("city"),
-                getIntent().getStringExtra("district_id"),
-                getIntent().getStringExtra("district"),
-                getIntent().getStringExtra("village_id"),
-                getIntent().getStringExtra("village"),
-                getIntent().getStringExtra("address"),
-                getIntent().getStringExtra("postal_code"),
                 getIntent().getBooleanExtra("status_informasi_jaminan", false),
                 getIntent().getStringExtra("jaminan_id"),
                 getIntent().getStringExtra("jaminan"),
@@ -474,6 +461,7 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void closePlatNomor() {
+        session.setVehicle_id("");
         etPlatNomor.setEnabled(true);
         etPlatNomor.setText("");
         etPlatNomor.setFocusable(true);
@@ -637,7 +625,19 @@ public class OrderInProductActivity extends AppCompatActivity {
             return false;
         }
 
-        if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
+        if (plat_number == true) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Plat nomor sudah pernah digunakan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etPlatNomor);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }  else if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
@@ -764,7 +764,7 @@ public class OrderInProductActivity extends AppCompatActivity {
             case R.id.edit_data_calon_pinjaman:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Data calon peminjam yang anda isi akan hilang, apakah anda setuju?");
+                alertDialog.setMessage("Beberapa data yang anda isi akan hilang, apakah anda setuju?");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -777,11 +777,11 @@ public class OrderInProductActivity extends AppCompatActivity {
             case R.id.edit_informasi_jaminan:
                 AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(OrderInProductActivity.this);
                 alertDialog2.setTitle("Perhatian");
-                alertDialog2.setMessage("Data jaminan & pinjaman yang anda isi akan hilang, apakah anda setuju?");
+                alertDialog2.setMessage("Beberapa data yang anda isi akan hilang, apakah anda setuju?");
 
                 alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getBaseContext(), InformasiJaminan2Activity.class);
+                        Intent intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -792,7 +792,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.detail_informasi_jaminan:
-                intent = new Intent(getBaseContext(), InformasiJaminan2Activity.class);
+                intent = new Intent(getBaseContext(), InformasiJaminanActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
@@ -907,6 +907,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 closeAxi();
                 break;
             case R.id.cari_plat_nomor:
+                plat_number = false;
                 if (!isVehicleIdValid(etPlatNomor.getText().toString())){
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInProductActivity.this);
                     alertDialog5.setTitle("Perhatian");
@@ -938,6 +939,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         clearPlatNomor();
+                                        plat_number = true;
                                         progressBar.setVisibility(View.GONE);
                                         platNomorNotAvailable.setVisibility(View.VISIBLE);
                                         session.setVehicle_id(null);

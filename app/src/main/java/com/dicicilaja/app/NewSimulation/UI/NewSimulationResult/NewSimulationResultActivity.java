@@ -859,6 +859,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
+                                    intent2.putExtra("max", text_max);
+                                    intent2.putExtra("max_prefix", text_max_prefix);
                                     intent2.putExtra("simulasi", "1");
                                     intent2.putExtra("jaminan_id", spinner_jaminan);
                                     intent2.putExtra("jaminan", jaminan);
@@ -884,6 +886,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     agen_name = null;
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
+                                    intent2.putExtra("max", text_max);
+                                    intent2.putExtra("max_prefix", text_max_prefix);
                                     intent2.putExtra("simulasi", "1");
                                     intent2.putExtra("jaminan_id", spinner_jaminan);
                                     intent2.putExtra("jaminan", jaminan);

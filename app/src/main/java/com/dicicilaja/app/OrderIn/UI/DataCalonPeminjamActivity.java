@@ -108,6 +108,329 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         initToolbar();
         initAction();
         initLoadData();
+        try {
+            if (getIntent().getStringExtra("edited") != null) {
+                etNamaLengkap.setText(session.getName());
+                etNomorKtp.setText(session.getNo_ktp());
+                etAlamatEmail.setText(session.getEmail());
+                etNoHandphone.setText(session.getNo_hp());
+                etAlamat.setText(session.getAddress());
+
+//                spinnerProvinsi.setEnabled(true);
+//                spinnerKota.setEnabled(true);
+//                spinnerKecamatan.setEnabled(true);
+//                spinnerKelurahan.setEnabled(true);
+//
+//                progressBar.setVisibility(View.GONE);
+//
+//                editProvinsi();
+//                editKota();
+//                editKecamatan();
+//                editKelurahan();
+//
+//                apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
+//
+//                //PROVINSI
+//                progressBar.setVisibility(View.VISIBLE);
+//                Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
+//                call.enqueue(new Callback<Provinsi>() {
+//                    @Override
+//                    public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
+//                        if (response.isSuccessful()) {
+//                            try {
+//                                if (response.body().getData().size() > 0) {
+//                                    for (int i = 0; i < response.body().getData().size(); i++) {
+//                                        PROVINSI_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                        PROVINSI_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                    }
+//                                    progressBar.setVisibility(View.GONE);
+//                                } else {
+//                                    editProvinsi();
+//                                    progressBar.setVisibility(View.GONE);
+//                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                    alertDialog.setTitle("Perhatian");
+//                                    alertDialog.setMessage("Data provinsi belum tersedia, silahkan coba beberapa saat lagi.");
+//
+//                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+//                                        }
+//                                    });
+//                                    alertDialog.show();
+//                                }
+//                            } catch (Exception ex) {
+//                            }
+//
+//                            ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
+//                            area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            spinnerProvinsi.setAdapter(area_adapter);
+//                            spinnerProvinsi.setTitle("");
+//                            spinnerProvinsi.setPositiveButton("OK");
+//
+//                            spinnerProvinsi.setSelection(Integer.parseInt(session.getProvince_position()));
+//                            //KOTA
+//                            progressBar.setVisibility(View.VISIBLE);
+//                            Call<Kota> call2 = apiServiceArea.getKota(PROVINSI_DATA.get(Integer.parseInt(session.getProvince_position())), 1000);
+//                            call2.enqueue(new Callback<Kota>() {
+//                                @Override
+//                                public void onResponse(Call<Kota> call, Response<Kota> response) {
+//                                    if (response.isSuccessful()) {
+//                                        try {
+//                                            if (response.body().getData().size() > 0) {
+//                                                for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                    KOTA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                    KOTA_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                                }
+//                                                progressBar.setVisibility(View.GONE);
+//                                            } else {
+//                                                editKota();
+//                                                progressBar.setVisibility(View.GONE);
+//                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                alertDialog.setTitle("Perhatian");
+//                                                alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                        finish();
+//                                                        startActivity(getIntent());
+//                                                    }
+//                                                });
+//                                                alertDialog.show();
+//                                            }
+//                                        } catch (Exception ex) {
+//                                        }
+//
+//                                        ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+//                                        brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                        spinnerKota.setAdapter(brand_adapter);
+//                                        spinnerKota.setTitle("");
+//                                        spinnerKota.setPositiveButton("OK");
+//
+//                                        spinnerKota.setSelection(Integer.parseInt(session.getCity_position()));
+//
+//                                        //KECAMATAN
+//                                        progressBar.setVisibility(View.VISIBLE);
+//                                        Call<Kecamatan> call3 = apiServiceArea.getKecamatan(KOTA_DATA.get(Integer.parseInt(session.getCity_position())), 1000);
+//                                        call3.enqueue(new Callback<Kecamatan>() {
+//                                            @Override
+//                                            public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
+//                                                if (response.isSuccessful()) {
+//                                                    try {
+//                                                        if (response.body().getData().size() > 0) {
+//                                                            for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                                KECAMATAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                                KECAMATAN_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                                            }
+//                                                            progressBar.setVisibility(View.GONE);
+//                                                        } else {
+//                                                            editKecamatan();
+//                                                            progressBar.setVisibility(View.GONE);
+//                                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                            alertDialog.setTitle("Perhatian");
+//                                                            alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                                public void onClick(DialogInterface dialog, int which) {
+//                                                                    finish();
+//                                                                    startActivity(getIntent());
+//                                                                }
+//                                                            });
+//                                                            alertDialog.show();
+//                                                        }
+//                                                    } catch (Exception ex) {
+//                                                    }
+//
+//                                                    ArrayAdapter<String> kecamatan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+//                                                    kecamatan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                                    spinnerKecamatan.setAdapter(kecamatan_adapter);
+//                                                    spinnerKecamatan.setTitle("");
+//                                                    spinnerKecamatan.setPositiveButton("OK");
+//
+//                                                    spinnerKecamatan.setSelection(Integer.parseInt(session.getDistrict_position()));
+//
+//                                                    //KELURAHAN
+//                                                    progressBar.setVisibility(View.VISIBLE);
+//                                                    Call<Kelurahan> call4 = apiServiceArea.getKelurahan(KECAMATAN_DATA.get(Integer.parseInt(session.getDistrict_position())), 1000);
+//                                                    call4.enqueue(new Callback<Kelurahan>() {
+//                                                        @Override
+//                                                        public void onResponse(Call<Kelurahan> call, Response<Kelurahan> response) {
+//                                                            if (response.isSuccessful()) {
+//                                                                try {
+//                                                                    if (response.body().getData().size() > 0) {
+//                                                                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                                            KELURAHAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                                            KELURAHAN_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                                                            KELURAHAN_KODEPOS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getKodePos())));
+//                                                                        }
+//                                                                        progressBar.setVisibility(View.GONE);
+//                                                                    } else {
+//                                                                        editKelurahan();
+//                                                                        progressBar.setVisibility(View.GONE);
+//                                                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                                        alertDialog.setTitle("Perhatian");
+//                                                                        alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                                            public void onClick(DialogInterface dialog, int which) {
+//                                                                                finish();
+//                                                                                startActivity(getIntent());
+//                                                                            }
+//                                                                        });
+//                                                                        alertDialog.show();
+//                                                                    }
+//                                                                } catch (Exception ex) {
+//                                                                }
+//
+//                                                                ArrayAdapter<String> kelurahan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KELURAHAN_ITEMS);
+//                                                                kelurahan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                                                spinnerKelurahan.setAdapter(kelurahan_adapter);
+//                                                                spinnerKelurahan.setTitle("");
+//                                                                spinnerKelurahan.setPositiveButton("OK");
+//
+//                                                                spinnerKelurahan.setSelection(Integer.parseInt(session.getVillage_position()));
+//
+//                                                                loadData2();
+//                                                            } else {
+//                                                                editKelurahan();
+//                                                                progressBar.setVisibility(View.GONE);
+//                                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                                alertDialog.setTitle("Perhatian");
+//                                                                alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                                        finish();
+//                                                                        startActivity(getIntent());
+//                                                                    }
+//                                                                });
+//                                                                alertDialog.show();
+//                                                            }
+//                                                        }
+//
+//                                                        @Override
+//                                                        public void onFailure(Call<Kelurahan> call, Throwable t) {
+//                                                            progressBar.setVisibility(View.GONE);
+//                                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                            alertDialog.setTitle("Perhatian");
+//                                                            alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                                public void onClick(DialogInterface dialog, int which) {
+//                                                                    finish();
+//                                                                    startActivity(getIntent());
+//                                                                }
+//                                                            });
+//                                                            alertDialog.show();
+//                                                        }
+//                                                    });
+//                                                } else {
+//                                                    editKecamatan();
+//                                                    progressBar.setVisibility(View.GONE);
+//                                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                    alertDialog.setTitle("Perhatian");
+//                                                    alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                        public void onClick(DialogInterface dialog, int which) {
+//                                                            finish();
+//                                                            startActivity(getIntent());
+//                                                        }
+//                                                    });
+//                                                    alertDialog.show();
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onFailure(Call<Kecamatan> call, Throwable t) {
+//                                                progressBar.setVisibility(View.GONE);
+//                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                                alertDialog.setTitle("Perhatian");
+//                                                alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                        finish();
+//                                                        startActivity(getIntent());
+//                                                    }
+//                                                });
+//                                                alertDialog.show();
+//                                            }
+//                                        });
+//                                    } else {
+//                                        editKota();
+//                                        progressBar.setVisibility(View.GONE);
+//                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                        alertDialog.setTitle("Perhatian");
+//                                        alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                finish();
+//                                                startActivity(getIntent());
+//                                            }
+//                                        });
+//                                        alertDialog.show();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<Kota> call, Throwable t) {
+//                                    progressBar.setVisibility(View.GONE);
+//                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                    alertDialog.setTitle("Perhatian");
+//                                    alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+//                                        }
+//                                    });
+//                                    alertDialog.show();
+//                                }
+//                            });
+//                        } else {
+//                            editProvinsi();
+//                            progressBar.setVisibility(View.GONE);
+//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                            alertDialog.setTitle("Perhatian");
+//                            alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+//                                    startActivity(getIntent());
+//                                }
+//                            });
+//                            alertDialog.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Provinsi> call, Throwable t) {
+//                        progressBar.setVisibility(View.GONE);
+//                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                        alertDialog.setTitle("Perhatian");
+//                        alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                finish();
+//                                startActivity(getIntent());
+//                            }
+//                        });
+//                        alertDialog.show();
+//                    }
+//                });
+
+
+
+            }
+        } catch (Exception ex) {}
     }
 
     private void initToolbar() {
@@ -125,14 +448,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     }
 
     private void initAction() {
-
-        agen_id = getIntent().getStringExtra("agen_id");
-        amount = getIntent().getStringExtra("amount");
-        ktp_image = getIntent().getStringExtra("ktp_image");
-        bpkb = getIntent().getStringExtra("bpkb");
-        vehicle_id = getIntent().getStringExtra("vehicle_id");
-        voucher_code_id = getIntent().getStringExtra("voucher_code_id");
-
         //Initialize
         progressBar.setVisibility(View.GONE);
         spinnerKota.setEnabled(false);
@@ -160,6 +475,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerProvinsi.setPositiveButton("OK");
     }
 
+    private void editProvinsi() {
+        PROVINSI_DATA.clear();
+        PROVINSI_ITEMS.clear();
+        PROVINSI_DATA.put(0, "0");
+        PROVINSI_ITEMS.add("Pilih Provinsi");
+        ArrayAdapter<String> provinsi_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
+        provinsi_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProvinsi.setAdapter(provinsi_adapter);
+        spinnerProvinsi.setTitle("");
+        spinnerProvinsi.setPositiveButton("OK");
+    }
+
     private void clearKota() {
         KOTA_DATA.clear();
         KOTA_ITEMS.clear();
@@ -171,6 +498,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKota.setTitle("");
         spinnerKota.setPositiveButton("OK");
         spinnerKota.setEnabled(false);
+    }
+
+    private void editKota() {
+        KOTA_DATA.clear();
+        KOTA_ITEMS.clear();
+        KOTA_DATA.put(0, "0");
+        KOTA_ITEMS.add("Pilih Kota");
+        ArrayAdapter<String> kota_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+        kota_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKota.setAdapter(kota_adapter);
+        spinnerKota.setTitle("");
+        spinnerKota.setPositiveButton("OK");
     }
 
     private void clearKecamatan() {
@@ -186,6 +525,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKecamatan.setEnabled(false);
     }
 
+    private void editKecamatan() {
+        KECAMATAN_DATA.clear();
+        KECAMATAN_ITEMS.clear();
+        KECAMATAN_DATA.put(0, "0");
+        KECAMATAN_ITEMS.add("Pilih Kecamatan");
+        ArrayAdapter<String> kecamatan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+        kecamatan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKecamatan.setAdapter(kecamatan_adapter);
+        spinnerKecamatan.setTitle("");
+        spinnerKecamatan.setPositiveButton("OK");
+    }
+
     private void clearKelurahan() {
         KELURAHAN_DATA.clear();
         KELURAHAN_ITEMS.clear();
@@ -199,6 +550,20 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKelurahan.setTitle("");
         spinnerKelurahan.setPositiveButton("OK");
         spinnerKelurahan.setEnabled(false);
+    }
+
+    private void editKelurahan() {
+        KELURAHAN_DATA.clear();
+        KELURAHAN_ITEMS.clear();
+        KELURAHAN_KODEPOS.clear();
+        KELURAHAN_DATA.put(0, "0");
+        KELURAHAN_ITEMS.add("Pilih Kelurahan");
+        KELURAHAN_KODEPOS.add("0");
+        ArrayAdapter<String> kelurahan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KELURAHAN_ITEMS);
+        kelurahan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKelurahan.setAdapter(kelurahan_adapter);
+        spinnerKelurahan.setTitle("");
+        spinnerKelurahan.setPositiveButton("OK");
     }
 
     private void initLoadData() {
@@ -272,6 +637,10 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             }
         });
 
+        loadData();
+    }
+
+    private void loadData() {
         spinnerProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -534,6 +903,288 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         });
     }
 
+//    private void loadData2() {
+//        spinnerProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d("TAGTAGTAG", "onItemSelected: " + i);
+//                Log.d("TAGTAGTAG", "onItemSelected: " + session.getProvince_position());
+//                if (i != Integer.parseInt(session.getProvince_position())) {
+//                    clearKota();
+//                    clearKecamatan();
+//                    clearKelurahan();
+//                    if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
+//                        call.enqueue(new Callback<Kota>() {
+//                            @Override
+//                            public void onResponse(Call<Kota> call, Response<Kota> response) {
+//                                if (response.isSuccessful()) {
+//                                    try {
+//                                        if (response.body().getData().size() > 0) {
+//                                            for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                KOTA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                KOTA_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                            }
+//                                            progressBar.setVisibility(View.GONE);
+//                                        } else {
+//                                            clearKota();
+//                                            progressBar.setVisibility(View.GONE);
+//                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                            alertDialog.setTitle("Perhatian");
+//                                            alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    finish();
+//                                                    startActivity(getIntent());
+//                                                }
+//                                            });
+//                                            alertDialog.show();
+//                                        }
+//                                    } catch (Exception ex) {
+//                                    }
+//
+//                                    ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+//                                    brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                    spinnerKota.setAdapter(brand_adapter);
+//                                    spinnerKota.setTitle("");
+//                                    spinnerKota.setPositiveButton("OK");
+//                                    spinnerKota.setEnabled(true);
+//                                } else {
+//                                    clearKota();
+//                                    progressBar.setVisibility(View.GONE);
+//                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                    alertDialog.setTitle("Perhatian");
+//                                    alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+//                                        }
+//                                    });
+//                                    alertDialog.show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Kota> call, Throwable t) {
+//                                progressBar.setVisibility(View.GONE);
+//                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                alertDialog.setTitle("Perhatian");
+//                                alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        finish();
+//                                        startActivity(getIntent());
+//                                    }
+//                                });
+//                                alertDialog.show();
+//                            }
+//                        });
+//
+//
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//
+//        spinnerKota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d("TAGTAGTAG", "onItemSelected: " + i);
+//                Log.d("TAGTAGTAG", "onItemSelected: " + session.getCity_position());
+//                if (i != Integer.parseInt(session.getCity_position())) {
+//                    clearKecamatan();
+//                    clearKelurahan();
+//                    if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        Call<Kecamatan> call = apiServiceArea.getKecamatan(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
+//                        call.enqueue(new Callback<Kecamatan>() {
+//                            @Override
+//                            public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
+//                                if (response.isSuccessful()) {
+//                                    try {
+//                                        if (response.body().getData().size() > 0) {
+//                                            for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                KECAMATAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                KECAMATAN_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                            }
+//                                            progressBar.setVisibility(View.GONE);
+//                                        } else {
+//                                            clearKecamatan();
+//                                            progressBar.setVisibility(View.GONE);
+//                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                            alertDialog.setTitle("Perhatian");
+//                                            alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    finish();
+//                                                    startActivity(getIntent());
+//                                                }
+//                                            });
+//                                            alertDialog.show();
+//                                        }
+//                                    } catch (Exception ex) {
+//                                    }
+//
+//                                    ArrayAdapter<String> kecamatan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KECAMATAN_ITEMS);
+//                                    kecamatan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                    spinnerKecamatan.setAdapter(kecamatan_adapter);
+//                                    spinnerKecamatan.setTitle("");
+//                                    spinnerKecamatan.setPositiveButton("OK");
+//                                    spinnerKecamatan.setEnabled(true);
+//                                } else {
+//                                    clearKecamatan();
+//                                    progressBar.setVisibility(View.GONE);
+//                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                    alertDialog.setTitle("Perhatian");
+//                                    alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+//                                        }
+//                                    });
+//                                    alertDialog.show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Kecamatan> call, Throwable t) {
+//                                progressBar.setVisibility(View.GONE);
+//                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                alertDialog.setTitle("Perhatian");
+//                                alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        finish();
+//                                        startActivity(getIntent());
+//                                    }
+//                                });
+//                                alertDialog.show();
+//                            }
+//                        });
+//
+//
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//
+//        spinnerKecamatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d("TAGTAGTAG", "onItemSelected: " + i);
+//                Log.d("TAGTAGTAG", "onItemSelected: " + session.getDistrict_position());
+//                if (i != Integer.parseInt(session.getDistrict_position())) {
+//                    clearKelurahan();
+//                    if (Integer.parseInt(KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition())) > 0) {
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        Call<Kelurahan> call = apiServiceArea.getKelurahan(KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition()), 1000);
+//                        call.enqueue(new Callback<Kelurahan>() {
+//                            @Override
+//                            public void onResponse(Call<Kelurahan> call, Response<Kelurahan> response) {
+//                                if (response.isSuccessful()) {
+//                                    try {
+//                                        if (response.body().getData().size() > 0) {
+//                                            for (int i = 0; i < response.body().getData().size(); i++) {
+//                                                KELURAHAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+//                                                KELURAHAN_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+//                                                KELURAHAN_KODEPOS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getKodePos())));
+//                                            }
+//                                            progressBar.setVisibility(View.GONE);
+//                                        } else {
+//                                            clearKelurahan();
+//                                            progressBar.setVisibility(View.GONE);
+//                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                            alertDialog.setTitle("Perhatian");
+//                                            alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    finish();
+//                                                    startActivity(getIntent());
+//                                                }
+//                                            });
+//                                            alertDialog.show();
+//                                        }
+//                                    } catch (Exception ex) {
+//                                    }
+//
+//                                    ArrayAdapter<String> kelurahan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KELURAHAN_ITEMS);
+//                                    kelurahan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                                    spinnerKelurahan.setAdapter(kelurahan_adapter);
+//                                    spinnerKelurahan.setTitle("");
+//                                    spinnerKelurahan.setPositiveButton("OK");
+//                                    spinnerKelurahan.setEnabled(true);
+//                                } else {
+//                                    clearKelurahan();
+//                                    progressBar.setVisibility(View.GONE);
+//                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                    alertDialog.setTitle("Perhatian");
+//                                    alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+//                                        }
+//                                    });
+//                                    alertDialog.show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Kelurahan> call, Throwable t) {
+//                                progressBar.setVisibility(View.GONE);
+//                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+//                                alertDialog.setTitle("Perhatian");
+//                                alertDialog.setMessage("Data kelurahan gagal dipanggil, silahkan coba beberapa saat lagi.");
+//
+//                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        finish();
+//                                        startActivity(getIntent());
+//                                    }
+//                                });
+//                                alertDialog.show();
+//                            }
+//                        });
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -592,6 +1243,11 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
             alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+                    session.setProvince_position(String.valueOf(spinnerProvinsi.getSelectedItemPosition()));
+                    session.setCity_position(String.valueOf(spinnerKota.getSelectedItemPosition()));
+                    session.setDistrict_position(String.valueOf(spinnerKecamatan.getSelectedItemPosition()));
+                    session.setVillage_position(String.valueOf(spinnerKelurahan.getSelectedItemPosition()));
+
                     session.editDataCalonPeminjam(true,
                             name,
                             no_ktp,
