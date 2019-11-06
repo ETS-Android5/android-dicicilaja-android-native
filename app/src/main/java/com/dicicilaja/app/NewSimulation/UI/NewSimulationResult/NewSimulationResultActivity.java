@@ -1,5 +1,6 @@
 package com.dicicilaja.app.NewSimulation.UI.NewSimulationResult;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -108,6 +109,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
     ApiService3 apiService3;
     SessionManager session;
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +133,10 @@ public class NewSimulationResultActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang mengirim data...");
+        progress.setCanceledOnTouchOutside(false);
 
         TENOR_MAP.clear();
         TENOR_ITEMS.clear();
@@ -803,7 +810,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.next:
-                progressBar.setVisibility(View.VISIBLE);
+                progress.show();
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 if (spinner_jaminan.equals("1")) {
@@ -859,7 +866,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
-                                    intent2.putExtra("max", text_max);
+                                    intent2.putExtra("max", String.valueOf(text_max));
                                     intent2.putExtra("max_prefix", text_max_prefix);
                                     intent2.putExtra("simulasi", "1");
                                     intent2.putExtra("jaminan_id", spinner_jaminan);
@@ -879,14 +886,14 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     intent2.putExtra("agen_id", agen_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
-                                    progressBar.setVisibility(View.GONE);
+                                    progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 } else {
                                     agen_id = null;
                                     agen_name = null;
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
-                                    intent2.putExtra("max", text_max);
+                                    intent2.putExtra("max", String.valueOf(text_max));
                                     intent2.putExtra("max_prefix", text_max_prefix);
                                     intent2.putExtra("simulasi", "1");
                                     intent2.putExtra("jaminan_id", spinner_jaminan);
@@ -906,7 +913,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     intent2.putExtra("agen_id", agen_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
-                                    progressBar.setVisibility(View.GONE);
+                                    progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 }
 
@@ -914,7 +921,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                             } catch (Exception ex) {
                             }
                         } else {
-                            progressBar.setVisibility(View.GONE);
+                            progress.hide();
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -932,7 +939,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Axi> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
+                        progress.hide();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");

@@ -182,7 +182,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     String jumlah_pinjaman, plat_nomor, voucher_code, axi_reff, fKtp, fBpkb, program_id;
 
-    boolean data_calon_peminjam, jaminan_pinjaman, plat_number;
+    boolean data_calon_peminjam, jaminan_pinjaman, plat_number, kodevoucher;
 
     ApiService3 apiService3;
     ApiService2 apiService2;
@@ -201,6 +201,8 @@ public class OrderInProductActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         plat_number = false;
+        kodevoucher = false;
+
         mCompressor = new FileCompressor(this);
 
         session = new SessionOrderIn(OrderInProductActivity.this);
@@ -257,6 +259,8 @@ public class OrderInProductActivity extends AppCompatActivity {
                 getIntent().getStringExtra("agen_id"),
                 getIntent().getStringExtra("agen_name"),
                 getIntent().getStringExtra("amount"),
+                "",
+                "",
                 "",
                 "",
                 "",
@@ -461,6 +465,7 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void closePlatNomor() {
+        plat_number = false;
         session.setVehicle_id("");
         etPlatNomor.setEnabled(true);
         etPlatNomor.setText("");
@@ -471,6 +476,7 @@ public class OrderInProductActivity extends AppCompatActivity {
     }
 
     private void closeVoucher() {
+        kodevoucher = false;
         session.setVoucher_code_id(null);
         session.setVoucher_code(null);
         etVoucher.setEnabled(true);
@@ -664,7 +670,19 @@ public class OrderInProductActivity extends AppCompatActivity {
             return false;
         }
 
-        if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
+        if (kodevoucher == true) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Kode voucher tidak ditemukan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etVoucher);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }  else if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Kode Voucher");
@@ -989,6 +1007,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 closePlatNomor();
                 break;
             case R.id.cari_voucher:
+                kodevoucher = false;
                 progressBar.setVisibility(View.VISIBLE);
                 etVoucher.setEnabled(false);
                 cariVoucherClose.setVisibility(View.VISIBLE);

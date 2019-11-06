@@ -221,7 +221,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), GuestActivity.class);
                     startActivity(intent);
                 }else{
-                    progressBar.setVisibility(View.VISIBLE);
+                    progress.show();
 //                    Intent intent = new Intent(getBaseContext(), AjukanPengajuanMaxiActivity.class);
 //                    intent.putExtra("pinjaman", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
 //                    intent.putExtra("spinner_tenor",String.valueOf(spinnerJaminan.getSelectedItemPosition()));
@@ -254,7 +254,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("agen_id", agen_id);
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
-                                        progressBar.setVisibility(View.GONE);
+                                        progress.hide();
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     } else {
                                         agen_id = null;
@@ -270,7 +270,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                         intent.putExtra("agen_id", agen_id);
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
-                                        progressBar.setVisibility(View.GONE);
+                                        progress.hide();
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     }
 

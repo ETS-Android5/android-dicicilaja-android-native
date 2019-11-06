@@ -17,13 +17,16 @@ public class SessionOrderIn {
         editor = pref.edit();
     }
 
-    public void createOrderInSession(String jenis_pengajuan,
+    public void
+    createOrderInSession(String jenis_pengajuan,
                                      String program_id,
                                      String product_id,
                                      String qty,
                                      String agen_id,
                                      String agen_name,
                                      String amount,
+                                     String max,
+                                     String max_prefix,
                                      String ktp_image,
                                      String bpkb,
                                      String vehicle_id,
@@ -54,6 +57,8 @@ public class SessionOrderIn {
         editor.putString("agen_id", agen_id);
         editor.putString("agen_name", agen_name);
         editor.putString("amount", amount);
+        editor.putString("max", max);
+        editor.putString("max_prefix", max_prefix);
         editor.putString("ktp_image", ktp_image);
         editor.putString("bpkb", bpkb);
         editor.putString("vehicle_id", vehicle_id);
@@ -228,6 +233,24 @@ public class SessionOrderIn {
 
     public void setAgen_name(String agen_name) {
         editor.putString("agen_name", agen_name);
+        editor.commit();
+    }
+
+    public String getMax() {
+        return pref.getString("max", "");
+    }
+
+    public void setMax(String max) {
+        editor.putString("max", max);
+        editor.commit();
+    }
+
+    public String getMax_prefix() {
+        return pref.getString("max_prefix", "");
+    }
+
+    public void setMax_prefix(String max_prefix) {
+        editor.putString("max_prefix", max_prefix);
         editor.commit();
     }
 

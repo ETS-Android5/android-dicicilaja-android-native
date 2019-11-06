@@ -1,5 +1,6 @@
 package com.dicicilaja.app.OrderIn.UI;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -114,6 +115,8 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     @BindView(R.id.product_maxi)
     LinearLayout productMaxi;
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +144,10 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang mengirim data...");
+        progress.setCanceledOnTouchOutside(false);
     }
 
     private void initAction() {
@@ -161,7 +168,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
             try {
                 try {
                     String rp = getResources().getString(R.string.rp_string);
-                    String originalString = session.getAmount();
+                    String originalString = String.valueOf(session.getAmount());
                     originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
                     originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
                     Double doubleval = Double.parseDouble(originalString);
@@ -264,7 +271,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     private void initLoadData() {
         try {
             String rp = getResources().getString(R.string.rp_string);
-            String originalString = session.getAmount();
+            String originalString = String.valueOf(session.getAmount());
             originalString = originalString.replaceAll("\\.", "").replaceFirst(",", ".");
             originalString = originalString.replaceAll("[A-Z]", "").replaceAll("[a-z]", "");
             Double doubleval = Double.parseDouble(originalString);
@@ -322,7 +329,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
         alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                progressBar.setVisibility(View.VISIBLE);
+                progress.show();
 //                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 //                Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
@@ -373,7 +380,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         session.getBranch_id(),
                                         session.getProduct_id(),
                                         session.getProgram_id(),
-                                        session.getAmount(),
+                                        String.valueOf(session.getAmount()),
                                         session.getVehicle_id(),
                                         "1",
                                         session.getVoucher_code_id(),
@@ -396,25 +403,25 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         Log.d("HASIL", "header: " + response.headers().toString());
                                         if (response.isSuccessful()) {
 
-                                            progressBar.setVisibility(View.GONE);
-//                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        startActivity(intent);
+                                            progress.hide();
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
                                         } else {
-                                            progressBar.setVisibility(View.GONE);
-//                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-//                                            alertDialog.setTitle("Perhatian");
-//                                            alertDialog.setMessage("Gagal melakukan pengajuan 1, silahkan coba beberapa saat lagi.");
-//
-//                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                                public void onClick(DialogInterface dialog, int which) {
-//                                                    finish();
-//                                                    startActivity(getIntent());
-//                                                }
-//                                            });
-//                                            alertDialog.show();
+                                            progress.hide();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                                            alertDialog.setTitle("Perhatian");
+                                            alertDialog.setMessage("Gagal melakukan pengajuan 1, silahkan coba beberapa saat lagi.");
+
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+                                                }
+                                            });
+                                            alertDialog.show();
                                         }
 
 
@@ -422,24 +429,23 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<Transaksi> call, Throwable t) {
-                                        Log.d("HASIL", "message: " + t.toString());
-//                                        progressBar.setVisibility(View.GONE);
-//                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
-//                                        alertDialog.setTitle("Perhatian");
-//                                        alertDialog.setMessage("Gagal melakukan pengajuan 2, silahkan coba beberapa saat lagi.");
-//
-//                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                finish();
-//                                                startActivity(getIntent());
-//                                            }
-//                                        });
-//                                        alertDialog.show();
+                                        progress.hide();
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Gagal melakukan pengajuan 2, silahkan coba beberapa saat lagi.");
+
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
                                     }
                                 });
 
                             } catch (Exception ex) {
-                                progressBar.setVisibility(View.GONE);
+                                progress.hide();
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                                 alertDialog.setTitle("Perhatian");
@@ -456,7 +462,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
 
                         } else {
-                            progressBar.setVisibility(View.GONE);
+                            progress.hide();
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -474,7 +480,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Profile> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
+                        progress.hide();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Gagal melakukan pengajuan 5, silahkan coba beberapa saat lagi.");

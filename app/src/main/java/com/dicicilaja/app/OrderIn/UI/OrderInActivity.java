@@ -164,7 +164,6 @@ public class OrderInActivity extends AppCompatActivity {
 
     SessionOrderIn session;
     SessionManager sessionUser;
-    String max, text_max_prefix;
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
@@ -172,7 +171,7 @@ public class OrderInActivity extends AppCompatActivity {
 
     String jumlah_pinjaman, plat_nomor, voucher_code, axi_reff, fKtp, fBpkb;
 
-    boolean simulasi, data_calon_peminjam, jaminan_pinjaman, plat_number;
+    boolean simulasi, data_calon_peminjam, jaminan_pinjaman, plat_number, kodevoucher;
 
     ApiService3 apiService3;
     ApiService2 apiService2;
@@ -188,6 +187,7 @@ public class OrderInActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         plat_number = false;
+        kodevoucher = false;
 
         mCompressor = new FileCompressor(this);
 
@@ -201,6 +201,10 @@ public class OrderInActivity extends AppCompatActivity {
         initShowData();
         initLoadData();
         initView();
+
+        Log.d(TAG, "amount: " + session.getAmount());
+        Log.d(TAG, "max: " + session.getMax());
+        Log.d(TAG, "max_prefix: " + session.getMax_prefix());
 
         etJumlahPinjaman.addTextChangedListener(new TextWatcher() {
             @Override
@@ -258,8 +262,6 @@ public class OrderInActivity extends AppCompatActivity {
         }
 
         if (simulasi) {
-            max = getIntent().getStringExtra("max");
-            text_max_prefix = getIntent().getStringExtra("max_prefix");
 
             session.createOrderInSession(
                     "1",
@@ -269,6 +271,8 @@ public class OrderInActivity extends AppCompatActivity {
                     getIntent().getStringExtra("agen_id"),
                     getIntent().getStringExtra("agen_name"),
                     getIntent().getStringExtra("amount"),
+                    getIntent().getStringExtra("max"),
+                    getIntent().getStringExtra("max_prefix"),
                     "",
                     "",
                     "",
@@ -438,6 +442,7 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     private void closePlatNomor() {
+        plat_number = false;
         session.setVehicle_id("");
         etPlatNomor.setEnabled(true);
         etPlatNomor.setText("");
@@ -448,6 +453,7 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     private void closeVoucher() {
+        kodevoucher = false;
         session.setVoucher_code_id(null);
         session.setVoucher_code(null);
         etVoucher.setEnabled(true);
@@ -566,7 +572,10 @@ public class OrderInActivity extends AppCompatActivity {
             return false;
         } else {
             if (simulasi) {
-                Integer total = Integer.parseInt(jumlah_pinjaman);
+                String total_harga = jumlah_pinjaman.replaceAll("[A-Z]", "").replaceAll("[a-z]", "").replaceAll("[$,.]", "");
+                int total = Integer.parseInt(total_harga);
+                int total_max = Integer.parseInt(session.getMax());
+
                 if(total < 3000000) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog.setTitle("Perhatian");
@@ -578,10 +587,11 @@ public class OrderInActivity extends AppCompatActivity {
                         }
                     });
                     alertDialog.show();
-                } else if(total > Integer.parseInt(max)) {
+                    return false;
+                } else if(total > total_max) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog.setTitle("Perhatian");
-                    alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman.\n\nNilai maksimum pinjaman " + text_max_prefix);
+                    alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman.\n\nNilai maksimum pinjaman " + session.getMax_prefix());
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -589,23 +599,9 @@ public class OrderInActivity extends AppCompatActivity {
                         }
                     });
                     alertDialog.show();
+                    return false;
                 }
             }
-//            else {
-//                Integer total = Integer.parseInt(jumlah_pinjaman);
-//                if(total < 3000000) {
-//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-//                    alertDialog.setTitle("Perhatian");
-//                    alertDialog.setMessage("Jumlah pinjaman kurang dari nilai minimum pinjaman.\n\nNilai minimum pinjaman Rp3.000.000");
-//
-//                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            requestFocus(etJumlahPinjaman);
-//                        }
-//                    });
-//                    alertDialog.show();
-//                }
-//            }
         }
 
         if (!jaminan_pinjaman) {
@@ -692,7 +688,19 @@ public class OrderInActivity extends AppCompatActivity {
             return false;
         }
 
-        if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
+        if (kodevoucher == true) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Kode voucher tidak ditemukan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etVoucher);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }  else if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Kode Voucher");
@@ -971,6 +979,7 @@ public class OrderInActivity extends AppCompatActivity {
                 closePlatNomor();
                 break;
             case R.id.cari_voucher:
+                kodevoucher = false;
                 progressBar.setVisibility(View.VISIBLE);
                 etVoucher.setEnabled(false);
                 cariVoucherClose.setVisibility(View.VISIBLE);
@@ -990,6 +999,7 @@ public class OrderInActivity extends AppCompatActivity {
                                     session.setVoucher_code_id(String.valueOf(response.body().getData().get(0).getId()));
                                     session.setVoucher_code(String.valueOf(response.body().getData().get(0).getAttributes().getCode()));
                                 } else {
+                                    kodevoucher = true;
                                     clearVoucher();
                                     progressBar.setVisibility(View.GONE);
                                     voucherNotAvailable.setVisibility(View.VISIBLE);
