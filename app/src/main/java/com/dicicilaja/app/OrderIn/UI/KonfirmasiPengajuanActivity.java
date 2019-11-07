@@ -313,7 +313,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         alamatCabang.setText(session.getBranch_address());
         kotaCabang.setText(session.getBranch_district());
         voucher.setText(session.getVoucher_code());
-        axiReff.setText(session.getAgen_id() + " (" + session.getAgen_name() + ")");
+        axiReff.setText(session.getAgen_axi_id() + " (" + session.getAgen_name() + ")");
 
     }
 

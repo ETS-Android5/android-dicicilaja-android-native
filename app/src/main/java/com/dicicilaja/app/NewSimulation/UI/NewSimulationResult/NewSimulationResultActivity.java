@@ -76,7 +76,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
     String apiKey, text_total_prefix, jaminan, tipe_angsuran, tipe_asuransi, text_max_prefix, tipe_objek_id, objek_brand_id, area_id, tahun_kendaraan, objek_model_id, tenor_simulasi, tipe_asuransi_id, tipe_angsuran_id, max_simulasi, value_tipe_angsuran_id;
     int text_total, text_max;
-    String agen_id, agen_name, spinner_jaminan, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
+    String agen_id, agen_axi_id, agen_name, spinner_jaminan, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
     @BindView(R.id.asuransi_card)
     LinearLayout asuransiCard;
     @BindView(R.id.call_tasya)
@@ -863,6 +863,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                             try {
                                 if (response.body().getData().size() > 0) {
                                     agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                    agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
                                     agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
@@ -884,12 +885,14 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
                                     intent2.putExtra("jenis_angsuran", tipe_angsuran);
                                     intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_axi_id", agen_axi_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
                                     progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 } else {
                                     agen_id = null;
+                                    agen_axi_id = null;
                                     agen_name = null;
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());
@@ -911,6 +914,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                     intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
                                     intent2.putExtra("jenis_angsuran", tipe_angsuran);
                                     intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_axi_id", agen_axi_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
                                     progress.hide();

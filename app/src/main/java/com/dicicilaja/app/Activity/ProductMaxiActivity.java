@@ -62,7 +62,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
     List<Data> detailProducts;
     SimpleDraweeView head_image;
     RelativeLayout rute, syarat, deskripsi_lengkap;
-    String apiKey, agen_id, agen_name;
+    String apiKey, agen_id, agen_axi_id, agen_name;
 //    MaterialSpinner spinnerJaminan;
     TextView tv_title, tv_mitra, tv_harga;
     Button ajukan_produk;
@@ -242,6 +242,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                        agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
                                         agen_name = response.body().getData().get(0).getAttributes().getNama();
                                         Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
                                         intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
@@ -252,12 +253,14 @@ public class ProductMaxiActivity extends AppCompatActivity {
 //                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
                                         intent.putExtra("mitra", detailProducts.get(0).getPartner());
                                         intent.putExtra("agen_id", agen_id);
+                                        intent.putExtra("agen_axi_id", agen_axi_id);
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
                                         progress.hide();
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     } else {
                                         agen_id = null;
+                                        agen_axi_id = null;
                                         agen_name = null;
                                         Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
                                         intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));
@@ -268,6 +271,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 //                                        intent.putExtra("tenor", TENOR_ITEMS.get(spinnerJaminan.getSelectedItemPosition() - 1));
                                         intent.putExtra("mitra", detailProducts.get(0).getPartner());
                                         intent.putExtra("agen_id", agen_id);
+                                        intent.putExtra("agen_axi_id", agen_axi_id);
                                         intent.putExtra("agen_name", agen_name);
                                         startActivity(intent);
                                         progress.hide();

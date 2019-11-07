@@ -272,6 +272,7 @@ public class OrderInActivity extends AppCompatActivity {
                     "1",
                     "1",
                     getIntent().getStringExtra("agen_id"),
+                    getIntent().getStringExtra("agen_axi_id"),
                     getIntent().getStringExtra("agen_name"),
                     getIntent().getStringExtra("amount"),
                     getIntent().getStringExtra("max"),

@@ -259,6 +259,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 getIntent().getStringExtra("product_id"),
                 "1",
                 getIntent().getStringExtra("agen_id"),
+                getIntent().getStringExtra("agen_axi_id"),
                 getIntent().getStringExtra("agen_name"),
                 getIntent().getStringExtra("amount"),
                 "",
