@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dicicilaja.app.Activity.AxiDashboardActivity;
 import com.dicicilaja.app.Activity.EmployeeDashboardActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.MarketplaceActivity;
 import com.dicicilaja.app.Activity.MaxiDashboardActivity;
 import com.dicicilaja.app.Activity.SPGDashboardActivity;
@@ -56,55 +57,7 @@ public class PengajuanSuksesActivity extends AppCompatActivity {
     @OnClick(R.id.klaim)
     public void onViewClicked() {
         Intent intent;
-        switch (sessionUser.getRole()) {
-            case "axi":
-                intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-                break;
-
-            case "channel":
-                intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
-                break;
-
-            case "crh":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "cro":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "tc":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "admin":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "spg":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "bm":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "mm":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "ho":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "basic":
-                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                break;
-
-            default:
-                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                break;
-        }
+        intent = new Intent(getBaseContext(), LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

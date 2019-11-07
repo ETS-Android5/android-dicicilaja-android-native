@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,8 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -558,6 +561,21 @@ public class OrderInActivity extends AppCompatActivity {
 
     private boolean validateForm(String jumlah_pinjaman, boolean data_calon_peminjam, boolean jaminan_pinjaman, String axi_reff, String plat_nomor, String voucher_code) {
 
+        if ( (axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" ")) ) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan tekan cari AXI Refferal");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    etAxiIdReff.setFocusable(true);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if (jumlah_pinjaman == null || jumlah_pinjaman.trim().length() == 0 || jumlah_pinjaman.equals("0") || jumlah_pinjaman.equals("") || jumlah_pinjaman.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
@@ -627,21 +645,6 @@ public class OrderInActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     detailDataCalonPinjaman.setFocusable(true);
-                    hideSoftKeyboard();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if ( (axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" ")) ) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Silahkan tekan cari AXI Refferal");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    etAxiIdReff.setFocusable(true);
                     hideSoftKeyboard();
                 }
             });
@@ -745,7 +748,7 @@ public class OrderInActivity extends AppCompatActivity {
             case R.id.edit_data_calon_pinjaman:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Data calon peminjam yang anda isi akan hilang, apakah anda setuju?");
+                alertDialog.setMessage("Beberapa data yang anda isi akan hilang, apakah anda setuju?");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -760,7 +763,7 @@ public class OrderInActivity extends AppCompatActivity {
             case R.id.edit_informasi_jaminan:
                 AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(OrderInActivity.this);
                 alertDialog2.setTitle("Perhatian");
-                alertDialog2.setMessage("Data jaminan & pinjaman yang anda isi akan hilang, apakah anda setuju?");
+                alertDialog2.setMessage("Beberapa data yang anda isi akan hilang, apakah anda setuju?");
 
                 alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -830,36 +833,65 @@ public class OrderInActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.cari_axi:
-                progressBar.setVisibility(View.VISIBLE);
-                etAxiIdReff.setEnabled(false);
-                etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
-                cariAxiClose.setVisibility(View.VISIBLE);
-                cariAxi.setVisibility(View.GONE);
+                if (etAxiIdReff.getText().toString().equals("") || etAxiIdReff.getText().toString().equals(" ") || etAxiIdReff.getText().toString().length() == 0){
+                    AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInActivity.this);
+                    alertDialog5.setTitle("Perhatian");
+                    alertDialog5.setMessage("Masukan axi referral");
 
-                Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
-                axiReff.enqueue(new Callback<Axi>() {
-                    @Override
-                    public void onResponse(Call<Axi> call, Response<Axi> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    clearAxi();
-                                    progressBar.setVisibility(View.GONE);
-                                    axiAvailable.setVisibility(View.VISIBLE);
-                                    axiAvailable.setText(response.body().getData().get(0).getAttributes().getNama());
-                                    session.setAgen_id(response.body().getData().get(0).getAttributes().getNomorAxiId());
-                                    session.setAgen_name(response.body().getData().get(0).getAttributes().getNama());
-                                } else {
-                                    clearAxi();
-                                    progressBar.setVisibility(View.GONE);
-                                    axiNotAvailable.setVisibility(View.VISIBLE);
-                                    session.setAgen_id(null);
-                                    session.setAgen_name(null);
+                    alertDialog5.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestFocus(etAxiIdReff);
+                        }
+                    });
+                    alertDialog5.show();
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    etAxiIdReff.setEnabled(false);
+                    etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
+                    cariAxiClose.setVisibility(View.VISIBLE);
+                    cariAxi.setVisibility(View.GONE);
 
+                    Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
+                    axiReff.enqueue(new Callback<Axi>() {
+                        @Override
+                        public void onResponse(Call<Axi> call, Response<Axi> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        clearAxi();
+                                        progressBar.setVisibility(View.GONE);
+                                        axiAvailable.setVisibility(View.VISIBLE);
+                                        axiAvailable.setText(response.body().getData().get(0).getAttributes().getNama());
+                                        session.setAgen_id(String.valueOf(response.body().getData().get(0).getAttributes().getProfileId()));
+                                        session.setAgen_name(response.body().getData().get(0).getAttributes().getNama());
+                                    } else {
+                                        clearAxi();
+                                        progressBar.setVisibility(View.GONE);
+                                        axiNotAvailable.setVisibility(View.VISIBLE);
+                                        session.setAgen_id(null);
+                                        session.setAgen_name(null);
+
+                                    }
+                                } catch (Exception ex) {
                                 }
-                            } catch (Exception ex) {
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<Axi> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -873,24 +905,9 @@ public class OrderInActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    }
+                    });
+                }
 
-                    @Override
-                    public void onFailure(Call<Axi> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-                        alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                                startActivity(getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                });
                 break;
             case R.id.cari_axi_close:
                 closeAxi();
@@ -979,37 +996,66 @@ public class OrderInActivity extends AppCompatActivity {
                 closePlatNomor();
                 break;
             case R.id.cari_voucher:
-                kodevoucher = false;
-                progressBar.setVisibility(View.VISIBLE);
-                etVoucher.setEnabled(false);
-                cariVoucherClose.setVisibility(View.VISIBLE);
-                cariVoucher.setVisibility(View.GONE);
+                if (etVoucher.getText().toString().equals("") || etVoucher.getText().toString().equals(" ") || etVoucher.getText().toString().length() == 0){
+                    AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInActivity.this);
+                    alertDialog5.setTitle("Perhatian");
+                    alertDialog5.setMessage("Masukan voucher code");
 
-                Call<VoucherCode> voucherCode = apiService3.getVoucherCode(etVoucher.getText().toString());
-                voucherCode.enqueue(new Callback<VoucherCode>() {
-                    @Override
-                    public void onResponse(Call<VoucherCode> call, Response<VoucherCode> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    clearVoucher();
-                                    progressBar.setVisibility(View.GONE);
-                                    voucherAvailable.setVisibility(View.VISIBLE);
-                                    voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
-                                    session.setVoucher_code_id(String.valueOf(response.body().getData().get(0).getId()));
-                                    session.setVoucher_code(String.valueOf(response.body().getData().get(0).getAttributes().getCode()));
-                                } else {
-                                    kodevoucher = true;
-                                    clearVoucher();
-                                    progressBar.setVisibility(View.GONE);
-                                    voucherNotAvailable.setVisibility(View.VISIBLE);
-                                    session.setVoucher_code_id(null);
-                                    session.setVoucher_code(null);
+                    alertDialog5.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestFocus(etVoucher);
+                        }
+                    });
+                    alertDialog5.show();
+                } else {
+                    kodevoucher = false;
+                    progressBar.setVisibility(View.VISIBLE);
+                    etVoucher.setEnabled(false);
+                    cariVoucherClose.setVisibility(View.VISIBLE);
+                    cariVoucher.setVisibility(View.GONE);
+
+                    Call<VoucherCode> voucherCode = apiService3.getVoucherCode(etVoucher.getText().toString());
+                    voucherCode.enqueue(new Callback<VoucherCode>() {
+                        @Override
+                        public void onResponse(Call<VoucherCode> call, Response<VoucherCode> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        clearVoucher();
+                                        progressBar.setVisibility(View.GONE);
+                                        voucherAvailable.setVisibility(View.VISIBLE);
+                                        voucherAvailable.setText(response.body().getData().get(0).getAttributes().getDeskripsi());
+                                        session.setVoucher_code_id(String.valueOf(response.body().getData().get(0).getId()));
+                                        session.setVoucher_code(String.valueOf(response.body().getData().get(0).getAttributes().getCode()));
+                                    } else {
+                                        kodevoucher = true;
+                                        clearVoucher();
+                                        progressBar.setVisibility(View.GONE);
+                                        voucherNotAvailable.setVisibility(View.VISIBLE);
+                                        session.setVoucher_code_id(null);
+                                        session.setVoucher_code(null);
+                                    }
+
+                                } catch (Exception ex) {
                                 }
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
 
-                            } catch (Exception ex) {
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<VoucherCode> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -1023,24 +1069,9 @@ public class OrderInActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    }
+                    });
+                }
 
-                    @Override
-                    public void onFailure(Call<VoucherCode> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
-                        alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data voucher gagal dipanggil, silahkan coba beberapa saat lagi.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                                startActivity(getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                });
                 break;
             case R.id.cari_voucher_close:
                 closeVoucher();
@@ -1092,7 +1123,11 @@ public class OrderInActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Bitmap resizedBitmap = getResizedBitmap(mPhotoBitmap, 750);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
                 btnUploadKtp.setVisibility(View.GONE);
                 viewUploadKtp.setVisibility(View.VISIBLE);
@@ -1101,7 +1136,7 @@ public class OrderInActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageKtp);
 
-                session.setKtp_image("data:image/jpeg;base64," + Helper.ConvertBitmapToString(resizedBitmap));
+                session.setKtp_image(encoded);
             } else if (requestCode == PICK_IMAGE_BPKB) {
                 try {
                     mPhotoBitmap = mCompressor.compressToBitmap(mPhotoFile);
@@ -1109,7 +1144,11 @@ public class OrderInActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Bitmap resizedBitmap = getResizedBitmap(mPhotoBitmap, 750);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
                 btnUploadBpkb.setVisibility(View.GONE);
                 viewUploadBpkb.setVisibility(View.VISIBLE);
@@ -1118,7 +1157,7 @@ public class OrderInActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(imageBpkb);
 
-                session.setBpkb("data:image/jpeg;base64," + Helper.ConvertBitmapToString(resizedBitmap));
+                session.setBpkb(encoded);
             }
         }
     }

@@ -241,7 +241,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 try {
                                     if (response.body().getData().size() > 0) {
-                                        agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                        agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
                                         agen_name = response.body().getData().get(0).getAttributes().getNama();
                                         Intent intent = new Intent(getBaseContext(), OrderInProductActivity.class);
                                         intent.putExtra("amount", String.valueOf(detailProducts.get(0).getPriceWithoutRp()));

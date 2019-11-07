@@ -131,36 +131,18 @@ tools:context=".OrderIn.UI.KonfirmasiPengajuanActivity">
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <RelativeLayout
-                                android:id="@+id/icon_help1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:padding="10dp"
-                                android:layout_marginLeft="20dp">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_support" />
-                            </RelativeLayout>
-
                             <LinearLayout
-                                android:layout_toLeftOf="@id/icon_help1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/total"
+                                    android:id="@+id/program_cicilan"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="16sp"
                                     android:layout_centerVertical="true"
-                                    android:text="Pembiayaan Dana Multiguna"
+                                    android:text="-"
                                     android:textColor="@color/colorAccentDark2"
                                     android:fontFamily="@font/open_sans_bold"/>
 

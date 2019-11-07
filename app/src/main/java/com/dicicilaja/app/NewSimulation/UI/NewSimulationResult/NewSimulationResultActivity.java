@@ -862,7 +862,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             try {
                                 if (response.body().getData().size() > 0) {
-                                    agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                    agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
                                     agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                     intent2.putExtra("amount", total.getText().toString());

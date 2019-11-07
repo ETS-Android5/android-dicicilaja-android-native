@@ -9,6 +9,10 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AlertDialog;
@@ -39,6 +43,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -72,6 +77,8 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
     ImageView searchClose;
     FloatingActionButton fabScrollTop;
 
+    ApiService3 apiService3;
+
     ProgressDialog progress;
 
     int totalData = 1;
@@ -79,6 +86,7 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
     int currentPage = 1;
     boolean isLoading = false;
     String searchVal = null;
+    String agen_id, agen_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +98,11 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
 
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
+
         progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-        progress.setMessage("Please wait...");
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -138,8 +148,71 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
                         startActivity(intent);
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
-                        startActivity(intent);
+                        progress.show();
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
+                        axiReff.enqueue(new Callback<Axi>() {
+                            @Override
+                            public void onResponse(Call<Axi> call, Response<Axi> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        if (response.body().getData().size() > 0) {
+                                            agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                            agen_name = response.body().getData().get(0).getAttributes().getNama();
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progress.hide();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        } else {
+                                            agen_id = null;
+                                            agen_name = null;
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progress.hide();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        }
+
+
+                                    } catch (Exception ex) {
+                                    }
+                                } else {
+                                    progress.hide();
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(SPGDashboardActivity.this);
+                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    });
+                                    alertDialog.show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Axi> call, Throwable t) {
+                                progress.hide();
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SPGDashboardActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        });
                         break;
                     case R.id.navbar_cek:
                         intent = new Intent(getBaseContext(), CekStatusActivity.class);

@@ -167,17 +167,24 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
                             android:layout_height="2dp"
                             android:src="@drawable/border_1dp"/>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tahun Kendaraan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
                             app:hintEnabled="true">
 
                             <EditText
                                 android:id="@+id/et_tahun_kendaraan"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Tahun Kendaraan"
                                 android:clickable="true"
                                 android:editable="false"
                                 android:focusable="false"
@@ -187,12 +194,11 @@ tools:context=".OrderIn.UI.InformasiJaminanActivity">
                                 android:inputType="number"
                                 android:maxLength="4"
                                 android:imeOptions="actionDone"
-                                android:paddingTop="10dp"
                                 android:background="@android:color/transparent"
                                 android:layout_marginTop="25dp"
-                                android:fontFamily="@font/open_sans"
+                                android:paddingLeft="10dp"
                                 android:textColor="@color/new_text_black"
-                                android:textSize="15sp"/>
+                                android:textSize="16sp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView

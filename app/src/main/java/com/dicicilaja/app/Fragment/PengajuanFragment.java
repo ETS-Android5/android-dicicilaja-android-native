@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,6 +51,9 @@ public class PengajuanFragment extends Fragment {
     String apiKey;
     MaterialProgressBar progressBar;
     String agen_id, agen_name;
+
+    ProgressDialog progress;
+
     public PengajuanFragment() {
         // Required empty public constructor
     }
@@ -68,6 +72,10 @@ public class PengajuanFragment extends Fragment {
 
         apiKey = "Bearer " + session.getToken();
 
+        progress = new ProgressDialog(getContext());
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+
         order = view.findViewById(R.id.order);
         search = view.findViewById(R.id.search);
         order.setVisibility(View.GONE);
@@ -79,7 +87,7 @@ public class PengajuanFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                progressBar.setVisibility(View.VISIBLE);
+                progress.show();
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
@@ -89,13 +97,13 @@ public class PengajuanFragment extends Fragment {
                         if (response.isSuccessful()) {
                             try {
                                 if (response.body().getData().size() > 0) {
-                                    agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                    agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
                                     agen_name = response.body().getData().get(0).getAttributes().getNama();
                                     Intent intent2 = new Intent(getContext(), OrderInActivity.class);
                                     intent2.putExtra("agen_id", agen_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
-                                    progressBar.setVisibility(View.GONE);
+                                    progress.hide();
                                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 } else {
                                     agen_id = null;
@@ -104,7 +112,7 @@ public class PengajuanFragment extends Fragment {
                                     intent2.putExtra("agen_id", agen_id);
                                     intent2.putExtra("agen_name", agen_name);
                                     startActivity(intent2);
-                                    progressBar.setVisibility(View.GONE);
+                                    progress.hide();
                                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 }
 
@@ -112,7 +120,7 @@ public class PengajuanFragment extends Fragment {
                             } catch (Exception ex) {
                             }
                         } else {
-                            progressBar.setVisibility(View.GONE);
+                            progress.hide();
                             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                             alertDialog.setTitle("Perhatian");
@@ -130,7 +138,7 @@ public class PengajuanFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Axi> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
+                        progress.hide();
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                         alertDialog.setTitle("Perhatian");

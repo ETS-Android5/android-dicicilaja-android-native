@@ -23,7 +23,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
-import com.dicicilaja.app.OrderIn.Data.error.Error;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
@@ -32,7 +31,6 @@ import com.dicicilaja.app.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,10 +44,6 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.icon_help1)
-    RelativeLayout iconHelp1;
-    @BindView(R.id.total)
-    TextView total;
     @BindView(R.id.angsuran)
     TextView angsuran;
     @BindView(R.id.tenor_angsuran)
@@ -116,6 +110,8 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     LinearLayout productMaxi;
 
     ProgressDialog progress;
+    @BindView(R.id.program_cicilan)
+    TextView programCicilan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,13 +153,28 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         //Network
         apiService2 = ApiClient2.getClient().create(ApiService2.class);
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
+
+
+        if (session.getProgram_id().equals("2")) {
+            programCicilan.setText("MAXI Travel");
+        } else if (session.getProgram_id().equals("3")) {
+            programCicilan.setText("MAXI Edukasi");
+        } else if (session.getProgram_id().equals("4")) {
+            programCicilan.setText("MAXI Usaha");
+        } else if (session.getProgram_id().equals("5")) {
+            programCicilan.setText("MAXI Sehat");
+        } else if (session.getProgram_id().equals("6")) {
+            programCicilan.setText("MAXI Ekstraguna");
+        } else {
+            programCicilan.setText("Pembiayaan Dana Multiguna");
+        }
     }
 
     private void initView() {
 
         if (session.getProgram_id().equals("1")) {
             productMaxi.setVisibility(View.GONE);
-        } else  {
+        } else {
             productMaxi.setVisibility(View.VISIBLE);
             try {
                 try {
@@ -196,7 +207,8 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                 } else {
                     tvPackage.setText(session.getQty() + " Package");
                 }
-            } catch (Exception ex) {}
+            } catch (Exception ex) {
+            }
 
         }
 
@@ -398,22 +410,19 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
                                         Log.d("HASIL", "code: " + response.code());
-                                        Log.d("HASIL", "message: " + response.message());
-                                        Log.d("HASIL", "bode: " + response.body().toString());
-                                        Log.d("HASIL", "header: " + response.headers().toString());
                                         if (response.isSuccessful()) {
 
                                             progress.hide();
-                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                        Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            Intent intent = new Intent(getBaseContext(), PengajuanSuksesActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
                                         } else {
                                             progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                                             alertDialog.setTitle("Perhatian");
-                                            alertDialog.setMessage("Gagal melakukan pengajuan 1, silahkan coba beberapa saat lagi.");
+                                            alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
                                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -432,7 +441,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         progress.hide();
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                                         alertDialog.setTitle("Perhatian");
-                                        alertDialog.setMessage("Gagal melakukan pengajuan 2, silahkan coba beberapa saat lagi.");
+                                        alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
                                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
@@ -449,7 +458,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                                 alertDialog.setTitle("Perhatian");
-                                alertDialog.setMessage("Gagal melakukan pengajuan 3, silahkan coba beberapa saat lagi.");
+                                alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
                                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -466,7 +475,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                             alertDialog.setTitle("Perhatian");
-                            alertDialog.setMessage("Gagal melakukan pengajuan 4, silahkan coba beberapa saat lagi.");
+                            alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -483,7 +492,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                         progress.hide();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(KonfirmasiPengajuanActivity.this);
                         alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Gagal melakukan pengajuan 5, silahkan coba beberapa saat lagi.");
+                        alertDialog.setMessage("Gagal melakukan pengajuan, silahkan coba beberapa saat lagi.");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

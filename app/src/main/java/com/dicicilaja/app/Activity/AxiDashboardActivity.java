@@ -338,7 +338,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     case R.id.navbar_dashboard:
                         break;
                     case R.id.navbar_create_request:
-                        progressBar.setVisibility(View.VISIBLE);
                         progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -349,13 +348,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                 if (response.isSuccessful()) {
                                     try {
                                         if (response.body().getData().size() > 0) {
-                                            agen_id = response.body().getData().get(0).getAttributes().getNomorAxiId();
+                                            agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
                                             agen_name = response.body().getData().get(0).getAttributes().getNama();
                                             Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                             intent2.putExtra("agen_id", agen_id);
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
-                                            progressBar.setVisibility(View.GONE);
                                             progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         } else {
@@ -365,7 +363,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                             intent2.putExtra("agen_id", agen_id);
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
-                                            progressBar.setVisibility(View.GONE);
                                             progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         }
@@ -374,7 +371,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                     } catch (Exception ex) {
                                     }
                                 } else {
-                                    progressBar.setVisibility(View.GONE);
+                                    progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
                                     alertDialog.setTitle("Perhatian");
@@ -392,7 +389,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                             @Override
                             public void onFailure(Call<Axi> call, Throwable t) {
-                                progressBar.setVisibility(View.GONE);
+                                progress.hide();
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
                                 alertDialog.setTitle("Perhatian");
                                 alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");

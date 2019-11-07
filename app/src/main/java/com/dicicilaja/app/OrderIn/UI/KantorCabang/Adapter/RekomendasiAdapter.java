@@ -64,7 +64,7 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
         holder.card_kantor_cabang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                session.setBranch_id(dataItem.get(position).getAttributes().getKode());
+                session.setBranch_id(dataItem.get(position).getId());
                 session.setBranch(dataItem.get(position).getAttributes().getNama());
                 session.setBranch_address(dataItem.get(position).getAttributes().getAlamat());
                 session.setBranch_district(toTitleCase(dataItem.get(position).getAttributes().getKota() + " • " + dataItem.get(position).getAttributes().getDistrik()));
