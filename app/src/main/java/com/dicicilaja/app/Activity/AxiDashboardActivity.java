@@ -1,12 +1,15 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -207,6 +210,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     boolean isLoading = false;
     String agen_id, agen_name;
 
+    Dialog InAppDialog;
+
+    TextView lihat, tutup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,12 +224,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
 
-        session = new SessionManager(AxiDashboardActivity.this);
-
         try {
             JSONObject tags = new JSONObject();
             tags.put("user_id", session.getUserId());
-            tags.put("profile_id", session.getUserId());
             tags.put("role", session.getRole());
             OneSignal.sendTags(tags);
         } catch (Exception ex) {}
@@ -232,25 +236,56 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 .unsubscribeWhenNotificationsAreDisabled(false)
                 .init();
 
+        session = new SessionManager(AxiDashboardActivity.this);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("TEST", "getInstanceId failed", task.getException());
-                            return;
-                        }
+        InAppDialog = new Dialog(AxiDashboardActivity.this);
+        InAppDialog.setContentView(R.layout.in_app_dialog);
+        InAppDialog.setTitle("In App Dialog");
+        InAppDialog.setCanceledOnTouchOutside(false);
+        InAppDialog.setCancelable(false);
+        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
+        lihat = InAppDialog.findViewById(R.id.lihat);
+        tutup = InAppDialog.findViewById(R.id.tutup);
 
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d("TEST", msg);
-                        Toast.makeText(AxiDashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        lihat.setEnabled(true);
+        tutup.setEnabled(true);
+
+        lihat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "LIHAT", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tutup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InAppDialog.cancel();
+            }
+        });
+
+        InAppDialog.show();
+
+
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w("TEST", "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d("TEST", msg);
+//                        Toast.makeText(AxiDashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
@@ -905,6 +940,4 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                break;
         }
     }
-
-    ;
 }

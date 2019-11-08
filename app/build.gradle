@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
@@ -29,7 +29,7 @@ android {
         applicationId "com.dicicilaja.app"
 
         // TODO: Please update the OneSignal ID below to yours!
-        manifestPlaceholders = [onesignal_app_id: 'a45fab37-8a04-47cf-ba10-72f0758920a8',
+        manifestPlaceholders = [onesignal_app_id               : 'a45fab37-8a04-47cf-ba10-72f0758920a8',
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: 'REMOTE']
 
@@ -65,6 +65,9 @@ dependencies {
     })
     implementation('com.github.ganfra:material-spinner:2.0.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+    configurations {
+        all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation 'androidx.cardview:cardview:1.0.0'
