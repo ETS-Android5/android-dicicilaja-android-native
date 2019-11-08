@@ -1,7 +1,6 @@
 package com.dicicilaja.app.OrderIn.UI;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,10 +29,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
@@ -47,7 +49,7 @@ import com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity.KantorCabangActivity;
 import com.dicicilaja.app.OrderIn.Utility.FileCompressor;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import com.dicicilaja.app.Utils.Helper;
+import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -167,6 +169,8 @@ public class OrderInActivity extends AppCompatActivity {
 
     SessionOrderIn session;
     SessionManager sessionUser;
+    @BindView(R.id.layout_plat_nomor)
+    TextInputLayout layoutPlatNomor;
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
@@ -241,6 +245,25 @@ public class OrderInActivity extends AppCompatActivity {
                     nfe.printStackTrace();
                 }
                 etJumlahPinjaman.addTextChangedListener(this);
+            }
+        });
+
+        etPlatNomor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etPlatNomor.removeTextChangedListener(this);
+                validatePlatNomor();
+                etPlatNomor.addTextChangedListener(this);
             }
         });
     }
@@ -319,7 +342,8 @@ public class OrderInActivity extends AppCompatActivity {
                 axiAvailable.setVisibility(View.VISIBLE);
                 axiAvailable.setText(session.getAgen_name());
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
 
         try {
             String rp = getResources().getString(R.string.rp_string);
@@ -562,7 +586,7 @@ public class OrderInActivity extends AppCompatActivity {
 
     private boolean validateForm(String jumlah_pinjaman, boolean data_calon_peminjam, boolean jaminan_pinjaman, String axi_reff, String plat_nomor, String voucher_code) {
 
-        if ( (axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" ")) ) {
+        if ((axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari AXI Refferal");
@@ -595,7 +619,7 @@ public class OrderInActivity extends AppCompatActivity {
                 int total = Integer.parseInt(total_harga);
                 int total_max = Integer.parseInt(session.getMax());
 
-                if(total < 3000000) {
+                if (total < 3000000) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog.setTitle("Perhatian");
                     alertDialog.setMessage("Jumlah pinjaman kurang dari nilai minimum pinjaman.\n\nNilai minimum pinjaman Rp3.000.000");
@@ -607,7 +631,7 @@ public class OrderInActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                     return false;
-                } else if(total > total_max) {
+                } else if (total > total_max) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog.setTitle("Perhatian");
                     alertDialog.setMessage("Jumlah pinjaman melebihi nilai maksimum pinjaman.\n\nNilai maksimum pinjaman " + session.getMax_prefix());
@@ -665,7 +689,7 @@ public class OrderInActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }  else if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
+        } else if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
@@ -677,7 +701,7 @@ public class OrderInActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if ( (plat_nomor.trim().length() != 0) && (session.getVehicle_id() == null || session.getVehicle_id().trim().length() == 0 || session.getVehicle_id().equals("") || session.getVehicle_id().equals(" ")) ) {
+        } else if ((plat_nomor.trim().length() != 0) && (session.getVehicle_id() == null || session.getVehicle_id().trim().length() == 0 || session.getVehicle_id().equals("") || session.getVehicle_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Plat Nomor");
@@ -704,7 +728,7 @@ public class OrderInActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }  else if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
+        } else if ((voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Kode Voucher");
@@ -722,7 +746,6 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
 
-
     public void requestFocus(View view) {
         if (view.requestFocus()) {
             showSoftKeyboard(view);
@@ -730,7 +753,7 @@ public class OrderInActivity extends AppCompatActivity {
     }
 
     public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
+        if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
@@ -834,7 +857,7 @@ public class OrderInActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.cari_axi:
-                if (etAxiIdReff.getText().toString().equals("") || etAxiIdReff.getText().toString().equals(" ") || etAxiIdReff.getText().toString().length() == 0){
+                if (etAxiIdReff.getText().toString().equals("") || etAxiIdReff.getText().toString().equals(" ") || etAxiIdReff.getText().toString().length() == 0) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan axi referral");
@@ -915,7 +938,7 @@ public class OrderInActivity extends AppCompatActivity {
                 break;
             case R.id.cari_plat_nomor:
                 plat_number = false;
-                if (!isVehicleIdValid(etPlatNomor.getText().toString())){
+                if (!isVehicleIdValid(etPlatNomor.getText().toString())) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan plat nomor dengan benar");
@@ -997,7 +1020,7 @@ public class OrderInActivity extends AppCompatActivity {
                 closePlatNomor();
                 break;
             case R.id.cari_voucher:
-                if (etVoucher.getText().toString().equals("") || etVoucher.getText().toString().equals(" ") || etVoucher.getText().toString().length() == 0){
+                if (etVoucher.getText().toString().equals("") || etVoucher.getText().toString().equals(" ") || etVoucher.getText().toString().length() == 0) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan voucher code");
@@ -1126,7 +1149,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
 
                 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
@@ -1147,7 +1170,7 @@ public class OrderInActivity extends AppCompatActivity {
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
 
                 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
@@ -1220,5 +1243,25 @@ public class OrderInActivity extends AppCompatActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(vehicle_id);
         return matcher.matches();
+    }
+
+    private boolean validatePlatNomor() {
+        if (etPlatNomor.getText().toString().trim().isEmpty()) {
+            layoutPlatNomor.setErrorEnabled(false);
+        } else {
+            String emailId = etPlatNomor.getText().toString();
+            String expression = "^[A-Z]{1,2}[0-9]{1,4}[A-Z]{0,3}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutPlatNomor.setError("Format plat nomor salah\ncontoh: B1234CD (tanpa spasi)");
+                requestFocus(etPlatNomor);
+                return false;
+            } else {
+                layoutPlatNomor.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 }
