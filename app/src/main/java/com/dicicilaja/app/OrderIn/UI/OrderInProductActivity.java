@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -46,7 +48,7 @@ import com.dicicilaja.app.OrderIn.UI.KantorCabang.Activity.KantorCabangActivity;
 import com.dicicilaja.app.OrderIn.Utility.FileCompressor;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import com.dicicilaja.app.Utils.Helper;
+import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -177,6 +179,8 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     SessionOrderIn session;
     SessionManager sessionUser;
+    @BindView(R.id.layout_plat_nomor)
+    TextInputLayout layoutPlatNomor;
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
@@ -217,6 +221,25 @@ public class OrderInProductActivity extends AppCompatActivity {
         initShowData();
         initLoadData();
         initView();
+
+        etPlatNomor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etPlatNomor.removeTextChangedListener(this);
+                validatePlatNomor();
+                etPlatNomor.addTextChangedListener(this);
+            }
+        });
     }
 
     @Override
@@ -259,6 +282,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 getIntent().getStringExtra("product_id"),
                 "1",
                 getIntent().getStringExtra("agen_id"),
+                getIntent().getStringExtra("agen_axi_id"),
                 getIntent().getStringExtra("agen_name"),
                 getIntent().getStringExtra("amount"),
                 "",
@@ -292,7 +316,7 @@ public class OrderInProductActivity extends AppCompatActivity {
     private void initView() {
 
         if (sessionUser.getRole().equals("axi")) {
-            etAxiIdReff.setText(session.getAgen_id());
+            etAxiIdReff.setText(session.getAgen_axi_id());
             etAxiIdReff.setEnabled(false);
             etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
             cariAxiClose.setVisibility(View.GONE);
@@ -588,7 +612,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     private boolean validateForm(boolean data_calon_peminjam, boolean jaminan_pinjaman, String axi_reff, String plat_nomor, String voucher_code) {
 
-        if ( (axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" ")) ) {
+        if ((axi_reff.trim().length() != 0) && (session.getAgen_id() == null || session.getAgen_id().trim().length() == 0 || session.getAgen_id().equals("") || session.getAgen_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari AXI Refferal");
@@ -645,7 +669,7 @@ public class OrderInProductActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }  else if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
+        } else if (plat_nomor == null || plat_nomor.trim().length() == 0 || plat_nomor.equals("0") || plat_nomor.equals("") || plat_nomor.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan plat nomor kendaraan jaminan");
@@ -657,7 +681,7 @@ public class OrderInProductActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if ( (plat_nomor.trim().length() != 0) && (session.getVehicle_id() == null || session.getVehicle_id().trim().length() == 0 || session.getVehicle_id().equals("") || session.getVehicle_id().equals(" ")) ) {
+        } else if ((plat_nomor.trim().length() != 0) && (session.getVehicle_id() == null || session.getVehicle_id().trim().length() == 0 || session.getVehicle_id().equals("") || session.getVehicle_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Plat Nomor");
@@ -684,7 +708,7 @@ public class OrderInProductActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }  else if ( (voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" ")) ) {
+        } else if ((voucher_code.trim().length() != 0) && (session.getVoucher_code_id() == null || session.getVoucher_code_id().trim().length() == 0 || session.getVoucher_code_id().equals("") || session.getVoucher_code_id().equals(" "))) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderInProductActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan tekan cari Kode Voucher");
@@ -863,7 +887,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.cari_axi:
-                if (etAxiIdReff.getText().toString().equals("") || etAxiIdReff.getText().toString().equals(" ") || etAxiIdReff.getText().toString().length() == 0){
+                if (etAxiIdReff.getText().toString().equals("") || etAxiIdReff.getText().toString().equals(" ") || etAxiIdReff.getText().toString().length() == 0) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInProductActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan axi referral");
@@ -943,7 +967,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 break;
             case R.id.cari_plat_nomor:
                 plat_number = false;
-                if (!isVehicleIdValid(etPlatNomor.getText().toString())){
+                if (!isVehicleIdValid(etPlatNomor.getText().toString())) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInProductActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan plat nomor dengan benar");
@@ -1024,7 +1048,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                 closePlatNomor();
                 break;
             case R.id.cari_voucher:
-                if (etVoucher.getText().toString().equals("") || etVoucher.getText().toString().equals(" ") || etVoucher.getText().toString().length() == 0){
+                if (etVoucher.getText().toString().equals("") || etVoucher.getText().toString().equals(" ") || etVoucher.getText().toString().length() == 0) {
                     AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(OrderInProductActivity.this);
                     alertDialog5.setTitle("Perhatian");
                     alertDialog5.setMessage("Masukan voucher code");
@@ -1151,7 +1175,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
 
                 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
@@ -1173,7 +1197,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 mPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
 
                 String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
@@ -1247,5 +1271,25 @@ public class OrderInProductActivity extends AppCompatActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(vehicle_id);
         return matcher.matches();
+    }
+
+    private boolean validatePlatNomor() {
+        if (etPlatNomor.getText().toString().trim().isEmpty()) {
+            layoutPlatNomor.setErrorEnabled(false);
+        } else {
+            String emailId = etPlatNomor.getText().toString();
+            String expression = "^[A-Z]{1,2}[0-9]{1,4}[A-Z]{0,3}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutPlatNomor.setError("Format plat nomor salah\ncontoh: B1234CD (tanpa spasi)");
+                requestFocus(etPlatNomor);
+                return false;
+            } else {
+                layoutPlatNomor.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 }

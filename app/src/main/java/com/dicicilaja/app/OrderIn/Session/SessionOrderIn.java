@@ -23,6 +23,7 @@ public class SessionOrderIn {
                                      String product_id,
                                      String qty,
                                      String agen_id,
+                                     String agen_axi_id,
                                      String agen_name,
                                      String amount,
                                      String max,
@@ -55,6 +56,7 @@ public class SessionOrderIn {
         editor.putString("product_id", product_id);
         editor.putString("qty", qty);
         editor.putString("agen_id", agen_id);
+        editor.putString("agen_axi_id", agen_axi_id);
         editor.putString("agen_name", agen_name);
         editor.putString("amount", amount);
         editor.putString("max", max);
@@ -215,6 +217,15 @@ public class SessionOrderIn {
 
     public void setQty(String qty) {
         editor.putString("qty", qty);
+        editor.commit();
+    }
+
+    public String getAgen_axi_id() {
+        return pref.getString("agen_axi_id", "");
+    }
+
+    public void setAgen_axi_id(String agen_axi_id) {
+        editor.putString("agen_axi_id", agen_axi_id);
         editor.commit();
     }
 

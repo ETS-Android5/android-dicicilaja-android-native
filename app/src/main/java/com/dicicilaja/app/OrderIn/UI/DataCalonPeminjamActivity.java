@@ -1,10 +1,10 @@
 package com.dicicilaja.app.OrderIn.UI;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -80,12 +80,21 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     SearchableSpinner spinnerKelurahan;
     @BindView(R.id.layoutKelurahan)
     TextInputLayout layoutKelurahan;
+    @BindView(R.id.layout_nama_lengkap)
+    TextInputLayout layoutNamaLengkap;
+    @BindView(R.id.layout_email)
+    TextInputLayout layoutEmail;
+    @BindView(R.id.layout_hp)
+    TextInputLayout layoutHp;
+    @BindView(R.id.layout_alamat)
+    TextInputLayout layoutAlamat;
 
     SessionOrderIn session;
 
     ApiService2 apiServiceArea;
 
-    String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, village_id, village, address, postal_code, agen_id, amount, ktp_image, bpkb, vehicle_id, voucher_code_id;;
+    String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, village_id, village, address, postal_code, agen_id, amount, ktp_image, bpkb, vehicle_id, voucher_code_id;
+    ;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
@@ -428,9 +437,9 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 //                });
 
 
-
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
     }
 
     private void initToolbar() {
@@ -461,6 +470,190 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
         //Network
         apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
+
+        etNamaLengkap.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etNamaLengkap.removeTextChangedListener(this);
+                validateName();
+                etNamaLengkap.addTextChangedListener(this);
+            }
+        });
+
+        etAlamatEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etAlamatEmail.removeTextChangedListener(this);
+                validateEmail();
+                etAlamatEmail.addTextChangedListener(this);
+            }
+        });
+
+        etAlamat.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etAlamat.removeTextChangedListener(this);
+                validateAlamat();
+                etAlamat.addTextChangedListener(this);
+            }
+        });
+
+        etNoHandphone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etNoHandphone.removeTextChangedListener(this);
+                validateHp();
+                etNoHandphone.addTextChangedListener(this);
+            }
+        });
+    }
+
+    public static boolean isEmail(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean validateEmail() {
+        if (etAlamatEmail.getText().toString().trim().isEmpty()) {
+            layoutEmail.setErrorEnabled(false);
+        } else {
+            String emailId = etAlamatEmail.getText().toString();
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutEmail.setError("Masukan alamat email dengan benar\ncontoh: budi.susanto@gmail.com");
+                requestFocus(etAlamatEmail);
+                return false;
+            } else {
+                layoutEmail.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isName(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateName() {
+        if (etNamaLengkap.getText().toString().trim().isEmpty()) {
+            layoutNamaLengkap.setErrorEnabled(false);
+        } else {
+            String emailId = etNamaLengkap.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: Budi Susanto");
+                requestFocus(etNamaLengkap);
+                return false;
+            } else {
+                layoutNamaLengkap.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isAlamat(String alamat) {
+        String expression = "^[a-z.'/ A-Z0-9-]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateAlamat() {
+        if (etAlamat.getText().toString().trim().isEmpty()) {
+            layoutAlamat.setErrorEnabled(false);
+        } else {
+            String emailId = etAlamat.getText().toString();
+            String expression = "^[a-z.'/ A-Z0-9-]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutAlamat.setError("Masukan alamat dengan benar");
+                requestFocus(etAlamat);
+                return false;
+            } else {
+                layoutAlamat.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isHp(String hp) {
+        String expression = "^62[0-9]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(hp);
+        return matcher.matches();
+    }
+
+    private boolean validateHp() {
+        if (etNoHandphone.getText().toString().trim().isEmpty()) {
+            layoutHp.setErrorEnabled(false);
+        } else {
+            String emailId = etNoHandphone.getText().toString();
+            String expression = "^62[0-9]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutHp.setError("Format nomor HP salah\ncontoh: 6281234567891");
+                requestFocus(etNoHandphone);
+                return false;
+            } else {
+                layoutHp.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 
     private void clearProvinsi() {
@@ -1279,7 +1472,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     }
 
     public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
+        if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
@@ -1303,6 +1496,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+            return false;
+        } else if (!isName(name)) {
+            AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog5.setTitle("Perhatian");
+            alertDialog5.setMessage("Masukan nama lengkap yang benar");
+
+            alertDialog5.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etNamaLengkap);
+                }
+            });
+            alertDialog5.show();
             return false;
         }
 
@@ -1344,7 +1549,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (!isEmailValid(email)){
+        } else if (!isEmailValid(email)) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan alamat email dengan benar");
@@ -1362,6 +1567,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan nomor HP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etNoHandphone);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isHp(no_hp)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan nomor HP dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -1447,6 +1664,18 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+            return false;
+        } else if (!isAlamat(address)) {
+            AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog5.setTitle("Perhatian");
+            alertDialog5.setMessage("Masukan alamat yang benar");
+
+            alertDialog5.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etAlamat);
+                }
+            });
+            alertDialog5.show();
             return false;
         }
 

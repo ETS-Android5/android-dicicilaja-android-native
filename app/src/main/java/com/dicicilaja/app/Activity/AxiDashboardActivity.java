@@ -211,7 +211,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int totalPage = 1;
     int currentPage = 1;
     boolean isLoading = false;
-    String agen_id, agen_name;
+    String agen_axi_id, agen_id, agen_name;
 
     Dialog InAppDialog;
 
@@ -392,18 +392,22 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                     try {
                                         if (response.body().getData().size() > 0) {
                                             agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                            agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
                                             agen_name = response.body().getData().get(0).getAttributes().getNama();
                                             Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                             intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_axi_id", agen_axi_id);
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
                                             progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         } else {
                                             agen_id = null;
+                                            agen_axi_id = null;
                                             agen_name = null;
                                             Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
                                             intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_axi_id", agen_axi_id);
                                             intent2.putExtra("agen_name", agen_name);
                                             startActivity(intent2);
                                             progress.hide();
