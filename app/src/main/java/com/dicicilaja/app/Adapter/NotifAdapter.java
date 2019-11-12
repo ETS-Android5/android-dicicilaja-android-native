@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.dicicilaja.app.Inbox.Data.Notif.Datum;
 import com.dicicilaja.app.R;
 
 /**
@@ -18,7 +19,7 @@ import com.dicicilaja.app.R;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> {
 
-    private List<com.dicicilaja.app.API.Model.Notification.Datum> notifs;
+    private List<Datum> notifs;
     private int rowLayout;
     private Context context;
 
@@ -57,34 +58,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
         holder.tanggal.setText(notifs.get(position).getTanggal());
         holder.status_notif.setText(notifs.get(position).getStatus());
         holder.detail_resi.setText(notifs.get(position).getDetail());
-        switch(notifs.get(position).getStatus()) {
-            case "Terkirim":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_terkirim);
-                break;
-            case "Verifikasi":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_verifikasi);
-                break;
-            case "Proses":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_proses);
-                break;
-            case "Survey":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_survey);
-                break;
-            case "Pending":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_pending);
-                break;
-            case "Analisa Kredit":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_analisa);
-                break;
-            case "Ditolak":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_ditolak);
-                break;
-            case "Pencairan":
-                holder.status_notif.setBackgroundResource(R.drawable.capsule_pencairan);
-                break;
-            default:
-                break;
-        }
+//
 
 
     }

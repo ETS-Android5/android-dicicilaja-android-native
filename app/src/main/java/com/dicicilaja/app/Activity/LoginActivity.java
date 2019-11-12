@@ -234,6 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     session.createLoginSession(
+                            resObj.getUserIdOneSignal(),
                             resObj.getUserId(),
                             resObj.getToken().getAccessToken(),
                             resObj.getRole(),

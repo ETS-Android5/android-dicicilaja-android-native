@@ -1,5 +1,6 @@
 package com.dicicilaja.app.Inbox.Network;
 
+import com.dicicilaja.app.Inbox.Data.Notif.Notification;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 
@@ -14,7 +15,7 @@ public interface ApiService {
     })
 
     @GET("auth/notification/view/personal")
-    Call<Provinsi> getNotifPersonal(@Query("user_id") int id);
+    Call<Notification> getNotifPersonal(@Query("user_id") String id);
 
     @GET("auth/popup/view")
     Call<Popup> getPopup(@Query("role") String role);

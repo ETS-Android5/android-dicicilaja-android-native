@@ -30,11 +30,12 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode,
+    public void createLoginSession(String user_id_onesignal ,String user_id, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode,
                                    String firebase_token,
                                    String phone,
                                    String email){
         editor.putBoolean(IS_LOGIN, true);
+        editor.putString("user_id_onesignal", user_id_onesignal);
         editor.putString("user_id", user_id);
         editor.putString("axi_id", user_id);
         editor.putString("name", name);
@@ -59,6 +60,10 @@ public class SessionManager {
     public void editLoginSessionCustomer(String name){
         editor.putString("name", name);
         editor.commit();
+    }
+
+    public String getUserIdOneSignal() {
+        return pref.getString("user_id_onesignal", null);
     }
 
     public String getUserId() {

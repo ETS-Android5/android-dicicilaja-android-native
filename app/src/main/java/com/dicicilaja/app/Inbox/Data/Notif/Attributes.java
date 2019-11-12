@@ -1,61 +1,65 @@
+
 package com.dicicilaja.app.Inbox.Data.Notif;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attributes{
+public class Attributes {
 
-	@SerializedName("schedule")
-	private Object schedule;
+    @SerializedName("url")
+    @Expose
+    private String url;
+    @SerializedName("data")
+    @Expose
+    private Object data;
+    @SerializedName("buttons")
+    @Expose
+    private Object buttons;
+    @SerializedName("schedule")
+    @Expose
+    private Object schedule;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
-	@SerializedName("buttons")
-	private Object buttons;
+    public String getUrl() {
+        return url;
+    }
 
-	@SerializedName("data")
-	private Object data;
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	@SerializedName("message")
-	private String message;
+    public Object getData() {
+        return data;
+    }
 
-	@SerializedName("url")
-	private String url;
+    public void setData(Object data) {
+        this.data = data;
+    }
 
-	public void setSchedule(Object schedule){
-		this.schedule = schedule;
-	}
+    public Object getButtons() {
+        return buttons;
+    }
 
-	public Object getSchedule(){
-		return schedule;
-	}
+    public void setButtons(Object buttons) {
+        this.buttons = buttons;
+    }
 
-	public void setButtons(Object buttons){
-		this.buttons = buttons;
-	}
+    public Object getSchedule() {
+        return schedule;
+    }
 
-	public Object getButtons(){
-		return buttons;
-	}
+    public void setSchedule(Object schedule) {
+        this.schedule = schedule;
+    }
 
-	public void setData(Object data){
-		this.data = data;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public Object getData(){
-		return data;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setMessage(String message){
-		this.message = message;
-	}
-
-	public String getMessage(){
-		return message;
-	}
-
-	public void setUrl(String url){
-		this.url = url;
-	}
-
-	public String getUrl(){
-		return url;
-	}
 }

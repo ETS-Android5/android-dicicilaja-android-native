@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Login {
+    @SerializedName("user_id_onesignal")
+    @Expose
+    private String userIdOneSignal;
     @SerializedName("user_id")
     @Expose
     private String userId;
@@ -39,6 +42,14 @@ public class Login {
     @SerializedName("email")
     @Expose
     private String email;
+
+    public String getUserIdOneSignal() {
+        return userIdOneSignal;
+    }
+
+    public void setUserIdOneSignal(String userIdOneSignal) {
+        this.userIdOneSignal = userIdOneSignal;
+    }
 
     public String getUserId() {
         return userId;

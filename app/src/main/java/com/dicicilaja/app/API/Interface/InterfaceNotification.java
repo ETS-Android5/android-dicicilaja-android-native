@@ -14,6 +14,6 @@ public interface InterfaceNotification {
     @Headers({
             "Accept: application/json",
     })
-    @GET("notification")
+    @GET("z")
     Call<Notification> getNotification(@Header("Authorization") String apiKey);
 }

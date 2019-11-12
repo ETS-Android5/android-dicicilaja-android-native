@@ -20,9 +20,10 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfaceNotification;
-import com.dicicilaja.app.API.Model.Notification.Notification;
 import com.dicicilaja.app.Adapter.NotifAdapter;
+import com.dicicilaja.app.Inbox.Data.Notif.Datum;
+import com.dicicilaja.app.Inbox.Data.Notif.Notification;
+import com.dicicilaja.app.Inbox.Network.ApiService;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 
 
 public class NotificationActivity extends AppCompatActivity {
-    List<com.dicicilaja.app.API.Model.Notification.Datum> notifs;
+    List<Datum> notifs;
     String apiKey;
 
     LinearLayout order;
@@ -65,10 +66,10 @@ public class NotificationActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        InterfaceNotification apiService =
-                RetrofitClient.getClient().create(InterfaceNotification.class);
+        ApiService apiService =
+                RetrofitClient.getClient().create(ApiService.class);
 
-        Call<Notification> call = apiService.getNotification(apiKey);
+        Call<com.dicicilaja.app.Inbox.Data.Notif.Notification> call = apiService.getNotifPersonal(session.getUserIdOneSignal());
         call.enqueue(new Callback<Notification>() {
             @Override
             public void onResponse(Call<Notification> call, Response<Notification> response) {

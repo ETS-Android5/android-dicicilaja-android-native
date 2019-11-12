@@ -909,7 +909,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     private void oneSignalSubscribe() {
         try {
             JSONObject tags = new JSONObject();
-            tags.put("user_id", session.getUserId());
+            tags.put("user_id_onesignal", session.getUserId());
             tags.put("role", session.getRole());
             OneSignal.sendTags(tags);
         } catch (Exception ex) {}
