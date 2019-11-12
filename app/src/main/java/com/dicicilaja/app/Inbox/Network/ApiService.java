@@ -1,5 +1,6 @@
 package com.dicicilaja.app.Inbox.Network;
 
+import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 
 import retrofit2.Call;
@@ -12,6 +13,9 @@ public interface ApiService {
             "Accept: application/vnd.api+json",
     })
 
-    @GET("/auth/notification/view/personal")
+    @GET("auth/notification/view/personal")
     Call<Provinsi> getNotifPersonal(@Query("user_id") int id);
+
+    @GET("auth/popup/view")
+    Call<Popup> getPopup(@Query("role") String role);
 }

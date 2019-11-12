@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Inbox.Data;
+package com.dicicilaja.app.Inbox.Data.Notif;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

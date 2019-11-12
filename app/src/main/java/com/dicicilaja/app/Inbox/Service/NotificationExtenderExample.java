@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Inbox;
+package com.dicicilaja.app.Inbox.Service;
 
 import android.util.Log;
 

@@ -57,6 +57,8 @@ import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
+import com.dicicilaja.app.Inbox.Data.Popup.Popup;
+import com.dicicilaja.app.Inbox.UI.PopUpActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -106,11 +108,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     RelativeLayout allpromo;
 
     ApiService3 apiService3;
+    com.dicicilaja.app.Inbox.Network.ApiService apiService4;
 
     HashMap<String, String> file_maps;
 
     /*update*/
-    ProgressDialog progress;
+    ProgressDialog progress, progress_popup;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.slider)
@@ -213,6 +216,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     Dialog InAppDialog;
 
     TextView lihat, tutup;
+    ImageView thumbnail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,48 +228,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
 
-        try {
-            JSONObject tags = new JSONObject();
-            tags.put("user_id", session.getUserId());
-            tags.put("role", session.getRole());
-            OneSignal.sendTags(tags);
-        } catch (Exception ex) {}
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
+        apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
 
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(false)
-                .init();
-
-        session = new SessionManager(AxiDashboardActivity.this);
-
-        InAppDialog = new Dialog(AxiDashboardActivity.this);
-        InAppDialog.setContentView(R.layout.in_app_dialog);
-        InAppDialog.setTitle("In App Dialog");
-        InAppDialog.setCanceledOnTouchOutside(false);
-        InAppDialog.setCancelable(false);
-        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        lihat = InAppDialog.findViewById(R.id.lihat);
-        tutup = InAppDialog.findViewById(R.id.tutup);
-
-        lihat.setEnabled(true);
-        tutup.setEnabled(true);
-
-        lihat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "LIHAT", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        tutup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InAppDialog.cancel();
-            }
-        });
-
-        InAppDialog.show();
+        oneSignalSubscribe();
+        inAppDialog();
 
 
 //        FirebaseInstanceId.getInstance().getInstanceId()
@@ -286,8 +253,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                        Toast.makeText(AxiDashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-
-        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -939,5 +904,120 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                startActivity(intent);
 //                break;
         }
+    }
+
+    private void oneSignalSubscribe() {
+        try {
+            JSONObject tags = new JSONObject();
+            tags.put("user_id", session.getUserId());
+            tags.put("role", session.getRole());
+            OneSignal.sendTags(tags);
+        } catch (Exception ex) {}
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(false)
+                .init();
+    }
+
+    private void inAppDialog() {
+        InAppDialog = new Dialog(AxiDashboardActivity.this);
+        InAppDialog.setContentView(R.layout.in_app_dialog);
+        InAppDialog.setCanceledOnTouchOutside(false);
+        InAppDialog.setCancelable(false);
+        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+        lihat = InAppDialog.findViewById(R.id.lihat);
+        tutup = InAppDialog.findViewById(R.id.tutup);
+
+        Glide.with(AxiDashboardActivity.this)
+                .load("https://images-loyalty.ovo.id/public/deal/10/61/l/16618.jpg?ver=1")
+                .centerCrop()
+                .into(thumbnail);
+
+        lihat.setEnabled(true);
+        tutup.setEnabled(true);
+
+        lihat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InAppDialog.cancel();
+                Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
+                intent.putExtra("url", "https://images-loyalty.ovo.id/public/deal/10/61/l/16618.jpg?ver=1");
+                startActivity(intent);
+            }
+        });
+
+        tutup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InAppDialog.cancel();
+            }
+        });
+
+        InAppDialog.show();
+
+//        progress_popup = new ProgressDialog(this);
+//        progress_popup.setCanceledOnTouchOutside(false);
+//        progress_popup.show();
+//
+//        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+//        popupCall.enqueue(new Callback<Popup>() {
+//            @Override
+//            public void onResponse(Call<Popup> call, Response<Popup> response) {
+//                progress_popup.hide();
+//                if (response.isSuccessful()) {
+//                    try {
+//                        InAppDialog = new Dialog(AxiDashboardActivity.this);
+//                        InAppDialog.setContentView(R.layout.in_app_dialog);
+//                        InAppDialog.setCanceledOnTouchOutside(false);
+//                        InAppDialog.setCancelable(false);
+//                        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//                        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+//
+//                        Glide.with(AxiDashboardActivity.this)
+//                                .load("http://lorempixel.com/400/600/cats/")
+//                                .centerCrop()
+//                                .into(thumbnail);
+//
+//
+//                        lihat = InAppDialog.findViewById(R.id.lihat);
+//                        tutup = InAppDialog.findViewById(R.id.tutup);
+//
+//                        lihat.setEnabled(true);
+//                        tutup.setEnabled(true);
+//
+//                        lihat.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                InAppDialog.cancel();
+//                                Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
+//                                intent.putExtra("url", response.body().getData().getAttributes().getUrl());
+//                                startActivity(intent);
+//                            }
+//                        });
+//
+//                        tutup.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                InAppDialog.cancel();
+//                            }
+//                        });
+//
+//                        InAppDialog.show();
+//                    } catch (Exception ex) {
+//                    }
+//                } else {
+//                    progress_popup.hide();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Popup> call, Throwable t) {
+//                progress_popup.hide();
+//            }
+//        });
     }
 }

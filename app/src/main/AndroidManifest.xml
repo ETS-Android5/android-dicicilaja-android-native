@@ -14,9 +14,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE"/>
+        <activity android:name=".Inbox.UI.PopUpActivity"></activity>
 
-        <activity android:name=".OrderIn.UI.InformasiJaminan2Activity"></activity>
+        <activity android:name=".OrderIn.UI.InformasiJaminan2Activity" />
+
         <activity android:name=".OrderIn.UI.OrderInProductActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
@@ -31,7 +32,7 @@
         <activity android:name=".OrderIn.UI.DataCalonPeminjamActivity" />
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
@@ -54,8 +55,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity">
-        </activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -115,7 +115,7 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -787,6 +787,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
         </activity>
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -796,46 +799,39 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
+        </provider> <!-- <service -->
+        <!-- android:name=".Inbox.MessagingService" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <meta-data -->
+        <!-- android:name="preloaded_fonts" -->
+        <!-- android:resource="@array/preloaded_fonts" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.firebase.messaging.default_notification_icon" -->
+        <!-- android:resource="@mipmap/ic_launcher_round" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.firebase.messaging.default_notification_color" -->
+        <!-- android:resource="@color/colorAccent" /> -->
         <service
-            android:name=".Inbox.MessagingService"
-            android:exported="false">
+            android:name=".Inbox.Service.NotificationExtenderExample"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.onesignal.NotificationExtender" />
             </intent-filter>
         </service>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher_round" />
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-
-        <service android:name=".Inbox.NotificationExtenderExample"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.onesignal.NotificationExtender"/>
-            </intent-filter>
-        </service>
-
-
     </application>
-    <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera.flash" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
