@@ -334,7 +334,7 @@ public class OrderInActivity extends AppCompatActivity {
 
         try {
             if (sessionUser.getRole().equals("axi")) {
-                etAxiIdReff.setText(session.getAgen_id());
+                etAxiIdReff.setText(session.getAgen_axi_id());
                 etAxiIdReff.setEnabled(false);
                 etAxiIdReff.setTextColor(getResources().getColor(R.color.colorBackground));
                 cariAxiClose.setVisibility(View.GONE);

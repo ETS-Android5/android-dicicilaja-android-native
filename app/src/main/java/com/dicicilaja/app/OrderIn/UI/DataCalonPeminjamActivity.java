@@ -80,6 +80,14 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     SearchableSpinner spinnerKelurahan;
     @BindView(R.id.layoutKelurahan)
     TextInputLayout layoutKelurahan;
+    @BindView(R.id.layout_nama_lengkap)
+    TextInputLayout layoutNamaLengkap;
+    @BindView(R.id.layout_email)
+    TextInputLayout layoutEmail;
+    @BindView(R.id.layout_hp)
+    TextInputLayout layoutHp;
+    @BindView(R.id.layout_alamat)
+    TextInputLayout layoutAlamat;
 
     SessionOrderIn session;
 
@@ -97,14 +105,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     final List<String> KELURAHAN_ITEMS = new ArrayList<>();
     final List<String> KELURAHAN_KODEPOS = new ArrayList<>();
     final HashMap<Integer, String> KELURAHAN_DATA = new HashMap<Integer, String>();
-    @BindView(R.id.layout_nama_lengkap)
-    TextInputLayout layoutNamaLengkap;
-    @BindView(R.id.layout_alamat)
-    TextInputLayout layoutAlamat;
-    @BindView(R.id.layout_hp)
-    TextInputLayout layoutHp;
-    @BindView(R.id.layout_email)
-    TextInputLayout layoutEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -485,7 +485,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 etNamaLengkap.removeTextChangedListener(this);
-                validateNamaLengkap();
+                validateName();
                 etNamaLengkap.addTextChangedListener(this);
             }
         });
@@ -548,33 +548,6 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         });
     }
 
-    public static boolean isNamaLengkap(String nama_lengkap) {
-        String expression = "^[a-z.'/ A-Z0-9-]+$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(nama_lengkap);
-        return matcher.matches();
-    }
-
-    private boolean validateNamaLengkap() {
-        if (etNamaLengkap.getText().toString().trim().isEmpty()) {
-            layoutNamaLengkap.setErrorEnabled(false);
-        } else {
-            String emailId = etNamaLengkap.getText().toString();
-            String expression = "^[a-z.'/ A-Z0-9-]+$";
-            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(emailId);
-            Boolean isValid = matcher.matches();
-            if (!isValid) {
-                layoutNamaLengkap.setError("Masukan nama lengkap dengan benar");
-                requestFocus(etNamaLengkap);
-                return false;
-            } else {
-                layoutNamaLengkap.setErrorEnabled(false);
-            }
-        }
-        return true;
-    }
-
     public static boolean isEmail(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -597,6 +570,33 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                 return false;
             } else {
                 layoutEmail.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isName(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateName() {
+        if (etNamaLengkap.getText().toString().trim().isEmpty()) {
+            layoutNamaLengkap.setErrorEnabled(false);
+        } else {
+            String emailId = etNamaLengkap.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                layoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: John Snow");
+                requestFocus(etNamaLengkap);
+                return false;
+            } else {
+                layoutNamaLengkap.setErrorEnabled(false);
             }
         }
         return true;
@@ -1497,7 +1497,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (!isNamaLengkap(name)) {
+        } else if (!isName(name)) {
             AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
             alertDialog5.setTitle("Perhatian");
             alertDialog5.setMessage("Masukan nama lengkap yang benar");
