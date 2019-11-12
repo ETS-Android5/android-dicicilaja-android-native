@@ -565,7 +565,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             Matcher matcher = pattern.matcher(emailId);
             Boolean isValid = matcher.matches();
             if (!isValid) {
-                layoutEmail.setError("Masukan alamat email dengan benar\ncontoh: john@example.com");
+                layoutEmail.setError("Masukan alamat email dengan benar\ncontoh: budi.susanto@gmail.com");
                 requestFocus(etAlamatEmail);
                 return false;
             } else {
@@ -592,7 +592,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             Matcher matcher = pattern.matcher(emailId);
             Boolean isValid = matcher.matches();
             if (!isValid) {
-                layoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: John Snow");
+                layoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: Budi Susanto");
                 requestFocus(etNamaLengkap);
                 return false;
             } else {
