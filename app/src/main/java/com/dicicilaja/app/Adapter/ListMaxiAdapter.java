@@ -44,7 +44,11 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Data itemModel = produk.get(position);
         holder.tv_title.setText(itemModel.getName());
-        holder.tv_jenis.setText(itemModel.getExcerpt());
+        if (itemModel.getExcerpt().length() > 96) {
+            holder.tv_jenis.setText(itemModel.getExcerpt().substring(0, 97).trim() + "...");
+        }else{
+            holder.tv_jenis.setText(itemModel.getExcerpt());
+        }
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
         //Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
