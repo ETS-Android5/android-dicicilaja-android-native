@@ -1,11 +1,14 @@
 package com.dicicilaja.app.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
 import com.dicicilaja.app.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.jsoup.Jsoup;
 
 import java.util.List;
 
@@ -40,14 +45,15 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         return singleItemRowHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Data itemModel = produk.get(position);
         holder.tv_title.setText(itemModel.getName());
         if (itemModel.getExcerpt().length() > 96) {
-            holder.tv_jenis.setText(itemModel.getExcerpt().substring(0, 97).trim() + "...");
+            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text().substring(0, 97).trim() + "...");
         }else{
-            holder.tv_jenis.setText(itemModel.getExcerpt());
+            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text());
         }
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
@@ -67,6 +73,14 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     @Override
     public int getItemCount() {
         return produk.size();
+    }
+
+    public String stripHtml(String html) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString();
+        } else {
+            return Html.fromHtml(html).toString();
+        }
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
