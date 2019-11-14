@@ -75,7 +75,7 @@
                         android:layout_below="@+id/tv_harga"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="200"
+                        android:maxLength="500"
                         android:textSize="10sp"
                         android:textColor="@color/colorBackground"
                         android:text="Mitra Travel"/>

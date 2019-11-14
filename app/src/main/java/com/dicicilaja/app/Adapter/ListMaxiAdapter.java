@@ -50,8 +50,8 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Data itemModel = produk.get(position);
         holder.tv_title.setText(itemModel.getName());
-        if (itemModel.getExcerpt().length() > 96) {
-            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text().substring(0, 97).trim() + "...");
+        if (itemModel.getExcerpt().length() >= 500) {
+            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text().substring(0, 497).trim() + "...");
         }else{
             holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text());
         }
