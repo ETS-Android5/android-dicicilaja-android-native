@@ -36,7 +36,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
     SessionManager session;
     String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
     String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
-    String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
+    String nama_bank, kode_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     String npwp, nama_npwp, status_npwp, pkp_status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         jk              = getIntent().getStringExtra("jk");
         status          = getIntent().getStringExtra("status");
         nama_bank       = getIntent().getStringExtra("nama_bank");
+        kode_bank       = getIntent().getStringExtra("kode_bank");
         no_rekening     = getIntent().getStringExtra("no_rekening");
         cabang_bank     = getIntent().getStringExtra("cabang_bank");
         an_rekening     = getIntent().getStringExtra("an_rekening");
@@ -160,6 +161,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
                     intent.putExtra("jk",jk);
                     intent.putExtra("status",status);
                     intent.putExtra("nama_bank",nama_bank);
+                    intent.putExtra("kode_bank",kode_bank);
                     intent.putExtra("no_rekening",no_rekening);
                     intent.putExtra("cabang_bank",cabang_bank);
                     intent.putExtra("an_rekening",an_rekening);
@@ -182,6 +184,17 @@ public class RegisterAxi4Activity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(inputNPWP);
                 }
+            });
+            alertDialog.show();
+            return false;
+        } else if (npwp.trim().length() < 15){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi4Activity.this);
+            alertDialog.setMessage("No.NPWP harus 15 karakter");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int which) {
+                     requestFocus(inputNPWP);
+                 }
             });
             alertDialog.show();
             return false;

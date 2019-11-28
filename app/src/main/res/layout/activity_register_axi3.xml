@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -18,253 +17,268 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="@color/colorBlack">
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="5">
-                <RelativeLayout
-                    android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:weightSum="5">
+                    <RelativeLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="1"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="25dp"
+                    android:orientation="vertical">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Informasi Rekening"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNamaBank"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="3"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:hint="Nama Bank *"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bank"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerBank"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNoRekening"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:hint="No. Rekening *"
+                        android:layout_marginTop="10dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputNoRekening"
+                            android:layout_width="match_parent"
+                            app:met_helperText="Contoh : 073652642"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="number"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@id/inputCabangBank"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:maxLength="18"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutCabangBank"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="5"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:hint="Cabang Bank *"
+                        android:layout_marginTop="10dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputCabangBank"
+                            android:layout_width="match_parent"
+                            app:met_helperText="Contoh : Jakarta Selatan"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@id/inputANRekening"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutANRekening"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
+                        android:hint="A/N Rekening *"
+                        android:layout_marginTop="10dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputANRekening"
+                            android:layout_width="match_parent"
+                            app:met_helperText="Sesuai pada buku rekening"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@id/inputKotaBank"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutKotaBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Kota Bank *"
+                        android:layout_marginTop="10dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputKotaBank"
+                            android:layout_width="match_parent"
+                            app:met_helperText="Contoh : DKI Jakarta"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionDone"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <Button
+                        android:id="@+id/btnLanjut"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/colorAccent"
+                        android:text="Lanjut"
                         android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="25dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Informasi Rekening"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutNamaBank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Bank *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputNamaBank"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : Danamon"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputNoRekening"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutNoRekening"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="No. Rekening *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputNoRekening"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : 073652642"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="number"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputCabangBank"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutCabangBank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Cabang Bank *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputCabangBank"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : Jakarta Selatan"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputANRekening"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutANRekening"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="A/N Rekening *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputANRekening"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Sesuai pada buku rekening"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputKotaBank"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutKotaBank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kota Bank *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputKotaBank"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : DKI Jakarta"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <Button
-                    android:id="@+id/btnLanjut"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Lanjut"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
+        </ScrollView>
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    </RelativeLayout>
 </LinearLayout>
