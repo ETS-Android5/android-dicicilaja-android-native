@@ -359,7 +359,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (desa == null || desa.trim().length() == 0 || desa.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan desa");
+            alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -371,7 +371,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (distrik == null || distrik.trim().length() == 0 || distrik.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan distrik");
+            alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
