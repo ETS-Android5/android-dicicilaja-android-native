@@ -242,7 +242,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputNamaBank);
+                    requestFocus(spinnerBank);
                 }
             });
             alertDialog.show();
