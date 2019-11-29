@@ -34,6 +34,9 @@ public class Data {
     @SerializedName("views")
     @Expose
     private Integer views;
+    @SerializedName("tenor")
+    @Expose
+    private List<TenorItem> tenor;
 
     public Integer getId() {
         return id;
@@ -99,4 +102,11 @@ public class Data {
         this.views = views;
     }
 
+    public List<TenorItem> getTenor() {
+        return tenor;
+    }
+
+    public void setTenor(List<TenorItem> tenor) {
+        this.tenor = tenor;
+    }
 }

@@ -73,7 +73,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_category);
-        Fresco.initialize(getBaseContext());
+//        Fresco.initialize(getBaseContext());
         final SessionManager session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
@@ -242,8 +242,9 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         }
 
         search = findViewById(R.id.recycler_search);
-        search.setHasFixedSize(true);
+        search.setHasFixedSize(false);
         search.setLayoutManager(new GridLayoutManager(this, 2));
+
         InterfaceMaxiProgram apiService =
                 RetrofitClient.getClient().create(InterfaceMaxiProgram.class);
 

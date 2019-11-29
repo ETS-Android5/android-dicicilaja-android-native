@@ -12,19 +12,28 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Tenor;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.TenorItem;
 import com.dicicilaja.app.R;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
 
 import java.util.List;
 
+
 public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.SingleItemRowHolder> {
     private List<Data> produk;
+    private List<TenorItem> tenor;
+    private StringBuilder sb = new StringBuilder();
+    private String cicilan;
     private Context mContext;
 
     public ListMaxiAdapter(List<Data> produk, Context mContext) {
@@ -49,22 +58,37 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
         final Data itemModel = produk.get(position);
+        sb = new StringBuilder();
         holder.tv_title.setText(itemModel.getName());
-        if (itemModel.getExcerpt().length() >= 500) {
-            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text().substring(0, 497).trim() + "...");
+        if (itemModel.getName().length() >= 35) {
+            holder.tv_title.setText(itemModel.getName().substring(0, 32).trim() + "...");
         }else{
-            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text());
+            holder.tv_title.setText(itemModel.getName());
         }
+//        if (itemModel.getExcerpt().length() >= 150) {
+//            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text().substring(0, 147).trim() + "...");
+//        }else{
+//            holder.tv_jenis.setText(Jsoup.parse(itemModel.getExcerpt()).text());
+//        }
         holder.tv_mitra.setText(itemModel.getPartner());
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
-        //Picasso.with(mContext).load(itemModel.getImage()).into(holder.discount_image);
+        for(int i = 0 ; i<itemModel.getTenor().size();i++){
+            if (i == 0) {
+                sb.append(itemModel.getTenor().get(i).getCicilan()).toString();
+            }else{
+                sb.append("\n"+itemModel.getTenor().get(i).getCicilan()).toString();
+            }
+        }
+        cicilan = sb.toString();
+        holder.tv_cicilan.setText(cicilan);
         Uri uri = Uri.parse(itemModel.getImage());
-        holder.discount_image.setImageURI(uri);
+        Picasso.get().load(uri).into(holder.discount_image);
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,ProductMaxiActivity.class);
                 intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
+                intent.putExtra("DESC", itemModel.getExcerpt());
                 view.getContext().startActivity(intent);
             }
         });
@@ -86,10 +110,10 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         protected TextView tv_title;
-        protected SimpleDraweeView discount_image;
-        protected TextView tv_jenis;
+        protected ImageView discount_image;
         protected TextView tv_harga;
         protected TextView tv_mitra;
+        protected TextView tv_cicilan;
         protected CardView card_promo;
 
 
@@ -97,9 +121,9 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         public SingleItemRowHolder(View itemView) {
             super(itemView);
             this.tv_title = itemView.findViewById(R.id.tv_title);
-            this.tv_jenis = itemView.findViewById(R.id.tv_jenis);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
+            this.tv_cicilan = itemView.findViewById(R.id.tv_cicilan);
             this.card_promo = itemView.findViewById(R.id.card_promo);
             this.discount_image = itemView.findViewById(R.id.discount_image);
         }

@@ -48,37 +48,36 @@ public class BerandaImageSliderAdapter extends SliderViewAdapter<BerandaImageSli
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(0))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(0));
                 break;
             case 1:
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(1))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(1));
                 break;
             case 2:
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(2))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(2));
                 break;
             case 3:
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(3))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(3));
                 break;
             case 4:
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(4))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(4));
+                break;
+            case 5:
+                Glide.with(viewHolder.itemView)
+                        .load(file_maps.get(5))
+                        .into(viewHolder.imageViewBackground);
                 break;
             default:
                 Glide.with(viewHolder.itemView)
                         .load(file_maps.get(position))
                         .into(viewHolder.imageViewBackground);
-                viewHolder.textViewDescription.setText(file_maps.get(position));
                 break;
         }
     }
