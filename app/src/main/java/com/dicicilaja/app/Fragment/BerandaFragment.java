@@ -2,8 +2,10 @@ package com.dicicilaja.app.Fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,8 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,13 +32,13 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
+import com.dicicilaja.app.Adapter.BerandaImageSliderAdapter;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.text.NumberFormat;
@@ -49,9 +49,7 @@ import java.util.Locale;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
-import com.dicicilaja.app.API.Interface.InterfaceSimulation;
 import com.dicicilaja.app.API.Interface.InterfaceSimulationProcess;
-import com.dicicilaja.app.API.Model.Colleteral.Colleteral;
 import com.dicicilaja.app.API.Model.Simulation.Simulation;
 import com.dicicilaja.app.Activity.AjukanPengajuanAxiActivity;
 import com.dicicilaja.app.Activity.AllPartnerActivity;
@@ -59,7 +57,6 @@ import com.dicicilaja.app.Activity.ProductCategoryActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePartner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRecommendation;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Partner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
 import com.dicicilaja.app.Activity.SimulasiActivity;
@@ -72,6 +69,10 @@ import com.dicicilaja.app.Content.RekomendasiModel;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.WebView.AboutAxiMarketplaceActivity;
 import com.dicicilaja.app.WebView.AboutMaxiMarketplaceActivity;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -81,6 +82,7 @@ import retrofit2.Response;
  */
 public class BerandaFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
+    SliderView sliderView;
     SliderLayout mDemoSlider;
     private ArrayList<PromoModel> promoData;
     private ArrayList<RekomendasiModel> rekomendasiData;
@@ -90,6 +92,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     com.dicicilaja.app.Remote.AreaService AreaService;
     MaterialSpinner spinnerJaminan,spinnerArea,spinnerTenor;
     Integer jaminan_value, area_value, tenor_value;
+    Integer maxSlide;
 
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
@@ -100,7 +103,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
 
-    HashMap<String, String> file_maps;
+    HashMap<Integer, String> file_maps;
     String v_harga_simulasi;
     String v_tenor;
 
@@ -115,6 +118,12 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     RelativeLayout show_all_partner, show_all_promo, show_all_recommend;
 
     ProgressDialog progress;
+
+//    private final static String APP_TITLE="Dicicilaja";
+//    private final static String APP_PNAME="com.dicicilaja.app";
+//    private final static int DAYS_UNTIL_PROMPT = 30;//Min number of days
+//    private final static int LAUNCHES_UNTIL_PROMPT = 20;//Min number of launches
+
     public BerandaFragment() {
         // Required empty public constructor
     }
@@ -125,7 +134,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_beranda, container, false);
-        mDemoSlider = (SliderLayout) view.findViewById(R.id.slider);
+//        mDemoSlider = (SliderLayout) view.findViewById(R.id.slider);
+        sliderView = view.findViewById(R.id.imageSlider);
         title_program_agen = view.findViewById(R.id.title_program_agen);
         program_axi = view.findViewById(R.id.program_axi);
         program_maxi = view.findViewById(R.id.program_maxi);
@@ -158,6 +168,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         title_program_agen.setTypeface(opensans_bold);
         program_maxi.setTypeface(opensans_semibold);
         program_axi.setTypeface(opensans_semibold);
+//        app_launched(getContext());
 //        simulasi_title.setTypeface(opensans_semibold);
 //        simulasi_subtitle.setTypeface(opensans_reguler);
 //
@@ -196,6 +207,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+
 
 //        InterfaceSimulation apiServiceColleteral =
 //                RetrofitClient.getClient().create(InterfaceSimulation.class);
@@ -389,135 +401,30 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         });
 
 
-        file_maps = new HashMap<String, String>();
+        file_maps = new HashMap<Integer, String>();
 
 //        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
 //        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
         InterfaceCustomerSlider apiSlider2 =
                 com.dicicilaja.app.API.Client.RetrofitClient.getClient().create(InterfaceCustomerSlider.class);
-
         Call<AxiSlider> call5 = apiSlider2.getSlider();
         call5.enqueue(new Callback<AxiSlider>() {
             @Override
             public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
-                progress.dismiss();
-                List <Datum> slider = response.body().getData();
+//                progress.dismiss();
+                List<Datum> slider = response.body().getData();
+                maxSlide = slider.size();
                 for (int i = 0; i < slider.size(); i++) {
                     Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                    file_maps.put(i, slider.get(i).getImage());
                 }
-
-                /*for(final String name1 : file_maps.keySet()) {
-                    final DefaultSliderView sliderView = new DefaultSliderView(getContext());
-                    // initialize a SliderLayout
-                    sliderView
-                            .image(file_maps.get(name1))
-                            .setScaleType(BaseSliderView.ScaleType.CenterCrop);
-                    sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                        @Override
-                        public void onSliderClick(BaseSliderView slider) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(name1.toString()));
-                            startActivity(browserIntent);
-                        }
-                    });
-                    mDemoSlider.addSlider(sliderView);
-                }*/
-
-                for(final Datum s: slider) {
-                    Log.d("DASH::::", s.getImage());
-                    DefaultSliderView sliderBannerItem = new DefaultSliderView(getContext());
-                    sliderBannerItem
-                            .image(s.getImage())
-                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                                @Override
-                                public void onSliderClick(BaseSliderView slider) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
-                                    startActivity(browserIntent);
-                                }
-                            });
-                    mDemoSlider.addSlider(sliderBannerItem);
-                }
+                setSliderView(getContext(),maxSlide,file_maps);
             }
 
             @Override
             public void onFailure(Call<AxiSlider> call, Throwable t) {
             }
         });
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-//        mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
-//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
-        mDemoSlider.setDuration(4000);
-//        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-//        mDemoSlider.addOnPageChangeListener(this);
-
-//        harga_simulasi = view.findViewById(R.id.harga_simulasi);
-//        jaminan = view.findViewById(R.id.jaminan);
-//        tenor = view.findViewById(R.id.tenor);
-//        arearequest = view.findViewById(R.id.arearequest);
-
-//        tenor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                v_tenor = tenor.getItemAtPosition(i).toString();
-//                tenor_value = i + 1;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//        jaminan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                jaminan_value = i + 1;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//        arearequest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                area_value = i + 1;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//
-//        v_harga_simulasi = harga_simulasi.getText().toString();
-
-
-
-//        btn_hitung.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                progress.show();
-//                try {
-//                    s_area = String.valueOf(area_value);
-//                    s_jaminan = String.valueOf(jaminan_value);
-//                    s_tenor = String.valueOf(tenor_value);
-//                    s_harga = harga_simulasi.getText().toString().replace(".","");
-//                }catch (Exception ex) {
-//
-//                }
-//                Log.d("Simulasi","area : " + area_value.toString());
-//                Log.d("Simulasi","s_jaminan : " + jaminan_value.toString());
-//                Log.d("Simulasi","s_tenor : " + v_tenor);
-//                Log.d("Simulasi","s_harga : " + harga_simulasi.getText().toString().replace(".",""));
-//
-//                if(validateForm(s_area, s_jaminan, s_tenor, s_harga)) {
-//                    hitungSimulasi(area_value.toString(), jaminan_value.toString(), harga_simulasi.getText().toString().replace(".",""), v_tenor);
-//                }
-//            }
-//        });
-
         maxi_travel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -604,6 +511,78 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //        });
         return view;
     }
+
+    private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){
+        sliderView.setSliderAdapter(new BerandaImageSliderAdapter(context,maxSlide,file_maps));
+        sliderView.startAutoCycle();
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+    }
+
+//    public static void app_launched(Context mContext) {
+//        SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
+//        if (prefs.getBoolean("dontshowagain", false)) { return ; }
+//
+//        SharedPreferences.Editor editor = prefs.edit();
+//
+//        // Increment launch counter
+//        long launch_count = prefs.getLong("launch_count", 0) + 1;
+//        editor.putLong("launch_count", launch_count);
+//        System.out.println("launch_count: "+ launch_count);
+//
+//        // Get date of first launch
+//        Long date_firstLaunch = prefs.getLong("date_firstlaunch", 0);
+//        if (date_firstLaunch == 0) {
+//            date_firstLaunch = System.currentTimeMillis();
+//            editor.putLong("date_firstlaunch", date_firstLaunch);
+//            System.out.println("date_firstlaunch: "+ date_firstLaunch);
+//        }
+//        System.out.println("date_firstlaunch: "+ date_firstLaunch);
+//
+//        // Wait at least n days before opening
+//        if (launch_count >= LAUNCHES_UNTIL_PROMPT) {
+//            if (System.currentTimeMillis() >= date_firstLaunch +
+//                    (DAYS_UNTIL_PROMPT * 24 * 60 * 60 * 1000)) {
+//                showRateDialog(mContext, editor);
+//                launch_count=0;
+//                editor.putLong("launch_count", launch_count);
+//            }
+//        }
+//
+//        editor.commit();
+//    }
+//
+//    public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+//        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
+//        builder.setMessage("If you enjoy using " + APP_TITLE + ", please take a moment to rate it. Thanks for your support!")
+//                .setTitle("Rate " + APP_TITLE);
+//
+//        // Add the buttons
+//        builder.setPositiveButton("Rate " + APP_TITLE, new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
+//                editor.putBoolean("dontshowagain", true);
+//                dialog.dismiss();
+//            }
+//        });
+//        builder.setNeutralButton("Remind me later " , new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.dismiss();
+//            }
+//        });
+//        builder.setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                if (editor != null) {
+//                    editor.putBoolean("dontshowagain", true);
+//                    editor.commit();
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        android.app.AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+
 
     private void createDummyData() {
         for (int j = 1; j <= 5; j++) {
@@ -757,7 +736,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     @Override
     public void onStop() {
-        mDemoSlider.stopAutoCycle();
+//        mDemoSlider.stopAutoCycle();
         super.onStop();
     }
     @Override

@@ -160,7 +160,8 @@
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
                         android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:maxLength="16"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -433,7 +434,8 @@
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
                         android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:maxLength="5"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <Button

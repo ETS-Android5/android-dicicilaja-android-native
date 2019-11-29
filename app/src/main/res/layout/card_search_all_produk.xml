@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:padding="5dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/card_promos">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,25 +14,26 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_rekomendasi"
+            android:id="@+id/card_promo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:clickable="true"
             android:layout_gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
             card_view:cardCornerRadius="4dp"
             android:elevation="100dp"
-            android:contextClickable="true"
-            android:layout_margin="5dp">
+            android:layout_margin="4dp">
             <RelativeLayout
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+                android:layout_width="wrap_content"
+                android:padding="8dp"
+                android:layout_height="200dp">
                 <RelativeLayout
                     android:id="@+id/top_card"
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_centerHorizontal="true"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/discount_image"
                         android:layout_width="match_parent"
@@ -47,21 +48,32 @@
                     <TextView
                         android:id="@+id/tv_title"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
                         android:textAllCaps="true"
+                        android:gravity="fill_vertical"
                         android:textColor="@color/colorAccent2"
                         android:text="Umroh Free Tour Istanbul Turki"/>
+
+
+                    <View android:id="@+id/separator"
+                        android:background="@color/colorAccent2"
+                        android:layout_below="@id/tv_title"
+                        android:layout_width = "match_parent"
+                        android:layout_height="0.5dp"/>
+
                     <TextView
                         android:id="@+id/tv_mitra"
                         android:layout_below="@+id/tv_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
                         android:textSize="10sp"
                         android:textColor="@color/colorAccent2"
-                        android:text="Mitra : PT. MUAMALAT"/>
+                        android:text="PT. akasdasd"/>
+
                     <TextView
                         android:id="@+id/tv_harga"
                         android:layout_below="@+id/tv_mitra"
@@ -70,6 +82,7 @@
                         android:textSize="12sp"
                         android:textColor="@color/colorAccent"
                         android:text="Rp 20.000.000"/>
+
                     <TextView
                         android:id="@+id/tv_jenis"
                         android:layout_below="@+id/tv_harga"
@@ -78,6 +91,18 @@
                         android:textSize="10sp"
                         android:textColor="@color/colorBackground"
                         android:text="Mitra Travel"/>
+
+                    <TextView
+                        android:id="@+id/tv_Detail_Lengkap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="500"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorAccent"
+                        android:text="Detail Produk >>"
+                        android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
             </RelativeLayout>
 
