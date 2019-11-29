@@ -153,13 +153,14 @@
                         android:layout_height="wrap_content"
                         app:met_helperText="Isi dengan 0000 jika tidak memiliki NPWP"
                         android:layout_centerHorizontal="true"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNamaNPWP"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
                         android:textColor="#000000"
+                        android:maxLength="15"
                         android:textSize="14sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>

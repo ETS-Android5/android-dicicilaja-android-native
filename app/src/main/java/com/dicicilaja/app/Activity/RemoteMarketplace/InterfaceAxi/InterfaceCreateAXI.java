@@ -28,7 +28,7 @@ public interface InterfaceCreateAXI {
                            @Field("alamat_ktp") String alamat_ktp,
                            @Field("rt_rw") String rt_rw,
                            @Field("provinsi") String provinsi,
-                           @Field("kota") String kota,
+                           @Field("kabupaten") String kabupaten,
                            @Field("kecamatan") String kecamatan,
                            @Field("kelurahan") String kelurahan,
                            @Field("kode_pos") String kode_pos,
@@ -47,5 +47,6 @@ public interface InterfaceCreateAXI {
                            @Field("pkp_status") String pkp_status,
                            @Field("image_ktp") String image_ktp,
                            @Field("image_npwp") String image_npwp,
-                           @Field("image_tabungan") String image_tabungan);
+                           @Field("image_tabungan") String image_tabungan,
+                           @Field("kode_bank") String kode_bank);
 }
