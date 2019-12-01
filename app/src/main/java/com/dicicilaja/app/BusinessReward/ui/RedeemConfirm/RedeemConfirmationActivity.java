@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.dicicilaja.app.Activity.NotificationActivity;
+
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.R;
 
 public class RedeemConfirmationActivity extends AppCompatActivity {
@@ -67,7 +68,7 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

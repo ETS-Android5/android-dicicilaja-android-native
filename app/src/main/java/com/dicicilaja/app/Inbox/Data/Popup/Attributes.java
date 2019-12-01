@@ -1,61 +1,65 @@
+
 package com.dicicilaja.app.Inbox.Data.Popup;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attributes{
+public class Attributes {
 
-	@SerializedName("image")
-	private String image;
+    @SerializedName("url")
+    @Expose
+    private String url;
+    @SerializedName("text")
+    @Expose
+    private String text;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    @SerializedName("role")
+    @Expose
+    private String role;
+    @SerializedName("status_id")
+    @Expose
+    private Integer statusId;
 
-	@SerializedName("role")
-	private String role;
+    public String getUrl() {
+        return url;
+    }
 
-	@SerializedName("text")
-	private String text;
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	@SerializedName("url")
-	private String url;
+    public String getText() {
+        return text;
+    }
 
-	@SerializedName("status")
-	private int status;
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setImage(String image){
-		this.image = image;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public String getImage(){
-		return image;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public void setRole(String role){
-		this.role = role;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public String getRole(){
-		return role;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setText(String text){
-		this.text = text;
-	}
+    public Integer getStatusId() {
+        return statusId;
+    }
 
-	public String getText(){
-		return text;
-	}
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
+    }
 
-	public void setUrl(String url){
-		this.url = url;
-	}
-
-	public String getUrl(){
-		return url;
-	}
-
-	public void setStatus(int status){
-		this.status = status;
-	}
-
-	public int getStatus(){
-		return status;
-	}
 }

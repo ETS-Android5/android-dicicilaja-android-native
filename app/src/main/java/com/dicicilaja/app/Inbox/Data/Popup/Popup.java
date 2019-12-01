@@ -1,17 +1,22 @@
+
 package com.dicicilaja.app.Inbox.Data.Popup;
 
+import java.util.List;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Popup{
+public class Popup {
 
-	@SerializedName("data")
-	private Data data;
+    @SerializedName("data")
+    @Expose
+    private List<Datum> data = null;
 
-	public void setData(Data data){
-		this.data = data;
-	}
+    public List<Datum> getData() {
+        return data;
+    }
 
-	public Data getData(){
-		return data;
-	}
+    public void setData(List<Datum> data) {
+        this.data = data;
+    }
+
 }

@@ -14,10 +14,18 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".Inbox.UI.PopUpActivity"></activity>
-
+        <activity android:name=".Inbox.UI.InboxDetailActivity"
+            android:label="Inbox Detail"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Inbox.UI.InboxActivity"
+            android:label="Inbox"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Inbox.UI.PopUpActivity"
+            android:label="Detail"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OrderIn.UI.InformasiJaminan2Activity" />
-
         <activity android:name=".OrderIn.UI.OrderInProductActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
@@ -55,7 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -485,14 +493,6 @@
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.NotificationActivity"
-            android:label="Notifikasi"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
-        </activity>
-        <activity
             android:name=".Activity.ProsesPengajuanActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
@@ -787,6 +787,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BusinessReward.ui.BusinessReward.activity.CatalogResultActivity" />
         </activity>
+
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
@@ -824,14 +825,14 @@
             </intent-filter>
         </service>
     </application>
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-feature android:name="android.hardware.camera.flash" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

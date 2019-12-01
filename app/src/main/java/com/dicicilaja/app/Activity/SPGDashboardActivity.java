@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -418,7 +420,7 @@ public class SPGDashboardActivity extends AppCompatActivity implements RequestPr
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif1) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

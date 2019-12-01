@@ -17,14 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +56,7 @@ import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.Inbox.UI.PopUpActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
@@ -68,15 +67,8 @@ import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -103,6 +95,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     SliderLayout mDemoSlider;
     List<Data> infoJaringan;
+
+    List<com.dicicilaja.app.Inbox.Data.Popup.Datum> dataPopups;
 
     String apiKey;
     RelativeLayout allpromo;
@@ -215,8 +209,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     Dialog InAppDialog;
 
-    TextView lihat, tutup;
-    ImageView thumbnail;
+    TextView detail, nanti;
+    ImageView thumbnail, close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,29 +224,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
         apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
-
-        oneSignalSubscribe();
         inAppDialog();
-
-
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (!task.isSuccessful()) {
-//                            Log.w("TEST", "getInstanceId failed", task.getException());
-//                            return;
-//                        }
-//
-//                        // Get new Instance ID token
-//                        String token = task.getResult().getToken();
-//
-//                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        Log.d("TEST", msg);
-//                        Toast.makeText(AxiDashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -708,7 +680,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }
@@ -910,118 +882,81 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         }
     }
 
-    private void oneSignalSubscribe() {
-        try {
-            JSONObject tags = new JSONObject();
-            tags.put("user_id_onesignal", session.getUserId());
-            tags.put("role", session.getRole());
-            OneSignal.sendTags(tags);
-        } catch (Exception ex) {}
-
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(false)
-                .init();
-    }
-
     private void inAppDialog() {
-        InAppDialog = new Dialog(AxiDashboardActivity.this);
-        InAppDialog.setContentView(R.layout.in_app_dialog);
-        InAppDialog.setCanceledOnTouchOutside(false);
-        InAppDialog.setCancelable(false);
-        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        progress_popup = new ProgressDialog(this);
+        progress_popup.setMessage("Sedang memuat data...");
+        progress_popup.setCanceledOnTouchOutside(false);
+        progress_popup.show();
 
-        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
-        lihat = InAppDialog.findViewById(R.id.lihat);
-        tutup = InAppDialog.findViewById(R.id.tutup);
-
-        Glide.with(AxiDashboardActivity.this)
-                .load("https://images-loyalty.ovo.id/public/deal/10/61/l/16618.jpg?ver=1")
-                .centerCrop()
-                .into(thumbnail);
-
-        lihat.setEnabled(true);
-        tutup.setEnabled(true);
-
-        lihat.setOnClickListener(new View.OnClickListener() {
+        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        popupCall.enqueue(new Callback<Popup>() {
             @Override
-            public void onClick(View view) {
-                InAppDialog.cancel();
-                Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
-                intent.putExtra("url", "https://images-loyalty.ovo.id/public/deal/10/61/l/16618.jpg?ver=1");
-                startActivity(intent);
+            public void onResponse(Call<Popup> call, Response<Popup> response) {
+                progress_popup.hide();
+                if (response.isSuccessful()) {
+                    dataPopups = response.body().getData();
+                    if (dataPopups.size() != 0) {
+                        try {
+                            InAppDialog = new Dialog(AxiDashboardActivity.this);
+                            InAppDialog.setContentView(R.layout.in_app_dialog);
+                            InAppDialog.setCanceledOnTouchOutside(false);
+                            InAppDialog.setCancelable(false);
+                            InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                            thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+
+                            Glide.with(AxiDashboardActivity.this)
+                                    .load(dataPopups.get(0).getAttributes().getImage())
+                                    .centerCrop()
+                                    .into(thumbnail);
+
+
+                            detail = InAppDialog.findViewById(R.id.detail);
+                            nanti = InAppDialog.findViewById(R.id.nanti);
+                            close = InAppDialog.findViewById(R.id.close);
+
+                            detail.setEnabled(true);
+                            nanti.setEnabled(true);
+                            close.setEnabled(true);
+
+                            detail.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                    Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
+                                    intent.putExtra("url", dataPopups.get(0).getAttributes().getUrl());
+                                    startActivity(intent);
+                                }
+                            });
+
+                            nanti.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                }
+                            });
+
+                            close.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                }
+                            });
+
+                            InAppDialog.show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                    progress_popup.hide();
+                } else {
+                    progress_popup.hide();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Popup> call, Throwable t) {
+                progress_popup.hide();
             }
         });
-
-        tutup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InAppDialog.cancel();
-            }
-        });
-
-        InAppDialog.show();
-
-//        progress_popup = new ProgressDialog(this);
-//        progress_popup.setCanceledOnTouchOutside(false);
-//        progress_popup.show();
-//
-//        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
-//        popupCall.enqueue(new Callback<Popup>() {
-//            @Override
-//            public void onResponse(Call<Popup> call, Response<Popup> response) {
-//                progress_popup.hide();
-//                if (response.isSuccessful()) {
-//                    try {
-//                        InAppDialog = new Dialog(AxiDashboardActivity.this);
-//                        InAppDialog.setContentView(R.layout.in_app_dialog);
-//                        InAppDialog.setCanceledOnTouchOutside(false);
-//                        InAppDialog.setCancelable(false);
-//                        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//
-//                        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
-//
-//                        Glide.with(AxiDashboardActivity.this)
-//                                .load("http://lorempixel.com/400/600/cats/")
-//                                .centerCrop()
-//                                .into(thumbnail);
-//
-//
-//                        lihat = InAppDialog.findViewById(R.id.lihat);
-//                        tutup = InAppDialog.findViewById(R.id.tutup);
-//
-//                        lihat.setEnabled(true);
-//                        tutup.setEnabled(true);
-//
-//                        lihat.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                InAppDialog.cancel();
-//                                Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
-//                                intent.putExtra("url", response.body().getData().getAttributes().getUrl());
-//                                startActivity(intent);
-//                            }
-//                        });
-//
-//                        tutup.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                InAppDialog.cancel();
-//                            }
-//                        });
-//
-//                        InAppDialog.show();
-//                    } catch (Exception ex) {
-//                    }
-//                } else {
-//                    progress_popup.hide();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Popup> call, Throwable t) {
-//                progress_popup.hide();
-//            }
-//        });
     }
 }

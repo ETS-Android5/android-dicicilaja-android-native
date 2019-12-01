@@ -18,6 +18,9 @@ public class Datum {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("created_at_readable")
+    @Expose
+    private String createdAtReadable;
 
     public String getId() {
         return id;
@@ -49,6 +52,14 @@ public class Datum {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCreatedAtReadable() {
+        return createdAtReadable;
+    }
+
+    public void setCreatedAtReadable(String createdAtReadable) {
+        this.createdAtReadable = createdAtReadable;
     }
 
 }

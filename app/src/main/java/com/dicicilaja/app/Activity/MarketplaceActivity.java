@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
@@ -453,7 +454,7 @@ public class MarketplaceActivity extends AppCompatActivity
                 Intent intent = new Intent(getBaseContext(), GuestActivity.class);
                 startActivity(intent);
             }else{
-                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
                 startActivity(intent);
             }
 

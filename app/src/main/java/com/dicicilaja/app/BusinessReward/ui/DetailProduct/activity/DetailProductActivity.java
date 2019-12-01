@@ -14,26 +14,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
-import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data;
-import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
-import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
-import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
-import com.dicicilaja.app.BusinessReward.network.InterfaceBranch;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -403,7 +391,7 @@ public class DetailProductActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

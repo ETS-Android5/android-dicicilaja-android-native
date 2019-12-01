@@ -18,9 +18,18 @@ public class Attributes {
     @SerializedName("schedule")
     @Expose
     private Object schedule;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("category")
+    @Expose
+    private String category;
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("oneSignal_id")
+    @Expose
+    private String oneSignalId;
 
     public String getUrl() {
         return url;
@@ -54,12 +63,36 @@ public class Attributes {
         this.schedule = schedule;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getOneSignalId() {
+        return oneSignalId;
+    }
+
+    public void setOneSignalId(String oneSignalId) {
+        this.oneSignalId = oneSignalId;
     }
 
 }

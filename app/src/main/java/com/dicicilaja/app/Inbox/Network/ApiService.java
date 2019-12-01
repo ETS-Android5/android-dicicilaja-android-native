@@ -1,8 +1,7 @@
 package com.dicicilaja.app.Inbox.Network;
 
-import com.dicicilaja.app.Inbox.Data.Notif.Notification;
+import com.dicicilaja.app.Inbox.Data.Notif.Notif;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
-import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,8 +14,8 @@ public interface ApiService {
     })
 
     @GET("auth/notification/view/personal")
-    Call<Notification> getNotifPersonal(@Query("user_id") String id);
+    Call<Notif> getNotifPersonal(@Query("user_id") String id);
 
-    @GET("auth/popup/view")
+    @GET("auth/popups/view")
     Call<Popup> getPopup(@Query("role") String role);
 }

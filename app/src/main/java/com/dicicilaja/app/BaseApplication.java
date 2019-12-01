@@ -1,22 +1,6 @@
 package com.dicicilaja.app;
 
-import android.content.Intent;
-import android.util.Log;
-
 import androidx.multidex.MultiDexApplication;
-
-import com.dicicilaja.app.Activity.AxiDashboardActivity;
-import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
-import com.dicicilaja.app.Session.SessionManager;
-import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationAction;
-import com.onesignal.OSNotificationOpenResult;
-import com.onesignal.OneSignal;
-
-import org.json.JSONObject;
 
 
 public class BaseApplication extends MultiDexApplication {

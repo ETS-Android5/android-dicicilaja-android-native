@@ -32,6 +32,9 @@ import com.dicicilaja.app.Remote.UserFirebase;
 import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
 import com.instabug.library.Instabug;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -386,6 +389,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showNextActivity(boolean isLogin, String role) {
         if( isLogin ) {
+            oneSignalSubscribe();
 
             if( String.valueOf(session.getPhone()).isEmpty() || (session.getEmail() == null) ) {
                 Intent intent = new Intent( LoginActivity.this, CompletePhoneEmailActivity.class );
@@ -458,6 +462,20 @@ public class LoginActivity extends AppCompatActivity {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void oneSignalSubscribe() {
+        try {
+            JSONObject tags = new JSONObject();
+            tags.put("user_id_onesignal", session.getUserId());
+            tags.put("role", session.getRole());
+            OneSignal.sendTags(tags);
+        } catch (Exception ex) {}
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(false)
+                .init();
     }
 
 }
