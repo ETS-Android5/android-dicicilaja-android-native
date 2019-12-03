@@ -20,6 +20,8 @@
     <color name="colorFacebook">#3b5998</color>
     <color name="colorGooglePlus">#d34836</color>
     <color name="colorbluewhite">#d9edf7</color>
+
+    <color name="transparent">#00000000</color>
     <!-- STATUS DISPOSISI -->
     <color name="statusGreen">#2ECC71</color>
     <color name="colorTitleProduct">#272727</color>

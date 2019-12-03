@@ -25,7 +25,6 @@ import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
@@ -39,7 +38,9 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlide
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
+import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
+import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
@@ -53,6 +54,9 @@ import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -73,22 +77,24 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
     com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data itemDetail;
 
+    SliderView sliderView;
     SliderLayout mDemoSlider;
     List<Data> infoJaringan;
 
     String apiKey;
     RelativeLayout allpromo;
+    int maxSlide;
 
-    HashMap<String, String> file_maps;
+    HashMap<Integer, String> file_maps;
 
     /*update*/
     ProgressDialog progress;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.slider)
-    SliderLayout slider;
-    @BindView(R.id.sliderBannerIndicator)
-    PagerIndicator sliderBannerIndicator;
+//    @BindView(R.id.slider)
+//    SliderLayout slider;
+//    @BindView(R.id.sliderBannerIndicator)
+//    PagerIndicator sliderBannerIndicator;
     @BindView(R.id.title_info)
     TextView titleInfo;
     @BindView(R.id.title_box1)
@@ -171,6 +177,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
+    List<Datum> slider;
     RecyclerView recyclerView;
     ListPPOBAdapter adapter;
 
@@ -184,7 +191,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_axi_dashboard);
         ButterKnife.bind(this);
-        mDemoSlider = findViewById(R.id.slider);
+//        mDemoSlider = findViewById(R.id.slider);
+        sliderView = findViewById(R.id.imageSlider);
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
@@ -405,55 +413,36 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        file_maps = new HashMap<String, String>();
+        file_maps = new HashMap<Integer, String>();
 
-//        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
-//        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
         InterfaceAxiSlider apiSlider =
                 RetrofitClient.getClient().create(InterfaceAxiSlider.class);
-
-        Call<AxiSlider> call6 = apiSlider.getSlider();
-        call6.enqueue(new Callback<AxiSlider>() {
+        Call<AxiSlider> call5 = apiSlider.getSlider();
+        call5.enqueue(new Callback<AxiSlider>() {
             @Override
-            public void onResponse(Call<AxiSlider> call6, Response<AxiSlider> response) {
+            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+//                progress.dismiss();
                 List<Datum> slider = response.body().getData();
-                Log.d("SLIDER AXI", slider.toString());
+                maxSlide = slider.size();
                 for (int i = 0; i < slider.size(); i++) {
                     Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                    file_maps.put(i, slider.get(i).getImage());
                 }
-
-                for (final Datum s : slider) {
-                    Log.d("DASH::::", s.getImage());
-                    DefaultSliderView sliderBannerItem = new DefaultSliderView(AxiDashboardActivity.this);
-                    sliderBannerItem
-                            .image(s.getImage())
-                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                                @Override
-                                public void onSliderClick(BaseSliderView slider) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
-                                    startActivity(browserIntent);
-                                }
-                            });
-                    mDemoSlider.addSlider(sliderBannerItem);
-                }
-
+                setSliderView(getBaseContext(),maxSlide,file_maps);
             }
 
             @Override
             public void onFailure(Call<AxiSlider> call, Throwable t) {
-                Log.e("AXI SLIDER::::", t.toString());
             }
         });
+    }
 
+    private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){
 
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-//        mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
-//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Bottom);
-        mDemoSlider.setDuration(4000);
-//        mDemoSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-//        mDemoSlider.addOnPageChangeListener(this);
+        sliderView.setSliderAdapter(new AxiImageSliderAdapter(context,maxSlide,file_maps));
+        sliderView.startAutoCycle();
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
     }
 
     private void doLoadData() {
@@ -586,7 +575,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     @Override
     public void onStop() {
-        mDemoSlider.stopAutoCycle();
+//        mDemoSlider.stopAutoCycle();
         super.onStop();
     }
 

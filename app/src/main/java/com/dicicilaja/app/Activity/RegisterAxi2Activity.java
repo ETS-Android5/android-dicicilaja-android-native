@@ -6,14 +6,28 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+
+import com.dicicilaja.app.API.Client.RetrofitClient2;
+import com.dicicilaja.app.API.Interface.InterfaceAreaBank;
+import com.dicicilaja.app.API.Model.AreaBankRequest.Provinsi.Provinsi;
+import com.dicicilaja.app.API.Model.AreaBankRequest.Kota.Kota;
+import com.dicicilaja.app.API.Model.AreaBankRequest.Distrik.Distrik;
+import com.dicicilaja.app.API.Model.AreaBankRequest.Desa.Desa;
+import com.dicicilaja.app.API.Model.AreaBankRequest.Bank.Bank;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,25 +40,49 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import butterknife.BindView;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import static java.lang.Boolean.TRUE;
 
 public class RegisterAxi2Activity extends AppCompatActivity {
 
-    int year, month, day;
     Button btnLanjut;
-    EditText inputKtp, inputTempatLahir, inputTanggal, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputKota, inputProvinsi, inputKodepos;
-    TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRtRw, inputLayoutKelurahan, inputLayoutKecamatan, inputLayoutKota,inputLayoutProvinsi, inputLayoutKodepos;
+    EditText inputKtp, inputTempatLahir, inputTanggal, inputAlamat, inputRtRw, inputDesa, inputDistrik, inputKota, inputProvinsi, inputKodepos;
+    TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRtRw;
     MaterialSpinner spinnerJenisKelamin, spinnerStatus;
     TextView title;
     SessionManager session;
     String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp, tempat_lahir, tanggal, alamat, rtrw, desa, distrik, kota, provinsi, kodepos, jk, status;
+
+    SearchableSpinner spinnerProvinsi, spinnerKota, spinnerDistrik, spinnerDesa;
+    MaterialProgressBar progressBar;
+
+    InterfaceAreaBank apiServiceArea;
+
+    final List<String> PROVINSI_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
+    final List<String> KOTA_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> KOTA_DATA = new HashMap<Integer, String>();
+    final List<String> DISTRIK_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> DISTRIK_DATA = new HashMap<Integer, String>();
+    final List<String> DESA_ITEMS = new ArrayList<>();
+    final List<String> DESA_KODEPOS = new ArrayList<>();
+    final HashMap<Integer, String> DESA_DATA = new HashMap<Integer, String>();
+    private static final String KTP_PATTERN =
+            "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,24 +101,22 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputTempatLahir        = findViewById(R.id.inputTempatLahir);
         inputAlamat             = findViewById(R.id.inputAlamat);
         inputRtRw               = findViewById(R.id.inputRtRw);
-        inputKelurahan          = findViewById(R.id.inputKelurahan);
-        inputKecamatan          = findViewById(R.id.inputKecamatan);
-        inputKota               = findViewById(R.id.inputKota);
-        inputProvinsi           = findViewById(R.id.inputProvinsi);
         inputKodepos            = findViewById(R.id.inputKodepos);
         inputLayoutKtp          = findViewById(R.id.inputLayoutKtp);
         inputLayoutTempatLahir  = findViewById(R.id.inputLayoutTempatLahir);
         inputLayoutAlamat       = findViewById(R.id.inputLayoutAlamat);
         inputLayoutRtRw         = findViewById(R.id.inputLayoutRtRw);
-        inputLayoutKelurahan    = findViewById(R.id.inputLayoutKelurahan);
-        inputLayoutKecamatan    = findViewById(R.id.inputLayoutKecamatan);
-        inputLayoutKota         = findViewById(R.id.inputLayoutKota);
-        inputLayoutProvinsi     = findViewById(R.id.inputLayoutProvinsi);
-        inputLayoutKodepos      = findViewById(R.id.inputLayoutKodepos);
+
         spinnerJenisKelamin     = findViewById(R.id.spinnerJenisKelamin);
         spinnerStatus           = findViewById(R.id.spinnerStatus);
         inputTanggal            = findViewById(R.id.inputTanggal);
         title                   = findViewById(R.id.title);
+        progressBar             = findViewById(R.id.progressBar);
+
+        spinnerProvinsi         = findViewById(R.id.spinnerProvinsi);
+        spinnerKota             = findViewById(R.id.spinnerKota);
+        spinnerDistrik          = findViewById(R.id.spinnerDistrik);
+        spinnerDesa             = findViewById(R.id.spinnerDesa);
 
         try {
             apiKey = getIntent().getStringExtra("apiKey");
@@ -153,6 +189,13 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         status_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(status_adapter);
 
+        progressBar.setVisibility(View.GONE);
+        spinnerKota.setEnabled(false);
+        spinnerDistrik.setEnabled(false);
+        spinnerDesa.setEnabled(false);
+
+        initAction();
+        initLoadData();
 
         btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,18 +206,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     tanggal = inputTanggal.getText().toString();
                     alamat = inputAlamat.getText().toString();
                     rtrw = inputRtRw.getText().toString();
-                    kelurahan = inputKelurahan.getText().toString();
-                    kecamatan = inputKecamatan.getText().toString();
-                    kota = inputKota.getText().toString();
-                    provinsi = inputProvinsi.getText().toString();
+
+                    provinsi = PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition());
+                    kota = KOTA_DATA.get(spinnerKota.getSelectedItemPosition());
+                    distrik = DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition());
+                    desa = DESA_DATA.get(spinnerDesa.getSelectedItemPosition());
                     kodepos = inputKodepos.getText().toString();
+
                     jk = JK_DATA.get(spinnerJenisKelamin.getSelectedItemPosition());
                     status = STATUS_DATA.get(spinnerStatus.getSelectedItemPosition());
                 } catch (Exception ex) {
 
                 }
 
-                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status)) {
+                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rtrw, desa, distrik, kota, provinsi, kodepos, jk, status)) {
                     Intent intent = new Intent(getBaseContext(), RegisterAxi3Activity.class);
                     intent.putExtra("apiKey",apiKey);
                     intent.putExtra("axi_id",axi_id);
@@ -189,8 +234,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     intent.putExtra("tanggal",tanggal);
                     intent.putExtra("alamat",alamat);
                     intent.putExtra("rtrw",rtrw);
-                    intent.putExtra("kelurahan",kelurahan);
-                    intent.putExtra("kecamatan",kecamatan);
+                    intent.putExtra("kelurahan",desa);
+                    intent.putExtra("kecamatan",distrik);
                     intent.putExtra("kota",kota);
                     intent.putExtra("provinsi",provinsi);
                     intent.putExtra("kodepos",kodepos);
@@ -202,10 +247,33 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rtrw, String kelurahan, String kecamatan, String kota, String provinsi, String kodepos, String jk, String status) {
+    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rtrw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status) {
         if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan no.KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKtp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (no_ktp.trim().length() < 16){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("No.KTP harus 16 karakter");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKtp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!no_ktp.matches(KTP_PATTERN))
+        {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("No.KTP tidak valid");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -289,25 +357,25 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.show();
             return false;
         }
-        if (kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
+        if (desa == null || desa.trim().length() == 0 || desa.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKelurahan);
+                    requestFocus(inputDesa);
                 }
             });
             alertDialog.show();
             return false;
         }
-        if (kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
+        if (distrik == null || distrik.trim().length() == 0 || distrik.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKecamatan);
+                    requestFocus(inputDistrik);
                 }
             });
             alertDialog.show();
@@ -340,6 +408,17 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         if (kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kode pos");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKodepos);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (kodepos.trim().length() < 5){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("Kode Pos harus 5 karakter");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -400,5 +479,463 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         }
     }
+
+    private void initLoadData() {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<Provinsi> call = apiServiceArea.getProvinsi();
+        call.enqueue(new Callback<Provinsi>() {
+            @Override
+            public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().getData().size() > 0) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                PROVINSI_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                PROVINSI_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            clearProvinsi();
+                            progressBar.setVisibility(View.GONE);
+                            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data provinsi belum tersedia, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    } catch (Exception ex) {
+                    }
+
+                    ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
+                    area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerProvinsi.setAdapter(area_adapter);
+                    spinnerProvinsi.setTitle("");
+                    spinnerProvinsi.setPositiveButton("OK");
+                } else {
+                    clearProvinsi();
+                    progressBar.setVisibility(View.GONE);
+                    androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Provinsi> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Data provinsi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        loadData();
+    }
+
+    private void loadData() {
+        spinnerProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                clearKota();
+                clearDistrik();
+                clearDesa();
+                if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()));
+                    call.enqueue(new Callback<Kota>() {
+                        @Override
+                        public void onResponse(Call<Kota> call, Response<Kota> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        for (int i = 0; i < response.body().getData().size(); i++) {
+                                            KOTA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                            KOTA_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+                                        }
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        clearKota();
+                                        progressBar.setVisibility(View.GONE);
+                                        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                } catch (Exception ex) {
+                                }
+
+                                ArrayAdapter<String> brand_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+                                brand_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                spinnerKota.setAdapter(brand_adapter);
+                                spinnerKota.setTitle("");
+                                spinnerKota.setPositiveButton("OK");
+                                spinnerKota.setEnabled(true);
+                            } else {
+                                clearKota();
+                                progressBar.setVisibility(View.GONE);
+                                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Kota> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data kota gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
+
+                    spinnerKota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            clearDistrik();
+                            clearDesa();
+                            if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
+                                progressBar.setVisibility(View.VISIBLE);
+                                Call<Distrik> call = apiServiceArea.getDistrik(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()));
+                                call.enqueue(new Callback<Distrik>() {
+                                    @Override
+                                    public void onResponse(Call<Distrik> call, Response<Distrik> response) {
+                                        if (response.isSuccessful()) {
+                                            try {
+                                                if (response.body().getData().size() > 0) {
+                                                    for (int i = 0; i < response.body().getData().size(); i++) {
+                                                        DISTRIK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                                        DISTRIK_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+                                                    }
+                                                    progressBar.setVisibility(View.GONE);
+                                                } else {
+                                                    clearDistrik();
+                                                    progressBar.setVisibility(View.GONE);
+                                                    androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                                    alertDialog.setTitle("Perhatian");
+                                                    alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+                                                    alertDialog.show();
+                                                }
+                                            } catch (Exception ex) {
+                                            }
+
+                                            ArrayAdapter<String> distrik_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, DISTRIK_ITEMS);
+                                            distrik_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                            spinnerDistrik.setAdapter(distrik_adapter);
+                                            spinnerDistrik.setTitle("");
+                                            spinnerDistrik.setPositiveButton("OK");
+                                            spinnerDistrik.setEnabled(true);
+                                        } else {
+                                            clearDistrik();
+                                            progressBar.setVisibility(View.GONE);
+                                            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                            alertDialog.setTitle("Perhatian");
+                                            alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Distrik> call, Throwable t) {
+                                        progressBar.setVisibility(View.GONE);
+                                        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                        alertDialog.setTitle("Perhatian");
+                                        alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                });
+
+                                spinnerDistrik.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        clearDesa();
+                                        if (Integer.parseInt(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition())) > 0) {
+                                            progressBar.setVisibility(View.VISIBLE);
+                                            Call<Desa> call = apiServiceArea.getDesa(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()));
+                                            call.enqueue(new Callback<Desa>() {
+                                                @Override
+                                                public void onResponse(Call<Desa> call, Response<Desa> response) {
+                                                    if (response.isSuccessful()) {
+                                                        try {
+                                                            if (response.body().getData().size() > 0) {
+                                                                for (int i = 0; i < response.body().getData().size(); i++) {
+                                                                    DESA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                                                    DESA_ITEMS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getNama())));
+                                                                    DESA_KODEPOS.add(toTitleCase(String.valueOf(response.body().getData().get(i).getAttributes().getKodePos())));
+                                                                }
+                                                                progressBar.setVisibility(View.GONE);
+                                                            } else {
+                                                                clearDesa();
+                                                                progressBar.setVisibility(View.GONE);
+                                                                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                                                alertDialog.setTitle("Perhatian");
+                                                                alertDialog.setMessage("Data desa gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                        finish();
+                                                                        startActivity(getIntent());
+                                                                    }
+                                                                });
+                                                                alertDialog.show();
+                                                            }
+                                                        } catch (Exception ex) {
+                                                        }
+
+                                                        ArrayAdapter<String> desa_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, DESA_ITEMS);
+                                                        desa_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                                        spinnerDesa.setAdapter(desa_adapter);
+                                                        spinnerDesa.setTitle("");
+                                                        spinnerDesa.setPositiveButton("OK");
+                                                        spinnerDesa.setEnabled(true);
+                                                    } else {
+                                                        clearDesa();
+                                                        progressBar.setVisibility(View.GONE);
+                                                        androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                                        alertDialog.setTitle("Perhatian");
+                                                        alertDialog.setMessage("Data desa gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                finish();
+                                                                startActivity(getIntent());
+                                                            }
+                                                        });
+                                                        alertDialog.show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Desa> call, Throwable t) {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                                                    alertDialog.setTitle("Perhatian");
+                                                    alertDialog.setMessage("Data desa gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+                                                    alertDialog.show();
+                                                }
+                                            });
+
+                                            spinnerDesa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                @Override
+                                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                    clearKodePos();
+                                                    if (!DESA_KODEPOS.get(spinnerDesa.getSelectedItemPosition()).equals("Null") && Integer.parseInt(DESA_KODEPOS.get(spinnerDesa.getSelectedItemPosition())) > 0) {
+                                                        inputKodepos.setText(DESA_KODEPOS.get(spinnerDesa.getSelectedItemPosition()));
+                                                        inputKodepos.setEnabled(false);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                                }
+                                            });
+
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+                            }
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public static String toTitleCase(String str) {
+
+        if (str == null) {
+            return null;
+        }
+
+        boolean space = true;
+        StringBuilder builder = new StringBuilder(str);
+        final int len = builder.length();
+
+        for (int i = 0; i < len; ++i) {
+            char c = builder.charAt(i);
+            if (space) {
+                if (!Character.isWhitespace(c)) {
+                    // Convert to title case and switch out of whitespace mode.
+                    builder.setCharAt(i, Character.toTitleCase(c));
+                    space = false;
+                }
+            } else if (Character.isWhitespace(c)) {
+                space = true;
+            } else {
+                builder.setCharAt(i, Character.toLowerCase(c));
+            }
+        }
+
+        return builder.toString();
+    }
+
+    private void initAction() {
+        //Initialize
+        progressBar.setVisibility(View.GONE);
+        spinnerKota.setEnabled(false);
+        spinnerDistrik.setEnabled(false);
+        spinnerDesa.setEnabled(false);
+
+        clearProvinsi();
+        clearKota();
+        clearDistrik();
+        clearDesa();
+
+        //Network
+        apiServiceArea = RetrofitClient2.getClient().create(InterfaceAreaBank.class);
+    }
+
+    private void clearProvinsi() {
+        PROVINSI_DATA.clear();
+        PROVINSI_ITEMS.clear();
+        PROVINSI_DATA.put(0, "0");
+        PROVINSI_ITEMS.add("Pilih Provinsi");
+        ArrayAdapter<String> provinsi_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PROVINSI_ITEMS);
+        provinsi_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProvinsi.setAdapter(provinsi_adapter);
+        spinnerProvinsi.setTitle("");
+        spinnerProvinsi.setPositiveButton("OK");
+    }
+
+    private void clearKota() {
+        KOTA_DATA.clear();
+        KOTA_ITEMS.clear();
+        KOTA_DATA.put(0, "0");
+        KOTA_ITEMS.add("Pilih Kabupaten");
+        ArrayAdapter<String> kota_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KOTA_ITEMS);
+        kota_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKota.setAdapter(kota_adapter);
+        spinnerKota.setTitle("");
+        spinnerKota.setPositiveButton("OK");
+        spinnerKota.setEnabled(false);
+    }
+
+    private void clearDistrik() {
+        DISTRIK_DATA.clear();
+        DISTRIK_ITEMS.clear();
+        DISTRIK_DATA.put(0, "0");
+        DISTRIK_ITEMS.add("Pilih Kecamatan");
+        ArrayAdapter<String> distrik_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, DISTRIK_ITEMS);
+        distrik_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDistrik.setAdapter(distrik_adapter);
+        spinnerDistrik.setTitle("");
+        spinnerDistrik.setPositiveButton("OK");
+        spinnerDistrik.setEnabled(false);
+    }
+
+    private void clearDesa() {
+        DESA_DATA.clear();
+        DESA_ITEMS.clear();
+        DESA_KODEPOS.clear();
+        DESA_DATA.put(0, "0");
+        DESA_ITEMS.add("Pilih Kelurahan");
+        DESA_KODEPOS.add("0");
+        ArrayAdapter<String> desa_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, DESA_ITEMS);
+        desa_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDesa.setAdapter(desa_adapter);
+        spinnerDesa.setTitle("");
+        spinnerDesa.setPositiveButton("OK");
+        spinnerDesa.setEnabled(false);
+    }
+
+
+    private void clearKodePos() {
+        inputKodepos.setEnabled(true);
+        inputKodepos.setText("");
+    }
+
 
 }
