@@ -15,14 +15,26 @@ public interface ApiService2 {
             "Accept: application/vnd.api+json",
     })
 
-    @GET("area/provinces")
+//    @GET("area/provinces")
+//    Call<Provinsi> getProvinsi(@Query("page[size]") int size);
+//
+//    @GET("area/cities")
+//    Call<Kota> getKota(@Query("filter[provinsi_id]") int id,
+//                       @Query("page[size]") int size);
+//
+//    @GET("area/districts")
+//    Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") int id,
+//                                 @Query("page[size]") int size);
+
+    //ini menggunakan https://apiarea2.dicicilaja.com/api/v1/villages/
+    @GET("provinces")
     Call<Provinsi> getProvinsi(@Query("page[size]") int size);
 
-    @GET("area/cities")
+    @GET("cities")
     Call<Kota> getKota(@Query("filter[provinsi_id]") int id,
                        @Query("page[size]") int size);
 
-    @GET("area/districts")
+    @GET("districts")
     Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") int id,
                                  @Query("page[size]") int size);
 }
