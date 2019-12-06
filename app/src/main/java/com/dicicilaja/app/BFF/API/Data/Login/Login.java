@@ -1,21 +1,20 @@
-package com.dicicilaja.app.API.Model.Login;
+
+package com.dicicilaja.app.BFF.API.Data.Login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Login {
+
     @SerializedName("user_id_onesignal")
     @Expose
-    private String userIdOneSignal;
+    private Integer userIdOnesignal;
     @SerializedName("user_id")
     @Expose
     private String userId;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("axi_id")
-    @Expose
-    private String axiId;
     @SerializedName("role")
     @Expose
     private String role;
@@ -34,21 +33,19 @@ public class Login {
     @SerializedName("_token")
     @Expose
     private Token token;
-
     @SerializedName("phone")
     @Expose
-    private String phone;
-
+    private Object phone;
     @SerializedName("email")
     @Expose
     private String email;
 
-    public String getUserIdOneSignal() {
-        return userIdOneSignal;
+    public Integer getUserIdOnesignal() {
+        return userIdOnesignal;
     }
 
-    public void setUserIdOneSignal(String userIdOneSignal) {
-        this.userIdOneSignal = userIdOneSignal;
+    public void setUserIdOnesignal(Integer userIdOnesignal) {
+        this.userIdOnesignal = userIdOnesignal;
     }
 
     public String getUserId() {
@@ -65,14 +62,6 @@ public class Login {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAxiId() {
-        return axiId;
-    }
-
-    public void setAxiId(String axiId) {
-        this.axiId = axiId;
     }
 
     public String getRole() {
@@ -123,11 +112,11 @@ public class Login {
         this.token = token;
     }
 
-    public String getPhone() {
+    public Object getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Object phone) {
         this.phone = phone;
     }
 
@@ -138,4 +127,5 @@ public class Login {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
+
+
     <application
         android:name=".BaseApplication"
         android:fullBackupContent="true"
@@ -14,6 +16,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+
+        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFF89E4C" />
+
+
         <activity android:name=".Inbox.UI.InboxDetailActivity"
             android:label="Inbox Detail"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -800,24 +806,9 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider> <!-- <service -->
-        <!-- android:name=".Inbox.MessagingService" -->
-        <!-- android:exported="false"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-        <!-- <meta-data -->
-        <!-- android:name="preloaded_fonts" -->
-        <!-- android:resource="@array/preloaded_fonts" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="com.google.firebase.messaging.default_notification_icon" -->
-        <!-- android:resource="@mipmap/ic_launcher_round" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="com.google.firebase.messaging.default_notification_color" -->
-        <!-- android:resource="@color/colorAccent" /> -->
+        </provider>
         <service
-            android:name=".Inbox.Service.NotificationExtenderExample"
+            android:name=".Inbox.Service.NotificationExtender"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>

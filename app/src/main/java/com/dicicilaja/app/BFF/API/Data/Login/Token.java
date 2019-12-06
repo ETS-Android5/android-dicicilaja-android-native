@@ -1,9 +1,11 @@
-package com.dicicilaja.app.API.Model.Login;
+
+package com.dicicilaja.app.BFF.API.Data.Login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Token {
+
     @SerializedName("token_type")
     @Expose
     private String tokenType;
@@ -48,4 +50,5 @@ public class Token {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
 }

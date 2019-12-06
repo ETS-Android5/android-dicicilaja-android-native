@@ -4,6 +4,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+
+import com.dicicilaja.app.BFF.API.Data.Login.Login;
+import com.dicicilaja.app.BFF.API.Network.ApiClient;
+import com.dicicilaja.app.BFF.API.Network.ApiService;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Model.Login.Login;
 import com.dicicilaja.app.Activity.Addon.CompletePhoneEmailActivity;
 import com.dicicilaja.app.WebView.ForgotActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -31,7 +34,6 @@ import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Remote.UserFirebase;
 import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
-import com.instabug.library.Instabug;
 import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
@@ -55,8 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     SessionManager session;
 
-    UserService userService;
-    UserFirebase userFirebase;
+    ApiService apiServiceLogin;
     String photo, zipcode, area;
 
     ProgressDialog progress;
@@ -148,8 +149,8 @@ public class LoginActivity extends AppCompatActivity {
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
-            userService = ApiUtils.getUserService();
-            userFirebase = ApiUtils.getUserFirebase();
+
+            apiServiceLogin = ApiClient.getClient().create(ApiService.class);
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             //Log.i("firebase_login", "token : "  + refreshedToken.toString());
@@ -218,10 +219,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void doLogin(final String username, final String password) {
 
-        Call<Login> call = userFirebase.login_token(username, password);
+        Call<Login> call = apiServiceLogin.login(username, password);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
+                Log.d("log_login", "code: " + response.code() + " body: " + response.body());
                 if(response.isSuccessful()) {
                     progress.dismiss();
                     Login resObj = response.body();
@@ -237,7 +239,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     session.createLoginSession(
-                            resObj.getUserIdOneSignal(),
+                            String.valueOf(resObj.getUserIdOnesignal()),
                             resObj.getUserId(),
                             resObj.getToken().getAccessToken(),
                             resObj.getRole(),
@@ -247,7 +249,7 @@ public class LoginActivity extends AppCompatActivity {
                             area,
                             zipcode,
                             refreshedToken,
-                            resObj.getPhone(),
+                            String.valueOf(resObj.getPhone()),
                             resObj.getEmail()
                     );
 

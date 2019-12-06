@@ -10,7 +10,7 @@ import com.onesignal.OSNotificationReceivedResult;
 
 import java.math.BigInteger;
 
-public class NotificationExtenderExample extends NotificationExtenderService {
+public class NotificationExtender extends NotificationExtenderService {
     @Override
     protected boolean onNotificationProcessing(OSNotificationReceivedResult receivedResult) {
         // Read Properties from result
@@ -19,7 +19,7 @@ public class NotificationExtenderExample extends NotificationExtenderService {
             @Override
             public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
                 // Sets the background notification color to Red on Android 5.0+ devices.
-                return builder.setColor(new BigInteger("FFFF0000", 16).intValue());
+                return builder.setColor(new BigInteger("FFF89E4C", 16).intValue());
             }
         };
 

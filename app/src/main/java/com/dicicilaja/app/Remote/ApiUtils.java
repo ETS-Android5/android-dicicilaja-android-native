@@ -20,6 +20,8 @@ public class ApiUtils {
 
     public static final String BASE_URL = "https://api.dicicilaja.com/";
 
+    public static final String NEW_URL = "https://dev.dicicilaja.com/v1/";
+
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
     }
@@ -42,7 +44,7 @@ public class ApiUtils {
     }
 
     public static UserFirebase getUserFirebase() {
-        return RetrofitClient.getClient(BASE_URL).create(UserFirebase.class);
+        return RetrofitClient.getClient(NEW_URL).create(UserFirebase.class);
     }
 
     public static AreaService getAreaService() {

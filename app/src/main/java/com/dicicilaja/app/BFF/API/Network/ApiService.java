@@ -1,4 +1,4 @@
-package com.dicicilaja.app.API.Interface;
+package com.dicicilaja.app.BFF.API.Network;
 
 import com.dicicilaja.app.BFF.API.Data.Login.Login;
 
@@ -7,7 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface InterfaceLogin {
+public interface ApiService {
     @POST("login")
     @FormUrlEncoded
     Call<Login> login(@Field("username") String username,
