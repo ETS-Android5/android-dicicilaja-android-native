@@ -1,15 +1,21 @@
 package com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,34 +25,42 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
-import com.dicicilaja.app.BusinessReward.ui.Search.activity.SearchResultActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
+import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.DataItem;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.network.ApiService3;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
+import com.dicicilaja.app.BusinessReward.ui.Cart.CartActivity;
 import com.dicicilaja.app.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
+import com.dicicilaja.app.BusinessReward.ui.Search.activity.SearchResultActivity;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.google.android.material.appbar.AppBarLayout;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.List;
-
 public class BusinesRewardActivity extends AppCompatActivity {
 
+    public ProgressDialog progress;
     @BindView(R.id.profile_picture_page)
     CircleImageView profilePicturePage;
     @BindView(R.id.profile_name)
@@ -76,6 +90,21 @@ public class BusinesRewardActivity extends AppCompatActivity {
     public static String final_point;
     public static String ktpnpwp, no_ktp, no_npwp, point_reward;
     ApiService apiService;
+    ApiService3 apiService3;
+
+    String apiKey;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.idProduct)
+    LinearLayout idProduct;
+    @BindView(R.id.image_cart)
+    ImageView imageCart;
+    @BindView(R.id.point_cart)
+    TextView pointCart;
+    @BindView(R.id.text_cart)
+    TextView textCart;
+    @BindView(R.id.floating_cart)
+    RelativeLayout floatingCart;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -97,7 +126,41 @@ public class BusinesRewardActivity extends AppCompatActivity {
         });
     }
 
-    private  void initToolbar() {
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        progress = new ProgressDialog(this);
+//        progress.setMessage("Sedang memuat data...");
+//        progress.setCanceledOnTouchOutside(false);
+//
+//        progress.show();
+//
+//        Call<GetCart> callCart = apiService3.getCart(apiKey);
+//        callCart.enqueue(new Callback<GetCart>() {
+//            @Override
+//            public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
+//                if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
+//                    progress.hide();
+//                    int total_points = response2.body().getData().getAttributes().getTotalPoints();
+//                    int total_items = response2.body().getData().getAttributes().getTotalItems();
+//
+//                    floatingCart.setVisibility(View.VISIBLE);
+//                    textCart.setText(total_items + " Barang dikeranjang");
+//                    pointCart.setText(total_points + " Poin");
+//                } else {
+//                    progress.hide();
+//                    floatingCart.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetCart> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
+    private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
@@ -113,6 +176,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
 
     private void initAction() {
         session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
         try {
             final_point = getIntent().getStringExtra("POINT_REWARD");
             String imageUrl = session.getPhoto();
@@ -121,7 +185,8 @@ public class BusinesRewardActivity extends AppCompatActivity {
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
                     .into(profilePicturePage);
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+        }
         swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
         recyclerProduk.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 RecyclerView.VERTICAL, false));
@@ -130,22 +195,53 @@ public class BusinesRewardActivity extends AppCompatActivity {
         profilePoint.setText(final_point);
 
         apiService = ApiClient.getClient().create(ApiService.class);
+        apiService3 = ApiClient3.getClient().create(ApiService3.class);
     }
 
     private void initLoadData() {
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+
+        progress.show();
+
+        Call<GetCart> callCart = apiService3.getCart(apiKey);
+        callCart.enqueue(new Callback<GetCart>() {
+            @Override
+            public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
+                if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
+                    progress.hide();
+                    int total_points = response2.body().getData().getAttributes().getTotalPoints();
+                    int total_items = response2.body().getData().getAttributes().getTotalItems();
+
+                    floatingCart.setVisibility(View.VISIBLE);
+                    textCart.setText(total_items + " Barang dikeranjang");
+                    pointCart.setText(total_points + " Poin");
+                } else {
+                    progress.hide();
+                    floatingCart.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetCart> call, Throwable t) {
+
+            }
+        });
+
         Call<Point> call2 = apiService.getPoint(session.getUserId());
 //        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<Point>() {
             @Override
             public void onResponse(Call<Point> call, Response<Point> response2) {
 
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.point.DataItem> dataItems = response2.body().getData();
-                if(dataItems.size() == 0){
+                final List<DataItem> dataItems = response2.body().getData();
+                if (dataItems.size() == 0) {
                     Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(response2.body().getData().get(0).getAttributes().getPointReward() == 0){
+                } else {
+                    if (response2.body().getData().get(0).getAttributes().getPointReward() == 0) {
                         profilePoint.setText("0");
-                    }else{
+                    } else {
                         profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
                     }
                     point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
@@ -164,7 +260,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
                 final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
-                Log.d("sizenyaaa", String.valueOf(dataItems.size()));
                 if (dataItems.size() == 0) {
                     uploadKTP.setVisibility(View.VISIBLE);
                     ktpnpwp = "Tidak";
@@ -189,8 +284,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
                 final List<Datum> dataItems = response.body().getData();
                 final List<Included> dataItems2 = response.body().getIncluded();
-                Log.d("Cek1", "" + response.body().getData());
-                Log.d("Cek2", "" + response.body().getIncluded());
 
                 recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext()));
                 progressBar.setVisibility(View.GONE);
@@ -242,9 +335,17 @@ public class BusinesRewardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.upload)
-    public void onViewClicked() {
-        Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
-        startActivity(intent);
+    @OnClick({R.id.upload, R.id.floating_cart})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.upload:
+                Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.floating_cart:
+                Intent intent2 = new Intent(getBaseContext(), CartActivity.class);
+                startActivity(intent2);
+                break;
+        }
     }
 }

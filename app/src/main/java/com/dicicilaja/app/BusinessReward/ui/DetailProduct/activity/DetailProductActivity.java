@@ -1,43 +1,34 @@
 package com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.NotificationActivity;
-import com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
+import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
+import com.dicicilaja.app.BusinessReward.dataAPI.postCart.PostCart;
+import com.dicicilaja.app.BusinessReward.network.ApiClient3;
+import com.dicicilaja.app.BusinessReward.network.ApiService3;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.Data;
-import com.dicicilaja.app.BusinessReward.dataAPI.area.Area;
-import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
-import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
-import com.dicicilaja.app.BusinessReward.network.ApiClient;
-import com.dicicilaja.app.BusinessReward.network.ApiService;
-import com.dicicilaja.app.BusinessReward.network.InterfaceBranch;
-import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
-import com.dicicilaja.app.BusinessReward.ui.KtpNpwp.activity.UploadKTPActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class DetailProductActivity extends AppCompatActivity {
 
@@ -79,17 +70,20 @@ public class DetailProductActivity extends AppCompatActivity {
     TextView deskripsi;
     @BindView(R.id.spek_barang_detail)
     RelativeLayout spekBarangDetail;
-    @BindView(R.id.klaim)
-    Button klaim;
+    @BindView(R.id.cart)
+    Button cart;
 
     String gambar_barang;
+    ProgressDialog progressBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
         ButterKnife.bind(this);
 
-//        progressBar.setVisibility(View.GONE);
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Mohon tunggu sebentar...");
+        progressBar.setCanceledOnTouchOutside(false);
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -121,7 +115,6 @@ public class DetailProductActivity extends AppCompatActivity {
 
         session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
-        Log.d("apinya", session.getToken());
 
 
 //        Call<DetailProduk> call = apiService.getDetailProduk(Integer.valueOf(id));
@@ -149,142 +142,161 @@ public class DetailProductActivity extends AppCompatActivity {
 //            }
 //        });
 
-        klaim.setOnClickListener(new View.OnClickListener() {
+        cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.show();
+
+                ApiService3 apiService3 = ApiClient3.getClient().create(ApiService3.class);
+
+                Call<PostCart> call = apiService3.postCart(apiKey, productCatalogId, null);
+                call.enqueue(new Callback<PostCart>() {
+                    @SuppressLint("WrongConstant")
+                    @Override
+                    public void onResponse(Call<PostCart> call, Response<PostCart> response) {
+                        finish();
+
+        //                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostCart> call, Throwable t) {
+
+                    }
+                });
 //                progressBar.setVisibility(View.VISIBLE);
 
 //                Log.d("POINTUSER", pointUser);
 
 
-                if(pointUser != null) {
-                    if (Integer.valueOf(pointUser)>= pointProduk) {
-                        if (ktpnpwp.equals("Tidak")) {
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                            alertDialog.setTitle("Perhatian!");
-                            alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
-
-                            alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                            alertDialog.show();
-
-                        } else {
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                            alertDialog.setTitle("Klaim Produk");
-                            alertDialog.setMessage("Apakah kamu setuju ingin menukarkan point dengan produk ini?");
-                            crhId = String.valueOf(0);
-                            alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-                                    profileId = session.getAxiId();
-                                    name = session.getName();
-                                    crhId = String.valueOf(0);
-                                    no_ktp = getIntent().getStringExtra("NOKTP");
-                                    statusId = String.valueOf(5);
-
-//                                Log.d("datainput", profileId);
-//                                Log.d("datainput", name);
-//                                Log.d("datainput", branchId);
-//                                Log.d("datainput", namaCabang);
-//                                Log.d("datainput", areaId);
-//                                Log.d("datainput", namaArea);
-//                                Log.d("datainput", crhId);
-//                                Log.d("datainput", productCatalogId);
-//                                Log.d("datainput", no_ktp);
-//                                Log.d("datainput", statusId);
-
-                                    Date c = Calendar.getInstance().getTime();
-
-                                    SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-                                    String date = df.format(c);
-
-                                    Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
-
-
-                                    Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
-                                    Log.d("Tanggalnya", date);
-                                    intent.putExtra("DATE", date);
-                                    intent.putExtra("PROFILE_ID", String.valueOf(profileId));
-                                    intent.putExtra("NAMA", session.getName());
-                                    intent.putExtra("NOKTP", no_ktp);
-                                    intent.putExtra("NONPWP", no_npwp);
-                                    intent.putExtra("PRODUK_ID", productCatalogId);
-//                                intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
-//                                intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
-//                                intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
-//                                intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
-//                                intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
+//                if(pointUser != null) {
+//                    if (Integer.valueOf(pointUser)>= pointProduk) {
+//                        if (ktpnpwp.equals("Tidak")) {
+//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+//                            alertDialog.setTitle("Perhatian!");
+//                            alertDialog.setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.");
 //
-//                                intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
-                                    intent.putExtra("TOTAL_POINT", pointUser);
-                                    intent.putExtra("POINT_BARANG", pointProduk);
-//                                                                            Log.d("POINTAAA", String.valueOf(pointUser + pointProduk));
-                                    intent.putExtra("NAMA_BARANG", String.valueOf(titleBarang.getText()));
-                                    intent.putExtra("GAMBAR_BARANG", gambar_barang);
-                                    startActivity(intent);
-                                    finish();
-//                                progressBar.setVisibility(View.GONE);
-
-
-                                }
-                            });
-                            alertDialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                    startActivity(getIntent());
-                                }
-                            });
-                            alertDialog.show();
-                        }
-                    }else if(pointUser.equals("0")){
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                        alertDialog.setTitle("Point Kurang!");
-                        alertDialog.setMessage("Maaf point kamu belum ada!");
-
-                        alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-//                    finish();
-//                    startActivity(getIntent());
-                                Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        alertDialog.show();
-                    } else {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                        alertDialog.setTitle("Point Kurang!");
-                        alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
-
-                        alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-//                    finish();
-//                    startActivity(getIntent());
-                                Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                } else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
-                    alertDialog.setTitle("Point Kurang!");
-                    alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
-
-                    alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-//                    finish();
-//                    startActivity(getIntent());
-                            Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    alertDialog.show();
-                }
+//                            alertDialog.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    Intent intent = new Intent(getBaseContext(), UploadKTPActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                            });
+//                            alertDialog.show();
+//
+//                        } else {
+//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+//                            alertDialog.setTitle("Klaim Produk");
+//                            alertDialog.setMessage("Apakah kamu setuju ingin menukarkan point dengan produk ini?");
+//                            crhId = String.valueOf(0);
+//                            alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//
+//                                    profileId = session.getAxiId();
+//                                    name = session.getName();
+//                                    crhId = String.valueOf(0);
+//                                    no_ktp = getIntent().getStringExtra("NOKTP");
+//                                    statusId = String.valueOf(5);
+//
+////                                Log.d("datainput", profileId);
+////                                Log.d("datainput", name);
+////                                Log.d("datainput", branchId);
+////                                Log.d("datainput", namaCabang);
+////                                Log.d("datainput", areaId);
+////                                Log.d("datainput", namaArea);
+////                                Log.d("datainput", crhId);
+////                                Log.d("datainput", productCatalogId);
+////                                Log.d("datainput", no_ktp);
+////                                Log.d("datainput", statusId);
+//
+//                                    Date c = Calendar.getInstance().getTime();
+//
+//                                    SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+//                                    String date = df.format(c);
+//
+//                                    Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
+//
+//
+//                                    Intent intent = new Intent(getBaseContext(), DetailProduct2Activity.class);
+//                                    Log.d("Tanggalnya", date);
+//                                    intent.putExtra("DATE", date);
+//                                    intent.putExtra("PROFILE_ID", String.valueOf(profileId));
+//                                    intent.putExtra("NAMA", session.getName());
+//                                    intent.putExtra("NOKTP", no_ktp);
+//                                    intent.putExtra("NONPWP", no_npwp);
+//                                    intent.putExtra("PRODUK_ID", productCatalogId);
+////                                intent.putExtra("ALAMAT", String.valueOf(response.body().getData().getAttributes().getAlamat()));
+////                                intent.putExtra("NO_TRANSAKSI", response.body().getData().getId());
+////                                intent.putExtra("NO_TRANSAKSI2", String.valueOf(response.body().getData().getAttributes().getNoResi()));
+////                                intent.putExtra("TGL_PENUKARAN", response.body().getData().getAttributes().getCreatedAt());
+////                                intent.putExtra("STATUS_PENGIRIMAN", response.body().getData().getAttributes().getStatusId());
+////
+////                                intent.putExtra("PRODUK_ID", response.body().getData().getAttributes().getProductCatalogId());
+//                                    intent.putExtra("TOTAL_POINT", pointUser);
+//                                    intent.putExtra("POINT_BARANG", pointProduk);
+////                                                                            Log.d("POINTAAA", String.valueOf(pointUser + pointProduk));
+//                                    intent.putExtra("NAMA_BARANG", String.valueOf(titleBarang.getText()));
+//                                    intent.putExtra("GAMBAR_BARANG", gambar_barang);
+//                                    startActivity(intent);
+//                                    finish();
+////                                progressBar.setVisibility(View.GONE);
+//
+//
+//                                }
+//                            });
+//                            alertDialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+//                                    startActivity(getIntent());
+//                                }
+//                            });
+//                            alertDialog.show();
+//                        }
+//                    }else if(pointUser.equals("0")){
+//                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+//                        alertDialog.setTitle("Point Kurang!");
+//                        alertDialog.setMessage("Maaf point kamu belum ada!");
+//
+//                        alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+////                    finish();
+////                    startActivity(getIntent());
+//                                Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                        alertDialog.show();
+//                    } else {
+//                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+//                        alertDialog.setTitle("Point Kurang!");
+//                        alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
+//
+//                        alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+////                    finish();
+////                    startActivity(getIntent());
+//                                Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                        alertDialog.show();
+//                    }
+//                } else {
+//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailProductActivity.this);
+//                    alertDialog.setTitle("Point Kurang!");
+//                    alertDialog.setMessage("Maaf point kamu kurang untuk penukaran barang ini!");
+//
+//                    alertDialog.setPositiveButton("Kembali", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+////                    finish();
+////                    startActivity(getIntent());
+//                            Intent intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    alertDialog.show();
+//                }
 
 
 
@@ -409,10 +421,5 @@ public class DetailProductActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.klaim)
-    public void onViewClicked() {
-
     }
 }

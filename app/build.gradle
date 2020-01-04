@@ -39,8 +39,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 49
-        versionName "1.9.5"
+        versionCode 52
+        versionName "1.9.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -123,3 +123,4 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 //googleServices { disableVersionCheck = false }
+

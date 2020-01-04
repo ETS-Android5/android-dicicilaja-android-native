@@ -719,12 +719,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-//                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-//                intent.putExtra("POINT_REWARD", contentBox1.getText());
-//                startActivity(intent);
-
-                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                intent.putExtra("POINT_REWARD", contentBox1.getText());
                 startActivity(intent);
+
+//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);
