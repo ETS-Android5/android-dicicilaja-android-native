@@ -21,14 +21,14 @@ public interface InterfaceAreaBank {
     Call<Bank> getBanks();
 
     @GET("api/provinsi")
-    Call<Provinsi> getProvinsi();
+    Call<Provinsi> getProvinsi(@Query("limit") int limit);
 
     @GET("api/kota")
-    Call<Kota> getKota(@Query("provinsi_id") String provinsi_id);
+    Call<Kota> getKota(@Query("provinsi_id") String provinsi_id, @Query("limit") int limit);
 
     @GET("api/distrik")
-    Call<Distrik> getDistrik(@Query("kota_id") String kota_id);
+    Call<Distrik> getDistrik(@Query("kota_id") String kota_id, @Query("limit") int limit);
 
     @GET("api/desa")
-    Call<Desa> getDesa(@Query("distrik_id") String distrik_id);
+    Call<Desa> getDesa(@Query("distrik_id") String distrik_id, @Query("limit") int limit);
 }

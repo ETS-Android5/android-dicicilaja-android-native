@@ -482,7 +482,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Provinsi> call = apiServiceArea.getProvinsi();
+        Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
@@ -563,7 +563,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 clearDesa();
                 if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()));
+                    Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
                     call.enqueue(new Callback<Kota>() {
                         @Override
                         public void onResponse(Call<Kota> call, Response<Kota> response) {
@@ -641,7 +641,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                             clearDesa();
                             if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<Distrik> call = apiServiceArea.getDistrik(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()));
+                                Call<Distrik> call = apiServiceArea.getDistrik(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
                                 call.enqueue(new Callback<Distrik>() {
                                     @Override
                                     public void onResponse(Call<Distrik> call, Response<Distrik> response) {
@@ -718,7 +718,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                         clearDesa();
                                         if (Integer.parseInt(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<Desa> call = apiServiceArea.getDesa(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()));
+                                            Call<Desa> call = apiServiceArea.getDesa(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()), 1000);
                                             call.enqueue(new Callback<Desa>() {
                                                 @Override
                                                 public void onResponse(Call<Desa> call, Response<Desa> response) {
