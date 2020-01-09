@@ -48,9 +48,155 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
                         android:clipToPadding="false"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="15dp"
+                        android:padding="16dp"
+                        android:layout_below="@id/pengirim"
+                        android:layout_marginTop="2dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/border_form">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Point"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textSize="@dimen/font_title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Point"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/font_medium" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_total_point"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- POINT"
+                                    android:fontFamily="@font/open_sans_bold"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/font_medium"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Point Barang"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/font_medium"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_point_barang"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- POINT"
+                                    android:fontFamily="@font/open_sans_bold"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="6dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sisa Point"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sisa_point"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- POINT"
+                                    android:fontFamily="@font/open_sans_bold"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/order"

@@ -202,7 +202,6 @@ public class BusinesRewardActivity extends AppCompatActivity {
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-
         progress.show();
 
         Call<GetCart> callCart = apiService3.getCart(apiKey);
@@ -344,6 +343,7 @@ public class BusinesRewardActivity extends AppCompatActivity {
                 break;
             case R.id.floating_cart:
                 Intent intent2 = new Intent(getBaseContext(), CartActivity.class);
+                intent2.putExtra("point", point_reward);
                 startActivity(intent2);
                 break;
         }
