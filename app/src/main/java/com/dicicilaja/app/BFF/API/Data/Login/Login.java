@@ -24,6 +24,9 @@ public class Login {
     @SerializedName("area")
     @Expose
     private String area;
+    @SerializedName("branch_id")
+    @Expose
+    private String branchId;
     @SerializedName("branch")
     @Expose
     private String branch;
@@ -39,6 +42,15 @@ public class Login {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("popup_url")
+    @Expose
+    private String popupUrl;
+    @SerializedName("popup_text")
+    @Expose
+    private String popupText;
+    @SerializedName("popup_image")
+    @Expose
+    private String popupImage;
 
     public Integer getUserIdOnesignal() {
         return userIdOnesignal;
@@ -88,6 +100,14 @@ public class Login {
         this.area = area;
     }
 
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
     public String getBranch() {
         return branch;
     }
@@ -126,6 +146,30 @@ public class Login {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPopupUrl() {
+        return popupUrl;
+    }
+
+    public void setPopupUrl(String popupUrl) {
+        this.popupUrl = popupUrl;
+    }
+
+    public String getPopupText() {
+        return popupText;
+    }
+
+    public void setPopupText(String popupText) {
+        this.popupText = popupText;
+    }
+
+    public String getPopupImage() {
+        return popupImage;
+    }
+
+    public void setPopupImage(String popupImage) {
+        this.popupImage = popupImage;
     }
 
 }

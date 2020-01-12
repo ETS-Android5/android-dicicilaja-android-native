@@ -17,7 +17,8 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
 
-        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFF89E4C" />
+        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFF89E4C"
+            android:resource="@drawable/ic_stat_onesignal_default"/>
 
 
         <activity android:name=".Inbox.UI.InboxDetailActivity"
@@ -63,13 +64,15 @@
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"

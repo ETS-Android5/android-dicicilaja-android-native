@@ -30,9 +30,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import com.dicicilaja.app.API.Interface.InterfaceNotifToken;
 import com.dicicilaja.app.R;
-import com.dicicilaja.app.Remote.ApiUtils;
-import com.dicicilaja.app.Remote.UserFirebase;
-import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
 import com.onesignal.OneSignal;
 

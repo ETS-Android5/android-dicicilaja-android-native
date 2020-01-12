@@ -905,19 +905,21 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
                             thumbnail = InAppDialog.findViewById(R.id.thumbnail);
 
+
+                            Log.d("POPUP", "onResponse: " + dataPopups.get(0).getAttributes().getImage());
                             Glide.with(AxiDashboardActivity.this)
                                     .load(dataPopups.get(0).getAttributes().getImage())
-                                    .centerCrop()
+                                    .fitCenter()
                                     .into(thumbnail);
 
 
                             detail = InAppDialog.findViewById(R.id.detail);
                             nanti = InAppDialog.findViewById(R.id.nanti);
-                            close = InAppDialog.findViewById(R.id.close);
+//                            close = InAppDialog.findViewById(R.id.close);
 
                             detail.setEnabled(true);
                             nanti.setEnabled(true);
-                            close.setEnabled(true);
+//                            close.setEnabled(true);
 
                             detail.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -936,12 +938,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                 }
                             });
 
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    InAppDialog.cancel();
-                                }
-                            });
+//                            close.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    InAppDialog.cancel();
+//                                }
+//                            });
 
                             InAppDialog.show();
                         } catch (Exception ex) {
