@@ -4,6 +4,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
 import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;
 import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.ClaimReward;
+import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.PostClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProfile.DetailProfile;
@@ -15,6 +16,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.DetailKategori;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.BusinessReward.dataAPI.semester.Semester;
@@ -41,6 +43,9 @@ public interface ApiService {
             "Accept: application/json",
     })
 
+    @GET("existing/point")
+    Call<ExistingPoint> getExistingPoint(@Query("profile_id") String profileId);
+
     //GET
     @GET("kategori")
     Call<KategoriProduk> getKategori();
@@ -62,6 +67,12 @@ public interface ApiService {
                                 @Query("page") int page,
                                 @Query("ob") String ob,
                                 @Query("ot") String ot);
+
+    @GET("existing/claim-reward")
+    Call<ClaimRewards> getClaimHistory(@Query("search") String profileId,
+                                       @Query("page") int page,
+                                       @Query("ob") String ob,
+                                       @Query("ot") String ot);
 
     @GET("claim-reward")
     Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);
@@ -121,7 +132,7 @@ public interface ApiService {
     @GET("semester/{id}")
     Call<DetailSemester> getDetailSemester(@Path("id") int id);
 
-    @GET("claim-reward/{id}")
+    @GET("existing/claim-reward/{id}")
     Call<DetailClaimReward> getDetailClaimReward(@Path("id") int id);
 
     @GET("testimoni/{id}")
@@ -160,25 +171,49 @@ public interface ApiService {
     @POST("claim-reward")
     @FormUrlEncoded
     Call<DetailClaimReward> postClaimReward(
-                            @Field("profile_id") String profile_id,
-                            @Field("nama_axi") String nama_axi,
-                            @Field("cabang_id") String branch_id,
-                            @Field("nama_cabang") String nama_cabang,
-                            @Field("area_id") String area_id,
-                            @Field("nama_area") String nama_area,
-                            @Field("crh_id") String crh_id,
-                            @Field("penerima") String penerima,
-                            @Field("product_catalog_id") String product_catalog_id,
-                            @Field("ktp_npwp") String ktp_npwp,
-                            @Field("alamat") String alamat,
-                            @Field("no_po") String no_po,
-                            @Field("ekspedisi") String ekspedisi,
-                            @Field("no_resi") String no_resi,
-                            @Field("ongkos_kirim") String ongkos_kirim,
-                            @Field("harga_barang_ongkir") String harga_barang_ongkir,
-                            @Field("ppn") String ppn,
-                            @Field("status_id") String status_id,
-                            @Field("total_harga") String total_harga);
+            @Field("profile_id") String profile_id,
+            @Field("nama_axi") String nama_axi,
+            @Field("cabang_id") String branch_id,
+            @Field("nama_cabang") String nama_cabang,
+            @Field("area_id") String area_id,
+            @Field("nama_area") String nama_area,
+            @Field("crh_id") String crh_id,
+            @Field("penerima") String penerima,
+            @Field("product_catalog_id") String product_catalog_id,
+            @Field("ktp_npwp") String ktp_npwp,
+            @Field("alamat") String alamat,
+            @Field("no_po") String no_po,
+            @Field("ekspedisi") String ekspedisi,
+            @Field("no_resi") String no_resi,
+            @Field("ongkos_kirim") String ongkos_kirim,
+            @Field("harga_barang_ongkir") String harga_barang_ongkir,
+            @Field("ppn") String ppn,
+            @Field("status_id") String status_id,
+            @Field("total_harga") String total_harga);
+
+    @FormUrlEncoded
+    @POST("claim")
+    Call<PostClaimReward> postClaimReward2(
+            @Field("profile_id") String profile_id,
+            @Field("nama_axi") String nama_axi,
+            @Field("cabang_id") String branch_id,
+            @Field("nama_cabang") String nama_cabang,
+            @Field("area_id") String area_id,
+            @Field("nama_area") String nama_area,
+            @Field("crh_id") String crh_id,
+            @Field("penerima") String penerima,
+            @Field("product_catalog_id") String product_catalog_id,
+            @Field("ktp_npwp") String ktp_npwp,
+            @Field("alamat") String alamat,
+            @Field("no_po") String no_po,
+            @Field("ekspedisi") String ekspedisi,
+            @Field("no_resi") String no_resi,
+            @Field("ongkos_kirim") String ongkos_kirim,
+            @Field("harga_barang_ongkir") String harga_barang_ongkir,
+            @Field("ppn") String ppn,
+            @Field("status_id") String status_id,
+            @Field("total_harga") String total_harga,
+            @Header("Authorization") String authorization);
 
     @POST("testimoni")
     @FormUrlEncoded
@@ -192,11 +227,11 @@ public interface ApiService {
     @POST("axi-foto")
     @FormUrlEncoded
     Call<Foto> postFoto(
-                            @Field("axi_id") String axi_id,
-                            @Field("foto_ktp") String foto_ktp,
-                            @Field("foto_npwp") String foto_npwp,
-                            @Field("no_ktp") String no_ktp,
-                            @Field("no_npwp") String no_npwp);
+            @Field("axi_id") String axi_id,
+            @Field("foto_ktp") String foto_ktp,
+            @Field("foto_npwp") String foto_npwp,
+            @Field("no_ktp") String no_ktp,
+            @Field("no_npwp") String no_npwp);
 
     //PUT
     @PUT("status/{id}")

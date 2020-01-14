@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,12 +37,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private int rowLayout;
     private Context context;
 
+    private CartCallback mCallback;
+
     SessionManager session;
     String apiKey;
     ProgressDialog progressBar;
 
 
-    public static class CartViewHolder extends RecyclerView.ViewHolder {
+    public class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView image_cart;
         TextView product_name;
         TextView product_point;
@@ -62,13 +65,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             minus           = v.findViewById(R.id.minus);
             delete          = v.findViewById(R.id.delete);
         }
+
+        public void toggleButtonAddSubstract(boolean isEnable) {
+            plus.setEnabled(isEnable);
+            minus.setEnabled(isEnable);
+
+            if (isEnable) {
+                plus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+                minus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+            } else {
+                plus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorIndicator));
+                minus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorIndicator));
+            }
+        }
     }
 
-    public CartAdapter(List<Item> items, List<Included> includeds, int rowLayout, Context context) {
+    public CartAdapter(List<Item> items, List<Included> includeds, int rowLayout, Context context, CartCallback mCallback) {
         this.itemList = items;
         this.includedList = includeds;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.mCallback = mCallback;
     }
 
     @Override
@@ -99,9 +116,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.qty.setText(" x" + itemList.get(position).getCounts());
         holder.value.setText(String.valueOf(itemList.get(position).getCounts()));
 
+        if (itemList.get(position).getCounts() == 99) {
+            holder.plus.setEnabled(false);
+            holder.plus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorIndicator));
+        } else {
+            holder.plus.setEnabled(true);
+            holder.plus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        }
+
+        if (itemList.get(position).getCounts() == 1) {
+            holder.minus.setEnabled(false);
+            holder.minus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorIndicator));
+        } else {
+            holder.minus.setEnabled(true);
+            holder.minus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        }
+
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.toggleButtonAddSubstract(false);
                 ApiService3 apiService3 = ApiClient3.getClient().create(ApiService3.class);
 
                 Call<PostCart> call = apiService3.postCart(apiKey, String.valueOf(itemList.get(position).getProductId()), "add");
@@ -109,7 +143,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<PostCart> call, Response<PostCart> response) {
-                        ((Activity) context).finish();
+                        holder.toggleButtonAddSubstract(true);
+                        mCallback.onUpdateCart();
+                        //((Activity) context).finish();
                     }
 
                     @Override
@@ -122,6 +158,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.toggleButtonAddSubstract(false);
                 ApiService3 apiService3 = ApiClient3.getClient().create(ApiService3.class);
 
                 Call<PostCart> call = apiService3.postCart(apiKey, String.valueOf(itemList.get(position).getProductId()), "subtract");
@@ -129,7 +166,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<PostCart> call, Response<PostCart> response) {
-                        ((Activity) context).finish();
+                        holder.toggleButtonAddSubstract(true);
+                        mCallback.onUpdateCart();
+                        //((Activity) context).finish();
                     }
 
                     @Override
@@ -142,20 +181,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiService3 apiService3 = ApiClient3.getClient().create(ApiService3.class);
-
-                Call<DelCart> call = apiService3.delCart(apiKey, itemList.get(position).getProductId());
-                call.enqueue(new Callback<DelCart>() {
-                    @SuppressLint("WrongConstant")
-                    @Override
-                    public void onResponse(Call<DelCart> call, Response<DelCart> response) {
-                        ((Activity) context).finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<DelCart> call, Throwable t) {
-                    }
-                });
+                mCallback.onDeleteCart(position);
             }
         });
     }
@@ -163,5 +189,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public int getItemCount() {
         return itemList.size();
+    }
+
+    public interface CartCallback {
+        void onUpdateCart();
+
+        void onDeleteCart(int position);
     }
 }

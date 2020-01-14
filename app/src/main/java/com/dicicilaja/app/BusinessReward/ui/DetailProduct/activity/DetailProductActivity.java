@@ -154,6 +154,9 @@ public class DetailProductActivity extends AppCompatActivity {
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<PostCart> call, Response<PostCart> response) {
+                        //finish();
+
+                        setResult(RESULT_OK);
                         finish();
 
         //                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));

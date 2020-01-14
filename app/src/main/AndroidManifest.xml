@@ -691,7 +691,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity"
-            android:label="Detail Produk"
+            android:label="Detail Keranjang"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

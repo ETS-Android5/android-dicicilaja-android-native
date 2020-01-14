@@ -244,4 +244,6 @@
     <string name="data_and_informasi">Data &amp; Informasi</string>
     <string name="lihat_riwayat"><u>Lihat Riwayat</u></string>
     <string name="informasi_jaminan_pinjaman">Jaminan &amp; Pinjaman</string>
+    
+    <string name="belum_bisa_klaim_produk">Kamu belum bisa Klaim Produk karena poin tidak mencukupi, silakan kurangi atau hapus produk yang ada di keranjang sesuai dengan poin yang dimiliki.</string>
 </resources>
