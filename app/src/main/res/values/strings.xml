@@ -244,6 +244,33 @@
     <string name="data_and_informasi">Data &amp; Informasi</string>
     <string name="lihat_riwayat"><u>Lihat Riwayat</u></string>
     <string name="informasi_jaminan_pinjaman">Jaminan &amp; Pinjaman</string>
-    
+
     <string name="belum_bisa_klaim_produk">Kamu belum bisa Klaim Produk karena poin tidak mencukupi, silakan kurangi atau hapus produk yang ada di keranjang sesuai dengan poin yang dimiliki.</string>
+
+    <!--  navigation menu  -->
+    <string name="nav_home">HOME</string>
+    <string name="nav_regist">AXI TERDAFTAR</string>
+    <string name="nav_trip">INFORMASI TRIP</string>
+    <string name="nav_gathering">INFORMASI GATHERING</string>
+    <string name="nav_submission">BUAT PENGAJUAN</string>
+    <string name="nav_financing">PRODUK PEMBIAYAAN</string>
+    <string name="nav_tracking">ORDER TRACKING</string>
+    <string name="nav_simulation">SIMULASI CICILAN</string>
+    <string name="nav_news">BERITA AXI</string>
+    <string name="nav_download">UNDUH MATERI</string>
+    <string name="nav_info">GUDANG INFO</string>
+
+    <string name="home_tag">home</string>
+    <string name="regist_tag">register</string>
+    <string name="trip_tag">trip</string>
+
+    <!--    <string name="navigation_drawer_open">Open navigation drawer</string>-->
+    <!--    <string name="navigation_drawer_close">Close navigation drawer</string>-->
+
+    <string name="look_profile">Lihat Profil</string>
+
+    <string name="dummy_profile">https://i1.wp.com/ppmschool.ac.id/id/wp-content/uploads/2016/01/tutor-8.jpg</string>
+    <string name="axi_search_placeholder">Cari AXI berdasarkan ID atau Nama</string>
+    <string name="axi_search_result">3081 AXI di Cabang Bandung - Setiabudi</string>
+    <string name="no_results_yet">Belum ada hasil</string>
 </resources>
