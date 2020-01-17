@@ -169,7 +169,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="16dp"
                         android:layout_toStartOf="@id/iv_wa"
-                        android:src="@drawable/ic_comment" />
+                        android:src="@drawable/ic_comment_black_24dp" />
 
                     <ImageView
                         android:id="@+id/iv_wa"
@@ -177,7 +177,7 @@
                         android:layout_height="18dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_whatsapp" />
+                        android:src="@drawable/ic_whatsapp_icon" />
 
                 </RelativeLayout>
 

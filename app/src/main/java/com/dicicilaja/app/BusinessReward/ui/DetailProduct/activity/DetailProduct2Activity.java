@@ -84,20 +84,10 @@ public class DetailProduct2Activity extends AppCompatActivity {
     //TextView titleBarang;
     //@BindView(R.id.point)
     //TextView tvPoint;
-    @BindView(R.id.spek_title)
-    TextView spekTitle;
-    @BindView(R.id.title_kategori)
-    TextView titleKategori;
     @BindView(R.id.tv_total_point)
     TextView tvTotalPoint;
-    @BindView(R.id.title_processor)
-    TextView titleProcessor;
     @BindView(R.id.tv_point_barang)
     TextView tvPointBarang;
-    @BindView(R.id.div)
-    View div;
-    @BindView(R.id.title_os)
-    TextView titleOs;
     @BindView(R.id.tv_sisa_point)
     TextView tvSisaPoint;
     @BindView(R.id.klaim)

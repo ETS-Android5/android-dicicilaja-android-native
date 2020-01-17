@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -104,7 +105,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        claim.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        claim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_color)));
 
         //no_ktp = getIntent().getStringExtra("NOKTP");
         //ktpnpwp = getIntent().getStringExtra("KTP");
@@ -155,11 +156,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         if (isCanClaim) {
             cannotClaim.setVisibility(View.GONE);
             claim.setEnabled(true);
-            claim.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            claim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_color)));
         } else {
             cannotClaim.setVisibility(View.VISIBLE);
             claim.setEnabled(false);
-            claim.setBackgroundColor(ContextCompat.getColor(this, R.color.colorIndicator));
+            claim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorIndicator)));
         }
     }
 

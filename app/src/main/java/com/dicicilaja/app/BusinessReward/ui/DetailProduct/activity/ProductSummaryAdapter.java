@@ -73,9 +73,15 @@ public class ProductSummaryAdapter extends RecyclerView.Adapter<ProductSummaryAd
                     .centerCrop()
                     .into(ivProduct);
 
-            tvProductName.setText(included.getAttributes().getNama());
+            String value_title = included.getAttributes().getNama();
+            if (value_title.length() >= 35) {
+                value_title = value_title.substring(0, 36) + "...";
+                tvProductName.setText(value_title);
+            } else {
+                tvProductName.setText(value_title);
+            }
             tvProductPoint.setText(included.getAttributes().getPoint() + " POINT");
-            tvQuantity.setText(itemList.get(getAdapterPosition()).getCounts() + "x");
+            tvQuantity.setText( "x" + itemList.get(getAdapterPosition()).getCounts());
         }
     }
 }

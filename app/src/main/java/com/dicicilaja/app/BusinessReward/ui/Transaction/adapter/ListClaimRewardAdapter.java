@@ -141,7 +141,14 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
 //        }
 
         holder.tv_point.setText(cl.getAttributes().getPoint() + " POINT");
-        holder.tv_merk.setText(cl.getAttributes().getNama());
+
+        String value_title = cl.getAttributes().getNama();
+        if (value_title.length() >= 35) {
+            value_title = value_title.substring(0, 36) + "...";
+            holder.tv_merk.setText(value_title);
+        } else {
+            holder.tv_merk.setText(value_title);
+        }
 
         int status_id = cl.getAttributes().getStatusId();
 //

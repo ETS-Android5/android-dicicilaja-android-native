@@ -73,8 +73,15 @@ public class ProductTransactionAdapter extends RecyclerView.Adapter<ProductTrans
                         .into(ivProduct);
             }
 
+
             if (data.getAttributes().getNama() != null) {
-                tvProductName.setText(data.getAttributes().getNama());
+                String value_title = data.getAttributes().getNama();
+                if (value_title.length() >= 35) {
+                    value_title = value_title.substring(0, 36) + "...";
+                    tvProductName.setText(value_title);
+                } else {
+                    tvProductName.setText(value_title);
+                }
             }
 
             if (data.getAttributes().getPoint() > -1) {

@@ -150,6 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         android:text="Detail Produk"
                         android:textSize="16dp"
                         android:fontFamily="@font/open_sans_bold"/>
@@ -159,116 +160,263 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="15dp"
                         android:padding="16dp"
-                        android:background="@drawable/border_form"
-                        android:orientation="vertical">
+                        android:layout_below="@id/pengirim"
+                        android:layout_marginTop="2dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/border_form">
 
                         <TextView
-                            android:id="@+id/spek_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Point"
                             android:fontFamily="@font/open_sans_bold"
-                            android:textSize="@dimen/font_semi_medium"/>
+                            android:textSize="@dimen/font_title" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_below="@id/spek_title">
+                            android:weightSum="2"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
 
                                 <TextView
-                                    android:id="@+id/title_kategori"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Total Point"
                                     android:fontFamily="@font/open_sans"
-                                    android:layout_weight="1"
-                                    android:textSize="@dimen/font_medium"/>
+                                    android:textSize="@dimen/font_medium" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
 
                                 <TextView
                                     android:id="@+id/tv_total_point"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/open_sans_bold"
-                                    android:text="3000 POINT"
-                                    android:textSize="@dimen/font_medium"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/title_processor"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Point Barang"
+                                    android:text="- POINT"
                                     android:fontFamily="@font/open_sans"
-                                    android:layout_weight="1"
-                                    android:textSize="@dimen/font_medium"/>
-
-                                <TextView
-                                    android:id="@+id/tv_point_barang"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/open_sans_bold"
-                                    android:text="450 POINT"
-                                    android:textSize="@dimen/font_medium"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:id="@+id/div"
-                                android:layout_below="@id/barang_picture"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
-                                android:background="@android:color/darker_gray"/>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/title_os"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Sisa Point"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_weight="1"
-                                    android:textSize="@dimen/font_medium"/>
-
-                                <TextView
-                                    android:id="@+id/tv_sisa_point"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/open_sans_bold"
-                                    android:text="2550 POINT"
+                                    android:gravity="right"
                                     android:textSize="@dimen/font_medium"/>
 
                             </LinearLayout>
 
                         </LinearLayout>
 
-                    </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Point Barang"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/font_medium"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_point_barang"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- POINT"
+                                    android:fontFamily="@font/open_sans"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="7dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sisa Point"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="7dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sisa_point"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- POINT"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/font_medium"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:layout_marginRight="16dp"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:background="@drawable/border_form"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/spek_title"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Point"-->
+<!--                            android:fontFamily="@font/open_sans_bold"-->
+<!--                            android:textSize="@dimen/font_semi_medium"/>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_below="@id/spek_title">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="15dp"-->
+<!--                                android:orientation="horizontal">-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/title_kategori"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Total Point"-->
+<!--                                    android:fontFamily="@font/open_sans"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_total_point"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/open_sans_bold"-->
+<!--                                    android:text="3000 POINT"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:orientation="horizontal">-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/title_processor"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Point Barang"-->
+<!--                                    android:fontFamily="@font/open_sans"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_point_barang"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/open_sans_bold"-->
+<!--                                    android:text="450 POINT"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <View-->
+<!--                                android:id="@+id/div"-->
+<!--                                android:layout_below="@id/barang_picture"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="1dp"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:layout_marginBottom="5dp"-->
+<!--                                android:background="@android:color/darker_gray"/>-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:orientation="horizontal">-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/title_os"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Sisa Point"-->
+<!--                                    android:fontFamily="@font/open_sans"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_sisa_point"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/open_sans_bold"-->
+<!--                                    android:text="2550 POINT"-->
+<!--                                    android:textSize="@dimen/font_medium"/>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </RelativeLayout>-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -280,13 +428,13 @@
                         <Button
                             android:id="@+id/klaim"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="55dp"
                             android:text="Selesai"
-                            android:fontFamily="@font/open_sans"
+                            android:fontFamily="@font/open_sans_bold"
                             android:textAllCaps="true"
                             android:layout_alignParentBottom="true"
                             android:textColor="@color/colorWhite"
-                            android:background="@color/colorAccent"/>
+                            android:backgroundTint="@color/colorAccent"/>
 
                     </RelativeLayout>
 
