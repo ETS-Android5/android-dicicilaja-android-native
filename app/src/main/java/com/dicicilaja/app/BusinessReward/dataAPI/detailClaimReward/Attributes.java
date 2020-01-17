@@ -71,6 +71,8 @@ public class Attributes{
 	@SerializedName("updated_at")
 	@Expose
 	private String updatedAt;
+	@SerializedName("updated_at_string")
+	private String updatedAtString;
 	@SerializedName("no_hp_crh")
 	@Expose
 	private String noHpCrh;
@@ -249,6 +251,14 @@ public class Attributes{
 
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String getUpdatedAtString() {
+		return updatedAtString;
+	}
+
+	public void setUpdatedAtString(String updatedAtString) {
+		this.updatedAtString = updatedAtString;
 	}
 
 	public String getTransaksiId() {

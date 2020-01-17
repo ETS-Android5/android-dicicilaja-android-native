@@ -44,4 +44,10 @@
     <color name="black_overlay">#66000000</color>
     <color name="new_text_black">#1E1F39</color>
     <color name="new_text_title">#B8B8B8</color>
+
+    <color name="grey_40">#999999</color>
+    <color name="grey_80">#37474F</color>
+    <color name="grey_90">#263238</color>
+    <color name="colorTanHide">#F89E4C</color>
+    <color name="colorPacificBlue">#016BB1</color>
 </resources>

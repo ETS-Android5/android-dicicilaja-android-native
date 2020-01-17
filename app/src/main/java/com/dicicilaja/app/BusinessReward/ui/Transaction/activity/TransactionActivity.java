@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -22,13 +24,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.dicicilaja.app.Adapter.TransaksiAdapter;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.Datum;
+import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.Meta;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.adapter.ListClaimRewardAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -51,9 +56,14 @@ public class TransactionActivity extends AppCompatActivity {
     LinearLayout dataTrans;
     @BindView(R.id.fabScrollTop)
     FloatingActionButton fabScrollTop;
+    @BindView(R.id.nested_transaction)
+    NestedScrollView nestedTransaction;
+    @BindView(R.id.pb_list)
+    ProgressBar pbList;
 
     SessionManager session;
 
+    List<Included> dataIncl;
     List<Datum> dataTemp;
     ListClaimRewardAdapter listClaimRewardAdapter;
 
@@ -89,18 +99,20 @@ public class TransactionActivity extends AppCompatActivity {
 //        apiKey = "Bearer " + session.getToken();
 
         session = new SessionManager(getBaseContext());
+        dataIncl = new ArrayList<>();
         dataTemp = new ArrayList<>();
 
-        listClaimRewardAdapter = new ListClaimRewardAdapter(getBaseContext(), dataTemp, this);
+        listClaimRewardAdapter = new ListClaimRewardAdapter(getBaseContext(), dataTemp, dataIncl, this);
 
         recyclerTransaksi.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 LinearLayoutManager.VERTICAL, false));
         recyclerTransaksi.setHasFixedSize(true);
+        recyclerTransaksi.setAdapter(listClaimRewardAdapter);
 
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-        progress.show();
+        //progress.show();
 
         swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,16 +134,22 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     private void doLoadData() {
-        showLoading(false);
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        //if (currentPage > 1)
+            pbList.setVisibility(View.VISIBLE);
 
-        Call<ClaimRewards> call = apiService.getClaim(session.getAxiId(), currentPage, "id", "desc");
+        showLoading(false);
+        ApiService apiService = ApiClient3.getClient().create(ApiService.class);
+
+        Call<ClaimRewards> call = apiService.getClaimHistory(session.getAxiId(), currentPage, "id", "desc");
         call.enqueue(new Callback<ClaimRewards>() {
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<ClaimRewards> call, Response<ClaimRewards> response) {
                 if (response.isSuccessful()) {
                     final List<Datum> dataItems = response.body().getData();
+                    final List<Included> inclData = response.body().getIncluded();
+
+                    Log.d("huwiw", "onResponse: " + new Gson().toJson(inclData));
                     Meta meta = response.body().getMeta();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -150,16 +168,27 @@ public class TransactionActivity extends AppCompatActivity {
                     } else {
                         if (meta.getCurrentPage() == 1) {
                             dataTemp.clear();
-                            dataTemp.addAll(dataItems);
+                            //dataIncl.clear();
+
+                            //dataTemp.addAll(dataItems);
+                            for (Datum data : dataItems) {
+                                if (data.getType().equals("claim_rewards"))
+                                    dataTemp.add(data);
+                            }
+                            dataIncl.addAll(inclData);
 
                             listClaimRewardAdapter.notifyDataSetChanged();
-                            recyclerTransaksi.setAdapter(listClaimRewardAdapter);
+                            //recyclerTransaksi.setAdapter(listClaimRewardAdapter);
 
 //                            recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
                         } else {
-                            listClaimRewardAdapter.refreshAdapter(dataItems);
+                            listClaimRewardAdapter.refreshAdapter(dataItems, dataIncl);
                         }
                     }
+                    //nestedTransaction.setVisibility(View.VISIBLE);
+
+                    //if (currentPage > 1)
+                        pbList.setVisibility(View.GONE);
                 } else {
 //                    session.logoutUser();
                 }
@@ -208,13 +237,23 @@ public class TransactionActivity extends AppCompatActivity {
                 int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
                 boolean isLastPosition = countItem - 1 == lastVisiblePosition;
 
-                if (!isLoading && isLastPosition && currentPage < totalPage) {
+//                if (!isLoading && isLastPosition && currentPage < totalPage) {
+//                    showLoading(false);
+//                    currentPage = currentPage + 1;
+//                    doLoadData();
+//                }
+            }
+        });
+        nestedTransaction.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                if (currentPage < totalPage) {
                     showLoading(false);
-                    currentPage = currentPage + 1;
+                    currentPage += 1;
                     doLoadData();
                 }
             }
         });
+
         fabScrollTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,12 +265,14 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void showLoading(boolean isRefresh) {
         isLoading = true;
-        progress.show();
+        if (isRefresh)
+            progress.show();
     }
 
     private void hideLoading() {
         isLoading = false;
-        progress.dismiss();
+        if (progress.isShowing())
+            progress.dismiss();
     }
 
     private void hideEmpty() {

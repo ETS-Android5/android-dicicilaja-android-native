@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/spek_barang_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@+id/info_penukaran"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/spek_penukaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Produk"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="@dimen/font_title" />
+
+        <LinearLayout
+            android:id="@+id/detail_produk"
+            android:layout_width="match_parent"
+            android:layout_toStartOf="@id/barang_picture"
+            android:layout_below="@id/spek_penukaran"
+            android:paddingTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_barang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="Xiaomi A2 Lite"
+                android:textSize="@dimen/font_medium"/>
+
+            <TextView
+                android:id="@+id/point"
+                android:layout_below="@id/title_barang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="450 Point"
+                android:textSize="@dimen/font_mini"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/barang_picture"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/user" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -30,10 +30,13 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
     public String nama;
     int no = 0;
 
-    public ListProductCatalogAdapter(List<Datum> dataItems, List<Included> dataItems2, Context baseContext) {
+    private ListProductAdapter.ProductCallback mCallback;
+
+    public ListProductCatalogAdapter(List<Datum> dataItems, List<Included> dataItems2, Context baseContext, ListProductAdapter.ProductCallback mCallback) {
         this.pcList = dataItems;
         this.pcList2 = dataItems2;
         this.mContext = baseContext;
+        this.mCallback = mCallback;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +74,7 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
 
 //        for (int i = 0; i < pc.getRelationships().getProductCatalogs().getData().size(); i++){
 //        Log.d("idnyaanjing", String.valueOf(pc.getRelationships().getProductCatalogs().getData().get(position).getId()));
-        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
+        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext, mCallback);
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);
