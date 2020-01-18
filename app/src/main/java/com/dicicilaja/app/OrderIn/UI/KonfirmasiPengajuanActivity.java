@@ -403,7 +403,9 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         session.getJaminan_id(),
                                         session.getTenor_simulasi(),
                                         session.getKtp_image(),
-                                        session.getBpkb()
+                                        session.getBpkb(),
+                                        session.getYear(),
+                                        session.getQty()
                                 );
 
                                 call1.enqueue(new Callback<Transaksi>() {
