@@ -48,6 +48,8 @@ public class RegisterAxiFragment extends Fragment {
     AreaService AreaService;
     String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
     TextInputLayout inputLayoutNamaLengkap, inputLayoutEmail, inputLayoutNoHp, inputLayoutNamaIbu;
+    String EMAIL_PATTERN = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+
     public RegisterAxiFragment() {
         // Required empty public constructor
     }
@@ -275,6 +277,17 @@ public class RegisterAxiFragment extends Fragment {
         if(email == null || email.trim().length() == 0 || email.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
             alertDialog.setMessage("Masukan email");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputEmail);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!email.matches(EMAIL_PATTERN)) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setMessage("Email tidak valid");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

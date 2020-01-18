@@ -429,7 +429,18 @@ public class MarketplaceActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setTitle("Exit?")
+                    .setMessage("Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+//                            MarketplaceActivity.super.onBackPressed();
+                            finishAffinity();
+                        }
+                    }).create().show();
         }
     }
 

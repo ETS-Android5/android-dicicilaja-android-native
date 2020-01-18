@@ -37,10 +37,13 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     String nama;
     int no = 0;
 
-    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
+    private ProductCallback mCallback;
+
+    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext, ProductCallback mCallback) {
         this.pcList = data;
         this.pcList2 = pc2;
         this.mContext = baseContext;
+        this.mCallback = mCallback;
     }
 
 //    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
@@ -109,6 +112,9 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                             intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
                             intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
 
+                            if (mCallback != null)
+                                mCallback.onClickProduct(pcList2, finalj);
+
                             Log.d("ListProductActivity", "ID: " + pcList2.get(finalj).getId());
                             Log.d("ListProductActivity", "IMAGE: " + pcList2.get(finalj).getAttributes().getFoto());
                             Log.d("ListProductActivity", "TITLE: " + pcList2.get(finalj).getAttributes().getNama());
@@ -117,7 +123,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                             Log.d("ListProductActivity", "POINT_REWARD: " + BusinesRewardActivity.point_reward);
                             Log.d("ListProductActivity", "KTP: " + BusinesRewardActivity.ktpnpwp);
                             Log.d("ListProductActivity", "NOKTP: " + BusinesRewardActivity.no_ktp);
-                            view.getContext().startActivity(intent);
+                            //view.getContext().startActivity(intent);
                         }
                     });
 //                    break;
@@ -130,5 +136,9 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     @Override
     public int getItemCount() {
         return pcList.size();
+    }
+
+    public interface ProductCallback {
+        void onClickProduct(List<Included> pcList2, int position);
     }
 }

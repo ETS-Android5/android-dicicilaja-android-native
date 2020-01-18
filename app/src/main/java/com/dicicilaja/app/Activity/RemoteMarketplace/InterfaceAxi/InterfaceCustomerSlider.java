@@ -10,6 +10,6 @@ public interface InterfaceCustomerSlider {
     @Headers({
             "Accept: application/json",
     })
-    @GET("slider/customer")
+        @GET("slider/customer")
     Call<AxiSlider> getSlider();
 }

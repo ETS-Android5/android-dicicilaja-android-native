@@ -18,6 +18,12 @@ public class Datum {
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
+    @SerializedName("deskripsi_singkat")
+    @Expose
+    private String deskripsi_singkat;
+    @SerializedName("mitra")
+    @Expose
+    private String mitra;
 
     public Integer getId() {
         return id;
@@ -57,5 +63,21 @@ public class Datum {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getDeskripsi_singkat() {
+        return deskripsi_singkat;
+    }
+
+    public void setDeskripsi_singkat(String deskripsi_singkat) {
+        this.deskripsi_singkat = deskripsi_singkat;
+    }
+
+    public String getMitra() {
+        return mitra;
+    }
+
+    public void setMitra(String mitra) {
+        this.mitra = mitra;
     }
 }

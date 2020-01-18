@@ -20,16 +20,30 @@
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity" />
         <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity" />
+        <activity android:name=".InformAXI.OrderTrackingActivity"></activity>
+        <activity android:name=".InformAXI.ui.trip.TripActivity" />
+        <activity android:name=".InformAXI.ui.search.SearchActivity" />
+        <activity android:name=".InformAXI.ui.register.RegisterActivity" />
+        <activity android:name=".InformAXI.ui.profile.ProfileActivity" />
+        <activity android:name=".InformAXI.ui.incentive.IncentiveActivity" />
+        <activity android:name=".InformAXI.ui.gathering.GatheringActivity" />
+        <activity android:name=".InformAXI.ui.InformAxiActivity" />
+        <activity
+            android:name=".BusinessReward.ui.Cart.CartActivity"
+            android:label="Keranjang"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".OrderIn.UI.KantorCabang.Activity.KantorCabangActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".OrderIn.UI.PengajuanSuksesActivity" />
         <activity android:name=".OrderIn.UI.InformasiJaminanActivity" />
         <activity android:name=".BusinessReward.ui.BusinessReward.activity.AvailableBRActivity" />
-        <activity android:name=".OrderIn.UI.DataCalonPeminjamActivity" />
+        <activity
+            android:name=".OrderIn.UI.DataCalonPeminjamActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
@@ -46,13 +60,14 @@
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Activity.LoginActivity">
         </activity>
         <activity
             android:name=".Activity.ForgotPasswordActivity"
@@ -113,7 +128,7 @@
         <activity
             android:name=".Activity.AxiDashboardActivity"
             android:label="@string/title_activity_marketplace"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EmployeeDashboardActivity"
             android:label="@string/title_activity_tcdashboard"
@@ -154,11 +169,9 @@
             android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <meta-data -->
-            <!-- android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value="com.dicicilaja.app.Activity.MarketplaceActivity" /> -->
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
             android:name=".Activity.IntroActivity"
@@ -692,7 +705,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity"
-            android:label="Detail Produk"
+            android:label="Detail Keranjang"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

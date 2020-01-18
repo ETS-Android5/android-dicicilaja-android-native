@@ -74,7 +74,7 @@ public class BantuanFragment extends Fragment {
         hotline2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=6281293343334"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=628111465005"));
                 startActivity(browserIntent);
             }
         });
