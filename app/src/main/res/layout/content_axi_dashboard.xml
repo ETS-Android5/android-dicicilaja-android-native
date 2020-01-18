@@ -251,8 +251,6 @@
                             android:paddingTop="16dp"
                             android:paddingBottom="16dp"
                             android:layout_marginLeft="8dp"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
                             android:orientation="vertical"
                             android:background="@drawable/axi_box_radius_white">
                             <TextView

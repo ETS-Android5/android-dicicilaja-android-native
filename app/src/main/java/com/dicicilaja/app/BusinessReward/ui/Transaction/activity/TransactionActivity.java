@@ -140,7 +140,7 @@ public class TransactionActivity extends AppCompatActivity {
         showLoading(false);
         ApiService apiService = ApiClient3.getClient().create(ApiService.class);
 
-        Call<ClaimRewards> call = apiService.getClaimHistory(session.getAxiId(), currentPage, "id", "desc");
+        Call<ClaimRewards> call = apiService.getClaimHistory(session.getNomorAxiId(), currentPage, "id", "desc");
         call.enqueue(new Callback<ClaimRewards>() {
             @SuppressLint("WrongConstant")
             @Override

@@ -123,7 +123,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
 
 //        Intent intent = getIntent();
 //        tgl = intent.getStringExtra("DATE");
-        profileId = session.getAxiId();
+        profileId = session.getNomorAxiId();
         nama = session.getName();
         no_ktp = getIntent().getStringExtra("NOKTP");
         no_npwp = getIntent().getStringExtra("NONPWP");

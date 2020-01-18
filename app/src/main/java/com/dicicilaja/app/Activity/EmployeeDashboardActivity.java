@@ -90,7 +90,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
+                        Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {

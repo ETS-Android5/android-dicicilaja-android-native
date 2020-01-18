@@ -38,7 +38,9 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
@@ -56,12 +58,12 @@ import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
-import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
+import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -357,7 +359,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
+                        Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -466,7 +468,27 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                session.logoutUser();
+                                progress.show();
+                                InterfaceLogout apiService =
+                                        ApiClient.getClient().create(InterfaceLogout.class);
+
+                                Call<Logout> call2 = apiService.logout(apiKey);
+                                call2.enqueue(new Callback<Logout>() {
+                                    @Override
+                                    public void onResponse(Call<Logout> call, Response<Logout> response2) {
+                                        try {
+                                            if (response2.isSuccessful()) {
+                                                progress.hide();
+                                                session.logoutUser();
+                                            }
+                                        } catch (Exception ex) {
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Logout> call, Throwable t) {
+                                    }
+                                });
                             }
                         });
 
@@ -853,10 +875,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 intent.putExtra("total_rb", contentBox5.getText().toString());
                 startActivity(intent);
                 break;
-            case R.id.button_kedalaman_rb:
-                intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.button_kedalaman_rb:
+//                intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+//                startActivity(intent);
+//                break;
 //            case R.id.footer_item_1:
 //                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
 //                startActivity(intent);

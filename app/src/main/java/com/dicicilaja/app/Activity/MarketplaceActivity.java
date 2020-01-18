@@ -1,9 +1,14 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
@@ -15,6 +20,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +38,9 @@ import com.dicicilaja.app.WebView.InfoActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static java.lang.Boolean.FALSE;
 
@@ -41,12 +51,32 @@ public class MarketplaceActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     SessionManager session;
+    String apiKey;
     private ViewPagerAdapter viewPagerAdapter;
+    ProgressDialog progress;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marketplace);
+
+        try {
+            session = new SessionManager(getApplicationContext());
+            apiKey = "Bearer " + session.getToken();
+        } catch (Exception err) {}
+        Log.d("disini", "onCreate: " + session.getToken());
+        if(session.getToken() == null) {
+            navigationView = findViewById(R.id.nav_view) ;
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.navbar_keluar).setVisible(false);
+        }else {
+            navigationView = findViewById(R.id.nav_view) ;
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.navbar_keluar).setVisible(false);
+        }
+
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,6 +86,10 @@ public class MarketplaceActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), 4,getBaseContext()));
         session = new SessionManager(getApplicationContext());
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
 
         final TabLayout.Tab beranda = tabLayout.newTab();
         final TabLayout.Tab pengajuan = tabLayout.newTab();
@@ -214,7 +248,27 @@ public class MarketplaceActivity extends AppCompatActivity
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                session.logoutUser();
+                                progress.show();
+                                InterfaceLogout apiService =
+                                        ApiClient.getClient().create(InterfaceLogout.class);
+
+                                Call<Logout> call2 = apiService.logout(apiKey);
+                                call2.enqueue(new Callback<Logout>() {
+                                    @Override
+                                    public void onResponse(Call<Logout> call, Response<Logout> response2) {
+                                        try {
+                                            if (response2.isSuccessful()) {
+                                                progress.hide();
+                                                session.logoutUser();
+                                            }
+                                        } catch (Exception ex) {
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Logout> call, Throwable t) {
+                                    }
+                                });
                             }
                         });
 

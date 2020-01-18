@@ -839,7 +839,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 Log.d("ORDERDONE", "program_id: " + "1");
                 Log.d("ORDERDONE", "product_id: " + "1");
                 Log.d("ORDERDONE", "qty: " + "1");
-                Log.d("ORDERDONE", "agen_id: " + sessionUser.getAxiId());
+                Log.d("ORDERDONE", "agen_id: " + sessionUser.getNomorAxiId());
                 Log.d("ORDERDONE", "amount: " + text_total);
                 Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
                 Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
@@ -855,7 +855,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
 
 
-                Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
+                Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {

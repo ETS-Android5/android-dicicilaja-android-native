@@ -372,7 +372,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
                                     intent.putExtra("ID", id);
-                                    intent.putExtra("USER_ID", session.getAxiId());
+                                    intent.putExtra("USER_ID", session.getNomorAxiId());
                                     intent.putExtra("JUDUL", judulGambar);
                                     intent.putExtra("POINT", pointB);
                                     intent.putExtra("GAMBAR", gambar);

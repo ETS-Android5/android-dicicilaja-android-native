@@ -327,6 +327,7 @@ public class OrderInActivity extends AppCompatActivity {
         } else {
             session.setAgen_id(getIntent().getStringExtra("agen_id"));
             session.setAgen_name(getIntent().getStringExtra("agen_name"));
+            session.setAgen_axi_id(getIntent().getStringExtra("agen_axi_id"));
         }
     }
 

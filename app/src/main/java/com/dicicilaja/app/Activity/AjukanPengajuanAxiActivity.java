@@ -84,7 +84,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         try {
             if(session.getRole().equals("axi")){
-                inputId.setText(session.getAxiId());
+                inputId.setText(session.getNomorAxiId());
                 inputId.setClickable(false);
                 inputId.setCursorVisible(false);
                 inputId.setFocusable(false);

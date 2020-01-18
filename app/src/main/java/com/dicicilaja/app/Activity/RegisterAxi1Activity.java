@@ -81,7 +81,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         inputLayoutNamaIbu = findViewById(R.id.inputLayoutNamaIbu);
 
         try {
-            inputAxiRefferal.setText(session.getAxiId());
+            inputAxiRefferal.setText(session.getNomorAxiId());
         }catch (Exception ex){
 
         }

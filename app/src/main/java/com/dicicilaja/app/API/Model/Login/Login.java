@@ -1,18 +1,26 @@
+
 package com.dicicilaja.app.API.Model.Login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Login {
+
+    @SerializedName("user_id_onesignal")
+    @Expose
+    private Integer userIdOnesignal;
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("profile_id")
+    @Expose
+    private String profileId;
+    @SerializedName("nomor_axi_id")
+    @Expose
+    private String nomorAxiId;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("axi_id")
-    @Expose
-    private String axiId;
     @SerializedName("role")
     @Expose
     private String role;
@@ -22,6 +30,9 @@ public class Login {
     @SerializedName("area")
     @Expose
     private String area;
+    @SerializedName("branch_id")
+    @Expose
+    private String branchId;
     @SerializedName("branch")
     @Expose
     private String branch;
@@ -31,14 +42,29 @@ public class Login {
     @SerializedName("_token")
     @Expose
     private Token token;
-
     @SerializedName("phone")
     @Expose
     private String phone;
-
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("popup_url")
+    @Expose
+    private String popupUrl;
+    @SerializedName("popup_text")
+    @Expose
+    private String popupText;
+    @SerializedName("popup_image")
+    @Expose
+    private String popupImage;
+
+    public Integer getUserIdOnesignal() {
+        return userIdOnesignal;
+    }
+
+    public void setUserIdOnesignal(Integer userIdOnesignal) {
+        this.userIdOnesignal = userIdOnesignal;
+    }
 
     public String getUserId() {
         return userId;
@@ -48,20 +74,28 @@ public class Login {
         this.userId = userId;
     }
 
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
+    }
+
+    public String getNomorAxiId() {
+        return nomorAxiId;
+    }
+
+    public void setNomorAxiId(String nomorAxiId) {
+        this.nomorAxiId = nomorAxiId;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAxiId() {
-        return axiId;
-    }
-
-    public void setAxiId(String axiId) {
-        this.axiId = axiId;
     }
 
     public String getRole() {
@@ -86,6 +120,14 @@ public class Login {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
     }
 
     public String getBranch() {
@@ -127,4 +169,29 @@ public class Login {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPopupUrl() {
+        return popupUrl;
+    }
+
+    public void setPopupUrl(String popupUrl) {
+        this.popupUrl = popupUrl;
+    }
+
+    public String getPopupText() {
+        return popupText;
+    }
+
+    public void setPopupText(String popupText) {
+        this.popupText = popupText;
+    }
+
+    public String getPopupImage() {
+        return popupImage;
+    }
+
+    public void setPopupImage(String popupImage) {
+        this.popupImage = popupImage;
+    }
+
 }

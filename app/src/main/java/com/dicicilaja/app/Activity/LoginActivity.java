@@ -4,13 +4,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+
+import com.dicicilaja.app.API.Model.Login.Login;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Model.Login.Login;
 import com.dicicilaja.app.Activity.Addon.CompletePhoneEmailActivity;
 import com.dicicilaja.app.WebView.ForgotActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -31,7 +31,6 @@ import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Remote.UserFirebase;
 import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
-import com.instabug.library.Instabug;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -235,6 +234,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     session.createLoginSession(
                             resObj.getUserId(),
+                            resObj.getNomorAxiId(),
+                            resObj.getProfileId(),
+                            String.valueOf(resObj.getUserIdOnesignal()),
                             resObj.getToken().getAccessToken(),
                             resObj.getRole(),
                             resObj.getName(),

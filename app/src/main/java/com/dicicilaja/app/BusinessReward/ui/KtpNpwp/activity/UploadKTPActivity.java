@@ -126,7 +126,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
         session = new SessionManager(getBaseContext());
 
-        axiId = session.getAxiId();
+        axiId = session.getNomorAxiId();
 
         noNpwp.addTextChangedListener(onTextChangedListener());
 
