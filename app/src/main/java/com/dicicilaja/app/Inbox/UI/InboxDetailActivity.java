@@ -1,10 +1,14 @@
 package com.dicicilaja.app.Inbox.UI;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +34,10 @@ public class InboxDetailActivity extends AppCompatActivity {
     TextView message;
     @BindView(R.id.category)
     ImageView category;
+    @BindView(R.id.buttonUrl)
+    FrameLayout buttonUrl;
 
-    String title_text, date_text, message_text, category_text;
+    String title_text, date_text, message_text, category_text, url_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +61,7 @@ public class InboxDetailActivity extends AppCompatActivity {
             date_text = getIntent().getStringExtra("date");
             message_text = getIntent().getStringExtra("message");
             category_text = getIntent().getStringExtra("category");
+            url_text = getIntent().getStringExtra("url");
         } catch (Exception ex) {}
 
 
@@ -84,6 +91,19 @@ public class InboxDetailActivity extends AppCompatActivity {
             case "Anual Fee":
                 Glide.with(this).load(R.drawable.notif_anual_fee).centerCrop().into(category);
                 break;
+        }
+
+        if(url_text != null) {
+            buttonUrl.setVisibility(View.VISIBLE);
+            buttonUrl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_text));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            buttonUrl.setVisibility(View.GONE);
         }
     }
 

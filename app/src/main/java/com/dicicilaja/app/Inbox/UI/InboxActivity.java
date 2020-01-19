@@ -98,6 +98,7 @@ public class InboxActivity extends AppCompatActivity {
                                 intent.putExtra("title", notifs.get(position).getAttributes().getTitle());
                                 intent.putExtra("message", notifs.get(position).getAttributes().getMessage());
                                 intent.putExtra("date", notifs.get(position).getCreatedAtReadable());
+                                intent.putExtra("url", notifs.get(position).getAttributes().getUrl());
                                 startActivity(intent);
                             }
 
