@@ -392,7 +392,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         InterfacePartner apiService3 =
                 ApiClient.getClient().create(InterfacePartner.class);
 
-        Call<Partner> call3 = apiService3.getPartner(session.getProfileId());
+        Call<Partner> call3 = apiService3.getPartner();
         call3.enqueue(new Callback<Partner>() {
             @Override
             public void onResponse(Call<Partner> call, Response<Partner> response) {

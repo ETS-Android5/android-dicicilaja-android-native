@@ -14,6 +14,6 @@ public interface InterfacePartner {
     @Headers({
             "Accept: application/json",
     })
-    @GET("partner/{id}")
-    Call<Partner> getPartner(@Path("id") String id);
+    @GET("partner/")
+    Call<Partner> getPartner();
 }

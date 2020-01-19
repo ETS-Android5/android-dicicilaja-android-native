@@ -47,6 +47,7 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
     int totalPage = 1;
     int currentPage = 1;
     boolean isLoading = false;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
 
         order.setVisibility(View.GONE);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -101,7 +102,7 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
         InterfacePengajuanAxi apiService =
                 RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
 
-        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
+        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage, session.getProfileId());
         call2.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {

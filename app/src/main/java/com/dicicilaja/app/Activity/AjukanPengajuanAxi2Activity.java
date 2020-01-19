@@ -145,7 +145,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 InterfaceProfileCustomer apiService =
                         RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
 
-                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
+                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey, session.getProfileId());
                 callProfile.enqueue(new Callback<ProfileCustomer>() {
                     @Override
                     public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
