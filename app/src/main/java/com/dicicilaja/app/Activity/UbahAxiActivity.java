@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -168,9 +169,9 @@ public class UbahAxiActivity extends AppCompatActivity {
     }
     private void ubahAxi(final String apiKey, final String namaLengkap, final String tempatLahir, final String tanggal, final String noHp, final String email, final String alamat, final String rtRw, final String kelurahan, final String kecamatan, final String provinsi, final String kodepos, final String jk, final String noNpwp, final String namaBank, final String cabangBank, final String noRekening, final String anRekening, final String kotaBank) {
         InterfaceUbahAxi apiService =
-                RetrofitClient.getClient().create(InterfaceUbahAxi.class);
+                ApiClient.getClient().create(InterfaceUbahAxi.class);
 
-        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank);
+        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank, session.getProfileId());
         call.enqueue(new Callback<UbahAxi>() {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {

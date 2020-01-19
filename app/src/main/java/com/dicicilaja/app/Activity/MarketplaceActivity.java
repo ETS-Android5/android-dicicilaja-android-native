@@ -262,11 +262,13 @@ public class MarketplaceActivity extends AppCompatActivity
                                                 session.logoutUser();
                                             }
                                         } catch (Exception ex) {
+                                            progress.hide();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<Logout> call, Throwable t) {
+                                        progress.hide();
                                     }
                                 });
                             }

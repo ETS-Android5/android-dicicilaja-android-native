@@ -37,6 +37,7 @@ public class InfoJaringanActivity extends AppCompatActivity {
     String apiKey;
     List<Data> infoJaringan;
     String total_rb;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class InfoJaringanActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         title_info = findViewById(R.id.title_info);
@@ -93,7 +94,7 @@ public class InfoJaringanActivity extends AppCompatActivity {
         final RecyclerView recyclerView =  findViewById(R.id.recycler_rb);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-        Call<InfoJaringan> call2 = apiService.getInfoJaringan(apiKey);
+        Call<InfoJaringan> call2 = apiService.getInfoJaringan(apiKey, session.getProfileId());
         call2.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {

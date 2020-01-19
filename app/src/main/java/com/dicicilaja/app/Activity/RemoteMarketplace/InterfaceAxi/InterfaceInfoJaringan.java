@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 
 /**
  * Created by fawazrifqi on 05/05/18.
@@ -14,6 +15,7 @@ public interface InterfaceInfoJaringan {
     @Headers({
             "Accept: application/json",
     })
-    @GET("axi/infojaringan")
-    Call<InfoJaringan> getInfoJaringan(@Header("Authorization") String apiKey);
+    @GET("axi/infojaringan/{id}")
+    Call<InfoJaringan> getInfoJaringan(@Header("Authorization") String apiKey,
+                                       @Path("id") String id);
 }

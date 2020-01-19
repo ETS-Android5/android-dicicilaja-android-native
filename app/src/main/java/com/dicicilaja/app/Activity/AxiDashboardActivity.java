@@ -482,11 +482,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                                 session.logoutUser();
                                             }
                                         } catch (Exception ex) {
+                                            progress.hide();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<Logout> call, Throwable t) {
+                                        progress.hide();
                                     }
                                 });
                             }
@@ -589,9 +591,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfacePengajuanAxi apiService2 =
-                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+                ApiClient.getClient().create(InterfacePengajuanAxi.class);
 
-        Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage);
+        Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage, session.getProfileId());
         call3.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
@@ -610,10 +612,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceAxiDetail apiService5 =
-                RetrofitClient.getClient().create(InterfaceAxiDetail.class);
+                ApiClient.getClient().create(InterfaceAxiDetail.class);
 
 //        showLoading();
-        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
+        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey, session.getProfileId());
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
@@ -645,7 +647,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         InterfaceInfoJaringan apiService4 =
                 ApiClient.getClient().create(InterfaceInfoJaringan.class);
 
-        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
+        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey, session.getProfileId());
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {

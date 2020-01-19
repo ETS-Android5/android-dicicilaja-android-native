@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.AxiDashboardActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
@@ -54,6 +55,7 @@ public class AkunFragment extends Fragment {
     TextView nama, title_favorite;
     LinearLayout detail_profile;
     CircleImageView profile_picture;
+    SessionManager session;
     public AkunFragment() {
         // Required empty public constructor
     }
@@ -66,7 +68,7 @@ public class AkunFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_akun, container, false);
 
 
-        final SessionManager session = new SessionManager(getContext());
+        session = new SessionManager(getContext());
         apiKey = "Bearer " + session.getToken();
 
         final ProgressDialog progress = new ProgressDialog(getContext());
@@ -115,12 +117,12 @@ public class AkunFragment extends Fragment {
             }
         });
         InterfaceAllFavorite apiService3 =
-                RetrofitClient.getClient().create(InterfaceAllFavorite.class);
+                ApiClient.getClient().create(InterfaceAllFavorite.class);
 
         final RecyclerView recyclerView2 =  view.findViewById(R.id.recycler_related);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Call<ItemFavorite> call5 = apiService3.getFavorite(apiKey);
+        Call<ItemFavorite> call5 = apiService3.getFavorite(apiKey, session.getProfileId());
         call5.enqueue(new Callback<ItemFavorite>() {
             @Override
             public void onResponse(Call<ItemFavorite> call, Response<ItemFavorite> response) {

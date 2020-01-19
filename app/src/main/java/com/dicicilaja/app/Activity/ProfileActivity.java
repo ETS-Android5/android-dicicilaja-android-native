@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
 import com.squareup.picasso.Picasso;
@@ -131,13 +132,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         Call<ProfileAxi> callProfile;
 
-        if( session.getRole().equals("mm") ) {
-            InterfaceProfile apiService = RetrofitClient.getClient().create(InterfaceProfile.class);
-            callProfile = apiService.getProfile(apiKey);
-        } else {
-            InterfaceProfileAxi apiService = RetrofitClient.getClient().create(InterfaceProfileAxi.class);
-            callProfile = apiService.getProfile(apiKey);
-        }
+        InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
+        callProfile = apiService.getProfile(apiKey, session.getProfileId());
 
         callProfile.enqueue(new Callback<ProfileAxi>() {
             @Override

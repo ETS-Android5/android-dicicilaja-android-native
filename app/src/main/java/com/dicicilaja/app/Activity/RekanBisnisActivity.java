@@ -44,6 +44,7 @@ public class RekanBisnisActivity extends AppCompatActivity {
     Data data;
     List<InfoJaringan> rekanBisnis;
     List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRekanBisnis.InfoJaringan> infoJaringans;
+    SessionManager session;
 
     RelativeLayout title_rb;
     @Override
@@ -54,7 +55,7 @@ public class RekanBisnisActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
         id = getIntent().getStringExtra("EXTRA_REQUEST_ID");
         level = Integer.parseInt(getIntent().getStringExtra("level"));

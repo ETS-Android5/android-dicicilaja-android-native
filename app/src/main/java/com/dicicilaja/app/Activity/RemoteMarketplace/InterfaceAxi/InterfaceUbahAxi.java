@@ -7,6 +7,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by fawazrifqi on 05/05/18.
@@ -16,7 +17,7 @@ public interface InterfaceUbahAxi {
     @Headers({
             "Accept: application/json",
     })
-    @POST("axi/edit")
+    @POST("axi/edit/{id}")
     @FormUrlEncoded
     Call<UbahAxi> change(@Header("Authorization") String apiKey,
                          @Field("namaLengkap") String namaLengkap,
@@ -36,5 +37,6 @@ public interface InterfaceUbahAxi {
                          @Field("cabangBank") String cabangBank,
                          @Field("noRekening") String noRekening,
                          @Field("anRekening") String anRekening,
-                         @Field("kotaBank") String kotaBank);
+                         @Field("kotaBank") String kotaBank,
+                         @Path("id") String id);
 }

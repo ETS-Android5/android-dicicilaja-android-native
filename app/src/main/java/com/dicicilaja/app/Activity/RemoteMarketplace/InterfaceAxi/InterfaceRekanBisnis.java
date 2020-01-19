@@ -16,5 +16,6 @@ public interface InterfaceRekanBisnis {
             "Accept: application/json",
     })
     @GET("axi/rekanbisnis/{id}")
-    Call<RekanBisnis> getRekanBisnis(@Header("Authorization") String apiKey,@Path("id") String id);
+    Call<RekanBisnis> getRekanBisnis(@Header("Authorization") String apiKey,
+                                     @Path("id") String id);
 }

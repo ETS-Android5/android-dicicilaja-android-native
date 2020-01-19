@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -15,8 +16,9 @@ public interface InterfacePengajuanAxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("request/user")
+    @GET("request/user/{id}")
     Call<PengajuanAxi> getPengajuanAxi(@Header("Authorization") String apiKey,
-                                       @Query("page") int page);
+                                       @Query("page") int page,
+                                       @Path("id") String id);
 
 }

@@ -33,12 +33,14 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Adapter.BerandaImageSliderAdapter;
+import com.dicicilaja.app.Session.SessionManager;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.text.NumberFormat;
@@ -111,6 +113,9 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     HashMap<Integer, String> TENOR_DATA;
     HashMap<Integer, String> AREA_DATA;
 
+    SessionManager session;
+    String apiKey;
+
     ImageView dana_multiguna;
 
     String s_area, s_jaminan, s_tenor, s_harga;
@@ -159,6 +164,9 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         jaminan = view.findViewById(R.id.jaminan);
         tenor = view.findViewById(R.id.tenor);
         arearequest = view.findViewById(R.id.arearequest);
+
+        session = new SessionManager(getContext());
+        apiKey = "Bearer " + session.getToken();
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -382,9 +390,9 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         snapHelperPartner.attachToRecyclerView(recyclerPartner);
 
         InterfacePartner apiService3 =
-                RetrofitClient.getClient().create(InterfacePartner.class);
+                ApiClient.getClient().create(InterfacePartner.class);
 
-        Call<Partner> call3 = apiService3.getPartner();
+        Call<Partner> call3 = apiService3.getPartner(session.getProfileId());
         call3.enqueue(new Callback<Partner>() {
             @Override
             public void onResponse(Call<Partner> call, Response<Partner> response) {

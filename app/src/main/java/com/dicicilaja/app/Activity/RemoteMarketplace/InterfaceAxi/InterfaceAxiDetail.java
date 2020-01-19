@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 
 /**
  * Created by fawazrifqi on 29/04/18.
@@ -14,6 +15,7 @@ public interface InterfaceAxiDetail {
     @Headers({
             "Accept: application/json",
     })
-    @GET("axi/detail")
-    Call<AXIDetail> getDetail(@Header("Authorization") String apiKey);
+    @GET("axi/detail/{id}")
+    Call<AXIDetail> getDetail(@Header("Authorization") String apiKey,
+                              @Path("id") String id);
 }

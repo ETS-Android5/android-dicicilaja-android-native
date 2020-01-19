@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
@@ -48,7 +49,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_customer);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -111,9 +112,9 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
+                ApiClient.getClient().create(InterfaceProfileCustomer.class);
 
-        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
+        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey, session.getProfileId());
         callProfile.enqueue(new Callback<ProfileCustomer>() {
             @Override
             public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {

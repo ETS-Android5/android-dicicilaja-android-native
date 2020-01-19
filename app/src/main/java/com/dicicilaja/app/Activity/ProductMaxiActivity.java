@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceFavorite;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
@@ -85,6 +86,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
     Button ajukan_produk;
     String extra_id;
     MaterialProgressBar progressBar;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +101,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -425,9 +427,9 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
     private void doFav(final String apiKey, final String product_id) {
         InterfaceFavorite apiService =
-                RetrofitClient.getClient().create(InterfaceFavorite.class);
+                ApiClient.getClient().create(InterfaceFavorite.class);
 
-        Call<CreateRequest> call = apiService.assign(apiKey, product_id);
+        Call<CreateRequest> call = apiService.assign(apiKey, product_id, session.getProfileId());
         call.enqueue(new Callback<CreateRequest>() {
             @Override
             public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {

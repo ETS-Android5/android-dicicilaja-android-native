@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
@@ -145,9 +147,9 @@ public class UbahCustomerActivity extends AppCompatActivity {
 
     private void ubahCustomer(final String apiKey, final String namaLengkap, final String handphone, final String tanggal, final String alamat, final String kelurahan, final String kecamatan, final String kota, final String provinsi, final String jk, final String bill) {
         InterfaceUbahCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceUbahCustomer.class);
+                ApiClient.getClient().create(InterfaceUbahCustomer.class);
 
-        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, tanggal, alamat, kelurahan, kecamatan, kota, provinsi, jk, bill);
+        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, tanggal, alamat, kelurahan, kecamatan, kota, provinsi, jk, bill, session.getProfileId());
         call.enqueue(new Callback<UbahCustomer>() {
             @Override
             public void onResponse(Call<UbahCustomer> call, Response<UbahCustomer> response) {

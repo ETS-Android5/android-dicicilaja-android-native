@@ -9,12 +9,13 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface InterfaceUbahCustomer {
     @Headers({
             "Accept: application/json",
     })
-    @POST("customer/edit")
+    @POST("customer/edit/{id}")
     @FormUrlEncoded
     Call<UbahCustomer> change(@Header("Authorization") String apiKey,
                               @Field("name") String name,
@@ -26,5 +27,6 @@ public interface InterfaceUbahCustomer {
                               @Field("city") String city,
                               @Field("province") String province,
                               @Field("gender") String gender,
-                              @Field("bill_number") String bill_number);
+                              @Field("bill_number") String bill_number,
+                              @Path("id") String id);
 }

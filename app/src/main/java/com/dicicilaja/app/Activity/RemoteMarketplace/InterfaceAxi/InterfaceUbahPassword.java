@@ -16,7 +16,7 @@ public interface InterfaceUbahPassword {
     @Headers({
             "Accept: application/json",
     })
-    @POST("/changepassword")
+    @POST("auth/password/change")
     @FormUrlEncoded
     Call<UbahPassword> change(@Header("Authorization") String apiKey,
                               @Field("old_password") String old_password,
