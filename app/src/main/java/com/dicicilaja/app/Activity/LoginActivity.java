@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 
 import com.dicicilaja.app.API.Model.Login.Login;
+import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -407,58 +408,65 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showWhichActivity( String role ) {
         role = role.toLowerCase();
-        Intent intent;
         switch (role) {
             case "axi":
-                intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
 
-            case "channel":
-                intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
-                break;
-
-            case "crh":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "cro":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "tc":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "admin":
-                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-                break;
-
-            case "spg":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "bm":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "mm":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-                break;
-
-            case "ho":
-                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+            case "sh":
+                Intent intent2 = new Intent(getBaseContext(), InformAxiActivity.class);
+                intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
                 break;
 
             case "basic":
-                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                Intent intent3 = new Intent(getBaseContext(), MarketplaceActivity.class);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent3);
                 break;
 
+//            case "channel":
+//                intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+//                break;
+
+//            case "crh":
+//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+//                break;
+//
+//            case "cro":
+//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+//                break;
+//
+//            case "tc":
+//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+//                break;
+//
+//            case "admin":
+//                intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+//                break;
+//
+//            case "spg":
+//                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+//                break;
+//
+//            case "bm":
+//                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+//                break;
+//
+//            case "mm":
+//                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+//                break;
+//
+//            case "ho":
+//                intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+//                break;
+
             default:
-                intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 break;
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
 }

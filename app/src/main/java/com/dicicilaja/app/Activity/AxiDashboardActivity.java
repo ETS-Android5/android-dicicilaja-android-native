@@ -643,7 +643,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceInfoJaringan apiService4 =
-                RetrofitClient.getClient().create(InterfaceInfoJaringan.class);
+                ApiClient.getClient().create(InterfaceInfoJaringan.class);
 
         Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
         call4.enqueue(new Callback<InfoJaringan>() {

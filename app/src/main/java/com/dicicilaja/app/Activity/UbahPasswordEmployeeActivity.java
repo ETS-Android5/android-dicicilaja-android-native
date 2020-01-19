@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceUbahPassword;
 import com.dicicilaja.app.API.Model.UbahPassword.UbahPassword;
@@ -145,7 +146,7 @@ public class UbahPasswordEmployeeActivity extends AppCompatActivity {
 
     private void changePassword(final String apiKey, final String oldPassword, final String newPassword, final String secondNewPassword) {
         InterfaceUbahPassword apiService =
-                RetrofitClient.getClient().create(InterfaceUbahPassword.class);
+                ApiClient.getClient().create(InterfaceUbahPassword.class);
         Call<UbahPassword> call = apiService.change(apiKey, oldPassword, newPassword, secondNewPassword);
         call.enqueue(new Callback<UbahPassword>() {
             @Override
