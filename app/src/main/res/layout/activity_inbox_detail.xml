@@ -91,13 +91,13 @@
 
                 <FrameLayout
                     android:id="@+id/buttonUrl"
-                    android:visibility="gone"
                     android:layout_below="@+id/card_msg"
                     style="?attr/buttonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/colorAccentDark2"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/open_sans_bold">
