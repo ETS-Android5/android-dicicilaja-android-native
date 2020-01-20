@@ -59,6 +59,9 @@ public interface ApiService {
     @GET("area")
     Call<Area2> getArea();
 
+    @GET("existing/axi-foto")
+    Call<FotoKtpNpwp> checkFotoNpwp(@Query("axi_id") String axiId);
+
     @GET("axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
 
