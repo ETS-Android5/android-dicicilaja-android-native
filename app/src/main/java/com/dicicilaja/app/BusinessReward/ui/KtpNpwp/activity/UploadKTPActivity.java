@@ -152,13 +152,14 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                 if (validateForm(fKtp, nomorKtp)) {
                     progressBar.setVisibility(View.VISIBLE);
 
-                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                    ApiService apiService = ApiClient.getClient3().create(ApiService.class);
 
                     Call<Foto> postKtp = apiService.postFoto(axiId, fKtp, fNpwp, nomorKtp, nomorNpwp);
                     postKtp.enqueue(new Callback<Foto>() {
                         @Override
                         public void onResponse(Call<Foto> call, Response<Foto> response) {
                             Log.d("UPLOADKTP", "KODE: " + response.code());
+                            Log.d("Link", "BaseUrl: " + ApiClient.BASE_URL3);
                             if (response.isSuccessful()) {
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);

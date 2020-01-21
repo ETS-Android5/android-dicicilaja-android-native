@@ -87,11 +87,8 @@ public class ListKategori extends AppCompatActivity {
                 final List<Datum> dataItems = response.body().getData();
 
                 for (int i = 0; i < response.body().getData().size(); i++) {
-                    Log.d("disiniiiiiiiiiiiii", String.valueOf(i));
                     KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
                     KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_DATA));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_ITEMS));
 //                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
                     stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
@@ -113,17 +110,13 @@ public class ListKategori extends AppCompatActivity {
                         }
 
                         selected = KATEGORI_DATA.get(id);
-                        Log.d("DISINIIII", String.valueOf(id));
-                        Log.d("DISINIIII", String.valueOf(KATEGORI_DATA.get(id)));
                         size = KATEGORI_ITEMS.get(id);
-                        Log.d("DISINIIII2", String.valueOf(KATEGORI_ITEMS.get(id)));
                     }
                 });
 
                 pilihKat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                                Log.d("selectednya", selected);
                         Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
 
                         intent.putExtra("ID", selected);
