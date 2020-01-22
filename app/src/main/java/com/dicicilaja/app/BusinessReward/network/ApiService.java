@@ -66,7 +66,7 @@ public interface ApiService {
     @GET("existing/axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
 
-    @GET("claim-reward")
+    @GET("existing/claim-reward")
     Call<ClaimRewards> getClaim(@Query("profile_id") String profile_id,
                                 @Query("page") int page,
                                 @Query("ob") String ob,
@@ -78,13 +78,13 @@ public interface ApiService {
                                        @Query("ob") String ob,
                                        @Query("ot") String ot);
 
-    @GET("claim-reward")
+    @GET("existing/claim-reward")
     Call<ClaimRewards> getAllClaim(@Query("profile_id") int profile_id);
 
-    @GET("axi/detail")
+    @GET("existing/axi/detail")
     Call<DetailProfile> getDetailProfile(@Header("Authorization") String apiKey);
 
-    @GET("point")
+    @GET("existing/point")
     Call<Point> getPoint(@Query("profile_id") String profile_id);
 
     @GET("existing/product-catalog")
@@ -106,7 +106,7 @@ public interface ApiService {
                                                @Query("ob") String ob,
                                                @Query("ot") String ot);
 
-    @GET("status")
+    @GET("existing/status")
     Call<Status> getStatus();
 
     @GET("statusUBProduk")
@@ -121,16 +121,16 @@ public interface ApiService {
     @GET("semester")
     Call<Semester> getSemester();
 
-    @GET("claimReward")
+    @GET("existing/claimReward")
     Call<ClaimReward> getClaimReward();
 
-    @GET("testimoni")
+    @GET("existing/testimoni")
     Call<Testimoni> getTestimoni();
 
     @GET("existing/product-catalog/{id}")
     Call<DetailProduk> getDetailProduk(@Path("id") int id);
 
-    @GET("status/{id}")
+    @GET("existing/status/{id}")
     Call<DetailStatus> getDetailStatus(@Path("id") int id);
 
     @GET("semester/{id}")
@@ -139,7 +139,7 @@ public interface ApiService {
     @GET("existing/claim-reward/{id}")
     Call<DetailClaimReward> getDetailClaimReward(@Path("id") int id);
 
-    @GET("testimoni/{id}")
+    @GET("existing/testimoni/{id}")
     Call<DetailTestimoni> getDetailTestimoni(@Path("id") int id);
 
     //POST
@@ -172,7 +172,7 @@ public interface ApiService {
 //                                @Field("foto") String produk_foto,
 //                                @Field("alt_foto") String produk_alt_foto);
 
-    @POST("claim-reward")
+    @POST("existing/claim-reward")
     @FormUrlEncoded
     Call<DetailClaimReward> postClaimReward(
             @Field("profile_id") String profile_id,
@@ -219,7 +219,7 @@ public interface ApiService {
             @Field("total_harga") String total_harga,
             @Header("Authorization") String authorization);
 
-    @POST("testimoni")
+    @POST("existing/testimoni")
     @FormUrlEncoded
     Call<Testimoni> postTestimoni(
             @Field("profile_id") String profile_id,
