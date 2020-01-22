@@ -543,11 +543,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
             }
         }
 
-        if (1 == 1) {
-            Toast.makeText(this, "Passed!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         return true;
     }
 

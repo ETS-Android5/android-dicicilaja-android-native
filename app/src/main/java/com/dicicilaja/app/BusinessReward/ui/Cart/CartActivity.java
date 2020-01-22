@@ -231,7 +231,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         if (ktpnpwp.equals("Tidak"))
             new AlertDialog.Builder(this)
                     .setTitle("Perhatian!")
-                    .setMessage("Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah.")
+                    .setMessage(getString(R.string.notif_ktp))
                     .setPositiveButton("Upload", (dialog, which) -> {
                         startActivity(new Intent(CartActivity.this, UploadKTPActivity.class));
                     })
