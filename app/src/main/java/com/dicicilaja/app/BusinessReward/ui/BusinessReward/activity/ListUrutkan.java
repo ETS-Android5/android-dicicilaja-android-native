@@ -52,10 +52,10 @@ public class ListUrutkan extends AppCompatActivity {
         size = intent.getStringExtra("SIZE");
 
         rb = new RadioButton(ListUrutkan.this); // dynamically creating RadioButton and adding to RadioGroup.
-        rb.setText("Ascending");
+        rb.setText("A to Z");
         radioGroup.addView(rb);
         rb = new RadioButton(ListUrutkan.this); // dynamically creating RadioButton and adding to RadioGroup.
-        rb.setText("Descending");
+        rb.setText("Z to A");
         radioGroup.addView(rb);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
