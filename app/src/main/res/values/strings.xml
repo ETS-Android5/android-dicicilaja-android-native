@@ -240,7 +240,7 @@
     <string name="asuransi_2"><b>TLO</b>, merupakan ganti rugi yang <b>HANYA</b> akan diberikan perusahaan jika mobil mengalami kerusakan total atau di atas 75%. Selain kedua jenis di atas, Anda juga perlu mengetahui adanya ‘perluasan’. Perluasan adalah penambahan cakupan perlindungan. Perluasan mencakup:</string>
     <string name="rp_string">Rp</string>
     <string name="lihat_semua">Lihat Semua</string>
-    <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP. Untuk mengurangi nilai pajak barang, segera upload file.]]></string>
+    <string name="notif_ktp"><![CDATA[Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah dan mempermudah pembayaran insentif.]]></string>
     <string name="data_and_informasi">Data &amp; Informasi</string>
     <string name="lihat_riwayat"><u>Lihat Riwayat</u></string>
     <string name="informasi_jaminan_pinjaman">Jaminan &amp; Pinjaman</string>

@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,9 +45,11 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
         public TextView tv_title;
         public TextView lihatSemua;
         public RecyclerView rvProduk;
+        public LinearLayout parent;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            parent = itemView.findViewById(R.id.parent);
             this.tv_title = itemView.findViewById(R.id.title_kategori);
             this.rvProduk = itemView.findViewById(R.id.recycler_produks);
             this.lihatSemua = itemView.findViewById(R.id.lihat_semua);
@@ -64,6 +67,11 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final Datum pc = pcList.get(position);
+
+        if (pc.getRelationships().getProductCatalogs().getData().size() == 0) {
+            holder.parent.setVisibility(View.GONE);
+            holder.rvProduk.setVisibility(View.GONE);
+        }
 
 //        final Included pc2 = pcList2.get(position);
 

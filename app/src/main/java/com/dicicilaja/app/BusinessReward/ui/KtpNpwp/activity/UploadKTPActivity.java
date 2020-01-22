@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dicicilaja.app.Activity.RegisterAxi5Activity;
+import com.dicicilaja.app.BusinessReward.Util.Utils;
 import com.dicicilaja.app.BusinessReward.dataAPI.foto.Foto;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
@@ -481,8 +482,8 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
     }
 
     private boolean validateForm(String fKtp, String nomorKtp) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
         if (nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan masukan nomor KTP");
 
@@ -496,7 +497,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         }
 
         if (fKtp == null || fKtp.trim().length() == 0 || fKtp.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Silahkan upload foto KTP");
 
@@ -511,6 +511,42 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
             alertDialog.show();
             return false;
         }
+
+        if (!Utils.regexMatcher("^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$", nomorKtp)) {
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Format KTP tidak valid!");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+            return false;
+        }
+
+        // Validate NPWP when NPWP image is not null
+        if (fNpwp != null || !fNpwp.equals("0") || fNpwp.trim().length() != 0) {
+            if (noNpwp.getText().toString().isEmpty()) {
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("NPWP tidak boleh kosong!");
+                alertDialog.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
+                return false;
+            }
+        }
+
+        // Validate NPWP when NPWP is not empty
+        if (!noNpwp.getText().toString().isEmpty()) {
+            if (noNpwp.getText().toString().length() < 16) {
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Format NPWP tidak valid!");
+                alertDialog.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
+                return false;
+            }
+        }
+
+        if (1 == 1) {
+            Toast.makeText(this, "Passed!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -528,20 +564,20 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
             @Override
             public void afterTextChanged(Editable s) {
-                String text = noNpwp.getText().toString();
-                textlength = noNpwp.getText().length();
-
-                if(text.endsWith(" "))
-                    return;
-
-                if(textlength == 3 || textlength == 7 || textlength == 11 || textlength == 17)
-                {
-                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, ".").toString());
-                    noNpwp.setSelection(noNpwp.getText().length());
-                }else if(textlength == 13){
-                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, "-").toString());
-                    noNpwp.setSelection(noNpwp.getText().length());
-                }
+//                String text = noNpwp.getText().toString();
+//                textlength = noNpwp.getText().length();
+//
+//                if(text.endsWith(" "))
+//                    return;
+//
+//                if(textlength == 3 || textlength == 7 || textlength == 11 || textlength == 17)
+//                {
+//                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, ".").toString());
+//                    noNpwp.setSelection(noNpwp.getText().length());
+//                }else if(textlength == 13){
+//                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, "-").toString());
+//                    noNpwp.setSelection(noNpwp.getText().length());
+//                }
             }
         };
     }

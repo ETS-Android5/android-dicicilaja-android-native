@@ -46,6 +46,7 @@ import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardPhase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
@@ -551,7 +552,27 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 alertDialog.show();
             }
         });
+
+        ApiService service = ApiClient.getClient3().create(ApiService.class);
+        Call<RewardPhase> call = service.checkRewardPhase(apiKey);
+        call.enqueue(new Callback<RewardPhase>() {
+            @Override
+            public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getData().getAttributes().getStatus() == 1) {
+                        isRewardPhaseAvailable = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RewardPhase> call, Throwable t) {
+                Log.d("asd", "onFailure: " + t.getMessage());
+            }
+        });
     }
+
+    private boolean isRewardPhaseAvailable = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -723,12 +744,15 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                intent.putExtra("POINT_REWARD", contentBox1.getText());
-                startActivityForResult(intent, 96);
+                if (isRewardPhaseAvailable) {
+                    intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                    intent.putExtra("POINT_REWARD", contentBox1.getText());
+                    startActivityForResult(intent, 96);
+                } else {
 
-//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-//                startActivity(intent);
+                    intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);

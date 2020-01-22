@@ -19,6 +19,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.dataAPI.produk.Produk;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardPhase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.dataAPI.semester.Semester;
 import com.dicicilaja.app.BusinessReward.dataAPI.status.Status;
 import com.dicicilaja.app.BusinessReward.dataAPI.statusUBClaim.StatusClaim;
@@ -47,7 +48,7 @@ public interface ApiService {
     Call<ExistingPoint> getExistingPoint(@Query("profile_id") String profileId);
 
     //GET
-    @GET("kategori")
+    @GET("existing/kategori")
     Call<KategoriProduk> getKategori();
 
     @GET("branch")
@@ -62,7 +63,7 @@ public interface ApiService {
     @GET("existing/axi-foto")
     Call<FotoKtpNpwp> checkFotoNpwp(@Query("axi_id") String axiId);
 
-    @GET("axi-foto")
+    @GET("existing/axi-foto")
     Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
 
     @GET("claim-reward")
@@ -86,21 +87,21 @@ public interface ApiService {
     @GET("point")
     Call<Point> getPoint(@Query("profile_id") String profile_id);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProduk(@Query("nama") String nama);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProdukSort(@Query("kategori_id") String kategori_id,
                                @Query("ob") String ob,
                                @Query("ot") String ot);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProdukAll(@Query("kategori_id") String kategori_id);
 
-    @GET("kategori/{id}")
+    @GET("existing/kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);
 
-    @GET("kategori/{id}")
+    @GET("existing/kategori/{id}")
     Call<DetailKategori> getDetailKategoriSort(@Path("id") int id,
                                                @Query("ob") String ob,
                                                @Query("ot") String ot);
@@ -126,7 +127,7 @@ public interface ApiService {
     @GET("testimoni")
     Call<Testimoni> getTestimoni();
 
-    @GET("product-catalog/{id}")
+    @GET("existing/product-catalog/{id}")
     Call<DetailProduk> getDetailProduk(@Path("id") int id);
 
     @GET("status/{id}")
@@ -227,7 +228,7 @@ public interface ApiService {
             @Field("testimoni") String testimoni,
             @Field("rating") String rating);
 
-    @POST("axi-foto")
+    @POST("existing/axi-foto")
     @FormUrlEncoded
     Call<Foto> postFoto(
             @Field("axi_id") String axi_id,
@@ -267,6 +268,9 @@ public interface ApiService {
 
     @DELETE("testimoni/{id}")
     Call<DetailTestimoni> deleteDetailTestimoni(@Path("id") int id);
+
+    @GET("reward-phase/1")
+    Call<RewardPhase> checkRewardPhase(@Header("Authorization") String authorization);
 
 //
 //    @GET("objekbrand/{id}/objekmodel")
