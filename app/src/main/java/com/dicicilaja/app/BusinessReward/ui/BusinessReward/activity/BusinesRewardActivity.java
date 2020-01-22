@@ -274,6 +274,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                     uploadKTP.setVisibility(View.VISIBLE);
                     ktpnpwp = "Tidak";
                 } else {
+                    uploadKTP.setVisibility(View.GONE);
                     ktpnpwp = "Ada";
                     no_ktp = response.body().getData().get(0).getAttributes().getNoKtp();
                     no_npwp = response.body().getData().get(0).getAttributes().getNoNpwp();
