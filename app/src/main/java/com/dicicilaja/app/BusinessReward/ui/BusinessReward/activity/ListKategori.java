@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +53,8 @@ public class ListKategori extends AppCompatActivity {
     @BindView(R.id.pilih_kat)
     Button pilihKat;
 
+    private String id = null;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_kategori);
@@ -65,6 +69,15 @@ public class ListKategori extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        id = getIntent().getStringExtra("ID");
 
         rg = (RadioGroup) findViewById(R.id.radio_group);
 
@@ -94,38 +107,57 @@ public class ListKategori extends AppCompatActivity {
 
                     rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
                     rb.setText(stringList.get(i));
+
 //                    radioGroup.setId(0);
                     rg.addView(rb);
+
+                    if (dataItems.get(i).getId().equals(Integer.valueOf(id))) {
+
+                        ((RadioButton) rg.getChildAt(i)).setChecked(true);
+                    }
                 }
 
                 rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        int id = rg.getCheckedRadioButtonId();
+//                        int id = rg.getCheckedRadioButtonId();
+//
+//                        if(id % response.body().getData().size() == 0){
+//                            id = response.body().getData().size();
+//                        }else{
+//                            id = id % response.body().getData().size();
+//                        }
 
-                        if(id % response.body().getData().size() == 0){
-                            id = response.body().getData().size();
-                        }else{
-                            id = id % response.body().getData().size();
+                        Log.d("asd", "onCheckedChanged: " + new Gson().toJson(response.body().getData()));
+
+                        for (int i = 0; i < rg.getChildCount(); i++) {
+                            if (((RadioButton) rg.getChildAt(i)).getId() == checkedId) {
+                                ((RadioButton) rg.getChildAt(i)).setChecked(true);
+
+//                                selected = KATEGORI_DATA.get(i);
+//                                size = KATEGORI_ITEMS.get(i);
+                                selected = String.valueOf(i + 1);
+                            } else {
+                                ((RadioButton) rg.getChildAt(i)).setChecked(false);
+                            }
                         }
-
-                        selected = KATEGORI_DATA.get(id);
-                        size = KATEGORI_ITEMS.get(id);
                     }
                 });
 
                 pilihKat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
-
-                        intent.putExtra("ID", selected);
-                        intent.putExtra("SIZE", size);
+                        setResult(RESULT_OK, getIntent().putExtra("ID", selected));
+                        finish();
+//                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
+//
+//                        intent.putExtra("ID", selected);
+//                        intent.putExtra("SIZE", size);
 //                        intent.putExtra("ID", String.valueOf(3));
 //                        intent.putExtra("SIZE", String.valueOf(5));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+//                        finish();
                     }
                 });
             }

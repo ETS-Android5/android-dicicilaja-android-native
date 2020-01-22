@@ -107,11 +107,7 @@ public class CatalogResultActivity extends AppCompatActivity {
         size = intent.getStringExtra("SIZE");
         order_by = intent.getStringExtra("ORDERBY");
 
-        if(order_by == null){
-            status_order = 0;
-        }else{
-            status_order = 1;
-        }
+        checkStatusOrder();
 
 //        Log.d("IDNYAINITEH", id);
 //        Log.d("IDNYAINITEHSIZE", size);
@@ -121,7 +117,7 @@ public class CatalogResultActivity extends AppCompatActivity {
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        if(status_order == 0){
+        if (status_order == 0) {
 //            call = apiService.getDetailKategori(Integer.parseInt(id));
 //
 //            call.enqueue(new Callback<DetailKategori>() {
@@ -162,8 +158,7 @@ public class CatalogResultActivity extends AppCompatActivity {
                     Log.d("dadada", t.getMessage());
                 }
             });
-        }
-        else{
+        } else {
             call2 = apiService.getProdukSort(id, "nama", order_by);
 
             call2.enqueue(new Callback<Produk>() {
@@ -183,6 +178,14 @@ public class CatalogResultActivity extends AppCompatActivity {
                     Log.d("dadada", t.getMessage());
                 }
             });
+        }
+    }
+
+    private void checkStatusOrder() {
+        if (order_by == null) {
+            status_order = 0;
+        } else {
+            status_order = 1;
         }
     }
 
@@ -209,6 +212,72 @@ public class CatalogResultActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    private void loadData() {
+        checkStatusOrder();
+        if (status_order == 0) {
+//            call = apiService.getDetailKategori(Integer.parseInt(id));
+//
+//            call.enqueue(new Callback<DetailKategori>() {
+//                @SuppressLint("WrongConstant")
+//                @Override
+//                public void onResponse(Call<DetailKategori> call, Response<DetailKategori> response) {
+//                    final Data dataItems = response.body().getData();
+//                    final List<Included> dataItems2 = response.body().getIncluded();
+//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
+//
+//                    Log.d("Cek1", "" + response.code());
+//
+//                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, dataItems2, getBaseContext(), id, size));
+//                }
+//
+//                @Override
+//                public void onFailure(Call<DetailKategori> call, Throwable t) {
+//                    Log.d("dadada", t.getMessage());
+//                }
+//            });
+
+            call2 = apiService.getProdukAll(id);
+
+            call2.enqueue(new Callback<Produk>() {
+                @SuppressLint("WrongConstant")
+                @Override
+                public void onResponse(Call<Produk> call, Response<Produk> response) {
+                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
+
+                    Log.d("Cek2", "" + response.code());
+
+                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+                }
+
+                @Override
+                public void onFailure(Call<Produk> call, Throwable t) {
+                    Log.d("dadada", t.getMessage());
+                }
+            });
+        } else {
+            call2 = apiService.getProdukSort(id, "nama", order_by);
+
+            call2.enqueue(new Callback<Produk>() {
+                @SuppressLint("WrongConstant")
+                @Override
+                public void onResponse(Call<Produk> call, Response<Produk> response) {
+                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
+
+                    Log.d("Cek2", "" + response.code());
+
+                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+                }
+
+                @Override
+                public void onFailure(Call<Produk> call, Throwable t) {
+                    Log.d("dadada", t.getMessage());
+                }
+            });
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
@@ -218,22 +287,40 @@ public class CatalogResultActivity extends AppCompatActivity {
                 Log.d("ordernyaaeuy", order_by);
             }
         }
+
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                id = data.getStringExtra("ID");
+                loadData();
+            }
+        }
+
+        if (requestCode == 3) {
+            if (resultCode == RESULT_OK) {
+                order_by = data.getStringExtra("ORDERBY");
+                loadData();
+            }
+        }
     }
 
     @OnClick({R.id.pilih_kategori, R.id.pilih_urutkan})
     public void onViewClicked(View view) {
+        Intent i = null;
         switch (view.getId()) {
             case R.id.pilih_kategori:
                 status_order = 0;
-                Intent intent = new Intent(getBaseContext(), ListKategori.class);
-                startActivity(intent);
-                finish();
+                i = new Intent(getBaseContext(), ListKategori.class);
+                i.putExtra("ID", id);
+                startActivityForResult(i, 2);
+                //finish();
                 break;
             case R.id.pilih_urutkan:
-                Intent intent2 = new Intent(getBaseContext(), ListUrutkan.class);
-                intent2.putExtra("ID", id);
-                intent2.putExtra("SIZE", size);
-                startActivity(intent2);
+                i = new Intent(getBaseContext(), ListUrutkan.class);
+                i.putExtra("ID", id);
+                i.putExtra("SIZE", size);
+                if (order_by == null) order_by = "asc";
+                i.putExtra("ORDERBY", order_by);
+                startActivityForResult(i, 3);
                 break;
         }
     }

@@ -215,23 +215,28 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         callCart.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
-                if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
-                    progress.hide();
-                    int total_points = response2.body().getData().getAttributes().getTotalPoints();
-                    int total_items = response2.body().getData().getAttributes().getTotalItems();
+                Log.d("asd", "onResponse: " + new Gson().toJson(response2.body()));
+                if (response2.isSuccessful()) {
+                    if (response2.body().getData().getAttributes().getItems().size() != 0) {
+                        progress.hide();
+                        int total_points = response2.body().getData().getAttributes().getTotalPoints();
+                        int total_items = response2.body().getData().getAttributes().getTotalItems();
 
-                    floatingCart.setVisibility(View.VISIBLE);
-                    textCart.setText(total_items + " Barang dikeranjang");
-                    pointCart.setText(total_points + " Poin");
+                        floatingCart.setVisibility(View.VISIBLE);
+                        textCart.setText(total_items + " Barang dikeranjang");
+                        pointCart.setText(total_points + " Poin");
+                    }
                 } else {
-                    progress.hide();
+                    Log.d("asd", "onResponse: " + new Gson().toJson(response2.errorBody()));
                     floatingCart.setVisibility(View.GONE);
                 }
+
+                progress.hide();
             }
 
             @Override
             public void onFailure(Call<GetCart> call, Throwable t) {
-
+                Log.d("asd", "onFailure: " + t.getMessage());
             }
         });
 
