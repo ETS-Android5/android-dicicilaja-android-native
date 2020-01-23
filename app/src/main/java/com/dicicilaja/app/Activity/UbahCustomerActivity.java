@@ -149,7 +149,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
         InterfaceUbahCustomer apiService =
                 ApiClient.getClient().create(InterfaceUbahCustomer.class);
 
-        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, tanggal, alamat, kelurahan, kecamatan, kota, provinsi, jk, bill, session.getProfileId());
+        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, tanggal, alamat, kelurahan, kecamatan, kota, provinsi, jk, bill);
         call.enqueue(new Callback<UbahCustomer>() {
             @Override
             public void onResponse(Call<UbahCustomer> call, Response<UbahCustomer> response) {

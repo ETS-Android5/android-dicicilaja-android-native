@@ -17,7 +17,7 @@ public interface InterfaceUbahAxi {
     @Headers({
             "Accept: application/json",
     })
-    @POST("axi/edit/{id}")
+    @POST("axi/edit")
     @FormUrlEncoded
     Call<UbahAxi> change(@Header("Authorization") String apiKey,
                          @Field("namaLengkap") String namaLengkap,
@@ -37,6 +37,5 @@ public interface InterfaceUbahAxi {
                          @Field("cabangBank") String cabangBank,
                          @Field("noRekening") String noRekening,
                          @Field("anRekening") String anRekening,
-                         @Field("kotaBank") String kotaBank,
-                         @Path("id") String id);
+                         @Field("kotaBank") String kotaBank);
 }

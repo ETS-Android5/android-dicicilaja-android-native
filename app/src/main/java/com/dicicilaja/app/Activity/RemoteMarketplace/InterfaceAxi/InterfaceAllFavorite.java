@@ -13,7 +13,6 @@ public interface InterfaceAllFavorite {
     @Headers({
             "Accept: application/json",
     })
-    @GET("favorite/{id}")
-    Call<ItemFavorite> getFavorite(@Header("Authorization") String apiKey,
-                                   @Path("id") String id);
+    @GET("bffnew/favorite")
+    Call<ItemFavorite> getFavorite(@Header("Authorization") String apiKey);
 }

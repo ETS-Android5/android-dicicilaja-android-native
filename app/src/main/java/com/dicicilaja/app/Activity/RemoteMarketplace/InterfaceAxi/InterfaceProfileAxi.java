@@ -14,6 +14,6 @@ public interface InterfaceProfileAxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("axi/profile")
+    @GET("bffnew/axi/profile")
     Call<ProfileAxi> getProfile(@Header("Authorization") String apiKey);
 }

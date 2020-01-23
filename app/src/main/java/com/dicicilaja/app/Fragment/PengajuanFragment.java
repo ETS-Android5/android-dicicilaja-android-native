@@ -167,7 +167,7 @@ public class PengajuanFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false));
 
         InterfacePengajuanMarketplace apiService2 =
-                RetrofitClient.getClient().create(InterfacePengajuanMarketplace.class);
+                com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfacePengajuanMarketplace.class);
 
         Call<AllPengajuan> call2 = apiService2.getPengajuan(apiKey);
         call2.enqueue(new Callback<AllPengajuan>() {

@@ -22,6 +22,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAsuransi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceEdukasi;
@@ -247,7 +248,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         search.setLayoutManager(new GridLayoutManager(this, 2));
 
         InterfaceMaxiProgram apiService =
-                ApiClient.getClient().create(InterfaceMaxiProgram.class);
+                ApiClient2.getClient().create(InterfaceMaxiProgram.class);
 
         Call<MaxiProgram> call = apiService.getProduct(apiKey, content);
         call.enqueue(new Callback<MaxiProgram>() {

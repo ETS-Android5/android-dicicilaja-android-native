@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
@@ -112,9 +113,9 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileCustomer apiService =
-                ApiClient.getClient().create(InterfaceProfileCustomer.class);
+                ApiClient2.getClient().create(InterfaceProfileCustomer.class);
 
-        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey, session.getProfileId());
+        Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
         callProfile.enqueue(new Callback<ProfileCustomer>() {
             @Override
             public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {

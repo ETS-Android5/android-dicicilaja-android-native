@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRekanBisnis;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRekanBisnis.Data;
@@ -127,11 +128,11 @@ public class RekanBisnisActivity extends AppCompatActivity {
             progress.show();
 
             InterfaceRekanBisnis apiService =
-                    RetrofitClient.getClient().create(InterfaceRekanBisnis.class);
+                    ApiClient.getClient().create(InterfaceRekanBisnis.class);
 
 
 
-            Call<RekanBisnis> call2 = apiService.getRekanBisnis(apiKey,id);
+            Call<RekanBisnis> call2 = apiService.getRekanBisnis(apiKey, session.getNomorAxiId());
             call2.enqueue(new Callback<RekanBisnis>() {
                 @Override
                 public void onResponse(Call<RekanBisnis> call, Response<RekanBisnis> response) {

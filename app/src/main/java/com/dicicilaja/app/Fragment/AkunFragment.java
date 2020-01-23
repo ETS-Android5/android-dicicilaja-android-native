@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.AxiDashboardActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
@@ -117,12 +118,12 @@ public class AkunFragment extends Fragment {
             }
         });
         InterfaceAllFavorite apiService3 =
-                ApiClient.getClient().create(InterfaceAllFavorite.class);
+                ApiClient2.getClient().create(InterfaceAllFavorite.class);
 
         final RecyclerView recyclerView2 =  view.findViewById(R.id.recycler_related);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Call<ItemFavorite> call5 = apiService3.getFavorite(apiKey, session.getProfileId());
+        Call<ItemFavorite> call5 = apiService3.getFavorite(apiKey);
         call5.enqueue(new Callback<ItemFavorite>() {
             @Override
             public void onResponse(Call<ItemFavorite> call, Response<ItemFavorite> response) {

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllProductPartner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProductPartner.AllProductPartner;
@@ -47,7 +48,7 @@ public class AllProductActivity extends AppCompatActivity {
         recycler_all_product.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 LinearLayoutManager.VERTICAL, false));
         InterfaceAllProductPartner apiService =
-                RetrofitClient.getClient().create(InterfaceAllProductPartner.class);
+                ApiClient2.getClient().create(InterfaceAllProductPartner.class);
 
         Log.d("AllProductActivity","id : " + getIntent().getStringExtra("EXTRA_REQUEST_ID"));
         Call<AllProductPartner> call = apiService.getProduct(getIntent().getStringExtra("EXTRA_REQUEST_ID"));

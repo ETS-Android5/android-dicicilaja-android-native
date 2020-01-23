@@ -15,6 +15,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
+
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -143,9 +145,9 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 progress1.show();
 
                 InterfaceProfileCustomer apiService =
-                        RetrofitClient.getClient().create(InterfaceProfileCustomer.class);
+                        ApiClient.getClient().create(InterfaceProfileCustomer.class);
 
-                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey, session.getProfileId());
+                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
                 callProfile.enqueue(new Callback<ProfileCustomer>() {
                     @Override
                     public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {

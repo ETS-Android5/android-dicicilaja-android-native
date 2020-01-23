@@ -15,6 +15,6 @@ public interface InterfaceMaxiProgram {
     @Headers({
             "Accept: application/json",
     })
-    @GET("maxi/{slug}")
+    @GET("bffnew/maxi/{slug}")
     Call<MaxiProgram> getProduct(@Header("Authorization") String apiKey, @Path("slug") String slug);
 }

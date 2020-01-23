@@ -15,7 +15,6 @@ public interface InterfaceInfoJaringan {
     @Headers({
             "Accept: application/json",
     })
-    @GET("axi/infojaringan/{id}")
-    Call<InfoJaringan> getInfoJaringan(@Header("Authorization") String apiKey,
-                                       @Path("id") String id);
+    @GET("axi/infojaringan")
+    Call<InfoJaringan> getInfoJaringan(@Header("Authorization") String apiKey);
 }

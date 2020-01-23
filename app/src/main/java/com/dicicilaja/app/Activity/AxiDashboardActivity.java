@@ -591,9 +591,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfacePengajuanAxi apiService2 =
-                ApiClient.getClient().create(InterfacePengajuanAxi.class);
+                ApiClient2.getClient().create(InterfacePengajuanAxi.class);
 
-        Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage, session.getProfileId());
+        Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage);
         call3.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
@@ -612,10 +612,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceAxiDetail apiService5 =
-                ApiClient.getClient().create(InterfaceAxiDetail.class);
+                com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceAxiDetail.class);
 
 //        showLoading();
-        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey, session.getProfileId());
+        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
@@ -647,7 +647,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         InterfaceInfoJaringan apiService4 =
                 ApiClient.getClient().create(InterfaceInfoJaringan.class);
 
-        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey, session.getProfileId());
+        Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
@@ -840,12 +840,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                intent.putExtra("POINT_REWARD", contentBox1.getText());
-                startActivityForResult(intent, 96);
+//                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+//                intent.putExtra("POINT_REWARD", contentBox1.getText());
+//                startActivityForResult(intent, 96);
 
-//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-//                startActivity(intent);
+                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                startActivity(intent);
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);

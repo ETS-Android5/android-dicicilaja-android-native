@@ -171,7 +171,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         InterfaceUbahAxi apiService =
                 ApiClient.getClient().create(InterfaceUbahAxi.class);
 
-        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank, session.getProfileId());
+        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank);
         call.enqueue(new Callback<UbahAxi>() {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {

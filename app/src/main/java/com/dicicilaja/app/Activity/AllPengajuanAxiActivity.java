@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.PengajuanAxi.Datum;
@@ -100,9 +101,9 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
         showLoading();
 
         InterfacePengajuanAxi apiService =
-                RetrofitClient.getClient().create(InterfacePengajuanAxi.class);
+                ApiClient.getClient().create(InterfacePengajuanAxi.class);
 
-        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage, session.getProfileId());
+        Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
         call2.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {

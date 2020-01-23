@@ -15,7 +15,7 @@ public interface InterfaceUbahCustomer {
     @Headers({
             "Accept: application/json",
     })
-    @POST("customer/edit/{id}")
+    @POST("customer/edit")
     @FormUrlEncoded
     Call<UbahCustomer> change(@Header("Authorization") String apiKey,
                               @Field("name") String name,
@@ -27,6 +27,5 @@ public interface InterfaceUbahCustomer {
                               @Field("city") String city,
                               @Field("province") String province,
                               @Field("gender") String gender,
-                              @Field("bill_number") String bill_number,
-                              @Path("id") String id);
+                              @Field("bill_number") String bill_number);
 }

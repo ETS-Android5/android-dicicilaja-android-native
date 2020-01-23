@@ -12,6 +12,6 @@ public interface InterfaceAllProductPartner {
     @Headers({
             "Accept: application/json",
     })
-    @GET("partner/{id}")
+    @GET("bffnew/partner/{id}")
     Call<AllProductPartner> getProduct(@Path("id") String id);
 }

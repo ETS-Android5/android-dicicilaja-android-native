@@ -139,7 +139,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 InterfaceProfileCustomer apiService =
                         ApiClient.getClient().create(InterfaceProfileCustomer.class);
 
-                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey, session.getProfileId());
+                Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
                 callProfile.enqueue(new Callback<ProfileCustomer>() {
                     @Override
                     public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {

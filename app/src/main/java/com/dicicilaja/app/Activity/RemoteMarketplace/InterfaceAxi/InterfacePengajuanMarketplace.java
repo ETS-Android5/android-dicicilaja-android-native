@@ -15,6 +15,6 @@ public interface InterfacePengajuanMarketplace {
     @Headers({
             "Accept: application/json",
     })
-    @GET("user/request")
+    @GET("bffnew/user/request")
     Call<AllPengajuan> getPengajuan(@Header("Authorization") String apiKey);
 }

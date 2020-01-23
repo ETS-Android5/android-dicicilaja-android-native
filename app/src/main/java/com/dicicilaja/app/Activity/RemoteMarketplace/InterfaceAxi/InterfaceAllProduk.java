@@ -11,6 +11,6 @@ public interface InterfaceAllProduk {
     @Headers({
             "Accept: application/json",
     })
-    @GET("product")
+    @GET("bffnew/product")
     Call<AllProduk> getProduct();
 }

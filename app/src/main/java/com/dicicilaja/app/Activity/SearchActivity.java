@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllProduk;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllProduct.AllProduk;
@@ -51,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         search.setHasFixedSize(true);
         search.setLayoutManager(new GridLayoutManager(this, 2));
         InterfaceAllProduk apiService =
-                ApiClient.getClient().create(InterfaceAllProduk.class);
+                ApiClient2.getClient().create(InterfaceAllProduk.class);
 
         Call<AllProduk> call = apiService.getProduct();
         call.enqueue(new Callback<AllProduk>() {

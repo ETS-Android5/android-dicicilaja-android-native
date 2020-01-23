@@ -13,7 +13,6 @@ public interface InterfaceProfileCustomer {
     @Headers({
             "Accept: application/json",
     })
-    @GET("customer/profile/{id}")
-    Call<ProfileCustomer> getProfile(@Header("Authorization") String apiKey,
-                                     @Path("id") String id);
+    @GET("bffnew/customer/profile/")
+    Call<ProfileCustomer> getProfile(@Header("Authorization") String apiKey);
 }
