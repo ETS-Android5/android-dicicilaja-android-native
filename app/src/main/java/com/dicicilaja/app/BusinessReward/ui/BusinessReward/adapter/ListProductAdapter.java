@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum_;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Relationships;
@@ -140,5 +141,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 
     public interface ProductCallback {
         void onClickProduct(List<Included> pcList2, int position);
+
+        void onClickSeeAll(Datum datum);
     }
 }

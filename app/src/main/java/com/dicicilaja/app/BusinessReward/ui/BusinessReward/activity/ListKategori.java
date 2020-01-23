@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -52,6 +53,8 @@ public class ListKategori extends AppCompatActivity {
     RadioGroup radioGroup;
     @BindView(R.id.pilih_kat)
     Button pilihKat;
+    @BindView(R.id.pb_kategori)
+    ProgressBar pbCategory;
 
     private String id = null;
 
@@ -92,63 +95,68 @@ public class ListKategori extends AppCompatActivity {
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
+        pbCategory.setVisibility(View.VISIBLE);
+        rg.setVisibility(View.GONE);
+
         Call<KategoriProduk> call = apiService.getKategori();
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
-                final List<Datum> dataItems = response.body().getData();
+                if (response.isSuccessful()) {
+                    final List<Datum> dataItems = response.body().getData();
 
-                for (int i = 0; i < response.body().getData().size(); i++) {
-                    KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
-                    KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+                        KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
+                        KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
 //                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
-                    stringList.add(response.body().getData().get(i).getAttributes().getNama());
+                        stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
-                    rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
-                    rb.setText(stringList.get(i));
+                        rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
+                        rb.setId(i);
+                        rb.setText(stringList.get(i));
 
 //                    radioGroup.setId(0);
-                    rg.addView(rb);
+                        rg.addView(rb);
 
-                    if (dataItems.get(i).getId().equals(Integer.valueOf(id))) {
-
-                        ((RadioButton) rg.getChildAt(i)).setChecked(true);
+                        if (Integer.valueOf(id) == (i + 1)) {
+                            rb.setChecked(true);
+                        }
                     }
-                }
 
-                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
 //                        int id = rg.getCheckedRadioButtonId();
-//
+////
 //                        if(id % response.body().getData().size() == 0){
 //                            id = response.body().getData().size();
 //                        }else{
 //                            id = id % response.body().getData().size();
 //                        }
 
-                        Log.d("asd", "onCheckedChanged: " + new Gson().toJson(response.body().getData()));
+                            Log.d("asd", "onCheckedChanged: " + new Gson().toJson(response.body().getData()));
 
-                        for (int i = 0; i < rg.getChildCount(); i++) {
-                            if (((RadioButton) rg.getChildAt(i)).getId() == checkedId) {
-                                ((RadioButton) rg.getChildAt(i)).setChecked(true);
+                            for (int i = 0; i < rg.getChildCount(); i++) {
+                                if (((RadioButton) rg.getChildAt(i)).getId() == checkedId) {
+                                    ((RadioButton) rg.getChildAt(i)).setChecked(true);
 
 //                                selected = KATEGORI_DATA.get(i);
 //                                size = KATEGORI_ITEMS.get(i);
-                                selected = String.valueOf(i + 1);
-                            } else {
-                                ((RadioButton) rg.getChildAt(i)).setChecked(false);
+                                    selected = String.valueOf(checkedId + 1);
+                                } else {
+                                    ((RadioButton) rg.getChildAt(i)).setChecked(false);
+                                }
                             }
                         }
-                    }
-                });
+                    });
 
-                pilihKat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setResult(RESULT_OK, getIntent().putExtra("ID", selected));
-                        finish();
+                    pilihKat.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (selected == null) selected = id;
+                            setResult(RESULT_OK, getIntent().putExtra("ID", selected));
+                            finish();
 //                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
 //
 //                        intent.putExtra("ID", selected);
@@ -158,8 +166,24 @@ public class ListKategori extends AppCompatActivity {
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                        startActivity(intent);
 //                        finish();
-                    }
-                });
+                        }
+                    });
+
+                    pbCategory.setVisibility(View.GONE);
+                    rg.setVisibility(View.VISIBLE);
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListKategori.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                }
             }
 
             @Override

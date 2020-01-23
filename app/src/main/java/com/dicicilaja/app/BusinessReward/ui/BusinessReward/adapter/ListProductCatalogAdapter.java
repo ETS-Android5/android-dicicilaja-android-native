@@ -96,7 +96,8 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
                 Intent intent = new Intent(mContext, CatalogResultActivity.class);
                 intent.putExtra("ID", String.valueOf(pc.getId()));
                 intent.putExtra("SIZE", String.valueOf(pc.getRelationships().getProductCatalogs().getData().size()));
-                v.getContext().startActivity(intent);
+                //v.getContext().startActivity(intent);
+                mCallback.onClickSeeAll(pc);
             }
         });
 

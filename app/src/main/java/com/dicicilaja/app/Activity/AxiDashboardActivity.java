@@ -558,20 +558,26 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call.enqueue(new Callback<RewardPhase>() {
             @Override
             public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
+                isHasCheckRewardPhase = true;
                 if (response.isSuccessful()) {
                     if (response.body().getData().getAttributes().getStatus() == 1) {
                         isRewardPhaseAvailable = true;
                     }
+                } else {
+                    Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RewardPhase> call, Throwable t) {
                 Log.d("asd", "onFailure: " + t.getMessage());
+                isHasCheckRewardPhase = true;
+                Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private boolean isHasCheckRewardPhase = false;
     private boolean isRewardPhaseAvailable = false;
 
     @Override
@@ -744,14 +750,18 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-                if (isRewardPhaseAvailable) {
-                    intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                    intent.putExtra("POINT_REWARD", contentBox1.getText());
-                    startActivityForResult(intent, 96);
-                } else {
+                if (isHasCheckRewardPhase) {
+                    if (isRewardPhaseAvailable) {
+                        intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                        intent.putExtra("POINT_REWARD", contentBox1.getText());
+                        startActivityForResult(intent, 96);
+                    } else {
 
-                    intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-                    startActivity(intent);
+                        intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(this, "Data masih di muat. Mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.point_trip:

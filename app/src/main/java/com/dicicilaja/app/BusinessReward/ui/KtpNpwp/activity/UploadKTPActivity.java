@@ -534,7 +534,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
         // Validate NPWP when NPWP is not empty
         if (!noNpwp.getText().toString().isEmpty()) {
-            if (noNpwp.getText().toString().length() < 16) {
+            if (noNpwp.getText().toString().length() < 15) {
                 alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Format NPWP tidak valid!");
                 alertDialog.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());

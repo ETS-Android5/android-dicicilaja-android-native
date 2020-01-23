@@ -382,6 +382,14 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
     }
 
     @Override
+    public void onClickSeeAll(Datum datum) {
+        Intent intent = new Intent(this, CatalogResultActivity.class);
+        intent.putExtra("ID", String.valueOf(datum.getId()));
+        intent.putExtra("SIZE", String.valueOf(datum.getRelationships().getProductCatalogs().getData().size()));
+        startActivityForResult(intent, 99);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

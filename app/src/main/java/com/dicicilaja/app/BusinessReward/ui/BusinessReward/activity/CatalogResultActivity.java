@@ -12,9 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +32,7 @@ import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListAllProductAdapter;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
+import com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity.DetailProductActivity;
 import com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity.PilihCabangVendorActivity;
 import com.dicicilaja.app.R;
 
@@ -44,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CatalogResultActivity extends AppCompatActivity {
+public class CatalogResultActivity extends AppCompatActivity implements ListAllProductAdapter.AllProductCallback {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -75,6 +78,8 @@ public class CatalogResultActivity extends AppCompatActivity {
     ImageView sortIcon;
     @BindView(R.id.pilih_urutkan)
     RelativeLayout pilihUrutkan;
+    @BindView(R.id.pb_catalog)
+    ProgressBar pbCatalog;
 
     Call<DetailKategori> call;
     Call<Produk> call2;
@@ -107,7 +112,7 @@ public class CatalogResultActivity extends AppCompatActivity {
         size = intent.getStringExtra("SIZE");
         order_by = intent.getStringExtra("ORDERBY");
 
-        checkStatusOrder();
+        //checkStatusOrder();
 
 //        Log.d("IDNYAINITEH", id);
 //        Log.d("IDNYAINITEHSIZE", size);
@@ -117,68 +122,7 @@ public class CatalogResultActivity extends AppCompatActivity {
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        if (status_order == 0) {
-//            call = apiService.getDetailKategori(Integer.parseInt(id));
-//
-//            call.enqueue(new Callback<DetailKategori>() {
-//                @SuppressLint("WrongConstant")
-//                @Override
-//                public void onResponse(Call<DetailKategori> call, Response<DetailKategori> response) {
-//                    final Data dataItems = response.body().getData();
-//                    final List<Included> dataItems2 = response.body().getIncluded();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-//
-//                    Log.d("Cek1", "" + response.code());
-//
-//                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, dataItems2, getBaseContext(), id, size));
-//                }
-//
-//                @Override
-//                public void onFailure(Call<DetailKategori> call, Throwable t) {
-//                    Log.d("dadada", t.getMessage());
-//                }
-//            });
-
-            call2 = apiService.getProdukAll(id);
-
-            call2.enqueue(new Callback<Produk>() {
-                @SuppressLint("WrongConstant")
-                @Override
-                public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-
-                    Log.d("Cek2", "" + response.code());
-
-                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
-                }
-
-                @Override
-                public void onFailure(Call<Produk> call, Throwable t) {
-                    Log.d("dadada", t.getMessage());
-                }
-            });
-        } else {
-            call2 = apiService.getProdukSort(id, "nama", order_by);
-
-            call2.enqueue(new Callback<Produk>() {
-                @SuppressLint("WrongConstant")
-                @Override
-                public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-
-                    Log.d("Cek2", "" + response.code());
-
-                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
-                }
-
-                @Override
-                public void onFailure(Call<Produk> call, Throwable t) {
-                    Log.d("dadada", t.getMessage());
-                }
-            });
-        }
+        loadData();
     }
 
     private void checkStatusOrder() {
@@ -212,7 +156,18 @@ public class CatalogResultActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    private void showProgress(boolean isShow) {
+        if (isShow) {
+            pbCatalog.setVisibility(View.VISIBLE);
+            recyclerCatalog.setVisibility(View.GONE);
+        } else {
+            pbCatalog.setVisibility(View.GONE);
+            recyclerCatalog.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void loadData() {
+        showProgress(true);
         checkStatusOrder();
         if (status_order == 0) {
 //            call = apiService.getDetailKategori(Integer.parseInt(id));
@@ -242,17 +197,24 @@ public class CatalogResultActivity extends AppCompatActivity {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+                    if (response.isSuccessful()) {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
 //                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
 
-                    Log.d("Cek2", "" + response.code());
+                        Log.d("Cek2", "" + response.code());
 
-                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+                        recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size, CatalogResultActivity.this));
+                    } else {
+                        Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
+                    }
+                    showProgress(false);
                 }
 
                 @Override
                 public void onFailure(Call<Produk> call, Throwable t) {
+                    Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
                     Log.d("dadada", t.getMessage());
+                    showProgress(false);
                 }
             });
         } else {
@@ -262,17 +224,24 @@ public class CatalogResultActivity extends AppCompatActivity {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+                    if (response.isSuccessful()) {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
 //                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
 
-                    Log.d("Cek2", "" + response.code());
+                        Log.d("Cek2", "" + response.code());
 
-                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+                        recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size, CatalogResultActivity.this));
+                    } else {
+                        Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
+                    }
+                    showProgress(false);
                 }
 
                 @Override
                 public void onFailure(Call<Produk> call, Throwable t) {
                     Log.d("dadada", t.getMessage());
+                    Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
+                    showProgress(false);
                 }
             });
         }
@@ -301,6 +270,13 @@ public class CatalogResultActivity extends AppCompatActivity {
                 loadData();
             }
         }
+
+        if (requestCode == 4) {
+            if (resultCode == RESULT_OK) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
     }
 
     @OnClick({R.id.pilih_kategori, R.id.pilih_urutkan})
@@ -323,5 +299,39 @@ public class CatalogResultActivity extends AppCompatActivity {
                 startActivityForResult(i, 3);
                 break;
         }
+    }
+
+    @Override
+    public void onClickProduct(Datum datum) {
+        Intent intent = new Intent(this, DetailProductActivity.class);
+        intent.putExtra("ID", datum.getId());
+
+        intent.putExtra("ID", datum.getId());
+        intent.putExtra("IMAGE", datum.getAttributes().getFoto());
+        intent.putExtra("TITLE", datum.getAttributes().getNama());
+        intent.putExtra("DETAIL", datum.getAttributes().getDeskripsi());
+        intent.putExtra("POINT_PRODUCT", datum.getAttributes().getPoint());
+        intent.putExtra("POINT_REWARD", BusinesRewardActivity.point_reward);
+        intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
+        intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
+        intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
+        startActivityForResult(intent, 4);
+    }
+
+    @Override
+    public void onClickProduct(Included included) {
+        Intent intent = new Intent(this, DetailProductActivity.class);
+        intent.putExtra("ID", included.getId());
+
+        intent.putExtra("ID", included.getId());
+        intent.putExtra("IMAGE", included.getAttributes().getFoto());
+        intent.putExtra("TITLE", included.getAttributes().getNama());
+        intent.putExtra("DETAIL", included.getAttributes().getDeskripsi());
+        intent.putExtra("POINT_PRODUCT", included.getAttributes().getPoint());
+        intent.putExtra("POINT_REWARD", BusinesRewardActivity.point_reward);
+        intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
+        intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
+        intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
+        startActivityForResult(intent, 4);
     }
 }
