@@ -77,11 +77,11 @@ public class UbahAxiActivity extends AppCompatActivity {
         inputNoHp           = findViewById(R.id.inputNoHp);
         inputEmail          = findViewById(R.id.inputEmail);
         inputAlamat         = findViewById(R.id.inputAlamat);
-        inputRtRw           = findViewById(R.id.inputRtRw);
-        inputKelurahan      = findViewById(R.id.inputKelurahan);
-        inputKecamatan      = findViewById(R.id.inputKecamatan);
-        inputProvinsi       = findViewById(R.id.inputProvinsi);
-        inputKodepos        = findViewById(R.id.inputKodepos);
+//        inputRtRw           = findViewById(R.id.inputRtRw);
+//        inputKelurahan      = findViewById(R.id.inputKelurahan);
+//        inputKecamatan      = findViewById(R.id.inputKecamatan);
+//        inputProvinsi       = findViewById(R.id.inputProvinsi);
+//        inputKodepos        = findViewById(R.id.inputKodepos);
         inputNPWP           = findViewById(R.id.inputNPWP);
         inputNamaBank       = findViewById(R.id.inputNamaBank);
         inputCabang         = findViewById(R.id.inputCabang);
@@ -96,11 +96,11 @@ public class UbahAxiActivity extends AppCompatActivity {
         inputNoHp.setText(getIntent().getStringExtra("api_no_hp"));
         inputEmail.setText(getIntent().getStringExtra("api_email"));
         inputAlamat.setText(getIntent().getStringExtra("api_alamat"));
-        inputRtRw.setText(getIntent().getStringExtra("api_rt_rw"));
-        inputKelurahan.setText(getIntent().getStringExtra("api_kelurahan"));
-        inputKecamatan.setText(getIntent().getStringExtra("api_kecamatan"));
-        inputProvinsi.setText(getIntent().getStringExtra("api_provinsi"));
-        inputKodepos.setText(getIntent().getStringExtra("api_kodepos"));
+//        inputRtRw.setText(getIntent().getStringExtra("api_rt_rw"));
+//        inputKelurahan.setText(getIntent().getStringExtra("api_kelurahan"));
+//        inputKecamatan.setText(getIntent().getStringExtra("api_kecamatan"));
+//        inputProvinsi.setText(getIntent().getStringExtra("api_provinsi"));
+//        inputKodepos.setText(getIntent().getStringExtra("api_kodepos"));
         inputNPWP.setText(getIntent().getStringExtra("api_no_npwp"));
         inputNamaBank.setText(getIntent().getStringExtra("api_nama_bank"));
         inputCabang.setText(getIntent().getStringExtra("api_cabang_bank"));
@@ -146,11 +146,11 @@ public class UbahAxiActivity extends AppCompatActivity {
                     noHp = inputNoHp.getText().toString();
                     email = inputEmail.getText().toString();
                     alamat = inputAlamat.getText().toString();
-                    rtRw = inputRtRw.getText().toString();
-                    kelurahan = inputKelurahan.getText().toString();
-                    kecamatan = inputKecamatan.getText().toString();
-                    provinsi = inputProvinsi.getText().toString();
-                    kodepos = inputKodepos.getText().toString();
+//                    rtRw = inputRtRw.getText().toString();
+//                    kelurahan = inputKelurahan.getText().toString();
+//                    kecamatan = inputKecamatan.getText().toString();
+//                    provinsi = inputProvinsi.getText().toString();
+//                    kodepos = inputKodepos.getText().toString();
                     NPWP = inputNPWP.getText().toString();
                     namaBank = inputNamaBank.getText().toString();
                     cabang = inputCabang.getText().toString();
@@ -160,18 +160,47 @@ public class UbahAxiActivity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank)) {
-                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
+                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank)) {
+                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
 
                 }
             }
         });
     }
-    private void ubahAxi(final String apiKey, final String namaLengkap, final String tempatLahir, final String tanggal, final String noHp, final String email, final String alamat, final String rtRw, final String kelurahan, final String kecamatan, final String provinsi, final String kodepos, final String jk, final String noNpwp, final String namaBank, final String cabangBank, final String noRekening, final String anRekening, final String kotaBank) {
+    private void ubahAxi(
+            final String apiKey,
+            final String namaLengkap,
+            final String tempatLahir,
+            final String tanggal,
+            final String noHp,
+            final String email,
+            final String alamat,
+            final String jk,
+            final String NPWP,
+            final String namaBank,
+            final String cabang,
+            final String rekening,
+            final String AN,
+            final String kotaBank
+    ) {
         InterfaceUbahAxi apiService =
                 ApiClient.getClient().create(InterfaceUbahAxi.class);
 
-        Call<UbahAxi> call = apiService.change(apiKey, namaLengkap, tempatLahir, tanggal, noHp, email, alamat, rtRw, kelurahan, kecamatan, provinsi, kodepos, jk, noNpwp, namaBank, cabangBank, noRekening, anRekening, kotaBank);
+        Call<UbahAxi> call = apiService.change(
+                apiKey,
+                namaLengkap,
+                tempatLahir,
+                tanggal,
+                noHp,
+                email,
+                alamat,
+                jk,
+                NPWP,
+                namaBank,
+                cabang,
+                rekening,
+                AN,
+                kotaBank);
         call.enqueue(new Callback<UbahAxi>() {
             @Override
             public void onResponse(Call<UbahAxi> call, Response<UbahAxi> response) {
@@ -193,7 +222,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String rtRw, String kelurahan, String kecamatan, String provinsi, String kodepos, String jk, String NPWP, String namaBank, String cabang, String rekening, String AN, String kotaBank) {
+    private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String jk, String NPWP, String namaBank, String cabang, String rekening, String AN, String kotaBank) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
@@ -272,70 +301,70 @@ public class UbahAxiActivity extends AppCompatActivity {
             return false;
         }
 
-        if(rtRw == null || rtRw.trim().length() == 0 || rtRw.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan RT/RW");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputRtRw);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan kelurahan");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKelurahan);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan kecamatan");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKecamatan);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan provinsi");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputProvinsi);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan kode pos");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKodepos);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
+//        if(rtRw == null || rtRw.trim().length() == 0 || rtRw.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan RT/RW");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputRtRw);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
+//
+//        if(kelurahan == null || kelurahan.trim().length() == 0 || kelurahan.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan kelurahan");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputKelurahan);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
+//
+//        if(kecamatan == null || kecamatan.trim().length() == 0 || kecamatan.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan kecamatan");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputKecamatan);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
+//
+//        if(provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan provinsi");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputProvinsi);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
+//
+//        if(kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan kode pos");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputKodepos);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
 
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);

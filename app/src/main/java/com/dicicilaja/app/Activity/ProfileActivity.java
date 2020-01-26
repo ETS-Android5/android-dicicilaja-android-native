@@ -29,8 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileAxi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileAxi.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileAxi.ProfileAxi;
+import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
@@ -219,11 +219,33 @@ public class ProfileActivity extends AppCompatActivity {
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        doLogout(apiKey);
-                        session.logoutUser();
-                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                        progress.show();
+                        InterfaceLogout apiService =
+                                ApiClient.getClient().create(InterfaceLogout.class);
+
+                        Call<Logout> call2 = apiService.logout(apiKey);
+                        call2.enqueue(new Callback<Logout>() {
+                            @Override
+                            public void onResponse(Call<Logout> call, Response<Logout> response2) {
+                                try {
+                                    if (response2.isSuccessful()) {
+                                        progress.hide();
+                                        session.logoutUser();
+                                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                } catch (Exception ex) {
+                                    progress.hide();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Logout> call, Throwable t) {
+                                progress.hide();
+                            }
+                        });
                     }
                 });
 
@@ -302,20 +324,5 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void doLogout(final String apiKey) {
-        Call<Logout> call = interfaceLogout.logout(apiKey);
-        call.enqueue(new Callback<Logout>() {
-            @Override
-            public void onResponse(Call<Logout> call, Response<Logout> response) {
-                Toast.makeText(getBaseContext(),"code :" + response.code(),Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Logout> call, Throwable t) {
-
-            }
-        });
     }
 }

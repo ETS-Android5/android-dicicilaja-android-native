@@ -570,15 +570,16 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         ApiService apiService =
                 ApiClient3.getClient().create(ApiService.class);
 
-        Call<ExistingPoint> call2 = apiService.getExistingPoint(session.getUserId());
+        Call<ExistingPoint> call2 = apiService.getExistingPoint(session.getNomorAxiId());
         call2.enqueue(new Callback<ExistingPoint>() {
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
-                Log.d("TAGTAGTAG", "status:" + response2.code());
                 try {
                     if (response2.isSuccessful()) {
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                         contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
+                        contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointTrip()))).replace(",", "."));
+
                     }
                 } catch (Exception ex) {
                 }
@@ -629,7 +630,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
 //                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointTrip()))).replace(",", "."));
                     contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
                     contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
                     linkWeb.setText(itemDetail.getReplicaWebLink());
@@ -654,9 +654,10 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 if (response.isSuccessful()) {
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
+                    Log.d("DISNI", String.valueOf(infoJaringan.size()));
                     contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
-
+                } else {
+                    Log.d("DISNI", "ERROR");
                 }
 
             }
@@ -844,8 +845,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                intent.putExtra("POINT_REWARD", contentBox1.getText());
 //                startActivityForResult(intent, 96);
 
-                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);

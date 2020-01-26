@@ -1,6 +1,6 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileAxi.ProfileAxi;
+import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
