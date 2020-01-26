@@ -79,7 +79,7 @@ public class RedeemConfirmationActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.call_tasya:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=+628111465005&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20produk%20yang%20saya%20telah%20tukar%20"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=+6285789205112&text=Halo%20*Tasya*%20%f0%9f%98%8a%2c%0a%0aMau%20tanya%20tentang%20produk%20yang%20saya%20telah%20tukar%20"));
                 startActivity(browserIntent);
                 break;
             case R.id.klaim:
