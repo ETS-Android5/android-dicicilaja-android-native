@@ -73,22 +73,17 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
             holder.rvProduk.setVisibility(View.GONE);
         }
 
-//        final Included pc2 = pcList2.get(position);
 
         pc.getRelationships().getProductCatalogs().getData().size();
 
         holder.tv_title.setText(pc.getAttributes().getNama());
         Log.d("Relasi", " id: " + pc.getRelationships());
 
-//        for (int i = 0; i < pc.getRelationships().getProductCatalogs().getData().size(); i++){
-//        Log.d("idnyaanjing", String.valueOf(pc.getRelationships().getProductCatalogs().getData().get(position).getId()));
         horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext, mCallback);
         holder.rvProduk.setHasFixedSize(true);
         holder.rvProduk.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.rvProduk.setAdapter(horizontalAdapter);
-//        }
         no++;
-//        horizontalAdapter = new ListProductAdapter(pc.getRelationships().getProductCatalogs().getData(), pcList2, mContext);
 
         holder.lihatSemua.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +91,6 @@ public class ListProductCatalogAdapter extends RecyclerView.Adapter<ListProductC
                 Intent intent = new Intent(mContext, CatalogResultActivity.class);
                 intent.putExtra("ID", String.valueOf(pc.getId()));
                 intent.putExtra("SIZE", String.valueOf(pc.getRelationships().getProductCatalogs().getData().size()));
-                //v.getContext().startActivity(intent);
                 mCallback.onClickSeeAll(pc);
             }
         });

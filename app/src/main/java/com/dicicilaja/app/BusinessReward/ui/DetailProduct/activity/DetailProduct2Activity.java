@@ -55,6 +55,7 @@ import retrofit2.Response;
 
 public class DetailProduct2Activity extends AppCompatActivity {
 
+    private static final String TAG = DetailProduct2Activity.class.getSimpleName();
     String id, name, alamat, tgl, no_transaksi, no_transaksi2, tgl_penukaran, status_pengiriman, produk_id, nama, nama_barang, gambar_barang, tot_point, alamatnya, area, area_id, cabang, cabang_id, no_ktp, no_npwp;
     int point, thumbnail, sisa, point_barang;
     ApiService3 apiService3;
@@ -78,12 +79,6 @@ public class DetailProduct2Activity extends AppCompatActivity {
     TextView tvAlamat;
     @BindView(R.id.detail_user)
     LinearLayout detailUser;
-    //@BindView(R.id.barang_picture)
-    //ImageView barangPicture;
-    //@BindView(R.id.title_barang)
-    //TextView titleBarang;
-    //@BindView(R.id.point)
-    //TextView tvPoint;
     @BindView(R.id.tv_total_point)
     TextView tvTotalPoint;
     @BindView(R.id.tv_point_barang)
@@ -120,31 +115,10 @@ public class DetailProduct2Activity extends AppCompatActivity {
         apiKey = "Bearer " + session.getToken();
         apiService3 = ApiClient3.getClient().create(ApiService3.class);
         nama = session.getName();
-
-//        Intent intent = getIntent();
-//        tgl = intent.getStringExtra("DATE");
         profileId = session.getAxiId();
         nama = session.getName();
         no_ktp = getIntent().getStringExtra("NOKTP");
         no_npwp = getIntent().getStringExtra("NONPWP");
-//        no_transaksi = intent.getStringExtra("NO_TRANSAKSI");
-//        no_transaksi2 = intent.getStringExtra("NO_TRANSAKSI2");
-//        tgl_penukaran = intent.getStringExtra("TGL_PENUKARAN");
-//        status_pengiriman = intent.getStringExtra("STATUS_PENGIRIMAN");
-//
-//        produk_id = intent.getStringExtra("PRODUK_ID");
-//        tot_point = intent.getStringExtra("TOTAL_POINT");
-//        point_barang = intent.getIntExtra("POINT_BARANG", 0);
-//        nama_barang = intent.getStringExtra("NAMA_BARANG");
-//        gambar_barang = intent.getStringExtra("GAMBAR_BARANG");
-//        tvPointBarang.setText(String.valueOf(intent.getIntExtra("POINT_BARANG", 0)));
-//        tvTotalPoint.setText(tot_point);
-//        sisa = Integer.parseInt(tot_point) - point_barang;
-//        tvSisaPoint.setText(String.valueOf(sisa));
-
-//        titleBarang.setText(nama_barang);
-//        tvPoint.setText(point_barang + " Point");
-//        Glide.with(this).load(gambar_barang).into(barangPicture);
 
         Date c = Calendar.getInstance().getTime();
 
@@ -167,29 +141,22 @@ public class DetailProduct2Activity extends AppCompatActivity {
                     point = Integer.valueOf(getIntent().getStringExtra("point"));
                     totalPoint = response.body().getData().getAttributes().getTotalPoints();
                     sisaPoint = point - totalPoint;
-//
-//                    toggleButton(sisaPoint >= 0);
 
                     tvTotalPoint.setText(point + " POINT");
                     tvPointBarang.setText(totalPoint + " POINT");
                     tvSisaPoint.setText(sisaPoint + " POINT");
                     if (includedList.size() == 0) {
                         rvProduct.setVisibility(View.GONE);
-                        //order.setVisibility(View.VISIBLE);
                     } else {
                         rvProduct.setVisibility(View.VISIBLE);
-                        //order.setVisibility(View.GONE);
                         rvProduct.setAdapter(new ProductSummaryAdapter(itemList, includedList, DetailProduct2Activity.this));
                     }
-                    //progress.dismiss();
                 }
-                //progress.dismiss();
 
             }
 
             @Override
             public void onFailure(Call<GetCart> call, Throwable t) {
-                //progress.dismiss();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
@@ -205,19 +172,14 @@ public class DetailProduct2Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.axi_dasboard, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
             Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
             startActivity(intent);
@@ -247,7 +209,6 @@ public class DetailProduct2Activity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<PostClaimReward> call, Response<PostClaimReward> response) {
                             if (response.isSuccessful()) {
-                                Log.d("Responnya", String.valueOf(response.code()));
                                 setResult(RESULT_OK);
                                 Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
                                 intent.putExtra("DATE", date);
@@ -255,57 +216,25 @@ public class DetailProduct2Activity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-                                Log.d("asd", "onResponse: " + new Gson().toJson(response.code()));
                             }
                         }
 
                         @Override
                         public void onFailure(Call<PostClaimReward> call, Throwable t) {
-                            Log.d("asd", "onFailure: " + t.getMessage());
+                            Log.d(TAG, "onFailure: " + t.getMessage());
                         }
                     });
-
-//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-//                profileId = session.getAxiId();
-//                name = session.getName();
-//                crhId = String.valueOf(0);
-////                no_ktp = getIntent().getStringExtra("NOKTP");
-//                statusId = String.valueOf(5);
-
-                                Log.d("datainput", profileId);
-                                Log.d("datainput", nama);
-                                Log.d("datainput", cabang_id);
-                                Log.d("datainput", cabang);
-                                Log.d("datainput", area_id);
-                                Log.d("datainput", area);
-                                Log.d("datainput", produk_id);
-                                Log.d("datainput", no_ktp + "/" + no_npwp);
-                                Log.d("datainput", alamat);
-
-
-                    //Toast.makeText(getBaseContext(), "Berhasil Klaim", Toast.LENGTH_SHORT).show();
-
 
                 }
             });
             alertDialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    //finish();
-                    //startActivity(getIntent());
                     dialog.dismiss();
                 }
             });
             alertDialog.show();
         }
     }
-
-//    @OnClick(R.id.tambah_alamat)
-//    public void onViewClicked() {
-//        Intent intent = new Intent(getBaseContext(), PilihCabangVendorActivity.class);
-//        startActivityForResult(intent, 1);
-////        startActivity(intent);
-//    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -46,6 +46,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TransactionActivity extends AppCompatActivity {
+    private static final String TAG = TransactionActivity.class.getSimpleName();
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_transaksi)
@@ -96,8 +98,6 @@ public class TransactionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fabScrollTop.bringToFront();
-//        apiKey = "Bearer " + session.getToken();
-
         session = new SessionManager(getBaseContext());
         dataIncl = new ArrayList<>();
         dataTemp = new ArrayList<>();
@@ -112,8 +112,6 @@ public class TransactionActivity extends AppCompatActivity {
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
-        //progress.show();
-
         swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -149,7 +147,6 @@ public class TransactionActivity extends AppCompatActivity {
                     final List<Datum> dataItems = response.body().getData();
                     final List<Included> inclData = response.body().getIncluded();
 
-                    Log.d("huwiw", "onResponse: " + new Gson().toJson(inclData));
                     Meta meta = response.body().getMeta();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -158,9 +155,6 @@ public class TransactionActivity extends AppCompatActivity {
                     totalPage = meta.getLastPage();
                     totalData = meta.getTotal();
                     currentPage = meta.getCurrentPage();
-                    Log.d("Page1", String.valueOf(totalPage));
-                    Log.d("Page2", String.valueOf(totalData));
-                    Log.d("Page3", String.valueOf(currentPage));
 
                     if (dataItems.size() == 0) {
                         dataTrans.setVisibility(View.GONE);
@@ -168,9 +162,7 @@ public class TransactionActivity extends AppCompatActivity {
                     } else {
                         if (meta.getCurrentPage() == 1) {
                             dataTemp.clear();
-                            //dataIncl.clear();
 
-                            //dataTemp.addAll(dataItems);
                             for (Datum data : dataItems) {
                                 if (data.getType().equals("claim_rewards"))
                                     dataTemp.add(data);
@@ -178,19 +170,14 @@ public class TransactionActivity extends AppCompatActivity {
                             dataIncl.addAll(inclData);
 
                             listClaimRewardAdapter.notifyDataSetChanged();
-                            //recyclerTransaksi.setAdapter(listClaimRewardAdapter);
-
-//                            recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
                         } else {
                             listClaimRewardAdapter.refreshAdapter(dataItems, dataIncl);
                         }
                     }
-                    //nestedTransaction.setVisibility(View.VISIBLE);
 
                     //if (currentPage > 1)
                         pbList.setVisibility(View.GONE);
                 } else {
-//                    session.logoutUser();
                 }
                 hideLoading();
             }
@@ -237,11 +224,6 @@ public class TransactionActivity extends AppCompatActivity {
                 int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
                 boolean isLastPosition = countItem - 1 == lastVisiblePosition;
 
-//                if (!isLoading && isLastPosition && currentPage < totalPage) {
-//                    showLoading(false);
-//                    currentPage = currentPage + 1;
-//                    doLoadData();
-//                }
             }
         });
         nestedTransaction.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -277,6 +259,5 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void hideEmpty() {
         recyclerTransaksi.setVisibility(View.VISIBLE);
-//        layoutEmpty.setVisibility(View.GONE);
     }
 }
