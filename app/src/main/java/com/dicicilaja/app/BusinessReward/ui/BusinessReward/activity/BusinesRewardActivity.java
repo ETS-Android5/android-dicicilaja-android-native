@@ -65,6 +65,7 @@ import retrofit2.Response;
 
 public class BusinesRewardActivity extends AppCompatActivity implements ListProductAdapter.ProductCallback {
 
+    private static final String TAG = BusinesRewardActivity.class.getSimpleName();
     public ProgressDialog progress;
     @BindView(R.id.profile_picture_page)
     CircleImageView profilePicturePage;
@@ -131,40 +132,6 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         });
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        progress = new ProgressDialog(this);
-//        progress.setMessage("Sedang memuat data...");
-//        progress.setCanceledOnTouchOutside(false);
-//
-//        progress.show();
-//
-//        Call<GetCart> callCart = apiService3.getCart(apiKey);
-//        callCart.enqueue(new Callback<GetCart>() {
-//            @Override
-//            public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
-//                if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
-//                    progress.hide();
-//                    int total_points = response2.body().getData().getAttributes().getTotalPoints();
-//                    int total_items = response2.body().getData().getAttributes().getTotalItems();
-//
-//                    floatingCart.setVisibility(View.VISIBLE);
-//                    textCart.setText(total_items + " Barang dikeranjang");
-//                    pointCart.setText(total_points + " Poin");
-//                } else {
-//                    progress.hide();
-//                    floatingCart.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetCart> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -181,7 +148,6 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
 
     private void initAction() {
         session = new SessionManager(getBaseContext());
-        Log.d("asd", "initAction: " + session.getToken());
         apiKey = "Bearer " + session.getToken();
         try {
             final_point = getIntent().getStringExtra("POINT_REWARD");
@@ -215,7 +181,6 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         callCart.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
-                Log.d("asd", "onResponse: " + new Gson().toJson(response2.body()));
                 if (response2.isSuccessful()) {
                     if (response2.body().getData().getAttributes().getItems().size() != 0) {
                         progress.hide();
@@ -227,7 +192,6 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                         pointCart.setText(total_points + " Poin");
                     }
                 } else {
-                    Log.d("asd", "onResponse: " + new Gson().toJson(response2.errorBody()));
                     floatingCart.setVisibility(View.GONE);
                 }
 
@@ -236,7 +200,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
 
             @Override
             public void onFailure(Call<GetCart> call, Throwable t) {
-                Log.d("asd", "onFailure: " + t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
 
@@ -259,13 +223,13 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                         point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
                     }
                 } else {
-                    Log.d("asd", "onResponse: " + new Gson().toJson(response2.body()));
+                    Log.d(TAG, "onResponse: " + new Gson().toJson(response2.body()));
                 }
             }
 
             @Override
             public void onFailure(Call<ExistingPoint> call, Throwable t) {
-                Log.d("asd", "onResponse: " + t.getMessage());
+                Log.d(TAG, "onResponse: " + t.getMessage());
             }
         });
 
@@ -289,7 +253,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
 
             @Override
             public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
-                Log.d("sizenyaaa", "data: " + t.getMessage());
+                Log.d(TAG, "data: " + t.getMessage());
             }
         });
 
