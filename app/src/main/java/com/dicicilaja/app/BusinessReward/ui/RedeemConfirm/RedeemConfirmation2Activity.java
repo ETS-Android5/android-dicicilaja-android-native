@@ -145,9 +145,6 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
         status_pengiriman = intent.getStringExtra("STATUS_PENGIRIMAN");
         produk_id = intent.getStringExtra("PRODUK_ID");
 
-//        final SessionManager session = new SessionManager(getBaseContext());
-//        userId = session.getUserId();
-
         tvAlamat.setText(alamat);
         tvTglTrans.setText(no_transaksi);
         tvTglPen2.setText(tgl_penukaran);
@@ -183,23 +180,6 @@ public class RedeemConfirmation2Activity extends AppCompatActivity {
 
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-//        Call<ClaimRewards> call = apiService.getClaim(Integer.parseInt(userId));
-//        call.enqueue(new Callback<ClaimRewards>() {
-//            @SuppressLint("WrongConstant")
-//            @Override
-//            public void onResponse(Call<ClaimRewards> call, Response<ClaimRewards> response) {
-//                final List<Datum> dataItems = response.body().getData();
-//                Log.d("Cek1", "" + response.body().getData());
-//
-////                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ClaimRewards> call, Throwable t) {
-//
-//            }
-//        });
 
     }
 

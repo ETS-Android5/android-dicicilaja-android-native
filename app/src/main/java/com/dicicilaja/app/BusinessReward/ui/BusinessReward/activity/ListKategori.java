@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -23,6 +25,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListKategori extends AppCompatActivity {
+    private static final String TAG = ListKategori.class.getSimpleName();
     ApiService apiService;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -50,6 +54,10 @@ public class ListKategori extends AppCompatActivity {
     RadioGroup radioGroup;
     @BindView(R.id.pilih_kat)
     Button pilihKat;
+    @BindView(R.id.pb_kategori)
+    ProgressBar pbCategory;
+
+    private String id = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +73,15 @@ public class ListKategori extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        id = getIntent().getStringExtra("ID");
 
         rg = (RadioGroup) findViewById(R.id.radio_group);
 
@@ -73,68 +90,78 @@ public class ListKategori extends AppCompatActivity {
         radioGroup.removeAllViews();
         KATEGORI_DATA.clear();
         KATEGORI_ITEMS.clear();
-//        rg.removeAllViews();
 
         stringList = new ArrayList<>();
 
         apiService = ApiClient.getClient().create(ApiService.class);
+
+        pbCategory.setVisibility(View.VISIBLE);
+        rg.setVisibility(View.GONE);
 
         Call<KategoriProduk> call = apiService.getKategori();
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
-                final List<Datum> dataItems = response.body().getData();
+                if (response.isSuccessful()) {
+                    final List<Datum> dataItems = response.body().getData();
 
-                for (int i = 0; i < response.body().getData().size(); i++) {
-                    Log.d("disiniiiiiiiiiiiii", String.valueOf(i));
-                    KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
-                    KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_DATA));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_ITEMS));
-//                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
-                    stringList.add(response.body().getData().get(i).getAttributes().getNama());
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+                        KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
+                        KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
+                        stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
-                    rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
-                    rb.setText(stringList.get(i));
-//                    radioGroup.setId(0);
-                    rg.addView(rb);
-                }
+                        rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
+                        rb.setId(i);
+                        rb.setText(stringList.get(i));
 
-                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        int id = rg.getCheckedRadioButtonId();
+                        rg.addView(rb);
 
-                        if(id % response.body().getData().size() == 0){
-                            id = response.body().getData().size();
-                        }else{
-                            id = id % response.body().getData().size();
+                        if (Integer.valueOf(id) == (i + 1)) {
+                            rb.setChecked(true);
                         }
-
-                        selected = KATEGORI_DATA.get(id);
-                        Log.d("DISINIIII", String.valueOf(id));
-                        Log.d("DISINIIII", String.valueOf(KATEGORI_DATA.get(id)));
-                        size = KATEGORI_ITEMS.get(id);
-                        Log.d("DISINIIII2", String.valueOf(KATEGORI_ITEMS.get(id)));
                     }
-                });
 
-                pilihKat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                                Log.d("selectednya", selected);
-                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
+                    rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                        intent.putExtra("ID", selected);
-                        intent.putExtra("SIZE", size);
-//                        intent.putExtra("ID", String.valueOf(3));
-//                        intent.putExtra("SIZE", String.valueOf(5));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                            for (int i = 0; i < rg.getChildCount(); i++) {
+                                if (((RadioButton) rg.getChildAt(i)).getId() == checkedId) {
+                                    ((RadioButton) rg.getChildAt(i)).setChecked(true);
+
+                                    selected = String.valueOf(checkedId + 1);
+                                } else {
+                                    ((RadioButton) rg.getChildAt(i)).setChecked(false);
+                                }
+                            }
+                        }
+                    });
+
+                    pilihKat.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (selected == null) selected = id;
+                            setResult(RESULT_OK, getIntent().putExtra("ID", selected));
+                            finish();
+                        }
+                    });
+
+                    pbCategory.setVisibility(View.GONE);
+                    rg.setVisibility(View.VISIBLE);
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListKategori.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                }
             }
 
             @Override

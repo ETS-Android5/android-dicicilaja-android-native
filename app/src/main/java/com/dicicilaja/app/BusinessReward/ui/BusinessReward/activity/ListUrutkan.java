@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListUrutkan extends AppCompatActivity {
+    private static final String TAG = ListUrutkan.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.radio_group)
@@ -30,7 +32,7 @@ public class ListUrutkan extends AppCompatActivity {
     RadioButton rb;
     int id;
 
-    String idnya, size;
+    String idnya, size, order_by;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +48,36 @@ public class ListUrutkan extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         idnya = intent.getStringExtra("ID");
         size = intent.getStringExtra("SIZE");
+        order_by = intent.getStringExtra("ORDERBY");
+
+        // 1 = "asc"
+        // 2 = "desc"
 
         rb = new RadioButton(ListUrutkan.this); // dynamically creating RadioButton and adding to RadioGroup.
-        rb.setText("Ascending");
+        rb.setText("A to Z");
         radioGroup.addView(rb);
         rb = new RadioButton(ListUrutkan.this); // dynamically creating RadioButton and adding to RadioGroup.
-        rb.setText("Descending");
+        rb.setText("Z to A");
         radioGroup.addView(rb);
+
+        if (order_by.equals("asc")) {
+            ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+            ((RadioButton) radioGroup.getChildAt(1)).setChecked(false);
+        } else {
+            ((RadioButton) radioGroup.getChildAt(0)).setChecked(false);
+            ((RadioButton) radioGroup.getChildAt(1)).setChecked(true);
+        }
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -68,28 +89,39 @@ public class ListUrutkan extends AppCompatActivity {
                 }else{
                     id = id % 2;
                 }
+
+                if (id == 2) {
+                    ((RadioButton) radioGroup.getChildAt(1)).setChecked(true);
+                    ((RadioButton) radioGroup.getChildAt(0)).setChecked(false);
+                } else {
+                    ((RadioButton) radioGroup.getChildAt(1)).setChecked(false);
+                    ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+
+                }
             }
         });
 
         pilihKat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                                Log.d("selectednya", selected);
-                String orderby;
-                Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
-                if(id == 1){
-                    orderby = "asc";
-                }else{
-                    orderby = "desc";
+
+                Intent i = null;
+                if (id == 1) {
+                    i = getIntent().putExtra("ORDERBY", "asc");
+                } else {
+                    i = getIntent().putExtra("ORDERBY", "desc");
                 }
-                intent.putExtra("ORDERBY", orderby);
-                intent.putExtra("ID", idnya);
-                intent.putExtra("SIZE", size);
-                Log.d("ordernya", orderby);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                setResult(RESULT_OK, i);
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

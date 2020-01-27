@@ -12,24 +12,35 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
+import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.Transaction.adapter.ProductTransactionAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.facebook.datasource.SimpleDataSource;
+import com.google.gson.Gson;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import butterknife.BindView;
@@ -40,6 +51,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailTransactionActivity extends AppCompatActivity {
+    private static final String TAG = DetailTransactionActivity.class.getSimpleName();
+
     SessionManager session;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -89,18 +102,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
     LinearLayout selesai;
     @BindView(R.id.info_penukaran)
     RelativeLayout infoPenukaran;
-    @BindView(R.id.spek_penukaran)
-    TextView spekPenukaran;
-    @BindView(R.id.title_barang)
-    TextView titleBarang;
-    @BindView(R.id.point)
-    TextView point;
-    @BindView(R.id.detail_produk)
-    LinearLayout detailProduk;
-    @BindView(R.id.barang_picture)
-    ImageView barangPicture;
-    @BindView(R.id.spek_barang_detail)
-    RelativeLayout spekBarangDetail;
     @BindView(R.id.title_ulasan)
     TextView titleUlasan;
     @BindView(R.id.ulasan_produk)
@@ -135,6 +136,16 @@ public class DetailTransactionActivity extends AppCompatActivity {
     TextView tvNoJasa2;
     @BindView(R.id.jasa_ekspedisi)
     LinearLayout jasaEkspedisi;
+    @BindView(R.id.pb_detail)
+    ProgressBar pbDetail;
+    @BindView(R.id.content)
+    ScrollView scrollContent;
+    @BindView(R.id.rv_product)
+    RecyclerView rvProduct;
+
+    ProductTransactionAdapter adapter;
+
+    private List<Included> includedList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,22 +166,32 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
-//        Log.d("IDNYA", id);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        includedList = new ArrayList<>();
+
+        ApiService apiService = ApiClient3.getClient().create(ApiService.class);
+
+        adapter = new ProductTransactionAdapter(this, includedList);
+
+        rvProduct.setLayoutManager(new LinearLayoutManager(this));
+        rvProduct.setAdapter(adapter);
 
         Call<DetailClaimReward> call = apiService.getDetailClaimReward(Integer.parseInt(id));
         call.enqueue(new Callback<DetailClaimReward>() {
             @Override
             public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
-                try {
-                    Log.d("Responnya", String.valueOf(response.code()));
+                if (response.isSuccessful()) {
 
                     String curString = response.body().getData().getAttributes().getUpdatedAt();
 
                     SimpleDateFormat readDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     readDate.setTimeZone(TimeZone.getTimeZone("GMT"));
-                    Date date = readDate.parse(curString);
+                    Date date = null;
+                    try {
+                        date = readDate.parse(curString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     SimpleDateFormat writeData = new SimpleDateFormat("dd-MM-yyyy/HH:mm");
                     writeData.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
@@ -179,18 +200,11 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     String[] separated = s.split("/");
                     String tgl = separated[0];
                     String jam = separated[1];
-//
-//                    String[] separatedjam = jam.split("-");
-//                    String jam1 = separatedjam[0];
-//                    String jam2 = separatedjam[1];
-
                     String[] separated2 = tgl.split("-");
                     String tanggal = separated2[0];
                     String bulan = separated2[1];
                     String tahun = separated2[2];
-//
                     String finalBulan = null;
-//
                     if (bulan.equals("01")) {
                         finalBulan = "Jan";
                     } else if (bulan.equals("02")) {
@@ -232,12 +246,22 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         tvPenerima.setText(penerima);
                     }
 
+                    if (response.body().getIncluded() != null && response.body().getIncluded().size() > 0) {
+                        includedList.clear();
+                        for (Included data : response.body().getIncluded()) {
+                            if (data.getType().equals("product_catalogs")) {
+                                includedList.add(data);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
                     tvAlamat.setText(alamatnya);
                     tvCabang.setText("KANTOR CABANG " + response.body().getData().getAttributes().getNamaCabang());
 
-                    if(response.body().getData().getAttributes().getNoHpCrh() == null){
+                    if (response.body().getData().getAttributes().getNoHpCrh() == null) {
                         tvHpPenerima.setText("-");
-                    }else{
+                    } else {
                         tvHpPenerima.setText(response.body().getData().getAttributes().getNoHpCrh());
                     }
 
@@ -249,9 +273,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
 
                     tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam + " WIB");
-//                    tvTglPen2.setText(tgl + " " + jam + " WIB");
-//                    tvTglPen2.setText(s);
-//                    tvTglPen2.setText(curString);
                     if (response.body().getData().getAttributes().getNoResi() == null) {
                         tvNoResi2.setText("-");
                         copyLink.setVisibility(View.GONE);
@@ -264,25 +285,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     } else {
                         tvNoJasa2.setText(String.valueOf(response.body().getData().getAttributes().getEkspedisi()));
                     }
-
-                    Call<DetailProduk> call2 = apiService.getDetailProduk(Integer.valueOf(response.body().getData().getAttributes().getProductCatalogId()));
-                    call2.enqueue(new Callback<DetailProduk>() {
-                        @Override
-                        public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
-                            judulGambar = response.body().getData().getAttributes().getNama();
-                            pointB = String.valueOf(response.body().getData().getAttributes().getPoint());
-                            gambar = response.body().getData().getAttributes().getFoto();
-
-                            titleBarang.setText(response.body().getData().getAttributes().getNama());
-                            point.setText(response.body().getData().getAttributes().getPoint() + " Point");
-                            Glide.with(getBaseContext()).load(response.body().getData().getAttributes().getFoto()).into(barangPicture);
-                        }
-
-                        @Override
-                        public void onFailure(Call<DetailProduk> call, Throwable t) {
-
-                        }
-                    });
 
                     switch (response.body().getData().getAttributes().getStatusId()) {
                         case "5":
@@ -334,14 +336,16 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         }
                     }
 
-                } catch (Exception ex) {
-
+                    scrollContent.setVisibility(View.VISIBLE);
+                    pbDetail.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(DetailTransactionActivity.this, "" + response.errorBody(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailClaimReward> call, Throwable t) {
-
+                Toast.makeText(DetailTransactionActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

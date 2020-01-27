@@ -44,6 +44,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PilihCabangVendorActivity extends AppCompatActivity {
+    private static final String TAG = PilihCabangVendorActivity.class.getSimpleName();
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.spinnerArea)
@@ -93,7 +95,6 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-//        spinnerCabang.setEnabled(false);
 
         initAction();
         initLoadData();
@@ -182,7 +183,6 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                     }
                 } else {
                     clearArea();
-                    Log.d("gagaleuy", String.valueOf(response.message()));
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(PilihCabangVendorActivity.this);
                     alertDialog.setTitle("Perhatian");
                     alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi.");
@@ -220,7 +220,6 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                 clearCabang();
                 if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Log.d("AREADATA", String.valueOf(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
                     branchCall.enqueue(new Callback<Cabang>() {
                         @Override
@@ -232,8 +231,6 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                                             CABANG_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                             CABANG_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                                             ALAMAT_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getAlamat()));
-                                            Log.d("cabangtext", "data1: " + String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-                                            Log.d("cabangtext", "data1: " + String.valueOf(response.body().getData().get(i).getAttributes().getAlamat()));
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     } else {
@@ -309,7 +306,6 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                 notAvailable.setVisibility(View.GONE);
                 if (Integer.parseInt(CABANG_DATA.get(spinnerCabang.getSelectedItemPosition())) > 0) {
                     progressBar3.setVisibility(View.GONE);
-//                    CABANG_DATA.get(spinnerCabang.getSelectedItemPosition()));
                 }
             }
 
@@ -334,14 +330,11 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
 
     @OnClick(R.id.next)
     public void onViewClicked() {
-//        Call<Cabang> branchCall = apiService.getAllCabang(Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())));
 
         if(spinnerArea.getSelectedItemPosition() == 0 || spinnerCabang.getSelectedItemPosition() == 0){
             Toast.makeText(this, "Mohon masukan data area dan cabang dengan benar!", Toast.LENGTH_SHORT).show();
         }else{
             cabang_text = ALAMAT_ITEMS.get(spinnerArea.getSelectedItemPosition());
-            Log.d("cabangtext", "data: " + CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition()));
-            Log.d("cabangtext", "data: " + ALAMAT_ITEMS.get(spinnerCabang.getSelectedItemPosition()-1));
 
             Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
             intent.putExtra("CABANGNYA", String.valueOf(CABANG_ITEMS.get(spinnerCabang.getSelectedItemPosition())));
@@ -355,12 +348,8 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             Intent intent = new Intent(getBaseContext(),DetailProduct2Activity.class);
             setResult(RESULT_CANCELED, intent);

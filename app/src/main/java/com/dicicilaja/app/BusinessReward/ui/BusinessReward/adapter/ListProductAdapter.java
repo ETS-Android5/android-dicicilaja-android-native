@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum_;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Relationships;
@@ -26,7 +27,6 @@ import java.util.List;
 
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.MyViewHolder> {
 
-//    List<com.dicicilaja.app.BusinessReward.dataAPI.kategori.Attributes> pcList;
     int idProduk;
     List<Datum_> pcList;
     List<Included> pcList2;
@@ -37,17 +37,14 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     String nama;
     int no = 0;
 
-    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
+    private ProductCallback mCallback;
+
+    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext, ProductCallback mCallback) {
         this.pcList = data;
         this.pcList2 = pc2;
         this.mContext = baseContext;
+        this.mCallback = mCallback;
     }
-
-//    public ListProductAdapter(List<Datum_> data, List<Included> pc2, Context baseContext) {
-//        this.pcList = data;
-//        this.pcList2 = pc2;
-//        this.mContext = baseContext;
-//    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -78,12 +75,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     @Override
     public void onBindViewHolder(@NonNull ListProductAdapter.MyViewHolder holder, int position) {
 
-        Log.d("GETID", " 1nya: " + pcList.size());
-        Log.d("GETID", " 2nya: " + pcList2.size());
-//        for (int i = 0; i < pcList.size();i++) {
             for (int j = 0; j < pcList2.size(); j++) {
-                Log.d("IDPRODUKNYA", String.valueOf(idProduk));
-                Log.d("IDPRODUKNYA", String.valueOf(pcList2.get(j).getId()));
                 if (pcList.get(no).getId() == pcList2.get(j).getId()) {
                     if (pcList2.get(j).getAttributes().getNama().length() >= 25) {
                         nama = pcList2.get(j).getAttributes().getNama().substring(0, 24) + "...";
@@ -109,26 +101,23 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                             intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
                             intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
 
-                            Log.d("ListProductActivity", "ID: " + pcList2.get(finalj).getId());
-                            Log.d("ListProductActivity", "IMAGE: " + pcList2.get(finalj).getAttributes().getFoto());
-                            Log.d("ListProductActivity", "TITLE: " + pcList2.get(finalj).getAttributes().getNama());
-                            Log.d("ListProductActivity", "DETAIL: " + pcList2.get(finalj).getAttributes().getDeskripsi());
-                            Log.d("ListProductActivity", "POINT_PRODUCT: " + pcList2.get(finalj).getAttributes().getPoint());
-                            Log.d("ListProductActivity", "POINT_REWARD: " + BusinesRewardActivity.point_reward);
-                            Log.d("ListProductActivity", "KTP: " + BusinesRewardActivity.ktpnpwp);
-                            Log.d("ListProductActivity", "NOKTP: " + BusinesRewardActivity.no_ktp);
-                            view.getContext().startActivity(intent);
+                            if (mCallback != null)
+                                mCallback.onClickProduct(pcList2, finalj);
                         }
                     });
-//                    break;
                 }
             }
-//        }
         no++;
     }
 
     @Override
     public int getItemCount() {
         return pcList.size();
+    }
+
+    public interface ProductCallback {
+        void onClickProduct(List<Included> pcList2, int position);
+
+        void onClickSeeAll(Datum datum);
     }
 }

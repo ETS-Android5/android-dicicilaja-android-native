@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +44,11 @@ import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
 import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardPhase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
+import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
@@ -448,12 +453,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     private void doLoadData() {
 
         ApiService apiService =
-                ApiClient.getClient().create(ApiService.class);
+                ApiClient3.getClient().create(ApiService.class);
 
-        Call<Point> call2 = apiService.getPoint(session.getUserId());
-        call2.enqueue(new Callback<Point>() {
+        Call<ExistingPoint> call2 = apiService.getExistingPoint(session.getUserId());
+        call2.enqueue(new Callback<ExistingPoint>() {
             @Override
-            public void onResponse(Call<Point> call, Response<Point> response2) {
+            public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
                 Log.d("TAGTAGTAG", "status:" + response2.code());
                 try {
                     if (response2.isSuccessful()) {
@@ -464,7 +469,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
 
             @Override
-            public void onFailure(Call<Point> call, Throwable t) {
+            public void onFailure(Call<ExistingPoint> call, Throwable t) {
                 Log.d("TAGTAGTAG", "data:" + t.getMessage());
             }
         });
@@ -547,7 +552,33 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 alertDialog.show();
             }
         });
+
+        ApiService service = ApiClient.getClient3().create(ApiService.class);
+        Call<RewardPhase> call = service.checkRewardPhase(apiKey);
+        call.enqueue(new Callback<RewardPhase>() {
+            @Override
+            public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
+                isHasCheckRewardPhase = true;
+                if (response.isSuccessful()) {
+                    if (response.body().getData().getAttributes().getStatus() == 1) {
+                        isRewardPhaseAvailable = true;
+                    }
+                } else {
+                    Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RewardPhase> call, Throwable t) {
+                Log.d("asd", "onFailure: " + t.getMessage());
+                isHasCheckRewardPhase = true;
+                Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    private boolean isHasCheckRewardPhase = false;
+    private boolean isRewardPhaseAvailable = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -719,12 +750,19 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-//                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-//                intent.putExtra("POINT_REWARD", contentBox1.getText());
-//                startActivity(intent);
+                if (isHasCheckRewardPhase) {
+                    if (isRewardPhaseAvailable) {
+                        intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                        intent.putExtra("POINT_REWARD", contentBox1.getText());
+                        startActivityForResult(intent, 96);
+                    } else {
 
-                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-                startActivity(intent);
+                        intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(this, "Data masih di muat. Mohon coba beberapa saat lagi!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);
@@ -767,5 +805,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         }
     }
 
-    ;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 96 && resultCode == RESULT_OK) {
+            doLoadData();
+        }
+    }
 }

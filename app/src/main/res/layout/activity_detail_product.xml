@@ -157,10 +157,10 @@
                     android:layout_alignParentBottom="true">
 
                     <Button
-                        android:id="@+id/klaim"
+                        android:id="@+id/cart"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:text="Klaim Produk"
+                        android:text="Masukkan ke keranjang"
                         android:layout_margin="5dp"
                         android:textAllCaps="true"
                         android:fontFamily="@font/open_sans_bold"

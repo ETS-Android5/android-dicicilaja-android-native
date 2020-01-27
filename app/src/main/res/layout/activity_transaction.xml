@@ -33,16 +33,29 @@
             android:layout_height="wrap_content">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_transaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:fitsSystemWindows="true">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_transaksi"
-            android:layout_below="@id/title_tujuan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_transaksi"
+                android:layout_below="@id/title_tujuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ProgressBar
+                android:id="@+id/pb_list"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

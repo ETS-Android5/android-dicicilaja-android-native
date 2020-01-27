@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InformAXI.ui.home.HomeFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/slider_image_height" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <RelativeLayout
+                        android:id="@+id/search_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="@dimen/home_standard_margin"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="@dimen/home_standard_margin"
+                        android:layout_weight="9"
+                        android:background="#f3f3f3"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:id="@+id/ic_search"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_search" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/ic_search"
+                            android:padding="@dimen/home_padding"
+                            android:text="@string/axi_search_placeholder" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/filter_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="16dp"
+                            android:background="@null"
+                            android:src="@drawable/ic_filter_home"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/ic_check"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/ic_check"
+                            android:tint="@color/colorPrimary"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:background="#eeeeee" />
+
+                <TextView
+                    android:id="@+id/search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    tools:text="@string/axi_search_result" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_axi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    android:id="@+id/pb_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <RelativeLayout
+                    android:id="@+id/no_data_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:paddingTop="64dp"
+                        android:paddingBottom="64dp"
+                        android:text="@string/no_results_yet" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
