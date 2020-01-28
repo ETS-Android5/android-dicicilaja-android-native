@@ -56,7 +56,7 @@ import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.CartCallback {
 
-
+    private static final String TAG = CartActivity.class.getSimpleName();
     public ProgressDialog progress;
     ApiService apiService;
     ApiService3 apiService3;
@@ -107,10 +107,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
 
         claim.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_color)));
 
-        //no_ktp = getIntent().getStringExtra("NOKTP");
-        //ktpnpwp = getIntent().getStringExtra("KTP");
-        //no_npwp = getIntent().getStringExtra("NONPWP");
-
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
@@ -139,7 +135,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
 
             @Override
             public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
-                Log.d("sizenyaaa", "data: " + t.getMessage());
+                Log.d(TAG, "data: " + t.getMessage());
             }
         });
 
@@ -266,7 +262,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
                         @SuppressLint("WrongConstant")
                         @Override
                         public void onResponse(Call<DelCart> call, Response<DelCart> response) {
-                            //((Activity) context).finish();
                             Toast.makeText(CartActivity.this, "Produk berhasil di hapus", Toast.LENGTH_SHORT).show();
 
                             if (itemList.size() == 1) {

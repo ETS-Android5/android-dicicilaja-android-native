@@ -51,6 +51,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailTransactionActivity extends AppCompatActivity {
+    private static final String TAG = DetailTransactionActivity.class.getSimpleName();
+
     SessionManager session;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -100,18 +102,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
     LinearLayout selesai;
     @BindView(R.id.info_penukaran)
     RelativeLayout infoPenukaran;
-    //    @BindView(R.id.spek_penukaran)
-//    TextView spekPenukaran;
-//    @BindView(R.id.title_barang)
-//    TextView titleBarang;
-//    @BindView(R.id.point)
-//    TextView point;
-//    @BindView(R.id.detail_produk)
-//    LinearLayout detailProduk;
-//    @BindView(R.id.barang_picture)
-//    ImageView barangPicture;
-//    @BindView(R.id.spek_barang_detail)
-//    RelativeLayout spekBarangDetail;
     @BindView(R.id.title_ulasan)
     TextView titleUlasan;
     @BindView(R.id.ulasan_produk)
@@ -176,7 +166,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
-//        Log.d("IDNYA", id);
 
         includedList = new ArrayList<>();
 
@@ -192,7 +181,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
                 if (response.isSuccessful()) {
-                    Log.d("Responnya", String.valueOf(response.code()));
 
                     String curString = response.body().getData().getAttributes().getUpdatedAt();
 
@@ -212,18 +200,11 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     String[] separated = s.split("/");
                     String tgl = separated[0];
                     String jam = separated[1];
-//
-//                    String[] separatedjam = jam.split("-");
-//                    String jam1 = separatedjam[0];
-//                    String jam2 = separatedjam[1];
-
                     String[] separated2 = tgl.split("-");
                     String tanggal = separated2[0];
                     String bulan = separated2[1];
                     String tahun = separated2[2];
-//
                     String finalBulan = null;
-//
                     if (bulan.equals("01")) {
                         finalBulan = "Jan";
                     } else if (bulan.equals("02")) {
@@ -265,9 +246,7 @@ public class DetailTransactionActivity extends AppCompatActivity {
                         tvPenerima.setText(penerima);
                     }
 
-                    Log.d("asd", "onResponse: " + new Gson().toJson(response.body().getIncluded()));
                     if (response.body().getIncluded() != null && response.body().getIncluded().size() > 0) {
-                        //includedList.addAll(response.body().getIncluded());
                         includedList.clear();
                         for (Included data : response.body().getIncluded()) {
                             if (data.getType().equals("product_catalogs")) {
@@ -294,9 +273,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
 
 
                     tvTglPen2.setText(tanggal + " " + finalBulan + " " + tahun + " " + jam + " WIB");
-//                    tvTglPen2.setText(tgl + " " + jam + " WIB");
-//                    tvTglPen2.setText(s);
-//                    tvTglPen2.setText(curString);
                     if (response.body().getData().getAttributes().getNoResi() == null) {
                         tvNoResi2.setText("-");
                         copyLink.setVisibility(View.GONE);
@@ -309,28 +285,6 @@ public class DetailTransactionActivity extends AppCompatActivity {
                     } else {
                         tvNoJasa2.setText(String.valueOf(response.body().getData().getAttributes().getEkspedisi()));
                     }
-
-//                    Call<DetailProduk> call2 = apiService.getDetailProduk(Integer.valueOf(response.body().getData().getAttributes().getProductCatalogId()));
-//                    call2.enqueue(new Callback<DetailProduk>() {
-//                        @Override
-//                        public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
-//                            if (response.isSuccessful() && response.body().getData() != null) {
-//                                judulGambar = response.body().getData().getAttributes().getNama();
-//                                pointB = String.valueOf(response.body().getData().getAttributes().getPoint());
-//                                gambar = response.body().getData().getAttributes().getFoto();
-//
-//                                titleBarang.setText(response.body().getData().getAttributes().getNama());
-//                                point.setText(response.body().getData().getAttributes().getPoint() + " Point");
-//                                Glide.with(getBaseContext()).load(response.body().getData().getAttributes().getFoto()).into(barangPicture);
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<DetailProduk> call, Throwable t) {
-//
-//                        }
-//                    });
 
                     switch (response.body().getData().getAttributes().getStatusId()) {
                         case "5":

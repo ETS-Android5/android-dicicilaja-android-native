@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListUrutkan extends AppCompatActivity {
+    private static final String TAG = ListUrutkan.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.radio_group)
@@ -103,21 +104,6 @@ public class ListUrutkan extends AppCompatActivity {
         pilihKat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                                Log.d("selectednya", selected);
-//                String orderby;
-//                Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
-//                if(id == 1){
-//                    orderby = "asc";
-//                }else{
-//                    orderby = "desc";
-//                }
-//                intent.putExtra("ORDERBY", orderby);
-//                intent.putExtra("ID", idnya);
-//                intent.putExtra("SIZE", size);
-//                Log.d("ordernya", orderby);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
 
                 Intent i = null;
                 if (id == 1) {

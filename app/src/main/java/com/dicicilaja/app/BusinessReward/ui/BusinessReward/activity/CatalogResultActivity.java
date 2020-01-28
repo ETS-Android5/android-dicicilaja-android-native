@@ -48,10 +48,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CatalogResultActivity extends AppCompatActivity implements ListAllProductAdapter.AllProductCallback {
+
+    private static final String TAG = CatalogResultActivity.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    //    private List<Produk> productCatalogList;
     ListProductCatalogAdapter adapter;
     List<Datum> requests;
 
@@ -114,9 +115,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
 
         //checkStatusOrder();
 
-//        Log.d("IDNYAINITEH", id);
-//        Log.d("IDNYAINITEHSIZE", size);
-
         recyclerCatalog.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
         recyclerCatalog.setHasFixedSize(true);
 
@@ -133,29 +131,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.filter_menu, menu);
-//        return true;
-//    }
-
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.filter) {
-//            Intent intent = new Intent(getBaseContext(), FIlterActivity.class);
-//            startActivity(intent);
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     private void showProgress(boolean isShow) {
         if (isShow) {
             pbCatalog.setVisibility(View.VISIBLE);
@@ -170,26 +145,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
         showProgress(true);
         checkStatusOrder();
         if (status_order == 0) {
-//            call = apiService.getDetailKategori(Integer.parseInt(id));
-//
-//            call.enqueue(new Callback<DetailKategori>() {
-//                @SuppressLint("WrongConstant")
-//                @Override
-//                public void onResponse(Call<DetailKategori> call, Response<DetailKategori> response) {
-//                    final Data dataItems = response.body().getData();
-//                    final List<Included> dataItems2 = response.body().getIncluded();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-//
-//                    Log.d("Cek1", "" + response.code());
-//
-//                    recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, dataItems2, getBaseContext(), id, size));
-//                }
-//
-//                @Override
-//                public void onFailure(Call<DetailKategori> call, Throwable t) {
-//                    Log.d("dadada", t.getMessage());
-//                }
-//            });
 
             call2 = apiService.getProdukAll(id);
 
@@ -199,9 +154,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
                     if (response.isSuccessful()) {
                         final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-
-                        Log.d("Cek2", "" + response.code());
 
                         recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size, CatalogResultActivity.this));
                     } else {
@@ -213,7 +165,7 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
                 @Override
                 public void onFailure(Call<Produk> call, Throwable t) {
                     Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
-                    Log.d("dadada", t.getMessage());
+                    Log.d(TAG, t.getMessage());
                     showProgress(false);
                 }
             });
@@ -226,9 +178,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
                     if (response.isSuccessful()) {
                         final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
-//                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
-
-                        Log.d("Cek2", "" + response.code());
 
                         recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size, CatalogResultActivity.this));
                     } else {
@@ -239,7 +188,7 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
 
                 @Override
                 public void onFailure(Call<Produk> call, Throwable t) {
-                    Log.d("dadada", t.getMessage());
+                    Log.d(TAG, t.getMessage());
                     Toast.makeText(CatalogResultActivity.this, "Terjadi kesalahan server, mohon coba lagi beberapa saat!", Toast.LENGTH_SHORT).show();
                     showProgress(false);
                 }
@@ -253,7 +202,6 @@ public class CatalogResultActivity extends AppCompatActivity implements ListAllP
             if (resultCode == RESULT_OK) {
                 order_by = data.getStringExtra("ORDERBY");
                 status_order = 1;
-                Log.d("ordernyaaeuy", order_by);
             }
         }
 

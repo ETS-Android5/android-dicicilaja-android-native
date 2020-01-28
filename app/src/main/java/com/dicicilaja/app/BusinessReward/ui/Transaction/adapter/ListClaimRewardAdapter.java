@@ -36,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimRewardAdapter.MyViewHolder> implements Filterable {
+    private static final String TAG = ListClaimRewardAdapter.class.getSimpleName();
 
     Context mContext;
     List<Datum> requests;
@@ -83,23 +84,13 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
         int inclPosition = -1;
 
         if (inclPosition == -1) {
-            Log.d("huwiw", "onBindViewHolder: " + cl.getRelationships().getProductCatalog().getData().getId());
-            Log.d("huwiw", "onBindViewHolder: " + new Gson().toJson(includedList));
         }
 
         holder.tv_tgl.setText(cl.getAttributes().getUpdatedAtstring());
 
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-//
-//        Call<DetailProduk> call = apiService.getDetailProduk(cl.getAttributes().getProductCatalogId());
-//        call.enqueue(new Callback<DetailProduk>() {
-//            @Override
-//            public void onResponse(Call<DetailProduk> call, Response<DetailProduk> response) {
-//                try{
         String curString = cl.getAttributes().getCreatedAt();
         String[] separated = curString.split("T");
         String tgl = separated[0];
-//
         String[] separated2 = tgl.split("-");
         String bulan = separated2[1];
         String tanggal = separated2[2];
@@ -134,12 +125,6 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
 
         holder.tv_tgl.setText(tanggal + " " + finalBulan);
 
-//        if (inclPosition > -1) {
-//            Included incl = includedList.get(inclPosition);
-//            holder.tv_point.setText(incl.getAttributes().getPoint() + " POINT");
-//            holder.tv_merk.setText(String.valueOf(incl.getAttributes().getNama()));
-//        }
-
         holder.tv_point.setText(cl.getAttributes().getPoint() + " POINT");
 
         String value_title = cl.getAttributes().getNama();
@@ -151,7 +136,6 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
         }
 
         int status_id = cl.getAttributes().getStatusId();
-//
         switch (status_id) {
             case 5:
                 holder.tv_status.setText("Sedang diproses");
@@ -174,26 +158,15 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
             default:
                 break;
         }
-//
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailTransactionActivity.class);
-                Log.d("IDNYAAA", String.valueOf(cl.getId()));
                 intent.putExtra("ID", String.valueOf(cl.getId()));
                 view.getContext().startActivity(intent);
             }
         });
-//                }catch(Exception ex){
-//                    response.message();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DetailProduk> call, Throwable t) {
-//
-//            }
-//        });
+
     }
 
     @Override
@@ -216,11 +189,7 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
                     List<Datum> filteredList = new ArrayList<>();
                     for (Datum row : requests) {
 
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-//                        if (row.getStatus().toLowerCase().contains(charString.toLowerCase()) || row.getBranch().toLowerCase().contains(charString.toLowerCase()) || row.getClient_name().toLowerCase().contains(charString.toLowerCase()) || row.getTrackingId().toString().toLowerCase().contains(charString.toLowerCase()) || row.getProgram().toLowerCase().contains(charString.toLowerCase()) || row.getCreatedAt().toLowerCase().contains(charString.toLowerCase())) {
                         filteredList.add(row);
-//                        }
                     }
 
                     clList = filteredList;
@@ -244,30 +213,14 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
     }
 
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
-        Log.d("REQUEST TC:::", "Transaction ID " + transaction_id);
-        Log.d("REQUEST TC:::", "Assigned ID " + assigned_id);
-//        Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
-//        call.enqueue(new Callback<ResRequestProcess>() {
-//            @Override
-//            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
-//
-//            }
-//        });
     }
 
     public void refreshAdapter(List<Datum> data, List<Included> dataIncl) {
         includedList.addAll(dataIncl);
-        //clList.addAll(data);
         for (Datum datum : data) {
             if (datum.getType().equals("claim_rewards"))
                 clList.add(datum);
         }
         notifyDataSetChanged();
-        //notifyItemRangeChanged(0, this.clList.size());
     }
 }

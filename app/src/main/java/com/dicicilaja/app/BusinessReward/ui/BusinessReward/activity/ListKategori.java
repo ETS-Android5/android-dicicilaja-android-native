@@ -38,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListKategori extends AppCompatActivity {
+    private static final String TAG = ListKategori.class.getSimpleName();
     ApiService apiService;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -89,7 +90,6 @@ public class ListKategori extends AppCompatActivity {
         radioGroup.removeAllViews();
         KATEGORI_DATA.clear();
         KATEGORI_ITEMS.clear();
-//        rg.removeAllViews();
 
         stringList = new ArrayList<>();
 
@@ -109,14 +109,12 @@ public class ListKategori extends AppCompatActivity {
                     for (int i = 0; i < response.body().getData().size(); i++) {
                         KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
                         KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
-//                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
                         stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
                         rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
                         rb.setId(i);
                         rb.setText(stringList.get(i));
 
-//                    radioGroup.setId(0);
                         rg.addView(rb);
 
                         if (Integer.valueOf(id) == (i + 1)) {
@@ -127,22 +125,11 @@ public class ListKategori extends AppCompatActivity {
                     rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                        int id = rg.getCheckedRadioButtonId();
-////
-//                        if(id % response.body().getData().size() == 0){
-//                            id = response.body().getData().size();
-//                        }else{
-//                            id = id % response.body().getData().size();
-//                        }
-
-                            Log.d("asd", "onCheckedChanged: " + new Gson().toJson(response.body().getData()));
 
                             for (int i = 0; i < rg.getChildCount(); i++) {
                                 if (((RadioButton) rg.getChildAt(i)).getId() == checkedId) {
                                     ((RadioButton) rg.getChildAt(i)).setChecked(true);
 
-//                                selected = KATEGORI_DATA.get(i);
-//                                size = KATEGORI_ITEMS.get(i);
                                     selected = String.valueOf(checkedId + 1);
                                 } else {
                                     ((RadioButton) rg.getChildAt(i)).setChecked(false);
@@ -157,15 +144,6 @@ public class ListKategori extends AppCompatActivity {
                             if (selected == null) selected = id;
                             setResult(RESULT_OK, getIntent().putExtra("ID", selected));
                             finish();
-//                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
-//
-//                        intent.putExtra("ID", selected);
-//                        intent.putExtra("SIZE", size);
-//                        intent.putExtra("ID", String.valueOf(3));
-//                        intent.putExtra("SIZE", String.valueOf(5));
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                        finish();
                         }
                     });
 

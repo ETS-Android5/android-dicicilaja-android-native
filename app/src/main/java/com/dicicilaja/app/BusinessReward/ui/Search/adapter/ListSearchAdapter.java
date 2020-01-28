@@ -35,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListSearchAdapter extends RecyclerView.Adapter<ListSearchAdapter.MyViewHolder> implements Filterable {
+    private static final String TAG = ListSearchAdapter.class.getSimpleName();
     Context mContext;
     List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> requests;
     List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> clList;
@@ -95,7 +96,6 @@ public class ListSearchAdapter extends RecyclerView.Adapter<ListSearchAdapter.My
             }
         });
 
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
     }
 
     @Override
@@ -118,11 +118,7 @@ public class ListSearchAdapter extends RecyclerView.Adapter<ListSearchAdapter.My
                     List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> filteredList = new ArrayList<>();
                     for (com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum row : requests) {
 
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-//                        if (row.getStatus().toLowerCase().contains(charString.toLowerCase()) || row.getBranch().toLowerCase().contains(charString.toLowerCase()) || row.getClient_name().toLowerCase().contains(charString.toLowerCase()) || row.getTrackingId().toString().toLowerCase().contains(charString.toLowerCase()) || row.getProgram().toLowerCase().contains(charString.toLowerCase()) || row.getCreatedAt().toLowerCase().contains(charString.toLowerCase())) {
                         filteredList.add(row);
-//                        }
                     }
 
                     clList = filteredList;
@@ -146,20 +142,7 @@ public class ListSearchAdapter extends RecyclerView.Adapter<ListSearchAdapter.My
     }
 
     private void doProcess(final String apiKey, final String transaction_id, final String assigned_id, final String notes, final String claim) {
-        Log.d("REQUEST TC:::", "Transaction ID " + transaction_id);
-        Log.d("REQUEST TC:::", "Assigned ID " + assigned_id);
-//        Call<ResRequestProcess> call = claimProcess.assign(apiKey,transaction_id, assigned_id, notes, claim);
-//        call.enqueue(new Callback<ResRequestProcess>() {
-//            @Override
-//            public void onResponse(Call<ResRequestProcess> call, Response<ResRequestProcess> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResRequestProcess> call, Throwable t) {
-//
-//            }
-//        });
+
     }
 
     public void refreshAdapter(List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> data) {

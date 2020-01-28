@@ -55,6 +55,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class UploadKTPActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+    private static final String TAG = UploadKTPActivity.class.getSimpleName();
+
     @BindView(R.id.upload)
     Button upload;
     @BindView(R.id.toolbar)
@@ -90,7 +92,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_NPWP = 200;
     private int PICK_IMAGE_COVER = 300;
-    private static final String TAG = RegisterAxi5Activity.class.getSimpleName();
     private static final int READ_REQUEST_CODE = 400;
     private Uri uri;
     MultipartBody.Part file_ktp, file_npwp, file_cover;
@@ -145,10 +146,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     fNpwp = "0";
                 }
 
-                Log.d("UPLOADKTP", "NO KTP: " + nomorKtp);
-                Log.d("UPLOADKTP", "NO NPWP: " + nomorNpwp);
-                Log.d("UPLOADKTP", "FOTO KTP: " + fKtp);
-                Log.d("UPLOADKTP", "FOTO NPWP: " + fNpwp);
 
                 if (validateForm(fKtp, nomorKtp)) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -159,8 +156,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     postKtp.enqueue(new Callback<Foto>() {
                         @Override
                         public void onResponse(Call<Foto> call, Response<Foto> response) {
-                            Log.d("UPLOADKTP", "KODE: " + response.code());
-                            Log.d("Link", "BaseUrl: " + ApiClient.BASE_URL3);
                             if (response.isSuccessful()) {
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
@@ -196,7 +191,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
                         @Override
                         public void onFailure(Call<Foto> call, Throwable t) {
-                            Log.d("UPLOADKTP", "KODE: " + t.getMessage());
+                            Log.d(TAG, "KODE: " + t.getMessage());
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -248,8 +243,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode " + requestCode);
-        Log.d(TAG, "onActivityResult: resultCode == RESULT_OK ? " + (resultCode == RESULT_OK));
         if (requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK) {
             uri = data.getData();
             if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -267,16 +260,10 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     String filePath = getRealPathFromURIPath(uri, this);
                     File file = new File(filePath);
 
-//                    Log.d("REGISTER AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                //RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                file_ktp = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                Log.d(TAG, "file_ktp " + file_ktp);
-//                ktp_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -297,17 +284,9 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     String filePath = getRealPathFromURIPath(uri, this);
                     File file = new File(filePath);
 
-//                    Log.d("REGISTER AXI:::", fileNpwp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                String filePath = getRealPathFromURIPath(uri, this);
-//                File file = new File(filePath);
-//                Log.d(TAG, "Filename " + file.getName());
-////                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
             } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -318,21 +297,12 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
 
-//                    image_cover.setImageBitmap(getResizedBitmap(bitmap, 350));
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-//                    fileCover = Helper.ConvertBitmapToString(resizedBitmap);
-//                    Log.d("REGISTER AXI:::", fileCover);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                String filePath = getRealPathFromURIPath(uri, this);
-//                File file = new File(filePath);
-//                Log.d(TAG, "Filename " + file.getName());
-////                RequestBody mFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                file_colleteral = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                colleteral_desc = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+
             } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -340,9 +310,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
     }
 
     private String getRealPathFromURIPath(Uri uri, Activity activity) {
-        // DocumentProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(activity, uri)) {
-            // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -352,7 +320,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
             }
-            // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
@@ -361,7 +328,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
                 return getDataColumn(activity, contentUri, null, null);
             }
-            // MediaProvider
             else if (isMediaDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -384,16 +350,13 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                 return getDataColumn(activity, contentUri, selection, selectionArgs);
             }
         }
-        // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
-            // Return the remote address
             if (isGooglePhotosUri(uri))
                 return uri.getLastPathSegment();
 
             return getDataColumn(activity, uri, null, null);
         }
-        // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -560,20 +523,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
             @Override
             public void afterTextChanged(Editable s) {
-//                String text = noNpwp.getText().toString();
-//                textlength = noNpwp.getText().length();
-//
-//                if(text.endsWith(" "))
-//                    return;
-//
-//                if(textlength == 3 || textlength == 7 || textlength == 11 || textlength == 17)
-//                {
-//                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, ".").toString());
-//                    noNpwp.setSelection(noNpwp.getText().length());
-//                }else if(textlength == 13){
-//                    noNpwp.setText(new StringBuilder(text).insert(text.length()-1, "-").toString());
-//                    noNpwp.setSelection(noNpwp.getText().length());
-//                }
+
             }
         };
     }
