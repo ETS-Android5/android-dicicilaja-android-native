@@ -190,6 +190,8 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                         floatingCart.setVisibility(View.VISIBLE);
                         textCart.setText(total_items + " Barang dikeranjang");
                         pointCart.setText(total_points + " Poin");
+                    } else {
+                        floatingCart.setVisibility(View.GONE);
                     }
                 } else {
                     floatingCart.setVisibility(View.GONE);
