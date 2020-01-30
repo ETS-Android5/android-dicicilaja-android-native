@@ -58,12 +58,23 @@ public class Attributes {
     @SerializedName("status_id")
     @Expose
     private Integer statusId;
+    @SerializedName("point")
+    private int point = -1;
+    @SerializedName("nama")
+    private String nama;
+    @SerializedName("deskripsi")
+    private String deskripsi;
+    @SerializedName("harga")
+    private int harga;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("updated_at_string")
+    @Expose
+    private String updatedAtstring;
     @SerializedName("ktp_npwp")
     @Expose
     private String ktpNpwp;
@@ -212,6 +223,38 @@ public class Attributes {
         this.statusId = statusId;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public int getHarga() {
+        return harga;
+    }
+
+    public void setHarga(int harga) {
+        this.harga = harga;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -226,6 +269,14 @@ public class Attributes {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedAtstring() {
+        return updatedAtstring;
+    }
+
+    public void setUpdatedAtstring(String updatedAtstring) {
+        this.updatedAtstring = updatedAtstring;
     }
 
     public String getKtpNpwp() {

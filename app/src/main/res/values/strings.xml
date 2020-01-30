@@ -240,8 +240,37 @@
     <string name="asuransi_2"><b>TLO</b>, merupakan ganti rugi yang <b>HANYA</b> akan diberikan perusahaan jika mobil mengalami kerusakan total atau di atas 75%. Selain kedua jenis di atas, Anda juga perlu mengetahui adanya ‘perluasan’. Perluasan adalah penambahan cakupan perlindungan. Perluasan mencakup:</string>
     <string name="rp_string">Rp</string>
     <string name="lihat_semua">Lihat Semua</string>
-    <string name="notif_ktp"><![CDATA[Kamu belum mengupload KTP & NPWP. Untuk mengurangi nilai pajak barang, segera upload file.]]></string>
+    <string name="notif_ktp"><![CDATA[Kamu belum mengupload NPWP dan KTP. Segera upload terlebih dahulu agar kamu mendapatkan pajak yang lebih rendah dan mempermudah pembayaran insentif.]]></string>
     <string name="data_and_informasi">Data &amp; Informasi</string>
     <string name="lihat_riwayat"><u>Lihat Riwayat</u></string>
     <string name="informasi_jaminan_pinjaman">Jaminan &amp; Pinjaman</string>
+
+    <string name="belum_bisa_klaim_produk">Kamu belum bisa Klaim Produk karena poin tidak mencukupi, silakan kurangi atau hapus produk yang ada di keranjang sesuai dengan poin yang dimiliki.</string>
+
+    <!--  navigation menu  -->
+    <string name="nav_home">HOME</string>
+    <string name="nav_regist">AXI TERDAFTAR</string>
+    <string name="nav_trip">INFORMASI TRIP</string>
+    <string name="nav_gathering">INFORMASI GATHERING</string>
+    <string name="nav_submission">BUAT PENGAJUAN</string>
+    <string name="nav_financing">PRODUK PEMBIAYAAN</string>
+    <string name="nav_tracking">ORDER TRACKING</string>
+    <string name="nav_simulation">SIMULASI CICILAN</string>
+    <string name="nav_news">BERITA AXI</string>
+    <string name="nav_download">UNDUH MATERI</string>
+    <string name="nav_info">GUDANG INFO</string>
+
+    <string name="home_tag">home</string>
+    <string name="regist_tag">register</string>
+    <string name="trip_tag">trip</string>
+
+    <!--    <string name="navigation_drawer_open">Open navigation drawer</string>-->
+    <!--    <string name="navigation_drawer_close">Close navigation drawer</string>-->
+
+    <string name="look_profile">Lihat Profil</string>
+
+    <string name="dummy_profile">https://i1.wp.com/ppmschool.ac.id/id/wp-content/uploads/2016/01/tutor-8.jpg</string>
+    <string name="axi_search_placeholder">Cari AXI berdasarkan ID atau Nama</string>
+    <string name="axi_search_result">3081 AXI di Cabang Bandung - Setiabudi</string>
+    <string name="no_results_yet">Belum ada hasil</string>
 </resources>

@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FIlterActivity extends AppCompatActivity {
+    private static final String TAG = FIlterActivity.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.spinnerKat)

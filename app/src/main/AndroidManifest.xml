@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".BaseApplication"
@@ -17,6 +17,18 @@
         android:theme="@style/MyMaterialTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".InformAXI.OrderTrackingActivity"></activity>
+        <activity android:name=".InformAXI.ui.trip.TripActivity" />
+        <activity android:name=".InformAXI.ui.search.SearchActivity" />
+        <activity android:name=".InformAXI.ui.register.RegisterActivity" />
+        <activity android:name=".InformAXI.ui.profile.ProfileActivity" />
+        <activity android:name=".InformAXI.ui.incentive.IncentiveActivity" />
+        <activity android:name=".InformAXI.ui.gathering.GatheringActivity" />
+        <activity android:name=".InformAXI.ui.InformAxiActivity" />
+        <activity
+            android:name=".BusinessReward.ui.Cart.CartActivity"
+            android:label="Keranjang"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity" />
         <activity
             android:name=".OrderIn.UI.KantorCabangActivity"
@@ -32,7 +44,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".OrderIn.UI.OrderInActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".BranchOffice.UI.DetailBranchOffice.DetailBranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.BranchOffice.Activity.BranchOfficeActivity" />
         <activity android:name=".BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity" />
@@ -48,14 +60,14 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -692,7 +704,7 @@
         </activity>
         <activity
             android:name=".BusinessReward.ui.DetailProduct.activity.DetailProduct2Activity"
-            android:label="Detail Produk"
+            android:label="Detail Keranjang"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

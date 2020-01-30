@@ -33,21 +33,15 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
     int no = 0;
     int status;
 
-    public ListAllProductAdapter(Data dataItems, List<Included> dataItems2, Context baseContext, String id, String size) {
-        this.mContext = baseContext;
-        this.pcAll = dataItems;
-        this.pcAll2 = dataItems2;
-        this.id = id;
-        this.size = size;
-        status = 1;
-    }
+    private AllProductCallback mCallback;
 
-    public ListAllProductAdapter(List<Datum> dataItems, Context baseContext, String id, String size) {
+    public ListAllProductAdapter(List<Datum> dataItems, Context baseContext, String id, String size, AllProductCallback mCallback) {
         this.mContext = baseContext;
         this.pcAll3 = dataItems;
         this.id = id;
         this.size = size;
         status = 2;
+        this.mCallback = mCallback;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +69,6 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        Log.d("IDNYADANID", id + pcAll.get(position).getRelationships().getKategori().getData().getId());
         if(status == 1){
             if (pcAll2.get(position).getAttributes().getNama().length() >= 30) {
                 nama = pcAll2.get(position).getAttributes().getNama().substring(0, 29) + "...";
@@ -102,7 +95,7 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
                     intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
                     intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
                     intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
-                    view.getContext().startActivity(intent);
+                    mCallback.onClickProduct(pcAll2.get(position));
                 }
             });
         }else{
@@ -131,7 +124,7 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
                     intent.putExtra("KTP", BusinesRewardActivity.ktpnpwp);
                     intent.putExtra("NOKTP", BusinesRewardActivity.no_ktp);
                     intent.putExtra("NONPWP", BusinesRewardActivity.no_npwp);
-                    view.getContext().startActivity(intent);
+                    mCallback.onClickProduct(pcAll3.get(position));
                 }
             });
         }
@@ -145,5 +138,11 @@ public class ListAllProductAdapter extends RecyclerView.Adapter<ListAllProductAd
         }else{
             return pcAll3.size();
         }
+    }
+
+    public interface AllProductCallback {
+        void onClickProduct(Datum datum);
+
+        void onClickProduct(Included included);
     }
 }

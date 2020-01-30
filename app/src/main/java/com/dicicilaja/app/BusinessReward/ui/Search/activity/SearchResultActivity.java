@@ -44,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchResultActivity extends AppCompatActivity {
+    private static final String TAG = SearchResultActivity.class.getSimpleName();
 
     ListSearchAdapter listSearchAdapter;
     @BindView(R.id.recycler_search)
@@ -60,9 +61,6 @@ public class SearchResultActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.inputCariBarang)
     EditText inputCariBarang;
-//    @BindView(R.id.search_button)
-//    ImageView searchButton;
-
     String barang_dicari;
 
     ProgressDialog progress;
@@ -85,10 +83,6 @@ public class SearchResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        progress = new ProgressDialog(SearchResultActivity.this);
-//        progress.setMessage("Sedang memuat data...");
-//        progress.setCanceledOnTouchOutside(false);
-//        progress.show();
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -138,26 +132,6 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
 
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                barang_dicari = inputCariBarang.getText().toString();
-//
-//                progress.setMessage("Sedang memuat data...");
-//                progress.setCanceledOnTouchOutside(false);
-//                progress.show();
-//
-//                doLoadData();
-//
-//                // Init recyleview listener
-//                initListener();
-//
-//                // Hide recyle
-//                hideEmpty();
-//            }
-//        });
-
-        // Load data
     }
 
     private void doLoadData() {
@@ -173,7 +147,6 @@ public class SearchResultActivity extends AppCompatActivity {
                     warn.setVisibility(View.GONE);
                     dataSearch.setVisibility(View.VISIBLE);
 
-                    Log.d("Searching", String.valueOf(response.code()));
                     final List<Datum> dataItems = response.body().getData();
                     Meta meta = response.body().getMeta();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
@@ -183,9 +156,6 @@ public class SearchResultActivity extends AppCompatActivity {
                     totalPage = meta.getLastPage();
                     totalData = meta.getTotal();
                     currentPage = meta.getCurrentPage();
-                    Log.d("Page1", String.valueOf(totalPage));
-                    Log.d("Page2", String.valueOf(totalData));
-                    Log.d("Page3", String.valueOf(currentPage));
 
                     if (dataItems.size() == 0) {
                         dataSearch.setVisibility(View.GONE);
@@ -201,14 +171,11 @@ public class SearchResultActivity extends AppCompatActivity {
                             listSearchAdapter.notifyDataSetChanged();
                             recyclerSearch.setAdapter(listSearchAdapter);
 
-//                            recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
                         } else {
                             listSearchAdapter.refreshAdapter(dataItems);
                         }
                     }
                 } else {
-//                    session.logoutUser();
-                    Log.d("Searching", String.valueOf(response.code()));
                 }
                 hideLoading();
             }
@@ -283,6 +250,5 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private void hideEmpty() {
         recyclerSearch.setVisibility(View.VISIBLE);
-//        layoutEmpty.setVisibility(View.GONE);
     }
 }
