@@ -40,7 +40,7 @@ android {
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 55
-        versionName "1.9.7"
+        versionName "1.9.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
