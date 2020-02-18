@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
-import com.dicicilaja.app.Activity.NotificationActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.postCart.PostCart;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
@@ -27,6 +26,7 @@ import com.dicicilaja.app.Session.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 
 import java.util.List;
 
@@ -418,7 +418,7 @@ public class DetailProductActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

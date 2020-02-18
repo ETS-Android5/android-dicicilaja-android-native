@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
+
+
     <application
         android:name=".BaseApplication"
         android:fullBackupContent="true"
@@ -14,7 +16,23 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".OrderIn.UI.InformasiJaminan2Activity"></activity>
+
+        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFF89E4C"
+            android:resource="@drawable/ic_stat_onesignal_default"/>
+
+
+        <activity android:name=".Inbox.UI.InboxDetailActivity"
+            android:label="Inbox Detail"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Inbox.UI.InboxActivity"
+            android:label="Inbox"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Inbox.UI.PopUpActivity"
+            android:label="Detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OrderIn.UI.InformasiJaminan2Activity" />
         <activity android:name=".OrderIn.UI.OrderInProductActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
@@ -496,14 +514,6 @@
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
-            android:name=".Activity.NotificationActivity"
-            android:label="Notifikasi"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
-        </activity>
-        <activity
             android:name=".Activity.ProsesPengajuanActivity"
             android:label="Proses Pengajuan"
             android:theme="@style/AppTheme.NoActionBar">
@@ -800,11 +810,8 @@
         </activity>
 
         <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher_round" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -815,15 +822,23 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <service
+            android:name=".Inbox.Service.NotificationExtender"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
     </application>
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

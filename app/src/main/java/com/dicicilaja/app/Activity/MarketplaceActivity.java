@@ -9,6 +9,7 @@ import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.Model.Logout;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.content.ContextCompat;
@@ -520,7 +521,7 @@ public class MarketplaceActivity extends AppCompatActivity
                 Intent intent = new Intent(getBaseContext(), GuestActivity.class);
                 startActivity(intent);
             }else{
-                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
                 startActivity(intent);
             }
 

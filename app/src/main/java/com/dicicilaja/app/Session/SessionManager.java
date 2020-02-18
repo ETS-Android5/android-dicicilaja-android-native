@@ -63,6 +63,10 @@ public class SessionManager {
         editor.commit();
     }
 
+    public String getUserIdOneSignal() {
+        return pref.getString("user_id_onesignal", null);
+    }
+
     public String getUserId() {
         return pref.getString("user_id", null);
     }
@@ -73,10 +77,6 @@ public class SessionManager {
 
     public String getProfileId() {
         return pref.getString("profile_id", null);
-    }
-
-    public String getUserIdOneSignal() {
-        return pref.getString("user_id_onesignal", null);
     }
 
     public String getToken() {

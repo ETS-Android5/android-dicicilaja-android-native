@@ -1,11 +1,23 @@
 package com.dicicilaja.app;
 
+import android.content.Intent;
+import android.util.Log;
+
 import androidx.multidex.MultiDexApplication;
 
-import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
+import com.dicicilaja.app.Activity.SplashActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationAction;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
+
 
 public class BaseApplication extends MultiDexApplication {
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -18,8 +30,22 @@ public class BaseApplication extends MultiDexApplication {
 //                .unsubscribeWhenNotificationsAreDisabled(true)
 //                .init();
 
-//        new Instabug.Builder(this, "7cf2f1bf79c1a536ff5ecd88d4d76c02")
-//                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
-//                .build();
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
+    }
+
+
+    private class ExampleNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+        // This fires when a notification is opened by tapping on it.
+        @Override
+        public void notificationOpened(OSNotificationOpenResult result) {
+            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 }

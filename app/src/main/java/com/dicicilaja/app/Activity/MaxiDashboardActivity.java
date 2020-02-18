@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -401,7 +402,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

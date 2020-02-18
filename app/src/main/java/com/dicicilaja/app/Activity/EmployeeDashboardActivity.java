@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -261,7 +262,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

@@ -97,6 +97,7 @@
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="title_activity_product">ProductActivity</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

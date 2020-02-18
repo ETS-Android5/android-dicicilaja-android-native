@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Inbox.UI.InboxDetailActivity"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/card_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="11dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_marginTop="54dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textSize="13sp"
+                        android:textColor="#801E1F39"
+                        android:fontFamily="@font/open_sans"
+                        android:textAlignment="center"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/border_notif"/>
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textSize="14sp"
+                        android:textColor="#801E1F39"
+                        android:layout_margin="15dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textAlignment="textStart"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/buttonUrl"
+                    android:layout_below="@+id/card_msg"
+                    style="?attr/buttonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorAccentDark2"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/open_sans_bold">
+
+                    <TextView
+                        style="?android:attr/buttonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:drawablePadding="7dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textColor="@color/colorWhite"
+                        android:drawableLeft="@drawable/ic_link_1"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:text="Lihat Detail" />
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/category"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/notif_message"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

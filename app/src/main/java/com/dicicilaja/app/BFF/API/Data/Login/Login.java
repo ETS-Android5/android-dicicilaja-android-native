@@ -1,5 +1,4 @@
-
-package com.dicicilaja.app.API.Model.Login;
+package com.dicicilaja.app.BFF.API.Data.Login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

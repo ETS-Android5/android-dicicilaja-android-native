@@ -1,5 +1,6 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.content.ClipData;
@@ -7,7 +8,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,9 +64,15 @@ import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
+<<<<<<< HEAD
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.Model.Logout;
+=======
+import com.dicicilaja.app.Inbox.Data.Popup.Popup;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
+import com.dicicilaja.app.Inbox.UI.PopUpActivity;
+>>>>>>> notif
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -106,15 +115,18 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     SliderLayout mDemoSlider;
     List<Data> infoJaringan;
 
+    List<com.dicicilaja.app.Inbox.Data.Popup.Datum> dataPopups;
+
     String apiKey;
     RelativeLayout allpromo;
     int maxSlide;
 
     HashMap<Integer, String> file_maps;
     ApiService3 apiService3;
+    com.dicicilaja.app.Inbox.Network.ApiService apiService4;
 
     /*update*/
-    ProgressDialog progress;
+    ProgressDialog progress, progress_popup;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 //    @BindView(R.id.slider)
@@ -215,6 +227,11 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     boolean isLoading = false;
     String agen_axi_id, agen_id, agen_name;
 
+    Dialog InAppDialog;
+
+    TextView detail, nanti;
+    ImageView thumbnail, close;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,8 +243,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
 
-
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
+        apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
+        inAppDialog();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -687,7 +705,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }
@@ -896,5 +914,85 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         if (requestCode == 96 && resultCode == RESULT_OK) {
             doLoadData();
         }
+    }
+
+    private void inAppDialog() {
+        progress_popup = new ProgressDialog(this);
+        progress_popup.setMessage("Sedang memuat data...");
+        progress_popup.setCanceledOnTouchOutside(false);
+        progress_popup.show();
+
+        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        popupCall.enqueue(new Callback<Popup>() {
+            @Override
+            public void onResponse(Call<Popup> call, Response<Popup> response) {
+                progress_popup.hide();
+                if (response.isSuccessful()) {
+                    dataPopups = response.body().getData();
+                    if (dataPopups.size() != 0) {
+                        try {
+                            InAppDialog = new Dialog(AxiDashboardActivity.this);
+                            InAppDialog.setContentView(R.layout.in_app_dialog);
+                            InAppDialog.setCanceledOnTouchOutside(false);
+                            InAppDialog.setCancelable(false);
+                            InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                            thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+
+
+                            Log.d("POPUP", "onResponse: " + dataPopups.get(0).getAttributes().getImage());
+                            Glide.with(AxiDashboardActivity.this)
+                                    .load(dataPopups.get(0).getAttributes().getImage())
+                                    .fitCenter()
+                                    .into(thumbnail);
+
+
+                            detail = InAppDialog.findViewById(R.id.detail);
+                            nanti = InAppDialog.findViewById(R.id.nanti);
+//                            close = InAppDialog.findViewById(R.id.close);
+
+                            detail.setEnabled(true);
+                            nanti.setEnabled(true);
+//                            close.setEnabled(true);
+
+                            detail.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                    Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
+                                    intent.putExtra("url", dataPopups.get(0).getAttributes().getUrl());
+                                    startActivity(intent);
+                                }
+                            });
+
+                            nanti.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                }
+                            });
+
+//                            close.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    InAppDialog.cancel();
+//                                }
+//                            });
+
+                            InAppDialog.show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                    progress_popup.hide();
+                } else {
+                    progress_popup.hide();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Popup> call, Throwable t) {
+                progress_popup.hide();
+            }
+        });
     }
 }

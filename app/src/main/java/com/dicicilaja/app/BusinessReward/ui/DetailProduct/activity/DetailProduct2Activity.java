@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dicicilaja.app.Activity.NotificationActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.PostClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
@@ -37,6 +36,7 @@ import com.dicicilaja.app.BusinessReward.network.ApiService3;
 import com.dicicilaja.app.BusinessReward.ui.Cart.CartActivity;
 import com.dicicilaja.app.BusinessReward.ui.Cart.CartAdapter;
 import com.dicicilaja.app.BusinessReward.ui.RedeemConfirm.RedeemConfirmationActivity;
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.google.gson.Gson;
@@ -219,7 +219,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notif) {
-            Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivity(intent);
             return true;
         }

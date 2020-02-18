@@ -114,7 +114,6 @@
         <item name="android:maxHeight">4dp</item>
     </style>
 
-    <!-- Base application theme. -->
     <style name="InformAxiTheme" parent="BaseTheme" />
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -124,4 +123,8 @@
         <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+    </style>
 </resources>

@@ -5,14 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 
-import com.dicicilaja.app.API.Model.Login.Login;
 import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
+import com.dicicilaja.app.BFF.API.Data.Login.Login;
+import com.dicicilaja.app.BFF.API.Network.ApiClient;
+import com.dicicilaja.app.BFF.API.Network.ApiService;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,10 +31,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import com.dicicilaja.app.API.Interface.InterfaceNotifToken;
 import com.dicicilaja.app.R;
-import com.dicicilaja.app.Remote.ApiUtils;
-import com.dicicilaja.app.Remote.UserFirebase;
-import com.dicicilaja.app.Remote.UserService;
 import com.dicicilaja.app.Session.SessionManager;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
     SessionManager session;
 
-    UserService userService;
-    UserFirebase userFirebase;
+    ApiService apiServiceLogin;
     String photo, zipcode, area;
 
     ProgressDialog progress;
@@ -145,8 +146,8 @@ public class LoginActivity extends AppCompatActivity {
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
-            userService = ApiUtils.getUserService();
-            userFirebase = ApiUtils.getUserFirebase();
+
+            apiServiceLogin = ApiClient.getClient().create(ApiService.class);
 
             final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             //Log.i("firebase_login", "token : "  + refreshedToken.toString());
@@ -215,10 +216,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void doLogin(final String username, final String password) {
 
-        Call<Login> call = userFirebase.login_token(username, password);
+        Call<Login> call = apiServiceLogin.login(username, password);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
+                Log.d("log_login", "code: " + response.code() + " body: " + response.body());
                 if(response.isSuccessful()) {
                     progress.dismiss();
                     Login resObj = response.body();
@@ -246,7 +248,7 @@ public class LoginActivity extends AppCompatActivity {
                             area,
                             zipcode,
                             refreshedToken,
-                            resObj.getPhone(),
+                            String.valueOf(resObj.getPhone()),
                             resObj.getEmail()
                     );
 
@@ -388,6 +390,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showNextActivity(boolean isLogin, String role) {
         if( isLogin ) {
+//            oneSignalSubscribe();
 
             if( String.valueOf(session.getPhone()).isEmpty() || (session.getEmail() == null) ) {
                 Intent intent = new Intent( LoginActivity.this, CompletePhoneEmailActivity.class );
@@ -468,5 +471,19 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
+//    private void oneSignalSubscribe() {
+//        try {
+//            JSONObject tags = new JSONObject();
+//            tags.put("user_id_onesignal", session.getUserId());
+//            tags.put("role", session.getRole());
+//            OneSignal.sendTags(tags);
+//        } catch (Exception ex) {}
+//
+//        OneSignal.startInit(this)
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+//                .unsubscribeWhenNotificationsAreDisabled(false)
+//                .init();
+//    }
 
 }

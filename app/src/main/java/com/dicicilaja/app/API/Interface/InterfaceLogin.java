@@ -1,6 +1,6 @@
 package com.dicicilaja.app.API.Interface;
 
-import com.dicicilaja.app.API.Model.Login.Login;
+import com.dicicilaja.app.BFF.API.Data.Login.Login;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
