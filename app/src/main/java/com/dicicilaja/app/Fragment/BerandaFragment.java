@@ -63,11 +63,11 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Partner;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Recommendation;
 import com.dicicilaja.app.Activity.SimulasiActivity;
 import com.dicicilaja.app.Adapter.ListPartnerAdapter;
-import com.dicicilaja.app.Adapter.ListPromoAdapter;
+//import com.dicicilaja.app.Adapter.ListPromoAdapter;
 import com.dicicilaja.app.Adapter.ListRekomendasiAdapter;
 import com.dicicilaja.app.Content.PartnerModel;
-import com.dicicilaja.app.Content.PromoModel;
-import com.dicicilaja.app.Content.RekomendasiModel;
+//import com.dicicilaja.app.Content.PromoModel;
+//import com.dicicilaja.app.Content.RekomendasiModel;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.WebView.AboutAxiMarketplaceActivity;
 import com.dicicilaja.app.WebView.AboutMaxiMarketplaceActivity;
@@ -86,8 +86,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     SliderView sliderView;
     SliderLayout mDemoSlider;
-    private ArrayList<PromoModel> promoData;
-    private ArrayList<RekomendasiModel> rekomendasiData;
+//    private ArrayList<PromoModel> promoData;
+//    private ArrayList<RekomendasiModel> rekomendasiData;
     private ArrayList<PartnerModel> partnerData;
     private SnapHelper snapHelper;
     Button btn_hitung;
@@ -99,7 +99,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
     TextView title_program_agen, program_axi, program_maxi, simulasi_title, simulasi_subtitle, tv_title;
 
     LinearLayout webview_axi, webview_maxi;
-    RelativeLayout allpromo;
+//    RelativeLayout allpromo;
     ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_extraguna, maxi_griya;
 
     EditText harga_simulasi;
@@ -154,8 +154,8 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
         maxi_griya = view.findViewById(R.id.maxi_griya);
         show_all_partner = view.findViewById(R.id.show_all_partner);
-        show_all_promo = view.findViewById(R.id.show_all_promo);
-        show_all_recommend = view.findViewById(R.id.show_all_recommend);
+//        show_all_promo = view.findViewById(R.id.show_all_promo);
+//        show_all_recommend = view.findViewById(R.id.show_all_recommend);
 //        allpromo = view.findViewById(R.id.allpromo);
         webview_axi = view.findViewById(R.id.webview_axi);
         webview_maxi = view.findViewById(R.id.webview_maxi);
@@ -204,9 +204,9 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
-        promoData = new ArrayList<>();
-        rekomendasiData = new ArrayList<>();
-        partnerData = new ArrayList<>();
+//        promoData = new ArrayList<>();
+//        rekomendasiData = new ArrayList<>();
+//        partnerData = new ArrayList<>();
 
 //        final List<String> JAMINAN_ITEMS = new ArrayList<>();
 //        JAMINAN_DATA = new HashMap<Integer, String>();
@@ -326,59 +326,59 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
 //        createDummyData();
 
-        final RecyclerView recyclerPromo = (RecyclerView) view.findViewById(R.id.recycler_promo);
-        recyclerPromo.setHasFixedSize(true);
-        recyclerPromo.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+//        final RecyclerView recyclerPromo = (RecyclerView) view.findViewById(R.id.recycler_promo);
+//        recyclerPromo.setHasFixedSize(true);
+//        recyclerPromo.setLayoutManager(new LinearLayoutManager(getContext(),
+//                LinearLayoutManager.HORIZONTAL, false));
 
-        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
-        snapHelperPromo.attachToRecyclerView(recyclerPromo);
+//        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
+//        snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
-        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-                RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
-
-        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
-        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
-            @Override
-            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
-                progress.dismiss();
-                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
-
-                recyclerPromo.setAdapter(new ListPromoAdapter(promos, getContext()));
-            }
-
-            @Override
-            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
-
-            }
-        });
-
-        final RecyclerView recyclerRekomendasi = (RecyclerView) view.findViewById(R.id.recycler_rekomendasi);
-        recyclerRekomendasi.setHasFixedSize(true);
-        recyclerRekomendasi.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        SnapHelper snapHelperRekomendasi = new GravitySnapHelper(Gravity.START);
-        snapHelperRekomendasi.attachToRecyclerView(recyclerRekomendasi);
-
-        InterfaceRecommendation apiService2 =
-                RetrofitClient.getClient().create(InterfaceRecommendation.class);
-
-        Call<Recommendation> call2 = apiService2.getRecommend();
-        call2.enqueue(new Callback<Recommendation>() {
-            @Override
-            public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
-                progress.dismiss();
-                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
-
-                recyclerRekomendasi.setAdapter(new ListRekomendasiAdapter(recommends, getContext()));
-            }
-
-            @Override
-            public void onFailure(Call<Recommendation> call, Throwable t) {
-
-            }
-        });
+//        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+//                RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+//
+//        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+//        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
+//            @Override
+//            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Response<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+//                progress.dismiss();
+//                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
+//
+//                recyclerPromo.setAdapter(new ListPromoAdapter(promos, getContext()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
+//
+//            }
+//        });
+//
+//        final RecyclerView recyclerRekomendasi = (RecyclerView) view.findViewById(R.id.recycler_rekomendasi);
+//        recyclerRekomendasi.setHasFixedSize(true);
+//        recyclerRekomendasi.setLayoutManager(new LinearLayoutManager(getContext(),
+//                LinearLayoutManager.HORIZONTAL, false));
+//
+//        SnapHelper snapHelperRekomendasi = new GravitySnapHelper(Gravity.START);
+//        snapHelperRekomendasi.attachToRecyclerView(recyclerRekomendasi);
+//
+//        InterfaceRecommendation apiService2 =
+//                RetrofitClient.getClient().create(InterfaceRecommendation.class);
+//
+//        Call<Recommendation> call2 = apiService2.getRecommend();
+//        call2.enqueue(new Callback<Recommendation>() {
+//            @Override
+//            public void onResponse(Call<Recommendation> call, Response<Recommendation> response) {
+//                progress.dismiss();
+//                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRecommendation.Datum> recommends = response.body().getData();
+//
+//                recyclerRekomendasi.setAdapter(new ListRekomendasiAdapter(recommends, getContext()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Recommendation> call, Throwable t) {
+//
+//            }
+//        });
 
         final RecyclerView recyclerPartner = (RecyclerView) view.findViewById(R.id.recycler_partner);
         recyclerPartner.setHasFixedSize(true);
@@ -495,20 +495,20 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
-        show_all_promo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllProductPromoActivity.class);
-                startActivity(intent);
-            }
-        });
-        show_all_recommend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllProductRecommendationActivity.class);
-                startActivity(intent);
-            }
-        });
+//        show_all_promo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), AllProductPromoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        show_all_recommend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), AllProductRecommendationActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 //        allpromo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

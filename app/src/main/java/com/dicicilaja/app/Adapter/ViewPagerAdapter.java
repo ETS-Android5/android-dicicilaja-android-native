@@ -37,7 +37,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new BerandaFragment();
 
             case 1:
-                return new PengajuanFragment();
+                if(session.isLoggedIn() == FALSE) {
+                    return new NotUserFragment();
+                }else{
+                    return new PengajuanFragment();
+                }
 
             case 2:
                 return new BantuanFragment();
