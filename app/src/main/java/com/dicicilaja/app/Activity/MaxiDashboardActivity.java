@@ -11,6 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import com.dicicilaja.app.API.Client.ApiClient2;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
@@ -23,35 +28,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMitraSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
-import com.dicicilaja.app.Model.RequestMeta;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import com.dicicilaja.app.API.Interface.InterfacePengajuanMaxi;
-import com.dicicilaja.app.API.Model.PengajuanMaxi.PengajuanMaxi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProgramMaxi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.ProgramMaxi;
-import com.dicicilaja.app.Adapter.PengajuanMaxiAdapter;
-import com.dicicilaja.app.Adapter.ProgramMaxiAdapter;
-import com.dicicilaja.app.Listener.ClickListener;
-import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import retrofit2.Call;
@@ -328,17 +318,16 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
 
 //        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
 //        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
-        InterfaceMitraSlider apiSlider =
-                RetrofitClient.getClient().create(InterfaceMitraSlider.class);
+        InterfaceCustomerSlider apiSlider =
+                ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-        Call<AxiSlider> call = apiSlider.getSlider();
-        call.enqueue(new Callback<AxiSlider>() {
+        Call<Slider> call = apiSlider.getSlider("5", "slider");
+        call.enqueue(new Callback<Slider>() {
             @Override
-            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+            public void onResponse(Call<Slider> call, Response<Slider> response) {
                 List <Datum> slider = response.body().getData();
                 for (int i = 0; i < slider.size(); i++) {
-                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                    file_maps.put(slider.get(i).getUrl(), slider.get(i).getImage());
+                    file_maps.put("https://dicicilaja.com/", slider.get(i).getAttributes().getGambar());
                 }
 
                 /*for(final String name1 : file_maps.keySet()) {
@@ -358,15 +347,14 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
                 }*/
 
                 for(final Datum s: slider) {
-                    Log.d("DASH::::", s.getImage());
                     DefaultSliderView sliderBannerItem = new DefaultSliderView(MaxiDashboardActivity.this);
                     sliderBannerItem
-                            .image(s.getImage())
+                            .image(s.getAttributes().getGambar())
                             .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                             .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                                 @Override
                                 public void onSliderClick(BaseSliderView slider) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://dicicilaja.com/"));
                                     startActivity(browserIntent);
                                 }
                             });
@@ -375,7 +363,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
             }
 
             @Override
-            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            public void onFailure(Call<Slider> call, Throwable t) {
             }
         });
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);

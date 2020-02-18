@@ -41,16 +41,16 @@ public class ListMerchantAdapter extends RecyclerView.Adapter<ListMerchantAdapte
     public void onBindViewHolder(final ListMerchantAdapter.SingleItemRowHolder holder, final int position) {
         final Datum itemModel = partners.get(position);
         Picasso.get().load(itemModel.getImages()).into(holder.image);
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext,AllProductActivity.class);
-                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
-
-                view.getContext().startActivity(intent);
-
-            }
-        });
+//        holder.image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext,AllProductActivity.class);
+//                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
+//
+//                view.getContext().startActivity(intent);
+//
+//            }
+//        });
     }
 
     @Override

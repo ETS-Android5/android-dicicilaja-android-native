@@ -1,11 +1,9 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 
 public interface InterfaceAxiSlider {
@@ -13,5 +11,5 @@ public interface InterfaceAxiSlider {
             "Accept: application/json",
     })
     @GET("slider/axi")
-    Call<AxiSlider> getSlider();
+    Call<Slider> getSlider();
 }

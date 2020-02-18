@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import java.util.List;
 
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceMerchant;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPartner.Datum;
@@ -44,7 +45,7 @@ public class AllPartnerActivity extends AppCompatActivity {
         partner.setHasFixedSize(true);
         partner.setLayoutManager(new GridLayoutManager(this, 3));
         InterfaceMerchant apiService =
-                RetrofitClient.getClient().create(InterfaceMerchant.class);
+                ApiClient2.getClient().create(InterfaceMerchant.class);
 
         Call<Partner> call = apiService.getPartner();
         call.enqueue(new Callback<Partner>() {

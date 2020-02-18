@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:padding="8dp"
-                android:layout_height="300dp">
+                android:layout_height="200dp">
                 <RelativeLayout
                     android:id="@+id/top_card"
                     android:layout_width="match_parent"
@@ -83,25 +83,25 @@
                         android:textColor="@color/colorAccent"
                         android:text="Rp **.***.***"/>
 
-                    <TextView
-                        android:id="@+id/tv_cicilan"
-                        android:layout_below="@+id/tv_harga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="9sp"
-                        android:textColor="@color/colorBackground"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_cicilan"-->
+<!--                        android:layout_below="@+id/tv_harga"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="9sp"-->
+<!--                        android:textColor="@color/colorBackground"/>-->
 
-                    <TextView
-                        android:id="@+id/tv_Detail_Lengkap"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="500"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorAccent"
-                        android:text="Detail Produk >>"
-                        android:layout_alignParentBottom="true"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_Detail_Lengkap"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:maxLength="500"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textAlignment="textEnd"-->
+<!--                        android:textColor="@color/colorAccent"-->
+<!--                        android:text="Detail Produk >>"-->
+<!--                        android:layout_alignParentBottom="true"/>-->
                 </RelativeLayout>
             </RelativeLayout>
 

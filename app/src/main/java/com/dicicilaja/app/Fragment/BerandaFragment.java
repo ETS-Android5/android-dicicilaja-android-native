@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,12 +32,13 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.Adapter.BerandaImageSliderAdapter;
 import com.dicicilaja.app.Session.SessionManager;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -100,7 +100,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
     LinearLayout webview_axi, webview_maxi;
     RelativeLayout allpromo;
-    ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_extraguna, maxi_asuransi;
+    ImageView maxi_travel, maxi_edukasi, maxi_usaha, maxi_sehat, maxi_extraguna, maxi_griya;
 
     EditText harga_simulasi;
     fr.ganfra.materialspinner.MaterialSpinner jaminan, tenor, arearequest;
@@ -152,7 +152,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_usaha = view.findViewById(R.id.maxi_usaha);
         maxi_sehat = view.findViewById(R.id.maxi_sehat);
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
-        maxi_asuransi = view.findViewById(R.id.maxi_asuransi);
+        maxi_griya = view.findViewById(R.id.maxi_griya);
         show_all_partner = view.findViewById(R.id.show_all_partner);
         show_all_promo = view.findViewById(R.id.show_all_promo);
         show_all_recommend = view.findViewById(R.id.show_all_recommend);
@@ -324,7 +324,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 
         SnapHelper snapHelper = new LinearSnapHelper();
 
-        createDummyData();
+//        createDummyData();
 
         final RecyclerView recyclerPromo = (RecyclerView) view.findViewById(R.id.recycler_promo);
         recyclerPromo.setHasFixedSize(true);
@@ -390,7 +390,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         snapHelperPartner.attachToRecyclerView(recyclerPartner);
 
         InterfacePartner apiService3 =
-                ApiClient.getClient().create(InterfacePartner.class);
+                ApiClient2.getClient().create(InterfacePartner.class);
 
         Call<Partner> call3 = apiService3.getPartner();
         call3.enqueue(new Callback<Partner>() {
@@ -414,23 +414,22 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //        file_maps.put("https://dicicilaja.com/gudang-info/Saatnya-Jadi-AXI%21-Dan-Jadilah-Pahlawan-Bagi-Keluarga","https://dicicilaja.com/uploads/news/1510289120-saatnya-jadi-axi-dan-jadilah-pahlawan-bagi-keluarga.jpg");
 //        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
         InterfaceCustomerSlider apiSlider2 =
-                com.dicicilaja.app.API.Client.RetrofitClient.getClient().create(InterfaceCustomerSlider.class);
-        Call<AxiSlider> call5 = apiSlider2.getSlider();
-        call5.enqueue(new Callback<AxiSlider>() {
+                com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceCustomerSlider.class);
+        Call<Slider> call5 = apiSlider2.getSlider("1", "slider");
+        call5.enqueue(new Callback<Slider>() {
             @Override
-            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+            public void onResponse(Call<Slider> call, Response<Slider> response) {
 //                progress.dismiss();
                 List<Datum> slider = response.body().getData();
                 maxSlide = slider.size();
                 for (int i = 0; i < slider.size(); i++) {
-                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                    file_maps.put(i, slider.get(i).getImage());
+                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
                 }
                 setSliderView(getContext(),maxSlide,file_maps);
             }
 
             @Override
-            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            public void onFailure(Call<Slider> call, Throwable t) {
             }
         });
         maxi_travel.setOnClickListener(new View.OnClickListener() {
@@ -470,12 +469,12 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
                 startActivity(intent);
             }
         });
-        maxi_asuransi.setOnClickListener(new View.OnClickListener() {
+        maxi_griya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProductCategoryActivity.class);
-                intent.putExtra("title","MAXI Asuransi");
-                intent.putExtra("content","asuransi");
+                intent.putExtra("title","MAXI Griya");
+                intent.putExtra("content","griya");
                 startActivity(intent);
             }
         });
@@ -592,32 +591,32 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //    }
 
 
-    private void createDummyData() {
-        for (int j = 1; j <= 5; j++) {
-            promoData.add(new PromoModel("Umroh Free Tour Istanbul Turkey",
-                    "1",
-                    "Mitra Usaha : PT. SUKA JADI",
-                    "Rp 20.000.000",
-                    "Cicilan 60 bulan Rp 900.000/bulan",
-                    "1",
-                    "20%"));
-        }
-
-        for (int j = 1; j <= 5; j++) {
-            rekomendasiData.add(new RekomendasiModel("Umroh Free Tour Istanbul Turkey",
-                    "1",
-                    "Mitra Usaha : PT. SUKA JADI",
-                    "Rp 20.000.000",
-                    "Cicilan 60 bulan Rp 900.000/bulan",
-                    "1"));
-        }
-
-        for (int j = 1; j <= 5; j++) {
-            partnerData.add(new PartnerModel("1",
-                    "1"));
-        }
-
-    }
+//    private void createDummyData() {
+//        for (int j = 1; j <= 5; j++) {
+//            promoData.add(new PromoModel("Umroh Free Tour Istanbul Turkey",
+//                    "1",
+//                    "Mitra Usaha : PT. SUKA JADI",
+//                    "Rp 20.000.000",
+//                    "Cicilan 60 bulan Rp 900.000/bulan",
+//                    "1",
+//                    "20%"));
+//        }
+//
+//        for (int j = 1; j <= 5; j++) {
+//            rekomendasiData.add(new RekomendasiModel("Umroh Free Tour Istanbul Turkey",
+//                    "1",
+//                    "Mitra Usaha : PT. SUKA JADI",
+//                    "Rp 20.000.000",
+//                    "Cicilan 60 bulan Rp 900.000/bulan",
+//                    "1"));
+//        }
+//
+//        for (int j = 1; j <= 5; j++) {
+//            partnerData.add(new PartnerModel("1",
+//                    "1"));
+//        }
+//
+//    }
 
     private boolean validateForm(String s_area, String s_jaminan, String s_tenor, String s_harga) {
         if (s_harga == null || s_harga.trim().length() == 0 || s_harga.equals("0")) {

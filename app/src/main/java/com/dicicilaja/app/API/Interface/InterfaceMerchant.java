@@ -14,6 +14,6 @@ public interface InterfaceMerchant {
     @Headers({
             "Accept: application/json",
     })
-    @GET("partner")
+    @GET("profile/maxi/partner")
     Call<Partner> getPartner();
 }

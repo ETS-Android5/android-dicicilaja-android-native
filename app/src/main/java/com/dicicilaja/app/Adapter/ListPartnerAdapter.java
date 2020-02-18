@@ -42,15 +42,15 @@ public class      ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAda
     public void onBindViewHolder(final ListPartnerAdapter.SingleItemRowHolder holder, final int position) {
         final Datum itemModel = partners.get(position);
         Picasso.get().load(itemModel.getImages()).into(holder.image);
-        holder.card_merchant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext,AllProductActivity.class);
-                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
-                view.getContext().startActivity(intent);
-
-            }
-        });
+//        holder.card_merchant.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext,AllProductActivity.class);
+//                intent.putExtra("EXTRA_REQUEST_ID", itemModel.getId().toString());
+//                view.getContext().startActivity(intent);
+//
+//            }
+//        });
     }
 
     @Override

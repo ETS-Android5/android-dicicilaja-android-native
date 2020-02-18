@@ -2,7 +2,6 @@ package com.dicicilaja.app.Activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.*;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -23,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,44 +33,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
-import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
-import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
-import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
-<<<<<<< HEAD
-import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
-import com.dicicilaja.app.BusinessReward.ui.Transaction.activity.TransactionActivity;
 import com.dicicilaja.app.Model.Logout;
-=======
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.Inbox.UI.PopUpActivity;
->>>>>>> notif
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -217,7 +204,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     /* Update to Microservices - Variable */
     private List<PPOB> ppobList;
-    List<Datum> slider;
+    List<Slider> slider;
     RecyclerView recyclerView;
     ListPPOBAdapter adapter;
 
@@ -553,24 +540,23 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         file_maps = new HashMap<Integer, String>();
 
-        InterfaceAxiSlider apiSlider =
-                RetrofitClient.getClient().create(InterfaceAxiSlider.class);
-        Call<AxiSlider> call5 = apiSlider.getSlider();
-        call5.enqueue(new Callback<AxiSlider>() {
+        InterfaceCustomerSlider apiSlider =
+                com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceCustomerSlider.class);
+        Call<Slider> call5 = apiSlider.getSlider("6", "slider");
+        call5.enqueue(new Callback<Slider>() {
             @Override
-            public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+            public void onResponse(Call<Slider> call, Response<Slider> response) {
 //                progress.dismiss();
                 List<Datum> slider = response.body().getData();
                 maxSlide = slider.size();
                 for (int i = 0; i < slider.size(); i++) {
-                    Log.d("slideraxi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                    file_maps.put(i, slider.get(i).getImage());
+                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
                 }
                 setSliderView(getBaseContext(),maxSlide,file_maps);
             }
 
             @Override
-            public void onFailure(Call<AxiSlider> call, Throwable t) {
+            public void onFailure(Call<Slider> call, Throwable t) {
             }
         });
     }

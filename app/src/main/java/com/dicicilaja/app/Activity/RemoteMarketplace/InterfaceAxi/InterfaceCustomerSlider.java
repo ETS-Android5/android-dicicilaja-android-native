@@ -1,15 +1,14 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Query;
 
 public interface InterfaceCustomerSlider {
-    @Headers({
-            "Accept: application/json",
-    })
-        @GET("slider/customer")
-    Call<AxiSlider> getSlider();
+    @GET("content/images")
+    Call<Slider> getSlider(@Query("filter[page_id]") String page_id,
+                           @Query("filter[type]") String type);
 }

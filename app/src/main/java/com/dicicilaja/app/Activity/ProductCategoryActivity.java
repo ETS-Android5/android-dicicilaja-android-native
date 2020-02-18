@@ -3,7 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,27 +16,21 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAsuransi;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceEdukasi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceExtraguna;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceSehat;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceTravel;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUsaha;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.AxiSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiSlider.Datum;
-import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
-import com.dicicilaja.app.Adapter.BerandaImageSliderAdapter;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.Adapter.ListMaxiAdapter;
 import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
@@ -102,142 +96,136 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         progress.show();
 
         if(content.equals("travel")){
-            InterfaceTravel apiSlider =
-                    RetrofitClient.getClient().create(InterfaceTravel.class);
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
+            Call<Slider> call5 = apiSlider.getSlider("9", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
 //                    if (position < slider.size()) {
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("sliderasuransi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
 //                    }
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 
         }
         else if(content.equals("edukasi")){
-            InterfaceEdukasi apiSlider =
-                    RetrofitClient.getClient().create(InterfaceEdukasi.class);
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            Call<Slider> call5 = apiSlider.getSlider("10", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("slideredukasi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 
         }else if(content.equals("usaha")){
-            InterfaceUsaha apiSlider =
-                    RetrofitClient.getClient().create(InterfaceUsaha.class);
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            Call<Slider> call5 = apiSlider.getSlider("11", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("sliderusaha", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 
         }else if(content.equals("sehat")){
-            InterfaceSehat apiSlider =
-                    RetrofitClient.getClient().create(InterfaceSehat.class);
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            Call<Slider> call5 = apiSlider.getSlider("12", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("slidersehat", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 
-        }else if(content.equals("asuransi")){
-            InterfaceAsuransi apiSlider =
-                    RetrofitClient.getClient().create(InterfaceAsuransi.class);
+        }else if(content.equals("griya")){
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            Call<Slider> call5 = apiSlider.getSlider("13", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("sliderasuransi", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 
         }else if(content.equals("extraguna")){
-            InterfaceExtraguna apiSlider =
-                    RetrofitClient.getClient().create(InterfaceExtraguna.class);
+            InterfaceCustomerSlider apiSlider =
+                    ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<AxiSlider> call5 = apiSlider.getSlider();
-            call5.enqueue(new Callback<AxiSlider>() {
+            Call<Slider> call5 = apiSlider.getSlider("14", "slider");
+            call5.enqueue(new Callback<Slider>() {
                 @Override
-                public void onResponse(Call<AxiSlider> call, Response<AxiSlider> response) {
+                public void onResponse(Call<Slider> call, Response<Slider> response) {
                     progress.dismiss();
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
-                        Log.d("sliderextraguna", slider.get(i).getUrl() + " " + slider.get(i).getImage());
-                        file_maps.put(i, slider.get(i).getImage());
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
                     }
                     setSliderView(getBaseContext(),maxSlide,file_maps);
                 }
 
                 @Override
-                public void onFailure(Call<AxiSlider> call, Throwable t) {
+                public void onFailure(Call<Slider> call, Throwable t) {
                 }
             });
 

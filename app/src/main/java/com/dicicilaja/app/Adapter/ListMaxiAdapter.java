@@ -80,7 +80,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
             }
         }
         cicilan = sb.toString();
-        holder.tv_cicilan.setText(cicilan);
+//        holder.tv_cicilan.setText(cicilan);
         Uri uri = Uri.parse(itemModel.getImage());
         Picasso.get().load(uri).into(holder.discount_image);
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +113,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         protected ImageView discount_image;
         protected TextView tv_harga;
         protected TextView tv_mitra;
-        protected TextView tv_cicilan;
+//        protected TextView tv_cicilan;
         protected CardView card_promo;
 
 
@@ -123,7 +123,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
             this.tv_title = itemView.findViewById(R.id.tv_title);
             this.tv_harga = itemView.findViewById(R.id.tv_harga);
             this.tv_mitra = itemView.findViewById(R.id.tv_mitra);
-            this.tv_cicilan = itemView.findViewById(R.id.tv_cicilan);
+//            this.tv_cicilan = itemView.findViewById(R.id.tv_cicilan);
             this.card_promo = itemView.findViewById(R.id.card_promo);
             this.discount_image = itemView.findViewById(R.id.discount_image);
         }
