@@ -56,6 +56,7 @@ import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOf
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
@@ -668,9 +669,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
             @Override
             public void onFailure(Call<InfoJaringan> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                alertDialog.setMessage(t.getMessage());
-                alertDialog.show();
+                hideLoading();
+                t.printStackTrace();
             }
         });
     }
@@ -845,9 +845,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-//                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-//                intent.putExtra("POINT_REWARD", contentBox1.getText());
-//                startActivityForResult(intent, 96);
+                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                intent.putExtra("POINT_REWARD", contentBox1.getText());
+                startActivityForResult(intent, 96);
 
 //                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
 //                startActivity(intent);
@@ -926,7 +926,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                             thumbnail = InAppDialog.findViewById(R.id.thumbnail);
 
 
-                            Log.d("POPUP", "onResponse: " + dataPopups.get(0).getAttributes().getImage());
                             Glide.with(AxiDashboardActivity.this)
                                     .load(dataPopups.get(0).getAttributes().getImage())
                                     .fitCenter()

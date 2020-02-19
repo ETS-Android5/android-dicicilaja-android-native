@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -124,8 +125,8 @@ public class UbahAxiActivity extends AppCompatActivity {
         JK_ITEMS.clear();
         JK_DATA.clear();
 
-        JK_DATA.put(1, "Laki-laki");
-        JK_DATA.put(2, "Perempuan");
+        JK_DATA.put(1, "L");
+        JK_DATA.put(2, "P");
         JK_ITEMS.add("Laki-laki");
         JK_ITEMS.add("Perempuan");
 
@@ -217,7 +218,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UbahAxi> call, Throwable t) {
-
+                Log.d("MANTAP", "onFailure: " + t.getMessage());
             }
         });
     }
@@ -494,11 +495,11 @@ public class UbahAxiActivity extends AppCompatActivity {
             EditText textview = (EditText)getActivity().findViewById(R.id.inputTanggal);
 
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                String dateInString = day + "/" + (month + 1) + "/" + year;
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String dateInString = year + "-" + (month + 1) + "-" + day;
                 Date date = formatter.parse(dateInString);
 
-                formatter = new SimpleDateFormat("dd/MM/yyyy");
+                formatter = new SimpleDateFormat("yyyy-MM-dd");
 
                 textview.setText(formatter.format(date).toString());
 

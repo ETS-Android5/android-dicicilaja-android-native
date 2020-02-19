@@ -132,7 +132,7 @@ public class RekanBisnisActivity extends AppCompatActivity {
 
 
 
-            Call<RekanBisnis> call2 = apiService.getRekanBisnis(apiKey, session.getNomorAxiId());
+            Call<RekanBisnis> call2 = apiService.getRekanBisnis(apiKey, id);
             call2.enqueue(new Callback<RekanBisnis>() {
                 @Override
                 public void onResponse(Call<RekanBisnis> call, Response<RekanBisnis> response) {
