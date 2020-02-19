@@ -63,6 +63,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
     private ArrayList<SectionDataModel> allSampleData;
     HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
     int maxSlide;
+    ProgressDialog progress;
 
     RecyclerView search;
     @Override
@@ -90,7 +91,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
         content = getIntent().getStringExtra("content");
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -102,7 +103,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
 //                    if (position < slider.size()) {
@@ -115,6 +116,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -127,7 +129,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
@@ -138,6 +140,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -149,7 +152,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
@@ -160,6 +163,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -171,7 +175,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
@@ -182,6 +186,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -193,7 +198,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
@@ -204,6 +209,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -215,7 +221,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
-                    progress.dismiss();
+
                     List<Datum> slider = response.body().getData();
                     maxSlide = slider.size();
                     for (int i = 0; i < slider.size(); i++) {
@@ -226,6 +232,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
 
                 @Override
                 public void onFailure(Call<Slider> call, Throwable t) {
+                    progress.dismiss();
                 }
             });
 
@@ -243,8 +250,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             @Override
             public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
                 List<Data> maxi = response.body().getData();
-                progress.dismiss();
                 search.setAdapter(new ListMaxiAdapter(maxi, getBaseContext()));
+                progress.dismiss();
             }
 
             @Override
