@@ -69,7 +69,6 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         }
 
         title                   = findViewById(R.id.title);
-        inputNamaBank           = findViewById(R.id.inputNamaBank);
         inputNoRekening         = findViewById(R.id.inputNoRekening);
         inputCabangBank         = findViewById(R.id.inputCabangBank);
         inputANRekening         = findViewById(R.id.inputANRekening);

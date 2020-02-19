@@ -3,6 +3,7 @@ package com.dicicilaja.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -23,7 +24,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceKodeBank;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.KodeBank.KodeBank;
+import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.SimpleDateFormat;
@@ -45,13 +50,15 @@ import retrofit2.Response;
 
 public class UbahAxiActivity extends AppCompatActivity {
 
-    MaterialEditText inputNamaLengkap, inputTempatLahir, inputTanggal, inputNoHp, inputEmail, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputProvinsi, inputKodepos, inputNPWP, inputNamaBank, inputCabang, inputRekening, inputAN, inputKotaBank;
-    MaterialSpinner jenisKelamin;
+    MaterialEditText inputNamaLengkap, inputTempatLahir, inputTanggal, inputNoHp, inputEmail, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputProvinsi, inputKodepos, inputNPWP, inputCabang, inputRekening, inputAN, inputKotaBank;
+    MaterialSpinner jenisKelamin, kodeBank;
     Button save;
     String apiKey;
+    InterfaceKodeBank apiService;
 
     SessionManager session;
-    String namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank;
+    ProgressDialog progress;
+    String namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk, kdBank,NPWP,namaBank,cabang,rekening,AN,kotaBank;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +91,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 //        inputProvinsi       = findViewById(R.id.inputProvinsi);
 //        inputKodepos        = findViewById(R.id.inputKodepos);
         inputNPWP           = findViewById(R.id.inputNPWP);
-        inputNamaBank       = findViewById(R.id.inputNamaBank);
+        kodeBank            = findViewById(R.id.spinnerKodeBank);
         inputCabang         = findViewById(R.id.inputCabang);
         inputRekening       = findViewById(R.id.inputRekening);
         inputAN             = findViewById(R.id.inputAN);
@@ -103,12 +110,17 @@ public class UbahAxiActivity extends AppCompatActivity {
 //        inputProvinsi.setText(getIntent().getStringExtra("api_provinsi"));
 //        inputKodepos.setText(getIntent().getStringExtra("api_kodepos"));
         inputNPWP.setText(getIntent().getStringExtra("api_no_npwp"));
-        inputNamaBank.setText(getIntent().getStringExtra("api_nama_bank"));
+//        kodeBank.setSelection(Integer.parseInt(getIntent().getStringExtra("api_kode_bank")));
         inputCabang.setText(getIntent().getStringExtra("api_cabang_bank"));
         inputRekening.setText(getIntent().getStringExtra("api_no_rekening"));
         inputAN.setText(getIntent().getStringExtra("api_an_rekening"));
         inputKotaBank.setText(getIntent().getStringExtra("api_kota_bank"));
         jenisKelamin.setSelection(Integer.parseInt(getIntent().getStringExtra("api_jk")));
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
+
 
         inputTanggal.setKeyListener(null);
         inputTanggal.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +133,8 @@ public class UbahAxiActivity extends AppCompatActivity {
         });
         final List<String> JK_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
+        final List<String> KODEBANK_ITEMS = new ArrayList<>();
+        final HashMap<Integer, String> KODEBANK_DATA = new HashMap<Integer, String>();
 
         JK_ITEMS.clear();
         JK_DATA.clear();
@@ -130,10 +144,81 @@ public class UbahAxiActivity extends AppCompatActivity {
         JK_ITEMS.add("Laki-laki");
         JK_ITEMS.add("Perempuan");
 
-
         ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JK_ITEMS);
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         jenisKelamin.setAdapter(tenor_adapter);
+
+        apiService = ApiClient2.getClient().create(InterfaceKodeBank.class);
+
+        KODEBANK_DATA.clear();
+        KODEBANK_ITEMS.clear();
+
+        ArrayAdapter<String> bank_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KODEBANK_ITEMS);
+        bank_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kodeBank.setAdapter(bank_adapter);
+
+        progress.show();
+        Call<KodeBank> getKodeBank = apiService.getKodeBank();
+        getKodeBank.enqueue(new Callback<KodeBank>() {
+            @Override
+            public void onResponse(Call<KodeBank> call, Response<KodeBank> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().getData().size() > 0) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                KODEBANK_DATA.put(i+1, String.valueOf(response.body().getData().get(i).getId()));
+                                KODEBANK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                            }
+                            progress.dismiss();
+                        } else {
+                            KODEBANK_DATA.clear();
+                            KODEBANK_ITEMS.clear();
+                            progress.dismiss();
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahAxiActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data bank belum tersedia, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    } catch (Exception ex) { }
+
+                    ArrayAdapter<String> bank_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, KODEBANK_ITEMS);
+                    bank_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    kodeBank.setAdapter(bank_adapter);
+                } else {
+                    KODEBANK_DATA.clear();
+                    KODEBANK_ITEMS.clear();
+                    progress.dismiss();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahAxiActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data bank gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KodeBank> call, Throwable t) {
+                progress.dismiss();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahAxiActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Data bank gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                alertDialog.show();
+            }
+        });
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +238,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 //                    provinsi = inputProvinsi.getText().toString();
 //                    kodepos = inputKodepos.getText().toString();
                     NPWP = inputNPWP.getText().toString();
-                    namaBank = inputNamaBank.getText().toString();
+                    kdBank = KODEBANK_DATA.get(kodeBank.getSelectedItemPosition());
                     cabang = inputCabang.getText().toString();
                     rekening = inputRekening.getText().toString();
                     AN = inputAN.getText().toString();
@@ -161,8 +246,8 @@ public class UbahAxiActivity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank)) {
-                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
+                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,kdBank,cabang,rekening,AN,kotaBank)) {
+                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,kdBank,cabang,rekening,AN,kotaBank);
 
                 }
             }
@@ -178,7 +263,7 @@ public class UbahAxiActivity extends AppCompatActivity {
             final String alamat,
             final String jk,
             final String NPWP,
-            final String namaBank,
+            final String kdBank,
             final String cabang,
             final String rekening,
             final String AN,
@@ -197,7 +282,7 @@ public class UbahAxiActivity extends AppCompatActivity {
                 alamat,
                 jk,
                 NPWP,
-                namaBank,
+                kdBank,
                 cabang,
                 rekening,
                 AN,
@@ -218,12 +303,12 @@ public class UbahAxiActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UbahAxi> call, Throwable t) {
-                Log.d("MANTAP", "onFailure: " + t.getMessage());
+                Log.d("Log", "onFailure: " + t.getMessage());
             }
         });
     }
 
-    private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String jk, String NPWP, String namaBank, String cabang, String rekening, String AN, String kotaBank) {
+    private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String jk, String NPWP, String kdBank, String cabang, String rekening, String AN, String kotaBank) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
@@ -393,13 +478,13 @@ public class UbahAxiActivity extends AppCompatActivity {
             return false;
         }
 
-        if(namaBank == null || namaBank.trim().length() == 0 || namaBank.equals("0")) {
+        if(kdBank == null || kdBank.trim().length() == 0 || kdBank.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan nama bank");
+            alertDialog.setMessage("Pilih nama bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputNamaBank);
+                    requestFocus(kodeBank);
                 }
             });
             alertDialog.show();
