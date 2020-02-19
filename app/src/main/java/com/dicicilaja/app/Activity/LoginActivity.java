@@ -424,7 +424,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
 
-            case "basic":
+            case "nasabah":
                 Intent intent3 = new Intent(getBaseContext(), MarketplaceActivity.class);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent3);

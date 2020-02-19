@@ -13,7 +13,6 @@
             <item
                 android:id="@+id/navbar_mitra"
                 android:title="Daftar Kemitraan"/>
-
             <item
                 android:id="@+id/navbar_simulasi"
                 android:title="Simulasi Cicilan"/>
@@ -30,9 +29,9 @@
                 android:id="@+id/navbar_branch"
                 android:title="Kantor Cabang"/>
             <item
-                android:id="@+id/navbar_bantuan"
-                android:title="Bantuan"/>
-            <item
                 android:id="@+id/navbar_keluar"
                 android:title="Keluar"/>
+            <item
+                android:id="@+id/navbar_bantuan"
+                android:title="Bantuan"/>
 </menu>

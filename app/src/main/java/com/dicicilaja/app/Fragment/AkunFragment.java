@@ -23,6 +23,7 @@ import java.util.List;
 import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.AxiDashboardActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.ProfileCustomerActivity;
@@ -33,6 +34,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.app.Adapter.FavoriteAllAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
+import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.squareup.picasso.Picasso;
@@ -198,8 +200,53 @@ public class AkunFragment extends Fragment {
         alihkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AxiDashboardActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Konfirmasi");
+
+                // Setting Dialog Message
+                alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+
+
+                // Setting Positive "Yes" Button
+                alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        progress.show();
+                        InterfaceLogout apiService =
+                                ApiClient.getClient().create(InterfaceLogout.class);
+
+                        Call<Logout> call2 = apiService.logout(apiKey);
+                        call2.enqueue(new Callback<Logout>() {
+                            @Override
+                            public void onResponse(Call<Logout> call, Response<Logout> response2) {
+                                try {
+                                    if (response2.isSuccessful()) {
+                                        progress.hide();
+                                        session.logoutUser();
+                                    }
+                                } catch (Exception ex) {
+                                    progress.hide();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Logout> call, Throwable t) {
+                                progress.hide();
+                            }
+                        });
+                    }
+                });
+
+                // Setting Negative "NO" Button
+                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
             }
         });
 

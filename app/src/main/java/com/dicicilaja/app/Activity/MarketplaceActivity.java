@@ -1,13 +1,20 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
+import com.dicicilaja.app.Inbox.Data.Popup.Datum;
+import com.dicicilaja.app.Inbox.Data.Popup.Popup;
+import com.dicicilaja.app.Inbox.UI.PopUpActivity;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
@@ -26,6 +33,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +45,8 @@ import com.dicicilaja.app.WebView.AboutDicicilajaActivity;
 import com.dicicilaja.app.WebView.AboutMaxiMarketplaceActivity;
 import com.dicicilaja.app.WebView.InfoActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -54,8 +64,13 @@ public class MarketplaceActivity extends AppCompatActivity
     SessionManager session;
     String apiKey;
     private ViewPagerAdapter viewPagerAdapter;
-    ProgressDialog progress;
+    ProgressDialog progress, progress_popup;
     NavigationView navigationView;
+    Dialog InAppDialog;
+    com.dicicilaja.app.Inbox.Network.ApiService apiService4;
+    List<Datum> dataPopups;
+    ImageView thumbnail;
+    TextView detail, nanti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +92,7 @@ public class MarketplaceActivity extends AppCompatActivity
             menu.findItem(R.id.navbar_keluar).setVisible(false);
         }
 
-
+        apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -348,6 +363,7 @@ public class MarketplaceActivity extends AppCompatActivity
             }
         }
 
+        inAppDialog();
 
 //
 //        viewPager = findViewById(R.id.pager);
@@ -548,5 +564,93 @@ public class MarketplaceActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void inAppDialog() {
+        progress_popup = new ProgressDialog(this);
+        progress_popup.setMessage("Sedang memuat data...");
+        progress_popup.setCanceledOnTouchOutside(false);
+        progress_popup.show();
+
+        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        popupCall.enqueue(new Callback<Popup>() {
+            @Override
+            public void onResponse(Call<Popup> call, Response<Popup> response) {
+                progress_popup.hide();
+                if (response.isSuccessful()) {
+                    dataPopups = response.body().getData();
+                    if (dataPopups.size() != 0) {
+                        try {
+                            InAppDialog = new Dialog(MarketplaceActivity.this);
+                            InAppDialog.setContentView(R.layout.in_app_dialog);
+                            InAppDialog.setCanceledOnTouchOutside(false);
+                            InAppDialog.setCancelable(false);
+                            InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                            thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+
+
+                            Log.d("POPUP", "onResponse: " + dataPopups.get(0).getAttributes().getImage());
+                            Glide.with(MarketplaceActivity.this)
+                                    .load(dataPopups.get(0).getAttributes().getImage())
+                                    .fitCenter()
+                                    .into(thumbnail);
+
+
+                            detail = InAppDialog.findViewById(R.id.detail);
+                            nanti = InAppDialog.findViewById(R.id.nanti);
+//                            close = InAppDialog.findViewById(R.id.close);
+
+                            detail.setEnabled(true);
+                            nanti.setEnabled(true);
+//                            close.setEnabled(true);
+
+                            detail.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                    Intent intent = new Intent(getBaseContext(), PopUpActivity.class);
+                                    intent.putExtra("url", dataPopups.get(0).getAttributes().getUrl());
+                                    startActivity(intent);
+                                }
+                            });
+
+                            nanti.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    InAppDialog.cancel();
+                                }
+                            });
+
+//                            close.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    InAppDialog.cancel();
+//                                }
+//                            });
+
+                            InAppDialog.show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                    progress_popup.hide();
+                } else {
+                    progress_popup.hide();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Popup> call, Throwable t) {
+                progress_popup.hide();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (progress_popup != null && progress_popup.isShowing()) {
+            progress_popup.dismiss();
+        }
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -65,7 +67,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AllProduk> call, Throwable t) {
-
+                progress.dismiss();
+                Log.d("MANTAP", "onFailure: " + t.getMessage());
             }
         });
     }

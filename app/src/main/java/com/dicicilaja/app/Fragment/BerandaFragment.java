@@ -40,6 +40,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.Adapter.BerandaImageSliderAdapter;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.Session.SessionManager;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
@@ -200,7 +201,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         dana_multiguna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AjukanPengajuanAxiActivity.class);
+                Intent intent = new Intent(getContext(), OrderInActivity.class);
                 startActivity(intent);
             }
         });

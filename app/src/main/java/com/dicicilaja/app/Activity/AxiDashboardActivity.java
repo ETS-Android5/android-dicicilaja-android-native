@@ -981,4 +981,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (progress_popup != null && progress_popup.isShowing()) {
+            progress_popup.dismiss();
+        }
+    }
 }

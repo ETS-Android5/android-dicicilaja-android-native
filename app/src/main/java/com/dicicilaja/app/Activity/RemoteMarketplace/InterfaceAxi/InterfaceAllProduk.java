@@ -8,9 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 
 public interface InterfaceAllProduk {
-    @Headers({
-            "Accept: application/json",
-    })
     @GET("bffnew/product")
     Call<AllProduk> getProduct();
 }

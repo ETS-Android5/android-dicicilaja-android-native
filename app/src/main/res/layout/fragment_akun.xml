@@ -143,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:text="Alihkan ke akun AXI"
+                        android:text="Keluar"
                         android:backgroundTint="@color/colorAccent"
                         android:textColor="@color/colorWhite"/>
                 </LinearLayout>
