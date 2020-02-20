@@ -69,7 +69,7 @@ public class OtherFragment extends Fragment implements ProfileCallback {
     }
 
     private void setData(AxiProfile data) {
-        AxiProfile.DataBean.LainnyaBean other = data.getData().getLainnya();
+        AxiProfile.Data.Lainnya other = data.getData().getLainnya();
 
         if (other.getTanggalPendaftaran() != null) {
             tvRegisterDate.setText(Tools.formatDateWithoutHour(other.getTanggalPendaftaran()));
@@ -78,7 +78,7 @@ public class OtherFragment extends Fragment implements ProfileCallback {
         }
 
         if (other.getJatuhTempoKeanggotaan() != null) {
-            tvDueDate.setText(Tools.formatMount(other.getJatuhTempoKeanggotaan()));
+            tvDueDate.setText(Tools.formatMonth(other.getJatuhTempoKeanggotaan()));
         } else {
             tvDueDate.setText("null");
         }

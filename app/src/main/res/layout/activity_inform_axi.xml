@@ -50,7 +50,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:adjustViewBounds="false"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/dicicilaja" />
 
                     <ImageButton
                         android:id="@+id/ib_notification"

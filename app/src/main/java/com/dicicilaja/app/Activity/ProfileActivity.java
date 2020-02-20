@@ -131,6 +131,8 @@ public class ProfileActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
+        String role = session.getRole();
+
         Call<ProfileAxi> callProfile;
 
         InterfaceProfile apiService = ApiClient2.getClient().create(InterfaceProfile.class);
@@ -139,8 +141,8 @@ public class ProfileActivity extends AppCompatActivity {
         callProfile.enqueue(new Callback<ProfileAxi>() {
             @Override
             public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
-                Log.d("PROFILE::::", response.body().getData().toString());
-                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
+//                Log.d("PROFILE::::", response.body().getData().toString());
+//                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
                 if( response.body() == null ) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
 

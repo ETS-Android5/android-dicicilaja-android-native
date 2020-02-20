@@ -18,34 +18,34 @@ public class ProfileSingleton {
     private ProfileSingleton() {
     }
 
-    AxiProfile.DataBean.ProfileBean profile;
+    AxiProfile.Data.Profile profile;
 
     /* InformAxi */
-    AxiProfile.DataBean.BenefitBean benefit;
+    AxiProfile.Data.Benefit benefit;
 
-    AxiProfile.DataBean.LainnyaBean other;
+    AxiProfile.Data.Lainnya other;
 
-    public AxiProfile.DataBean.ProfileBean getProfile() {
+    public AxiProfile.Data.Profile getProfile() {
         return profile;
     }
 
-    public void setProfile(AxiProfile.DataBean.ProfileBean profile) {
+    public void setProfile(AxiProfile.Data.Profile profile) {
         this.profile = profile;
     }
 
-    public AxiProfile.DataBean.BenefitBean getBenefit() {
+    public AxiProfile.Data.Benefit getBenefit() {
         return benefit;
     }
 
-    public void setBenefit(AxiProfile.DataBean.BenefitBean benefit) {
+    public void setBenefit(AxiProfile.Data.Benefit benefit) {
         this.benefit = benefit;
     }
 
-    public AxiProfile.DataBean.LainnyaBean getOther() {
+    public AxiProfile.Data.Lainnya getOther() {
         return other;
     }
 
-    public void setOther(AxiProfile.DataBean.LainnyaBean other) {
+    public void setOther(AxiProfile.Data.Lainnya other) {
         this.other = other;
     }
 

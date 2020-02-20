@@ -75,7 +75,7 @@ public class IncentiveActivity extends AppCompatActivity {
         }
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 

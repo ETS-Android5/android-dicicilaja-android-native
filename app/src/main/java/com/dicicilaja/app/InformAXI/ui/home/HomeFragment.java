@@ -3,6 +3,7 @@ package com.dicicilaja.app.InformAXI.ui.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +45,12 @@ import com.dicicilaja.app.InformAXI.model.AxiHome;
 import com.dicicilaja.app.InformAXI.model.Image;
 import com.dicicilaja.app.InformAXI.network.NetworkClient;
 import com.dicicilaja.app.InformAXI.network.NetworkInterface;
+import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
 import com.dicicilaja.app.InformAXI.ui.search.SearchActivity;
 import com.dicicilaja.app.InformAXI.utils.DatePickerRange;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +85,8 @@ public class HomeFragment extends Fragment {
     private RelativeLayout filterContainer;
     private ImageView icCheck;
     private RelativeLayout noDataContainer;
+    private Dialog dialog;
+    private DatePickerRange dp;
 
     private List<Image> imageList;
     private List<AxiHome.DataBean> axiList;
@@ -96,6 +102,7 @@ public class HomeFragment extends Fragment {
     private String endDateStr = null;
 
     private SharedPreferences pref;
+    private SessionManager session;
 
     private CompositeDisposable mCompositeDisposable;
     private NetworkInterface jsonApi;
@@ -147,6 +154,7 @@ public class HomeFragment extends Fragment {
         filterContainer = view.findViewById(R.id.filter_container);
         icCheck = view.findViewById(R.id.ic_check);
         noDataContainer = view.findViewById(R.id.no_data_container);
+        dp = new DatePickerRange();
 
         imageList = new ArrayList<>();
         axiList = new ArrayList<>();
@@ -154,16 +162,21 @@ public class HomeFragment extends Fragment {
         imageAdapter = new ImageSliderAdapter(imageList, requireContext());
         listAdapter = new AxiHomeAdapter(axiList, requireContext());
 
-        pref = requireContext().getSharedPreferences("Pref", Context.MODE_PRIVATE);
-        if (!pref.getString("branch_id", "").isEmpty())
-            branchId = Integer.valueOf(pref.getString("branch_id", ""));
+        session = new SessionManager(requireContext());
+        branchId = Integer.valueOf(session.getBranchId());
+        branchName = session.getBranch();
 
-        if (!pref.getString("branch_name", "").isEmpty())
-            branchName = pref.getString("branch_name", "");
+        //pref = requireContext().getSharedPreferences("DicicilajaPref", Context.MODE_PRIVATE);
+        //if (!pref.getString("branch_id", "").isEmpty())
+        //    branchId = Integer.valueOf(session.getBranchId());
+
+        //if (!pref.getString("branch_name", "").isEmpty())
+        //    branchName = pref.getString("branch_name", "");
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(requireContext());
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
+
     }
 
     /* Init Image Slider */
@@ -253,6 +266,7 @@ public class HomeFragment extends Fragment {
             if (isRefresh) {
                 axiList = new ArrayList<>();
                 isRefresh = false;
+                listAdapter.notifyDataSetChanged();
             }
 
             axiPerBranch = data.getMeta().getTotal();
@@ -276,10 +290,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void showDialogFilter() {
-        final Dialog dialog = new Dialog(requireContext(), android.R.style.Theme_Light);
+        dialog = new Dialog(requireContext(), android.R.style.Theme_Light);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(getLayoutInflater().inflate(R.layout.search_filter, null));
+        dialog.setOnKeyListener((dialog, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                isClicked = false;
+                dialog.dismiss();
+            }
+            return true;
+        });
 
         ImageView icClose = dialog.findViewById(R.id.ic_close);
         RadioGroup rgDate = dialog.findViewById(R.id.rg_date);
@@ -299,13 +320,16 @@ public class HomeFragment extends Fragment {
 
         /* Check Checked Radio Button */
         if (date == null) {
+            isClicked = false;
             rbNew.setChecked(true);
         } else {
             switch (date) {
                 case NEW_DATE:
+                    isClicked = false;
                     rbNew.setChecked(true);
                     break;
                 case OLD_DATE:
+                    isClicked = false;
                     rbOld.setChecked(true);
                     break;
                 case CHOOSE_DATE:
@@ -332,22 +356,38 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        icClose.setOnClickListener(view -> dialog.dismiss());
+        icClose.setOnClickListener(view -> {
+            isClicked = false;
+            dialog.dismiss();
+            ((InformAxiActivity) requireActivity()).isDialogShowing = false;
+        });
 
         rgDate.setOnCheckedChangeListener((radioGroup, i) -> {
             switch (i) {
                 case R.id.rb_new:
                     date = NEW_DATE;
+                    isClicked = false;
                     rbChooseDate.setText("Pilih Tanggal");
                     break;
                 case R.id.rb_old:
                     date = OLD_DATE;
+                    isClicked = false;
                     rbChooseDate.setText("Pilih Tanggal");
                     break;
                 case R.id.rb_choose_date:
                     date = CHOOSE_DATE;
-                    showDatePicker(rbNew, rbChooseDate);
+                    if (!isClicked) {
+                        isClicked = true;
+                        showDatePicker(rbNew, rbChooseDate);
+                    }
                     break;
+            }
+        });
+
+        rbChooseDate.setOnClickListener(v -> {
+            if (!isClicked) {
+                isClicked = true;
+                showDatePicker(rbNew, rbChooseDate);
             }
         });
 
@@ -374,11 +414,13 @@ public class HomeFragment extends Fragment {
         });
 
         dialog.show();
+        ((InformAxiActivity) requireActivity()).isDialogShowing = true;
     }
+
+    private boolean isClicked = false;
 
     private void showDatePicker(final RadioButton rbNew, final RadioButton rbChooseDate) {
         Tools.showLongToast(requireContext(), "Long press on the start date and drag to the end date");
-        DatePickerRange dp = new DatePickerRange();
         dp.setCallback(new DatePickerRange.Callback() {
             @Override
             public void onCancelled() {
@@ -388,6 +430,7 @@ public class HomeFragment extends Fragment {
                 startDateStr = null;
                 endDate = null;
                 rbNew.setChecked(true);
+                isClicked = false;
             }
 
             @Override
@@ -397,6 +440,7 @@ public class HomeFragment extends Fragment {
                 startDate = Tools.formatDateParams(selectedDate.getStartDate().getTime());
                 endDate = Tools.formatDateParams(selectedDate.getEndDate().getTime());
                 doSpanText(String.format(new Locale("in", "ID"), "%s - %s", startDateStr, endDateStr), rbChooseDate);
+                isClicked = false;
             }
         });
 
@@ -421,5 +465,4 @@ public class HomeFragment extends Fragment {
         b.append(s);
         rbChooseDate.setText(b, RadioButton.BufferType.SPANNABLE);
     }
-
 }

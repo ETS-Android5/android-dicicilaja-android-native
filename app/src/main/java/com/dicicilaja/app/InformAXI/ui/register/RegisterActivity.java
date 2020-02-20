@@ -19,6 +19,7 @@ import com.dicicilaja.app.InformAXI.network.NetworkClient;
 import com.dicicilaja.app.InformAXI.network.NetworkInterface;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private NetworkInterface jsonApi;
 
     private SharedPreferences pref;
+    private SessionManager session;
 
     private int branchId = -1;
 
@@ -66,12 +68,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         regAdapter = new AxiRegisterAdapter(regList, this);
 
-        pref = getSharedPreferences("Pref", Context.MODE_PRIVATE);
-        if (!pref.getString("branch_id", "").isEmpty())
-            branchId = Integer.valueOf(pref.getString("branch_id", ""));
+        //pref = getSharedPreferences("Pref", Context.MODE_PRIVATE);
+        //if (!pref.getString("branch_id", "").isEmpty())
+        //    branchId = Integer.valueOf(pref.getString("branch_id", ""));
+
+        session = new SessionManager(this);
+        branchId = Integer.valueOf(session.getBranchId());
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 

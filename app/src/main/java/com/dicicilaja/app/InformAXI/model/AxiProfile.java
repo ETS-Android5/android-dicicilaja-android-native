@@ -10,55 +10,59 @@ import com.google.gson.annotations.SerializedName;
 public class AxiProfile {
 
     @SerializedName("data")
-    private DataBean data;
+    private Data data;
 
-    public DataBean getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class Data {
         @SerializedName("profile")
-        private ProfileBean profile;
+        private Profile profile;
         @SerializedName("benefit")
-        private BenefitBean benefit;
+        private Benefit benefit;
         @SerializedName("lainnya")
-        private LainnyaBean lainnya;
+        private Lainnya lainnya;
 
-        public ProfileBean getProfile() {
+        public Profile getProfile() {
             return profile;
         }
 
-        public void setProfile(ProfileBean profile) {
+        public void setProfile(Profile profile) {
             this.profile = profile;
         }
 
-        public BenefitBean getBenefit() {
+        public Benefit getBenefit() {
             return benefit;
         }
 
-        public void setBenefit(BenefitBean benefit) {
+        public void setBenefit(Benefit benefit) {
             this.benefit = benefit;
         }
 
-        public LainnyaBean getLainnya() {
+        public Lainnya getLainnya() {
             return lainnya;
         }
 
-        public void setLainnya(LainnyaBean lainnya) {
+        public void setLainnya(Lainnya lainnya) {
             this.lainnya = lainnya;
         }
 
-        public static class ProfileBean {
+        public static class Profile {
             @SerializedName("namaAXI")
             private String namaAXI;
             @SerializedName("idAXI")
             private int idAXI;
             @SerializedName("kategoriAXI")
             private String kategoriAXI;
+            @SerializedName("AXImentor")
+            private String AXImentor;
+            @SerializedName("nomorHandphone")
+            private String nomorHandphone;
             @SerializedName("namaCabang")
             private String namaCabang;
             @SerializedName("kodeCabang")
@@ -90,6 +94,22 @@ public class AxiProfile {
                 this.kategoriAXI = kategoriAXI;
             }
 
+            public String getAXImentor() {
+                return AXImentor;
+            }
+
+            public void setAXImentor(String AXImentor) {
+                this.AXImentor = AXImentor;
+            }
+
+            public String getNomorHandphone() {
+                return nomorHandphone;
+            }
+
+            public void setNomorHandphone(String nomorHandphone) {
+                this.nomorHandphone = nomorHandphone;
+            }
+
             public String getNamaCabang() {
                 return namaCabang;
             }
@@ -115,36 +135,32 @@ public class AxiProfile {
             }
         }
 
-        public static class BenefitBean {
+        public static class Benefit {
             @SerializedName("Point_reward")
-            private int pointReward = -1;
+            private int PointReward;
             @SerializedName("Point_trip")
-            private int pointTrip = -1;
+            private int PointTrip;
             @SerializedName("FIDCar")
             private String FIDCar;
             @SerializedName("FIDMcy")
             private String FIDMcy;
             @SerializedName("matriksAXI")
             private String matriksAXI;
-            @SerializedName("linkIntensifMotor")
-            private String linkIntensifMotor;
-            @SerializedName("linkIntensifMobil")
-            private String linkIntensifMobil;
 
             public int getPointReward() {
-                return pointReward;
+                return PointReward;
             }
 
-            public void setPointReward(int pointReward) {
-                this.pointReward = pointReward;
+            public void setPointReward(int PointReward) {
+                this.PointReward = PointReward;
             }
 
             public int getPointTrip() {
-                return pointTrip;
+                return PointTrip;
             }
 
-            public void setPointTrip(int pointTrip) {
-                this.pointTrip = pointTrip;
+            public void setPointTrip(int PointTrip) {
+                this.PointTrip = PointTrip;
             }
 
             public String getFIDCar() {
@@ -170,25 +186,9 @@ public class AxiProfile {
             public void setMatriksAXI(String matriksAXI) {
                 this.matriksAXI = matriksAXI;
             }
-
-            public String getLinkIntensifMotor() {
-                return linkIntensifMotor;
-            }
-
-            public void setLinkIntensifMotor(String linkIntensifMotor) {
-                this.linkIntensifMotor = linkIntensifMotor;
-            }
-
-            public String getLinkIntensifMobil() {
-                return linkIntensifMobil;
-            }
-
-            public void setLinkIntensifMobil(String linkIntensifMobil) {
-                this.linkIntensifMobil = linkIntensifMobil;
-            }
         }
 
-        public static class LainnyaBean {
+        public static class Lainnya {
             @SerializedName("tanggalPendaftaran")
             private String tanggalPendaftaran;
             @SerializedName("jatuhTempoKeanggotaan")

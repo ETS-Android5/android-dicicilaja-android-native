@@ -57,7 +57,7 @@ public class GatheringActivity extends AppCompatActivity {
         pbGathering = findViewById(R.id.pb_gathering);
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 

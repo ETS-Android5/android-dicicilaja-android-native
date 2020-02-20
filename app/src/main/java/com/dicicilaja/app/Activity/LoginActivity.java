@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                if(response.isSuccessful()) {
+                if(response.code() == 200) {
                     progress.dismiss();
                     Login resObj = response.body();
                     String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -243,6 +243,7 @@ public class LoginActivity extends AppCompatActivity {
                             resObj.getName(),
                             photo,
                             resObj.getBranch(),
+                            resObj.getBranchId(),
                             area,
                             zipcode,
                             refreshedToken,
@@ -415,7 +416,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
-            case "sh":
+            case "cro":
                 Intent intent2 = new Intent(getBaseContext(), InformAxiActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent2);

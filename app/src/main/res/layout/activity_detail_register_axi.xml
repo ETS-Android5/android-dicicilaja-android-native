@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InformAXI.ui.register.RegisterActivity">
+    tools:context=".InformAXI.ui.register.DetailRegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,15 +16,32 @@
         app:titleTextColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_register"
+        android:id="@+id/rv_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ProgressBar
-        android:id="@+id/pb_register"
+        android:id="@+id/pb_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/empty_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="Data Kosong" />
+
+    </RelativeLayout>
 
 </LinearLayout>

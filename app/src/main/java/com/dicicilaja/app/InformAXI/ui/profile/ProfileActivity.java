@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         vpProfile.setAdapter(adapter);
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 

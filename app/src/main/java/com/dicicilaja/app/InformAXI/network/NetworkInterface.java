@@ -18,10 +18,10 @@ import retrofit2.http.Query;
 
 public interface NetworkInterface {
 
-//    @GET("v2/profile/axi/list")
-//    Observable<AxiRegListDetail>
-//    getRegListDetail(@Query("date") String date,
-//                     @Query("cabang_id") int branchId);
+    @GET("v2/profile/axi/list")
+    Observable<AxiHome>
+    getRegListDetail(@Query("date") String date,
+                     @Query("cabang_id") int branchId);
 
     /**
      * For testing purposes only
@@ -59,7 +59,8 @@ public interface NetworkInterface {
                      @Query("from") String from,
                      @Query("to") String to,
                      @Query("page") int page,
-                     @Query("all") String all);
+                     @Query("all") String all,
+                     @Query("cabang_id") int branchId);
 
     /**
      * Filter in search page
@@ -75,7 +76,8 @@ public interface NetworkInterface {
     searchWithFilter(@Query("status") String status,
                      @Query("date") String date,
                      @Query("page") int page,
-                     @Query("all") String all);
+                     @Query("all") String all,
+                     @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/detail-intensif")
     Observable<Incentive>
@@ -127,7 +129,9 @@ public interface NetworkInterface {
 
     @GET("v2/profile/axi/search")
     Observable<AxiHome>
-    doSearch(@Query("page") int page, @Query("all") String keyword);
+    doSearch(@Query("page") int page,
+             @Query("all") String keyword,
+             @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/registration")
     Observable<AxiRegister>
