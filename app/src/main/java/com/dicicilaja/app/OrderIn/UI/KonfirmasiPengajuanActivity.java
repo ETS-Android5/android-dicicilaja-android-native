@@ -405,7 +405,13 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         session.getKtp_image(),
                                         session.getBpkb(),
                                         session.getYear(),
-                                        session.getQty()
+                                        session.getQty(),
+                                        session.getTempat_lahir(),
+                                        session.getTanggal_lahir(),
+                                        session.getNama_ibu_kandung(),
+                                        session.getTanggal_janji_survey(),
+                                        session.getPunya_npwp_id(),
+                                        session.getPekerjaan_id()
                                 );
 
                                 call1.enqueue(new Callback<Transaksi>() {
