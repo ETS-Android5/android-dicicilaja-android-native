@@ -172,7 +172,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
         SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
         snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
-        InterfaceDetailProgramMaxi apiService = com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceDetailProgramMaxi.class);
+        InterfaceDetailProgramMaxi apiService = com.dicicilaja.app.API.Client.ApiClient.getClient().create(InterfaceDetailProgramMaxi.class);
 
         try {
             extra_id = getIntent().getStringExtra("EXTRA_REQUEST_ID");

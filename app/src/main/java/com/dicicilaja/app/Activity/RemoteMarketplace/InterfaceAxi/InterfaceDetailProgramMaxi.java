@@ -15,6 +15,6 @@ public interface InterfaceDetailProgramMaxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("product/{id}")
-    Call<DetailProgramMaxi> getDetail(@Header("Authorization") String apiKey, @Path("id") String id);
+    @GET("product/{subprodukid}")
+    Call<DetailProgramMaxi> getDetail(@Header("Authorization") String apiKey, @Path("subprodukid") String id);
 }
