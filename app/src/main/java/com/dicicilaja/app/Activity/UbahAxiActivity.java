@@ -19,10 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.InformAXI.model.EditShProfile;
+import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
+import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.SimpleDateFormat;
@@ -44,13 +48,19 @@ import retrofit2.Response;
 
 public class UbahAxiActivity extends AppCompatActivity {
 
-    MaterialEditText inputNamaLengkap, inputTempatLahir, inputTanggal, inputNoHp, inputEmail, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputProvinsi, inputKodepos, inputNPWP, inputNamaBank, inputCabang, inputRekening, inputAN, inputKotaBank;
+    MaterialEditText inputNamaLengkap, inputTempatLahir, inputTanggal, inputNoHp, inputEmail, inputAlamat, inputRtRw, inputKelurahan, inputKecamatan, inputProvinsi, inputKodepos, inputNPWP, inputNamaBank, inputCabang, inputRekening, inputAN, inputKotaBank,
+            etName, etPhone, etEmail;
     MaterialSpinner jenisKelamin;
     Button save;
     String apiKey;
 
     SessionManager session;
     String namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank;
+
+    private String role;
+
+    private LinearLayout shEdit, nonShEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +72,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 
         session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
+        role = session.getRole();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -90,24 +101,41 @@ public class UbahAxiActivity extends AppCompatActivity {
         inputKotaBank       = findViewById(R.id.inputKotaBank);
         save                = findViewById(R.id.save);
 
-        inputNamaLengkap.setText(getIntent().getStringExtra("name_user"));
-        inputTempatLahir.setText(getIntent().getStringExtra("api_tempat_lahir"));
-        inputTanggal.setText(getIntent().getStringExtra("api_tanggal_lahir"));
-        inputNoHp.setText(getIntent().getStringExtra("api_no_hp"));
-        inputEmail.setText(getIntent().getStringExtra("api_email"));
-        inputAlamat.setText(getIntent().getStringExtra("api_alamat"));
+        etName              = findViewById(R.id.et_name);
+        etPhone             = findViewById(R.id.et_phone);
+        etEmail             = findViewById(R.id.et_email);
+        shEdit              = findViewById(R.id.sh_edit);
+        nonShEdit           = findViewById(R.id.non_sh_edit);
+
+        if (role != null && role.equalsIgnoreCase("sh")) {
+            etName.setText(getIntent().getStringExtra("name_user"));
+            etPhone.setText(getIntent().getStringExtra("api_no_hp"));
+            etEmail.setText(getIntent().getStringExtra("api_email"));
+
+            nonShEdit.setVisibility(View.GONE);
+            shEdit.setVisibility(View.VISIBLE);
+        } else {
+            nonShEdit.setVisibility(View.VISIBLE);
+            shEdit.setVisibility(View.GONE);
+            inputNamaLengkap.setText(getIntent().getStringExtra("name_user"));
+            inputTempatLahir.setText(getIntent().getStringExtra("api_tempat_lahir"));
+            inputTanggal.setText(getIntent().getStringExtra("api_tanggal_lahir"));
+            inputNoHp.setText(getIntent().getStringExtra("api_no_hp"));
+            inputEmail.setText(getIntent().getStringExtra("api_email"));
+            inputAlamat.setText(getIntent().getStringExtra("api_alamat"));
 //        inputRtRw.setText(getIntent().getStringExtra("api_rt_rw"));
 //        inputKelurahan.setText(getIntent().getStringExtra("api_kelurahan"));
 //        inputKecamatan.setText(getIntent().getStringExtra("api_kecamatan"));
 //        inputProvinsi.setText(getIntent().getStringExtra("api_provinsi"));
 //        inputKodepos.setText(getIntent().getStringExtra("api_kodepos"));
-        inputNPWP.setText(getIntent().getStringExtra("api_no_npwp"));
-        inputNamaBank.setText(getIntent().getStringExtra("api_nama_bank"));
-        inputCabang.setText(getIntent().getStringExtra("api_cabang_bank"));
-        inputRekening.setText(getIntent().getStringExtra("api_no_rekening"));
-        inputAN.setText(getIntent().getStringExtra("api_an_rekening"));
-        inputKotaBank.setText(getIntent().getStringExtra("api_kota_bank"));
-        jenisKelamin.setSelection(Integer.parseInt(getIntent().getStringExtra("api_jk")));
+            inputNPWP.setText(getIntent().getStringExtra("api_no_npwp"));
+            inputNamaBank.setText(getIntent().getStringExtra("api_nama_bank"));
+            inputCabang.setText(getIntent().getStringExtra("api_cabang_bank"));
+            inputRekening.setText(getIntent().getStringExtra("api_no_rekening"));
+            inputAN.setText(getIntent().getStringExtra("api_an_rekening"));
+            inputKotaBank.setText(getIntent().getStringExtra("api_kota_bank"));
+            jenisKelamin.setSelection(Integer.parseInt(getIntent().getStringExtra("api_jk")));
+        }
 
         inputTanggal.setKeyListener(null);
         inputTanggal.setOnClickListener(new View.OnClickListener() {
@@ -134,39 +162,78 @@ public class UbahAxiActivity extends AppCompatActivity {
         tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         jenisKelamin.setAdapter(tenor_adapter);
 
+        InterfaceUbahAxi shApi = ApiClient.getClient().create(InterfaceUbahAxi.class);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    jk = JK_DATA.get(jenisKelamin.getSelectedItemPosition());
-                    namaLengkap = inputNamaLengkap.getText().toString();
-                    tempatLahir = inputTempatLahir.getText().toString();
-                    tanggal = inputTanggal.getText().toString();
-                    noHp = inputNoHp.getText().toString();
-                    email = inputEmail.getText().toString();
-                    alamat = inputAlamat.getText().toString();
+                if (role != null && role.equalsIgnoreCase("sh")) {
+                    if (validateFormSh()) {
+                        shApi.editProfile(
+                                apiKey,
+                                etName.getText().toString(),
+                                etPhone.getText().toString(),
+                                etEmail.getText().toString()
+                        ).enqueue(new Callback<EditShProfile>() {
+                            @Override
+                            public void onResponse(Call<EditShProfile> call, Response<EditShProfile> response) {
+                                if (response != null && response.isSuccessful()) {
+                                    session.editLoginSessionCustomer(etName.getText().toString());
+                                    Tools.showToast(UbahAxiActivity.this, "Data Anda berhasil diubah");
+                                    Intent intent = new Intent(UbahAxiActivity.this, InformAxiActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    Tools.showToast(UbahAxiActivity.this, "Gagal ubah data!");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<EditShProfile> call, Throwable t) {
+                                Tools.showToast(UbahAxiActivity.this, "Gagal ubah data! " + t.getMessage());
+                            }
+                        });
+                    } else {
+                        Tools.showToast(UbahAxiActivity.this, "Harap isi semua field yang di perlukan!");
+                    }
+                } else {
+                    try {
+                        jk = JK_DATA.get(jenisKelamin.getSelectedItemPosition());
+                        namaLengkap = inputNamaLengkap.getText().toString();
+                        tempatLahir = inputTempatLahir.getText().toString();
+                        tanggal = inputTanggal.getText().toString();
+                        noHp = inputNoHp.getText().toString();
+                        email = inputEmail.getText().toString();
+                        alamat = inputAlamat.getText().toString();
 //                    rtRw = inputRtRw.getText().toString();
 //                    kelurahan = inputKelurahan.getText().toString();
 //                    kecamatan = inputKecamatan.getText().toString();
 //                    provinsi = inputProvinsi.getText().toString();
 //                    kodepos = inputKodepos.getText().toString();
-                    NPWP = inputNPWP.getText().toString();
-                    namaBank = inputNamaBank.getText().toString();
-                    cabang = inputCabang.getText().toString();
-                    rekening = inputRekening.getText().toString();
-                    AN = inputAN.getText().toString();
-                    kotaBank = inputKotaBank.getText().toString();
-                } catch (Exception ex) {
+                        NPWP = inputNPWP.getText().toString();
+                        namaBank = inputNamaBank.getText().toString();
+                        cabang = inputCabang.getText().toString();
+                        rekening = inputRekening.getText().toString();
+                        AN = inputAN.getText().toString();
+                        kotaBank = inputKotaBank.getText().toString();
+                    } catch (Exception ex) {
 
-                }
-                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank)) {
-                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
+                    }
+                    if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank)) {
+                        ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,namaBank,cabang,rekening,AN,kotaBank);
 
+                    }
                 }
             }
         });
     }
+
+    private boolean validateFormSh() {
+        return !etName.getText().toString().isEmpty() &&
+                !etPhone.getText().toString().isEmpty() &&
+                !etEmail.getText().toString().isEmpty();
+    }
+
     private void ubahAxi(
             final String apiKey,
             final String namaLengkap,

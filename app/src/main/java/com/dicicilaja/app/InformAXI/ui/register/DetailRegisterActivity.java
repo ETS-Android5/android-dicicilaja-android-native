@@ -2,10 +2,12 @@ package com.dicicilaja.app.InformAXI.ui.register;
 
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -125,6 +127,16 @@ public class DetailRegisterActivity extends AppCompatActivity {
 
     private void onError(Throwable t) {
         Tools.showToast(this, t.getMessage());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

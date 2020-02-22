@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorTanHide"
+            app:contentInsetStartWithNavigation="0dp"
+            app:titleTextColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/ic_close"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_close"
+                    android:tint="@android:color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Filter Pencarian"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Group By" />
+
+        <RadioGroup
+            android:id="@+id/rg_group_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <RadioButton
+                android:id="@+id/rb_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Nama AXI" />
+
+            <RadioButton
+                android:id="@+id/rb_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="AXI ID" />
+
+            <RadioButton
+                android:id="@+id/rb_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Tanggal Pendaftaran" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Sort By" />
+
+        <RadioGroup
+            android:id="@+id/rg_sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <RadioButton
+                android:id="@+id/rb_asc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Ascending" />
+
+            <RadioButton
+                android:id="@+id/rb_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Descending" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@color/colorPacificBlue"
+        android:text="Bersihkan Filter"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_activate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@color/colorPacificBlue"
+        android:text="Aktifkan Filter"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

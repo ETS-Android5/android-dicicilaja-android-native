@@ -72,7 +72,7 @@ import static com.dicicilaja.app.InformAXI.utils.Constants.SUB_PICKER;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemClickListener {
 
     /* UI Region */
     private SwipeRefreshLayout swipeHome;
@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
         imageList = new ArrayList<>();
         axiList = new ArrayList<>();
 
-        imageAdapter = new ImageSliderAdapter(imageList, requireContext());
+        imageAdapter = new ImageSliderAdapter(imageList, requireContext(), this);
         listAdapter = new AxiHomeAdapter(axiList, requireContext());
 
         session = new SessionManager(requireContext());
@@ -213,8 +213,8 @@ public class HomeFragment extends Fragment {
                 if (page < lastPage) {
                     pbHome.setVisibility(View.VISIBLE);
                     page += 1;
-                    if (status != null && date != null)
-                        getHomeDataWithFilter(page);
+                    if (groupBy != null && sortBy != null)
+                        getHomeDataWithFilter();
                     else
                         getHomeData(page);
                 }
@@ -225,20 +225,35 @@ public class HomeFragment extends Fragment {
             isRefresh = true;
             isLastPage = false;
             page = START_PAGE;
-            getHomeData(START_PAGE);
+            if (groupBy != null && sortBy != null)
+                getHomeDataWithFilter();
+            else
+                getHomeData(page);
         });
     }
 
     private void getHomeData(int page) {
         mCompositeDisposable.add(
-                jsonApi.getHome(page, branchId)
+                jsonApi.getHome(page, branchId, 10)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetHomeData, this::onError)
         );
     }
 
-    private void getHomeDataWithFilter(int page) {
+    private void getHomeDataWithFilter() {
+        if (groupBy != null && sortBy != null) {
+            mCompositeDisposable.add(
+                    jsonApi.getHomeDataWithFilter(groupBy, sortBy, 12, page)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::onSuccessGetHomeData, this::onError)
+            );
+        }
+    }
+
+    @Deprecated
+    private void getHomeDataWithFilters(int page) {
         if (startDate != null && endDate != null)
             mCompositeDisposable.add(
                     jsonApi.getHomeWithFilter(status, date, startDate, endDate, page, branchId)
@@ -289,7 +304,122 @@ public class HomeFragment extends Fragment {
         swipeHome.setRefreshing(false);
     }
 
+    private String groupBy, sortBy;
+
     private void showDialogFilter() {
+        dialog = new Dialog(requireContext(), android.R.style.Theme_Light);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(getLayoutInflater().inflate(R.layout.search_home_filter, null));
+        dialog.setOnKeyListener((dialog, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                isClicked = false;
+                dialog.dismiss();
+            }
+            return true;
+        });
+
+        /* UI Region */
+        ImageView icClose = dialog.findViewById(R.id.ic_close);
+        RadioGroup rgGroupBy = dialog.findViewById(R.id.rg_group_by);
+        RadioGroup rgSortBy = dialog.findViewById(R.id.rg_sort_by);
+        RadioButton rbName = dialog.findViewById(R.id.rb_name);
+        RadioButton rbId = dialog.findViewById(R.id.rb_id);
+        RadioButton rbDate = dialog.findViewById(R.id.rb_date);
+        RadioButton rbAsc = dialog.findViewById(R.id.rb_asc);
+        RadioButton rbDesc = dialog.findViewById(R.id.rb_desc);
+        Button btnActivate = dialog.findViewById(R.id.btn_activate);
+        Button btnClear = dialog.findViewById(R.id.btn_clear);
+
+        rgGroupBy.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_name:
+                    groupBy = "nama";
+                    break;
+                case R.id.rb_id:
+                    groupBy = "nomor_axi_id";
+                    break;
+                case R.id.rb_date:
+                    groupBy = "get";
+                    break;
+            }
+        });
+
+        rgSortBy.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_asc:
+                    sortBy = "asc";
+                    break;
+                case R.id.rb_desc:
+                    sortBy = "desc";
+                    break;
+            }
+        });
+
+        if (groupBy != null) {
+            switch (groupBy) {
+                case "nama":
+                    rbName.setChecked(true);
+                    break;
+                case "nomor_axi_id":
+                    rbId.setChecked(true);
+                    break;
+                case "get":
+                    rbDate.setChecked(true);
+                    break;
+            }
+        } else {
+            rbName.setChecked(true);
+            groupBy = "nama";
+        }
+
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "asc":
+                    rbAsc.setChecked(true);
+                    break;
+                case "desc":
+                    rbDesc.setChecked(true);
+                    break;
+            }
+        } else {
+            rbAsc.setChecked(true);
+            sortBy = "asc";
+        }
+
+        icClose.setOnClickListener(v -> {
+            dialog.dismiss();
+            sortBy = null;
+            groupBy = null;
+        });
+
+        btnClear.setOnClickListener(v -> {
+            axiList.clear();
+            listAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+            pbHome.setVisibility(View.VISIBLE);
+            noDataContainer.setVisibility(View.GONE);
+            page = START_PAGE;
+            getHomeData(page);
+            ((InformAxiActivity) requireActivity()).isDialogShowing = false;
+        });
+
+        btnActivate.setOnClickListener(v -> {
+            axiList.clear();
+            listAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+            pbHome.setVisibility(View.VISIBLE);
+            noDataContainer.setVisibility(View.GONE);
+            page = START_PAGE;
+            getHomeDataWithFilter();
+            ((InformAxiActivity) requireActivity()).isDialogShowing = true;
+        });
+
+        dialog.show();
+    }
+
+    @Deprecated
+    private void showDialogFilters() {
         dialog = new Dialog(requireContext(), android.R.style.Theme_Light);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -409,7 +539,7 @@ public class HomeFragment extends Fragment {
             pbHome.setVisibility(View.VISIBLE);
             noDataContainer.setVisibility(View.GONE);
             page = START_PAGE;
-            getHomeDataWithFilter(START_PAGE);
+            getHomeDataWithFilter();
             //icCheck.setVisibility(View.VISIBLE);
         });
 
@@ -464,5 +594,10 @@ public class HomeFragment extends Fragment {
         s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPacificBlue)), 14, tempMessage.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         b.append(s);
         rbChooseDate.setText(b, RadioButton.BufferType.SPANNABLE);
+    }
+
+    @Override
+    public void onItemClick(View view, Image obj) {
+
     }
 }

@@ -61,7 +61,7 @@ public class SessionManager {
 
     public void editLoginSessionCustomer(String name){
         editor.putString("name", name);
-        editor.commit();
+        editor.apply();
     }
 
     public String getUserId() {

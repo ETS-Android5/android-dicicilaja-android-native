@@ -18,6 +18,13 @@ import retrofit2.http.Query;
 
 public interface NetworkInterface {
 
+    @GET("v2/profile/axi/filterDashboard")
+    Observable<AxiHome>
+    getHomeDataWithFilter(@Query("group") String group,
+                          @Query("ot") String orderBy,
+                          @Query("limit") int limit,
+                          @Query("page") int page);
+
     @GET("v2/profile/axi/list")
     Observable<AxiHome>
     getRegListDetail(@Query("date") String date,
@@ -94,6 +101,7 @@ public interface NetworkInterface {
      * @param page
      * @return
      */
+    @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
     getHomeWithFilter(@Query("status") String status,
@@ -111,6 +119,7 @@ public interface NetworkInterface {
      * @param page
      * @return
      */
+    @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
     getHomeWithFilter(@Query("status") String status,
@@ -121,7 +130,8 @@ public interface NetworkInterface {
     @GET("v2/profile/axi/home")
     Observable<AxiHome>
     getHome(@Query("page") int page,
-            @Query("cabang_id") int branchId);
+            @Query("cabang_id") int branchId,
+            @Query("show") int show);
 
     @GET("v2/profile/axi/detail")
     Observable<AxiProfile>

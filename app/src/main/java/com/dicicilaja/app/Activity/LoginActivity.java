@@ -416,7 +416,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
-            case "cro":
+            case "sh":
                 Intent intent2 = new Intent(getBaseContext(), InformAxiActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent2);

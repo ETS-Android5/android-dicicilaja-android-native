@@ -99,7 +99,8 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void loadNavHeader() {
-        tvName.setText(session.getName());
+        String name = session.getName();
+        tvName.setText(name);
 
         String photo = session.getPhoto();
         if (photo != null && !photo.isEmpty())
@@ -244,6 +245,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onResume() {
         super.onResume();
+        loadNavHeader();
 
         if (navItemIndex != 0) {
             navItemIndex = 0;

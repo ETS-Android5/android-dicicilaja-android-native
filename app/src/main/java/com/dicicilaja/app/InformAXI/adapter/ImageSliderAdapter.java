@@ -28,9 +28,10 @@ public class ImageSliderAdapter extends PagerAdapter {
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
-    public ImageSliderAdapter(List<Image> imageList, Context mContext) {
+    public ImageSliderAdapter(List<Image> imageList, Context mContext, OnItemClickListener onItemClickListener) {
         this.imageList = imageList;
         this.mContext = mContext;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -54,12 +55,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         ImageView image = v.findViewById(R.id.image);
         Tools.displayImage(mContext, o.getImageDrawable(), image);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onItemClickListener.onItemClick(view, o);
-            }
-        });
+        v.setOnClickListener(view -> onItemClickListener.onItemClick(view, o));
 
         ((ViewPager) container).addView(v);
 
@@ -72,11 +68,7 @@ public class ImageSliderAdapter extends PagerAdapter {
     }
 
     /* Interface Callback */
-    private interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(View view, Image obj);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
     }
 }
