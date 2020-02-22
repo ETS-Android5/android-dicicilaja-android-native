@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -111,6 +112,12 @@ public class SearchActivity extends AppCompatActivity {
         etSearch = findViewById(R.id.et_search);
         nestedSearch = findViewById(R.id.nested_search);
         pbSearch = findViewById(R.id.pb_search);
+
+        etSearch.requestFocus();
+
+        if (etSearch.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
 
         axiList = new ArrayList<>();
 

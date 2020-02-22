@@ -41,6 +41,8 @@ public class ShProfile {
         private String phone;
         @SerializedName("photo")
         private String photo;
+        @SerializedName("nik")
+        private String nik;
 
         public String getNama() {
             return nama;
@@ -72,6 +74,14 @@ public class ShProfile {
 
         public void setPhoto(String photo) {
             this.photo = photo;
+        }
+
+        public String getNik() {
+            return nik;
+        }
+
+        public void setNik(String nik) {
+            this.nik = nik;
         }
     }
 }

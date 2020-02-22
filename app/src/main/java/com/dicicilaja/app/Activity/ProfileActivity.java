@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
@@ -39,6 +42,7 @@ import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         title_profile.setTypeface(opensans_bold);
         title_info.setTypeface(opensans_bold);
 
-        CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
+        CircleImageView profilePictures = findViewById(R.id.profile_picture_page);
         String imageUrl = session.getPhoto();
         Picasso.get()
                 .load(imageUrl)
@@ -162,12 +166,21 @@ public class ProfileActivity extends AppCompatActivity {
                         name_user.setText(data.getNama());
                         ((TextView) findViewById(R.id.api_email_sh)).setText(data.getEmail());
                         ((TextView) findViewById(R.id.api_phone_sh)).setText(data.getPhone());
+                        ((TextView) findViewById(R.id.api_ktp_sh)).setText(data.getNik());
 
-                        Picasso.get()
-                                .load(data.getPhoto())
-                                .fit()
-                                .centerCrop()
-                                .into(profilePictures);
+                        if (data.getPhoto() != null && !data.getPhoto().isEmpty())
+                            Picasso.get()
+                                    .load(data.getPhoto())
+                                    .error(R.drawable.avatar)
+                                    .fit()
+                                    .centerCrop()
+                                    .into(profilePictures);
+                        else
+                            Picasso.get()
+                                    .load(R.drawable.avatar)
+                                    .fit()
+                                    .centerCrop()
+                                    .into(profilePictures);
 
                         cvDetailRekening.setVisibility(View.GONE);
                         topCard2.setVisibility(View.GONE);
@@ -352,37 +365,37 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.putExtra("api_no_hp", ((TextView) findViewById(R.id.api_phone_sh)).getText().toString());
                 intent.putExtra("api_email", ((TextView) findViewById(R.id.api_email_sh)).getText().toString());
             } else {
-                intent.putExtra("name_user",name_user.getText().toString());
-                intent.putExtra("api_axi_id",api_axi_id.getText().toString());
-                intent.putExtra("api_cabang",api_cabang.getText().toString());
-                intent.putExtra("api_tanggal_daftar",api_tanggal_daftar.getText().toString());
-                intent.putExtra("api_no_ktp",api_no_ktp.getText().toString());
-                intent.putExtra("api_mentor",api_mentor.getText().toString());
-                intent.putExtra("api_tanggal_lahir",api_tanggal_lahir.getText().toString());
-                intent.putExtra("api_tempat_lahir",api_tempat_lahir.getText().toString());
-                intent.putExtra("api_no_hp",api_no_hp.getText().toString());
-                intent.putExtra("api_email",api_email.getText().toString());
-                intent.putExtra("api_alamat",api_alamat.getText().toString());
-                intent.putExtra("api_rt_rw",api_rt_rw.getText().toString());
-                intent.putExtra("api_kelurahan",api_kelurahan.getText().toString());
-                intent.putExtra("api_kecamatan",api_kecamatan.getText().toString());
-                intent.putExtra("api_provinsi",api_provinsi.getText().toString());
-                intent.putExtra("api_kodepos",api_kodepos.getText().toString());
+                intent.putExtra("name_user", name_user.getText().toString());
+                intent.putExtra("api_axi_id", api_axi_id.getText().toString());
+                intent.putExtra("api_cabang", api_cabang.getText().toString());
+                intent.putExtra("api_tanggal_daftar", api_tanggal_daftar.getText().toString());
+                intent.putExtra("api_no_ktp", api_no_ktp.getText().toString());
+                intent.putExtra("api_mentor", api_mentor.getText().toString());
+                intent.putExtra("api_tanggal_lahir", api_tanggal_lahir.getText().toString());
+                intent.putExtra("api_tempat_lahir", api_tempat_lahir.getText().toString());
+                intent.putExtra("api_no_hp", api_no_hp.getText().toString());
+                intent.putExtra("api_email", api_email.getText().toString());
+                intent.putExtra("api_alamat", api_alamat.getText().toString());
+                intent.putExtra("api_rt_rw", api_rt_rw.getText().toString());
+                intent.putExtra("api_kelurahan", api_kelurahan.getText().toString());
+                intent.putExtra("api_kecamatan", api_kecamatan.getText().toString());
+                intent.putExtra("api_provinsi", api_provinsi.getText().toString());
+                intent.putExtra("api_kodepos", api_kodepos.getText().toString());
 
-                intent.putExtra("api_no_npwp",api_no_npwp.getText().toString());
-                intent.putExtra("api_nama_bank",api_nama_bank.getText().toString());
-                intent.putExtra("api_no_rekening",api_no_rekening.getText().toString());
-                intent.putExtra("api_an_rekening",api_an_rekening.getText().toString());
-                intent.putExtra("api_cabang_bank",api_cabang_bank.getText().toString());
-                intent.putExtra("api_kota_bank",api_kota_bank.getText().toString());
+                intent.putExtra("api_no_npwp", api_no_npwp.getText().toString());
+                intent.putExtra("api_nama_bank", api_nama_bank.getText().toString());
+                intent.putExtra("api_no_rekening", api_no_rekening.getText().toString());
+                intent.putExtra("api_an_rekening", api_an_rekening.getText().toString());
+                intent.putExtra("api_cabang_bank", api_cabang_bank.getText().toString());
+                intent.putExtra("api_kota_bank", api_kota_bank.getText().toString());
 
                 String jk = api_jk.getText().toString();
-                if(jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
-                    intent.putExtra("api_jk","1");
-                }else if(jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")){
-                    intent.putExtra("api_jk","2");
-                }else{
-                    intent.putExtra("api_jk","0");
+                if (jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
+                    intent.putExtra("api_jk", "1");
+                } else if (jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")) {
+                    intent.putExtra("api_jk", "2");
+                } else {
+                    intent.putExtra("api_jk", "0");
                 }
             }
 

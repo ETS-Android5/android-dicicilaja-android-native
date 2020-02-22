@@ -136,11 +136,13 @@
         android:id="@+id/btn_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:background="@color/colorPacificBlue"
+        android:layout_above="@id/btn_activate"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_reset"
         android:text="Bersihkan Filter"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/colorPacificBlue" />
 
     <Button
         android:id="@+id/btn_activate"

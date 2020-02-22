@@ -225,6 +225,9 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
             isRefresh = true;
             isLastPage = false;
             page = START_PAGE;
+            axiList.clear();
+            listAdapter.notifyDataSetChanged();
+            pbHome.setVisibility(View.VISIBLE);
             if (groupBy != null && sortBy != null)
                 getHomeDataWithFilter();
             else
@@ -244,7 +247,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
     private void getHomeDataWithFilter() {
         if (groupBy != null && sortBy != null) {
             mCompositeDisposable.add(
-                    jsonApi.getHomeDataWithFilter(groupBy, sortBy, 12, page)
+                    jsonApi.getHomeDataWithFilter(groupBy, sortBy, 12, page, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessGetHomeData, this::onError)
@@ -279,9 +282,9 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
         /* getHomeData Subscriber */
         if (data != null && data.getData() != null && data.getData().size() > 0) {
             if (isRefresh) {
-                axiList = new ArrayList<>();
-                isRefresh = false;
+                axiList.clear();
                 listAdapter.notifyDataSetChanged();
+                isRefresh = false;
             }
 
             axiPerBranch = data.getMeta().getTotal();

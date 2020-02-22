@@ -55,8 +55,10 @@ public class AxiProfile {
         public static class Profile {
             @SerializedName("namaAXI")
             private String namaAXI;
-            @SerializedName("idAXI")
-            private int idAXI;
+//            @SerializedName("idAXI")
+//            private int idAXI;
+            @SerializedName("nomor_axi_id")
+            private String nomorAxiId;
             @SerializedName("kategoriAXI")
             private String kategoriAXI;
             @SerializedName("AXImentor")
@@ -78,12 +80,20 @@ public class AxiProfile {
                 this.namaAXI = namaAXI;
             }
 
-            public int getIdAXI() {
-                return idAXI;
+//            public int getIdAXI() {
+//                return idAXI;
+//            }
+//
+//            public void setIdAXI(int idAXI) {
+//                this.idAXI = idAXI;
+//            }
+
+            public String getNomorAxiId() {
+                return nomorAxiId;
             }
 
-            public void setIdAXI(int idAXI) {
-                this.idAXI = idAXI;
+            public void setNomorAxiId(String nomorAxiId) {
+                this.nomorAxiId = nomorAxiId;
             }
 
             public String getKategoriAXI() {

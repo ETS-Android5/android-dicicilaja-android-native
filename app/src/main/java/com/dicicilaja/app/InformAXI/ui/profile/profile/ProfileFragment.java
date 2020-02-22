@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment implements ProfileCallback {
         AxiProfile.Data.Profile profile = data.getData().getProfile();
 
         tvName.setText(profile.getNamaAXI());
-        tvAxiId.setText(String.valueOf(profile.getIdAXI()));
+        tvAxiId.setText(String.valueOf(profile.getNomorAxiId()));
         if (profile.getKategoriAXI() != null) {
             tvAxiCategory.setText(profile.getKategoriAXI());
         } else {

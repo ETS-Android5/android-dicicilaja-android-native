@@ -23,7 +23,8 @@ public interface NetworkInterface {
     getHomeDataWithFilter(@Query("group") String group,
                           @Query("ot") String orderBy,
                           @Query("limit") int limit,
-                          @Query("page") int page);
+                          @Query("page") int page,
+                          @Query("cabang_id") int cabangId);
 
     @GET("v2/profile/axi/list")
     Observable<AxiHome>
