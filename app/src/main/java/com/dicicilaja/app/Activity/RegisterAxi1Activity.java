@@ -113,7 +113,6 @@ public class RegisterAxi1Activity extends AppCompatActivity {
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        judulSudahPunyaAkun.setTypeface(opensans_reguler);
         titleSection.setTypeface(opensans_bold);
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);
@@ -363,12 +362,8 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
     private void initAction() {
         //Initialize
-        progressBar.setVisibility(View.GONE);
-        spinnerCabang.setEnabled(false);
-        clearArea();
 
         //Network
-        apiServiceArea = ApiClient2.getClient().create(InterfaceAreaBranch.class);
     }
 
     private void clearArea() {
@@ -618,7 +613,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
             Matcher matcher = pattern.matcher(emailId);
             Boolean isValid = matcher.matches();
             if (!isValid) {
-                inputLayoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: Budi Susanto");
+                inputLayoutNamaLengkap.setError("Nama Lengkap yang di input harus sesuai \ncontoh: Budi Susanto");
                 requestFocus(inputNamaLengkap);
                 return false;
             } else {

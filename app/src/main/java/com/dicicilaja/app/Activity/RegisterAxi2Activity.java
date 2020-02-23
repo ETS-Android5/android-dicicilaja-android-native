@@ -33,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -66,6 +67,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     SessionManager session;
     String apiKey, axi_id, nama, email, hp, namaibu, area, cabang, no_ktp_pasangan, nama_pasangan;
     String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status;
+    ImageView lineNamaPasangan, lineNoKtpPasangan;
 
     SearchableSpinner spinnerProvinsi, spinnerKota, spinnerDistrik, spinnerDesa, spinnerJenisKelamin, spinnerStatus;
     MaterialProgressBar progressBar;
@@ -113,7 +115,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputNoKtpPasangan       = findViewById(R.id.inputNoKtpPasangan);
         inputLayoutNamaPasangan = findViewById(R.id.inputLayoutNamaPasangan);
         inputLayoutNoKtpPasangan = findViewById(R.id.inputLayoutNoKtpPasangan);
-
+        lineNamaPasangan           = findViewById(R.id.lineNamaPasangan);
+        lineNoKtpPasangan           = findViewById(R.id.lineNoKtpPasangan);
 
         spinnerJenisKelamin     = findViewById(R.id.spinnerJenisKelamin);
         spinnerStatus           = findViewById(R.id.spinnerStatus);
@@ -134,7 +137,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
 
         inputLayoutNamaPasangan.setVisibility(View.GONE);
+        lineNamaPasangan.setVisibility(View.GONE);
         inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+        lineNoKtpPasangan.setVisibility(View.GONE);
 
         axi_id  = getIntent().getStringExtra("axi_id");
         nama    = getIntent().getStringExtra("nama");
@@ -152,12 +157,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 dialogfragment.show(getSupportFragmentManager(), "Theme 4");
             }
         });
-        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
-        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
-        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title.setTypeface(opensans_bold);
 
         inputTanggal.setKeyListener(null);
         inputTanggal.setOnClickListener(new View.OnClickListener() {
@@ -218,14 +218,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 try {
                     if (STATUS_DATA.get(spinnerStatus.getSelectedItemPosition()).equals("Menikah")) {
                         inputLayoutNamaPasangan.setVisibility(View.VISIBLE);
+                        lineNamaPasangan.setVisibility(View.VISIBLE);
                         inputLayoutNoKtpPasangan.setVisibility(View.VISIBLE);
+                        lineNoKtpPasangan.setVisibility(View.VISIBLE);
                     } else {
                         inputLayoutNamaPasangan.setVisibility(View.GONE);
+                        lineNamaPasangan.setVisibility(View.GONE);
                         inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+                        lineNoKtpPasangan.setVisibility(View.GONE);
                     }
                 } catch (Exception ex) {
                     inputLayoutNamaPasangan.setVisibility(View.GONE);
+                    lineNamaPasangan.setVisibility(View.GONE);
                     inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+                    lineNoKtpPasangan.setVisibility(View.GONE);
                 }
 
             }
@@ -243,6 +249,101 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         initAction();
         initLoadData();
+
+        inputKtp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputKtp.removeTextChangedListener(this);
+                validateKtp();
+                inputKtp.addTextChangedListener(this);
+            }
+        });
+
+        inputTempatLahir.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputTempatLahir.removeTextChangedListener(this);
+                validatePlace();
+                inputTempatLahir.addTextChangedListener(this);
+            }
+        });
+
+        inputAlamat.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputAlamat.removeTextChangedListener(this);
+                validateAlamat();
+                inputAlamat.addTextChangedListener(this);
+            }
+        });
+
+        inputNamaPasangan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputNamaPasangan.removeTextChangedListener(this);
+                validateCoupleName();
+                inputNamaPasangan.addTextChangedListener(this);
+            }
+        });
+
+        inputNoKtpPasangan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputNoKtpPasangan.removeTextChangedListener(this);
+                validateCoupleKtp();
+                inputNoKtpPasangan.addTextChangedListener(this);
+            }
+        });
 
         btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,6 +411,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rt, String rw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status, String nama_pasangan, String no_ktp_pasangan) {
         if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan no.KTP");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -321,6 +423,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         } else if (no_ktp.trim().length() < 16){
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("No.KTP harus 16 karakter");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -330,9 +433,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (!no_ktp.matches(KTP_PATTERN)) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("No.KTP tidak valid");
+        } else if (!isKtp(no_ktp)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan no KTP dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -344,7 +448,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (tempat_lahir == null || tempat_lahir.trim().length() == 0 || tempat_lahir.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan tempat lahir");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputTempatLahir);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isPlace(tempat_lahir)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan tempat lahir dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -356,6 +473,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (tanggal == null || tanggal.trim().length() == 0 || tanggal.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan tanggal lahir");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -368,6 +486,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih jenis kelamin");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -381,6 +500,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (alamat == null || alamat.trim().length() == 0 || alamat.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan alamat");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -390,9 +510,22 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
+        } else if (!isAlamat(alamat)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan tempat lahir dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputTempatLahir);
+                }
+            });
+            alertDialog.show();
+            return false;
         }
         if (rt == null || rt.trim().length() == 0 || rt.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan RT");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -405,6 +538,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if (rw == null || rw.trim().length() == 0 || rw.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan RW");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -417,6 +551,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         }
         if(status == null || status.trim().length() == 0 || status.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Pilih status perkawinan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -430,7 +565,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         } else if(status.equals("Menikah")) {
             if(nama_pasangan == null || nama_pasangan.trim().length() == 0 || nama_pasangan.equals("0")) {
                 androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Masukan nama pasangan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestFocus(inputNamaPasangan);
+                    }
+                });
+                alertDialog.show();
+                return false;
+            }else if (!isCoupleName(nama_pasangan)) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Masukan nama pasangan dengan benar");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -443,7 +591,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
             if(no_ktp_pasangan == null || no_ktp_pasangan.trim().length() == 0 || no_ktp_pasangan.equals("0")) {
                 androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Masukan no KTP pasangan");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestFocus(inputNoKtpPasangan);
+                    }
+                });
+                alertDialog.show();
+                return false;
+            }else if (!isCoupleKtp(no_ktp_pasangan)) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Masukan no KTP pasangan dengan benar");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -457,6 +618,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         if (provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan provinsi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -471,6 +633,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         if (kota == null || kota.trim().length() == 0 || kota.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kota");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -485,6 +648,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         if (distrik == null || distrik.trim().length() == 0 || distrik.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kecamatan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -499,6 +663,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         if (desa == null || desa.trim().length() == 0 || desa.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kelurahan");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -513,6 +678,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
         if (kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kode pos");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -524,7 +690,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             return false;
         } else if (kodepos.trim().length() < 5){
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Kode Pos harus 5 karakter");
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Kode pos harus 5 karakter");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -974,6 +1141,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         spinnerKota.setEnabled(false);
         spinnerDistrik.setEnabled(false);
         spinnerDesa.setEnabled(false);
+        inputKodepos.setEnabled(false);
 
         clearProvinsi();
         clearKota();
@@ -1042,6 +1210,141 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     private void clearKodePos() {
         inputKodepos.setEnabled(true);
         inputKodepos.setText("");
+    }
+
+    public static boolean isKtp(String alamat) {
+        String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateKtp() {
+        if (inputKtp.getText().toString().trim().isEmpty()) {
+            inputLayoutKtp.setErrorEnabled(false);
+        } else {
+            String emailId = inputKtp.getText().toString();
+            String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutKtp.setError("Nomor KTP yg diinput harus 16 digit angka\ncontoh : 3213030000000001");
+                requestFocus(inputKtp);
+                return false;
+            } else {
+                inputLayoutKtp.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isCoupleKtp(String alamat) {
+        String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateCoupleKtp() {
+        if (inputNoKtpPasangan.getText().toString().trim().isEmpty()) {
+            inputLayoutNoKtpPasangan.setErrorEnabled(false);
+        } else {
+            String emailId = inputNoKtpPasangan.getText().toString();
+            String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutNoKtpPasangan.setError("Nomor KTP yg diinput harus 16 digit angka\ncontoh : 3213030000000002");
+                requestFocus(inputNoKtpPasangan);
+                return false;
+            } else {
+                inputLayoutNoKtpPasangan.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isPlace(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validatePlace() {
+        if (inputTempatLahir.getText().toString().trim().isEmpty()) {
+            inputLayoutTempatLahir.setErrorEnabled(false);
+        } else {
+            String emailId = inputTempatLahir.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutTempatLahir.setError("Tempat lahir yang di input harus sesuai");
+                requestFocus(inputTempatLahir);
+                return false;
+            } else {
+                inputLayoutTempatLahir.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isCoupleName(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateCoupleName() {
+        if (inputNamaPasangan.getText().toString().trim().isEmpty()) {
+            inputLayoutNamaPasangan.setErrorEnabled(false);
+        } else {
+            String emailId = inputNamaPasangan.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutNamaPasangan.setError("Nama Lengkap yang di input harus sesuai \ncontoh: Susi Susanti");
+                requestFocus(inputNamaPasangan);
+                return false;
+            } else {
+                inputLayoutNamaPasangan.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isAlamat(String alamat) {
+        String expression = "^[a-z.'/ A-Z0-9-]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateAlamat() {
+        if (inputAlamat.getText().toString().trim().isEmpty()) {
+            inputLayoutAlamat.setErrorEnabled(false);
+        } else {
+            String emailId = inputAlamat.getText().toString();
+            String expression = "^[a-z.'/ A-Z0-9-]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutAlamat.setError("Masukan alamat dengan benar");
+                requestFocus(inputAlamat);
+                return false;
+            } else {
+                inputLayoutAlamat.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 
 
