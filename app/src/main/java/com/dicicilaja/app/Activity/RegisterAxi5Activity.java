@@ -61,7 +61,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
     String apiKey;
     SessionManager session;
     String axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp_pasangan, nama_pasangan, no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     String npwp, nama_npwp, status_npwp, pkp_status;
     String imageKtp, imageNpwp, imageCover, kode_bank;
@@ -187,6 +187,8 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
         status_npwp     = getIntent().getStringExtra("status_npwp");
         pkp_status      = getIntent().getStringExtra("pkp_status");
         kode_bank       = getIntent().getStringExtra("kode_bank");
+        nama_pasangan          = getIntent().getStringExtra("nama_pasangan");
+        no_ktp_pasangan          = getIntent().getStringExtra("no_ktp_pasangan");
 
         imageKtp = "http://dicicilaja.com/public/assets/images/not-found.jpg";
         imageNpwp = "http://dicicilaja.com/public/assets/images/not-found.jpg";
@@ -210,7 +212,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                 if (check.isChecked()){
                     btnDaftar.setEnabled(false);
                     progress.show();
-                    buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, fileKtp, fileNpwp, fileCover, kode_bank);
+                    buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, fileKtp, fileNpwp, fileCover, kode_bank, nama_pasangan, no_ktp_pasangan);
                     btnDaftar.setEnabled(true);
                 }else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi5Activity.this);
@@ -469,11 +471,11 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
         Log.d(TAG, "Permission has been denied");
     }
 
-    private void buatAkun(final String apiKey, String area, String cabang, String axi_id, String nama, String no_ktp, String tempat_lahir, String tanggal, String status, String alamat, String rt, String rw, String provinsi, String kota, String kecamatan, String kelurahan, String kodepos, String jk, String email, String hp, String namaibu, String nama_bank, String no_rekening, String cabang_bank, String an_rekening, String kota_bank, String npwp, String nama_npwp, String status_npwp, String pkp_status, String imageKtp, String imageNpwp, String imageCover, String kode_bank) {
+    private void buatAkun(final String apiKey, String area, String cabang, String axi_id, String nama, String no_ktp, String tempat_lahir, String tanggal, String status, String alamat, String rt, String rw, String provinsi, String kota, String kecamatan, String kelurahan, String kodepos, String jk, String email, String hp, String namaibu, String no_rekening, String cabang_bank, String an_rekening, String kota_bank, String npwp, String nama_npwp, String status_npwp, String pkp_status, String imageKtp, String imageNpwp, String imageCover, String kode_bank, String nama_pasangan, String no_ktp_pasangan) {
         InterfaceCreateAXI apiService =
                 ComposserClient.getClient().create(InterfaceCreateAXI.class);
 
-        Call<CreateAXI> call = apiService.create(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kelurahan, kecamatan, kodepos, jk, email, hp, namaibu, nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover, kode_bank);
+        Call<CreateAXI> call = apiService.create(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kelurahan, kecamatan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover, kode_bank, nama_pasangan, no_ktp_pasangan);
         call.enqueue(new Callback<CreateAXI>() {
             @Override
             public void onResponse(Call<CreateAXI> call, Response<CreateAXI> response) {
@@ -484,12 +486,13 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                     Intent intent = new Intent(getBaseContext(), RegisterAxiDone.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                }else{
+                }
+                else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
                 }
             }
 

@@ -24,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -59,15 +60,14 @@ import static java.lang.Boolean.TRUE;
 public class RegisterAxi2Activity extends AppCompatActivity {
 
     Button btnLanjut;
-    EditText inputKtp, inputTempatLahir, inputTanggal, inputAlamat, inputRt, inputRw, inputDesa, inputDistrik, inputKota, inputProvinsi, inputKodepos;
-    TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRt, inputLayoutRw;
-    MaterialSpinner spinnerJenisKelamin, spinnerStatus;
+    EditText inputKtp, inputTempatLahir, inputNamaPasangan, inputNoKtpPasangan, inputTanggal, inputAlamat, inputRt, inputRw, inputDesa, inputDistrik, inputKota, inputProvinsi, inputKodepos;
+    TextInputLayout inputLayoutKtp, inputLayoutNamaPasangan, inputLayoutNoKtpPasangan, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRt, inputLayoutRw;
     TextView title;
     SessionManager session;
-    String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
+    String apiKey, axi_id, nama, email, hp, namaibu, area, cabang, no_ktp_pasangan, nama_pasangan;
     String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status;
 
-    SearchableSpinner spinnerProvinsi, spinnerKota, spinnerDistrik, spinnerDesa;
+    SearchableSpinner spinnerProvinsi, spinnerKota, spinnerDistrik, spinnerDesa, spinnerJenisKelamin, spinnerStatus;
     MaterialProgressBar progressBar;
 
     ApiService2 apiServiceArea;
@@ -87,6 +87,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_axi2);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,6 +109,11 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputLayoutAlamat       = findViewById(R.id.inputLayoutAlamat);
         inputLayoutRt         = findViewById(R.id.inputLayoutRt);
         inputLayoutRw         = findViewById(R.id.inputLayoutRw);
+        inputNamaPasangan       = findViewById(R.id.inputNamaPasangan);
+        inputNoKtpPasangan       = findViewById(R.id.inputNoKtpPasangan);
+        inputLayoutNamaPasangan = findViewById(R.id.inputLayoutNamaPasangan);
+        inputLayoutNoKtpPasangan = findViewById(R.id.inputLayoutNoKtpPasangan);
+
 
         spinnerJenisKelamin     = findViewById(R.id.spinnerJenisKelamin);
         spinnerStatus           = findViewById(R.id.spinnerStatus);
@@ -126,6 +132,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             final SessionManager session = new SessionManager(getBaseContext());
             apiKey = "Bearer " + session.getToken();
         }
+
+        inputLayoutNamaPasangan.setVisibility(View.GONE);
+        inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+
         axi_id  = getIntent().getStringExtra("axi_id");
         nama    = getIntent().getStringExtra("nama");
         email   = getIntent().getStringExtra("email");
@@ -165,8 +175,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         JK_ITEMS.clear();
         JK_DATA.clear();
 
+        JK_DATA.put(0, "0");
         JK_DATA.put(1, "l");
         JK_DATA.put(2, "p");
+        JK_ITEMS.add("Pilih Jenis Kelamin");
         JK_ITEMS.add("Laki-laki");
         JK_ITEMS.add("Perempuan");
 
@@ -174,22 +186,55 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         ArrayAdapter<String> jk_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JK_ITEMS);
         jk_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerJenisKelamin.setAdapter(jk_adapter);
+        spinnerJenisKelamin.setTitle("");
+        spinnerJenisKelamin.setPositiveButton("OK");
 
         final List<String> STATUS_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> STATUS_DATA = new HashMap<Integer, String>();
 
         STATUS_ITEMS.clear();
         STATUS_DATA.clear();
-
+        STATUS_DATA.put(0, "0");
         STATUS_DATA.put(1, "Menikah");
         STATUS_DATA.put(2, "Belum Menikah");
+        STATUS_DATA.put(3, "Duda");
+        STATUS_DATA.put(4, "Janda");
+        STATUS_ITEMS.add("Pilih Status Perkawinan");
         STATUS_ITEMS.add("Menikah");
         STATUS_ITEMS.add("Belum Menikah");
+        STATUS_ITEMS.add("Duda");
+        STATUS_ITEMS.add("Janda");
 
 
         ArrayAdapter<String> status_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, STATUS_ITEMS);
         status_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(status_adapter);
+        spinnerStatus.setTitle("");
+        spinnerStatus.setPositiveButton("OK");
+
+        spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    if (STATUS_DATA.get(spinnerStatus.getSelectedItemPosition()).equals("Menikah")) {
+                        inputLayoutNamaPasangan.setVisibility(View.VISIBLE);
+                        inputLayoutNoKtpPasangan.setVisibility(View.VISIBLE);
+                    } else {
+                        inputLayoutNamaPasangan.setVisibility(View.GONE);
+                        inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+                    }
+                } catch (Exception ex) {
+                    inputLayoutNamaPasangan.setVisibility(View.GONE);
+                    inputLayoutNoKtpPasangan.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         progressBar.setVisibility(View.GONE);
         spinnerKota.setEnabled(false);
@@ -202,6 +247,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         btnLanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
                     no_ktp = inputKtp.getText().toString();
                     tempat_lahir = inputTempatLahir.getText().toString();
@@ -218,11 +264,19 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
                     jk = JK_DATA.get(spinnerJenisKelamin.getSelectedItemPosition());
                     status = STATUS_DATA.get(spinnerStatus.getSelectedItemPosition());
+                    if (status.equals("Menikah")) {
+                        no_ktp_pasangan = inputNoKtpPasangan.getText().toString();
+                        nama_pasangan = inputNamaPasangan.getText().toString();
+                    } else {
+                        no_ktp_pasangan = "";
+                        nama_pasangan = "";
+                    }
+                    Log.d("LIHAT", "DISNIII: " + jk + status + no_ktp_pasangan + nama_pasangan);
                 } catch (Exception ex) {
 
                 }
 
-                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status)) {
+                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status, nama_pasangan, no_ktp_pasangan)) {
                     Intent intent = new Intent(getBaseContext(), RegisterAxi3Activity.class);
                     intent.putExtra("apiKey",apiKey);
                     intent.putExtra("axi_id",axi_id);
@@ -245,13 +299,15 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     intent.putExtra("kodepos",kodepos);
                     intent.putExtra("jk",jk);
                     intent.putExtra("status",status);
+                    intent.putExtra("nama_pasangan",nama_pasangan);
+                    intent.putExtra("no_ktp_pasangan",no_ktp_pasangan);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rt, String rw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status) {
+    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rt, String rw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status, String nama_pasangan, String no_ktp_pasangan) {
         if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan no.KTP");
@@ -274,8 +330,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (!no_ktp.matches(KTP_PATTERN))
-        {
+        } else if (!no_ktp.matches(KTP_PATTERN)) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("No.KTP tidak valid");
 
@@ -372,55 +427,90 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }
-        if (desa == null || desa.trim().length() == 0 || desa.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan kelurahan");
+        } else if(status.equals("Menikah")) {
+            if(nama_pasangan == null || nama_pasangan.trim().length() == 0 || nama_pasangan.equals("0")) {
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setMessage("Masukan nama pasangan");
 
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputDesa);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-        if (distrik == null || distrik.trim().length() == 0 || distrik.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan kecamatan");
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestFocus(inputNamaPasangan);
+                    }
+                });
+                alertDialog.show();
+                return false;
+            }
 
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputDistrik);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-        if (kota == null || kota.trim().length() == 0 || kota.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan kota");
+            if(no_ktp_pasangan == null || no_ktp_pasangan.trim().length() == 0 || no_ktp_pasangan.equals("0")) {
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setMessage("Masukan no KTP pasangan");
 
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKota);
-                }
-            });
-            alertDialog.show();
-            return false;
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestFocus(inputNoKtpPasangan);
+                    }
+                });
+                alertDialog.show();
+                return false;
+            }
         }
+
         if (provinsi == null || provinsi.trim().length() == 0 || provinsi.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan provinsi");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputProvinsi);
+                    requestFocus(spinnerProvinsi);
+                    spinnerProvinsi.performClick();
                 }
             });
             alertDialog.show();
             return false;
         }
+
+        if (kota == null || kota.trim().length() == 0 || kota.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("Masukan kota");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerKota);
+                    spinnerKota.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (distrik == null || distrik.trim().length() == 0 || distrik.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("Masukan kecamatan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerDistrik);
+                    spinnerDistrik.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (desa == null || desa.trim().length() == 0 || desa.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("Masukan kelurahan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerDesa);
+                    spinnerDesa.performClick();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if (kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan kode pos");

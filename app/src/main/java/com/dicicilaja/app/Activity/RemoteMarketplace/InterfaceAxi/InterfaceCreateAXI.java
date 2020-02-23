@@ -30,14 +30,13 @@ public interface InterfaceCreateAXI {
                            @Field("rw") String rw,
                            @Field("provinsi_id") String provinsi,
                            @Field("kota_id") String kabupaten,
-                           @Field("kecamatan_id") String kecamatan,
                            @Field("kelurahan_id") String kelurahan,
+                           @Field("kecamatan_id") String kecamatan,
                            @Field("kode_pos") String kode_pos,
                            @Field("jenis_kelamin") String jenis_kelamin,
                            @Field("email") String email,
                            @Field("no_hp") String no_hp,
                            @Field("nama_ibu_kandung") String nama_ibu_kandung,
-                           @Field("nama_bank") String nama_bank,
                            @Field("no_rekening") String no_rekening,
                            @Field("cabang_bank") String cabang_bank,
                            @Field("an_rekening") String an_rekening,
@@ -49,5 +48,7 @@ public interface InterfaceCreateAXI {
                            @Field("image_ktp") String image_ktp,
                            @Field("image_npwp") String image_npwp,
                            @Field("image_tabungan") String image_tabungan,
-                           @Field("bank_id") String kode_bank);
+                           @Field("bank_id") String kode_bank,
+                           @Field("nama_pasangan") String nama_pasangan,
+                           @Field("no_ktp_pasangan") String no_ktp_pasangan);
 }

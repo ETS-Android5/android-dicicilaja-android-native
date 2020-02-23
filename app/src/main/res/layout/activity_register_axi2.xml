@@ -217,36 +217,28 @@
                             android:textSize="14sp"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayoutJenisKelamin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp">
+                        app:hintEnabled="true">
 
-                        <fr.ganfra.materialspinner.MaterialSpinner
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/spinnerJenisKelamin"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:ms_multiline="false"
-                            app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                            app:ms_hintView="@layout/hint_item"
-                            app:ms_hint="Jenis Kelamin *"
-                            app:ms_enableFloatingLabel="true"
-                            app:ms_enableErrorLabel="false"
-                            app:ms_floatingLabelText="Jenis Kelamin"
-                            app:ms_baseColor="@color/colorBlack"
-                            app:ms_highlightColor="@color/colorPrimaryDark"
-                            app:ms_errorColor="@color/colorPrimaryDark"
-                            android:layout_marginLeft="9dp"
-                            android:layout_marginRight="9dp"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/inputAlamat"
-                            app:ms_alignLabels="true"
-                            android:textSize="14sp"
-                            app:ms_hintTextSize="14sp"
-                            app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                            android:text="Jenis Kelamin"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
 
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerJenisKelamin"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayoutAlamat"
@@ -320,31 +312,69 @@
                         android:id="@+id/inputLayoutStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp">
+                        app:hintEnabled="true">
 
-                        <fr.ganfra.materialspinner.MaterialSpinner
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/spinnerStatus"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:ms_multiline="false"
-                            app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                            app:ms_hintView="@layout/hint_item"
-                            app:ms_hint="Status Perkawinan *"
-                            app:ms_enableFloatingLabel="true"
-                            app:ms_enableErrorLabel="false"
-                            app:ms_floatingLabelText="Status Perkawinan"
-                            app:ms_baseColor="@color/colorBlack"
-                            app:ms_highlightColor="@color/colorPrimaryDark"
-                            app:ms_errorColor="@color/colorPrimaryDark"
-                            android:layout_marginLeft="9dp"
-                            android:layout_marginRight="9dp"
+                            android:text="Status Perkawinan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerStatus"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNamaPasangan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nama Pasangan *"
+                        android:layout_marginTop="16dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputNamaPasangan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:met_helperText="Contoh : 009"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
                             android:imeOptions="actionNext"
-                            android:nextFocusDown="@+id/spinnerProvinsi"
-                            app:ms_alignLabels="true"
-                            android:textSize="14sp"
-                            app:ms_hintTextSize="14sp"
-                            app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                            android:nextFocusDown="@id/inputNoKtpPasangan"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNoKtpPasangan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="No. KTP Pasangan *"
+                        android:layout_marginTop="16dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputNoKtpPasangan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:met_helperText="Contoh : 009"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 

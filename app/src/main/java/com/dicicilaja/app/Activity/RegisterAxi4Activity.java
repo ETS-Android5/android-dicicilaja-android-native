@@ -35,7 +35,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
     TextView title;
     SessionManager session;
     String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp_pasangan, nama_pasangan, no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, kode_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     String npwp, nama_npwp, status_npwp, pkp_status;
     @Override
@@ -86,6 +86,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         cabang_bank     = getIntent().getStringExtra("cabang_bank");
         an_rekening     = getIntent().getStringExtra("an_rekening");
         kota_bank       = getIntent().getStringExtra("kota_bank");
+        nama_pasangan          = getIntent().getStringExtra("nama_pasangan");
+        no_ktp_pasangan          = getIntent().getStringExtra("no_ktp_pasangan");
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
         Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -102,8 +104,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
 
         NPWP_DATA.put(1, "1");
         NPWP_DATA.put(2, "2");
-        NPWP_ITEMS.add("Perorangan");
-        NPWP_ITEMS.add("Badan");
+        NPWP_ITEMS.add("Pribadi");
+        NPWP_ITEMS.add("Perusahaan");
 
 
         ArrayAdapter<String> npwp_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, NPWP_ITEMS);
@@ -172,6 +174,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
                     intent.putExtra("nama_npwp",nama_npwp);
                     intent.putExtra("status_npwp",status_npwp);
                     intent.putExtra("pkp_status",pkp_status);
+                    intent.putExtra("nama_pasangan",nama_pasangan);
+                    intent.putExtra("no_ktp_pasangan",no_ktp_pasangan);
                     startActivity(intent);
                 }
             }

@@ -46,7 +46,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
     EditText inputNamaBank, inputNoRekening, inputCabangBank, inputANRekening, inputKotaBank;
     TextInputLayout inputLayoutNamaBank, inputLayoutNoRekening, inputLayoutCabangBank, inputLayoutANRekening, inputLayoutKotaBank;
     String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kode_bank, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp_pasangan, nama_pasangan, no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kode_bank, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     SearchableSpinner spinnerBank;
 
@@ -105,6 +105,8 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         kodepos         = getIntent().getStringExtra("kodepos");
         jk              = getIntent().getStringExtra("jk");
         status          = getIntent().getStringExtra("status");
+        nama_pasangan          = getIntent().getStringExtra("nama_pasangan");
+        no_ktp_pasangan          = getIntent().getStringExtra("no_ktp_pasangan");
 
 
         Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
@@ -158,6 +160,8 @@ public class RegisterAxi3Activity extends AppCompatActivity {
                     intent.putExtra("cabang_bank",cabang_bank);
                     intent.putExtra("an_rekening",an_rekening);
                     intent.putExtra("kota_bank",kota_bank);
+                    intent.putExtra("nama_pasangan",nama_pasangan);
+                    intent.putExtra("no_ktp_pasangan",no_ktp_pasangan);
                     startActivity(intent);
                 }
             }

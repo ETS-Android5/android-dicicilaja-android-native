@@ -115,7 +115,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
                 AREA_ITEMS.clear();
 
                 for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    AREA_MAP.put(Integer.valueOf(response.body().getData().get(i).getId()), response.body().getData().get(i).getId().toString());
+                    AREA_MAP.put(i+1, response.body().getData().get(i).getId().toString());
                     AREA_ITEMS.add(response.body().getData().get(i).getAttributes().getNama());
                 }
 
