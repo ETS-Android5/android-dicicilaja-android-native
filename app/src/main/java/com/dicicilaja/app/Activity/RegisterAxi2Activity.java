@@ -9,11 +9,11 @@ import android.graphics.Typeface;
 
 import com.dicicilaja.app.API.Client.RetrofitClient2;
 import com.dicicilaja.app.API.Interface.InterfaceAreaBank;
-import com.dicicilaja.app.API.Model.AreaBankRequest.Provinsi.Provinsi;
-import com.dicicilaja.app.API.Model.AreaBankRequest.Kota.Kota;
-import com.dicicilaja.app.API.Model.AreaBankRequest.Distrik.Distrik;
-import com.dicicilaja.app.API.Model.AreaBankRequest.Desa.Desa;
 import com.dicicilaja.app.API.Model.AreaBankRequest.Bank.Bank;
+import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
+import com.dicicilaja.app.OrderIn.Data.Kelurahan.Kelurahan;
+import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
+import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.google.android.material.textfield.TextInputLayout;
@@ -59,18 +59,18 @@ import static java.lang.Boolean.TRUE;
 public class RegisterAxi2Activity extends AppCompatActivity {
 
     Button btnLanjut;
-    EditText inputKtp, inputTempatLahir, inputTanggal, inputAlamat, inputRtRw, inputDesa, inputDistrik, inputKota, inputProvinsi, inputKodepos;
-    TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRtRw;
+    EditText inputKtp, inputTempatLahir, inputTanggal, inputAlamat, inputRt, inputRw, inputDesa, inputDistrik, inputKota, inputProvinsi, inputKodepos;
+    TextInputLayout inputLayoutKtp, inputLayoutTempatLahir, inputLayoutAlamat, inputLayoutRt, inputLayoutRw;
     MaterialSpinner spinnerJenisKelamin, spinnerStatus;
     TextView title;
     SessionManager session;
     String apiKey, axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rtrw, desa, distrik, kota, provinsi, kodepos, jk, status;
+    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status;
 
     SearchableSpinner spinnerProvinsi, spinnerKota, spinnerDistrik, spinnerDesa;
     MaterialProgressBar progressBar;
 
-    InterfaceAreaBank apiServiceArea;
+    ApiService2 apiServiceArea;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> PROVINSI_DATA = new HashMap<Integer, String>();
@@ -100,12 +100,14 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputKtp                = findViewById(R.id.inputKtp);
         inputTempatLahir        = findViewById(R.id.inputTempatLahir);
         inputAlamat             = findViewById(R.id.inputAlamat);
-        inputRtRw               = findViewById(R.id.inputRtRw);
+        inputRt               = findViewById(R.id.inputRt);
+        inputRw               = findViewById(R.id.inputRw);
         inputKodepos            = findViewById(R.id.inputKodepos);
         inputLayoutKtp          = findViewById(R.id.inputLayoutKtp);
         inputLayoutTempatLahir  = findViewById(R.id.inputLayoutTempatLahir);
         inputLayoutAlamat       = findViewById(R.id.inputLayoutAlamat);
-        inputLayoutRtRw         = findViewById(R.id.inputLayoutRtRw);
+        inputLayoutRt         = findViewById(R.id.inputLayoutRt);
+        inputLayoutRw         = findViewById(R.id.inputLayoutRw);
 
         spinnerJenisKelamin     = findViewById(R.id.spinnerJenisKelamin);
         spinnerStatus           = findViewById(R.id.spinnerStatus);
@@ -163,8 +165,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         JK_ITEMS.clear();
         JK_DATA.clear();
 
-        JK_DATA.put(1, "Laki-laki");
-        JK_DATA.put(2, "Perempuan");
+        JK_DATA.put(1, "l");
+        JK_DATA.put(2, "p");
         JK_ITEMS.add("Laki-laki");
         JK_ITEMS.add("Perempuan");
 
@@ -205,7 +207,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     tempat_lahir = inputTempatLahir.getText().toString();
                     tanggal = inputTanggal.getText().toString();
                     alamat = inputAlamat.getText().toString();
-                    rtrw = inputRtRw.getText().toString();
+                    rt = inputRt.getText().toString();
+                    rw = inputRw.getText().toString();
 
                     provinsi = PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition());
                     kota = KOTA_DATA.get(spinnerKota.getSelectedItemPosition());
@@ -219,7 +222,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
                 }
 
-                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rtrw, desa, distrik, kota, provinsi, kodepos, jk, status)) {
+                if(validateForm(no_ktp, tempat_lahir, tanggal, alamat, rt, rw, desa, distrik, kota, provinsi, kodepos, jk, status)) {
                     Intent intent = new Intent(getBaseContext(), RegisterAxi3Activity.class);
                     intent.putExtra("apiKey",apiKey);
                     intent.putExtra("axi_id",axi_id);
@@ -233,7 +236,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                     intent.putExtra("tempat_lahir",tempat_lahir);
                     intent.putExtra("tanggal",tanggal);
                     intent.putExtra("alamat",alamat);
-                    intent.putExtra("rtrw",rtrw);
+                    intent.putExtra("rt",rt);
+                    intent.putExtra("rw",rw);
                     intent.putExtra("kelurahan",desa);
                     intent.putExtra("kecamatan",distrik);
                     intent.putExtra("kota",kota);
@@ -247,7 +251,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rtrw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status) {
+    private boolean validateForm(String no_ktp, String tempat_lahir, String tanggal, String alamat, String rt, String rw, String desa, String distrik, String kota, String provinsi, String kodepos, String jk, String status) {
         if (no_ktp == null || no_ktp.trim().length() == 0 || no_ktp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setMessage("Masukan no.KTP");
@@ -332,13 +336,25 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.show();
             return false;
         }
-        if (rtrw == null || rtrw.trim().length() == 0 || rtrw.equals("0")) {
+        if (rt == null || rt.trim().length() == 0 || rt.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setMessage("Masukan RT/RW");
+            alertDialog.setMessage("Masukan RT");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputRtRw);
+                    requestFocus(inputRt);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        if (rw == null || rw.trim().length() == 0 || rw.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+            alertDialog.setMessage("Masukan RW");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputRw);
                 }
             });
             alertDialog.show();
@@ -641,10 +657,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                             clearDesa();
                             if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<Distrik> call = apiServiceArea.getDistrik(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
-                                call.enqueue(new Callback<Distrik>() {
+                                Call<Kecamatan> call = apiServiceArea.getKecamatan(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
+                                call.enqueue(new Callback<Kecamatan>() {
                                     @Override
-                                    public void onResponse(Call<Distrik> call, Response<Distrik> response) {
+                                    public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
                                         if (response.isSuccessful()) {
                                             try {
                                                 if (response.body().getData().size() > 0) {
@@ -658,7 +674,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                                     progressBar.setVisibility(View.GONE);
                                                     androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
                                                     alertDialog.setTitle("Perhatian");
-                                                    alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+                                                    alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int which) {
@@ -683,7 +699,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                             progressBar.setVisibility(View.GONE);
                                             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
                                             alertDialog.setTitle("Perhatian");
-                                            alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+                                            alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -696,11 +712,11 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<Distrik> call, Throwable t) {
+                                    public void onFailure(Call<Kecamatan> call, Throwable t) {
                                         progressBar.setVisibility(View.GONE);
                                         androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
                                         alertDialog.setTitle("Perhatian");
-                                        alertDialog.setMessage("Data distrik gagal dipanggil, silahkan coba beberapa saat lagi.");
+                                        alertDialog.setMessage("Data kecamatan gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
@@ -718,10 +734,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                         clearDesa();
                                         if (Integer.parseInt(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<Desa> call = apiServiceArea.getDesa(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()), 1000);
-                                            call.enqueue(new Callback<Desa>() {
+                                            Call<Kelurahan> call = apiServiceArea.getKelurahan(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()), 1000);
+                                            call.enqueue(new Callback<Kelurahan>() {
                                                 @Override
-                                                public void onResponse(Call<Desa> call, Response<Desa> response) {
+                                                public void onResponse(Call<Kelurahan> call, Response<Kelurahan> response) {
                                                     if (response.isSuccessful()) {
                                                         try {
                                                             if (response.body().getData().size() > 0) {
@@ -774,7 +790,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<Desa> call, Throwable t) {
+                                                public void onFailure(Call<Kelurahan> call, Throwable t) {
                                                     progressBar.setVisibility(View.GONE);
                                                     androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
                                                     alertDialog.setTitle("Perhatian");
@@ -875,7 +891,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         clearDesa();
 
         //Network
-        apiServiceArea = RetrofitClient2.getClient().create(InterfaceAreaBank.class);
+        apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
+//        apiServiceArea = RetrofitClient2.getClient().create(InterfaceAreaBank.class);
     }
 
     private void clearProvinsi() {

@@ -177,7 +177,7 @@
                         android:layout_height="wrap_content"
                         app:met_helperText="Nama sesuai NPWP"
                         android:layout_centerHorizontal="true"
-                        android:inputType="text"
+                        android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/spinnerStatusNPWP"
                         android:layout_marginLeft="5dp"

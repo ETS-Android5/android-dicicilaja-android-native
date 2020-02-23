@@ -35,7 +35,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
     TextView title;
     SessionManager session;
     String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, kode_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     String npwp, nama_npwp, status_npwp, pkp_status;
     @Override
@@ -71,7 +71,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         tempat_lahir    = getIntent().getStringExtra("tempat_lahir");
         tanggal         = getIntent().getStringExtra("tanggal");
         alamat          = getIntent().getStringExtra("alamat");
-        rtrw            = getIntent().getStringExtra("rtrw");
+        rt            = getIntent().getStringExtra("rt");
+        rw            = getIntent().getStringExtra("rw");
         kelurahan       = getIntent().getStringExtra("kelurahan");
         kecamatan       = getIntent().getStringExtra("kecamatan");
         kota            = getIntent().getStringExtra("kota");
@@ -99,8 +100,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         NPWP_ITEMS.clear();
         NPWP_DATA.clear();
 
-        NPWP_DATA.put(1, "Perorangan");
-        NPWP_DATA.put(2, "Badan");
+        NPWP_DATA.put(1, "1");
+        NPWP_DATA.put(2, "2");
         NPWP_ITEMS.add("Perorangan");
         NPWP_ITEMS.add("Badan");
 
@@ -115,8 +116,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
         PKP_ITEMS.clear();
         PKP_DATA.clear();
 
-        PKP_DATA.put(1, "PKP");
-        PKP_DATA.put(2, "Non PKP");
+        PKP_DATA.put(1, "1");
+        PKP_DATA.put(2, "2");
         PKP_ITEMS.add("PKP");
         PKP_ITEMS.add("Non PKP");
 
@@ -152,7 +153,8 @@ public class RegisterAxi4Activity extends AppCompatActivity {
                     intent.putExtra("tempat_lahir",tempat_lahir);
                     intent.putExtra("tanggal",tanggal);
                     intent.putExtra("alamat",alamat);
-                    intent.putExtra("rtrw",rtrw);
+                    intent.putExtra("rt",rt);
+                    intent.putExtra("rw",rw);
                     intent.putExtra("kelurahan",kelurahan);
                     intent.putExtra("kecamatan",kecamatan);
                     intent.putExtra("kota",kota);

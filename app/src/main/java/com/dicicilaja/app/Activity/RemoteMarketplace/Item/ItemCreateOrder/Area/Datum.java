@@ -1,33 +1,65 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by fawazrifqi on 10/05/18.
- */
-
 public class Datum {
+
+    @SerializedName("type")
+    @Expose
+    private String type;
     @SerializedName("id")
     @Expose
-    private Integer id;
-    @SerializedName("name")
+    private String id;
+    @SerializedName("attributes")
     @Expose
-    private String name;
+    private Attributes attributes;
+    @SerializedName("relationships")
+    @Expose
+    private Relationships relationships;
+    @SerializedName("links")
+    @Expose
+    private Links__ links;
 
-    public Integer getId() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Attributes getAttributes() {
+        return attributes;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAttributes(Attributes attributes) {
+        this.attributes = attributes;
     }
+
+    public Relationships getRelationships() {
+        return relationships;
+    }
+
+    public void setRelationships(Relationships relationships) {
+        this.relationships = relationships;
+    }
+
+    public Links__ getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links__ links) {
+        this.links = links;
+    }
+
 }

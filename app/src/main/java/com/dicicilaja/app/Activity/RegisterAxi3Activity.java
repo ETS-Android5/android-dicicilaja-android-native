@@ -4,10 +4,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient2;
 import com.dicicilaja.app.API.Interface.InterfaceAreaBank;
 import com.dicicilaja.app.API.Model.AreaBankRequest.Bank.Bank;
-import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceKodeBank;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.KodeBank.KodeBank;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,13 +46,14 @@ public class RegisterAxi3Activity extends AppCompatActivity {
     EditText inputNamaBank, inputNoRekening, inputCabangBank, inputANRekening, inputKotaBank;
     TextInputLayout inputLayoutNamaBank, inputLayoutNoRekening, inputLayoutCabangBank, inputLayoutANRekening, inputLayoutKotaBank;
     String apiKey,axi_id, nama, email, hp, namaibu, area, cabang;
-    String no_ktp, tempat_lahir, tanggal, alamat, rtrw, kode_bank, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
+    String no_ktp, tempat_lahir, tanggal, alamat, rt, rw, kode_bank, kelurahan, kecamatan, kota, provinsi, kodepos, jk, status;
     String nama_bank, no_rekening, cabang_bank, an_rekening, kota_bank;
     SearchableSpinner spinnerBank;
 
     MaterialProgressBar progressBar;
 
     InterfaceAreaBank apiServiceArea;
+    InterfaceKodeBank apiServiceBank;
 
     final List<String> BANK_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> BANK_DATA = new HashMap<Integer, String>();
@@ -93,7 +96,8 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         tempat_lahir    = getIntent().getStringExtra("tempat_lahir");
         tanggal         = getIntent().getStringExtra("tanggal");
         alamat          = getIntent().getStringExtra("alamat");
-        rtrw            = getIntent().getStringExtra("rtrw");
+        rt            = getIntent().getStringExtra("rt");
+        rw            = getIntent().getStringExtra("rw");
         kelurahan       = getIntent().getStringExtra("kelurahan");
         kecamatan       = getIntent().getStringExtra("kecamatan");
         kota            = getIntent().getStringExtra("kota");
@@ -139,7 +143,8 @@ public class RegisterAxi3Activity extends AppCompatActivity {
                     intent.putExtra("tempat_lahir",tempat_lahir);
                     intent.putExtra("tanggal",tanggal);
                     intent.putExtra("alamat",alamat);
-                    intent.putExtra("rtrw",rtrw);
+                    intent.putExtra("rt",rt);
+                    intent.putExtra("rw",rw);
                     intent.putExtra("kode_bank",kode_bank);
                     intent.putExtra("kelurahan",kelurahan);
                     intent.putExtra("kecamatan",kecamatan);
@@ -161,17 +166,18 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         clearBank();
         //Network
         apiServiceArea = RetrofitClient2.getClient().create(InterfaceAreaBank.class);
-        Call<Bank> call = apiServiceArea.getBanks();
-        call.enqueue(new Callback<Bank>() {
+        apiServiceBank = ApiClient2.getClient().create(InterfaceKodeBank.class);
+        Call<KodeBank> call = apiServiceBank.getKodeBank();
+        call.enqueue(new Callback<KodeBank>() {
             @Override
-            public void onResponse(Call<Bank> call, Response<Bank> response) {
+            public void onResponse(Call<KodeBank> call, Response<KodeBank> response) {
                 if (response.isSuccessful()) {
                     try {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
-                                BANK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getBankKey()));
-                                BANK_NAME.put(i + 1, String.valueOf(response.body().getData().get(i).getDescription()));
-                                BANK_ITEMS.add(String.valueOf(response.body().getData().get(i).getDescription()));
+                                BANK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
+                                BANK_NAME.put(i + 1, String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                BANK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                             }
                             progressBar.setVisibility(View.GONE);
                         } else {
@@ -217,7 +223,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Bank> call, Throwable t) {
+            public void onFailure(Call<KodeBank> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
                 alertDialog.setTitle("Perhatian");

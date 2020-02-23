@@ -135,7 +135,7 @@
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputRtRw"
+                        android:nextFocusDown="@id/inputKelurahan"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"

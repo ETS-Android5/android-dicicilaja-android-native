@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
 
+    <uses-feature android:name="android.hardware.camera.flash" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".BaseApplication"
@@ -16,14 +23,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+        <activity android:name=".Activity.RegisterAxiDone"></activity>
 
-        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FFF89E4C"
-            android:resource="@drawable/ic_stat_onesignal_default"/>
+        <meta-data
+            android:name="com.onesignal.NotificationAccentColor.DEFAULT"
+            android:resource="@drawable/ic_stat_onesignal_default"
+            android:value="FFF89E4C" />
 
-
-        <activity android:name=".Inbox.UI.InboxDetailActivity"
+        <activity
+            android:name=".Inbox.UI.InboxDetailActivity"
             android:label="Inbox Detail"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Inbox.UI.InboxActivity"
             android:label="Inbox"
@@ -38,7 +48,7 @@
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity" />
         <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity" />
-        <activity android:name=".InformAXI.OrderTrackingActivity"></activity>
+        <activity android:name=".InformAXI.OrderTrackingActivity" />
         <activity android:name=".InformAXI.ui.trip.TripActivity" />
         <activity android:name=".InformAXI.ui.search.SearchActivity" />
         <activity android:name=".InformAXI.ui.register.RegisterActivity" />
@@ -77,9 +87,7 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -822,6 +830,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <service
             android:name=".Inbox.Service.NotificationExtender"
             android:exported="false"
@@ -831,14 +840,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-feature android:name="android.hardware.camera.flash" />
-    <uses-feature android:name="android.hardware.camera" />
-
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

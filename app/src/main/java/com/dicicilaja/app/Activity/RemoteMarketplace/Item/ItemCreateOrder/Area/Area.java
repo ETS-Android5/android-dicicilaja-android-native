@@ -1,28 +1,36 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by fawazrifqi on 10/05/18.
- */
-
 public class Area {
-    @SerializedName("status")
+
+    @SerializedName("meta")
     @Expose
-    private String status;
+    private Meta meta;
+    @SerializedName("links")
+    @Expose
+    private Links links;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
 
-    public String getStatus() {
-        return status;
+    public Meta getMeta() {
+        return meta;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
+
+    public Links getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
     }
 
     public List<Datum> getData() {
@@ -32,4 +40,5 @@ public class Area {
     public void setData(List<Datum> data) {
         this.data = data;
     }
+
 }

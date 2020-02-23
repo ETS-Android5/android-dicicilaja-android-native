@@ -36,8 +36,6 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAreaBranch;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch.Branch;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Colleteral.Colleteral;
 import com.dicicilaja.app.R;
 import retrofit2.Call;
@@ -316,85 +314,85 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
         InterfaceAreaBranch apiServiceArea = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
-        Call<Area> callArea = apiServiceArea.getArea();
-        callArea.enqueue(new Callback<Area>() {
-            @Override
-            public void onResponse(Call<Area> call, Response<Area> response) {
-
-                AREA_MAP.clear();
-                AREA_ITEMS.clear();
-
-                for (int i = 0; i < response.body().getData().size(); i++) {
-                    AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
-                    AREA_ITEMS.add(response.body().getData().get(i).getName());
-                }
-
-                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
-                area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerArea.setAdapter(area_adapter);
-                spinnerCabang.setEnabled(false);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Area> call, Throwable t) {
-                AREA_MAP.clear();
-                AREA_ITEMS.clear();
-                Log.e("Area Error", t.getMessage());
-            }
-        });
-
-
-
-        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                InterfaceAreaBranch apiServiceBranch = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+//        Call<Area> callArea = apiServiceArea.getArea();
+//        callArea.enqueue(new Callback<Area>() {
+//            @Override
+//            public void onResponse(Call<Area> call, Response<Area> response) {
+//
+//                AREA_MAP.clear();
+//                AREA_ITEMS.clear();
+//
+//                for (int i = 0; i < response.body().getData().size(); i++) {
+//                    AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
+//                    AREA_ITEMS.add(response.body().getData().get(i).getName());
+//                }
+//
+//                ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
+//                area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                spinnerArea.setAdapter(area_adapter);
+//                spinnerCabang.setEnabled(false);
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Area> call, Throwable t) {
+//                AREA_MAP.clear();
+//                AREA_ITEMS.clear();
+//                Log.e("Area Error", t.getMessage());
+//            }
+//        });
 
 
-                Call<Branch> callBranch = apiServiceBranch.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
-                callBranch.enqueue(new Callback<Branch>() {
-                    @Override
-                    public void onResponse(Call<Branch> call, Response<Branch> response) {
-                        CABANG_MAP.clear();
-                        CABANG_ITEMS.clear();
 
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            CABANG_MAP.put(i + 1, response.body().getData().get(i).getId());
-                            CABANG_ITEMS.add(response.body().getData().get(i).getName());
-                        }
-
-                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
-                        branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        spinnerCabang.setEnabled(true);
-                        spinnerCabang.setAdapter(branch_adapter);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Branch> call, Throwable t) {
-                        CABANG_MAP.clear();
-                        CABANG_ITEMS.clear();
-                        spinnerCabang.setEnabled(false);
-
-                        Log.e("Error Cabang", t.getMessage());
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                AREA_ITEMS.clear();
-                AREA_MAP.clear();
-                CABANG_MAP.clear();
-                CABANG_ITEMS.clear();
-                spinnerCabang.setEnabled(false);
-            }
-
-        });
+//        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//
+//                InterfaceAreaBranch apiServiceBranch = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+//
+//
+//                Call<Branch> callBranch = apiServiceBranch.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+//                callBranch.enqueue(new Callback<Branch>() {
+//                    @Override
+//                    public void onResponse(Call<Branch> call, Response<Branch> response) {
+//                        CABANG_MAP.clear();
+//                        CABANG_ITEMS.clear();
+//
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            CABANG_MAP.put(i + 1, response.body().getData().get(i).getId());
+//                            CABANG_ITEMS.add(response.body().getData().get(i).getName());
+//                        }
+//
+//                        ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);
+//                        branch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                        spinnerCabang.setEnabled(true);
+//                        spinnerCabang.setAdapter(branch_adapter);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Branch> call, Throwable t) {
+//                        CABANG_MAP.clear();
+//                        CABANG_ITEMS.clear();
+//                        spinnerCabang.setEnabled(false);
+//
+//                        Log.e("Error Cabang", t.getMessage());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                AREA_ITEMS.clear();
+//                AREA_MAP.clear();
+//                CABANG_MAP.clear();
+//                CABANG_ITEMS.clear();
+//                spinnerCabang.setEnabled(false);
+//            }
+//
+//        });
 
 //        inputMerk.setHint(Html.fromHtml("Merk <font color='#ff0000'>*</font>"));
 //        inputLayoutMerk.setHint(Html.fromHtml("Merk <font color='#ff0000'>*</font>"));

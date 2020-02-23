@@ -14,23 +14,24 @@ public interface InterfaceCreateAXI {
     @Headers({
             "Accept: application/json",
     })
-    @POST("register/axi")
+    @POST("axi/registration")
     @FormUrlEncoded
     Call<CreateAXI> create(@Header("Authorization") String apiKey,
-                           @Field("area") String area,
-                           @Field("branch") String branch,
+                           @Field("area_id") String area,
+                           @Field("cabang_daftar") String cabang,
                            @Field("axi_reff") String axi_reff,
-                           @Field("name") String name,
+                           @Field("nama") String name,
                            @Field("no_ktp") String no_ktp,
-                           @Field("tempat_lahir") String tempat_lahir,
+                           @Field("kota_lahir") String tempat_lahir,
                            @Field("tanggal_lahir") String tanggal_lahir,
                            @Field("status_perkawinan") String status_perkawinan,
                            @Field("alamat_ktp") String alamat_ktp,
-                           @Field("rt_rw") String rt_rw,
-                           @Field("provinsi") String provinsi,
-                           @Field("kabupaten") String kabupaten,
-                           @Field("kecamatan") String kecamatan,
-                           @Field("kelurahan") String kelurahan,
+                           @Field("rt") String rt,
+                           @Field("rw") String rw,
+                           @Field("provinsi_id") String provinsi,
+                           @Field("kota_id") String kabupaten,
+                           @Field("kecamatan_id") String kecamatan,
+                           @Field("kelurahan_id") String kelurahan,
                            @Field("kode_pos") String kode_pos,
                            @Field("jenis_kelamin") String jenis_kelamin,
                            @Field("email") String email,
@@ -41,12 +42,12 @@ public interface InterfaceCreateAXI {
                            @Field("cabang_bank") String cabang_bank,
                            @Field("an_rekening") String an_rekening,
                            @Field("kota_bank") String kota_bank,
-                           @Field("npwp_no") String npwp_no,
+                           @Field("no_npwp") String npwp_no,
                            @Field("nama_npwp") String nama_npwp,
-                           @Field("status_npwp") String status_npwp,
-                           @Field("pkp_status") String pkp_status,
+                           @Field("tipe_npwp") String status_npwp,
+                           @Field("pkp") String pkp_status,
                            @Field("image_ktp") String image_ktp,
                            @Field("image_npwp") String image_npwp,
                            @Field("image_tabungan") String image_tabungan,
-                           @Field("kode_bank") String kode_bank);
+                           @Field("bank_id") String kode_bank);
 }

@@ -26,7 +26,6 @@ import com.dicicilaja.app.API.Interface.InterfaceSimulationProcess;
 import com.dicicilaja.app.API.Model.Colleteral.Colleteral;
 import com.dicicilaja.app.API.Model.Simulation.Simulation;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
 import com.dicicilaja.app.R;
 
 import java.text.NumberFormat;
@@ -144,31 +143,31 @@ public class SimulationActivity extends AppCompatActivity {
 //                NewRetrofitClient.getClient().create(InterfaceSimulation.class);
 
 
-        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
-
-        Call<Area> callarea = apiServiceArea1.getArea();
-        callarea.enqueue(new Callback<Area>() {
-            @Override
-            public void onResponse(Call<Area> call, Response<Area> response) {
-                progress.dismiss();
-                AREA_ITEMS.clear();
-                AREA_DATA.clear();
-
-                for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    AREA_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
-                    AREA_ITEMS.add(response.body().getData().get(i).getName());
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Area> call, Throwable t) {
-                AREA_DATA.clear();
-                AREA_ITEMS.clear();
-                Log.e("Error", t.getMessage());
-            }
-        });
+//        InterfaceSimulation apiServiceArea1 = RetrofitClient.getClient().create(InterfaceSimulation.class);
+//
+//        Call<Area> callarea = apiServiceArea1.getArea();
+//        callarea.enqueue(new Callback<Area>() {
+//            @Override
+//            public void onResponse(Call<Area> call, Response<Area> response) {
+//                progress.dismiss();
+//                AREA_ITEMS.clear();
+//                AREA_DATA.clear();
+//
+//                for ( int i = 0; i < response.body().getData().size(); i++ ) {
+//                    AREA_DATA.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getName());
+//                    AREA_ITEMS.add(response.body().getData().get(i).getName());
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Area> call, Throwable t) {
+//                AREA_DATA.clear();
+//                AREA_ITEMS.clear();
+//                Log.e("Error", t.getMessage());
+//            }
+//        });
 
         ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
         area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

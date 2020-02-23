@@ -4,6 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import com.dicicilaja.app.API.Client.ApiClient2;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch.Branch;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
@@ -26,8 +30,6 @@ import retrofit2.Response;
 import com.dicicilaja.app.Activity.RegisterAxi2Activity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAreaBranch;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Area.Area;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch.Branch;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.AreaService;
 import com.dicicilaja.app.WebView.AboutAxiActivity;
@@ -101,7 +103,7 @@ public class RegisterAxiFragment extends Fragment {
         final HashMap<Integer, String> CABANG_MAP = new HashMap<Integer, String>();
 
 
-        InterfaceAreaBranch apiServiceArea = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+        InterfaceAreaBranch apiServiceArea = ApiClient2.getClient().create(InterfaceAreaBranch.class);
 
         Call<Area> callArea = apiServiceArea.getArea();
         callArea.enqueue(new Callback<Area>() {
@@ -112,8 +114,8 @@ public class RegisterAxiFragment extends Fragment {
                 AREA_ITEMS.clear();
 
                 for ( int i = 0; i < response.body().getData().size(); i++ ) {
-                    AREA_MAP.put(response.body().getData().get(i).getId(), response.body().getData().get(i).getId().toString());
-                    AREA_ITEMS.add(response.body().getData().get(i).getName());
+                    AREA_MAP.put(Integer.valueOf(response.body().getData().get(i).getId()), response.body().getData().get(i).getId().toString());
+                    AREA_ITEMS.add(response.body().getData().get(i).getAttributes().getNama());
                 }
 
                 ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
@@ -138,7 +140,7 @@ public class RegisterAxiFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                InterfaceAreaBranch apiServiceBranch = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
+                InterfaceAreaBranch apiServiceBranch = ApiClient2.getClient().create(InterfaceAreaBranch.class);
 
 
                 Call<Branch> callBranch = apiServiceBranch.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
@@ -150,7 +152,7 @@ public class RegisterAxiFragment extends Fragment {
 
                         for ( int i = 0; i < response.body().getData().size(); i++ ) {
                             CABANG_MAP.put(i+1, response.body().getData().get(i).getId());
-                            CABANG_ITEMS.add(response.body().getData().get(i).getName());
+                            CABANG_ITEMS.add(response.body().getData().get(i).getAttributes().getNama());
                         }
 
                         ArrayAdapter<String> branch_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, CABANG_ITEMS);

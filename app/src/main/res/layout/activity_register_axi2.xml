@@ -263,7 +263,7 @@
                             android:layout_centerHorizontal="true"
                             android:inputType="textMultiLine|textPersonName|textCapWords"
                             android:imeOptions="actionNext"
-                            android:nextFocusDown="@id/inputRtRw"
+                            android:nextFocusDown="@id/inputRt"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:fontFamily="sans-serif"
@@ -272,17 +272,40 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/inputLayoutRtRw"
+                        android:id="@+id/inputLayoutRt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="RT/RW KTP *"
+                        android:hint="RT KTP *"
                         android:layout_marginTop="16dp">
 
                         <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/inputRtRw"
+                            android:id="@+id/inputRt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:met_helperText="Contoh : 007/009"
+                            app:met_helperText="Contoh : 007"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="date"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@id/inputRw"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#000000"
+                            android:textSize="14sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutRw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="RW KTP *"
+                        android:layout_marginTop="16dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/inputRw"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:met_helperText="Contoh : 009"
                             android:layout_centerHorizontal="true"
                             android:inputType="date"
                             android:imeOptions="actionDone"
