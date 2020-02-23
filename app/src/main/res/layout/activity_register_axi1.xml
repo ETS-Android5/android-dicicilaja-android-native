@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
             <LinearLayout
                 android:id="@+id/section"
                 android:layout_width="match_parent"
@@ -37,14 +38,12 @@
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
                 android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="20dp"
-                android:background="@color/colorSection">
+                android:paddingRight="30dp">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_section_people"
+                    android:src="@drawable/ic_teamwork"
                     android:layout_marginRight="20dp"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -56,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="Rekan Bisnis"
                         android:textSize="12sp"
+                        android:fontFamily="@font/open_sans"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/bodySection"
@@ -64,219 +64,262 @@
                         android:layout_below="@+id/titleSection"
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
+                        android:fontFamily="@font/open_sans"
                         android:layout_height="wrap_content"
                         android:text="Bangun jaringan Interaksi Anda, mulai rekrut Rekan Bisnis 1 sebanyak-banyaknya tanpa batas."/>
                     <TextView
-                        android:textColor="@color/colorTextSection"
+                        android:textColor="@color/colorAccent"
                         android:id="@+id/detailSection"
                         android:layout_marginTop="5dp"
                         android:layout_below="@+id/bodySection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
+                        android:fontFamily="@font/open_sans"
                         android:text="Selengkapnya"/>
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
+                android:background="@drawable/border_form"
                 android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutAxiRefferal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="AXI Refferal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputAxiRefferal"
                         android:layout_width="match_parent"
-                        app:met_helperText="Masukan ID AXI jika ada"
                         android:layout_height="wrap_content"
+                        android:hint="AXI Refferal"
                         android:layout_centerHorizontal="true"
                         android:inputType="number"
                         android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-                <TextView
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tempat Pendaftaran"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="9dp"/>
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutArea"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="true">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerArea"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area *"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Area *"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/spinnerCabang"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:text="Area *"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="#FFB8B8B8"
+                        android:layout_marginTop="20dp"
+                        android:textSize="12sp"/>
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spinnerArea"
+                        android:layout_width="match_parent"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_height="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/border_1dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutCabang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    app:hintEnabled="true">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerCabang"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Cabang *"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Pilih Cabang *"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/spinnerCabang"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:text="Cabang *"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="#FFB8B8B8"
+                        android:layout_marginTop="20dp"
+                        android:textSize="12sp"/>
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spinnerCabang"
+                        android:layout_width="match_parent"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_height="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaLengkap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Lengkap *"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNamaLengkap"
                         android:layout_width="match_parent"
-                        app:met_helperText="Sesuai yang tertera di KTP"
                         android:layout_height="wrap_content"
+                        android:hint="Nama Lengkap *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputEmail"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Email *"
                         android:layout_centerHorizontal="true"
-                        app:met_helperText="Pastikan email Anda aktif."
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNoHp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNoHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="No. Handphone *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNoHp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="No. Handphone *"
                         android:layout_centerHorizontal="true"
-                        app:met_helperText="Contoh : 081234567890"
-                        android:inputType="phone"
+                        android:inputType="number"
+                        android:maxLength="16"
                         android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputEmail"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:nextFocusDown="@id/inputNamaIbu"
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaIbu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Ibu Kandung *"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNamaIbu"
                         android:layout_width="match_parent"
-                        app:met_helperText="Sesuai yang tertera di KTP"
                         android:layout_height="wrap_content"
+                        android:hint="Nama Ibu Kandung *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-                <Button
-                    android:id="@+id/btnLanjut"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Lanjut"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/border_1dp"/>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLanjut"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:text="Lanjut"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/open_sans_bold"
+                android:backgroundTint="@color/colorAccentDark2"/>
         </LinearLayout>
     </ScrollView>
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:mpb_progressStyle="horizontal"
+        app:mpb_useIntrinsicPadding="false"
+        android:layout_alignParentTop="true"
+        app:mpb_showProgressBackground="false"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
 </LinearLayout>
