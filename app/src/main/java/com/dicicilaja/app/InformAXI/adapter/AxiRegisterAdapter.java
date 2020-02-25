@@ -2,6 +2,7 @@ package com.dicicilaja.app.InformAXI.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicicilaja.app.InformAXI.model.AxiRegister;
+import com.dicicilaja.app.InformAXI.ui.register.DetailRegisterActivity;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
 
@@ -64,8 +66,16 @@ public class AxiRegisterAdapter extends RecyclerView.Adapter<AxiRegisterAdapter.
         }
 
         public void bind(AxiRegister.DataBean reg) {
-            tvMonth.setText(Tools.formatMount(reg.getId()));
+            tvMonth.setText(Tools.formatMonth(reg.getId()));
             tvCount.setText(String.valueOf(reg.getCount()));
+
+            v.setOnClickListener(v -> {
+                mContext.startActivity(
+                        new Intent(mContext, DetailRegisterActivity.class)
+                                .putExtra("monthId", reg.getId())
+                                .putExtra("monthName", reg.getDate())
+                );
+            });
         }
     }
 }

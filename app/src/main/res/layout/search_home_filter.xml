@@ -13,31 +13,31 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@android:color/white"
             android:background="@color/colorTanHide"
-            app:contentInsetStartWithNavigation="0dp">
+            app:contentInsetStartWithNavigation="0dp"
+            app:titleTextColor="@android:color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="10"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <ImageView
                     android:id="@+id/ic_close"
-                    android:src="@drawable/ic_close"
                     android:layout_width="32dp"
-                    android:tint="@android:color/white"
-                    android:layout_height="32dp" />
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_close"
+                    android:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:text="Filter Pencarian"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:layout_marginLeft="16dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -48,47 +48,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Tanggal Pendaftaran" />
+            android:text="Group By" />
 
         <RadioGroup
-            android:id="@+id/rg_date"
+            android:id="@+id/rg_group_by"
             android:layout_width="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:layout_height="wrap_content"
             android:layoutDirection="rtl"
-            android:layout_height="wrap_content">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <RadioButton
-                android:id="@+id/rb_new"
-                android:text="Terbaru"
-                android:background="@drawable/list_border"
-                android:padding="16dp"
-                android:button="@drawable/rb_inset"
+                android:id="@+id/rb_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:buttonTint="@color/colorPacificBlue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RadioButton
-                android:id="@+id/rb_old"
-                android:text="Terlama"
                 android:background="@drawable/list_border"
-                android:padding="16dp"
                 android:button="@drawable/rb_inset"
                 android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Nama AXI" />
+
+            <RadioButton
+                android:id="@+id/rb_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RadioButton
-                android:id="@+id/rb_choose_date"
-                android:text="Pilih Tanggal"
                 android:background="@drawable/list_border"
-                android:padding="16dp"
                 android:button="@drawable/rb_inset"
                 android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="AXI ID" />
+
+            <RadioButton
+                android:id="@+id/rb_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Tanggal Pendaftaran" />
 
         </RadioGroup>
 
@@ -96,50 +96,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Status Axi" />
+            android:text="Sort By" />
 
         <RadioGroup
-            android:id="@+id/rg_status"
+            android:id="@+id/rg_sort_by"
             android:layout_width="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:layout_height="wrap_content"
             android:layoutDirection="rtl"
-            android:layout_height="wrap_content">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <RadioButton
-                android:id="@+id/rb_active"
-                android:text="Aktif"
-                android:background="@drawable/list_border"
-                android:padding="16dp"
-                android:button="@drawable/rb_inset"
-                android:layout_marginBottom="8dp"
-                android:buttonTint="@color/colorPacificBlue"
+                android:id="@+id/rb_asc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/list_border"
+                android:button="@drawable/rb_inset"
+                android:buttonTint="@color/colorPacificBlue"
+                android:padding="16dp"
+                android:text="Ascending" />
 
             <RadioButton
-                android:id="@+id/rb_inactive"
-                android:text="Tidak Aktif"
+                android:id="@+id/rb_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/list_border"
-                android:padding="16dp"
                 android:button="@drawable/rb_inset"
                 android:buttonTint="@color/colorPacificBlue"
-                android:layout_marginBottom="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:padding="16dp"
+                android:text="Descending" />
 
         </RadioGroup>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_activate"
-        android:text="Aktifkan Filter"
-        android:background="@color/colorPacificBlue"
-        android:layout_alignParentBottom="true"
-        android:textColor="@android:color/white"
-        android:layout_margin="16dp"
+        android:id="@+id/btn_clear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_activate"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_reset"
+        android:text="Bersihkan Filter"
+        android:textColor="@color/colorPacificBlue" />
+
+    <Button
+        android:id="@+id/btn_activate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@color/colorPacificBlue"
+        android:text="Aktifkan Filter"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

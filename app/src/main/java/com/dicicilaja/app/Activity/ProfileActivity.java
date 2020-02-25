@@ -4,10 +4,15 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +29,7 @@ import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
+import com.dicicilaja.app.InformAXI.model.ShProfile;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,6 +42,7 @@ import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +57,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView name_user, api_axi_id, api_cabang, api_tanggal_daftar, api_no_ktp, api_mentor, api_no_hp, api_email, api_alamat, api_rt_rw, api_kelurahan, api_kecamatan, api_provinsi, api_kodepos, api_jk, api_no_npwp;
     TextView api_tempat_lahir, api_tanggal_lahir, api_nama_bank, api_no_rekening, api_an_rekening, api_cabang_bank, api_kota_bank;
+
+    CardView cvDetailRekening;
+    LinearLayout titleDetailRekening, topCard2, shProfile;
+
+    private String role = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +114,11 @@ public class ProfileActivity extends AppCompatActivity {
         api_cabang_bank = findViewById(R.id.api_cabang_bank);
         api_kota_bank = findViewById(R.id.api_kota_bank);
 
+        topCard2 = findViewById(R.id.top_card_2);
+        cvDetailRekening = findViewById(R.id.card_detail_rekening);
+        titleDetailRekening = findViewById(R.id.title_info_rekening);
+        shProfile = findViewById(R.id.sh_profile);
+
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         title_profile.setTypeface(opensans_bold);
         title_info.setTypeface(opensans_bold);
 
-        CircleImageView profilePictures =  findViewById(R.id.profile_picture_page);
+        CircleImageView profilePictures = findViewById(R.id.profile_picture_page);
         String imageUrl = session.getPhoto();
         Picasso.get()
                 .load(imageUrl)
@@ -131,79 +150,137 @@ public class ProfileActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        Call<ProfileAxi> callProfile;
+        role = session.getRole();
 
-        InterfaceProfile apiService = ApiClient2.getClient().create(InterfaceProfile.class);
-        callProfile = apiService.getProfile(apiKey);
+        // TODO: Change after role is fixed
+        if (role.equalsIgnoreCase("sh")) {
+            InterfaceProfile apiService = ApiClient2.getClientV1().create(InterfaceProfile.class);
+            Call<ShProfile> call = apiService.getShProfile(apiKey);
+            call.enqueue(new Callback<ShProfile>() {
+                @Override
+                public void onResponse(Call<ShProfile> call, Response<ShProfile> response) {
+                    if (response.isSuccessful()) {
+                        shProfile.setVisibility(View.VISIBLE);
+                        ShProfile.Data data = response.body().getData().get(0);
 
-        callProfile.enqueue(new Callback<ProfileAxi>() {
-            @Override
-            public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
-                Log.d("PROFILE::::", response.body().getData().toString());
-                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
-                if( response.body() == null ) {
+                        name_user.setText(data.getNama());
+                        ((TextView) findViewById(R.id.api_email_sh)).setText(data.getEmail());
+                        ((TextView) findViewById(R.id.api_phone_sh)).setText(data.getPhone());
+                        ((TextView) findViewById(R.id.api_ktp_sh)).setText(data.getNik());
+
+                        if (data.getPhoto() != null && !data.getPhoto().isEmpty())
+                            Picasso.get()
+                                    .load(data.getPhoto())
+                                    .error(R.drawable.avatar)
+                                    .fit()
+                                    .centerCrop()
+                                    .into(profilePictures);
+                        else
+                            Picasso.get()
+                                    .load(R.drawable.avatar)
+                                    .fit()
+                                    .centerCrop()
+                                    .into(profilePictures);
+
+                        cvDetailRekening.setVisibility(View.GONE);
+                        topCard2.setVisibility(View.GONE);
+                        titleDetailRekening.setVisibility(View.GONE);
+
+                        progress.dismiss();
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                        alertDialog.setTitle("Ooopppssss...");
+                        alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
+                        alertDialog.setPositiveButton("Okay", (dialog, which) -> finish());
+                        alertDialog.show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ShProfile> call, Throwable t) {
+                    Log.d("asd", "onFailure: " + t.getMessage());
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-
-                    // Setting Dialog Title
                     alertDialog.setTitle("Ooopppssss...");
-
-                    // Setting Dialog Message
                     alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
+                    alertDialog.setPositiveButton("Okay", (dialog, which) -> finish());
+                    alertDialog.show();
+                }
+            });
+        } else {
+            Call<ProfileAxi> callProfile;
 
-                    // Setting Positive "Yes" Button
-                    alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            InterfaceProfile apiService = ApiClient2.getClient().create(InterfaceProfile.class);
+            callProfile = apiService.getProfile(apiKey);
+
+            callProfile.enqueue(new Callback<ProfileAxi>() {
+                @Override
+                public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
+//                Log.d("PROFILE::::", response.body().getData().toString());
+//                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
+                    if (response.body() == null) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Ooopppssss...");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
+
+                        // Setting Positive "Yes" Button
+                        alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();
+                    } else {
+                        dataAxi = response.body().getData();
+                        name_user.setText(dataAxi.getNamaLengkap());
+                        api_axi_id.setText(dataAxi.getAxiId());
+                        api_cabang.setText(dataAxi.getCabang());
+                        api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
+                        api_no_ktp.setText(dataAxi.getNoKtp());
+                        api_mentor.setText(dataAxi.getAxiIdReff());
+                        api_tempat_lahir.setText(dataAxi.getTempatLahir());
+                        api_tanggal_lahir.setText(dataAxi.getTanggalLahir());
+                        api_no_hp.setText(dataAxi.getNoHp());
+                        api_email.setText(dataAxi.getEmail());
+                        api_alamat.setText(dataAxi.getAlamatKtp());
+                        api_rt_rw.setText(dataAxi.getRtRwKtp());
+                        api_kelurahan.setText(dataAxi.getKelurahanKtp());
+                        api_kecamatan.setText(dataAxi.getKecamatanKtp());
+                        api_provinsi.setText(dataAxi.getProvinsiKtp());
+                        api_kodepos.setText(dataAxi.getKodeposKtp());
+                        api_jk.setText(dataAxi.getJenisKelamin());
+                        api_no_npwp.setText(dataAxi.getNpwpNo());
+
+                        api_nama_bank.setText(dataAxi.getNamaBank());
+                        api_no_rekening.setText(dataAxi.getNoRekening());
+                        api_an_rekening.setText(dataAxi.getAnRekening());
+                        api_cabang_bank.setText(dataAxi.getCabangBank());
+                        api_kota_bank.setText(dataAxi.getKotaBank());
+                    }
+                    progress.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<ProfileAxi> call, Throwable t) {
+                    Log.e("PROFILE::::", t.toString());
+                    progress.dismiss();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     });
-
-                    // Showing Alert Message
                     alertDialog.show();
-                } else {
-                    dataAxi = response.body().getData();
-                    name_user.setText(dataAxi.getNamaLengkap());
-                    api_axi_id.setText(dataAxi.getAxiId());
-                    api_cabang.setText(dataAxi.getCabang());
-                    api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
-                    api_no_ktp.setText(dataAxi.getNoKtp());
-                    api_mentor.setText(dataAxi.getAxiIdReff());
-                    api_tempat_lahir.setText(dataAxi.getTempatLahir());
-                    api_tanggal_lahir.setText(dataAxi.getTanggalLahir());
-                    api_no_hp.setText(dataAxi.getNoHp());
-                    api_email.setText(dataAxi.getEmail());
-                    api_alamat.setText(dataAxi.getAlamatKtp());
-                    api_rt_rw.setText(dataAxi.getRtRwKtp());
-                    api_kelurahan.setText(dataAxi.getKelurahanKtp());
-                    api_kecamatan.setText(dataAxi.getKecamatanKtp());
-                    api_provinsi.setText(dataAxi.getProvinsiKtp());
-                    api_kodepos.setText(dataAxi.getKodeposKtp());
-                    api_jk.setText(dataAxi.getJenisKelamin());
-                    api_no_npwp.setText(dataAxi.getNpwpNo());
-
-                    api_nama_bank.setText(dataAxi.getNamaBank());
-                    api_no_rekening.setText(dataAxi.getNoRekening());
-                    api_an_rekening.setText(dataAxi.getAnRekening());
-                    api_cabang_bank.setText(dataAxi.getCabangBank());
-                    api_kota_bank.setText(dataAxi.getKotaBank());
                 }
-                progress.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<ProfileAxi> call, Throwable t) {
-                Log.e("PROFILE::::", t.toString());
-                progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+            });
+        }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,37 +360,43 @@ public class ProfileActivity extends AppCompatActivity {
 //            Toast.makeText(getBaseContext(),api_cabang.getText()+" " +api_kodepos.getText(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getBaseContext(), UbahAxiActivity.class);
 
-            intent.putExtra("name_user",name_user.getText().toString());
-            intent.putExtra("api_axi_id",api_axi_id.getText().toString());
-            intent.putExtra("api_cabang",api_cabang.getText().toString());
-            intent.putExtra("api_tanggal_daftar",api_tanggal_daftar.getText().toString());
-            intent.putExtra("api_no_ktp",api_no_ktp.getText().toString());
-            intent.putExtra("api_mentor",api_mentor.getText().toString());
-            intent.putExtra("api_tanggal_lahir",api_tanggal_lahir.getText().toString());
-            intent.putExtra("api_tempat_lahir",api_tempat_lahir.getText().toString());
-            intent.putExtra("api_no_hp",api_no_hp.getText().toString());
-            intent.putExtra("api_email",api_email.getText().toString());
-            intent.putExtra("api_alamat",api_alamat.getText().toString());
-            intent.putExtra("api_rt_rw",api_rt_rw.getText().toString());
-            intent.putExtra("api_kelurahan",api_kelurahan.getText().toString());
-            intent.putExtra("api_kecamatan",api_kecamatan.getText().toString());
-            intent.putExtra("api_provinsi",api_provinsi.getText().toString());
-            intent.putExtra("api_kodepos",api_kodepos.getText().toString());
+            if (role != null && role.equalsIgnoreCase("sh")) {
+                intent.putExtra("name_user", name_user.getText().toString());
+                intent.putExtra("api_no_hp", ((TextView) findViewById(R.id.api_phone_sh)).getText().toString());
+                intent.putExtra("api_email", ((TextView) findViewById(R.id.api_email_sh)).getText().toString());
+            } else {
+                intent.putExtra("name_user", name_user.getText().toString());
+                intent.putExtra("api_axi_id", api_axi_id.getText().toString());
+                intent.putExtra("api_cabang", api_cabang.getText().toString());
+                intent.putExtra("api_tanggal_daftar", api_tanggal_daftar.getText().toString());
+                intent.putExtra("api_no_ktp", api_no_ktp.getText().toString());
+                intent.putExtra("api_mentor", api_mentor.getText().toString());
+                intent.putExtra("api_tanggal_lahir", api_tanggal_lahir.getText().toString());
+                intent.putExtra("api_tempat_lahir", api_tempat_lahir.getText().toString());
+                intent.putExtra("api_no_hp", api_no_hp.getText().toString());
+                intent.putExtra("api_email", api_email.getText().toString());
+                intent.putExtra("api_alamat", api_alamat.getText().toString());
+                intent.putExtra("api_rt_rw", api_rt_rw.getText().toString());
+                intent.putExtra("api_kelurahan", api_kelurahan.getText().toString());
+                intent.putExtra("api_kecamatan", api_kecamatan.getText().toString());
+                intent.putExtra("api_provinsi", api_provinsi.getText().toString());
+                intent.putExtra("api_kodepos", api_kodepos.getText().toString());
 
-            intent.putExtra("api_no_npwp",api_no_npwp.getText().toString());
-            intent.putExtra("api_nama_bank",api_nama_bank.getText().toString());
-            intent.putExtra("api_no_rekening",api_no_rekening.getText().toString());
-            intent.putExtra("api_an_rekening",api_an_rekening.getText().toString());
-            intent.putExtra("api_cabang_bank",api_cabang_bank.getText().toString());
-            intent.putExtra("api_kota_bank",api_kota_bank.getText().toString());
+                intent.putExtra("api_no_npwp", api_no_npwp.getText().toString());
+                intent.putExtra("api_nama_bank", api_nama_bank.getText().toString());
+                intent.putExtra("api_no_rekening", api_no_rekening.getText().toString());
+                intent.putExtra("api_an_rekening", api_an_rekening.getText().toString());
+                intent.putExtra("api_cabang_bank", api_cabang_bank.getText().toString());
+                intent.putExtra("api_kota_bank", api_kota_bank.getText().toString());
 
-            String jk = api_jk.getText().toString();
-            if(jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
-                intent.putExtra("api_jk","1");
-            }else if(jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")){
-                intent.putExtra("api_jk","2");
-            }else{
-                intent.putExtra("api_jk","0");
+                String jk = api_jk.getText().toString();
+                if (jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
+                    intent.putExtra("api_jk", "1");
+                } else if (jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")) {
+                    intent.putExtra("api_jk", "2");
+                } else {
+                    intent.putExtra("api_jk", "0");
+                }
             }
 
             startActivity(intent);

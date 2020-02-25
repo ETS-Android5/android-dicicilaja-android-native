@@ -78,7 +78,7 @@ public class Tools {
         return formattedDate;
     }
 
-    public static String formatMount(String date) {
+    public static String formatMonth(String date) {
         SimpleDateFormat sdfLokal = new SimpleDateFormat("MMMM yyyy", new Locale("in", "ID"));
         SimpleDateFormat sdfDb = new SimpleDateFormat("yyyy-MM-dd", new Locale("in", "ID"));
         //sdfDb.setTimeZone(TimeZone.getTimeZone("GMT"));

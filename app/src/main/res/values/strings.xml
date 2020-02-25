@@ -260,6 +260,7 @@
     <string name="nav_news">BERITA AXI</string>
     <string name="nav_download">UNDUH MATERI</string>
     <string name="nav_info">GUDANG INFO</string>
+    <string name="nav_logout">KELUAR</string>
 
     <string name="home_tag">home</string>
     <string name="regist_tag">register</string>

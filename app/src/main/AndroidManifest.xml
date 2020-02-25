@@ -23,6 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+        <activity android:name=".Activity.UbahShActivity"></activity>
         <activity android:name=".Activity.RegisterAxiDone" />
 
         <meta-data
@@ -48,14 +49,33 @@
         <activity android:name=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity" />
         <activity android:name=".OrderIn.UI.BantuanOrderIn.BantuanOrderInActivity" />
         <activity android:name=".OrderIn.UI.KonfirmasiPengajuanActivity" />
-        <activity android:name=".InformAXI.OrderTrackingActivity" />
-        <activity android:name=".InformAXI.ui.trip.TripActivity" />
-        <activity android:name=".InformAXI.ui.search.SearchActivity" />
-        <activity android:name=".InformAXI.ui.register.RegisterActivity" />
-        <activity android:name=".InformAXI.ui.profile.ProfileActivity" />
-        <activity android:name=".InformAXI.ui.incentive.IncentiveActivity" />
-        <activity android:name=".InformAXI.ui.gathering.GatheringActivity" />
-        <activity android:name=".InformAXI.ui.InformAxiActivity" />
+        <activity
+            android:name=".InformAXI.ui.register.DetailRegisterActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.OrderTrackingActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.trip.TripActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.search.SearchActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.register.RegisterActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.profile.ProfileActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.incentive.IncentiveActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.gathering.GatheringActivity"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".InformAXI.ui.InformAxiActivity"
+            android:theme="@style/BaseTheme" />
         <activity
             android:name=".BusinessReward.ui.Cart.CartActivity"
             android:label="Keranjang"

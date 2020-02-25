@@ -168,8 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/list_border"
-                android:visibility="gone">
+                android:background="@drawable/list_border">
 
                 <TextView
                     android:id="@+id/incentive_motor"
@@ -178,6 +177,7 @@
                     android:lines="1"
                     android:paddingStart="16dp"
                     android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     android:text="Insentif Motor"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
@@ -188,9 +188,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/incentive_motor"
                     android:lines="1"
-                    android:paddingStart="16dp"
                     android:paddingBottom="16dp"
-                    android:text="1 Oktober 2019 09.25 AM" />
+                    android:text="1 Oktober 2019 09.25 AM"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -209,8 +209,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/list_border"
-                android:visibility="gone">
+                android:background="@drawable/list_border">
 
                 <TextView
                     android:id="@+id/incentive_car"
@@ -219,6 +218,7 @@
                     android:lines="1"
                     android:paddingStart="16dp"
                     android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     android:text="Insentif Mobil"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
@@ -229,9 +229,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/incentive_car"
                     android:lines="1"
-                    android:paddingStart="16dp"
                     android:paddingBottom="16dp"
-                    android:text="1 Oktober 2019 09.25 AM" />
+                    android:text="1 Oktober 2019 09.25 AM"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="16dp"

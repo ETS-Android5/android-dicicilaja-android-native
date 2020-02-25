@@ -57,7 +57,7 @@ public class TripActivity extends AppCompatActivity {
         pbTrip = findViewById(R.id.pb_trip);
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 

@@ -11,16 +11,16 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white"
         android:background="@color/colorTanHide"
-        app:contentInsetStartWithNavigation="0dp">
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleTextColor="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="10"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="10">
 
             <EditText
                 android:id="@+id/et_search"
@@ -29,11 +29,11 @@
                 android:layout_weight="8"
                 android:background="@android:color/transparent"
                 android:hint="Search"
-                android:textColorHint="@android:color/white"
-                android:textColor="@android:color/white"
                 android:imeOptions="actionSearch"
                 android:maxLines="1"
-                android:singleLine="true">
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white">
 
                 <requestFocus />
 
@@ -41,29 +41,29 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:layout_weight="2">
 
                 <ImageView
                     android:id="@+id/ic_filter"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_marginRight="16dp"
                     android:layout_alignParentRight="true"
-                    android:background="@null"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@null"
                     android:src="@drawable/ic_filter"
                     android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/ic_check"
                     android:layout_width="12dp"
-                    android:layout_alignParentBottom="true"
+                    android:layout_height="12dp"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginRight="14dp"
-                    android:src="@drawable/ic_check"
                     android:layout_marginBottom="10dp"
-                    android:layout_height="12dp" />
+                    android:src="@drawable/ic_check" />
 
             </RelativeLayout>
 
@@ -74,8 +74,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_search"
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"

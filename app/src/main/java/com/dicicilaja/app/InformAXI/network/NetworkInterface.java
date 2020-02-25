@@ -18,10 +18,18 @@ import retrofit2.http.Query;
 
 public interface NetworkInterface {
 
-//    @GET("v2/profile/axi/list")
-//    Observable<AxiRegListDetail>
-//    getRegListDetail(@Query("date") String date,
-//                     @Query("cabang_id") int branchId);
+    @GET("v2/profile/axi/filterDashboard")
+    Observable<AxiHome>
+    getHomeDataWithFilter(@Query("group") String group,
+                          @Query("ot") String orderBy,
+                          @Query("limit") int limit,
+                          @Query("page") int page,
+                          @Query("cabang_id") int cabangId);
+
+    @GET("v2/profile/axi/list")
+    Observable<AxiHome>
+    getRegListDetail(@Query("date") String date,
+                     @Query("cabang_id") int branchId);
 
     /**
      * For testing purposes only
@@ -59,7 +67,8 @@ public interface NetworkInterface {
                      @Query("from") String from,
                      @Query("to") String to,
                      @Query("page") int page,
-                     @Query("all") String all);
+                     @Query("all") String all,
+                     @Query("cabang_id") int branchId);
 
     /**
      * Filter in search page
@@ -75,7 +84,8 @@ public interface NetworkInterface {
     searchWithFilter(@Query("status") String status,
                      @Query("date") String date,
                      @Query("page") int page,
-                     @Query("all") String all);
+                     @Query("all") String all,
+                     @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/detail-intensif")
     Observable<Incentive>
@@ -92,6 +102,7 @@ public interface NetworkInterface {
      * @param page
      * @return
      */
+    @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
     getHomeWithFilter(@Query("status") String status,
@@ -109,6 +120,7 @@ public interface NetworkInterface {
      * @param page
      * @return
      */
+    @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
     getHomeWithFilter(@Query("status") String status,
@@ -119,7 +131,8 @@ public interface NetworkInterface {
     @GET("v2/profile/axi/home")
     Observable<AxiHome>
     getHome(@Query("page") int page,
-            @Query("cabang_id") int branchId);
+            @Query("cabang_id") int branchId,
+            @Query("show") int show);
 
     @GET("v2/profile/axi/detail")
     Observable<AxiProfile>
@@ -127,7 +140,9 @@ public interface NetworkInterface {
 
     @GET("v2/profile/axi/search")
     Observable<AxiHome>
-    doSearch(@Query("page") int page, @Query("all") String keyword);
+    doSearch(@Query("page") int page,
+             @Query("all") String keyword,
+             @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/registration")
     Observable<AxiRegister>

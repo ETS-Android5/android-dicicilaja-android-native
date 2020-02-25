@@ -15,9 +15,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,7 @@ import com.dicicilaja.app.InformAXI.network.NetworkInterface;
 import com.dicicilaja.app.InformAXI.utils.DatePickerRange;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +86,9 @@ public class SearchActivity extends AppCompatActivity {
     private int START_PAGE = 1;
     private int page = START_PAGE;
     private int lastPage = 0;
+    private int branchId = -1;
+
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +113,20 @@ public class SearchActivity extends AppCompatActivity {
         nestedSearch = findViewById(R.id.nested_search);
         pbSearch = findViewById(R.id.pb_search);
 
+        etSearch.requestFocus();
+
+        if (etSearch.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+
         axiList = new ArrayList<>();
 
         searchAdapter = new AxiHomeAdapter(axiList, this);
+        session = new SessionManager(this);
+        branchId = Integer.parseInt(session.getBranchId());
 
         mCompositeDisposable = new CompositeDisposable();
-        Retrofit retrofit = new NetworkClient().getRetrofitInstance(this);
+        Retrofit retrofit = new NetworkClient().getRetrofitInstance();
         jsonApi = retrofit.create(NetworkInterface.class);
     }
 
@@ -132,7 +146,10 @@ public class SearchActivity extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 axiList.clear();
                 rvSearch.setVisibility(View.GONE);
-                search(etSearch.getText().toString(), START_PAGE);
+                if (date != null && status != null)
+                    searchWithFilter(etSearch.getText().toString(), START_PAGE);
+                else
+                    search(etSearch.getText().toString(), START_PAGE);
                 noDataContainer.setVisibility(View.GONE);
                 pbSearch.setVisibility(View.VISIBLE);
             }
@@ -144,7 +161,10 @@ public class SearchActivity extends AppCompatActivity {
                 if (page < lastPage) {
                     pbSearch.setVisibility(View.VISIBLE);
                     page += 1;
-                    search(etSearch.getText().toString(), page);
+                    if (date != null && status != null)
+                        searchWithFilter(etSearch.getText().toString(), page);
+                    else
+                        search(etSearch.getText().toString(), page);
                 }
             }
         });
@@ -152,7 +172,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void search(String keyword, int page) {
         mCompositeDisposable.add(
-                jsonApi.doSearch(page, keyword)
+                jsonApi.doSearch(page, keyword, branchId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessSearch, this::onError)
@@ -162,14 +182,14 @@ public class SearchActivity extends AppCompatActivity {
     private void searchWithFilter(String keyword, int page) {
         if (startDate != null && endDate != null)
             mCompositeDisposable.add(
-                    jsonApi.searchWithFilter(status, date, startDate, endDate, page, keyword)
+                    jsonApi.searchWithFilter(status, date, startDate, endDate, page, keyword, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessSearch, this::onError)
             );
         else
             mCompositeDisposable.add(
-                    jsonApi.searchWithFilter(status, date, page, keyword)
+                    jsonApi.searchWithFilter(status, date, page, keyword, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessSearch, this::onError)
@@ -231,6 +251,13 @@ public class SearchActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(getLayoutInflater().inflate(R.layout.search_filter, null));
+        dialog.setOnKeyListener((d, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                isClicked = false;
+                d.dismiss();
+            }
+            return true;
+        });
 
         ImageView icClose = dialog.findViewById(R.id.ic_close);
         RadioGroup rgDate = dialog.findViewById(R.id.rg_date);
@@ -245,27 +272,42 @@ public class SearchActivity extends AppCompatActivity {
         /* Check Checked Radio Button */
         if (date == null) {
             rbNew.setChecked(true);
+            date = NEW_DATE;
+            isClicked = false;
         } else {
             switch (date) {
                 case NEW_DATE:
+                    isClicked = false;
                     rbNew.setChecked(true);
                     break;
                 case OLD_DATE:
+                    isClicked = false;
                     rbOld.setChecked(true);
                     break;
                 case CHOOSE_DATE:
                     // Show DatePicker if range is null
                     rbChooseDate.setChecked(true);
                     if (startDate == null || endDate == null)
-                        showDatePicker(rbNew, rbChooseDate);
+                        if (!isClicked) {
+                            isClicked = true;
+                            showDatePicker(rbNew, rbChooseDate);
+                        }
                     else
                         doSpanText(String.format(new Locale("in", "ID"), "%s - %s", startDate, endDate), rbChooseDate);
                     break;
             }
         }
 
+        rbChooseDate.setOnClickListener(v -> {
+            if (!isClicked) {
+                isClicked = true;
+                showDatePicker(rbNew, rbChooseDate);
+            }
+        });
+
         if (status == null) {
             rbActive.setChecked(true);
+            status = ACTIVE;
         } else {
             switch (status) {
                 case ACTIVE:
@@ -283,15 +325,20 @@ public class SearchActivity extends AppCompatActivity {
             switch (i) {
                 case R.id.rb_new:
                     date = NEW_DATE;
+                    isClicked = false;
                     rbChooseDate.setText("Pilih Tanggal");
                     break;
                 case R.id.rb_old:
                     date = OLD_DATE;
+                    isClicked = false;
                     rbChooseDate.setText("Pilih Tanggal");
                     break;
                 case R.id.rb_choose_date:
                     date = CHOOSE_DATE;
-                    showDatePicker(rbNew, rbChooseDate);
+                    if (!isClicked) {
+                        isClicked = true;
+                        showDatePicker(rbNew, rbChooseDate);
+                    }
                     break;
             }
         });
@@ -326,6 +373,9 @@ public class SearchActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private String startDateStr = null, endDateStr = null;
+    private boolean isClicked = false;
+
     private void showDatePicker(final RadioButton rbNew, final RadioButton rbChooseDate) {
         Tools.showLongToast(this, "Long press on the start date and drag to the end date");
         DatePickerRange dp = new DatePickerRange();
@@ -333,16 +383,22 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onCancelled() {
                 Tools.showToast(SearchActivity.this, "Harap pilih rentang tanggal!");
+                startDateStr = null;
+                endDateStr = null;
                 startDate = null;
                 endDate = null;
                 rbNew.setChecked(true);
+                isClicked = false;
             }
 
             @Override
             public void onDateTimeRecurrenceSet(SelectedDate selectedDate, int hourOfDay, int minute, SublimeRecurrencePicker.RecurrenceOption recurrenceOption, String recurrenceRule) {
-                startDate = Tools.formatDate(selectedDate.getStartDate().getTime());
-                endDate = Tools.formatDate(selectedDate.getEndDate().getTime());
-                doSpanText(String.format(new Locale("in", "ID"), "%s - %s", startDate, endDate), rbChooseDate);
+                startDateStr = Tools.formatDate(selectedDate.getStartDate().getTime());
+                endDateStr = Tools.formatDate(selectedDate.getEndDate().getTime());
+                startDate = Tools.formatDateParams(selectedDate.getStartDate().getTime());
+                endDate = Tools.formatDateParams(selectedDate.getEndDate().getTime());
+                doSpanText(String.format(new Locale("in", "ID"), "%s - %s", startDateStr, endDateStr), rbChooseDate);
+                isClicked = false;
             }
         });
 

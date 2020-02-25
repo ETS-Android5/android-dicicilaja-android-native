@@ -30,7 +30,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String user_id, String nomor_axi_id, String profile_id, String user_id_onesignal, String token, String role, String name, String photo_profile_url, String branch, String area, String zipcode,
+    public void createLoginSession(String user_id, String nomor_axi_id, String profile_id, String user_id_onesignal, String token, String role, String name, String photo_profile_url, String branch, String branchId, String area, String zipcode,
                                    String firebase_token,
                                    String phone,
                                    String email){
@@ -43,6 +43,7 @@ public class SessionManager {
         editor.putString("role", role);
         editor.putString("photo", photo_profile_url);
         editor.putString("branch", branch);
+        editor.putString("branch_id", branchId);
         editor.putString("area", area);
         editor.putString("zipcode", zipcode);
         editor.putString("token", token);
@@ -60,7 +61,7 @@ public class SessionManager {
 
     public void editLoginSessionCustomer(String name){
         editor.putString("name", name);
-        editor.commit();
+        editor.apply();
     }
 
     public String getUserIdOneSignal() {
@@ -97,6 +98,10 @@ public class SessionManager {
 
     public String getBranch() {
         return pref.getString("branch", null);
+    }
+
+    public String getBranchId() {
+        return pref.getString("branch_id", null);
     }
 
     public String getArea() {

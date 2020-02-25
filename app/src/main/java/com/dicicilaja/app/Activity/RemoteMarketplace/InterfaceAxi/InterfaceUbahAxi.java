@@ -1,6 +1,8 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahAxi.UbahAxi;
+import com.dicicilaja.app.InformAXI.model.EditShProfile;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -33,4 +35,12 @@ public interface InterfaceUbahAxi {
                          @Field("rekening") String rekening,
                          @Field("AN") String AN,
                          @Field("kotaBank") String kotaBank);
+
+    @FormUrlEncoded
+    @POST("sh/edit")
+    Call<EditShProfile>
+    editProfile(@Header("Authorization") String authorization,
+                @Field("name") String name,
+                @Field("phone") String phone,
+                @Field("email") String email);
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dicicilaja.app.Activity.UbahAxiActivity"
+    tools:context="com.dicicilaja.app.Activity.UbahShActivity"
     android:orientation="vertical"
     android:background="@color/colorSection">
     <com.google.android.material.appbar.AppBarLayout
@@ -277,7 +277,7 @@
                         app:met_helperText="Contoh : Jl. Jend. Sudirman"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -286,124 +286,124 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/inputLayoutRtRw"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="RT/RW KTP *"-->
-<!--                    android:layout_marginTop="16dp">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/inputLayoutRtRw"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="RT/RW KTP *"-->
+                <!--                    android:layout_marginTop="16dp">-->
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:id="@+id/inputRtRw"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:met_helperText="Contoh : 007/009"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:inputType="date"-->
-<!--                        android:imeOptions="actionNext"-->
-<!--                        android:nextFocusDown="@id/inputKelurahan"-->
-<!--                        android:layout_marginLeft="5dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:fontFamily="sans-serif"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="14sp"/>-->
+                <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                        android:id="@+id/inputRtRw"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        app:met_helperText="Contoh : 007/009"-->
+                <!--                        android:layout_centerHorizontal="true"-->
+                <!--                        android:inputType="date"-->
+                <!--                        android:imeOptions="actionNext"-->
+                <!--                        android:nextFocusDown="@id/inputKelurahan"-->
+                <!--                        android:layout_marginLeft="5dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:fontFamily="sans-serif"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="14sp"/>-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/inputLayoutKelurahan"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Kelurahan KTP *"-->
-<!--                    android:layout_marginTop="16dp">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/inputLayoutKelurahan"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Kelurahan KTP *"-->
+                <!--                    android:layout_marginTop="16dp">-->
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:id="@+id/inputKelurahan"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:met_helperText="Contoh : Kuningan Timur"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:inputType="textPersonName|textCapWords"-->
-<!--                        android:imeOptions="actionNext"-->
-<!--                        android:nextFocusDown="@id/inputKecamatan"-->
-<!--                        android:layout_marginLeft="5dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:fontFamily="sans-serif"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="14sp"/>-->
+                <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                        android:id="@+id/inputKelurahan"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        app:met_helperText="Contoh : Kuningan Timur"-->
+                <!--                        android:layout_centerHorizontal="true"-->
+                <!--                        android:inputType="textPersonName|textCapWords"-->
+                <!--                        android:imeOptions="actionNext"-->
+                <!--                        android:nextFocusDown="@id/inputKecamatan"-->
+                <!--                        android:layout_marginLeft="5dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:fontFamily="sans-serif"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="14sp"/>-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/inputLayoutKecamatan"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Kecamatan KTP *"-->
-<!--                    android:layout_marginTop="16dp">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/inputLayoutKecamatan"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Kecamatan KTP *"-->
+                <!--                    android:layout_marginTop="16dp">-->
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:id="@+id/inputKecamatan"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:met_helperText="Contoh : Setiabudi"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:inputType="textPersonName|textCapWords"-->
-<!--                        android:imeOptions="actionNext"-->
-<!--                        android:nextFocusDown="@id/inputProvinsi"-->
-<!--                        android:layout_marginLeft="5dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:fontFamily="sans-serif"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="14sp"/>-->
+                <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                        android:id="@+id/inputKecamatan"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        app:met_helperText="Contoh : Setiabudi"-->
+                <!--                        android:layout_centerHorizontal="true"-->
+                <!--                        android:inputType="textPersonName|textCapWords"-->
+                <!--                        android:imeOptions="actionNext"-->
+                <!--                        android:nextFocusDown="@id/inputProvinsi"-->
+                <!--                        android:layout_marginLeft="5dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:fontFamily="sans-serif"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="14sp"/>-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/inputLayoutProvinsi"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Provinsi KTP *"-->
-<!--                    android:layout_marginTop="16dp">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/inputLayoutProvinsi"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Provinsi KTP *"-->
+                <!--                    android:layout_marginTop="16dp">-->
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:id="@+id/inputProvinsi"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:met_helperText="Contoh : DKI Jakarta"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:inputType="textPersonName|textCapWords"-->
-<!--                        android:imeOptions="actionNext"-->
-<!--                        android:nextFocusDown="@id/inputKodepos"-->
-<!--                        android:layout_marginLeft="5dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:fontFamily="sans-serif"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="14sp"/>-->
+                <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                        android:id="@+id/inputProvinsi"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        app:met_helperText="Contoh : DKI Jakarta"-->
+                <!--                        android:layout_centerHorizontal="true"-->
+                <!--                        android:inputType="textPersonName|textCapWords"-->
+                <!--                        android:imeOptions="actionNext"-->
+                <!--                        android:nextFocusDown="@id/inputKodepos"-->
+                <!--                        android:layout_marginLeft="5dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:fontFamily="sans-serif"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="14sp"/>-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/inputLayoutKodepos"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Kode Pos KTP *"-->
-<!--                    android:layout_marginTop="16dp">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/inputLayoutKodepos"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Kode Pos KTP *"-->
+                <!--                    android:layout_marginTop="16dp">-->
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:id="@+id/inputKodepos"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:met_helperText="Contoh : 12920"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:inputType="number"-->
-<!--                        android:imeOptions="actionDone"-->
-<!--                        android:layout_marginLeft="5dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:fontFamily="sans-serif"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="14sp"/>-->
+                <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                        android:id="@+id/inputKodepos"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        app:met_helperText="Contoh : 12920"-->
+                <!--                        android:layout_centerHorizontal="true"-->
+                <!--                        android:inputType="number"-->
+                <!--                        android:imeOptions="actionDone"-->
+                <!--                        android:layout_marginLeft="5dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:fontFamily="sans-serif"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="14sp"/>-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutJenisKelamin"
@@ -452,7 +452,7 @@
                         android:layout_centerHorizontal="true"
                         android:inputType="text"
                         android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/spinnerKodeBank"
+                        android:nextFocusDown="@id/inputNamaBank"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:fontFamily="sans-serif"
@@ -472,35 +472,27 @@
                     android:textColor="@color/colorAccent"
                     android:layout_marginBottom="5dp"/>
 
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutKodeBank"
+                    android:id="@+id/inputLayoutNamaBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:hint="Nama Bank *"
+                    android:layout_marginTop="10dp">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerKodeBank"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputNamaBank"
+                        app:met_helperText="Contoh : Danamon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Nama Bank *"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Nama Bank"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionDone"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:layout_centerHorizontal="true"
+                        android:inputType="textPersonName|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/inputCabang"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

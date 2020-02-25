@@ -101,7 +101,7 @@ public class BenefitFragment extends Fragment implements ProfileCallback {
     }
 
     private void setData(AxiProfile data) {
-        AxiProfile.DataBean.BenefitBean benefit = data.getData().getBenefit();
+        AxiProfile.Data.Benefit benefit = data.getData().getBenefit();
 
         if (benefit.getPointReward() != -1) {
             tvPointReward.setText(String.valueOf(benefit.getPointReward()));

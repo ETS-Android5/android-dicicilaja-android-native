@@ -245,6 +245,7 @@ public class LoginActivity extends AppCompatActivity {
                             resObj.getName(),
                             photo,
                             resObj.getBranch(),
+                            resObj.getBranchId(),
                             area,
                             zipcode,
                             refreshedToken,

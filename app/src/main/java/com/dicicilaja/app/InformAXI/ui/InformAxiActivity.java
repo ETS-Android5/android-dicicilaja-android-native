@@ -8,6 +8,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,12 +22,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dicicilaja.app.Activity.LoginActivity;
+import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.InformAXI.OrderTrackingActivity;
 import com.dicicilaja.app.InformAXI.ui.gathering.GatheringActivity;
 import com.dicicilaja.app.InformAXI.ui.home.HomeFragment;
 import com.dicicilaja.app.InformAXI.ui.register.RegisterActivity;
 import com.dicicilaja.app.InformAXI.ui.trip.TripActivity;
+import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.navigation.NavigationView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -40,8 +48,11 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
 
     public static int navItemIndex = 0;
     public static String CURRENT_TAG = "home";
+    public boolean isDialogShowing = false;
 
     private Handler mHandler;
+
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +62,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         initVariables();
         initToolbar();
         initListener();
-//        loadHomeFragment();
+        loadHomeFragment();
     }
 
     private void initVariables() {
@@ -65,6 +76,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         ivAvatar = navHeader.findViewById(R.id.iv_avatar);
 
         mHandler = new Handler();
+        session = new SessionManager(this);
 
         loadNavHeader();
     }
@@ -81,63 +93,73 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
 
         tvLookProfile.setOnClickListener(view -> {
             // intent to profile detail
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
         });
     }
 
     private void loadNavHeader() {
-        tvName.setText(getString(R.string.app_name));
+        String name = session.getName();
+        tvName.setText(name);
 
-        Glide.with(this).load(getString(R.string.dummy_profile))
-                .placeholder(R.drawable.ic_profile_account)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ivAvatar);
+        String photo = session.getPhoto();
+        if (photo != null && !photo.isEmpty())
+            Glide.with(this).load(photo)
+                    .placeholder(R.drawable.ic_profile_account)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(ivAvatar);
+        else
+            Glide.with(this).load(getString(R.string.dummy_profile))
+                    .placeholder(R.drawable.ic_profile_account)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(ivAvatar);
     }
 
-//    private void loadHomeFragment() {
-//        // select appropriate nav menu item
-//        selectNavMenu();
-//
-//        // if user select the current navigation, don't do anything
-//        // just close the drawer
-//        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
-//            drawerLayout.closeDrawers();
-//            return;
-//        }
-//
-//        // Sometimes, when fragment has huge data, screen seems hanging
-//        // when switching between navigation menus
-//        // So using runnable, the fragment is loaded with cross fade effect
-//        // This effect can be seen in GMail app
-//        Runnable mPendingRunnable = () -> {
-//            Fragment fragment = getFragment();
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-//            transaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
-//            transaction.commitAllowingStateLoss();
-//        };
-//
-//        mHandler.post(mPendingRunnable);
-//
-//        drawerLayout.closeDrawers();
-//        invalidateOptionsMenu();
-//    }
+    private void loadHomeFragment() {
+        // select appropriate nav menu item
+        selectNavMenu();
+
+        // if user select the current navigation, don't do anything
+        // just close the drawer
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
+            drawerLayout.closeDrawers();
+            return;
+        }
+
+        // Sometimes, when fragment has huge data, screen seems hanging
+        // when switching between navigation menus
+        // So using runnable, the fragment is loaded with cross fade effect
+        // This effect can be seen in GMail app
+        Runnable mPendingRunnable = () -> {
+            Fragment fragment = getFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            transaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
+            transaction.commitAllowingStateLoss();
+        };
+
+        mHandler.post(mPendingRunnable);
+
+        drawerLayout.closeDrawers();
+        invalidateOptionsMenu();
+    }
 
     private void selectNavMenu() {
         navView.getMenu().getItem(navItemIndex).setChecked(true);
     }
 
-//    private Fragment getFragment() {
-//        switch (CURRENT_TAG) {
-//            case "home":
-//                return HomeFragment.newInstance("home");
-//            case "register":
-//                return HomeFragment.newInstance("register");
-//            case "trip":
-//                return TripFragment.newInstance();
-//            default:
-//                return HomeFragment.newInstance("home");
-//        }
-//    }
+    private Fragment getFragment() {
+        switch (CURRENT_TAG) {
+            case "home":
+                return HomeFragment.newInstance("home");
+            case "register":
+                return HomeFragment.newInstance("register");
+            case "trip":
+                return HomeFragment.newInstance("home");
+            default:
+                return HomeFragment.newInstance("home");
+        }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -167,6 +189,10 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_tracking:
                 drawerLayout.closeDrawers();
                 startActivity(new Intent(this, OrderTrackingActivity.class));
+                break;
+            case R.id.nav_logout:
+                showDialogLogout();
+                break;
             default:
                 navItemIndex = 4;
                 //CURRENT_TAG = getString(R.string.home_tag);
@@ -184,6 +210,20 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    private void showDialogLogout() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Keluar Akun");
+        dialog.setMessage("Anda yakin ingin keluar dari akun?");
+        dialog.setPositiveButton("Ya", (positiveDialog, which) -> {
+            Tools.showToast(InformAxiActivity.this, "Berhasil keluar");
+            session.logoutUser();
+            startActivity(new Intent(InformAxiActivity.this, LoginActivity.class));
+            finish();
+        });
+        dialog.setNegativeButton("Batal", (negativeDialog, which) -> negativeDialog.dismiss());
+        dialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -194,11 +234,10 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         if (navItemIndex != 0) {
             navItemIndex = 0;
             CURRENT_TAG = getString(R.string.home_tag);
-//            loadHomeFragment();
+            loadHomeFragment();
             selectNavMenu();
             return;
         }
-
 
         super.onBackPressed();
     }
@@ -206,11 +245,12 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onResume() {
         super.onResume();
+        loadNavHeader();
 
         if (navItemIndex != 0) {
             navItemIndex = 0;
             CURRENT_TAG = getString(R.string.home_tag);
-//            loadHomeFragment();
+            loadHomeFragment();
             selectNavMenu();
             return;
         }
