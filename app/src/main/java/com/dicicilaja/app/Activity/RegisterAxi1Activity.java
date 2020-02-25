@@ -208,7 +208,6 @@ public class RegisterAxi1Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerArea);
-                    spinnerArea.performClick();
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerArea.dispatchTouchEvent(motionEvent);
                     hideSoftKeyboard();
@@ -226,7 +225,6 @@ public class RegisterAxi1Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerCabang);
-                    spinnerCabang.performClick();
                     MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
                     spinnerCabang.dispatchTouchEvent(motionEvent);
                     hideSoftKeyboard();
@@ -325,7 +323,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (!isName(nama)) {
+        } else if (!isName(namaibu)) {
             AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(RegisterAxi1Activity.this);
             alertDialog5.setTitle("Perhatian");
             alertDialog5.setMessage("Masukan nama ibu kandung yang benar");

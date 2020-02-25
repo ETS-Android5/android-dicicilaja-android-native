@@ -319,8 +319,7 @@
                             android:layout_centerHorizontal="true"
                             android:inputType="number"
                             android:maxLength="3"
-                            android:imeOptions="actionNext"
-                            android:nextFocusDown="@id/inputRw"
+                            android:imeOptions="actionDone"
                             android:paddingTop="10dp"
                             android:background="@android:color/transparent"
                             android:layout_marginTop="25dp"
@@ -565,6 +564,11 @@
                             android:layout_height="40dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:src="@drawable/border_1dp"/>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputLayoutKodepos"
                         android:layout_width="match_parent"
@@ -573,10 +577,11 @@
                         app:hintEnabled="true">
 
                         <EditText
+                            android:enabled="false"
                             android:id="@+id/inputKodepos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Kode Pos KTP *"
+                            android:hint="Kode Pos *"
                             android:layout_centerHorizontal="true"
                             android:inputType="number"
                             android:imeOptions="actionDone"

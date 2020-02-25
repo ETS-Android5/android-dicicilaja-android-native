@@ -588,6 +588,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 
                 textview.setText(formatter.format(date).toString());
 
+
             } catch (Exception ex) {
 
             }

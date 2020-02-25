@@ -26,8 +26,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -155,6 +157,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 DialogFragment dialogfragment = new DatePickerDialogTheme4();
 
                 dialogfragment.show(getSupportFragmentManager(), "Theme 4");
+                hideSoftKeyboard();
             }
         });
 
@@ -163,9 +166,10 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         inputTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogfragment = new UbahAxiActivity.DatePickerDialogTheme4();
+                DialogFragment dialogfragment = new RegisterAxi2Activity.DatePickerDialogTheme4();
 
                 dialogfragment.show(getSupportFragmentManager(), "Theme 4");
+                hideSoftKeyboard();
             }
         });
 
@@ -424,7 +428,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
         } else if (no_ktp.trim().length() < 16){
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
             alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("No.KTP harus 16 karakter");
+            alertDialog.setMessage("No.KTP harus 16 digit");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -479,6 +483,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(inputTanggal);
+                    inputTanggal.performClick();
                 }
             });
             alertDialog.show();
@@ -492,7 +497,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerJenisKelamin);
-                    spinnerJenisKelamin.performClick();
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerJenisKelamin.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -557,7 +564,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerStatus);
-                    spinnerStatus.performClick();
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerStatus.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -601,7 +610,19 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 });
                 alertDialog.show();
                 return false;
-            }else if (!isCoupleKtp(no_ktp_pasangan)) {
+            } else if (no_ktp_pasangan.trim().length() < 16){
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("No.KTP harus 16 digit");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestFocus(inputKtp);
+                    }
+                });
+                alertDialog.show();
+                return false;
+            } else if (!isCoupleKtp(no_ktp_pasangan)) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi2Activity.this);
                 alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Masukan no KTP pasangan dengan benar");
@@ -624,7 +645,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerProvinsi);
-                    spinnerProvinsi.performClick();
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerProvinsi.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -639,7 +662,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerKota);
-                    spinnerKota.performClick();
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerKota.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -654,7 +679,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerDistrik);
-                    spinnerDistrik.performClick();
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerDistrik.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -669,33 +696,9 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerDesa);
-                    spinnerDesa.performClick();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if (kodepos == null || kodepos.trim().length() == 0 || kodepos.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Masukan kode pos");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKodepos);
-                }
-            });
-            alertDialog.show();
-            return false;
-        } else if (kodepos.trim().length() < 5){
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi2Activity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Kode pos harus 5 karakter");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKodepos);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerDesa.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -715,7 +718,20 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
@@ -738,11 +754,11 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             EditText textview = (EditText)getActivity().findViewById(R.id.inputTanggal);
 
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                String dateInString = day + "/" + (month + 1) + "/" + year;
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String dateInString = year + "-" + (month + 1) + "-" + day;
                 Date date = formatter.parse(dateInString);
 
-                formatter = new SimpleDateFormat("dd/MM/yyyy");
+                formatter = new SimpleDateFormat("yyyy-MM-dd");
 
                 textview.setText(formatter.format(date).toString());
 
@@ -1208,12 +1224,11 @@ public class RegisterAxi2Activity extends AppCompatActivity {
 
 
     private void clearKodePos() {
-        inputKodepos.setEnabled(true);
         inputKodepos.setText("");
     }
 
     public static boolean isKtp(String alamat) {
-        String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+        String expression = "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(alamat);
         return matcher.matches();
@@ -1224,7 +1239,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             inputLayoutKtp.setErrorEnabled(false);
         } else {
             String emailId = inputKtp.getText().toString();
-            String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+            String expression = "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(emailId);
             Boolean isValid = matcher.matches();
@@ -1240,7 +1255,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     }
 
     public static boolean isCoupleKtp(String alamat) {
-        String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+        String expression = "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(alamat);
         return matcher.matches();
@@ -1251,7 +1266,7 @@ public class RegisterAxi2Activity extends AppCompatActivity {
             inputLayoutNoKtpPasangan.setErrorEnabled(false);
         } else {
             String emailId = inputNoKtpPasangan.getText().toString();
-            String expression = "^((1[1-9])|(21)|([37][1-6])|(5[1-4])|(6[1-5])|([8-9][1-2]))[0-9]{2}[0-9]{2}(([0-6][0-9])|(7[0-1]))((0[1-9])|(1[0-2]))([0-9]{2})[0-9]{4}$";
+            String expression = "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(emailId);
             Boolean isValid = matcher.matches();

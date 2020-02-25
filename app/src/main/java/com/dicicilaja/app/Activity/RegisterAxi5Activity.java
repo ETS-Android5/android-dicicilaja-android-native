@@ -43,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -70,6 +71,8 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
     ImageView image_ktp, image_npwp, image_cover;
     ProgressDialog progress;
     TextView textCheck;
+
+    MaterialProgressBar progressBar;
 
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -110,6 +113,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
         upload_cover = findViewById(R.id.upload_cover);
         image_cover = findViewById(R.id.image_cover);
         textCheck = findViewById(R.id.textCheck);
+        progressBar             = findViewById(R.id.progressBar);
 
         textCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -475,7 +479,43 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
         InterfaceCreateAXI apiService =
                 ComposserClient.getClient().create(InterfaceCreateAXI.class);
 
-        Call<CreateAXI> call = apiService.create(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kelurahan, kecamatan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover, kode_bank, nama_pasangan, no_ktp_pasangan);
+        Log.d(TAG, "apiKey: " + apiKey);
+        Log.d(TAG, "area_id: " + area);
+        Log.d(TAG, "cabang_daftar: " + cabang);
+        Log.d(TAG, "axi_reff: " + axi_id);
+        Log.d(TAG, "nama: " + nama);
+        Log.d(TAG, "no_ktp: " + no_ktp);
+        Log.d(TAG, "kota_lahir: " + tempat_lahir);
+        Log.d(TAG, "tanggal_lahir: " + tanggal);
+        Log.d(TAG, "status_perkawinan: " + status);
+        Log.d(TAG, "alamat_ktp: " + alamat);
+        Log.d(TAG, "rt: " + rt);
+        Log.d(TAG, "rw: " + rw);
+        Log.d(TAG, "provinsi_id: " + provinsi);
+        Log.d(TAG, "kota_id: " + kota);
+        Log.d(TAG, "kelurahan_id: " + kelurahan);
+        Log.d(TAG, "kecamatan_id: " + kecamatan);
+        Log.d(TAG, "kode_pos: " + kodepos);
+        Log.d(TAG, "jenis_kelamin: " + jk);
+        Log.d(TAG, "email: " + email);
+        Log.d(TAG, "no_hp: " + hp);
+        Log.d(TAG, "nama_ibu_kandung: " + namaibu);
+        Log.d(TAG, "no_rekening: " + no_rekening);
+        Log.d(TAG, "cabang_bank: " + cabang_bank);
+        Log.d(TAG, "an_rekening: " + an_rekening);
+        Log.d(TAG, "kota_bank: " + kota_bank);
+        Log.d(TAG, "no_npwp: " + npwp);
+        Log.d(TAG, "nama_npwp: " + nama_npwp);
+        Log.d(TAG, "tipe_npwp: " + status_npwp);
+        Log.d(TAG, "pkp: " + pkp_status);
+        Log.d(TAG, "foto_ktp: " + imageKtp);
+        Log.d(TAG, "foto_npwp: " + imageNpwp);
+        Log.d(TAG, "foto_rekening: " + imageCover);
+        Log.d(TAG, "bank_id: " + kode_bank);
+        Log.d(TAG, "nama_pasangan: " + nama_pasangan);
+        Log.d(TAG, "no_ktp_pasangan: " + no_ktp_pasangan);
+
+               Call<CreateAXI> call = apiService.create(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kelurahan, kecamatan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, imageKtp, imageNpwp, imageCover, kode_bank, nama_pasangan, no_ktp_pasangan);
         call.enqueue(new Callback<CreateAXI>() {
             @Override
             public void onResponse(Call<CreateAXI> call, Response<CreateAXI> response) {
@@ -490,21 +530,20 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                 else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<CreateAXI> call, Throwable t) {
                 Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-                Log.d("REGISTERAXI:::", "ERORR");
                 t.printStackTrace();
 
-                //Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }

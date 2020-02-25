@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,141 +126,183 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Informasi NPWP"
+                android:textSize="16dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:paddingTop="25dp"
+                android:background="@drawable/border_form"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Informasi NPWP"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="No. NPWP"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNPWP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:met_helperText="Isi dengan 0000 jika tidak memiliki NPWP"
+                        android:hint="No. NPWP *"
                         android:layout_centerHorizontal="true"
                         android:inputType="number"
+                        android:maxLength="15"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNamaNPWP"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:maxLength="15"
-                        android:textSize="14sp"/>
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Isi dengan 15 digit angka 0 jika tidak memiliki NPWP"
+                    android:fontFamily="@font/open_sans"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="11sp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama NPWP"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNamaNPWP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:met_helperText="Nama sesuai NPWP"
+                        android:hint="Nama NPWP *"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/spinnerStatusNPWP"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:imeOptions="actionDone"
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutStatusNPWP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    app:hintEnabled="true">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerStatusNPWP"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Status NPWP"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Status NPWP"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/spinnerPKPStatus"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:text="Status NPWP *"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="#FFB8B8B8"
+                        android:layout_marginTop="20dp"
+                        android:textSize="12sp"/>
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spinnerStatusNPWP"
+                        android:layout_width="match_parent"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_height="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutPKPStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    app:hintEnabled="true">
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerPKPStatus"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="PKP Status"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="PKP Status"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionDone"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+                        android:text="PKP Status *"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="#FFB8B8B8"
+                        android:layout_marginTop="20dp"
+                        android:textSize="12sp"/>
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spinnerPKPStatus"
+                        android:layout_width="match_parent"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_height="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <Button
-                    android:id="@+id/btnLanjut"
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Lanjut"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/border_1dp"/>
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLanjut"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:text="Lanjut"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/open_sans_bold"
+                android:backgroundTint="@color/colorAccentDark2"/>
         </LinearLayout>
     </ScrollView>
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:mpb_progressStyle="horizontal"
+        app:mpb_useIntrinsicPadding="false"
+        android:layout_alignParentTop="true"
+        app:mpb_showProgressBackground="false"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
 
 </LinearLayout>

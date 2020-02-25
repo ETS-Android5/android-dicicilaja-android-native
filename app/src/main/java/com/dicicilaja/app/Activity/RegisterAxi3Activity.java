@@ -1,10 +1,12 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 
 import com.dicicilaja.app.API.Client.ApiClient2;
+import com.dicicilaja.app.API.Client.ApiProd;
 import com.dicicilaja.app.API.Client.RetrofitClient2;
 import com.dicicilaja.app.API.Interface.InterfaceAreaBank;
 import com.dicicilaja.app.API.Model.AreaBankRequest.Bank.Bank;
@@ -15,6 +17,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +35,8 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
@@ -114,7 +121,6 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title.setTypeface(opensans_bold);
 
 
         btnLanjut = findViewById(R.id.btnLanjut);
@@ -170,7 +176,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         clearBank();
         //Network
         apiServiceArea = RetrofitClient2.getClient().create(InterfaceAreaBank.class);
-        apiServiceBank = ApiClient2.getClient().create(InterfaceKodeBank.class);
+        apiServiceBank = ApiProd.getClient().create(InterfaceKodeBank.class);
         Call<KodeBank> call = apiServiceBank.getKodeBank();
         call.enqueue(new Callback<KodeBank>() {
             @Override
@@ -243,6 +249,63 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             }
         });
 
+        inputCabangBank.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputCabangBank.removeTextChangedListener(this);
+                validateIsCabangBank();
+                inputCabangBank.addTextChangedListener(this);
+            }
+        });
+
+        inputANRekening.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputANRekening.removeTextChangedListener(this);
+                validateIsANRekening();
+                inputANRekening.addTextChangedListener(this);
+            }
+        });
+
+        inputKotaBank.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputKotaBank.removeTextChangedListener(this);
+                validateIsKotaBank();
+                inputKotaBank.addTextChangedListener(this);
+            }
+        });
+
     }
     private boolean validateForm(String nama_bank, String no_rekening, String cabang_bank, String an_rekening, String kota_bank) {
         if (nama_bank == null || nama_bank.trim().length() == 0 || nama_bank.equals("0")) {
@@ -257,6 +320,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             alertDialog.show();
             return false;
         }
+
         if (no_rekening == null || no_rekening.trim().length() == 0 || no_rekening.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan no.rekening");
@@ -268,18 +332,33 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        } else if (no_rekening.trim().length() < 8){
+        }
+
+        if (cabang_bank == null || cabang_bank.trim().length() == 0 || cabang_bank.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
-            alertDialog.setMessage("No.rekening minimal 8 karakter");
+            alertDialog.setMessage("Masukan cabang bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputNoRekening);
+                    requestFocus(inputCabangBank);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isCabangBank(cabang_bank)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan cabang bank dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputCabangBank);
                 }
             });
             alertDialog.show();
             return false;
         }
+
         if (an_rekening == null || an_rekening.trim().length() == 0 || an_rekening.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
             alertDialog.setMessage("Masukan a/n rekening");
@@ -287,6 +366,43 @@ public class RegisterAxi3Activity extends AppCompatActivity {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(inputANRekening);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isANRekening(an_rekening)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan a/n rekening dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputANRekening);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (kota_bank == null || kota_bank.trim().length() == 0 || kota_bank.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setMessage("Masukan kota bank");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKotaBank);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isKotaBank(kota_bank)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan kota bank dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKotaBank);
                 }
             });
             alertDialog.show();
@@ -323,6 +439,87 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         spinnerBank.setTitle("");
         spinnerBank.setPositiveButton("OK");
         spinnerBank.setEnabled(false);
+    }
+
+    public static boolean isCabangBank(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateIsCabangBank() {
+        if (inputCabangBank.getText().toString().trim().isEmpty()) {
+            inputLayoutCabangBank.setErrorEnabled(false);
+        } else {
+            String emailId = inputCabangBank.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutCabangBank.setError("Format cabang bank salah");
+                requestFocus(inputCabangBank);
+                return false;
+            } else {
+                inputLayoutCabangBank.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isANRekening(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateIsANRekening() {
+        if (inputANRekening.getText().toString().trim().isEmpty()) {
+            inputLayoutANRekening.setErrorEnabled(false);
+        } else {
+            String emailId = inputANRekening.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutANRekening.setError("Format atas nama rekening salah");
+                requestFocus(inputANRekening);
+                return false;
+            } else {
+                inputLayoutANRekening.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isKotaBank(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateIsKotaBank() {
+        if (inputKotaBank.getText().toString().trim().isEmpty()) {
+            inputLayoutKotaBank.setErrorEnabled(false);
+        } else {
+            String emailId = inputKotaBank.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutKotaBank.setError("Format kota bank salah");
+                requestFocus(inputKotaBank);
+                return false;
+            } else {
+                inputLayoutKotaBank.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 
     public static String toTitleCase(String str) {

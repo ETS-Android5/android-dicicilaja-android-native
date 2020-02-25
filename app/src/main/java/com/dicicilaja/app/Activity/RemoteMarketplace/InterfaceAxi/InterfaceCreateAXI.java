@@ -45,9 +45,9 @@ public interface InterfaceCreateAXI {
                            @Field("nama_npwp") String nama_npwp,
                            @Field("tipe_npwp") String status_npwp,
                            @Field("pkp") String pkp_status,
-                           @Field("image_ktp") String image_ktp,
-                           @Field("image_npwp") String image_npwp,
-                           @Field("image_tabungan") String image_tabungan,
+                           @Field("foto_ktp") String image_ktp,
+                           @Field("foto_npwp") String image_npwp,
+                           @Field("foto_rekening") String image_tabungan,
                            @Field("bank_id") String kode_bank,
                            @Field("nama_pasangan") String nama_pasangan,
                            @Field("no_ktp_pasangan") String no_ktp_pasangan);
