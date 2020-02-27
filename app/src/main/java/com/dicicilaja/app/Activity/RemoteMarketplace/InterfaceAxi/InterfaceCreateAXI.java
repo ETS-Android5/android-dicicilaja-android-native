@@ -19,7 +19,7 @@ public interface InterfaceCreateAXI {
     Call<CreateAXI> create(@Header("Authorization") String apiKey,
                            @Field("area_id") String area,
                            @Field("cabang_daftar") String cabang,
-                           @Field("axi_reff") String axi_reff,
+                           @Field("axi_id_reff") String axi_reff,
                            @Field("nama") String name,
                            @Field("no_ktp") String no_ktp,
                            @Field("kota_lahir") String tempat_lahir,

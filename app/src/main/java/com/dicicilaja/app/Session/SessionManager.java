@@ -37,7 +37,7 @@ public class SessionManager {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString("user_id", user_id);
         editor.putString("nomor_axi_id", nomor_axi_id);
-        editor.putString("profile", profile_id);
+        editor.putString("profile_id", profile_id);
         editor.putString("user_id_onesignal", user_id_onesignal);
         editor.putString("name", name);
         editor.putString("role", role);

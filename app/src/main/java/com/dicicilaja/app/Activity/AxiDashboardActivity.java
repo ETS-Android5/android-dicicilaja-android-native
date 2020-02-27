@@ -219,17 +219,47 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     TextView detail, nanti;
     ImageView thumbnail, close;
+    Boolean openInbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_axi_dashboard);
         ButterKnife.bind(this);
-//        mDemoSlider = findViewById(R.id.slider);
+
+        openInbox = getIntent().getBooleanExtra("openInbox", false);
+        if(openInbox) {
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+            startActivityForResult(intent, 77);
+        } else {
+            initAction();
+            initLoadData();
+
+            swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+            swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    initLoadData();
+                    swipeToRefresh.setRefreshing(false);
+                }
+            });
+        }
+    }
+
+    private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){
+
+        sliderView.setSliderAdapter(new AxiImageSliderAdapter(context,maxSlide,file_maps));
+        sliderView.startAutoCycle();
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+    }
+    private void initAction() {
+        //        mDemoSlider = findViewById(R.id.slider);
         sliderView = findViewById(R.id.imageSlider);
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         session.checkLogin();
+        swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
         apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
@@ -248,7 +278,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
         titleInfo.setTypeface(opensans_bold);
-//        titlePpob.setTypeface(opensans_bold);
+        //        titlePpob.setTypeface(opensans_bold);
         titleInfoJaringan.setTypeface(opensans_bold);
         titleReplika.setTypeface(opensans_bold);
         totalView.setTypeface(opensans_bold);
@@ -265,49 +295,39 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         titleBox6.setTypeface(opensans_bold);
         contentBox6.setTypeface(opensans_reguler);
 
-        doLoadData();
-        swipeToRefresh.setColorSchemeResources(R.color.colorAccent);
 
-        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                doLoadData();
-                swipeToRefresh.setRefreshing(false);
-            }
-        });
-
-//        allpromo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getBaseContext(),AllPromoActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        //        allpromo.setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View view) {
+        //                Intent intent = new Intent(getBaseContext(),AllPromoActivity.class);
+        //                startActivity(intent);
+        //            }
+        //        });
 
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
 
-//        recyclerView =  findViewById(R.id.recycler_pengajuan);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        //        recyclerView =  findViewById(R.id.recycler_pengajuan);
+        //        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         //KOMEN SEMENTARA PPOB
-//        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-//        recyclerView.setLayoutManager(mLayoutManager);
-////        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(adapter);
+        //        final RecyclerView recyclerView = findViewById(R.id.recycler_ppob);
+        //        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        //        recyclerView.setLayoutManager(mLayoutManager);
+        ////        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
+        //        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //        recyclerView.setAdapter(adapter);
 
 
-//        recyclerPPOB.setHasFixedSize(true);
-//        recyclerPPOB.setLayoutManager(new LinearLayoutManager(getBaseContext(),
-//                LinearLayoutManager.HORIZONTAL, false));
+        //        recyclerPPOB.setHasFixedSize(true);
+        //        recyclerPPOB.setLayoutManager(new LinearLayoutManager(getBaseContext(),
+        //                LinearLayoutManager.HORIZONTAL, false));
 
-//        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
-//        snapHelperPromo.attachToRecyclerView(recyclerPPOB);
+        //        SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
+        //        snapHelperPromo.attachToRecyclerView(recyclerPPOB);
 
-        createDummyData();
+//        createDummyData();
 
         try {
             Glide.with(this).load(R.drawable.ic_home).into((ImageView) findViewById(R.id.icon_image));
@@ -315,34 +335,34 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             e.printStackTrace();
         }
 
-//        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
-//                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
-//
-//        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
-//        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
-//            @Override
-//            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, ObjekModel<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
-//                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
-//
-//                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
-//
-//            }
-//        });
+        //        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
+        //                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
+        //
+        //        Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call = apiService.getPromo();
+        //        call.enqueue(new Callback<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo>() {
+        //            @Override
+        //            public void onResponse(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, ObjekModel<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> response) {
+        //                final List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Datum> promos = response.body().getData();
+        //
+        //                recyclerPPOB.setAdapter(new ListPromoAdapter(promos, getBaseContext()));
+        //            }
+        //
+        //            @Override
+        //            public void onFailure(Call<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemPromo.Promo> call, Throwable t) {
+        //
+        //            }
+        //        });
 
         // Load Data Pengajuan
-//        doLoadData();
+        //        doLoadData();
 
-//        allpengajuan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        //        allpengajuan.setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View view) {
+        //                Intent intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
+        //                startActivity(intent);
+        //            }
+        //        });
 
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -547,13 +567,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
-//                progress.dismiss();
+                //                progress.dismiss();
                 List<Datum> slider = response.body().getData();
                 maxSlide = slider.size();
                 for (int i = 0; i < slider.size(); i++) {
                     file_maps.put(i, slider.get(i).getAttributes().getGambar());
                 }
-                setSliderView(getBaseContext(),maxSlide,file_maps);
+                setSliderView(getBaseContext(), maxSlide, file_maps);
             }
 
             @Override
@@ -562,16 +582,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
     }
 
-    private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){
-
-        sliderView.setSliderAdapter(new AxiImageSliderAdapter(context,maxSlide,file_maps));
-        sliderView.startAutoCycle();
-        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-    }
-
-    private void doLoadData() {
-
+    private void initLoadData() {
         ApiService apiService =
                 ApiClient3.getClient().create(ApiService.class);
 
@@ -893,12 +904,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 96 && resultCode == RESULT_OK) {
-            doLoadData();
+        if (requestCode == 77) {
+            if(resultCode == RESULT_OK) {
+                initAction();
+                initLoadData();
+            }
         }
     }
 

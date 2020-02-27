@@ -1,28 +1,18 @@
-//buildscript {
-//    repositories {
-//        maven { url 'https://plugins.gradle.org/m2/'}
-//    }
-//    dependencies {
-//        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.4, 0.99.99]'
-//    }
-//}
-//apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-//
-//repositories {
-//    maven { url 'https://maven.google.com' }
-//}
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-apply plugin: 'com.android.application'
-
-
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://plugins.gradle.org/m2/'}
     }
     dependencies {
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.4, 0.99.99]'
     }
 }
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
+apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
@@ -41,23 +31,16 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-//        manifestPlaceholders = [
-//                onesignal_app_id: '6fa948cd-ccbd-4323-91dd-8388f8cddbb3',
-//                // Project number pulled from dashboard, local value is ignored.
-//                onesignal_google_project_number: 'REMOTE'
-//        ]
+        manifestPlaceholders = [
+                onesignal_app_id: 'bf812738-d6ad-44d2-ac11-bed334c73dbf',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE']
         applicationId "com.dicicilaja.app"
-
-        // TODO: Please update the OneSignal ID below to yours!
-        manifestPlaceholders = [onesignal_app_id               : 'a45fab37-8a04-47cf-ba10-72f0758920a8',
-                                // Project number pulled from dashboard, local value is ignored.
-                                onesignal_google_project_number: 'REMOTE']
-
         minSdkVersion 21
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 53
-        versionName "1.9.7"
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -86,7 +69,7 @@ dependencies {
     implementation('com.github.ganfra:material-spinner:2.0.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-//    implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
+    implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
 
     configurations {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:name=".BaseApplication"
@@ -29,7 +30,7 @@
         <meta-data
             android:name="com.onesignal.NotificationAccentColor.DEFAULT"
             android:resource="@drawable/ic_stat_onesignal_default"
-            android:value="FFF89E4C" />
+            android:value="FFF89E4C"/>
 
         <activity
             android:name=".Inbox.UI.InboxDetailActivity"

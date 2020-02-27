@@ -32,6 +32,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.dicicilaja.app.API.Interface.InterfaceNotifToken;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
 
@@ -56,74 +57,75 @@ public class LoginActivity extends AppCompatActivity {
 
     ApiService apiServiceLogin;
     String photo, zipcode, area;
+    Boolean openInbox;
 
     ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
         session = new SessionManager(LoginActivity.this);
-
-        progress = new ProgressDialog(this);
-        progress.setMessage("Mohon tunggu sebentar...");
-        progress.setCanceledOnTouchOutside(false);
-
         if( session.isLoggedIn() ) {
-
-            showNextActivity(true, session.getRole());
-
+            openInbox = getIntent().getBooleanExtra("openInbox", false);
+            if(openInbox) {
+                showWhichActivity(session.getRole(), openInbox);
+            } else {
+                showWhichActivity(session.getRole(), false);
+            }
         } else {
+            setContentView(R.layout.activity_login);
 
+            progress = new ProgressDialog(this);
+            progress.setMessage("Mohon tunggu sebentar...");
+            progress.setCanceledOnTouchOutside(false);
 
-        /*if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
-            Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
-            Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
-            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
-            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
-            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("admin")) {
-            Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
-            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("mm")) {
-            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("bm")) {
-            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("ho")) {
-            Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
-            Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else {*/
+            /*if (session.isLoggedIn() == TRUE && session.getRole().equals("axi")) {
+                Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("channel")) {
+                Intent intent = new Intent(getBaseContext(), MaxiDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("crh")) {
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("cro")) {
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("tc")) {
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("admin")) {
+                Intent intent = new Intent(getBaseContext(), EmployeeDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("spg")) {
+                Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("mm")) {
+                Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("bm")) {
+                Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("ho")) {
+                Intent intent = new Intent(getBaseContext(), SPGDashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else if (session.isLoggedIn() == TRUE && session.getRole().equals("basic")) {
+                Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else {*/
 
-//            Instabug.setUserAttribute("USER_ID", null);
-//            Instabug.setUserAttribute("LOGIN", "False");
+            //            Instabug.setUserAttribute("USER_ID", null);
+            //            Instabug.setUserAttribute("LOGIN", "False");
 
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Window window = this.getWindow();
@@ -131,17 +133,17 @@ public class LoginActivity extends AppCompatActivity {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.setStatusBarColor(this.getResources().getColor(R.color.colorWhite));
             }
-            judulDaftarAkun = (TextView) findViewById(R.id.judulDaftarAkun);
-            daftarAkun = (TextView) findViewById(R.id.daftarAkun);
-            inputLayoutEmailID = (TextInputLayout) findViewById(R.id.inputLayoutEmailID);
-            inputLayoutPassword = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
-            inputEmailID = (EditText) findViewById(R.id.inputEmailID);
-            inputPassword = (EditText) findViewById(R.id.inputPassword);
-            btnLogin = (Button) findViewById(R.id.btnLogin);
+            judulDaftarAkun = findViewById(R.id.judulDaftarAkun);
+            daftarAkun = findViewById(R.id.daftarAkun);
+            inputLayoutEmailID = findViewById(R.id.inputLayoutEmailID);
+            inputLayoutPassword = findViewById(R.id.inputLayoutPassword);
+            inputEmailID = findViewById(R.id.inputEmailID);
+            inputPassword = findViewById(R.id.inputPassword);
+            btnLogin = findViewById(R.id.btnLogin);
             progressDialog = new ProgressDialog(this);
             lewati = findViewById(R.id.lewati);
             lewati_text = findViewById(R.id.lewati_text);
-            tvForgot = (TextView) findViewById(R.id.tvForgot);
+            tvForgot = findViewById(R.id.tvForgot);
 
             inputEmailID.addTextChangedListener(new MyTextWatcher(inputEmailID));
             inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
@@ -256,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    Instabug.setUserAttribute("USER_ID", resObj.getUserId());
 //                    Instabug.setUserAttribute("LOGIN", "True");
 
-                    showNextActivity(true, resObj.getRole());
+                    showWhichActivity(resObj.getRole(), false);
 
                     /*if (resObj.getRole().equals("axi")) {
                         Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
@@ -389,44 +391,48 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void showNextActivity(boolean isLogin, String role) {
-        if( isLogin ) {
+//    private void showNextActivity(String role) {
+//        if( isLogin ) {
 //            oneSignalSubscribe();
+//
+//            if( String.valueOf(session.getPhone()).isEmpty() || (session.getEmail() == null) ) {
+//                Intent intent = new Intent( LoginActivity.this, CompletePhoneEmailActivity.class );
+//
+//                intent.putExtra("USER_ID", session.getUserId());
+//                intent.putExtra("USER_PHONE", session.getPhone());
+//                intent.putExtra("USER_EMAIL", session.getEmail());
+//                intent.putExtra("USER_ROLE", session.getRole());
+//
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//                startActivity(intent);
+//            } else {
+//                showWhichActivity(role);
+//            }
+//        }
+//    }
 
-            if( String.valueOf(session.getPhone()).isEmpty() || (session.getEmail() == null) ) {
-                Intent intent = new Intent( LoginActivity.this, CompletePhoneEmailActivity.class );
-
-                intent.putExtra("USER_ID", session.getUserId());
-                intent.putExtra("USER_PHONE", session.getPhone());
-                intent.putExtra("USER_EMAIL", session.getEmail());
-                intent.putExtra("USER_ROLE", session.getRole());
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                startActivity(intent);
-            } else {
-                showWhichActivity(role);
-            }
-        }
-    }
-
-    private void showWhichActivity( String role ) {
+    private void showWhichActivity(String role, Boolean openInbox) {
+        oneSignalSubscribe();
         role = role.toLowerCase();
         switch (role) {
             case "axi":
                 Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
+                intent.putExtra("openInbox", openInbox);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
 
             case "sh":
                 Intent intent2 = new Intent(getBaseContext(), InformAxiActivity.class);
+                intent2.putExtra("openInbox", openInbox);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent2);
                 break;
 
             case "nasabah":
                 Intent intent3 = new Intent(getBaseContext(), MarketplaceActivity.class);
+                intent3.putExtra("openInbox", openInbox);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent3);
                 break;
@@ -473,18 +479,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-//    private void oneSignalSubscribe() {
-//        try {
-//            JSONObject tags = new JSONObject();
-//            tags.put("user_id_onesignal", session.getUserId());
-//            tags.put("role", session.getRole());
-//            OneSignal.sendTags(tags);
-//        } catch (Exception ex) {}
-//
+    private void oneSignalSubscribe() {
+        try {
+            JSONObject tags = new JSONObject();
+            tags.put("user_id", session.getUserIdOneSignal());
+            tags.put("role", session.getRole());
+            tags.put("profile_id", session.getProfileId());
+            tags.put("axi_id", session.getNomorAxiId());
+            OneSignal.sendTags(tags);
+        } catch (Exception ex) {}
+
 //        OneSignal.startInit(this)
 //                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
 //                .unsubscribeWhenNotificationsAreDisabled(false)
 //                .init();
-//    }
+    }
 
 }

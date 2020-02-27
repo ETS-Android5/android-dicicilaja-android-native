@@ -5,12 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dicicilaja.app.Inbox.Adapter.InboxAdapter;
 import com.dicicilaja.app.Inbox.Data.Notif.Datum;
@@ -48,6 +47,9 @@ public class InboxActivity extends AppCompatActivity {
     ApiService apiService;
     @BindView(R.id.order)
     LinearLayout order;
+    @BindView(R.id.swipeToRefresh)
+    SwipeRefreshLayout swipeToRefresh;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +57,25 @@ public class InboxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inbox);
         ButterKnife.bind(this);
 
+        initAction();
+        initLoadData();
+
+        swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initLoadData();
+                swipeToRefresh.setRefreshing(false);
+            }
+        });
+
+    }
+
+    private void initAction() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final SessionManager session = new SessionManager(getBaseContext());
+        session = new SessionManager(getBaseContext());
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -74,7 +91,9 @@ public class InboxActivity extends AppCompatActivity {
         apiService = ApiClient.getClient().create(ApiService.class);
 
         recyclerNotif.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+    }
 
+    private void initLoadData() {
         progress.show();
         Call<Notif> call = apiService.getNotifPersonal(session.getUserIdOneSignal());
         call.enqueue(new Callback<Notif>() {
@@ -134,8 +153,17 @@ public class InboxActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 super.finish();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
