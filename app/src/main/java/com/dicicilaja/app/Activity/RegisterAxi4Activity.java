@@ -12,8 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -161,7 +163,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
 
                 }
 
-                if(validateForm(npwp, nama_npwp)) {
+                if(validateForm(npwp, nama_npwp, status_npwp, pkp_status)) {
                     Intent intent = new Intent(getBaseContext(), RegisterAxi5Activity.class);
                     intent.putExtra("apiKey",apiKey);
                     intent.putExtra("axi_id",axi_id);
@@ -220,9 +222,10 @@ public class RegisterAxi4Activity extends AppCompatActivity {
             }
         });
     }
-    private boolean validateForm(String npwp, String nama_npwp) {
+    private boolean validateForm(String npwp, String nama_npwp, String status_npwp, String pkp_status) {
         if (npwp == null || npwp.trim().length() == 0 || npwp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi4Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan no. NPWP");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -248,6 +251,7 @@ public class RegisterAxi4Activity extends AppCompatActivity {
 
         if (nama_npwp == null || nama_npwp.trim().length() == 0 || nama_npwp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi4Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan atas nama NPWP");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -270,12 +274,59 @@ public class RegisterAxi4Activity extends AppCompatActivity {
             alertDialog.show();
             return false;
         }
+
+        if (status_npwp == null || status_npwp.trim().length() == 0 || status_npwp.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi4Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Pilih status NPWP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerStatusNPWP);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerStatusNPWP.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (pkp_status == null || pkp_status.trim().length() == 0 || pkp_status.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi4Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Pilih PKP status");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerPKPStatus);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerPKPStatus.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
         return true;
     }
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 

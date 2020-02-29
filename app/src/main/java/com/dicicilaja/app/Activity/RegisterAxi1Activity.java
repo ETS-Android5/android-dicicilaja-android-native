@@ -360,8 +360,12 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
     private void initAction() {
         //Initialize
+        progressBar.setVisibility(View.GONE);
+        spinnerCabang.setEnabled(false);
+        clearArea();
 
         //Network
+        apiServiceArea = ApiClient2.getClient().create(InterfaceAreaBranch.class);
     }
 
     private void clearArea() {

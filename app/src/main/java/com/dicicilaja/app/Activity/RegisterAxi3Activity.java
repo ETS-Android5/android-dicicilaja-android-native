@@ -21,8 +21,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -310,11 +312,15 @@ public class RegisterAxi3Activity extends AppCompatActivity {
     private boolean validateForm(String nama_bank, String no_rekening, String cabang_bank, String an_rekening, String kota_bank) {
         if (nama_bank == null || nama_bank.trim().length() == 0 || nama_bank.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan nama bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(spinnerBank);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerBank.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
                 }
             });
             alertDialog.show();
@@ -323,6 +329,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
         if (no_rekening == null || no_rekening.trim().length() == 0 || no_rekening.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan no.rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -336,6 +343,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
         if (cabang_bank == null || cabang_bank.trim().length() == 0 || cabang_bank.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan cabang bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -361,7 +369,8 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
         if (an_rekening == null || an_rekening.trim().length() == 0 || an_rekening.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
-            alertDialog.setMessage("Masukan a/n rekening");
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan a.n rekening");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -386,6 +395,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
         if (kota_bank == null || kota_bank.trim().length() == 0 || kota_bank.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kota bank");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -413,7 +423,20 @@ public class RegisterAxi3Activity extends AppCompatActivity {
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
@@ -425,6 +448,7 @@ public class RegisterAxi3Activity extends AppCompatActivity {
         }
         return true;
     }
+
 
     private void clearBank() {
         BANK_DATA.clear();

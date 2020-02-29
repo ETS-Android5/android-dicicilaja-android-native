@@ -13,7 +13,8 @@
             android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
             <LinearLayout
                 android:id="@+id/section"
                 android:layout_width="match_parent"
@@ -21,9 +22,7 @@
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
                 android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="20dp"
-                android:background="@color/colorSection">
+                android:paddingRight="30dp">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -40,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:text="Nasabah"
                         android:textSize="12sp"
+                        android:fontFamily="@font/open_sans"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/bodySection"
@@ -49,6 +49,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
                         android:text="Pantau atau ajukan pinjaman dana multiguna, beli maxi produk/jasa dan nikmati beragam fitur menarik lainnya."/>
 
                 </RelativeLayout>
@@ -56,177 +57,215 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
+                android:background="@drawable/border_form"
                 android:orientation="vertical">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNamaLengkap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Lengkap *"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNamaLengkap"
                         android:layout_width="match_parent"
-                        app:met_helperText="Sesuai yang tertera di KTP"
                         android:layout_height="wrap_content"
+                        android:hint="Nama Lengkap"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPersonName|textCapWords"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputEmail"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Email"
                         android:layout_centerHorizontal="true"
-                        app:met_helperText="Pastikan email Anda aktif."
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputNoHp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNoHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="No. Handphone *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputNoHp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="No. Handphone"
                         android:layout_centerHorizontal="true"
-                        app:met_helperText="Contoh : 081234567890"
-                        android:inputType="phone"
+                        android:inputType="number"
+                        android:maxLength="16"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputKataSandi"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutKataSandi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kata Sandi *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputKataSandi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Kata Sandi"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPassword"
                         android:imeOptions="actionNext"
                         android:nextFocusDown="@id/inputKonfirmasi"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutKonfirmasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Konfirmasi Kata Sandi *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputKonfirmasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Konfirmasi Kata Sandi"
                         android:layout_centerHorizontal="true"
                         android:inputType="textPassword"
                         android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <RelativeLayout
                     android:id="@+id/confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="16dp">
                     <CheckBox
                         android:id="@+id/check"
                         android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/textCheck"
                         android:layout_toRightOf="@+id/check"
                         android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:text="Saya setuju dengan syarat dan ketentuan yang berlaku"/>
                 </RelativeLayout>
-                <Button
-                    android:id="@+id/btnDaftar"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_below="@+id/confirm"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Daftar"
-                    android:textColor="@color/colorWhite"
-                    android:paddingLeft="25dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:paddingRight="25dp"
-                    android:textSize="14sp" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/judulSudahPunyaAkun"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sudah punya akun?"
-                        android:layout_marginRight="5dp"/>
-                    <TextView
-                        android:id="@+id/sudahPunyaAkun"
-                        android:layout_toRightOf="@+id/judulSudahPunyaAkun"
-                        android:layout_gravity="right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccentDark2"
-                        android:text="Login"/>
-                </RelativeLayout>
             </LinearLayout>
+            <Button
+                android:id="@+id/btnDaftar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:text="Daftar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/open_sans_bold"
+                android:backgroundTint="@color/colorAccentDark2"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp">
+
+                <TextView
+                    android:id="@+id/judulSudahPunyaAkun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sudah punya akun?"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:id="@+id/sudahPunyaAkun"
+                    android:layout_toRightOf="@+id/judulSudahPunyaAkun"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccentDark2"
+                    android:text="Login"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

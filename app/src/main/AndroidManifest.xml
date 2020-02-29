@@ -24,13 +24,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".Activity.UbahShActivity"></activity>
+        <activity android:name=".Activity.RegisterCustomerDone"></activity>
+        <activity android:name=".Activity.UbahShActivity" />
         <activity android:name=".Activity.RegisterAxiDone" />
 
         <meta-data
             android:name="com.onesignal.NotificationAccentColor.DEFAULT"
             android:resource="@drawable/ic_stat_onesignal_default"
-            android:value="FFF89E4C"/>
+            android:value="FFF89E4C" />
 
         <activity
             android:name=".Inbox.UI.InboxDetailActivity"

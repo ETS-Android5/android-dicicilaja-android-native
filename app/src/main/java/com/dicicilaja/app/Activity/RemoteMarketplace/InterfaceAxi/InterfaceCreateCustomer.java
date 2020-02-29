@@ -1,32 +1,18 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateAXI.CreateAXI;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface InterfaceCreateCustomer {
-    @Headers({
-            "Accept: application/json",
-    })
-    @POST("register/customer")
+    @POST("nasabah/registration")
     @FormUrlEncoded
-    Call<CreateCustomer> create(@Field("email") String email,
+    Call<CreateCustomer> create(@Field("nama") String nama,
+                                @Field("email") String email,
+                                @Field("no_hp") String no_hp,
                                 @Field("password") String password,
-                                @Field("name") String name,
-                                @Field("phone") String phone,
-                                @Field("area") String area,
-                                @Field("branch") String branch,
-                                @Field("address") String address,
-                                @Field("province") String province,
-                                @Field("city") String city,
-                                @Field("district") String district,
-                                @Field("subdistrict") String subdistrict,
-                                @Field("gender") String gender,
-                                @Field("birth_date") String birth_date);
+                                @Field("password_confirmation") String password_confirmation);
 }

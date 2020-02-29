@@ -38,6 +38,7 @@ import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.Upload.services.Service;
 import com.dicicilaja.app.Utils.Helper;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
     String npwp, nama_npwp, status_npwp, pkp_status;
     String imageKtp, imageNpwp, imageCover, kode_bank;
 
-    Button upload_ktp, upload_npwp, upload_cover;
+    TextView upload_ktp, upload_npwp, upload_cover;
     ImageView image_ktp, image_npwp, image_cover;
     ProgressDialog progress;
     TextView textCheck;
@@ -213,27 +214,57 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                 } catch (Exception ex) {
 
                 }
-                if (check.isChecked()){
-                    btnDaftar.setEnabled(false);
-                    progress.show();
-                    buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, fileKtp, fileNpwp, fileCover, kode_bank, nama_pasangan, no_ktp_pasangan);
-                    btnDaftar.setEnabled(true);
-                }else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi5Activity.this);
-                    alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
+                if(validateForm(fileKtp, fileCover)) {
+                    if (check.isChecked()){
+                        btnDaftar.setEnabled(false);
+                        progress.show();
+                        buatAkun(apiKey, area, cabang, axi_id, nama, no_ktp, tempat_lahir, tanggal, status, alamat, rt, rw, provinsi, kota, kecamatan, kelurahan, kodepos, jk, email, hp, namaibu, no_rekening, cabang_bank, an_rekening, kota_bank, npwp, nama_npwp, status_npwp, pkp_status, fileKtp, fileNpwp, fileCover, kode_bank, nama_pasangan, no_ktp_pasangan);
+                        btnDaftar.setEnabled(true);
+                    }else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterAxi5Activity.this);
+                        alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
 
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-                    alertDialog.show();
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 }
 
             }
         });
     }
 
+    private boolean validateForm(String fileKtp, String fileCover) {
+        if (fileKtp == null || fileKtp.trim().length() == 0 || fileKtp.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi5Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Unggah foto KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (fileCover == null || fileCover.trim().length() == 0 || fileCover.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterAxi5Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Unggah foto cover buku tabungan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -526,8 +557,13 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
                     Intent intent = new Intent(getBaseContext(), RegisterAxiDone.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                }
-                else{
+                } else if (response.code() == 422){
+                    progress.dismiss();
+                    Toast.makeText(getBaseContext(),"Email Anda sudah terdaftar atau silahkan hubungi Tasya.",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
@@ -538,9 +574,8 @@ public class RegisterAxi5Activity extends AppCompatActivity implements EasyPermi
 
             @Override
             public void onFailure(Call<CreateAXI> call, Throwable t) {
+                progress.dismiss();
                 Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
-                t.printStackTrace();
-
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

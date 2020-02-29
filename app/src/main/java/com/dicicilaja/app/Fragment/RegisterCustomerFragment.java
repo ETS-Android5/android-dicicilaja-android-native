@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +21,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ComposserClient;
 import com.dicicilaja.app.Activity.LoginActivity;
+import com.dicicilaja.app.Activity.RegisterCustomerDone;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 import com.dicicilaja.app.R;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +48,7 @@ public class RegisterCustomerFragment extends Fragment {
     CheckBox check;
     String apiKey;
     ProgressDialog progress;
+    TextInputLayout inputLayoutNamaLengkap, inputLayoutEmail, inputLayoutNoHp, inputLayoutKataSandi, inputLayoutKonfirmasi;
     public RegisterCustomerFragment() {
         // Required empty public constructor
     }
@@ -61,10 +69,91 @@ public class RegisterCustomerFragment extends Fragment {
         btnDaftar = view.findViewById(R.id.btnDaftar);
         check = view.findViewById(R.id.check);
         textCheck = view.findViewById(R.id.textCheck);
+        inputLayoutNamaLengkap = view.findViewById(R.id.inputLayoutNamaLengkap);
+        inputLayoutEmail = view.findViewById(R.id.inputLayoutEmail);
+        inputLayoutNoHp = view.findViewById(R.id.inputLayoutNoHp);
+        inputLayoutKataSandi = view.findViewById(R.id.inputLayoutKataSandi);
+        inputLayoutKonfirmasi = view.findViewById(R.id.inputLayoutKonfirmasi);
 
         progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang mengirim data...");
         progress.setCanceledOnTouchOutside(false);
+
+        inputNamaLengkap.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputNamaLengkap.removeTextChangedListener(this);
+                validateName();
+                inputNamaLengkap.addTextChangedListener(this);
+            }
+        });
+
+        inputEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputEmail.removeTextChangedListener(this);
+                validateEmail();
+                inputEmail.addTextChangedListener(this);
+            }
+        });
+
+        inputNoHp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputNoHp.removeTextChangedListener(this);
+                validateHp();
+                inputNoHp.addTextChangedListener(this);
+            }
+        });
+
+        inputKonfirmasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputKonfirmasi.removeTextChangedListener(this);
+                validatePassword();
+                inputKonfirmasi.addTextChangedListener(this);
+            }
+        });
 
         textCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +207,7 @@ public class RegisterCustomerFragment extends Fragment {
                             Log.d("ajukanpengajuan", "katasandi : " + katasandi);
                             Log.d("ajukanpengajuan", "konfirmasi : " + konfirmasi);
                             progress.show();
-                            buatAkun(nama, email, nohp, katasandi);
+                            buatAkun(nama, email, nohp, katasandi, konfirmasi);
 
                         }else {
                             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
@@ -142,51 +231,63 @@ public class RegisterCustomerFragment extends Fragment {
         return view;
     }
 
-    private void buatAkun(final String nama, final String email, final String nohp, final String katasandi) {
+    private void buatAkun(final String nama, final String email, final String no_hp, final String password, final String password_confirmation) {
         InterfaceCreateCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceCreateCustomer.class);
-        String area = "1";
-        String branch = "1";
-        String address = "-";
-        String province = "-";
-        String city = "-";
-        String district = "-";
-        String subdistrict = "-";
-        String gender = "-";
-        String birth_date = "-";
-        Call<CreateCustomer> call = apiService.create(email, katasandi, nama, nohp, area, branch, address, province, city, district, subdistrict, gender, birth_date);
+                ComposserClient.getClient().create(InterfaceCreateCustomer.class);
+
+        Call<CreateCustomer> call = apiService.create(nama, email, no_hp, password, password_confirmation);
         call.enqueue(new Callback<CreateCustomer>() {
             @Override
             public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    Toast.makeText(getContext(),"Selamat! Link verifikasi telah dikirimkan ke email Anda, Silahkan cek untuk melengkapi proses registrasi.",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Intent intent = new Intent(getContext(), RegisterCustomerDone.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                }else{
+                } else if (response.code() == 422){
                     progress.dismiss();
-                    Toast.makeText(getContext(),"Terjadi kesalahan teknis, siolahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Email Anda sudah terdaftar atau silahkan hubungi Tasya.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else{
+                    progress.dismiss();
+                    Toast.makeText(getContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<CreateCustomer> call, Throwable t) {
-                Toast.makeText(getContext(),"Terjadi kesalahan teknis, siolahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
+                progress.dismiss();
+                Toast.makeText(getContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
     }
 
-    private boolean validateForm(String nama, String email, String nohp, String katasandi, String konfirmasi) {
+    private boolean validateForm(String nama, String email, String hp, String katasandi, String konfirmasi) {
         if (nama == null || nama.trim().length() == 0 || nama.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan nama lengkap");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNamaLengkap);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isName(nama)) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan nama lengkap yang benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -199,7 +300,20 @@ public class RegisterCustomerFragment extends Fragment {
 
         if (email == null || email.trim().length() == 0 || email.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan email");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputEmail);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isEmailValid(email)) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan alamat email dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -210,9 +324,22 @@ public class RegisterCustomerFragment extends Fragment {
             return false;
         }
 
-        if (nohp == null || nohp.trim().length() == 0 || nohp.equals("0")) {
+        if (hp == null || hp.trim().length() == 0 || hp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
-            alertDialog.setMessage("Masukan no. Handphone");
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan nomor handphone");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNoHp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isHp(hp)) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan nomor handphone dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -225,7 +352,20 @@ public class RegisterCustomerFragment extends Fragment {
 
         if (katasandi == null || katasandi.trim().length() == 0 || katasandi.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan kata sandi");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKataSandi);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (katasandi.trim().length() < 6){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan kata sandi minimal 6 karakter");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -238,7 +378,32 @@ public class RegisterCustomerFragment extends Fragment {
 
         if (konfirmasi == null || konfirmasi.trim().length() == 0 || konfirmasi.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan konfirmasi kata sandi");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKonfirmasi);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (konfirmasi.trim().length() < 6){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan konfirmasi kata sandi minimal 6 karakter");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputKonfirmasi);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!konfirmasi.equals(katasandi)){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Kata sandi Anda tidak cocok");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -255,6 +420,104 @@ public class RegisterCustomerFragment extends Fragment {
         if (view.requestFocus()) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    public static boolean isName(String alamat) {
+        String expression = "^[a-z.'/ A-Z]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(alamat);
+        return matcher.matches();
+    }
+
+    private boolean validateName() {
+        if (inputNamaLengkap.getText().toString().trim().isEmpty()) {
+            inputLayoutNamaLengkap.setErrorEnabled(false);
+        } else {
+            String emailId = inputNamaLengkap.getText().toString();
+            String expression = "^[a-z.'/ A-Z]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutNamaLengkap.setError("Masukan nama lengkap dengan benar\ncontoh: Budi Susanto");
+                requestFocus(inputNamaLengkap);
+                return false;
+            } else {
+                inputLayoutNamaLengkap.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean validateEmail() {
+        if (inputEmail.getText().toString().trim().isEmpty()) {
+            inputLayoutEmail.setErrorEnabled(false);
+        } else {
+            String emailId = inputEmail.getText().toString();
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutEmail.setError("Masukan alamat email dengan benar\ncontoh: budi.susanto@gmail.com");
+                requestFocus(inputEmail);
+                return false;
+            } else {
+                inputLayoutEmail.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isHp(String hp) {
+        String expression = "^62[0-9]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(hp);
+        return matcher.matches();
+    }
+
+    private boolean validateHp() {
+        if (inputNoHp.getText().toString().trim().isEmpty()) {
+            inputLayoutNoHp.setErrorEnabled(false);
+        } else {
+            String emailId = inputNoHp.getText().toString();
+            String expression = "^62[0-9]+$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutNoHp.setError("Format nomor HP salah\ncontoh: 6281234567890");
+                requestFocus(inputNoHp);
+                return false;
+            } else {
+                inputLayoutNoHp.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (inputKonfirmasi.getText().toString().trim().isEmpty()) {
+            inputLayoutKonfirmasi.setErrorEnabled(false);
+        } else {
+            String password = inputKataSandi.getText().toString();
+            String konfirmasi = inputKonfirmasi.getText().toString();
+            if (!password.equals(konfirmasi)) {
+                inputLayoutKonfirmasi.setError("Kata sandi Anda tidak cocok");
+                requestFocus(inputKonfirmasi);
+                return false;
+            } else {
+                inputLayoutKonfirmasi.setErrorEnabled(false);
+            }
+        }
+        return true;
     }
 
 }

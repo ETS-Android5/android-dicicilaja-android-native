@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".Activity.RegisterCustomerDone">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_sukses"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Pendaftaran Berhasil!"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_undraw_celebration"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorWhite"
+            android:textAlignment="center"
+            android:layout_marginBottom="30dp"
+            android:text="Selamat! Link verifikasi telah dikirimkan ke email Anda, Silahkan cek untuk melengkapi proses registrasi."/>
+
+        <Button
+            android:id="@+id/klaim"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Selesai"
+            android:layout_margin="7dp"
+            android:padding="5dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/open_sans_bold"
+            android:textColor="@color/colorWhite"
+            android:backgroundTint="@color/colorAccentDark2"/>
+    </LinearLayout>
+</RelativeLayout>

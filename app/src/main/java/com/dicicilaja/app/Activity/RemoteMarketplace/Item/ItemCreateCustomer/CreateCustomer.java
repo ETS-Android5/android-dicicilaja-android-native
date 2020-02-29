@@ -1,18 +1,21 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CreateCustomer {
-    @SerializedName("message")
+
+    @SerializedName("data")
     @Expose
-    private String message;
+    private Data data;
 
-    public String getMessage() {
-        return message;
+    public Data getData() {
+        return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(Data data) {
+        this.data = data;
     }
+
 }

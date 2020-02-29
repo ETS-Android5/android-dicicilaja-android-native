@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 import com.dicicilaja.app.R;
@@ -132,19 +132,10 @@ public class NasabahActivity extends AppCompatActivity {
         });
     }
 
-    private void buatAkun(final String nama, final String email, final String nohp, final String katasandi) {
+    private void buatAkun(final String nama, final String email, final String no_hp, final String password) {
         InterfaceCreateCustomer apiService =
-                RetrofitClient.getClient().create(InterfaceCreateCustomer.class);
-        String area = "1";
-        String branch = "1";
-        String address = "-";
-        String province = "-";
-        String city = "-";
-        String district = "-";
-        String subdistrict = "-";
-        String gender = "-";
-        String birth_date = "-";
-        Call<CreateCustomer> call = apiService.create(email, katasandi, nama, nohp, area, branch, address, province, city, district, subdistrict, gender, birth_date);
+                ApiClient2.getClient().create(InterfaceCreateCustomer.class);
+        Call<CreateCustomer> call = apiService.create(nama, email, no_hp, password, password);
         call.enqueue(new Callback<CreateCustomer>() {
             @Override
             public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {
