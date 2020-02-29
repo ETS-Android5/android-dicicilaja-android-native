@@ -11,19 +11,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dicicilaja.app.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterMaxi3Activity extends AppCompatActivity {
 
     Button btnLanjut;
     EditText inputNPWPPemilik, inputNPWPPerusahaan;
+    TextInputLayout inputLayoutNPWPPemilik, inputLayoutNPWPPerusahaan;
     String apiKey, namapemilik, alamatpemilik, nohp, noktp, jk;
     String namaperusahaan, alamatperusahaan, kelurahan, kota, telp;
-    String npwppemilik, npwpperusahaan;
+    String npwppemilik, npwpperusahaan, desa;
     TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
 
         inputNPWPPemilik = findViewById(R.id.inputNPWPPemilik);
         inputNPWPPerusahaan = findViewById(R.id.inputNPWPPerusahaan);
+        inputLayoutNPWPPemilik  = findViewById(R.id.inputLayoutNPWPPemilik);
+        inputLayoutNPWPPerusahaan  = findViewById(R.id.inputLayoutNPWPPerusahaan);
         title = findViewById(R.id.title);
 
         namapemilik = getIntent().getStringExtra("namapemilik");
@@ -45,18 +50,9 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
         jk = getIntent().getStringExtra("jk");
         namaperusahaan = getIntent().getStringExtra("namaperusahaan");
         alamatperusahaan = getIntent().getStringExtra("alamatperusahaan");
-        kelurahan = getIntent().getStringExtra("kelurahan");
-        kota = getIntent().getStringExtra("kota");
+        desa = getIntent().getStringExtra("desa");
         telp = getIntent().getStringExtra("telp");
         apiKey = getIntent().getStringExtra("apiKey");
-
-
-        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
-        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
-        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
-
-        title.setTypeface(opensans_bold);
 
 
         btnLanjut = findViewById(R.id.btnLanjut);
@@ -96,8 +92,7 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
                     intent.putExtra("jk", jk);
                     intent.putExtra("namaperusahaan", namaperusahaan);
                     intent.putExtra("alamatperusahaan", alamatperusahaan);
-                    intent.putExtra("kelurahan", kelurahan);
-                    intent.putExtra("kota", kota);
+                    intent.putExtra("desa", desa);
                     intent.putExtra("telp", telp);
                     intent.putExtra("npwppemilik", npwppemilik);
                     intent.putExtra("npwpperusahaan", npwpperusahaan);
@@ -119,11 +114,35 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
+        }  else if (npwppemilik.trim().length() < 15){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("No. NPWP pemilik harus 15 digit");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNPWPPemilik);
+                }
+            });
+            alertDialog.show();
+            return false;
         }
 
         if(npwpperusahaan == null || npwpperusahaan.trim().length() == 0 || npwpperusahaan.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi3Activity.this);
             alertDialog.setMessage("Masukan no. NPWP perusahaan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputNPWPPerusahaan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }  else if (npwpperusahaan.trim().length() < 15){
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi3Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("No. NPWP perusahaan harus 15 digit");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -139,7 +158,20 @@ public class RegisterMaxi3Activity extends AppCompatActivity {
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 

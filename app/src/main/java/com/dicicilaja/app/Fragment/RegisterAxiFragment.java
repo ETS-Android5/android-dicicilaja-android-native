@@ -106,8 +106,6 @@ public class RegisterAxiFragment extends Fragment {
         Typeface opensans_semibold = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        judulSudahPunyaAkun.setTypeface(opensans_reguler);
-        sudahPunyaAkun.setTypeface(opensans_semibold);
         titleSection.setTypeface(opensans_bold);
         bodySection.setTypeface(opensans_reguler);
         detailSection.setTypeface(opensans_semibold);

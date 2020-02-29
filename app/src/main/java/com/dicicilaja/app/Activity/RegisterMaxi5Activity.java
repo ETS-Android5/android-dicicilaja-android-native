@@ -29,11 +29,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.app.API.Client.ComposserClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateMitra;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateMitra.CreateMitra;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Upload.services.Service;
+import com.dicicilaja.app.Utils.Helper;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,15 +54,17 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
 
     Button btnDaftar;
     String apiKey, namapemilik, alamatpemilik, nohp, noktp, jk;
-    String namaperusahaan, alamatperusahaan, kelurahan, kota, telp;
+    String namaperusahaan, alamatperusahaan, kelurahan, desa, telp;
     String npwppemilik, npwpperusahaan;
     String katasandi, email, program_id, program_nama;
     String ktp_image, npwp_image;
-    Button upload_ktp, upload_npwp;
+    TextView upload_ktp, upload_npwp;
     ImageView image_ktp, image_npwp;
     ProgressDialog progress;
     CheckBox check;
     TextView textCheck;
+
+    String fileKtp, fileNpwp;
 
 
     private Bitmap bitmap;
@@ -92,8 +97,7 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
         jk = getIntent().getStringExtra("jk");
         namaperusahaan = getIntent().getStringExtra("namaperusahaan");
         alamatperusahaan = getIntent().getStringExtra("alamatperusahaan");
-        kelurahan = getIntent().getStringExtra("kelurahan");
-        kota = getIntent().getStringExtra("kota");
+        desa = getIntent().getStringExtra("desa");
         telp = getIntent().getStringExtra("telp");
         apiKey = getIntent().getStringExtra("apiKey");
         npwppemilik = getIntent().getStringExtra("npwppemilik");
@@ -160,43 +164,59 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
 
                 }
 
+                if(validateForm(fileKtp)) {
+                    if(check.isChecked()) {
+                        Log.d("ajukanpengajuan","apiKey : " + apiKey);
+                        Log.d("ajukanpengajuan","namapemilik : " + namapemilik);
+                        Log.d("ajukanpengajuan","jk : " + jk);
+                        Log.d("ajukanpengajuan","alamatpemilik : " + alamatpemilik);
+                        Log.d("ajukanpengajuan","nohp : " + nohp);
+                        Log.d("ajukanpengajuan","noktp : " + noktp);
+                        Log.d("ajukanpengajuan","namaperusahaan : " + namaperusahaan);
+                        Log.d("ajukanpengajuan","alamatperusahaan : " + alamatperusahaan);
+                        Log.d("ajukanpengajuan","desa : " + desa);
+                        Log.d("ajukanpengajuan","telp : " + telp);
+                        Log.d("ajukanpengajuan","npwppemilik : " + npwppemilik);
+                        Log.d("ajukanpengajuan","npwpperusahaan : " + npwpperusahaan);
+                        Log.d("ajukanpengajuan","email : " + email);
+                        Log.d("ajukanpengajuan","program_id : " + program_id);
+                        Log.d("ajukanpengajuan","program_nama : " + program_nama);
+                        Log.d("ajukanpengajuan","fileKtp : " + fileKtp);
+                        Log.d("ajukanpengajuan","fileNpwp : " + fileNpwp);
+                        progress.show();
+                        doCreate(apiKey, namapemilik, alamatpemilik, nohp, noktp, jk, namaperusahaan, alamatperusahaan, desa, telp, npwppemilik, npwpperusahaan, email, program_id, program_nama, fileKtp, fileNpwp);
+                    }else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterMaxi5Activity.this);
+                        alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
 
-                if(check.isChecked()) {
-                    Log.d("ajukanpengajuan","apiKey : " + apiKey);
-                    Log.d("ajukanpengajuan","namapemilik : " + namapemilik);
-                    Log.d("ajukanpengajuan","jk : " + jk);
-                    Log.d("ajukanpengajuan","alamatpemilik : " + alamatpemilik);
-                    Log.d("ajukanpengajuan","nohp : " + nohp);
-                    Log.d("ajukanpengajuan","noktp : " + noktp);
-                    Log.d("ajukanpengajuan","namaperusahaan : " + namaperusahaan);
-                    Log.d("ajukanpengajuan","alamatperusahaan : " + alamatperusahaan);
-                    Log.d("ajukanpengajuan","kelurahan : " + kelurahan);
-                    Log.d("ajukanpengajuan","kota : " + kota);
-                    Log.d("ajukanpengajuan","telp : " + telp);
-                    Log.d("ajukanpengajuan","npwppemilik : " + npwppemilik);
-                    Log.d("ajukanpengajuan","npwpperusahaan : " + npwpperusahaan);
-                    Log.d("ajukanpengajuan","katasandi : " + katasandi);
-                    Log.d("ajukanpengajuan","email : " + email);
-                    Log.d("ajukanpengajuan","program_id : " + program_id);
-                    Log.d("ajukanpengajuan","program_nama : " + program_nama);
-                    Log.d("ajukanpengajuan","ktp_image : " + ktp_image);
-                    Log.d("ajukanpengajuan","npwp_image : " + npwp_image);
-                    progress.show();
-                    doCreate(apiKey, namapemilik, alamatpemilik, nohp, noktp, jk, namaperusahaan, alamatperusahaan, kelurahan, kota, telp, npwppemilik, npwpperusahaan, katasandi, email, program_id, program_nama, file_ktp, file_npwp);
-                }else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterMaxi5Activity.this);
-                    alertDialog.setMessage("Anda belum menyetujui syarat dan ketentuan yang berlaku. Silakan centang pada kotak yang tersedia.");
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alertDialog.show();
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 }
+
             }
         });
 
+    }
+
+    private boolean validateForm(String fileKtp) {
+        if (fileKtp == null || fileKtp.trim().length() == 0 || fileKtp.equals("0")) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi5Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Unggah foto KTP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -308,6 +328,7 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: requestCode " + requestCode);
         Log.d(TAG, "onActivityResult: resultCode == RESULT_OK ? " + (resultCode == RESULT_OK));
         if(requestCode == PICK_IMAGE_KTP && resultCode == Activity.RESULT_OK){
@@ -315,8 +336,13 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_ktp.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_ktp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileKtp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileKtp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -336,8 +362,13 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
             if(EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    image_npwp.setImageBitmap(getResizedBitmap(bitmap,350));
+                    Bitmap resizedBitmap = getResizedBitmap(bitmap, 750);
+
+                    image_npwp.setImageBitmap(resizedBitmap);
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    fileNpwp = Helper.ConvertBitmapToString(resizedBitmap);
+                    Log.d("REGISTER AXI:::", fileNpwp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -396,21 +427,28 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
         Log.d(TAG, "Permission has been denied");
     }
 
-    private void doCreate(final String apiKey, final String namapemilik, final String alamatpemilik, final String nohp, final String noktp, final String jk, final String namaperusahaan, final String alamatperusahaan, final String kelurahan, final String kota, final String telp, final String npwppemilik, final String npwpperusahaan, final String katasandi, final String email, final String program_id, final String program_nama, final MultipartBody.Part ktp_image, final MultipartBody.Part npwp_image) {
+    private void doCreate(final String apiKey, final String namapemilik, final String alamatpemilik, final String nohp, final String noktp, final String jk, final String namaperusahaan, final String alamatperusahaan, final String desa, final String telp, final String npwppemilik, final String npwpperusahaan, final String email, final String program_id, final String program_nama, final String fileKtp, final String fileNpwp) {
         InterfaceCreateMitra apiService =
-                RetrofitClient.getClient().create(InterfaceCreateMitra.class);
+                ComposserClient.getClient().create(InterfaceCreateMitra.class);
 
-        Call<CreateCustomer> call = apiService.create(apiKey, namaperusahaan, namapemilik, jk, alamatpemilik, nohp, telp, noktp, npwppemilik, npwpperusahaan, kelurahan, kota, alamatperusahaan, email, katasandi, program_nama, program_id, ktp_image, npwp_image);
-        call.enqueue(new Callback<CreateCustomer>() {
+
+        Call<CreateMitra> call = apiService.create(apiKey, namaperusahaan, namapemilik, jk, alamatpemilik, nohp, telp, noktp, npwppemilik, npwpperusahaan, desa, alamatperusahaan, email, program_nama, program_id, fileKtp, fileNpwp);
+        call.enqueue(new Callback<CreateMitra>() {
             @Override
-            public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {
+            public void onResponse(Call<CreateMitra> call, Response<CreateMitra> response) {
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    Toast.makeText(getBaseContext(),"Selamat! Link verifikasi telah dikirimkan ke email Anda, Silahkan cek untuk melengkapi proses registrasi.",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Intent intent = new Intent(getBaseContext(), RegisterMaxiDone.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                }else{
+                } else if (response.code() == 422){
+                    progress.dismiss();
+                    Toast.makeText(getBaseContext(),"Email Anda sudah terdaftar atau silahkan hubungi Tasya.",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else{
                     progress.dismiss();
                     Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
@@ -420,7 +458,8 @@ public class RegisterMaxi5Activity extends AppCompatActivity implements EasyPerm
             }
 
             @Override
-            public void onFailure(Call<CreateCustomer> call, Throwable t) {
+            public void onFailure(Call<CreateMitra> call, Throwable t) {
+                progress.dismiss();
                 Toast.makeText(getBaseContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

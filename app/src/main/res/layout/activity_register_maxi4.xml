@@ -25,11 +25,12 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,65 +126,56 @@
                         android:textSize="16sp"/>
                 </RelativeLayout>
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Informasi Mitra"
+                android:textSize="16dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:paddingTop="25dp"
+                android:background="@drawable/border_form"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Informasi Mitra"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email *"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="20dp"
+                    app:hintEnabled="true">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:id="@+id/inputEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Email"
                         android:layout_centerHorizontal="true"
-                        app:met_helperText="Pastikan email Anda aktif."
                         android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputKataSandi"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutKataSandi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kata Sandi *"
-                    android:layout_marginTop="16dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputKataSandi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPassword"
                         android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
+                        android:paddingTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@color/new_text_black"
+                        android:textSize="15sp"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/border_1dp"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/selectLayoutProgram"
                     android:layout_width="match_parent"
@@ -193,8 +185,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Jenis Program Kemitraan"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginBottom="5dp"/>
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="#FFB8B8B8"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="7dp"
+                        android:textSize="12sp"/>
+
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -268,18 +264,19 @@
                     </RadioGroup>
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <Button
-                    android:id="@+id/btnLanjut"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Lanjut"
-
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
             </LinearLayout>
+            <Button
+                android:id="@+id/btnLanjut"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:text="Lanjut"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/open_sans_bold"
+                android:backgroundTint="@color/colorAccentDark2"/>
 
         </LinearLayout>
     </ScrollView>

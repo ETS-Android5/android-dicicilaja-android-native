@@ -85,6 +85,8 @@ public class RegisterAxi2Activity extends AppCompatActivity {
     final List<String> DESA_ITEMS = new ArrayList<>();
     final List<String> DESA_KODEPOS = new ArrayList<>();
     final HashMap<Integer, String> DESA_DATA = new HashMap<Integer, String>();
+    final List<String> JK_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
     private static final String KTP_PATTERN =
             "^(?!0)([0-9]{12,12})(?=[0-9]{4,4})(?!(0{4})).{4,4}$";
     @Override
@@ -172,9 +174,6 @@ public class RegisterAxi2Activity extends AppCompatActivity {
                 hideSoftKeyboard();
             }
         });
-
-        final List<String> JK_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
 
         JK_ITEMS.clear();
         JK_DATA.clear();

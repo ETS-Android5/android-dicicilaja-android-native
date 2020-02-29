@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateMitra.CreateMitra;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -14,25 +15,23 @@ public interface InterfaceCreateMitra {
     @Headers({
             "Accept: application/json",
     })
-    @POST("register/mitra")
+    @POST("maxi/registration")
     @FormUrlEncoded
-    Call<CreateCustomer> create(@Header("Authorization") String apiKey,
-                                @Field("company") String company,
-                                @Field("owner") String owner,
-                                @Field("gender") String gender,
-                                @Field("address") String address,
-                                @Field("handphone") String handphone,
-                                @Field("telphone") String telphone,
-                                @Field("ktp") String ktp,
-                                @Field("personal_npwp") String personal_npwp,
-                                @Field("company_npwp") String company_npwp,
-                                @Field("hometown") String hometown,
-                                @Field("city") String city,
-                                @Field("company_address") String company_address,
-                                @Field("email") String email,
-                                @Field("password") String password,
-                                @Field("program") String program,
-                                @Field("program_id") String program_id,
-                                @Field("ktp_image") MultipartBody.Part ktp_image,
-                                @Field("npwp_image") MultipartBody.Part npwp_image);
+    Call<CreateMitra> create(@Header("Authorization") String apiKey,
+                             @Field("nama_perusahaan") String company,
+                             @Field("nama") String owner,
+                             @Field("jenis_kelamin") String gender,
+                             @Field("alamat_jalan_pribadi") String address,
+                             @Field("no_hp") String handphone,
+                             @Field("no_telp") String telphone,
+                             @Field("no_ktp") String ktp,
+                             @Field("no_npwp_pribadi") String personal_npwp,
+                             @Field("no_npwp_perusahaan") String company_npwp,
+                             @Field("desa_id") String desa,
+                             @Field("alamat_jalan_perusahaan") String company_address,
+                             @Field("email") String email,
+                             @Field("nama_program") String program,
+                             @Field("produk_id") String program_id,
+                             @Field("foto_ktp") String foto_ktp,
+                             @Field("foto_npwp") String foto_npwp);
 }

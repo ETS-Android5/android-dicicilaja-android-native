@@ -20,255 +20,363 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
             <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="5">
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorIcon"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"/>
-                </RelativeLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="25dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorIcon"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"/>
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Informasi Perusahaan"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/open_sans_bold"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Informasi Perusahaan"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutNamaPerusahaan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Perusahaan *"
-                    android:layout_marginTop="20dp">
+                    android:layout_margin="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:background="@drawable/border_form"
+                    android:orientation="vertical">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputNamaPerusahaan"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Sesuai dengan nama perusahaan"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputAlamatPerusahaan"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutAlamatPerusahaan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alamat Perusahaan *"
-                    android:layout_marginTop="10dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputAlamatPerusahaan"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : Jl. Jend. Sudirman"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputKelurahan"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutKelurahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kelurahan *"
-                    android:layout_marginTop="16dp">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputKelurahan"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNamaPerusahaan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:met_helperText="Contoh : Kuningan Timur"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputKota"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        android:layout_marginTop="20dp"
+                        app:hintEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutKota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Kota *"
-                    android:layout_marginTop="16dp">
+                        <EditText
+                            android:id="@+id/inputNamaPerusahaan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nama Perusahaan"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionNext"
+                            android:nextFocusDown="@id/inputAlamatPerusahaan"
+                            android:paddingTop="10dp"
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="25dp"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/new_text_black"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputKota"
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutAlamatPerusahaan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:met_helperText="Contoh : Bandung"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputTelp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        android:layout_marginTop="20dp"
+                        app:hintEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutTelp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="No. Telephone *"
-                    android:layout_marginTop="16dp">
+                        <EditText
+                            android:id="@+id/inputAlamatPerusahaan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Alamat Perusahaan"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionDone"
+                            android:paddingTop="10dp"
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="25dp"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/new_text_black"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputTelp"
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutProvinsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        app:met_helperText="Contoh : 02167890"
-                        android:inputType="phone"
-                        android:imeOptions="actionDone"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+                        app:hintEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Provinsi"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerProvinsi"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutKota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="true">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kota"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerKota"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutKecamatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="true">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kecamatan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerDistrik"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutKelurahan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="true">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kelurahan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#FFB8B8B8"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12sp"/>
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerDesa"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_height="40dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:src="@drawable/border_1dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutTelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:hintEnabled="true">
+
+                        <EditText
+                            android:id="@+id/inputTelp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="No. Telephone"
+                            android:layout_centerHorizontal="true"
+                            android:inputType="number"
+                            android:maxLength="16"
+                            android:imeOptions="actionDone"
+                            android:paddingTop="10dp"
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="25dp"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/new_text_black"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/border_1dp"/>
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/btnLanjut"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/colorAccent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginLeft="13dp"
                     android:text="Lanjut"
-
+                    android:textAllCaps="true"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14sp" />
-
-
-
+                    android:fontFamily="@font/open_sans_bold"
+                    android:backgroundTint="@color/colorAccentDark2"/>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false"
+            android:layout_alignParentTop="true"
+            app:mpb_showProgressBackground="false"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    </RelativeLayout>
 </LinearLayout>

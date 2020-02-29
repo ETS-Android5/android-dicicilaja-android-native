@@ -7,24 +7,33 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.dicicilaja.app.R;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterMaxi4Activity extends AppCompatActivity {
 
     Button btnLanjut;
     RadioButton radio1, radio2, radio3, radio4, radio5, radio6;
-    EditText inputKataSandi, inputEmail;
+    EditText inputEmail;
+    TextInputLayout inputLayoutEmail;
     String apiKey, namapemilik, alamatpemilik, nohp, noktp, jk;
-    String namaperusahaan, alamatperusahaan, kelurahan, kota, telp;
+    String namaperusahaan, alamatperusahaan, kelurahan, kota, telp, desa;
     String npwppemilik, npwpperusahaan;
     String katasandi, email, program_id, program_nama;
     TextView title;
@@ -36,8 +45,8 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        inputKataSandi = findViewById(R.id.inputKataSandi);
         inputEmail = findViewById(R.id.inputEmail);
+        inputLayoutEmail = findViewById(R.id.inputLayoutEmail);
         radio1 = findViewById(R.id.radio1);
         radio2 = findViewById(R.id.radio2);
         radio3 = findViewById(R.id.radio3);
@@ -53,19 +62,30 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
         jk = getIntent().getStringExtra("jk");
         namaperusahaan = getIntent().getStringExtra("namaperusahaan");
         alamatperusahaan = getIntent().getStringExtra("alamatperusahaan");
-        kelurahan = getIntent().getStringExtra("kelurahan");
-        kota = getIntent().getStringExtra("kota");
+        desa = getIntent().getStringExtra("desa");
         telp = getIntent().getStringExtra("telp");
         apiKey = getIntent().getStringExtra("apiKey");
         npwppemilik = getIntent().getStringExtra("npwppemilik");
         npwpperusahaan = getIntent().getStringExtra("npwpperusahaan");
 
-        Typeface opensans_extrabold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-ExtraBold.ttf");
-        Typeface opensans_bold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Bold.ttf");
-        Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
-        Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+        inputEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        title.setTypeface(opensans_bold);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputEmail.removeTextChangedListener(this);
+                validateEmail();
+                inputEmail.addTextChangedListener(this);
+            }
+        });
 
         radio1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,13 +182,12 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    katasandi = inputKataSandi.getText().toString();
                     email = inputEmail.getText().toString();
                 } catch (Exception ex) {
 
                 }
 
-                if(validateForm(katasandi, email, program_id)) {
+                if(validateForm(email, program_id)) {
 
                     Log.d("ajukanpengajuan","apiKey : " + apiKey);
                     Log.d("ajukanpengajuan","namapemilik : " + namapemilik);
@@ -178,12 +197,10 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
                     Log.d("ajukanpengajuan","noktp : " + noktp);
                     Log.d("ajukanpengajuan","namaperusahaan : " + namaperusahaan);
                     Log.d("ajukanpengajuan","alamatperusahaan : " + alamatperusahaan);
-                    Log.d("ajukanpengajuan","kelurahan : " + kelurahan);
-                    Log.d("ajukanpengajuan","kota : " + kota);
+                    Log.d("ajukanpengajuan","desa : " + desa);
                     Log.d("ajukanpengajuan","telp : " + telp);
                     Log.d("ajukanpengajuan","npwppemilik : " + npwppemilik);
                     Log.d("ajukanpengajuan","npwpperusahaan : " + npwpperusahaan);
-                    Log.d("ajukanpengajuan","katasandi : " + katasandi);
                     Log.d("ajukanpengajuan","email : " + email);
                     Log.d("ajukanpengajuan","program_id : " + program_id);
                     Log.d("ajukanpengajuan","program_nama : " + program_nama);
@@ -198,12 +215,10 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
                     intent.putExtra("jk", jk);
                     intent.putExtra("namaperusahaan", namaperusahaan);
                     intent.putExtra("alamatperusahaan", alamatperusahaan);
-                    intent.putExtra("kelurahan", kelurahan);
-                    intent.putExtra("kota", kota);
+                    intent.putExtra("desa", desa);
                     intent.putExtra("telp", telp);
                     intent.putExtra("npwppemilik", npwppemilik);
                     intent.putExtra("npwpperusahaan", npwpperusahaan);
-                    intent.putExtra("katasandi", katasandi);
                     intent.putExtra("email", email);
                     intent.putExtra("program_id", program_id);
                     intent.putExtra("program_nama", program_nama);
@@ -214,12 +229,13 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
 
     }
 
-    private boolean validateForm(String katasandi, String email, String program_id) {
+    private boolean validateForm(String email, String program_id) {
 
 
         if(email == null || email.trim().length() == 0 || email.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi4Activity.this);
-            alertDialog.setMessage("Masukan email");
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan alamat email");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -228,14 +244,14 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
             });
             alertDialog.show();
             return false;
-        }
-        if (katasandi == null || katasandi.trim().length() == 0 || katasandi.equals("0")) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterMaxi4Activity.this);
-            alertDialog.setMessage("Masukan kata sandi");
+        } else if (!isEmailValid(email)) {
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(RegisterMaxi4Activity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan alamat email dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputKataSandi);
+                    requestFocus(inputEmail);
                 }
             });
             alertDialog.show();
@@ -259,7 +275,20 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
 
     public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
@@ -268,6 +297,33 @@ public class RegisterMaxi4Activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.finish();
+        }
+        return true;
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean validateEmail() {
+        if (inputEmail.getText().toString().trim().isEmpty()) {
+            inputLayoutEmail.setErrorEnabled(false);
+        } else {
+            String emailId = inputEmail.getText().toString();
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutEmail.setError("Masukan alamat email dengan benar\ncontoh: budi.susanto@gmail.com");
+                requestFocus(inputEmail);
+                return false;
+            } else {
+                inputLayoutEmail.setErrorEnabled(false);
+            }
         }
         return true;
     }

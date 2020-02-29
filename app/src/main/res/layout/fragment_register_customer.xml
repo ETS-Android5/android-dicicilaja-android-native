@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:text="Nasabah"
                         android:textSize="12sp"
-                        android:fontFamily="@font/open_sans"
+                        android:fontFamily="@font/open_sans_bold"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/bodySection"
@@ -218,16 +218,19 @@
                     <CheckBox
                         android:id="@+id/check"
                         android:layout_width="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"/>
                     <TextView
                         android:id="@+id/textCheck"
+                        android:labelFor="@id/check"
                         android:layout_toRightOf="@+id/check"
                         android:layout_width="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:text="Saya setuju dengan syarat dan ketentuan yang berlaku"/>
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/open_sans"
+                        android:text="Saya setuju dengan syarat dan ketentuan yang berlaku."/>
                 </RelativeLayout>
             </LinearLayout>
             <Button
@@ -255,12 +258,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sudah punya akun?"
+                    android:fontFamily="@font/open_sans"
                     android:layout_marginRight="5dp"/>
 
                 <TextView
                     android:id="@+id/sudahPunyaAkun"
                     android:layout_toRightOf="@+id/judulSudahPunyaAkun"
                     android:layout_gravity="right"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccentDark2"

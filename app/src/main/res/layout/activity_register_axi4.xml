@@ -186,7 +186,7 @@
                     android:text="Isi dengan 15 digit angka 0 jika tidak memiliki NPWP"
                     android:fontFamily="@font/open_sans"
                     android:layout_marginTop="3dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorAccentDark"
                     android:textSize="11sp"/>
 
                 <com.google.android.material.textfield.TextInputLayout

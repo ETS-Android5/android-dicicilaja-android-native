@@ -24,7 +24,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".Activity.RegisterCustomerDone"></activity>
+        <activity android:name=".Activity.RegisterMaxiDone"></activity>
+        <activity android:name=".Activity.RegisterCustomerDone" />
         <activity android:name=".Activity.UbahShActivity" />
         <activity android:name=".Activity.RegisterAxiDone" />
 
