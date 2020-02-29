@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,23 +10,66 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="16dp"
+            android:orientation="vertical"
             android:paddingLeft="25dp"
-            android:paddingRight="25dp">
+            android:paddingTop="16dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="16dp">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/lewati"
+                android:layout_marginBottom="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/panel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/lewati_text"
+                    android:src="@drawable/ic_skip" />
+
+                <TextView
+                    android:id="@+id/lewati_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Lewati"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:orientation="vertical"
-                android:layout_centerVertical="true">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/logo"
@@ -36,6 +79,7 @@
                     android:contentDescription="@string/Logo"
 
                     app:srcCompat="@drawable/logo_color" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutEmailID"
                     android:layout_width="match_parent"
@@ -47,28 +91,28 @@
                         android:id="@+id/inputEmailID"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username"
                         android:layout_centerHorizontal="true"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputPassword"
-                        android:paddingTop="10dp"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginRight="5dp"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/open_sans"
+                        android:hint="Username"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:nextFocusDown="@id/inputPassword"
+                        android:paddingTop="10dp"
                         android:textColor="@color/new_text_black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/border_1dp"/>
+                    android:src="@drawable/border_1dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutPassword"
@@ -81,77 +125,77 @@
                         android:id="@+id/inputPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Kata Sandi"
                         android:layout_centerHorizontal="true"
-                        android:inputType="textPassword"
-                        android:imeOptions="actionDone"
-                        android:paddingTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginRight="5dp"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/open_sans"
+                        android:hint="Kata Sandi"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:paddingTop="10dp"
                         android:textColor="@color/new_text_black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/border_1dp"/>
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/border_1dp" />
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/inputLayoutEmailID"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:layout_below="@id/logo">-->
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:id="@+id/inputLayoutEmailID"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="25dp"-->
+                <!--                android:layout_below="@id/logo">-->
 
-<!--                <EditText-->
-<!--                    android:id="@+id/inputEmailID"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Email / ID"-->
-<!--                    android:layout_centerHorizontal="true"-->
-<!--                    android:inputType="textEmailAddress"-->
-<!--                    android:imeOptions="actionNext"-->
-<!--                    android:nextFocusDown="@+id/inputPassword"-->
-<!--                    android:layout_marginTop="25dp"-->
-<!--                    android:layout_marginLeft="5dp"-->
-<!--                    android:layout_marginRight="5dp"-->
-<!--                    android:fontFamily="sans-serif"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="14sp"/>-->
+                <!--                <EditText-->
+                <!--                    android:id="@+id/inputEmailID"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Email / ID"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:inputType="textEmailAddress"-->
+                <!--                    android:imeOptions="actionNext"-->
+                <!--                    android:nextFocusDown="@+id/inputPassword"-->
+                <!--                    android:layout_marginTop="25dp"-->
+                <!--                    android:layout_marginLeft="5dp"-->
+                <!--                    android:layout_marginRight="5dp"-->
+                <!--                    android:fontFamily="sans-serif"-->
+                <!--                    android:padding="10dp"-->
+                <!--                    android:textColor="#000000"-->
+                <!--                    android:textSize="14sp"/>-->
 
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/inputLayoutPassword"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@id/inputLayoutEmailID">-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:id="@+id/inputLayoutPassword"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_below="@id/inputLayoutEmailID">-->
 
-<!--                <EditText-->
-<!--                    android:id="@+id/inputPassword"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Kata sandi"-->
-<!--                    android:inputType="textPassword"-->
-<!--                    android:imeOptions="actionDone"-->
-<!--                    android:layout_centerHorizontal="true"-->
-<!--                    android:layout_marginTop="25dp"-->
-<!--                    android:layout_marginLeft="5dp"-->
-<!--                    android:layout_marginRight="5dp"-->
-<!--                    android:fontFamily="sans-serif"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="14sp"/>-->
+                <!--                <EditText-->
+                <!--                    android:id="@+id/inputPassword"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:hint="Kata sandi"-->
+                <!--                    android:inputType="textPassword"-->
+                <!--                    android:imeOptions="actionDone"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:layout_marginTop="25dp"-->
+                <!--                    android:layout_marginLeft="5dp"-->
+                <!--                    android:layout_marginRight="5dp"-->
+                <!--                    android:fontFamily="sans-serif"-->
+                <!--                    android:padding="10dp"-->
+                <!--                    android:textColor="#000000"-->
+                <!--                    android:textSize="14sp"/>-->
 
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -159,8 +203,8 @@
                     android:layout_height="55dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/open_sans_bold"
                     android:backgroundTint="@color/colorAccent"
+                    android:fontFamily="@font/open_sans_bold"
                     android:text="@string/login"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
@@ -169,77 +213,55 @@
                     android:id="@+id/textInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:layout_marginTop="25dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp">
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="5dp"
+                    android:weightSum="2">
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/judulDaftarAkun"
                             android:layout_width="wrap_content"
-                            android:fontFamily="@font/open_sans"
                             android:layout_height="wrap_content"
-                            android:text="Belum terdaftar?"/>
+                            android:fontFamily="@font/open_sans"
+                            android:text="Belum terdaftar?" />
+
                         <TextView
                             android:id="@+id/daftarAkun"
-                            android:layout_marginTop="3dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
                             android:fontFamily="@font/open_sans_semibold"
-                            android:textColor="@color/colorAccentDark2"
-                            android:text="Daftar Akun"/>
+                            android:text="Daftar Akun"
+                            android:textColor="@color/colorAccentDark2" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tvForgot"
-                            android:layout_gravity="right"
                             android:layout_width="wrap_content"
-                            android:fontFamily="@font/open_sans_semibold"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorAccentDark2"
-                            android:text="Lupa Password"/>
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/open_sans_semibold"
+                            android:text="Lupa Password"
+                            android:textColor="@color/colorAccentDark2" />
                     </LinearLayout>
 
 
                 </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/lewati"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/lewati_text"
-                    android:src="@drawable/ic_skip"/>
-                <TextView
-                    android:id="@+id/lewati_text"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="2dp"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccentDark"
-                    android:text="Lewati"/>
-            </RelativeLayout>
 
-
-
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

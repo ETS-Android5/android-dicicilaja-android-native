@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SessionManager(LoginActivity.this);
+
+        setContentView(R.layout.activity_login);
         if( session.isLoggedIn() ) {
             openInbox = getIntent().getBooleanExtra("openInbox", false);
             if(openInbox) {
@@ -72,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
                 showWhichActivity(session.getRole(), false);
             }
         } else {
-            setContentView(R.layout.activity_login);
 
             progress = new ProgressDialog(this);
             progress.setMessage("Mohon tunggu sebentar...");

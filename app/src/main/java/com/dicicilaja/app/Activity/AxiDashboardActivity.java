@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
@@ -918,8 +923,23 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         progress_popup = new ProgressDialog(this);
         progress_popup.setMessage("Sedang memuat data...");
         progress_popup.setCanceledOnTouchOutside(false);
-        progress_popup.show();
 
+        InAppDialog = new Dialog(AxiDashboardActivity.this);
+        InAppDialog.setContentView(R.layout.in_app_dialog);
+        InAppDialog.setCanceledOnTouchOutside(false);
+        InAppDialog.setCancelable(false);
+        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+        detail = InAppDialog.findViewById(R.id.detail);
+        nanti = InAppDialog.findViewById(R.id.nanti);
+
+        nanti.setVisibility(View.GONE);
+        detail.setVisibility(View.GONE);
+        detail.setEnabled(false);
+        nanti.setEnabled(false);
+
+        progress_popup.show();
         Call<Popup> popupCall = apiService4.getPopup(session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
@@ -929,28 +949,26 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {
-                            InAppDialog = new Dialog(AxiDashboardActivity.this);
-                            InAppDialog.setContentView(R.layout.in_app_dialog);
-                            InAppDialog.setCanceledOnTouchOutside(false);
-                            InAppDialog.setCancelable(false);
-                            InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                            thumbnail = InAppDialog.findViewById(R.id.thumbnail);
-
-
                             Glide.with(AxiDashboardActivity.this)
-                                    .load(dataPopups.get(0).getAttributes().getImage())
-                                    .fitCenter()
-                                    .into(thumbnail);
+                                .load(dataPopups.get(0).getAttributes().getImage())
+                                .fitCenter()
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
 
-
-                            detail = InAppDialog.findViewById(R.id.detail);
-                            nanti = InAppDialog.findViewById(R.id.nanti);
-//                            close = InAppDialog.findViewById(R.id.close);
-
-                            detail.setEnabled(true);
-                            nanti.setEnabled(true);
-//                            close.setEnabled(true);
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        nanti.setVisibility(View.VISIBLE);
+                                        detail.setVisibility(View.VISIBLE);
+                                        detail.setEnabled(true);
+                                        nanti.setEnabled(true);
+                                        return false;
+                                    }
+                                })
+                                .into(thumbnail);
+                            
 
                             detail.setOnClickListener(new View.OnClickListener() {
                                 @Override
