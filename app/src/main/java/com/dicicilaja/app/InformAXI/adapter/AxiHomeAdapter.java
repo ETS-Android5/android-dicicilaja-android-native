@@ -56,7 +56,7 @@ public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvName, tvNumber, tvDate;
+        private TextView tvName, tvNumber, tvDate, tvOrder, tvStatus;
         private View view;
 
         public ViewHolder(@NonNull View itemView) {
@@ -65,6 +65,8 @@ public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHold
             view = itemView;
             tvName = view.findViewById(R.id.tv_name);
             tvNumber = view.findViewById(R.id.tv_number);
+            tvOrder = view.findViewById(R.id.tv_order);
+            tvStatus = view.findViewById(R.id.tv_status);
             tvDate = view.findViewById(R.id.tv_date);
         }
 
@@ -72,6 +74,8 @@ public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHold
             tvName.setText(data.getNama());
             tvNumber.setText(data.getNomorAxiId());
             tvDate.setText(Tools.formatDate(data.getTanggalDaftar()));
+            tvOrder.setText("#" + "1.000.000");
+            tvStatus.setText("Aktif");
 
             view.setOnClickListener(view -> {
                 Intent i = new Intent(mContext, ProfileActivity.class);

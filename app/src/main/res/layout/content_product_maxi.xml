@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent2"
-                    android:text="Umroh Free Tour Istanbul Turki"
+                    android:text="-"
                     android:textAllCaps="true"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent2"
-                    android:text="Mitra : PT. MUAMALAT"
+                    android:text="-"
                     android:textSize="14dp"
                     android:layout_toLeftOf="@+id/more_vert"/>
                 <TextView
@@ -53,7 +53,7 @@
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:textSize="15dp"
-                    android:text="Rp 20.000.000"
+                    android:text="Rp -"
                     android:layout_toLeftOf="@+id/spinner_bulan"/>
 <!--                <TextView-->
 <!--                    android:id="@+id/tv_tenor"-->
@@ -96,37 +96,37 @@
 <!--                    android:layout_toLeftOf="@+id/spinner_bulan"-->
 <!--                    android:text="Harga diatas merupakan simulasi, akan disesuaikan dengan nilai jaminan dan area pengajuan." />-->
             </RelativeLayout>
-            <LinearLayout
-                android:layout_marginTop="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Deskripsi Singkat"
-                    android:textSize="16sp"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
-                    android:paddingTop="1dp"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="1dp"
-                    android:paddingRight="1dp"
-                    android:background="@drawable/border">
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:background="@color/colorWhite"-->
+<!--                android:orientation="vertical">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Deskripsi Singkat"-->
+<!--                    android:textSize="16sp"/>-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:paddingTop="1dp"-->
+<!--                    android:paddingBottom="4dp"-->
+<!--                    android:paddingLeft="1dp"-->
+<!--                    android:paddingRight="1dp"-->
+<!--                    android:background="@drawable/border">-->
 
-                    <WebView
-                        android:id="@+id/wv_deskripsi_lengkap"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="0dp"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-            </LinearLayout>
+<!--                    <WebView-->
+<!--                        android:id="@+id/wv_deskripsi_lengkap"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentTop="true"-->
+<!--                        android:layout_marginTop="0dp"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </RelativeLayout>-->
+<!--            </LinearLayout>-->
             <LinearLayout
                 android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
@@ -226,8 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/border_bottom">
+                    android:paddingBottom="4dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

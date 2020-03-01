@@ -1,11 +1,8 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
@@ -15,31 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceFavorite;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Related;
 import com.dicicilaja.app.Adapter.ListRelatedAdapter;
-import com.dicicilaja.app.Adapter.ProductImageSliderAdapter;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
@@ -61,12 +51,6 @@ import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.smarteist.autoimageslider.IndicatorAnimations;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,19 +59,15 @@ import static java.lang.Boolean.FALSE;
 
 public class ProductMaxiActivity extends AppCompatActivity {
 
-    SliderView sliderView;
     List<Data> detailProducts;
-    SliderView head_image;
+    SimpleDraweeView head_image;
     RelativeLayout rute, syarat, deskripsi_lengkap;
-    HashMap<Integer, String> file_maps = new HashMap<Integer, String>();
-    WebView wv_deskripsi_lengkap;
     String apiKey, agen_id, agen_axi_id, agen_name;
     //    MaterialSpinner spinnerJaminan;
     TextView tv_title, tv_mitra, tv_harga;
     Button ajukan_produk;
     String extra_id;
     MaterialProgressBar progressBar;
-    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +82,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        session = new SessionManager(getBaseContext());
+        final SessionManager session = new SessionManager(getBaseContext());
         apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -121,7 +101,6 @@ public class ProductMaxiActivity extends AppCompatActivity {
         tv_mitra = findViewById(R.id.tv_mitra);
         tv_harga = findViewById(R.id.tv_harga);
         ajukan_produk = findViewById(R.id.ajukan_produk);
-        wv_deskripsi_lengkap = findViewById(R.id.wv_deskripsi_lengkap);
         deskripsi_lengkap = findViewById(R.id.deskripsi_lengkap);
 
         progressBar.setVisibility(View.GONE);
@@ -157,23 +136,10 @@ public class ProductMaxiActivity extends AppCompatActivity {
         recyclerPromo.setLayoutManager(new LinearLayoutManager(getBaseContext(),
                 LinearLayoutManager.HORIZONTAL, false));
 
-
-        final WebSettings webSettings = wv_deskripsi_lengkap.getSettings();
-        webSettings.setDefaultFontSize(12);
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.setAppCacheEnabled(false);
-        webSettings.setBlockNetworkImage(true);
-        webSettings.setLoadsImagesAutomatically(true);
-        webSettings.setGeolocationEnabled(false);
-        webSettings.setNeedInitialFocus(false);
-        webSettings.setSaveFormData(false);
-
-
         SnapHelper snapHelperPromo = new GravitySnapHelper(Gravity.START);
         snapHelperPromo.attachToRecyclerView(recyclerPromo);
 
-        InterfaceDetailProgramMaxi apiService = com.dicicilaja.app.API.Client.ApiClient.getClient().create(InterfaceDetailProgramMaxi.class);
+        InterfaceDetailProgramMaxi apiService = RetrofitClient.getClient().create(InterfaceDetailProgramMaxi.class);
 
         try {
             extra_id = getIntent().getStringExtra("EXTRA_REQUEST_ID");
@@ -193,40 +159,11 @@ public class ProductMaxiActivity extends AppCompatActivity {
                 //Picasso.with(ProductMaxiActivity.this)
                 //        .load(detailProducts.get(0).getImageUrl())
                 //        .into(head_image);
-                file_maps.put(0, detailProducts.get(0).getImageUrl());
                 Uri uri = Uri.parse(detailProducts.get(0).getImageUrl());
-                setSliderView(getBaseContext(),1,file_maps);
-//                head_image.setImageURI(uri);
+                head_image.setImageURI(uri);
                 tv_title.setText(detailProducts.get(0).getTitleProgram());
-
-                final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));
-                collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorApp));
-                appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-                    boolean isShow = true;
-                    int scrollRange = -1;
-
-                    @Override
-                    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                        if (scrollRange == -1) {
-                            scrollRange = appBarLayout.getTotalScrollRange();
-                        }
-                        if (scrollRange + verticalOffset == 0) {
-                            collapsingToolbarLayout.setTitle(detailProducts.get(0).getTitleProgram());
-                            isShow = true;
-                        } else if(isShow) {
-                            collapsingToolbarLayout.setTitle(" ");//careful there should a space between double quote otherwise it wont work
-                            isShow = false;
-                        }
-                    }
-                });
-
-
-//                getSupportActionBar().setTitle(detailProducts.get(0).getTitleProgram());
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());
-                wv_deskripsi_lengkap.loadDataWithBaseURL(null, getIntent().getStringExtra("DESC"), "text/html", "utf-8", null);
 
 //                TENOR_MAP.clear();
 //                TENOR_ITEMS.clear();
@@ -399,7 +336,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.fav) {
-            doFav(apiKey,detailProducts.get(0).getId());
+//            doFav(apiKey, detailProducts.get(0).getId());
 
             return true;
         } else if (id == R.id.share) {
@@ -417,31 +354,22 @@ public class ProductMaxiActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){
-        sliderView = (SliderView) findViewById(R.id.head_image);
-
-        sliderView.setSliderAdapter(new ProductImageSliderAdapter(context,maxSlide,file_maps));
-        sliderView.startAutoCycle();
-        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-    }
-
-    private void doFav(final String apiKey, final String product_id) {
-        InterfaceFavorite apiService =
-                ApiClient.getClient().create(InterfaceFavorite.class);
-
-        Call<CreateRequest> call = apiService.assign(apiKey, product_id, session.getProfileId());
-        call.enqueue(new Callback<CreateRequest>() {
-            @Override
-            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
-                Toast.makeText(getBaseContext(),"Anda menyukai produk ini",Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<CreateRequest> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void doFav(final String apiKey, final String product_id) {
+//        InterfaceFavorite apiService =
+//                RetrofitClient.getClient().create(InterfaceFavorite.class);
+//
+//        Call<CreateRequest> call = apiService.assign(apiKey, product_id);
+//        call.enqueue(new Callback<CreateRequest>() {
+//            @Override
+//            public void onResponse(Call<CreateRequest> call, Response<CreateRequest> response) {
+//                Toast.makeText(getBaseContext(),"Anda menyukai produk ini",Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CreateRequest> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 }

@@ -49,8 +49,8 @@ public class Tools {
     }
 
     public static String formatDate(String date) {
-        SimpleDateFormat sdfLokal = new SimpleDateFormat("dd MMMM yyyy HH:mm", new Locale("in", "ID"));
-        SimpleDateFormat sdfDb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", new Locale("in", "ID"));
+        SimpleDateFormat sdfLokal = new SimpleDateFormat("dd MMMM yyyy", new Locale("in", "ID"));
+        SimpleDateFormat sdfDb = new SimpleDateFormat("yyyy-MM-dd", new Locale("in", "ID"));
         //sdfDb.setTimeZone(TimeZone.getTimeZone("GMT"));
         String formattedDate = "5 September 2019";
         try {
