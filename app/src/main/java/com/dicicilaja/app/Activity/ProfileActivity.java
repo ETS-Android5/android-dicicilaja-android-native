@@ -151,7 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // TODO: Change after role is fixed
         if (role.equalsIgnoreCase("sh")) {
-            InterfaceProfile apiService = ApiClient2.getClientV1().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
             Call<ShProfile> call = apiService.getShProfile(apiKey);
             call.enqueue(new Callback<ShProfile>() {
                 @Override
@@ -218,7 +218,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Call<ProfileAxi> callProfile;
 
-            InterfaceProfile apiService = ApiClient2.getClientV1().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
             callProfile = apiService.getProfile(apiKey);
 
             callProfile.enqueue(new Callback<ProfileAxi>() {

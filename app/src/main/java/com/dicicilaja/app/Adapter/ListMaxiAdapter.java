@@ -82,7 +82,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         cicilan = sb.toString();
 //        holder.tv_cicilan.setText(cicilan);
         Uri uri = Uri.parse(itemModel.getImage());
-        Picasso.get().load(uri).into(holder.discount_image);
+        Picasso.get().load(uri).placeholder(R.drawable.illustration_1_05).into(holder.discount_image);
         holder.card_promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
