@@ -167,12 +167,12 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         String photo = session.getPhoto();
         if (photo != null && !photo.isEmpty())
             Glide.with(this).load(photo)
-                    .placeholder(R.drawable.ic_profile_account)
+                    .placeholder(R.drawable.avatar)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivAvatar);
         else
-            Glide.with(this).load(getString(R.string.dummy_profile))
-                    .placeholder(R.drawable.ic_profile_account)
+            Glide.with(this).load(R.drawable.avatar)
+                    .placeholder(R.drawable.avatar)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivAvatar);
     }

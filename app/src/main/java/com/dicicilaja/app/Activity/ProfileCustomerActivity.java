@@ -44,6 +44,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
     RelativeLayout changePassword;
     ProgressDialog progress;
     Data dataCustomer;
+    Button btnLogout;
     TextView name_user, api_email, api_telephone, api_jk, api_bill;
 
     @Override
@@ -69,7 +70,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
 
         TextView title_status = findViewById(R.id.title_status);
         TextView title_profile = findViewById(R.id.title_profile);
-        Button btnLogout = findViewById(R.id.btnLogout);
+        btnLogout = findViewById(R.id.btnLogout);
         changePassword = findViewById(R.id.changePassword);
 
         name_user = findViewById(R.id.name_user);
@@ -125,7 +126,11 @@ public class ProfileCustomerActivity extends AppCompatActivity {
                 name_user.setText(dataCustomer.getName());
                 api_email.setText(dataCustomer.getEmail());
                 api_telephone.setText(dataCustomer.getPhone());
-                api_jk.setText(dataCustomer.getGender());
+                if (dataCustomer.getGender().equals("l")) {
+                    api_jk.setText("Laki-laki");
+                } else if (dataCustomer.getGender().equals("p")) {
+                    api_jk.setText("Perempuan");
+                }
                 api_bill.setText(dataCustomer.getBillNumber());
 
                 progress.dismiss();
@@ -134,8 +139,8 @@ public class ProfileCustomerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ProfileCustomer> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
-                alertDialog.setMessage("Koneksi internet tidak ditemukan");
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileCustomerActivity.this);
+                alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +154,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileCustomerActivity.this);
 
                 // Setting Dialog Title
                 alertDialog.setTitle("Konfirmasi");
@@ -222,7 +227,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
             intent.putExtra("name_user",name_user.getText().toString());
             intent.putExtra("api_handphone",api_telephone.getText().toString());
             intent.putExtra("api_bill",api_bill.getText().toString());
-            intent.putExtra("api_jk",api_jk.getText().toString());
+            intent.putExtra("api_jk",dataCustomer.getGender());
             startActivity(intent);
             return true;
         } else if (id == R.id.home) {

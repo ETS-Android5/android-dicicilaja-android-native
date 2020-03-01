@@ -65,6 +65,13 @@ public class SessionManager {
         editor.apply();
     }
 
+    public void editLoginSessionSh(String name, String phone, String email){
+        editor.putString("name", name);
+        editor.putString("phone", phone);
+        editor.putString("email", email);
+        editor.apply();
+    }
+
     public String getUserIdOneSignal() {
         return pref.getString("user_id_onesignal", null);
     }

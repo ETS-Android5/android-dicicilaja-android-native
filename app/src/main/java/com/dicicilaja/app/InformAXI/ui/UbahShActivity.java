@@ -1,4 +1,4 @@
-package com.dicicilaja.app.Activity;
+package com.dicicilaja.app.InformAXI.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.Activity.RegisterAxi1Activity;
+import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahSh;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -52,22 +54,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UbahCustomerActivity extends AppCompatActivity {
+public class UbahShActivity extends AppCompatActivity {
 
-    EditText inputNamaLengkap, inputHandphone, inputBill;
-    SearchableSpinner spinnerJenisKelamin;
+    EditText inputNamaLengkap, inputHandphone, inputEmail;
     ImageView date_range;
     ProgressDialog progress;
     Button save;
     String apiKey;
-    TextInputLayout inputLayoutNamaLengkap, inputLayoutHandphone, inputLayoutJenisKelamin, inputLayoutBill;
+    TextInputLayout inputLayoutNamaLengkap, inputLayoutHandphone, inputLayoutEmail;
 
     SessionManager session;
-    String namaLengkap, handphone, alamat, kelurahan, kecamatan, kota, provinsi, bill, jk;
+    String namaLengkap, handphone, email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubah_customer);
+        setContentView(R.layout.activity_ubah_sh);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,47 +86,21 @@ public class UbahCustomerActivity extends AppCompatActivity {
 
         inputNamaLengkap    = findViewById(R.id.inputNamaLengkap);
         inputHandphone      = findViewById(R.id.inputHandphone);
-        inputBill           = findViewById(R.id.inputBill);
+        inputEmail      = findViewById(R.id.inputEmail);
         save                = findViewById(R.id.save);
-        spinnerJenisKelamin = findViewById(R.id.spinnerJenisKelamin);
 
         inputLayoutNamaLengkap  = findViewById(R.id.inputLayoutNamaLengkap);
+        inputLayoutEmail  = findViewById(R.id.inputLayoutEmail);
         inputLayoutHandphone = findViewById(R.id.inputLayoutHandphone);
-        inputLayoutJenisKelamin = findViewById(R.id.inputLayoutJenisKelamin);
-        inputLayoutBill = findViewById(R.id.inputLayoutBill);
 
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang mengirim data...");
         progress.setCanceledOnTouchOutside(false);
 
-        final List<String> JK_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
-
-        JK_ITEMS.clear();
-        JK_DATA.clear();
-
-        JK_DATA.put(0, "0");
-        JK_DATA.put(1, "l");
-        JK_DATA.put(2, "p");
-        JK_ITEMS.add("Pilih Jenis Kelamin");
-        JK_ITEMS.add("Laki-laki");
-        JK_ITEMS.add("Perempuan");
-
-        ArrayAdapter<String> jk_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JK_ITEMS);
-        jk_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerJenisKelamin.setAdapter(jk_adapter);
-        spinnerJenisKelamin.setTitle("");
-        spinnerJenisKelamin.setPositiveButton("OK");
-
         try {
             inputNamaLengkap.setText(getIntent().getStringExtra("name_user"));
-            inputHandphone.setText(getIntent().getStringExtra("api_handphone"));
-            inputBill.setText(getIntent().getStringExtra("api_bill"));
-            if (getIntent().getStringExtra("api_jk").equals("l")) {
-                spinnerJenisKelamin.setSelection(1);
-            } else if (getIntent().getStringExtra("api_jk").equals("p")) {
-                spinnerJenisKelamin.setSelection(2);
-            }
+            inputHandphone.setText(getIntent().getStringExtra("api_no_hp"));
+            inputEmail.setText(getIntent().getStringExtra("api_email"));
         } catch (Exception ex) {}
 
         inputNamaLengkap.addTextChangedListener(new TextWatcher() {
@@ -144,6 +119,25 @@ public class UbahCustomerActivity extends AppCompatActivity {
                 inputNamaLengkap.removeTextChangedListener(this);
                 validateName();
                 inputNamaLengkap.addTextChangedListener(this);
+            }
+        });
+
+        inputEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                inputEmail.removeTextChangedListener(this);
+                validateEmail();
+                inputEmail.addTextChangedListener(this);
             }
         });
 
@@ -171,35 +165,33 @@ public class UbahCustomerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     namaLengkap = inputNamaLengkap.getText().toString();
-                    jk = JK_DATA.get(spinnerJenisKelamin.getSelectedItemPosition());
                     handphone = inputHandphone.getText().toString();
-                    bill = inputBill.getText().toString();
+                    email = inputEmail.getText().toString();
                 } catch (Exception ex) {
 
                 }
-                if(validateForm(namaLengkap, handphone, jk, bill)) {
+                if(validateForm(namaLengkap, email, handphone)) {
                     progress.show();
-                    ubahCustomer(apiKey, namaLengkap, handphone, jk, bill);
+                    ubahSh(apiKey, namaLengkap, email, handphone);
 
                 }
             }
         });
     }
 
-    private void ubahCustomer(final String apiKey, final String namaLengkap, final String handphone, final String jk, final String bill) {
-        InterfaceUbahCustomer apiService =
-                ApiClient.getClient().create(InterfaceUbahCustomer.class);
+    private void ubahSh(final String apiKey, final String namaLengkap, final String email, final String handphone) {
+        InterfaceUbahSh apiService =
+                ApiClient.getClient().create(InterfaceUbahSh.class);
 
-        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, jk, bill);
+        Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, email, handphone);
         call.enqueue(new Callback<UbahCustomer>() {
             @Override
             public void onResponse(Call<UbahCustomer> call, Response<UbahCustomer> response) {
                 if(response.isSuccessful()){
                     progress.dismiss();
-                    session.editLoginSessionCustomer(namaLengkap, handphone);
+                    session.editLoginSessionSh(namaLengkap, handphone, email);
                     Toast.makeText(getBaseContext(),"Data Anda berhasil diubah",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), MarketplaceActivity.class);
-                    intent.putExtra("profile","profile");
+                    Intent intent = new Intent(getBaseContext(), InformAxiActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else{
@@ -218,9 +210,9 @@ public class UbahCustomerActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String namaLengkap, String handphone, String jk, String bill) {
+    private boolean validateForm(String namaLengkap, String email, String handphone) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahShActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan nama lengkap");
 
@@ -232,7 +224,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
             alertDialog.show();
             return false;
         } else if (!isName(namaLengkap)) {
-            AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(UbahCustomerActivity.this);
+            AlertDialog.Builder alertDialog5 = new AlertDialog.Builder(UbahShActivity.this);
             alertDialog5.setTitle("Perhatian");
             alertDialog5.setMessage("Masukan nama lengkap yang benar");
 
@@ -245,8 +237,34 @@ public class UbahCustomerActivity extends AppCompatActivity {
             return false;
         }
 
+        if (email == null || email.trim().length() == 0 || email.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahShActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan email");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputEmail);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (!isEmailValid(email)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahShActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan alamat email dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputEmail);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
         if(handphone == null || handphone.trim().length() == 0 || handphone.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahShActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan no. handphone");
 
@@ -258,44 +276,13 @@ public class UbahCustomerActivity extends AppCompatActivity {
             alertDialog.show();
             return false;
         } else if (!isHp(handphone)) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahCustomerActivity.this);
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new AlertDialog.Builder(UbahShActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Masukan no. handphone dengan benar");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     requestFocus(inputHandphone);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Pilih jenis kelamin");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(spinnerJenisKelamin);
-                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
-                    spinnerJenisKelamin.dispatchTouchEvent(motionEvent);
-                    hideSoftKeyboard();
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(bill == null || bill.trim().length() == 0 || bill.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahCustomerActivity.this);
-            alertDialog.setTitle("Perhatian");
-            alertDialog.setMessage("Masukan no. tagihan");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputBill);
                 }
             });
             alertDialog.show();
@@ -383,6 +370,33 @@ public class UbahCustomerActivity extends AppCompatActivity {
                 return false;
             } else {
                 inputLayoutHandphone.setErrorEnabled(false);
+            }
+        }
+        return true;
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean validateEmail() {
+        if (inputEmail.getText().toString().trim().isEmpty()) {
+            inputLayoutEmail.setErrorEnabled(false);
+        } else {
+            String emailId = inputEmail.getText().toString();
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(emailId);
+            Boolean isValid = matcher.matches();
+            if (!isValid) {
+                inputLayoutEmail.setError("Masukan alamat email dengan benar\ncontoh: budi.susanto@gmail.com");
+                requestFocus(inputEmail);
+                return false;
+            } else {
+                inputLayoutEmail.setErrorEnabled(false);
             }
         }
         return true;

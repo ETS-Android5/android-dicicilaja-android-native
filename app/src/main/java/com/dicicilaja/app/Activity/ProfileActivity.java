@@ -31,6 +31,7 @@ import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
 import com.dicicilaja.app.InformAXI.model.ShProfile;
+import com.dicicilaja.app.InformAXI.ui.UbahShActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -167,6 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
                         if (data.getPhoto() != null && !data.getPhoto().isEmpty())
                             Picasso.get()
                                     .load(data.getPhoto())
+                                    .placeholder(R.drawable.avatar)
                                     .error(R.drawable.avatar)
                                     .fit()
                                     .centerCrop()
@@ -174,6 +176,7 @@ public class ProfileActivity extends AppCompatActivity {
                         else
                             Picasso.get()
                                     .load(R.drawable.avatar)
+                                    .placeholder(R.drawable.avatar)
                                     .fit()
                                     .centerCrop()
                                     .into(profilePictures);
@@ -345,13 +348,18 @@ public class ProfileActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.ubah) {
 //            Toast.makeText(getBaseContext(),api_cabang.getText()+" " +api_kodepos.getText(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getBaseContext(), UbahAxiActivity.class);
+
 
             if (role != null && role.equalsIgnoreCase("sh")) {
+                Intent intent = new Intent(getBaseContext(), UbahShActivity.class);
+
                 intent.putExtra("name_user", name_user.getText().toString());
                 intent.putExtra("api_no_hp", ((TextView) findViewById(R.id.api_phone_sh)).getText().toString());
                 intent.putExtra("api_email", ((TextView) findViewById(R.id.api_email_sh)).getText().toString());
+                startActivity(intent);
             } else {
+                Intent intent = new Intent(getBaseContext(), UbahAxiActivity.class);
+
                 intent.putExtra("name_user", name_user.getText().toString());
                 intent.putExtra("api_axi_id", api_axi_id.getText().toString());
                 intent.putExtra("api_cabang", api_cabang.getText().toString());
@@ -384,9 +392,8 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     intent.putExtra("api_jk", "0");
                 }
+                startActivity(intent);
             }
-
-            startActivity(intent);
             return true;
         } else if (id == R.id.home) {
             super.finish();
