@@ -4,15 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UbahCustomer {
-    @SerializedName("message")
+    @SerializedName("messege")
     @Expose
-    private String message;
+    private String messege;
 
     public String getMessage() {
-        return message;
+        return messege;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.messege = message;
     }
 }

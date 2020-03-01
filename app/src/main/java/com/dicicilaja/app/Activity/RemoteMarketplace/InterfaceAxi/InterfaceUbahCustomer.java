@@ -20,12 +20,6 @@ public interface InterfaceUbahCustomer {
     Call<UbahCustomer> change(@Header("Authorization") String apiKey,
                               @Field("name") String name,
                               @Field("phone") String phone,
-                              @Field("birth_date") String birth_date,
-                              @Field("address") String address,
-                              @Field("subdistrict") String subdistrict,
-                              @Field("district") String district,
-                              @Field("city") String city,
-                              @Field("province") String province,
                               @Field("gender") String gender,
                               @Field("bill_number") String bill_number);
 }

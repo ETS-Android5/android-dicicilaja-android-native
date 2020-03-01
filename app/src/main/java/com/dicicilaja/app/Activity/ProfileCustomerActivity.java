@@ -42,8 +42,9 @@ public class ProfileCustomerActivity extends AppCompatActivity {
     InterfaceLogout interfaceLogout;
     String apiKey;
     RelativeLayout changePassword;
+    ProgressDialog progress;
     Data dataCustomer;
-    TextView name_user, api_email, api_telephone, api_tanggal_daftar, api_alamat, api_kelurahan, api_kecamatan, api_kota, api_provinsi, api_jk, api_bill;
+    TextView name_user, api_email, api_telephone, api_jk, api_bill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,12 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         name_user = findViewById(R.id.name_user);
         api_email = findViewById(R.id.api_email);
         api_telephone = findViewById(R.id.api_telephone);
-        api_tanggal_daftar  = findViewById(R.id.api_tanggal_daftar);
-        api_alamat = findViewById(R.id.api_alamat);
-        api_kelurahan = findViewById(R.id.api_kelurahan);
-        api_kecamatan = findViewById(R.id.api_kecamatan);
-        api_kota = findViewById(R.id.api_kota);
-        api_provinsi = findViewById(R.id.api_provinsi);
+//        api_tanggal_daftar  = findViewById(R.id.api_tanggal_daftar);
+//        api_alamat = findViewById(R.id.api_alamat);
+//        api_kelurahan = findViewById(R.id.api_kelurahan);
+//        api_kecamatan = findViewById(R.id.api_kecamatan);
+//        api_kota = findViewById(R.id.api_kota);
+//        api_provinsi = findViewById(R.id.api_provinsi);
         api_jk = findViewById(R.id.api_jk);
         api_bill = findViewById(R.id.api_bill);
 
@@ -108,7 +109,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
                 .error(R.drawable.avatar)
                 .into(profilePictures);
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
@@ -124,12 +125,6 @@ public class ProfileCustomerActivity extends AppCompatActivity {
                 name_user.setText(dataCustomer.getName());
                 api_email.setText(dataCustomer.getEmail());
                 api_telephone.setText(dataCustomer.getPhone());
-                api_tanggal_daftar.setText(dataCustomer.getBirthDate());
-                api_alamat.setText(dataCustomer.getAddress());
-                api_kelurahan.setText(dataCustomer.getSubdistrict());
-                api_kecamatan.setText(dataCustomer.getDistrict());
-                api_kota.setText(dataCustomer.getCity());
-                api_provinsi.setText(dataCustomer.getProvince());
                 api_jk.setText(dataCustomer.getGender());
                 api_bill.setText(dataCustomer.getBillNumber());
 
@@ -154,7 +149,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileCustomerActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
 
                 // Setting Dialog Title
                 alertDialog.setTitle("Konfirmasi");
@@ -162,14 +157,33 @@ public class ProfileCustomerActivity extends AppCompatActivity {
                 // Setting Dialog Message
                 alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
 
+
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        doLogout(apiKey);
-                        session.logoutUser();
-                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        progress.show();
+                        InterfaceLogout apiService =
+                                ApiClient.getClient().create(InterfaceLogout.class);
+
+                        Call<Logout> call2 = apiService.logout(apiKey);
+                        call2.enqueue(new Callback<Logout>() {
+                            @Override
+                            public void onResponse(Call<Logout> call, Response<Logout> response2) {
+                                try {
+                                    if (response2.isSuccessful()) {
+                                        progress.hide();
+                                        session.logoutUser();
+                                    }
+                                } catch (Exception ex) {
+                                    progress.hide();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Logout> call, Throwable t) {
+                                progress.hide();
+                            }
+                        });
                     }
                 });
 
@@ -207,23 +221,8 @@ public class ProfileCustomerActivity extends AppCompatActivity {
 
             intent.putExtra("name_user",name_user.getText().toString());
             intent.putExtra("api_handphone",api_telephone.getText().toString());
-            intent.putExtra("api_tanggal_daftar",api_tanggal_daftar.getText().toString());
-            intent.putExtra("api_alamat",api_alamat.getText().toString());
-            intent.putExtra("api_kelurahan",api_kelurahan.getText().toString());
-            intent.putExtra("api_kecamatan",api_kecamatan.getText().toString());
-            intent.putExtra("api_kota",api_kota.getText().toString());
-            intent.putExtra("api_provinsi",api_provinsi.getText().toString());
             intent.putExtra("api_bill",api_bill.getText().toString());
-
-            String jk = api_jk.getText().toString();
-            if(jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
-                intent.putExtra("api_jk","1");
-            }else if(jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")){
-                intent.putExtra("api_jk","2");
-            }else{
-                intent.putExtra("api_jk","0");
-            }
-
+            intent.putExtra("api_jk",api_jk.getText().toString());
             startActivity(intent);
             return true;
         } else if (id == R.id.home) {

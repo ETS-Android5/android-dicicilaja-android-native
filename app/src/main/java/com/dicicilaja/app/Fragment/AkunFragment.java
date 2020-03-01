@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -50,13 +51,12 @@ import retrofit2.Response;
 public class AkunFragment extends Fragment {
 
     List<com.dicicilaja.app.API.Model.PengajuanAxi.Datum> pengajuan;
-    Button alihkan;
     List<Data> programMaxi;
     List <Datum> favorite;
     LinearLayout share_app, nilai;
     String apiKey;
     TextView nama, title_favorite;
-    LinearLayout detail_profile;
+    RelativeLayout detail_profile;
     CircleImageView profile_picture;
     SessionManager session;
     public AkunFragment() {
@@ -112,13 +112,6 @@ public class AkunFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        profile_picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ProfileCustomerActivity.class);
-                startActivity(intent);
-            }
-        });
         InterfaceAllFavorite apiService3 =
                 ApiClient2.getClient().create(InterfaceAllFavorite.class);
 
@@ -165,13 +158,8 @@ public class AkunFragment extends Fragment {
             }
         });
 
-        alihkan = view.findViewById(R.id.alihkan);
         share_app = view.findViewById(R.id.share_app);
         nilai = view.findViewById(R.id.nilai);
-
-        if(session.getRole().equals("basic")){
-            alihkan.setVisibility(View.GONE);
-        }
 
         nilai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,59 +182,6 @@ public class AkunFragment extends Fragment {
                 intent.putExtra(Intent.EXTRA_TEXT, "Semua bisa dicicil! https://play.google.com/store/apps/details?id=com.dicicilaja.app");
                 intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Dicicilaja");
                 startActivity(Intent.createChooser(intent, "Bagikan aplikasi Dicicilaja"));
-            }
-        });
-
-        alihkan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                // Setting Dialog Title
-                alertDialog.setTitle("Konfirmasi");
-
-                // Setting Dialog Message
-                alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
-
-
-                // Setting Positive "Yes" Button
-                alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        progress.show();
-                        InterfaceLogout apiService =
-                                ApiClient.getClient().create(InterfaceLogout.class);
-
-                        Call<Logout> call2 = apiService.logout(apiKey);
-                        call2.enqueue(new Callback<Logout>() {
-                            @Override
-                            public void onResponse(Call<Logout> call, Response<Logout> response2) {
-                                try {
-                                    if (response2.isSuccessful()) {
-                                        progress.hide();
-                                        session.logoutUser();
-                                    }
-                                } catch (Exception ex) {
-                                    progress.hide();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Logout> call, Throwable t) {
-                                progress.hide();
-                            }
-                        });
-                    }
-                });
-
-                // Setting Negative "NO" Button
-                alertDialog.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                // Showing Alert Message
-                alertDialog.show();
             }
         });
 

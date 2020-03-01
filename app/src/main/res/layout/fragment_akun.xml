@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.dicicilaja.app.Fragment.AkunFragment"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/colorPrimary">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +15,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:contextClickable="true"
+                android:background="@drawable/border_form"
+                android:id="@+id/detail_profile"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:padding="16dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,7 +34,6 @@
                     app:civ_border_width="0.5dp"
                     android:layout_marginRight="15dp"/>
                 <LinearLayout
-                    android:id="@+id/detail_profile"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,63 +43,87 @@
                         android:id="@+id/nama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="3dp"
+                        android:text="User"
+                        android:textStyle="bold"
                         android:fontFamily="@font/open_sans_semibold"
-                        android:layout_marginBottom="3dp"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_toRightOf="@+id/profile_picture"
-                        android:text="Edit Profil"/>
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:textSize="11sp"
+                        android:text="LIHAT PROFIL"/>
                 </LinearLayout>
 
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:background="@drawable/border_form"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
                 <LinearLayout
                     android:id="@+id/share_app"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:contextClickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:paddingTop="14dp"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="14dp">
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/share_aplikasi"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_share_black_24dp"
                         android:layout_marginRight="10dp"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:textColor="@color/colorAccentDark2"
                         android:text="Share Aplikasi"/>
                 </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/border_1dp"/>
                 <LinearLayout
                     android:id="@+id/nilai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
+                    android:paddingTop="14dp"
+                    android:paddingLeft="14dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:contextClickable="true"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="14dp">
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/beri_nilai"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_star_black_24dp"
                         android:layout_marginRight="10dp"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:textColor="@color/colorAccentDark2"
+                        android:textSize="13sp"
                         android:text="Beri Kami Nilai"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp">
                 <RelativeLayout
@@ -135,18 +166,6 @@
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
                     android:layout_marginBottom="50dp"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/alihkan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:text="Keluar"
-                        android:backgroundTint="@color/colorAccent"
-                        android:textColor="@color/colorWhite"/>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

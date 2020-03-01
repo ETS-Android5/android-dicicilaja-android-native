@@ -59,8 +59,9 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void editLoginSessionCustomer(String name){
+    public void editLoginSessionCustomer(String name, String phone){
         editor.putString("name", name);
+        editor.putString("phone", phone);
         editor.apply();
     }
 

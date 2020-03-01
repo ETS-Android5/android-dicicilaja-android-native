@@ -178,7 +178,7 @@ public class UbahShActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<EditShProfile> call, Response<EditShProfile> response) {
                                 if (response != null && response.isSuccessful()) {
-                                    session.editLoginSessionCustomer(etName.getText().toString());
+                                    session.editLoginSessionCustomer(etName.getText().toString(), etPhone.getText().toString());
                                     Tools.showToast(UbahShActivity.this, "Data Anda berhasil diubah");
                                     Intent intent = new Intent(UbahShActivity.this, InformAxiActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
