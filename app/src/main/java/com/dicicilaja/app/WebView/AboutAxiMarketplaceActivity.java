@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.dicicilaja.app.Activity.RegisterActivity;
 import com.dicicilaja.app.Activity.RegisterAxi1Activity;
 import com.dicicilaja.app.R;
 
@@ -111,7 +112,8 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+                Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                intent.putExtra("register", "axi");
                 startActivity(intent);
             }
         });

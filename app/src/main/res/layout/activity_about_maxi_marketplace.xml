@@ -20,10 +20,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
     <WebView
+        android:layout_above="@+id/button"
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
     <LinearLayout
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
@@ -33,9 +35,12 @@
         <Button
             android:id="@+id/daftar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
+            android:text="Daftar MAXI"
+            android:textAllCaps="true"
+            android:layout_margin="6dp"
             android:textColor="@color/colorWhite"
-            android:text="Daftar mitra MAXI"
+            android:fontFamily="@font/open_sans_bold"
             android:backgroundTint="@color/colorAccent"/>
     </LinearLayout>
 </RelativeLayout>

@@ -6,9 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
@@ -19,6 +24,8 @@ import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.navigation.NavigationView;
@@ -274,17 +281,17 @@ public class MarketplaceActivity extends AppCompatActivity
                                     public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                         try {
                                             if (response2.isSuccessful()) {
-                                                progress.hide();
+                                                progress.dismiss();
                                                 session.logoutUser();
                                             }
                                         } catch (Exception ex) {
-                                            progress.hide();
+                                            progress.dismiss();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<Logout> call, Throwable t) {
-                                        progress.hide();
+                                        progress.dismiss();
                                     }
                                 });
                             }
@@ -566,44 +573,56 @@ public class MarketplaceActivity extends AppCompatActivity
         return true;
     }
 
-    public void inAppDialog() {
+    private void inAppDialog() {
         progress_popup = new ProgressDialog(this);
         progress_popup.setMessage("Sedang memuat data...");
         progress_popup.setCanceledOnTouchOutside(false);
-        progress_popup.show();
 
+        InAppDialog = new Dialog(MarketplaceActivity.this);
+        InAppDialog.setContentView(R.layout.in_app_dialog);
+        InAppDialog.setCanceledOnTouchOutside(false);
+        InAppDialog.setCancelable(false);
+        InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        thumbnail = InAppDialog.findViewById(R.id.thumbnail);
+        detail = InAppDialog.findViewById(R.id.detail);
+        nanti = InAppDialog.findViewById(R.id.nanti);
+
+        nanti.setVisibility(View.GONE);
+        detail.setVisibility(View.GONE);
+        detail.setEnabled(false);
+        nanti.setEnabled(false);
+
+        progress_popup.show();
         Call<Popup> popupCall = apiService4.getPopup(session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
-                progress_popup.hide();
+                progress_popup.dismiss();
                 if (response.isSuccessful()) {
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {
-                            InAppDialog = new Dialog(MarketplaceActivity.this);
-                            InAppDialog.setContentView(R.layout.in_app_dialog);
-                            InAppDialog.setCanceledOnTouchOutside(false);
-                            InAppDialog.setCancelable(false);
-                            InAppDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                            thumbnail = InAppDialog.findViewById(R.id.thumbnail);
-
-
-                            Log.d("POPUP", "onResponse: " + dataPopups.get(0).getAttributes().getImage());
                             Glide.with(MarketplaceActivity.this)
                                     .load(dataPopups.get(0).getAttributes().getImage())
                                     .fitCenter()
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            nanti.setVisibility(View.VISIBLE);
+                                            detail.setVisibility(View.VISIBLE);
+                                            detail.setEnabled(true);
+                                            nanti.setEnabled(true);
+                                            return false;
+                                        }
+                                    })
                                     .into(thumbnail);
 
-
-                            detail = InAppDialog.findViewById(R.id.detail);
-                            nanti = InAppDialog.findViewById(R.id.nanti);
-//                            close = InAppDialog.findViewById(R.id.close);
-
-                            detail.setEnabled(true);
-                            nanti.setEnabled(true);
-//                            close.setEnabled(true);
 
                             detail.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -633,15 +652,15 @@ public class MarketplaceActivity extends AppCompatActivity
                         } catch (Exception ex) {
                         }
                     }
-                    progress_popup.hide();
+                    progress_popup.dismiss();
                 } else {
-                    progress_popup.hide();
+                    progress_popup.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<Popup> call, Throwable t) {
-                progress_popup.hide();
+                progress_popup.dismiss();
             }
         });
     }

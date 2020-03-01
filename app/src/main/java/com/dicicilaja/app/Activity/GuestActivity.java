@@ -36,9 +36,6 @@ public class GuestActivity extends AppCompatActivity {
         Typeface opensans_semibold = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-SemiBold.ttf");
         Typeface opensans_reguler = Typeface.createFromAsset(getBaseContext().getAssets(), "fonts/OpenSans-Regular.ttf");
 
-        title_regis.setTypeface(opensans_bold);
-        title_regis_account.setTypeface(opensans_reguler);
-        login_account.setTypeface(opensans_reguler);
 //        title_login.setTypeface(opensans_bold);
 //        desc_login.setTypeface(opensans_bold);
         lewati.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +47,8 @@ public class GuestActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), NasabahActivity.class);
+                Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                intent.putExtra("register", "nasabah");
                 startActivity(intent);
             }
         });

@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.dicicilaja.app.Activity.RegisterActivity;
 import com.dicicilaja.app.Activity.RegisterMaxi1Activity;
 import com.dicicilaja.app.R;
 
@@ -44,7 +45,8 @@ public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), RegisterMaxi1Activity.class);
+                Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                intent.putExtra("register", "maxi");
                 startActivity(intent);
             }
         });

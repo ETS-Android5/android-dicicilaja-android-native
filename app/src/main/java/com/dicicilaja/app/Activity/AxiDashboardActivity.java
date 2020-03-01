@@ -76,6 +76,7 @@ import com.dicicilaja.app.Session.SessionManager;
 import com.dicicilaja.app.WebView.MateriActivity;
 import com.dicicilaja.app.WebView.NewsActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -653,7 +654,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
                     contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
                     contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    linkWeb.setText(itemDetail.getAxiId());
+                    linkWeb.setText("https://dicicilaja.com/" + itemDetail.getAxiId());
                 }
                 hideLoading();
             }
@@ -851,7 +852,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("link", linkWeb.getText().toString());
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(getBaseContext(), "Berhasil menyalin link web replika", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(view, "Berhasil menyalin link web replika", Snackbar.LENGTH_SHORT);
+                snackbar.show();
                 break;
             case R.id.icon2_web:
                 intent = new Intent(Intent.ACTION_SEND);

@@ -358,7 +358,7 @@
         </activity>
         <activity
             android:name=".WebView.AboutMaxiMarketplaceActivity"
-            android:label="Daftar Rekan Bisnis"
+            android:label="Daftar Kemitraan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

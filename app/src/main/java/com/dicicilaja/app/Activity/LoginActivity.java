@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -171,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    hideSoftKeyboard();
                     String username = inputEmailID.getText().toString();
                     String password = inputPassword.getText().toString();
                     if(validateLogin(username, password)) {
@@ -207,11 +209,33 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String username, String password) {
         if(username == null || username.trim().length() == 0) {
-            Toast.makeText(this, "Masukan Email/ID Anda", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
+            hideSoftKeyboard();
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan username Anda");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            alertDialog.show();
             return false;
         }
         if(password == null || password.trim().length() == 0) {
-            Toast.makeText(this, "Masukan Password Anda", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
+            hideSoftKeyboard();
+            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Masukan password Anda");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            alertDialog.show();
             return false;
         }
         return true;
@@ -312,7 +336,17 @@ public class LoginActivity extends AppCompatActivity {
                     }*/
                 }else {
                     progress.dismiss();
-                    Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+                    hideSoftKeyboard();
+                    androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Username atau password salah");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
                 }
 
             }
@@ -320,7 +354,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                hideSoftKeyboard();
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+                alertDialog.setTitle("Perhatian");
                 alertDialog.setMessage("Gagal terhubung ke server");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -359,9 +395,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void requestFocus(View view) {
+    public void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
@@ -475,7 +524,19 @@ public class LoginActivity extends AppCompatActivity {
 //                break;
 
             default:
-                Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+                progress.dismiss();
+                hideSoftKeyboard();
+                androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Username atau password Anda salah");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+
                 break;
         }
     }

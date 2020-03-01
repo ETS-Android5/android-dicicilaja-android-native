@@ -21,22 +21,26 @@
     </com.google.android.material.appbar.AppBarLayout>
     <WebView
         android:id="@+id/webview"
+        android:layout_above="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"></WebView>
     <LinearLayout
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:padding="5dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
         <Button
             android:id="@+id/daftar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
+            android:layout_height="55dp"
             android:text="Ayo jadi AXI"
+            android:textAllCaps="true"
+            android:layout_margin="6dp"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/open_sans_bold"
             android:backgroundTint="@color/colorAccent"/>
     </LinearLayout>
 </RelativeLayout>

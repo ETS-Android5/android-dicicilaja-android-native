@@ -55,6 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        try {
+            if (getIntent().getStringExtra("register").equals("nasabah")) {
+                viewPager.setCurrentItem(0);
+            } else if (getIntent().getStringExtra("register").equals("axi")) {
+                viewPager.setCurrentItem(1);
+            } else if (getIntent().getStringExtra("register").equals("maxi")) {
+                viewPager.setCurrentItem(2);
+            }
+        } catch (Exception ex) {}
+
     }
 
     @Override

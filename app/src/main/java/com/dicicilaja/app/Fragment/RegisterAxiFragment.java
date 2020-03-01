@@ -467,6 +467,7 @@ public class RegisterAxiFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 clearCabang();
+                hideSoftKeyboard();
                 if (Integer.parseInt(AREA_MAP.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
                     Call<Branch> callBranch = apiServiceArea.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
@@ -535,6 +536,19 @@ public class RegisterAxiFragment extends Fragment {
                                 }
                             });
                             alertDialog.show();
+                        }
+
+                    });
+
+                    spinnerCabang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            hideSoftKeyboard();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
                         }
                     });
                 }

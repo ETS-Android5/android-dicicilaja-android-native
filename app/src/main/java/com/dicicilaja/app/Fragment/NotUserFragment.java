@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.NasabahActivity;
+import com.dicicilaja.app.Activity.RegisterActivity;
 import com.dicicilaja.app.R;
 
 /**
@@ -25,7 +26,6 @@ public class NotUserFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,7 +38,8 @@ public class NotUserFragment extends Fragment {
         btn_regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NasabahActivity.class);
+                Intent intent = new Intent(getContext(), RegisterActivity.class);
+                intent.putExtra("register", "nasabah");
                 startActivity(intent);
             }
         });

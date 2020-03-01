@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,9 @@ import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView name_user, api_axi_id, api_cabang, api_tanggal_daftar, api_no_ktp, api_mentor, api_no_hp, api_email, api_alamat, api_rt_rw, api_kelurahan, api_kecamatan, api_provinsi, api_kodepos, api_jk, api_no_npwp;
     TextView api_tempat_lahir, api_tanggal_lahir, api_nama_bank, api_no_rekening, api_an_rekening, api_cabang_bank, api_kota_bank;
 
-    CardView cvDetailRekening;
+    LinearLayout cvDetailRekening;
     LinearLayout titleDetailRekening, topCard2, shProfile;
 
     private String role = null;
@@ -99,15 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
         api_no_hp = findViewById(R.id.api_no_hp);
         api_email = findViewById(R.id.api_email);
         api_alamat = findViewById(R.id.api_alamat);
-        api_rt_rw = findViewById(R.id.api_rt_rw);
-        api_kelurahan = findViewById(R.id.api_kelurahan);
-        api_kecamatan = findViewById(R.id.api_kecamatan);
-        api_provinsi = findViewById(R.id.api_provinsi);
-        api_kodepos = findViewById(R.id.api_kodepos);
-        api_jk = findViewById(R.id.api_jk);
         api_no_npwp = findViewById(R.id.api_no_npwp);
-        api_tempat_lahir = findViewById(R.id.api_tempat_lahir);
-        api_tanggal_lahir = findViewById(R.id.api_tanggal_lahir);
         api_nama_bank = findViewById(R.id.api_nama_bank);
         api_no_rekening = findViewById(R.id.api_no_rekening);
         api_an_rekening = findViewById(R.id.api_an_rekening);
@@ -188,28 +184,38 @@ public class ProfileActivity extends AppCompatActivity {
 
                         progress.dismiss();
                     } else {
+                        progress.dismiss();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-                        alertDialog.setTitle("Ooopppssss...");
-                        alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
-                        alertDialog.setPositiveButton("Okay", (dialog, which) -> finish());
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
                         alertDialog.show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ShProfile> call, Throwable t) {
+                    progress.dismiss();
                     Log.d("asd", "onFailure: " + t.getMessage());
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-                    alertDialog.setTitle("Ooopppssss...");
-                    alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
-                    alertDialog.setPositiveButton("Okay", (dialog, which) -> finish());
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
                     alertDialog.show();
                 }
             });
         } else {
             Call<ProfileAxi> callProfile;
 
-            InterfaceProfile apiService = ApiClient2.getClient().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiClient2.getClientV1().create(InterfaceProfile.class);
             callProfile = apiService.getProfile(apiKey);
 
             callProfile.enqueue(new Callback<ProfileAxi>() {
@@ -219,41 +225,22 @@ public class ProfileActivity extends AppCompatActivity {
 //                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
                     if (response.body() == null) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Ooopppssss...");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Sepertinya terjadi kesalahan, kami secepatnya memperbaiki ini");
-
-                        // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
                             }
                         });
-
-                        // Showing Alert Message
                         alertDialog.show();
                     } else {
-                        dataAxi = response.body().getData();
-                        name_user.setText(dataAxi.getNamaLengkap());
-                        api_axi_id.setText(dataAxi.getAxiId());
-                        api_cabang.setText(dataAxi.getCabang());
+
                         api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
                         api_no_ktp.setText(dataAxi.getNoKtp());
                         api_mentor.setText(dataAxi.getAxiIdReff());
-                        api_tempat_lahir.setText(dataAxi.getTempatLahir());
-                        api_tanggal_lahir.setText(dataAxi.getTanggalLahir());
                         api_no_hp.setText(dataAxi.getNoHp());
                         api_email.setText(dataAxi.getEmail());
                         api_alamat.setText(dataAxi.getAlamatKtp());
-                        api_rt_rw.setText(dataAxi.getRtRwKtp());
-                        api_kelurahan.setText(dataAxi.getKelurahanKtp());
-                        api_kecamatan.setText(dataAxi.getKecamatanKtp());
-                        api_provinsi.setText(dataAxi.getProvinsiKtp());
-                        api_kodepos.setText(dataAxi.getKodeposKtp());
-                        api_jk.setText(dataAxi.getJenisKelamin());
                         api_no_npwp.setText(dataAxi.getNpwpNo());
 
                         api_nama_bank.setText(dataAxi.getNamaBank());
@@ -270,8 +257,8 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.e("PROFILE::::", t.toString());
                     progress.dismiss();
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
-                    alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -307,20 +294,20 @@ public class ProfileActivity extends AppCompatActivity {
                             public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                 try {
                                     if (response2.isSuccessful()) {
-                                        progress.hide();
+                                        progress.dismiss();
                                         session.logoutUser();
                                         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
                                 } catch (Exception ex) {
-                                    progress.hide();
+                                    progress.dismiss();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Logout> call, Throwable t) {
-                                progress.hide();
+                                progress.dismiss();
                             }
                         });
                     }
