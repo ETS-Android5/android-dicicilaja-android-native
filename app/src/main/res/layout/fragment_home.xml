@@ -46,8 +46,8 @@
 
                         <ImageView
                             android:id="@+id/ic_search"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="16dp"
                             android:src="@drawable/ic_search" />

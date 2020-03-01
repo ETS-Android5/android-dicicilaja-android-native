@@ -45,12 +45,12 @@
                         android:src="@drawable/ic_menu" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:adjustViewBounds="false"
-                        android:src="@drawable/dicicilaja" />
+                        android:src="@drawable/logo_color" />
 
                     <ImageButton
                         android:id="@+id/ib_notification"

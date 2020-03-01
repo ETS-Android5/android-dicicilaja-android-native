@@ -917,6 +917,15 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             if(resultCode == RESULT_OK) {
                 initAction();
                 initLoadData();
+
+                swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+                swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        initLoadData();
+                        swipeToRefresh.setRefreshing(false);
+                    }
+                });
             }
         }
     }

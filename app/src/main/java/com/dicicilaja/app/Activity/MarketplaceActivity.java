@@ -78,11 +78,18 @@ public class MarketplaceActivity extends AppCompatActivity
     List<Datum> dataPopups;
     ImageView thumbnail;
     TextView detail, nanti;
+    Boolean openInbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marketplace);
+
+        openInbox = getIntent().getBooleanExtra("openInbox", false);
+        if(openInbox) {
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+            startActivityForResult(intent, 77);
+        }
 
         try {
             session = new SessionManager(getApplicationContext());
