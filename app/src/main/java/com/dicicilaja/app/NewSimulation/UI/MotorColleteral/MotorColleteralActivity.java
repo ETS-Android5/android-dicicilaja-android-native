@@ -28,6 +28,8 @@ import com.dicicilaja.app.NewSimulation.Network.ApiClient2;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulationResult.NewSimulationResultActivity;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -82,11 +84,12 @@ public class MotorColleteralActivity extends AppCompatActivity {
     TextView notAvailable;
 
     List<ObjekTahun> objekTahuns;
-    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor;
+    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor, vehicles, vehicles_id;
     int text_total, text_max;
     String text_total_prefix, text_max_prefix, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_tipe;
     boolean data_tahun;
     ApiService apiService, apiService2;
+    ApiService3 apiService3;
 
     final List<String> TENOR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
@@ -98,6 +101,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
     final List<String> YEAR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> YEAR_DATA = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_CODE = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_NAME = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +154,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
         //Network
         apiService = ApiClient.getClient().create(ApiService.class);
         apiService2 = ApiClient2.getClient().create(ApiService.class);
+        apiService3 = com.dicicilaja.app.OrderIn.Network.ApiClient2.getClient().create(ApiService3.class);
     }
 
     private void clearArea() {
@@ -165,6 +171,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
     private void clearBrand() {
         MERK_DATA.clear();
+        MERK_ACC_CODE.clear();
+        MERK_ACC_NAME.clear();
         MERK_ITEMS.clear();
         MERK_DATA.put(0, "0");
         MERK_ITEMS.add("Pilih Merk Kendaraan");
@@ -314,16 +322,19 @@ public class MotorColleteralActivity extends AppCompatActivity {
                 clearYear();
                 if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<ObjekBrand> callArea = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
-                    callArea.enqueue(new Callback<ObjekBrand>() {
+                    String jaminan = "001";
+                    Call<List<Vehicles>> objekBrandCall = apiService3.getVehicles(jaminan);
+                    objekBrandCall.enqueue(new Callback<List<Vehicles>>() {
                         @Override
-                        public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                        public void onResponse(Call<List<Vehicles>> call, Response<List<Vehicles>> response) {
                             if (response.isSuccessful()) {
                                 try {
-                                    if (response.body().getData().size() > 0) {
-                                        for (int i = 0; i < response.body().getData().size(); i++) {
-                                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                    if (response.body().size() > 0) {
+                                        for (int i = 0; i < response.body().size(); i++) {
+                                            MERK_DATA.put(i + 1, String.valueOf(response.body().get(i).getId()));
+                                            MERK_ACC_CODE.put(i + 1, String.valueOf(response.body().get(i).getVehicleCode()));
+                                            MERK_ACC_NAME.put(i + 1, String.valueOf(response.body().get(i).getVehicleName()));
+                                            MERK_ITEMS.add(String.valueOf(response.body().get(i).getNama()));
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     } else {
@@ -369,7 +380,7 @@ public class MotorColleteralActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<ObjekBrand> call, Throwable t) {
+                        public void onFailure(Call<List<Vehicles>> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(MotorColleteralActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -630,6 +641,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
             area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
             text_area = AREA_ITEMS.get(spinnerArea.getSelectedItemPosition());
             text_merk = MERK_ITEMS.get(spinnerBrand.getSelectedItemPosition());
+            vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+            vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
             text_tipe = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
         } catch (Exception ex) {
         }
@@ -676,6 +689,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
         } else {
             try {
                 model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
+                vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+                vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
                 type_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
                 area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
                 tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
@@ -747,6 +762,8 @@ public class MotorColleteralActivity extends AppCompatActivity {
                                 intent.putExtra("text_insurance", text_insurance);
                                 intent.putExtra("text_area", text_area);
                                 intent.putExtra("area_id", area_id);
+                                intent.putExtra("vehicles",vehicles);
+                                intent.putExtra("vehicles_id",vehicles_id);
                                 startActivity(intent);
                             }catch (Exception ex) {
                                 progressBar4.setVisibility(View.GONE);

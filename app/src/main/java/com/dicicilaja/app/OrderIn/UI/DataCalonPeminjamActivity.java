@@ -3,6 +3,7 @@ package com.dicicilaja.app.OrderIn.UI;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,6 +32,7 @@ import com.dicicilaja.app.OrderIn.Data.Kelurahan.Kelurahan;
 import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
 import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Pekerjaan;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
@@ -123,7 +125,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     SessionOrderIn session;
 
     ApiService2 apiServiceArea;
-    ApiService3 apiPekerjaan;
+    ApiService3 apiService3;
 
     String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, village_id, village, address, postal_code, agen_id, amount, ktp_image, bpkb, vehicle_id, voucher_code_id, tempat_lahir, tanggal_lahir, nama_ibu_kandung, tanggal_janji_survey, punya_npwp, punya_npwp_id, pekerjaan, pekerjaan_id;
     ;
@@ -570,7 +572,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
 
         progressBar.setVisibility(View.VISIBLE);
-        Call<List<Pekerjaan>> call = apiPekerjaan.getPekerjaan();
+        Call<List<Pekerjaan>> call = apiService3.getPekerjaan();
         call.enqueue(new Callback<List<Pekerjaan>>() {
             @Override
             public void onResponse(Call<List<Pekerjaan>> call, Response<List<Pekerjaan>> response) {
@@ -670,7 +672,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
         //Network
         apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
-        apiPekerjaan = ApiClient2.getClient().create(ApiService3.class);
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         etNamaLengkap.addTextChangedListener(new TextWatcher() {
             @Override

@@ -6,6 +6,7 @@ import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Response;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService3 {
@@ -69,8 +71,12 @@ public interface ApiService3 {
                                   @Field("nama_ibu_kandung_nasabah") String nama_ibu_kandung_nasabah,
                                   @Field("janji_survey") String janji_survey,
                                   @Field("kepemilikan_npwp") String kepemilikan_npwp,
-                                  @Field("pekerjaan") String  pekerjaan);
+                                  @Field("pekerjaan") String  pekerjaan,
+                                  @Field("jenis_kendaraan") String jenis_kendaraan);
 
     @GET("orderIn/jobs")
     Call<List<Pekerjaan>> getPekerjaan();
+
+    @GET("orderIn/vehicles/{vehicles_type}")
+    Call<List<Vehicles>> getVehicles(@Path("vehicles_type") String vehicles_type);
 }

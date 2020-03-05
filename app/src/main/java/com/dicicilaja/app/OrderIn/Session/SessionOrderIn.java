@@ -150,7 +150,9 @@ public class SessionOrderIn {
                                      String tipe_asuransi_id,
                                      String tipe_asuransi,
                                      String jenis_angsuran_id,
-                                     String jenis_angsuran){
+                                     String jenis_angsuran,
+                                     String vehicles_id,
+                                     String vehicles){
         editor.putBoolean("status_informasi_jaminan", status_informasi_jaminan);
         editor.putString("jaminan_id", jaminan_id);
         editor.putString("jaminan", jaminan);
@@ -166,6 +168,8 @@ public class SessionOrderIn {
         editor.putString("tipe_asuransi", tipe_asuransi);
         editor.putString("jenis_angsuran_id", jenis_angsuran_id);
         editor.putString("jenis_angsuran", jenis_angsuran);
+        editor.putString("vehicles_id",vehicles_id);
+        editor.putString("vehicles",vehicles);
         editor.commit();
     }
 
@@ -586,6 +590,24 @@ public class SessionOrderIn {
 
     public void setPekerjaan(String pekerjaan) {
         editor.putString("pekerjaan", pekerjaan);
+        editor.commit();
+    }
+
+    public String getVehicles_id() {
+        return pref.getString("vehicles_id", null);
+    }
+
+    public void setVehicles_id(String vehicles_id) {
+        editor.putString("vehicles_id", vehicles_id);
+        editor.commit();
+    }
+
+    public String getVehicles() {
+        return pref.getString("vehicles", null);
+    }
+
+    public void setVehicles(String vehicles) {
+        editor.putString("vehicles", vehicles);
         editor.commit();
     }
 
