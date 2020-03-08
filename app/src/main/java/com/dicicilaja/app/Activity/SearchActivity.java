@@ -1,7 +1,11 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.ProgressDialog;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -68,7 +73,18 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AllProduk> call, Throwable t) {
                 progress.dismiss();
-                Log.d("MANTAP", "onFailure: " + t.getMessage());
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SearchActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
             }
         });
     }
