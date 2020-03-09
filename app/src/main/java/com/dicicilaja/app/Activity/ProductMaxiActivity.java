@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +51,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.DetailProgramMaxi;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
@@ -68,6 +71,8 @@ public class ProductMaxiActivity extends AppCompatActivity {
     Button ajukan_produk;
     String extra_id;
     MaterialProgressBar progressBar;
+    private Menu menu;
+    Boolean fav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +169,12 @@ public class ProductMaxiActivity extends AppCompatActivity {
                 tv_title.setText(detailProducts.get(0).getTitleProgram());
                 tv_mitra.setText(detailProducts.get(0).getPartner());
                 tv_harga.setText(detailProducts.get(0).getPrice());
+                fav = true;
+                if (fav) {
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_favorite_white));
+                } else {
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_favorite_border_white));
+                }
 
 //                TENOR_MAP.clear();
 //                TENOR_ITEMS.clear();
@@ -324,6 +335,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_product_maxi, menu);
         return true;
     }
@@ -337,6 +349,21 @@ public class ProductMaxiActivity extends AppCompatActivity {
 
         if (id == R.id.fav) {
 //            doFav(apiKey, detailProducts.get(0).getId());
+
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setTitle("Perhatian");
+            adb.setMessage("Apakah Anda yakin ingin memasukan produk kedalam wishlist?");
+            adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_favorite_white));
+                }
+            });
+            adb.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_favorite_border_white));
+                }
+            });
+            adb.show();
 
             return true;
         } else if (id == R.id.share) {
