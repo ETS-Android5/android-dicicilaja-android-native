@@ -16,14 +16,11 @@ import com.dicicilaja.app.InformAXI.ui.profile.ProfileActivity;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.dicicilaja.app.InformAXI.utils.Constants.PROFILE_ID;
 import static com.dicicilaja.app.InformAXI.utils.Constants.PROFILE_NAME;
-
-/**
- * Created by Husni with ❤
- */
 
 public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHolder> {
 
@@ -46,7 +43,7 @@ public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AxiHome.DataBean o = axiHomeList.get(position);
-        holder.bind(o);
+        holder.bind(o, position);
     }
 
     @Override
@@ -65,16 +62,18 @@ public class AxiHomeAdapter extends RecyclerView.Adapter<AxiHomeAdapter.ViewHold
             view = itemView;
             tvName = view.findViewById(R.id.tv_name);
             tvNumber = view.findViewById(R.id.tv_number);
-//            tvOrder = view.findViewById(R.id.tv_order);
+            tvOrder = view.findViewById(R.id.tv_order);
             tvStatus = view.findViewById(R.id.tv_status);
             tvDate = view.findViewById(R.id.tv_date);
         }
 
-        public void bind(final AxiHome.DataBean data) {
+        public void bind(final AxiHome.DataBean data, final int position) {
+
+            DecimalFormat decim = new DecimalFormat("#,###.##");
             tvName.setText(data.getNama());
             tvNumber.setText(data.getNomorAxiId());
             tvDate.setText(Tools.formatDate(data.getTanggalDaftar()));
-//            tvOrder.setText("#" + "1.000.000");
+            tvOrder.setText("#" + decim.format((position+1)).replace(",", "."));
             tvStatus.setText(data.getStatusKeanggotaan());
 
             view.setOnClickListener(view -> {
