@@ -168,6 +168,8 @@ public class AxiHome {
         private String tanggalDaftar;
         @SerializedName("link")
         private String link;
+        @SerializedName("status_keanggotaan")
+        private String statusKeanggotaan;
 
         public int getId() {
             return id;
@@ -207,6 +209,14 @@ public class AxiHome {
 
         public void setLink(String link) {
             this.link = link;
+        }
+
+        public String getStatusKeanggotaan() {
+            return statusKeanggotaan;
+        }
+
+        public void setStatusKeanggotaan(String statusKeanggotaan) {
+            this.statusKeanggotaan = statusKeanggotaan;
         }
     }
 }
