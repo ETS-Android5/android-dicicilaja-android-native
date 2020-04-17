@@ -1,20 +1,44 @@
 package com.dicicilaja.app.OrderIn.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.dicicilaja.app.Activity.AxiDashboardActivity;
+import com.dicicilaja.app.Activity.EmployeeDashboardActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
+import com.dicicilaja.app.Activity.MarketplaceActivity;
+import com.dicicilaja.app.Activity.MaxiDashboardActivity;
+import com.dicicilaja.app.Activity.SPGDashboardActivity;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PengajuanSuksesActivity extends AppCompatActivity {
+
+    @BindView(R.id.detail)
+    TextView detail;
+    @BindView(R.id.klaim)
+    Button klaim;
+
+    SessionManager sessionUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pengajuan_sukses);
+        ButterKnife.bind(this);
+
+        sessionUser = new SessionManager(PengajuanSuksesActivity.this);
 
         initToolbar();
     }
@@ -28,5 +52,13 @@ public class PengajuanSuksesActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccent));
         }
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @OnClick(R.id.klaim)
+    public void onViewClicked() {
+        Intent intent;
+        intent = new Intent(getBaseContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

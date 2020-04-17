@@ -60,43 +60,43 @@
                     android:textSize="15dp"
                     android:text="Rp 20.000.000"
                     android:layout_toLeftOf="@+id/spinner_bulan"/>
-                <TextView
-                    android:id="@+id/tv_tenor"
-                    android:layout_below="@+id/tv_harga"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cicilan"
-                    android:layout_toLeftOf="@+id/spinner_bulan"/>
-                <LinearLayout
-                    android:layout_below="@+id/tv_mitra"
-                    android:id="@+id/spinner_bulan"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/input_style"
-                    android:layout_alignParentRight="true">
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:id="@+id/jaminan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Pilih Area"
-                        app:ms_enableFloatingLabel="false"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        app:ms_thickness="0dp"
-                        app:ms_alignLabels="true"
-                        android:textSize="12sp"
-                        app:ms_arrowSize="10dp"
-                        app:ms_hintTextSize="12sp"/>
-                </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_tenor"-->
+<!--                    android:layout_below="@+id/tv_harga"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Cicilan"-->
+<!--                    android:layout_toLeftOf="@+id/spinner_bulan"/>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_below="@+id/tv_mitra"-->
+<!--                    android:id="@+id/spinner_bulan"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/input_style"-->
+<!--                    android:layout_alignParentRight="true">-->
+<!--                    <fr.ganfra.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/jaminan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:ms_multiline="false"-->
+<!--                        app:ms_hintView="@layout/hint_item"-->
+<!--                        app:ms_hint="Pilih Area"-->
+<!--                        app:ms_enableFloatingLabel="false"-->
+<!--                        app:ms_enableErrorLabel="false"-->
+<!--                        app:ms_baseColor="@color/colorBlack"-->
+<!--                        app:ms_highlightColor="@color/colorPrimaryDark"-->
+<!--                        app:ms_errorColor="@color/colorPrimaryDark"-->
+<!--                        app:ms_thickness="0dp"-->
+<!--                        app:ms_alignLabels="true"-->
+<!--                        android:textSize="12sp"-->
+<!--                        app:ms_arrowSize="10dp"-->
+<!--                        app:ms_hintTextSize="12sp"/>-->
+<!--                </LinearLayout>-->
                 <TextView
                     android:id="@+id/deskripsi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_tenor"
+                    android:layout_below="@+id/tv_harga"
                     android:layout_marginTop="5dp"
                     android:text="detail cicilan" />
             </RelativeLayout>

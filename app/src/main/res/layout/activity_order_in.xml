@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -103,34 +103,103 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/border_1dp"/>
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/btn_cari_axi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginTop="35dp">
+
+                                <TextView
+                                    android:id="@+id/cari_axi"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_axi_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="HAPUS"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_toLeftOf="@id/btn_cari_axi"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    app:hintEnabled="true">
+
+                                    <EditText
+                                        android:id="@+id/et_axi_id_reff"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="AXI ID Refferal (optional)"
+                                        android:layout_centerHorizontal="true"
+                                        android:inputType="number"
+                                        android:imeOptions="actionNext"
+                                        android:paddingTop="10dp"
+                                        android:background="@android:color/transparent"
+                                        android:nextFocusDown="@+id/jumlah_pinjaman"
+                                        android:layout_marginTop="25dp"
+                                        android:fontFamily="@font/open_sans"
+                                        android:textColor="@color/new_text_black"
+                                        android:textSize="15sp"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/border_1dp"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/axi_available"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            app:hintEnabled="true">
-
-                            <EditText
-                                android:id="@+id/et_axi_id_reff"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="AXI ID Refferal (optional)"
-                                android:layout_centerHorizontal="true"
-                                android:inputType="number"
-                                android:imeOptions="actionNext"
-                                android:paddingTop="10dp"
-                                android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/jumlah_pinjaman"
-                                android:layout_marginTop="25dp"
-                                android:fontFamily="@font/open_sans"
-                                android:textColor="@color/new_text_black"
-                                android:textSize="15sp"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark2"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
+                        <TextView
+                            android:id="@+id/axi_not_available"
                             android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/border_1dp"/>
+                            android:layout_height="wrap_content"
+                            android:text="AXI tidak ditemukan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorRed"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -178,13 +247,10 @@
                         android:background="@drawable/border_form"
                         android:orientation="vertical">
 
+
                         <RelativeLayout
-                            android:id="@+id/btn_data_calon_peminjam"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:contextClickable="true">
+                            android:layout_height="match_parent">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -197,7 +263,104 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/new_text_black"
+                                    android:text="@string/informasi_jaminan_pinjaman"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+
+                                <TextView
+                                    android:id="@+id/txt_informasi_jaminan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/new_text_title"
+                                    android:text="Isi data informasi jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/txt_informasi_jaminan_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/colorAccent2"
+                                    android:text="Isi data informasi jaminan"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/detail_informasi_jaminan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark2"
+                                    android:text="Detail"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+
+                                <ImageView
+                                    android:id="@+id/chev1"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_chevron_right_black_24dp">
+                                </ImageView>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/edit_informasi_jaminan"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="13sp"
+                                    android:layout_marginRight="5dp"
+                                    android:textColor="@color/colorAccentDark2"
+                                    android:text="EDIT"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
                                     android:textColor="@color/new_text_black"
                                     android:text="Data Calon Peminjam"
                                     android:layout_centerVertical="true"
@@ -212,9 +375,21 @@
                                     android:text="Isi data calon peminjam"
                                     android:layout_centerVertical="true"
                                     android:fontFamily="@font/open_sans"/>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/txt_data_calon_pinjaman_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/colorAccent2"
+                                    android:text="Isi data calon peminjam"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/open_sans"/>
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/detail_data_calon_pinjaman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -239,50 +414,10 @@
                                     android:src="@drawable/ic_chevron_right_black_24dp">
                                 </ImageView>
                             </LinearLayout>
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:src="@drawable/border_1dp"/>
-
-                        <RelativeLayout
-                            android:id="@+id/btn_informasi_jaminan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clickable="true"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:contextClickable="true">
 
                             <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_marginLeft="25dp"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/new_text_black"
-                                    android:text="@string/informasi_jaminan_pinjaman"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans_semibold"/>
-
-                                <TextView
-                                    android:id="@+id/txt_informasi_jaminan"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/new_text_title"
-                                    android:text="Isi data informasi jaminan"
-                                    android:layout_centerVertical="true"
-                                    android:fontFamily="@font/open_sans"/>
-                            </LinearLayout>
-
-                            <LinearLayout
+                                android:id="@+id/edit_data_calon_pinjaman"
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -294,18 +429,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="13sp"
+                                    android:layout_marginRight="5dp"
                                     android:textColor="@color/colorAccentDark2"
-                                    android:text="Detail"
+                                    android:text="EDIT"
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/open_sans_semibold"/>
-
-                                <ImageView
-                                    android:id="@+id/chev1"
-                                    android:layout_gravity="center"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_chevron_right_black_24dp">
-                                </ImageView>
                             </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
@@ -511,63 +639,213 @@
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/btn_cari_plat_nomor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginTop="35dp">
+
+                                <TextView
+                                    android:id="@+id/cari_plat_nomor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_plat_nomor_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="HAPUS"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_toLeftOf="@id/btn_cari_plat_nomor"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/layout_plat_nomor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    app:hintEnabled="true">
+
+                                    <EditText
+                                        android:id="@+id/et_plat_nomor"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Plat Nomor Jaminan"
+                                        android:layout_centerHorizontal="true"
+                                        android:inputType="textCapCharacters"
+                                        android:imeOptions="actionNext"
+                                        android:paddingTop="10dp"
+                                        android:background="@android:color/transparent"
+                                        android:nextFocusDown="@+id/et_voucher"
+                                        android:layout_marginTop="25dp"
+                                        android:fontFamily="@font/open_sans"
+                                        android:textColor="@color/new_text_black"
+                                        android:textSize="15sp"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/border_1dp"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/plat_nomor_available"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            app:hintEnabled="true">
+                            android:text="Plat Nomor dapat digunakan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark2"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
 
-                            <EditText
-                                android:id="@+id/jumlah_pinjaman"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Plat Nomor Kendaraan"
-                                android:layout_centerHorizontal="true"
-                                android:inputType="textCapCharacters"
-                                android:imeOptions="actionNext"
-                                android:paddingTop="10dp"
-                                android:background="@android:color/transparent"
-                                android:nextFocusDown="@+id/et_voucher"
-                                android:layout_marginTop="25dp"
-                                android:fontFamily="@font/open_sans"
-                                android:textColor="@color/new_text_black"
-                                android:textSize="15sp"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/border_1dp"/>
-
-                        <com.google.android.material.textfield.TextInputLayout
+                        <TextView
+                            android:id="@+id/plat_nomor_not_available"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            app:hintEnabled="true">
+                            android:text="Plat Nomor sudah pernah digunakan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorRed"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
 
-                            <EditText
-                                android:id="@+id/et_voucher"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Voucher Code"
-                                android:layout_centerHorizontal="true"
-                                android:inputType="textCapCharacters"
-                                android:imeOptions="actionDone"
-                                android:paddingTop="10dp"
-                                android:background="@android:color/transparent"
-                                android:layout_marginTop="25dp"
-                                android:fontFamily="@font/open_sans"
-                                android:textColor="@color/new_text_black"
-                                android:textSize="15sp"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageView
+                        <TextView
+                            android:id="@+id/plat_nomor_error"
                             android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@drawable/border_1dp"/>
+                            android:layout_height="wrap_content"
+                            android:text="Format yang dimasukan salah"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorRed"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/btn_cari_voucher"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:layout_marginTop="35dp">
+
+                                <TextView
+                                    android:id="@+id/cari_voucher"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="CARI"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/cari_voucher_close"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAllCaps="false"
+                                    android:text="HAPUS"
+                                    android:paddingTop="5dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/open_sans_semibold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorAccentDark"
+                                    android:backgroundTint="@color/colorWhite"></TextView>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_toLeftOf="@id/btn_cari_voucher"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    app:hintEnabled="true">
+
+                                    <EditText
+                                        android:id="@+id/et_voucher"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Voucher Code (optional)"
+                                        android:layout_centerHorizontal="true"
+                                        android:inputType="textCapCharacters"
+                                        android:imeOptions="actionDone"
+                                        android:paddingTop="10dp"
+                                        android:background="@android:color/transparent"
+                                        android:layout_marginTop="25dp"
+                                        android:fontFamily="@font/open_sans"
+                                        android:textColor="@color/new_text_black"
+                                        android:textSize="15sp"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/border_1dp"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/voucher_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorAccentDark2"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
+                        <TextView
+                            android:id="@+id/voucher_not_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kode voucher tidak ditemukan"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="@color/colorRed"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
                 <LinearLayout
@@ -616,7 +894,7 @@
                     android:backgroundTint="@color/colorAccentDark2"/>
                 </LinearLayout>
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
         
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"

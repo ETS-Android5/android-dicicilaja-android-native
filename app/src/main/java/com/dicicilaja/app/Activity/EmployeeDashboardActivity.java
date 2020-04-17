@@ -1,10 +1,15 @@
 package com.dicicilaja.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,13 +30,24 @@ import com.dicicilaja.app.WebView.CekStatusActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import com.dicicilaja.app.Adapter.TCHomePagerAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
+import java.util.HashMap;
+
 public class EmployeeDashboardActivity extends AppCompatActivity {
 
     SessionManager session;
+
+    String agen_id, agen_axi_id, agen_name;
+    ApiService3 apiService3;
+
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +56,12 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
+
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
+
+        progress = new ProgressDialog(this);
+        progress.setMessage("Sedang memuat data...");
+        progress.setCanceledOnTouchOutside(false);
 
         TabLayout tabLayout = findViewById(R.id.tab_tc);
         tabLayout.addTab(tabLayout.newTab().setText("PENGAJUAN MASUK"));
@@ -64,8 +87,75 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                     case R.id.navbar_request:
                         break;
                     case R.id.navbar_create_request:
-                        intent = new Intent(getBaseContext(), AjukanPengajuanAxiActivity.class);
-                        startActivity(intent);
+                        progress.show();
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        Call<Axi> axiReff = apiService3.getAxi(session.getAxiId());
+                        axiReff.enqueue(new Callback<Axi>() {
+                            @Override
+                            public void onResponse(Call<Axi> call, Response<Axi> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        if (response.body().getData().size() > 0) {
+                                            agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                            agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                            agen_name = response.body().getData().get(0).getAttributes().getNama();
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_axi_id", agen_axi_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progress.hide();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        } else {
+                                            agen_id = null;
+                                            agen_axi_id = null;
+                                            agen_name = null;
+                                            Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                            intent2.putExtra("agen_id", agen_id);
+                                            intent2.putExtra("agen_axi_id", agen_axi_id);
+                                            intent2.putExtra("agen_name", agen_name);
+                                            startActivity(intent2);
+                                            progress.hide();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        }
+
+
+                                    } catch (Exception ex) {
+                                    }
+                                } else {
+                                    progress.hide();
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeDashboardActivity.this);
+                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    });
+                                    alertDialog.show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Axi> call, Throwable t) {
+                                progress.hide();
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeDashboardActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        });
                         break;
                     case R.id.navbar_cek:
                         intent = new Intent(getBaseContext(), CekStatusActivity.class);

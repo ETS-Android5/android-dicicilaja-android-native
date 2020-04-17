@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    tools:context=".OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:titleTextColor="@color/colorWhite">
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="# Jenis Angsuran"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Pembayaran Pertama adalah angsuran yang dibayar dimuka, atau istilah di asuransi disebut ADDM. Artinya angsuran pertama dibayarkan bersama DP. ADDM membuat TDP lebih tinggi, tapi tenor pinjaman akan berkurang satu kali. Misalnya, jika Anda mengambil tenor pinjaman selama 1 tahun, maka Anda cukup membayar angsuran 11 kali lagi."
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Angsuran Perbulan atau di istilahkan ADDB, yaitu angsuran yang dibayar di belakang. TDP-nya akan sedikit lebih ringan, dengan tenor pinjaman tetap. Angsuran pertama akan dibayarkan pada bulan berikutnya."
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/open_sans"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="*TDP singkatan dari Total Down Payment."
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/open_sans"/>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -1,17 +1,26 @@
 package com.dicicilaja.app.OrderIn.UI;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,22 +30,31 @@ import com.dicicilaja.app.OrderIn.Data.AreaSimulasi.AreaSimulasi;
 import com.dicicilaja.app.OrderIn.Data.ObjekBrand.ObjekBrand;
 import com.dicicilaja.app.OrderIn.Data.ObjekModel.ObjekModel;
 import com.dicicilaja.app.OrderIn.Data.TipeObjek.TipeObjek;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Network.ApiClient;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
-import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
+import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity;
+import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.ganfra.materialspinner.MaterialSpinner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,18 +86,52 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
     @BindView(R.id.et_tahun_kendaraan)
     EditText etTahunKendaraan;
+    @BindView(R.id.spinnerTenor)
+    SearchableSpinner spinnerTenor;
+    @BindView(R.id.layoutTenor)
+    TextInputLayout layoutTenor;
+    @BindView(R.id.icon_help1)
+    RelativeLayout iconHelp1;
+    @BindView(R.id.spinnerInstallment)
+    SearchableSpinner spinnerInstallment;
+    @BindView(R.id.layoutInstallment)
+    TextInputLayout layoutInstallment;
+    @BindView(R.id.icon_help2)
+    RelativeLayout iconHelp2;
+    @BindView(R.id.spinnerInsurance)
+    SearchableSpinner spinnerInsurance;
+    @BindView(R.id.layoutInsurance)
+    TextInputLayout layoutInsurance;
+    @BindView(R.id.angsuran_asuransi)
+    LinearLayout angsuranAsuransi;
 
-    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, text_area, text_merk, text_tipe, text_tahun;
+    SessionOrderIn session;
+    @BindView(R.id.card_tenor)
+    LinearLayout cardTenor;
+
+    private String jaminan_id, jaminan, area_id, area, objek_brand_id, brand, objek_model_id, model, year, tenor_simulasi, tipe_asuransi_id, tipe_asuransi, jenis_angsuran_id, jenis_angsuran, vehicles, vehicles_id;
     ApiService apiService, apiService2;
+    ApiService3 apiService3;
 
     final List<String> JAMINAN_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> JAMINAN_DATA = new HashMap<Integer, String>();
     final List<String> AREA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
     final List<String> MERK_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> MERK_ACC_CODE = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_NAME = new HashMap<Integer, String>();
     final HashMap<Integer, String> MERK_DATA = new HashMap<Integer, String>();
     final List<String> TYPE_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
+    final List<String> TENOR_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> TENOR_MAP = new HashMap<Integer, String>();
+    final List<String> TENOR_DATA = new ArrayList<>();
+    final List<String> JENISANGSURAN_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> JENISANGSURAN_MAP = new HashMap<Integer, String>();
+    final List<String> TIPEASURANSI_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> TIPEASURANSI_MAP = new HashMap<Integer, String>();
+
+    int choosenYear = Calendar.getInstance().get(Calendar.YEAR);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +139,28 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_informasi_jaminan);
         ButterKnife.bind(this);
 
+        etTahunKendaraan.setKeyListener(null);
+
+        session = new SessionOrderIn(InformasiJaminanActivity.this);
+
         initToolbar();
         initAction();
         initLoadData();
+
+        try {
+            if (getIntent().getStringExtra("edited") != null) {
+                etTahunKendaraan.setText(session.getYear());
+
+                spinnerTenor.setEnabled(true);
+                spinnerInstallment.setEnabled(true);
+                spinnerInsurance.setEnabled(true);
+
+                spinnerTenor.setSelection(Integer.parseInt(session.getTenor_simulasi_position()));
+                spinnerInstallment.setSelection(Integer.parseInt(session.getJenis_angsuran_position()));
+                spinnerInsurance.setSelection(Integer.parseInt(session.getTipe_asuransi_position()));
+
+            }
+        } catch (Exception ex) {}
     }
 
     private void initToolbar() {
@@ -112,15 +183,23 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         spinnerArea.setEnabled(false);
         spinnerBrand.setEnabled(false);
         spinnerType.setEnabled(false);
+        spinnerTenor.setEnabled(false);
+        spinnerInstallment.setEnabled(false);
+        spinnerInsurance.setEnabled(false);
+        angsuranAsuransi.setVisibility(View.VISIBLE);
 
         clearJaminan();
         clearArea();
         clearBrand();
         clearType();
+        clearTenor();
+        clearAngsuran();
+        clearAsuransi();
 
         //Network
         apiService = ApiClient.getClient().create(ApiService.class);
         apiService2 = ApiClient3.getClient().create(ApiService.class);
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
     }
 
     private void clearJaminan() {
@@ -150,6 +229,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
     private void clearBrand() {
         MERK_DATA.clear();
+        MERK_ACC_CODE.clear();
+        MERK_ACC_NAME.clear();
         MERK_ITEMS.clear();
         MERK_DATA.put(0, "0");
         MERK_ITEMS.add("Pilih Merk Kendaraan");
@@ -174,6 +255,76 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         spinnerType.setEnabled(false);
     }
 
+    private void clearTenor() {
+        TENOR_MAP.clear();
+        TENOR_ITEMS.clear();
+        TENOR_DATA.clear();
+
+        TENOR_MAP.put(0, "0");
+        TENOR_MAP.put(1, "1");
+        TENOR_MAP.put(2, "2");
+        TENOR_MAP.put(3, "3");
+        TENOR_MAP.put(4, "4");
+
+        TENOR_ITEMS.add("Pilih Tenor Pinjaman");
+        TENOR_ITEMS.add("12 Bulan");
+        TENOR_ITEMS.add("24 Bulan");
+        TENOR_ITEMS.add("36 Bulan");
+        TENOR_ITEMS.add("48 Bulan");
+
+        TENOR_DATA.add("0");
+        TENOR_DATA.add("12");
+        TENOR_DATA.add("24");
+        TENOR_DATA.add("36");
+        TENOR_DATA.add("48");
+
+        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TENOR_ITEMS);
+        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTenor.setAdapter(tenor_adapter);
+        spinnerTenor.setTitle("");
+        spinnerTenor.setPositiveButton("OK");
+        spinnerTenor.setEnabled(false);
+    }
+
+    private void clearAngsuran() {
+        JENISANGSURAN_ITEMS.clear();
+        JENISANGSURAN_MAP.clear();
+
+        JENISANGSURAN_MAP.put(0, "0");
+        JENISANGSURAN_MAP.put(1, "1");
+        JENISANGSURAN_MAP.put(2, "2");
+
+        JENISANGSURAN_ITEMS.add("Pilih Jenis Angsuran");
+        JENISANGSURAN_ITEMS.add("Angsuran Per Bulan (ADDB)");
+        JENISANGSURAN_ITEMS.add("Pembayaran Pertama (ADDM)");
+
+        ArrayAdapter<String> jenisangsuran_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JENISANGSURAN_ITEMS);
+        jenisangsuran_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerInstallment.setAdapter(jenisangsuran_adapter);
+        spinnerInstallment.setTitle("");
+        spinnerInstallment.setPositiveButton("OK");
+        spinnerInstallment.setEnabled(false);
+    }
+
+    private void clearAsuransi() {
+        TIPEASURANSI_MAP.clear();
+        TIPEASURANSI_ITEMS.clear();
+
+        TIPEASURANSI_MAP.put(0, "0");
+        TIPEASURANSI_MAP.put(1, "1");
+        TIPEASURANSI_MAP.put(2, "2");
+
+        TIPEASURANSI_ITEMS.add("Pilih Tipe Asuransi");
+        TIPEASURANSI_ITEMS.add("Total Lost Only");
+        TIPEASURANSI_ITEMS.add("All Risk");
+        ArrayAdapter<String> tipeasuransi_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, TIPEASURANSI_ITEMS);
+        tipeasuransi_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerInsurance.setAdapter(tipeasuransi_adapter);
+        spinnerInsurance.setTitle("");
+        spinnerInsurance.setPositiveButton("OK");
+        spinnerInsurance.setEnabled(false);
+    }
+
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
         Call<TipeObjek> tipeObjekCall = apiService.getTipeObjek();
@@ -187,11 +338,11 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                 JAMINAN_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                 switch (String.valueOf(response.body().getData().get(i).getAttributes().getNama())) {
                                     case "car":
-                                        JAMINAN_ITEMS.add("Mobil");
+                                        JAMINAN_ITEMS.add("BPKB Mobil");
                                         break;
 
                                     case "mcy":
-                                        JAMINAN_ITEMS.add("Motor");
+                                        JAMINAN_ITEMS.add("BPKB Motor");
                                         break;
 
                                     default:
@@ -201,7 +352,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             }
                             progressBar.setVisibility(View.GONE);
                         } else {
-                            clearArea();
+                            clearJaminan();
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -215,7 +366,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    } catch (Exception ex) { }
+                    } catch (Exception ex) {
+                    }
 
                     ArrayAdapter<String> jaminan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JAMINAN_ITEMS);
                     jaminan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -223,7 +375,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     spinnerJaminan.setTitle("");
                     spinnerJaminan.setPositiveButton("OK");
                 } else {
-                    clearArea();
+                    clearJaminan();
                     progressBar.setVisibility(View.GONE);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                     alertDialog.setTitle("Perhatian");
@@ -244,7 +396,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Data jaminan gagal dipanggil, silahkan coba beberapa saat lagi."  + t.getMessage());
+                alertDialog.setMessage("Data jaminan gagal dipanggil, silahkan coba beberapa saat lagi." + t.getMessage());
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -264,6 +416,13 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 clearType();
                 if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
+                    if (Integer.parseInt(JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition())) == 1) {
+                        jaminan_id = "1";
+                        angsuranAsuransi.setVisibility(View.VISIBLE);
+                    } else {
+                        jaminan_id = "2";
+                        angsuranAsuransi.setVisibility(View.GONE);
+                    }
                     Call<AreaSimulasi> areaSimulasiCall = apiService2.getAreaSimulasi(true);
                     areaSimulasiCall.enqueue(new Callback<AreaSimulasi>() {
                         @Override
@@ -291,7 +450,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                         });
                                         alertDialog.show();
                                     }
-                                } catch (Exception ex) { }
+                                } catch (Exception ex) {
+                                }
 
                                 ArrayAdapter<String> area_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, AREA_ITEMS);
                                 area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -321,7 +481,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                             alertDialog.setTitle("Perhatian");
-                            alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi."  + t.getMessage());
+                            alertDialog.setMessage("Data area gagal dipanggil, silahkan coba beberapa saat lagi." + t.getMessage());
 
                             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -338,18 +498,29 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             clearBrand();
                             clearType();
+                            clearTenor();
+                            clearAngsuran();
+                            clearAsuransi();
                             if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<ObjekBrand> objekBrandCall = apiService2.getObjekBrand(Integer.parseInt(tipe_objek_id));
-                                objekBrandCall.enqueue(new Callback<ObjekBrand>() {
+                                Log.d("DASH::", "onItemSelected: " + Integer.parseInt(jaminan_id));
+                                if(jaminan_id == "1"){
+                                    jaminan = "002";
+                                } else {
+                                    jaminan = "001";
+                                }
+                                Call<List<Vehicles>> objekBrandCall = apiService3.getVehicles(jaminan);
+                                objekBrandCall.enqueue(new Callback<List<Vehicles>>() {
                                     @Override
-                                    public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                                    public void onResponse(Call<List<Vehicles>> call, Response<List<Vehicles>> response) {
                                         if (response.isSuccessful()) {
                                             try {
-                                                if (response.body().getData().size() > 0) {
-                                                    for (int i = 0; i < response.body().getData().size(); i++) {
-                                                        MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                                        MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                                if (response.body().size() > 0) {
+                                                    for (int i = 0; i < response.body().size(); i++) {
+                                                        MERK_DATA.put(i + 1, String.valueOf(response.body().get(i).getId()));
+                                                        MERK_ACC_CODE.put(i + 1, String.valueOf(response.body().get(i).getVehicleCode()));
+                                                        MERK_ACC_NAME.put(i + 1, String.valueOf(response.body().get(i).getVehicleName()));
+                                                        MERK_ITEMS.add(String.valueOf(response.body().get(i).getNama()));
                                                     }
                                                     progressBar.setVisibility(View.GONE);
                                                 } else {
@@ -395,7 +566,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<ObjekBrand> call, Throwable t) {
+                                    public void onFailure(Call<List<Vehicles>> call, Throwable t) {
                                         progressBar.setVisibility(View.GONE);
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                                         alertDialog.setTitle("Perhatian");
@@ -415,9 +586,12 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                         clearType();
+                                        clearTenor();
+                                        clearAngsuran();
+                                        clearAsuransi();
                                         if (Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<ObjekModel> objekModelCall = apiService2.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
+                                            Call<ObjekModel> objekModelCall = apiService.getObjekModel(Integer.parseInt(MERK_DATA.get(spinnerBrand.getSelectedItemPosition())), Integer.parseInt(area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition())), false);
                                             objekModelCall.enqueue(new Callback<ObjekModel>() {
                                                 @Override
                                                 public void onResponse(Call<ObjekModel> call, Response<ObjekModel> response) {
@@ -489,6 +663,56 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                                     alertDialog.show();
                                                 }
                                             });
+
+                                            spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                @Override
+                                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                    if (Integer.parseInt(TYPE_DATA.get(spinnerType.getSelectedItemPosition())) > 0) {
+                                                        clearTenor();
+                                                        clearAngsuran();
+                                                        clearAsuransi();
+                                                        spinnerTenor.setEnabled(true);
+
+
+                                                        spinnerTenor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                            @Override
+                                                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                                if (Integer.parseInt(TENOR_MAP.get(spinnerTenor.getSelectedItemPosition())) > 0) {
+                                                                    clearAngsuran();
+                                                                    clearAsuransi();
+                                                                    spinnerInstallment.setEnabled(true);
+
+                                                                    spinnerInstallment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                        @Override
+                                                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                                            if (Integer.parseInt(JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition())) > 0) {
+                                                                                clearAsuransi();
+                                                                                spinnerInsurance.setEnabled(true);
+                                                                            }
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                                            }
+                                                        });
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                                }
+                                            });
                                         }
                                     }
 
@@ -532,17 +756,485 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.save)
-    public void onViewClicked() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
-        alertDialog.setTitle("Perhatian");
-        alertDialog.setMessage("Apakah data yang Anda pilih sudah benar?");
+    @OnClick({R.id.save, R.id.icon_help1, R.id.icon_help2, R.id.et_tahun_kendaraan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.et_tahun_kendaraan:
 
-        alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        alertDialog.show();
+                Calendar calendar = Calendar.getInstance();
+                int tahun = calendar.get(Calendar.YEAR);
+
+                MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InformasiJaminanActivity.this, new MonthPickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(int selectedMonth, int selectedYear) {
+                        etTahunKendaraan.setText(Integer.toString(selectedYear));
+                        choosenYear = selectedYear;
+                    }
+                }, choosenYear, 0);
+
+                builder.showYearOnly()
+                        .setYearRange(2000, tahun)
+                        .build()
+                        .show();
+                break;
+            case R.id.icon_help1:
+                Intent intent = new Intent(getBaseContext(), JenisAngsuranActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.icon_help2:
+                Intent intent2 = new Intent(getBaseContext(), TipeAsuransiActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.save:
+                try {
+                    jaminan_id = JAMINAN_DATA.get(spinnerJaminan.getSelectedItemPosition());
+                    jaminan = JAMINAN_ITEMS.get(spinnerJaminan.getSelectedItemPosition());
+                    area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
+                    area = AREA_ITEMS.get(spinnerArea.getSelectedItemPosition());
+                    objek_brand_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
+                    brand = MERK_ITEMS.get(spinnerBrand.getSelectedItemPosition());
+                    objek_model_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
+                    model = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
+                    year = etTahunKendaraan.getText().toString();
+                    tenor_simulasi = TENOR_DATA.get(spinnerTenor.getSelectedItemPosition());
+                    tipe_asuransi_id = TIPEASURANSI_MAP.get(spinnerInsurance.getSelectedItemPosition());
+                    tipe_asuransi = TIPEASURANSI_ITEMS.get(spinnerInsurance.getSelectedItemPosition());
+                    jenis_angsuran_id = JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition());
+                    jenis_angsuran = JENISANGSURAN_ITEMS.get(spinnerInstallment.getSelectedItemPosition());
+                    vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+                    vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
+
+                } catch (Exception ex) {
+                }
+
+                Log.d("TAGTAG", "jaminan_id: " + jaminan_id);
+                Log.d("TAGTAG", "jaminan: " + jaminan);
+                Log.d("TAGTAG", "area_id: " + area_id);
+                Log.d("TAGTAG", "area: " + area);
+                Log.d("TAGTAG", "objek_brand_id: " + objek_brand_id);
+                Log.d("TAGTAG", "brand: " + brand);
+                Log.d("TAGTAG", "objek_model_id: " + objek_model_id);
+                Log.d("TAGTAG", "model: " + model);
+                Log.d("TAGTAG", "year: " + year);
+                Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
+                Log.d("TAGTAG", "tipe_asuransi_id: " + tipe_asuransi_id);
+                Log.d("TAGTAG", "tipe_asuransi: " + tipe_asuransi);
+                Log.d("TAGTAG", "jenis_angsuran_id: " + jenis_angsuran_id);
+                Log.d("TAGTAG", "jenis_angsuran: " + jenis_angsuran);
+                Log.d("TAGTAG", "vehicles_id: " + vehicles_id);
+                Log.d("TAGTAG", "vehicles: " + vehicles);
+
+
+                if (jaminan_id.equals("1")) {
+                    if (validateFormMobil(jaminan_id, area_id, objek_brand_id, objek_model_id, year, tenor_simulasi, jenis_angsuran_id, tipe_asuransi_id)) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
+
+                        alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
+                                session.editInformasiJaminan(true,
+                                        jaminan_id,
+                                        jaminan,
+                                        area_id,
+                                        area,
+                                        objek_brand_id,
+                                        brand, objek_model_id,
+                                        model,
+                                        year,
+                                        tenor_simulasi,
+                                        tipe_asuransi_id,
+                                        tipe_asuransi,
+                                        jenis_angsuran_id,
+                                        jenis_angsuran,
+                                        vehicles_id,
+                                        vehicles
+                                );
+                                finish();
+                            }
+                        });
+                        alertDialog.show();
+                    }
+
+                } else if (jaminan_id.equals("2")) {
+                    if (validateFormMotor(jaminan_id, area_id, objek_brand_id, objek_model_id, year, tenor_simulasi)) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
+
+                        alertDialog.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                session.setTenor_simulasi_position(String.valueOf(spinnerTenor.getSelectedItemPosition()));
+                                session.setTipe_asuransi_position(String.valueOf(spinnerInsurance.getSelectedItemPosition()));
+                                session.setJenis_angsuran_position(String.valueOf(spinnerInstallment.getSelectedItemPosition()));
+
+                                session.editInformasiJaminan(true,
+                                        jaminan_id,
+                                        jaminan,
+                                        area_id,
+                                        area,
+                                        objek_brand_id,
+                                        brand, objek_model_id,
+                                        model,
+                                        year,
+                                        tenor_simulasi,
+                                        "1",
+                                        "1",
+                                        "1",
+                                        "1",
+                                        vehicles_id,
+                                        vehicles
+                                );
+                                finish();
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                } else {
+                    if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Silahkan pilih jaminan");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestFocus(spinnerJaminan);
+                                MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                                spinnerJaminan.dispatchTouchEvent(motionEvent);
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                }
+                break;
+        }
     }
+
+    public void requestFocus(View view) {
+        if (view.requestFocus()) {
+            showSoftKeyboard(view);
+        }
+    }
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void showSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        view.requestFocus();
+        inputMethodManager.showSoftInput(view, 0);
+    }
+
+    private boolean validateFormMobil(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String tenor_simulasi, String jenis_angsuran_id, String tipe_asuransi_id) {
+
+        if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih jaminan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerJaminan);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerJaminan.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0") || area_id.equals("") || area_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih area");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerArea);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerArea.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (objek_brand_id == null || objek_brand_id.trim().length() == 0 || objek_brand_id.equals("0") || objek_brand_id.equals("") || objek_brand_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih merk kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerBrand);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerBrand.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (objek_model_id == null || objek_model_id.trim().length() == 0 || objek_model_id.equals("0") || objek_model_id.equals("") || objek_model_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih tipe kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerType);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerType.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (year == null || year.trim().length() == 0 || year.equals("0") || year.equals("") || year.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan tahun kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etTahunKendaraan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        } else if (year.length() < 4) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan tahun kendaraan dengan benar");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etTahunKendaraan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (tenor_simulasi == null || tenor_simulasi.trim().length() == 0 || tenor_simulasi.equals("0") || tenor_simulasi.equals("") || tenor_simulasi.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih tenor pinjaman");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerTenor);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerTenor.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (jenis_angsuran_id == null || jenis_angsuran_id.trim().length() == 0 || jenis_angsuran_id.equals("0") || jenis_angsuran_id.equals("") || jenis_angsuran_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih jenis angsuran");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerInstallment);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerInstallment.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (tipe_asuransi_id == null || tipe_asuransi_id.trim().length() == 0 || tipe_asuransi_id.equals("0") || tipe_asuransi_id.equals("") || tipe_asuransi_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih tipe asuransi");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerInsurance);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerInsurance.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateFormMotor(String jaminan_id, String area_id, String objek_brand_id, String objek_model_id, String year, String tenor_simulasi) {
+
+        if (jaminan_id == null || jaminan_id.trim().length() == 0 || jaminan_id.equals("0") || jaminan_id.equals("") || jaminan_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih jaminan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerJaminan);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerJaminan.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (area_id == null || area_id.trim().length() == 0 || area_id.equals("0") || area_id.equals("") || area_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih area");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerArea);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerArea.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (objek_brand_id == null || objek_brand_id.trim().length() == 0 || objek_brand_id.equals("0") || objek_brand_id.equals("") || objek_brand_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih merk kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerBrand);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerBrand.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (objek_model_id == null || objek_model_id.trim().length() == 0 || objek_model_id.equals("0") || objek_model_id.equals("") || objek_model_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih tipe kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerType);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerType.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (year == null || year.trim().length() == 0 || year.equals("0") || year.equals("") || year.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan tahun kendaraan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(etTahunKendaraan);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (tenor_simulasi == null || tenor_simulasi.trim().length() == 0 || tenor_simulasi.equals("0") || tenor_simulasi.equals("") || tenor_simulasi.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih tenor pinjaman");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerTenor);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerTenor.dispatchTouchEvent(motionEvent);
+                    hideSoftKeyboard();
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+        return true;
+    }
+
+    private DatePickerDialog createDialogWithoutDateField() {
+        DatePickerDialog dpd = new DatePickerDialog(this, null, 2014, 1, 24);
+        try {
+            Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
+            for (Field datePickerDialogField : datePickerDialogFields) {
+                if (datePickerDialogField.getName().equals("mDatePicker")) {
+                    datePickerDialogField.setAccessible(true);
+                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(dpd);
+                    Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
+                    for (Field datePickerField : datePickerFields) {
+                        Log.i("test", datePickerField.getName());
+                        if ("mDaySpinner".equals(datePickerField.getName())) {
+                            datePickerField.setAccessible(true);
+                            Object dayPicker = datePickerField.get(datePicker);
+                            ((View) dayPicker).setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+        }
+        return dpd;
+    }
+
+    public static String toTitleCase(String str) {
+
+        if (str == null) {
+            return null;
+        }
+
+        boolean space = true;
+        StringBuilder builder = new StringBuilder(str);
+        final int len = builder.length();
+
+        for (int i = 0; i < len; ++i) {
+            char c = builder.charAt(i);
+            if (space) {
+                if (!Character.isWhitespace(c)) {
+                    // Convert to title case and switch out of whitespace mode.
+                    builder.setCharAt(i, Character.toTitleCase(c));
+                    space = false;
+                }
+            } else if (Character.isWhitespace(c)) {
+                space = true;
+            } else {
+                builder.setCharAt(i, Character.toLowerCase(c));
+            }
+        }
+
+        return builder.toString();
+    }
+
 }

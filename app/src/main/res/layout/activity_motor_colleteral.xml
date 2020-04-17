@@ -191,7 +191,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Tenor Kendaraan"
+                                android:text="Tenor Pinjaman"
                                 android:fontFamily="@font/open_sans"
                                 android:textColor="#FFB8B8B8"
                                 android:layout_marginTop="20dp"

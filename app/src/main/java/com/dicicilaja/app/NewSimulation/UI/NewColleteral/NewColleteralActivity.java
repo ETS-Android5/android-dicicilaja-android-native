@@ -28,6 +28,8 @@ import com.dicicilaja.app.NewSimulation.Network.ApiClient2;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.BantuanNewSimulationActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewLoan.NewLoanActivity;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -73,10 +75,11 @@ public class NewColleteralActivity extends AppCompatActivity {
     @BindView(R.id.next)
     Button next;
 
-    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, text_area, text_merk, text_tipe, text_tahun;
+    String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, text_area, text_merk, text_tipe, text_tahun, vehicles, vehicles_id;;
     boolean data_tahun;
     List<ObjekTahun> objekTahuns;
     ApiService apiService, apiService2;
+    ApiService3 apiService3;
 
     final List<String> AREA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
@@ -86,6 +89,8 @@ public class NewColleteralActivity extends AppCompatActivity {
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
     final List<String> YEAR_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> YEAR_DATA = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_CODE = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_NAME = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,7 @@ public class NewColleteralActivity extends AppCompatActivity {
         //Network
         apiService = ApiClient.getClient().create(ApiService.class);
         apiService2 = ApiClient2.getClient().create(ApiService.class);
+        apiService3 = com.dicicilaja.app.OrderIn.Network.ApiClient2.getClient().create(ApiService3.class);
     }
 
     private void clearArea() {
@@ -149,6 +155,8 @@ public class NewColleteralActivity extends AppCompatActivity {
 
     private void clearBrand() {
         MERK_DATA.clear();
+        MERK_ACC_CODE.clear();
+        MERK_ACC_NAME.clear();
         MERK_ITEMS.clear();
         MERK_DATA.put(0, "0");
         MERK_ITEMS.add("Pilih Merk Kendaraan");
@@ -265,16 +273,19 @@ public class NewColleteralActivity extends AppCompatActivity {
                 clearYear();
                 if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<ObjekBrand> objekBrandCall = apiService.getObjekBrand(Integer.parseInt(tipe_objek_id));
-                    objekBrandCall.enqueue(new Callback<ObjekBrand>() {
+                    String jaminan = "002";
+                    Call<List<Vehicles>> objekBrandCall = apiService3.getVehicles(jaminan);
+                    objekBrandCall.enqueue(new Callback<List<Vehicles>>() {
                         @Override
-                        public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                        public void onResponse(Call<List<Vehicles>> call, Response<List<Vehicles>> response) {
                             if (response.isSuccessful()) {
                                 try {
-                                    if (response.body().getData().size() > 0) {
-                                        for (int i = 0; i < response.body().getData().size(); i++) {
-                                            MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                            MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                    if (response.body().size() > 0) {
+                                        for (int i = 0; i < response.body().size(); i++) {
+                                            MERK_DATA.put(i + 1, String.valueOf(response.body().get(i).getId()));
+                                            MERK_ACC_CODE.put(i + 1, String.valueOf(response.body().get(i).getVehicleCode()));
+                                            MERK_ACC_NAME.put(i + 1, String.valueOf(response.body().get(i).getVehicleName()));
+                                            MERK_ITEMS.add(String.valueOf(response.body().get(i).getNama()));
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     } else {
@@ -320,7 +331,7 @@ public class NewColleteralActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<ObjekBrand> call, Throwable t) {
+                        public void onFailure(Call<List<Vehicles>> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewColleteralActivity.this);
                             alertDialog.setTitle("Perhatian");
@@ -562,6 +573,8 @@ public class NewColleteralActivity extends AppCompatActivity {
             area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
             text_area = AREA_ITEMS.get(spinnerArea.getSelectedItemPosition());
             text_merk = MERK_ITEMS.get(spinnerBrand.getSelectedItemPosition());
+            vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+            vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
             text_tipe = TYPE_ITEMS.get(spinnerType.getSelectedItemPosition());
         } catch (Exception ex) {
         }
@@ -610,16 +623,21 @@ public class NewColleteralActivity extends AppCompatActivity {
                 area_id = AREA_DATA.get(spinnerArea.getSelectedItemPosition());
                 tahun_kendaraan = YEAR_DATA.get(spinnerYear.getSelectedItemPosition());
                 model_id = MERK_DATA.get(spinnerBrand.getSelectedItemPosition());
+                vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+                vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
                 type_id = TYPE_DATA.get(spinnerType.getSelectedItemPosition());
             } catch (Exception ex) {
             }
 
             if (validateForm(area_id, tahun_kendaraan, model_id, type_id)) {
                 Intent intent = new Intent(getBaseContext(), NewLoanActivity.class);
-                intent.putExtra("tipe_objek_id", tipe_objek_id);
-                intent.putExtra("area_id", area_id);
-                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                intent.putExtra("objek_brand_id", model_id);
                 intent.putExtra("objek_model_id", type_id);
+                intent.putExtra("area_id", area_id);
+                intent.putExtra("tipe_objek_id", tipe_objek_id);
+                intent.putExtra("tahun_kendaraan", tahun_kendaraan);
+                intent.putExtra("vehicles",vehicles);
+                intent.putExtra("vehicles_id",vehicles_id);
                 startActivity(intent);
             }
         }
