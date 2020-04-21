@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/navbar_dashboard"
-        android:title="DASHBOARD"
+        android:title="HOME"
         android:checkable="true"/>
     <item
         android:id="@+id/navbar_create_request"

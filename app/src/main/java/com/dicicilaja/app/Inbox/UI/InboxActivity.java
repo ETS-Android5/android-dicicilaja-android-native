@@ -136,7 +136,7 @@ public class InboxActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Notif> call, Throwable t) {
                 progress.dismiss();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InboxActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -13,10 +13,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * Created by Husni with ❤
- */
-
 public class Tools {
 
     /* for Drawable Image */

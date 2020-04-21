@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.ProfileActivity;
+import com.dicicilaja.app.Activity.SearchActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
@@ -49,8 +51,15 @@ import com.dicicilaja.app.InformAXI.ui.register.RegisterActivity;
 import com.dicicilaja.app.InformAXI.ui.trip.TripActivity;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.Model.Logout;
+import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
+import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
+import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.dicicilaja.app.WebView.MateriActivity;
+import com.dicicilaja.app.WebView.NewsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -71,6 +80,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     private LinearLayout tvLookProfile;
     private CircularImageView ivAvatar;
     private ImageButton ibMenu, ibNotification;
+    String agen_axi_id, agen_id, agen_name;
 
     List<Datum> dataPopups;
     String apiKey;
@@ -93,6 +103,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     TextView detail, nanti;
     ImageView thumbnail, close;
     Boolean openInbox;
+    ApiService3 apiService3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +114,8 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         initToolbar();
         initListener();
         loadHomeFragment();
+
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         openInbox = getIntent().getBooleanExtra("openInbox", false);
         if(openInbox) {
@@ -248,9 +261,96 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                 navItemIndex = 3;
                 //CURRENT_TAG = getString(R.string.gathering_tag);
                 break;
+            case R.id.nav_submission:
+                progress.show();
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                axiReff.enqueue(new Callback<Axi>() {
+                    @Override
+                    public void onResponse(Call<Axi> call, Response<Axi> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                if (response.body().getData().size() > 0) {
+                                    agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                    agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                    agen_name = response.body().getData().get(0).getAttributes().getNama();
+                                    Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                    intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_axi_id", agen_axi_id);
+                                    intent2.putExtra("agen_name", agen_name);
+                                    startActivity(intent2);
+                                    progress.hide();
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                } else {
+                                    agen_id = null;
+                                    agen_axi_id = null;
+                                    agen_name = null;
+                                    Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                    intent2.putExtra("agen_id", agen_id);
+                                    intent2.putExtra("agen_axi_id", agen_axi_id);
+                                    intent2.putExtra("agen_name", agen_name);
+                                    startActivity(intent2);
+                                    progress.hide();
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                }
+
+
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            progress.hide();
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformAxiActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Axi> call, Throwable t) {
+                        progress.hide();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformAxiActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
+                break;
+            case R.id.nav_financing:
+                Intent intent4 = new Intent(getBaseContext(), SearchActivity.class);
+                startActivity(intent4);
+                break;
             case R.id.nav_tracking:
                 drawerLayout.closeDrawers();
                 startActivity(new Intent(this, OrderTrackingActivity.class));
+                break;
+            case R.id.nav_simulation:
+                Intent intent5 = new Intent(getBaseContext(), NewSimulationActivity.class);
+                startActivity(intent5);
+                break;
+            case R.id.nav_news:
+                Intent intent6 = new Intent(getBaseContext(), NewsActivity.class);
+                startActivity(intent6);
+                break;
+            case R.id.nav_download:
+                Intent intent7 = new Intent(getBaseContext(), MateriActivity.class);
+                startActivity(intent7);
                 break;
             case R.id.nav_logout:
                 showDialogLogout();

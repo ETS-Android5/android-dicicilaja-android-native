@@ -8,10 +8,6 @@ import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * Created by Husni with ❤
- */
-
 public class ViewPagerCustom extends ViewPager {
     private View mCurrentView;
 

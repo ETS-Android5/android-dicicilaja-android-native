@@ -20,7 +20,6 @@ public class  RetrofitClient {
 
     public static Retrofit getClient() {
         if (retrofit==null) {
-
             Cache cache = null;
 
             RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
@@ -28,9 +27,9 @@ public class  RetrofitClient {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(logging)
                     .cache(cache)
-                    .connectTimeout(1, TimeUnit.MINUTES)
-                    .readTimeout(1, TimeUnit.MINUTES)
-                    .writeTimeout(1, TimeUnit.MINUTES)
+                    .connectTimeout(2, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
+                    .writeTimeout(2, TimeUnit.MINUTES)
                     .build();
 
             retrofit = new Retrofit.Builder()

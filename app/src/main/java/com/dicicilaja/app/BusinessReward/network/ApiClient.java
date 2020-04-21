@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -21,12 +23,22 @@ public class ApiClient {
 
     public static Retrofit getClient() {
         if (retrofit==null) {
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
+            Cache cache = null;
+
+            RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
+
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .cache(cache)
+                    .connectTimeout(2, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
+                    .writeTimeout(2, TimeUnit.MINUTES)
+                    .build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;
@@ -41,6 +53,9 @@ public class ApiClient {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(logging)
                     .cache(cache)
+                    .connectTimeout(2, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
+                    .writeTimeout(2, TimeUnit.MINUTES)
                     .build();
 
             retrofit = new Retrofit.Builder()
@@ -54,22 +69,22 @@ public class ApiClient {
 
     public static Retrofit getClient3() {
         if (retrofit==null) {
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
+            Cache cache = null;
 
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
 
-            OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
-            okHttpClient.addInterceptor(logging);
-
-            OkHttpClient client = okHttpClient.build();
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .cache(cache)
+                    .connectTimeout(2, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
+                    .writeTimeout(2, TimeUnit.MINUTES)
+                    .build();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL3)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;

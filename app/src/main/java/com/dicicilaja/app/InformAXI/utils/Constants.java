@@ -1,10 +1,6 @@
 package com.dicicilaja.app.InformAXI.utils;
 
 
-/**
- * Created by Husni with ❤
- */
-
 public class Constants {
 
     public static final String NEW_DATE = "terbaru";

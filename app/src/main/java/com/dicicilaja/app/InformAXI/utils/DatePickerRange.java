@@ -22,10 +22,6 @@ import java.util.TimeZone;
 
 import static com.dicicilaja.app.InformAXI.utils.Constants.SUB_BUNDLE;
 
-/**
- * Created by Husni with ❤
- */
-
 public class DatePickerRange extends DialogFragment {
     DateFormat mDateFormatter, mTimeFormatter;
     SublimePicker mSublimePicker;
