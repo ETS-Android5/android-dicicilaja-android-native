@@ -60,9 +60,6 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
 
     SessionOrderIn session;
-    SessionManager sessionAuth;
-
-    String apiKey;
 
     ApiService2 apiService2;
     ApiService3 apiService3;

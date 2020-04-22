@@ -108,7 +108,7 @@ public class AjukanPengajuanAxiActivity extends AppCompatActivity {
 
         InterfaceAreaBranch apiServiceColleteral = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
-        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
+        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral(apiKey);
         callcolleteral.enqueue(new Callback<Colleteral>() {
             @Override
             public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {

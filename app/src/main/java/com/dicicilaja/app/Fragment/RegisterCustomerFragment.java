@@ -235,7 +235,7 @@ public class RegisterCustomerFragment extends Fragment {
         InterfaceCreateCustomer apiService =
                 ComposserClient.getClient().create(InterfaceCreateCustomer.class);
 
-        Call<CreateCustomer> call = apiService.create(nama, email, no_hp, password, password_confirmation);
+        Call<CreateCustomer> call = apiService.create(apiKey, nama, email, no_hp, password, password_confirmation);
         call.enqueue(new Callback<CreateCustomer>() {
             @Override
             public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {

@@ -3,6 +3,8 @@ package com.dicicilaja.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +49,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
     MaterialSpinner spinnerJaminan, spinnerTahun, spinnerArea, spinnerCabang, spinnerTenor;
     EditText inputId, inputMerk, inputPinjaman, inputWaktu;
     Button next;
+    String apiKey;
     TextInputLayout inputLayoutMerk, inputLayoutPinjaman, inputLayoutJaminan, inputLayoutWaktu;
     String axi_id, merk, pinjam, jaminan, tahun, waktu, area, cabang;
     ImageView gambar;
@@ -54,6 +57,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
     Integer qty;
     String s_tenor, s_tenor_kirim, s_jenis, s_harga, program_cicilan;
     RadioButton radio2, radio3, radio4, radio5, radio6, radio7;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,9 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -223,7 +230,7 @@ public class AjukanPengajuanMaxiActivity extends AppCompatActivity {
 
         InterfaceAreaBranch apiServiceColleteral = RetrofitClient.getClient().create(InterfaceAreaBranch.class);
 
-        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral();
+        Call<Colleteral> callcolleteral = apiServiceColleteral.getColleteral(apiKey);
         callcolleteral.enqueue(new Callback<Colleteral>() {
             @Override
             public void onResponse(Call<Colleteral> call, Response<Colleteral> response) {
