@@ -110,10 +110,10 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity.LoginActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/AppTheme.NoActionBar">
+
+	</activity>
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -220,9 +220,9 @@
             android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value="com.dicicilaja.app.Activity.MarketplaceActivity" /> -->
         </activity>
         <activity
             android:name=".Activity.IntroActivity"
@@ -359,7 +359,7 @@
         </activity>
         <activity
             android:name=".WebView.AboutMaxiMarketplaceActivity"
-            android:label="Daftar Kemitraan"
+            android:label="Daftar Rekan Bisnis"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -545,6 +545,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
+        </activity>
+        <activity
+	    android:name=".Activity.NotificationActivity"
+            android:label="Notifikasi"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.EmployeeDashboardActivity" />
         </activity>
         <activity
             android:name=".Activity.ProsesPengajuanActivity"
@@ -843,8 +851,11 @@
         </activity>
 
         <meta-data
-            android:name="com.onesignal.NotificationOpened.DEFAULT"
-            android:value="DISABLE" />
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher_round" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

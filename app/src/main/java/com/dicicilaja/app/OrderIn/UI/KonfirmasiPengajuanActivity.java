@@ -28,6 +28,7 @@ import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -54,6 +55,9 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
     MaterialProgressBar progressBar;
 
     SessionOrderIn session;
+    SessionManager sessionAuth;
+
+    String apiKey;
 
     ApiService2 apiService2;
     ApiService3 apiService3;
@@ -120,6 +124,9 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         session = new SessionOrderIn(KonfirmasiPengajuanActivity.this);
+
+        sessionAuth = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + sessionAuth.getToken();
 
         initToolbar();
         initAction();
@@ -386,6 +393,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
 
                                 Call<Transaksi> call1 = apiService3.postTransaksi(
+                                        apiKey,
                                         session.getAgen_id(),
                                         calon_nasabah_id,
                                         session.getArea_id(),
@@ -405,7 +413,14 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                         session.getKtp_image(),
                                         session.getBpkb(),
                                         session.getYear(),
-                                        session.getQty()
+                                        session.getQty(),
+                                        session.getTempat_lahir(),
+                                        session.getTanggal_lahir(),
+                                        session.getNama_ibu_kandung(),
+                                        session.getTanggal_janji_survey(),
+                                        session.getPunya_npwp_id(),
+                                        session.getPekerjaan_id(),
+                                        session.getVehicles_id()
                                 );
 
                                 call1.enqueue(new Callback<Transaksi>() {

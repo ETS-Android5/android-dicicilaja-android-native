@@ -101,7 +101,15 @@ public class SessionOrderIn {
                                       String village_id,
                                       String village,
                                       String address,
-                                      String postal_code){
+                                      String postal_code,
+                                      String tempat_lahir,
+                                      String tanggal_lahir,
+                                      String nama_ibu_kandung,
+                                      String tanggal_janji_survey,
+                                      String punya_npwp_id,
+                                      String punya_npwp,
+                                      String pekerjaan_id,
+                                      String pekerjaan){
         editor.putBoolean("status_data_calon", status_data_calon);
         editor.putString("name", name);
         editor.putString("no_ktp", no_ktp);
@@ -117,6 +125,14 @@ public class SessionOrderIn {
         editor.putString("village", village);
         editor.putString("address", address);
         editor.putString("postal_code", postal_code);
+        editor.putString("tempat_lahir",tempat_lahir);
+        editor.putString("tanggal_lahir",tanggal_lahir);
+        editor.putString("nama_ibu_kandung",nama_ibu_kandung);
+        editor.putString("tanggal_janji_survey",tanggal_janji_survey);
+        editor.putString("punya_npwp_id",punya_npwp_id);
+        editor.putString("punya_npwp",punya_npwp);
+        editor.putString("pekerjaan_id",pekerjaan_id);
+        editor.putString("pekerjaan",pekerjaan);
         editor.commit();
     }
 
@@ -134,7 +150,9 @@ public class SessionOrderIn {
                                      String tipe_asuransi_id,
                                      String tipe_asuransi,
                                      String jenis_angsuran_id,
-                                     String jenis_angsuran){
+                                     String jenis_angsuran,
+                                     String vehicles_id,
+                                     String vehicles){
         editor.putBoolean("status_informasi_jaminan", status_informasi_jaminan);
         editor.putString("jaminan_id", jaminan_id);
         editor.putString("jaminan", jaminan);
@@ -150,6 +168,8 @@ public class SessionOrderIn {
         editor.putString("tipe_asuransi", tipe_asuransi);
         editor.putString("jenis_angsuran_id", jenis_angsuran_id);
         editor.putString("jenis_angsuran", jenis_angsuran);
+        editor.putString("vehicles_id",vehicles_id);
+        editor.putString("vehicles",vehicles);
         editor.commit();
     }
 
@@ -480,6 +500,114 @@ public class SessionOrderIn {
 
     public void setPostal_code(String postal_code) {
         editor.putString("postal_code", postal_code);
+        editor.commit();
+    }
+
+    public String getPunyaNpwp_Position() {
+        return pref.getString("punyaNpwp_position", null);
+    }
+
+    public void setPunyaNpwp_Position(String punyaNpwp_position) {
+        editor.putString("punyaNpwp_position", punyaNpwp_position);
+        editor.commit();
+    }
+
+    public String getPekerjaan_Position() {
+        return pref.getString("pekerjaan_position", null);
+    }
+
+    public void setPekerjaan_Position(String pekerjaan_position) {
+        editor.putString("pekerjaan_position", pekerjaan_position);
+        editor.commit();
+    }
+
+    public String getTempat_lahir() {
+        return pref.getString("tempat_lahir", null);
+    }
+
+    public void setTempat_lahir(String tempat_lahir) {
+        editor.putString("tempat_lahir", tempat_lahir);
+        editor.commit();
+    }
+
+    public String getTanggal_lahir() {
+        return pref.getString("tanggal_lahir", null);
+    }
+
+    public void setTanggal_lahir(String tanggal_lahir) {
+        editor.putString("tanggal_lahir", tanggal_lahir);
+        editor.commit();
+    }
+
+    public String getNama_ibu_kandung() {
+        return pref.getString("nama_ibu_kandung", null);
+    }
+
+    public void setNama_ibu_kandung(String nama_ibu_kandung) {
+        editor.putString("nama_ibu_kandung", nama_ibu_kandung);
+        editor.commit();
+    }
+
+    public String getTanggal_janji_survey() {
+        return pref.getString("tanggal_janji_survey", null);
+    }
+
+    public void setTanggal_janji_survey(String tanggal_janji_survey) {
+        editor.putString("tanggal_janji_survey", tanggal_janji_survey);
+        editor.commit();
+    }
+
+    public String getPunya_npwp_id() {
+        return pref.getString("punya_npwp_id", null);
+    }
+
+    public void setPunya_npwp_id(String punya_npwp_id) {
+        editor.putString("punya_npwp_id", punya_npwp_id);
+        editor.commit();
+    }
+
+    public String getPunya_npwp() {
+        return pref.getString("punya_npwp", null);
+    }
+
+    public void setPunya_npwp(String punya_npwp) {
+        editor.putString("punya_npwp", punya_npwp);
+        editor.commit();
+    }
+
+    public String getPekerjaan_id() {
+        return pref.getString("pekerjaan_id", null);
+    }
+
+    public void setPekerjaan_id(String pekerjaan_id) {
+        editor.putString("pekerjaan_id", pekerjaan_id);
+        editor.commit();
+    }
+
+    public String getPekerjaan() {
+        return pref.getString("pekerjaan", null);
+    }
+
+    public void setPekerjaan(String pekerjaan) {
+        editor.putString("pekerjaan", pekerjaan);
+        editor.commit();
+    }
+
+    public String getVehicles_id() {
+        return pref.getString("vehicles_id", null);
+    }
+
+    public void setVehicles_id(String vehicles_id) {
+        editor.putString("vehicles_id", vehicles_id);
+        editor.commit();
+    }
+
+    public String getVehicles() {
+        return pref.getString("vehicles", null);
+    }
+
+    public void setVehicles(String vehicles) {
+        editor.putString("vehicles", vehicles);
         editor.commit();
     }
 
