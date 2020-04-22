@@ -309,6 +309,14 @@
                                 android:textSize="15sp"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/border_1dp"/>
+
+
+
 <!--                        <ImageView-->
 <!--                            android:layout_width="match_parent"-->
 <!--                            android:layout_height="2dp"-->
@@ -337,13 +345,203 @@
 <!--                                android:textSize="15sp"/>-->
 <!--                        </com.google.android.material.textfield.TextInputLayout>-->
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayouttempatLahir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+
+
+                            <EditText
+                                android:id="@+id/inputTempatLahir"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Tempat Lahir"
+                                android:layout_centerHorizontal="true"
+                                android:inputType="textPersonName|textCapWords"
+                                android:imeOptions="actionDone"
+                                android:paddingTop="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="25dp"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="@color/new_text_black"
+                                android:textSize="15sp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:src="@drawable/border_1dp"/>
+
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayoutTanggalLahir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+
+
+                            <EditText
+                                android:id="@+id/inputTangalLahir"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Tanggal Lahir"
+                                android:layout_centerHorizontal="true"
+                                android:inputType="textPersonName|textCapWords"
+                                android:imeOptions="actionDone"
+                                android:paddingTop="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="25dp"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="@color/new_text_black"
+                                android:focusableInTouchMode="false"
+                                android:textSize="15sp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayoutIbuKandung"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+
+
+                            <EditText
+                                android:id="@+id/inputIbuKandung"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nama Ibu Kandung"
+                                android:layout_centerHorizontal="true"
+                                android:inputType="textPersonName|textCapWords"
+                                android:imeOptions="actionDone"
+                                android:paddingTop="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="25dp"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="@color/new_text_black"
+                                android:textSize="15sp"/>
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayoutJanjiSurvey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+\
+
+                            <EditText
+                                android:id="@+id/inputJanjiSurvey"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Tanggal Janji Survey"
+                                android:layout_centerHorizontal="true"
+                                android:inputType="textPersonName|textCapWords"
+                                android:imeOptions="actionDone"
+                                android:paddingTop="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="25dp"
+                                android:fontFamily="@font/open_sans"
+                                android:textColor="@color/new_text_black"
+                                android:focusableInTouchMode="false"
+                                android:textSize="15sp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/border_1dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayoutPunyaNPWP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+
+
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/spinnerPunyaNpwp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:ms_multiline="false"
+                                app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Punya NPWP ? *"
+                                app:ms_enableFloatingLabel="true"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_floatingLabelText="Punya NPWP ? *"
+                                app:ms_baseColor="@color/colorBackgroundDark"
+                                app:ms_highlightColor="@color/colorBackgroundDark"
+                                app:ms_errorColor="@color/colorBackgroundDark"
+                                android:imeOptions="actionNext"
+                                android:nextFocusDown="@+id/spinnerPekerjaan"
+                                app:ms_alignLabels="false"
+                                android:textSize="14sp"
+                                app:ms_hintTextSize="14sp"
+                                app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputLayoutPekerjaan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:hintEnabled="true">
+
+
+                            <fr.ganfra.materialspinner.MaterialSpinner
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/spinnerPekerjaan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:ms_multiline="false"
+                                app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                                app:ms_hintView="@layout/hint_item"
+                                app:ms_hint="Pekerjaan *"
+                                app:ms_enableFloatingLabel="true"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_floatingLabelText="Pekerjaan *"
+                                app:ms_baseColor="@color/colorBackgroundDark"
+                                app:ms_highlightColor="@color/colorPrimaryDark"
+                                app:ms_errorColor="@color/colorPrimaryDark"
+                                android:imeOptions="actionNext"
+                                app:ms_alignLabels="false"
+                                android:textSize="14sp"
+                                app:ms_hintTextSize="14sp"
+                                app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </LinearLayout>
+
+
 
                     <Button
                         android:id="@+id/save"

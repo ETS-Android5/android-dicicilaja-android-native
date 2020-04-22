@@ -1,9 +1,13 @@
 package com.dicicilaja.app.OrderIn.UI;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,32 +19,43 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import com.dicicilaja.app.OrderIn.Data.Kecamatan.Kecamatan;
 import com.dicicilaja.app.OrderIn.Data.Kelurahan.Kelurahan;
 import com.dicicilaja.app.OrderIn.Data.Kota.Kota;
+import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Pekerjaan;
 import com.dicicilaja.app.OrderIn.Data.Provinsi.Provinsi;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
+import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.ganfra.materialspinner.MaterialSpinner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +73,14 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     EditText etAlamatEmail;
     @BindView(R.id.et_no_handphone)
     EditText etNoHandphone;
+    @BindView(R.id.inputTempatLahir)
+    EditText inputTempatLahir;
+    @BindView(R.id.inputTangalLahir)
+    EditText inputTangalLahir;
+    @BindView(R.id.inputIbuKandung)
+    EditText inputIbuKandung;
+    @BindView(R.id.inputJanjiSurvey)
+    EditText inputJanjiSurvey;
     @BindView(R.id.spinnerProvinsi)
     SearchableSpinner spinnerProvinsi;
     @BindView(R.id.layoutProvinsi)
@@ -88,12 +111,23 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     TextInputLayout layoutHp;
     @BindView(R.id.layout_alamat)
     TextInputLayout layoutAlamat;
+    @BindView(R.id.spinnerPekerjaan)
+    MaterialSpinner spinnerPekerjaan;
+    @BindView(R.id.spinnerPunyaNpwp)
+    MaterialSpinner spinnerPunyaNpwp;
+    @BindView(R.id.inputLayoutTanggalLahir)
+    TextInputLayout inputLayoutTanggalLahir;
+    @BindView(R.id.inputLayoutJanjiSurvey)
+    TextInputLayout inputLayoutJanjiSurvey;
+
+    DatePickerDialog picker;
 
     SessionOrderIn session;
 
     ApiService2 apiServiceArea;
+    ApiService3 apiService3;
 
-    String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, village_id, village, address, postal_code, agen_id, amount, ktp_image, bpkb, vehicle_id, voucher_code_id;
+    String name, no_ktp, email, no_hp, province_id, province, city_id, city, district_id, district, village_id, village, address, postal_code, agen_id, amount, ktp_image, bpkb, vehicle_id, voucher_code_id, tempat_lahir, tanggal_lahir, nama_ibu_kandung, tanggal_janji_survey, punya_npwp, punya_npwp_id, pekerjaan, pekerjaan_id;
     ;
 
     final List<String> PROVINSI_ITEMS = new ArrayList<>();
@@ -105,6 +139,12 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
     final List<String> KELURAHAN_ITEMS = new ArrayList<>();
     final List<String> KELURAHAN_KODEPOS = new ArrayList<>();
     final HashMap<Integer, String> KELURAHAN_DATA = new HashMap<Integer, String>();
+
+    final List<String> JOB_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> JOB_DATA = new HashMap<Integer, String>();
+
+    final List<String> PUNYA_NPWP_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> PUNYA_NPWP_DATA = new HashMap<Integer, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -440,6 +480,168 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             }
         } catch (Exception ex) {
         }
+
+        inputTangalLahir.setInputType(InputType.TYPE_NULL);
+        inputTangalLahir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(DataCalonPeminjamActivity.this,
+                        android.app.AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                cldr.set(Calendar.YEAR, year);
+                                cldr.set(Calendar.MONTH, monthOfYear);
+                                cldr.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                                String myFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"; //In which you need put here
+                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                                tanggal_lahir = sdf.format(cldr.getTime());
+
+                                if (monthOfYear+1 < 10){
+                                    inputTangalLahir.setText(dayOfMonth + "/0" + (monthOfYear + 1) + "/" + year);
+                                }else{
+                                    inputTangalLahir.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                }
+
+                            }
+                        }, year, month, day);
+                picker.show();
+//                DialogFragment dialogfragment = new DatePickerDialogTheme4();
+//
+//                dialogfragment.show(getSupportFragmentManager(), "Theme 4");
+            }
+        });
+
+        inputJanjiSurvey.setInputType(InputType.TYPE_NULL);
+        inputJanjiSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(DataCalonPeminjamActivity.this,
+                android.app.AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                cldr.set(Calendar.YEAR, year);
+                                cldr.set(Calendar.MONTH, monthOfYear);
+                                cldr.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                                String myFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"; //In which you need put here
+                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                                inputJanjiSurvey.setText(sdf.format(cldr.getTime()));
+
+                                tanggal_janji_survey = sdf.format(cldr.getTime());
+                                Log.d("tanggal_janji_survey : ",tanggal_janji_survey);
+
+                                if (monthOfYear+1 < 10){
+                                        inputJanjiSurvey.setText(dayOfMonth + "/0" + (monthOfYear + 1) + "/" + year);
+                                    }else{
+                                        inputJanjiSurvey.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                }
+                            }
+                        }, year, month, day);
+                picker.show();
+//                DialogFragment dialogfragment = new DatePickerDialogTheme4();
+//
+//                dialogfragment.show(getSupportFragmentManager(), "Theme 4");
+            }
+        });
+
+
+        PUNYA_NPWP_ITEMS.clear();
+        PUNYA_NPWP_DATA.clear();
+
+        PUNYA_NPWP_DATA.put(1, "1");
+        PUNYA_NPWP_DATA.put(2, "2");
+        PUNYA_NPWP_ITEMS.add("Ya");
+        PUNYA_NPWP_ITEMS.add("Tidak");
+
+
+        ArrayAdapter<String> punya_npwp_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, PUNYA_NPWP_ITEMS);
+        punya_npwp_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPunyaNpwp.setAdapter(punya_npwp_adapter);
+
+
+
+        progressBar.setVisibility(View.VISIBLE);
+        Call<List<Pekerjaan>> call = apiService3.getPekerjaan();
+        call.enqueue(new Callback<List<Pekerjaan>>() {
+            @Override
+            public void onResponse(Call<List<Pekerjaan>> call, Response<List<Pekerjaan>> response) {
+
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().size() > 0) {
+                            for (int i = 0; i < response.body().size(); i++) {
+                                JOB_DATA.put(i + 1, String.valueOf(response.body().get(i).getJobCode()));
+                                JOB_ITEMS.add(toTitleCase(String.valueOf(response.body().get(i).getJobName())));
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            clearPekerjaan();
+                            progressBar.setVisibility(View.GONE);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                            alertDialog.setTitle("Perhatian");
+                            alertDialog.setMessage("Data Pekerjaan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    } catch (Exception ex) {
+                    }
+
+                    ArrayAdapter<String> pekerjaan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JOB_ITEMS);
+                    pekerjaan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    spinnerPekerjaan.setAdapter(pekerjaan_adapter);
+                    spinnerPekerjaan.setEnabled(true);
+                } else {
+                    clearPekerjaan();
+                    progressBar.setVisibility(View.GONE);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Data Pekerjaan gagal dipanggil, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Pekerjaan>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Data Pekerjaan gagal dipanggil, silahkan coba beberapa saat lagi."+t.getMessage());
+
+                Log.d("Connection Failed",t.getMessage());
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
     private void initToolbar() {
@@ -470,6 +672,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
         //Network
         apiServiceArea = ApiClient2.getClient().create(ApiService2.class);
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         etNamaLengkap.addTextChangedListener(new TextWatcher() {
             @Override
@@ -757,6 +960,17 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         spinnerKelurahan.setAdapter(kelurahan_adapter);
         spinnerKelurahan.setTitle("");
         spinnerKelurahan.setPositiveButton("OK");
+    }
+
+    private void clearPekerjaan() {
+        JOB_DATA.clear();
+        JOB_ITEMS.clear();
+        JOB_DATA.put(0, "0");
+        JOB_ITEMS.add("Pilih Pekerjaan");
+        ArrayAdapter<String> pekerjaan_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JOB_ITEMS);
+        pekerjaan_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPekerjaan.setAdapter(pekerjaan_adapter);
+        spinnerPekerjaan.setEnabled(false);
     }
 
     private void initLoadData() {
@@ -1410,6 +1624,15 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             village = KELURAHAN_ITEMS.get(spinnerKelurahan.getSelectedItemPosition());
             postal_code = KELURAHAN_KODEPOS.get(spinnerKelurahan.getSelectedItemPosition());
             address = etAlamat.getText().toString();
+            tempat_lahir = inputTempatLahir.getText().toString();
+//            tanggal_lahir = inputTangalLahir.getText().toString();
+            nama_ibu_kandung = inputIbuKandung.getText().toString();
+//            tanggal_janji_survey = inputJanjiSurvey.getText().toString();
+            punya_npwp_id = PUNYA_NPWP_DATA.get(spinnerPunyaNpwp.getSelectedItemPosition());
+            punya_npwp = PUNYA_NPWP_ITEMS.get(spinnerPunyaNpwp.getSelectedItemPosition());
+            pekerjaan_id= JOB_DATA.get(spinnerPekerjaan.getSelectedItemPosition());
+            pekerjaan = JOB_ITEMS.get(spinnerPekerjaan.getSelectedItemPosition());
+
 
         } catch (Exception ex) {
         }
@@ -1428,8 +1651,16 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         Log.d("TAGTAG", "village: " + village);
         Log.d("TAGTAG", "postal_code: " + postal_code);
         Log.d("TAGTAG", "address: " + address);
+        Log.d("TAGTAG", "tempat_lahir: " + tempat_lahir);
+        Log.d("TAGTAG", "tanggal_lahir: " + tanggal_lahir);
+        Log.d("TAGTAG", "nama_ibu_kandung: " + nama_ibu_kandung);
+        Log.d("TAGTAG", "tanggal_janji_survey: " + tanggal_janji_survey);
+        Log.d("TAGTAG", "punya_npwp_id: " + punya_npwp_id);
+        Log.d("TAGTAG", "punya_npwp: " + punya_npwp);
+        Log.d("TAGTAG", "pekerjaan_id: " + pekerjaan_id);
+        Log.d("TAGTAG", "pekerjaan: " + pekerjaan);
 
-        if (validateForm(name, no_ktp, email, no_hp, province_id, city_id, district_id, village_id, address)) {
+        if (validateForm(name, no_ktp, email, no_hp, province_id, city_id, district_id, village_id, address, tempat_lahir, tanggal_lahir, nama_ibu_kandung, tanggal_janji_survey, punya_npwp_id, pekerjaan_id)) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
             alertDialog.setTitle("Perhatian");
             alertDialog.setMessage("Apakah data yang Anda masukan sudah benar?");
@@ -1440,6 +1671,8 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                     session.setCity_position(String.valueOf(spinnerKota.getSelectedItemPosition()));
                     session.setDistrict_position(String.valueOf(spinnerKecamatan.getSelectedItemPosition()));
                     session.setVillage_position(String.valueOf(spinnerKelurahan.getSelectedItemPosition()));
+                    session.setPunyaNpwp_Position(String.valueOf(spinnerPunyaNpwp.getSelectedItemPosition()));
+                    session.setPekerjaan_Position(String.valueOf(spinnerPekerjaan.getSelectedItemPosition()));
 
                     session.editDataCalonPeminjam(true,
                             name,
@@ -1455,7 +1688,15 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                             village_id,
                             village,
                             address,
-                            postal_code
+                            postal_code,
+                            tempat_lahir,
+                            tanggal_lahir,
+                            nama_ibu_kandung,
+                            tanggal_janji_survey,
+                            punya_npwp_id,
+                            punya_npwp,
+                            pekerjaan_id,
+                            pekerjaan
                     );
                     finish();
                 }
@@ -1484,7 +1725,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         inputMethodManager.showSoftInput(view, 0);
     }
 
-    private boolean validateForm(String name, String no_ktp, String email, String no_hp, String province_id, String city_id, String district_id, String village_id, String address) {
+    private boolean validateForm(String name, String no_ktp, String email, String no_hp, String province_id, String city_id, String district_id, String village_id, String address, String tempat_lahir, String tanggal_lahir, String nama_ibu_kandung, String tanggal_janji_survey, String punya_npwp_id,String pekerjaan_id) {
         if (name == null || name.trim().length() == 0 || name.equals("0") || name.equals("") || name.equals(" ")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
             alertDialog.setTitle("Perhatian");
@@ -1679,6 +1920,94 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             return false;
         }
 
+        if (tempat_lahir == null || tempat_lahir.trim().length() == 0 || tempat_lahir.equals("0") || tempat_lahir.equals("") || tempat_lahir.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan Tempat Lahir");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputTempatLahir);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (tanggal_lahir == null || tanggal_lahir.trim().length() == 0 || tanggal_lahir.equals("0") || tanggal_lahir.equals("") || tanggal_lahir.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan Tanggal Lahir");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputTangalLahir);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (nama_ibu_kandung == null || nama_ibu_kandung.trim().length() == 0 || nama_ibu_kandung.equals("0") || nama_ibu_kandung.equals("") || nama_ibu_kandung.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan Nama Ibu Kandung");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputIbuKandung);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (tanggal_janji_survey == null || tanggal_janji_survey.trim().length() == 0 || tanggal_janji_survey.equals("0") || tanggal_janji_survey.equals("") || tanggal_janji_survey.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan Tanggal Janji Survey");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(inputJanjiSurvey);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (punya_npwp_id == null || punya_npwp_id.trim().length() == 0 || punya_npwp_id.equals("0") || punya_npwp_id.equals("") || punya_npwp_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih keterangan punya NPWP / tidak");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerPunyaNpwp);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerPunyaNpwp.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (pekerjaan_id == null || pekerjaan_id.trim().length() == 0 || pekerjaan_id.equals("0") || pekerjaan_id.equals("") || pekerjaan_id.equals(" ")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan pilih Pekerjaan");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(spinnerPekerjaan);
+                    MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_UP, 0, 0, 0);
+                    spinnerPekerjaan.dispatchTouchEvent(motionEvent);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
 //        if (postal_code == null || postal_code.trim().length() == 0 || postal_code.equals("0") || postal_code.equals("") || postal_code.equals(" ")) {
 //            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DataCalonPeminjamActivity.this);
 //            alertDialog.setTitle("Perhatian");
@@ -1728,5 +2057,39 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public static class DatePickerDialogTheme4 extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
+                    android.app.AlertDialog.THEME_HOLO_LIGHT,this,year,month,day);
+
+            return datepickerdialog;
+        }
+        public void onDateSet(DatePicker view, int year, int month, int day){
+
+            EditText textview = (EditText)getActivity().findViewById(R.id.inputTangalLahir);
+
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String dateInString = day + "/" + (month + 1) + "/" + year;
+                Date date = formatter.parse(dateInString);
+
+                formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                textview.setText(formatter.format(date).toString());
+
+            } catch (Exception ex) {
+
+            }
+
+        }
     }
 }

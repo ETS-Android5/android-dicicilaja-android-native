@@ -1,11 +1,15 @@
 package com.dicicilaja.app.OrderIn.Network;
 
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
+import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Pekerjaan;
+import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Response;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Data.VoucherCode.VoucherCode;
-import com.dicicilaja.app.OrderIn.Data.error.Error;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -13,8 +17,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService3 {
@@ -63,5 +67,18 @@ public interface ApiService3 {
                                   @Field("ktp_image") String ktp_image,
                                   @Field("bpkb") String bpkb,
                                   @Field("tahun") String tahun,
-                                  @Field("qty") String qty);
+                                  @Field("qty") String qty,
+                                  @Field("tempat_lahir_nasabah") String tempat_lahir_nasabah,
+                                  @Field("tanggal_lahir_nasabah") String tanggal_lahir_nasabah,
+                                  @Field("nama_ibu_kandung_nasabah") String nama_ibu_kandung_nasabah,
+                                  @Field("janji_survey") String janji_survey,
+                                  @Field("kepemilikan_npwp") String kepemilikan_npwp,
+                                  @Field("pekerjaan") String  pekerjaan,
+                                  @Field("jenis_kendaraan") String jenis_kendaraan);
+
+    @GET("orderIn/jobs")
+    Call<List<Pekerjaan>> getPekerjaan();
+
+    @GET("orderIn/vehicles/{vehicles_type}")
+    Call<List<Vehicles>> getVehicles(@Path("vehicles_type") String vehicles_type);
 }
