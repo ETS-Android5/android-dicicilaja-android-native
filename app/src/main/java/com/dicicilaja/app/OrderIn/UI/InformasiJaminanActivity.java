@@ -30,9 +30,12 @@ import com.dicicilaja.app.OrderIn.Data.AreaSimulasi.AreaSimulasi;
 import com.dicicilaja.app.OrderIn.Data.ObjekBrand.ObjekBrand;
 import com.dicicilaja.app.OrderIn.Data.ObjekModel.ObjekModel;
 import com.dicicilaja.app.OrderIn.Data.TipeObjek.TipeObjek;
+import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Network.ApiClient;
+import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiClient3;
 import com.dicicilaja.app.OrderIn.Network.ApiService;
+import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.JenisAngsuranActivity;
 import com.dicicilaja.app.OrderIn.UI.BantuanOrderIn.TipeAsuransiActivity;
@@ -51,6 +54,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.ganfra.materialspinner.MaterialSpinner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,14 +109,17 @@ public class InformasiJaminanActivity extends AppCompatActivity {
     @BindView(R.id.card_tenor)
     LinearLayout cardTenor;
 
-    private String jaminan_id, jaminan, area_id, area, objek_brand_id, brand, objek_model_id, model, year, tenor_simulasi, tipe_asuransi_id, tipe_asuransi, jenis_angsuran_id, jenis_angsuran;
+    private String jaminan_id, jaminan, area_id, area, objek_brand_id, brand, objek_model_id, model, year, tenor_simulasi, tipe_asuransi_id, tipe_asuransi, jenis_angsuran_id, jenis_angsuran, vehicles, vehicles_id;
     ApiService apiService, apiService2;
+    ApiService3 apiService3;
 
     final List<String> JAMINAN_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> JAMINAN_DATA = new HashMap<Integer, String>();
     final List<String> AREA_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> AREA_DATA = new HashMap<Integer, String>();
     final List<String> MERK_ITEMS = new ArrayList<>();
+    final HashMap<Integer, String> MERK_ACC_CODE = new HashMap<Integer, String>();
+    final HashMap<Integer, String> MERK_ACC_NAME = new HashMap<Integer, String>();
     final HashMap<Integer, String> MERK_DATA = new HashMap<Integer, String>();
     final List<String> TYPE_ITEMS = new ArrayList<>();
     final HashMap<Integer, String> TYPE_DATA = new HashMap<Integer, String>();
@@ -192,6 +199,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         //Network
         apiService = ApiClient.getClient().create(ApiService.class);
         apiService2 = ApiClient3.getClient().create(ApiService.class);
+        apiService3 = ApiClient2.getClient().create(ApiService3.class);
     }
 
     private void clearJaminan() {
@@ -221,6 +229,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
 
     private void clearBrand() {
         MERK_DATA.clear();
+        MERK_ACC_CODE.clear();
+        MERK_ACC_NAME.clear();
         MERK_ITEMS.clear();
         MERK_DATA.put(0, "0");
         MERK_ITEMS.add("Pilih Merk Kendaraan");
@@ -494,16 +504,23 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                             if (Integer.parseInt(AREA_DATA.get(spinnerArea.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
                                 Log.d("DASH::", "onItemSelected: " + Integer.parseInt(jaminan_id));
-                                Call<ObjekBrand> objekBrandCall = apiService.getObjekBrand(Integer.parseInt(jaminan_id));
-                                objekBrandCall.enqueue(new Callback<ObjekBrand>() {
+                                if(jaminan_id == "1"){
+                                    jaminan = "002";
+                                } else {
+                                    jaminan = "001";
+                                }
+                                Call<List<Vehicles>> objekBrandCall = apiService3.getVehicles(jaminan);
+                                objekBrandCall.enqueue(new Callback<List<Vehicles>>() {
                                     @Override
-                                    public void onResponse(Call<ObjekBrand> call, Response<ObjekBrand> response) {
+                                    public void onResponse(Call<List<Vehicles>> call, Response<List<Vehicles>> response) {
                                         if (response.isSuccessful()) {
                                             try {
-                                                if (response.body().getData().size() > 0) {
-                                                    for (int i = 0; i < response.body().getData().size(); i++) {
-                                                        MERK_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
-                                                        MERK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
+                                                if (response.body().size() > 0) {
+                                                    for (int i = 0; i < response.body().size(); i++) {
+                                                        MERK_DATA.put(i + 1, String.valueOf(response.body().get(i).getId()));
+                                                        MERK_ACC_CODE.put(i + 1, String.valueOf(response.body().get(i).getVehicleCode()));
+                                                        MERK_ACC_NAME.put(i + 1, String.valueOf(response.body().get(i).getVehicleName()));
+                                                        MERK_ITEMS.add(String.valueOf(response.body().get(i).getNama()));
                                                     }
                                                     progressBar.setVisibility(View.GONE);
                                                 } else {
@@ -549,7 +566,7 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<ObjekBrand> call, Throwable t) {
+                                    public void onFailure(Call<List<Vehicles>> call, Throwable t) {
                                         progressBar.setVisibility(View.GONE);
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformasiJaminanActivity.this);
                                         alertDialog.setTitle("Perhatian");
@@ -784,6 +801,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                     tipe_asuransi = TIPEASURANSI_ITEMS.get(spinnerInsurance.getSelectedItemPosition());
                     jenis_angsuran_id = JENISANGSURAN_MAP.get(spinnerInstallment.getSelectedItemPosition());
                     jenis_angsuran = JENISANGSURAN_ITEMS.get(spinnerInstallment.getSelectedItemPosition());
+                    vehicles_id = MERK_ACC_CODE.get(spinnerBrand.getSelectedItemPosition());
+                    vehicles = MERK_ACC_NAME.get(spinnerBrand.getSelectedItemPosition());
 
                 } catch (Exception ex) {
                 }
@@ -802,6 +821,8 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                 Log.d("TAGTAG", "tipe_asuransi: " + tipe_asuransi);
                 Log.d("TAGTAG", "jenis_angsuran_id: " + jenis_angsuran_id);
                 Log.d("TAGTAG", "jenis_angsuran: " + jenis_angsuran);
+                Log.d("TAGTAG", "vehicles_id: " + vehicles_id);
+                Log.d("TAGTAG", "vehicles: " + vehicles);
 
 
                 if (jaminan_id.equals("1")) {
@@ -829,7 +850,9 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                         tipe_asuransi_id,
                                         tipe_asuransi,
                                         jenis_angsuran_id,
-                                        jenis_angsuran
+                                        jenis_angsuran,
+                                        vehicles_id,
+                                        vehicles
                                 );
                                 finish();
                             }
@@ -862,7 +885,9 @@ public class InformasiJaminanActivity extends AppCompatActivity {
                                         "1",
                                         "1",
                                         "1",
-                                        "1"
+                                        "1",
+                                        vehicles_id,
+                                        vehicles
                                 );
                                 finish();
                             }
@@ -1182,6 +1207,34 @@ public class InformasiJaminanActivity extends AppCompatActivity {
         } catch (Exception ex) {
         }
         return dpd;
+    }
+
+    public static String toTitleCase(String str) {
+
+        if (str == null) {
+            return null;
+        }
+
+        boolean space = true;
+        StringBuilder builder = new StringBuilder(str);
+        final int len = builder.length();
+
+        for (int i = 0; i < len; ++i) {
+            char c = builder.charAt(i);
+            if (space) {
+                if (!Character.isWhitespace(c)) {
+                    // Convert to title case and switch out of whitespace mode.
+                    builder.setCharAt(i, Character.toTitleCase(c));
+                    space = false;
+                }
+            } else if (Character.isWhitespace(c)) {
+                space = true;
+            } else {
+                builder.setCharAt(i, Character.toLowerCase(c));
+            }
+        }
+
+        return builder.toString();
     }
 
 }

@@ -36,7 +36,7 @@ import java.util.List;
 
 public class NewLoanActivity extends AppCompatActivity {
 
-    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, objek_brand_id, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id;
+    String tipe_objek_id, area_id, tahun_kendaraan, objek_model_id, tenor, tenor_simulasi, objek_brand_id, tipe_asuransi_id, value_tipe_angsuran_id, tipe_angsuran_id, vehicles, vehicles_id;
 
     String text_total_prefix, text_max_prefix, text_tenor, text_angsuran, text_tenor_angsuran, text_colleteral, text_merk, text_type, text_year, text_insurance, text_area, text_angsuran_baru;
     int text_total, text_max;
@@ -96,6 +96,8 @@ public class NewLoanActivity extends AppCompatActivity {
         objek_model_id = getIntent().getStringExtra("objek_model_id");
         objek_brand_id = getIntent().getStringExtra("objek_brand_id");
         area_id = getIntent().getStringExtra("area_id");
+        vehicles = getIntent().getStringExtra("vehicles");
+        vehicles_id = getIntent().getStringExtra("vehicles_id");
 
         TENOR_MAP.clear();
         TENOR_ITEMS.clear();
