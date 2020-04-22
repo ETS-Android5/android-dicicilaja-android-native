@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -42,7 +43,8 @@ public interface ApiService3 {
 
     @POST("transaction/transactions")
     @FormUrlEncoded
-    Call<Transaksi> postTransaksi(@Field("agen_id") String agen_id,
+    Call<Transaksi> postTransaksi(@Header("Authorization") String apiKey,
+                                  @Field("agen_id") String agen_id,
                                   @Field("calon_nasabah_id") String calon_nasabah_id,
                                   @Field("area_id") String area_id,
                                   @Field("cabang_id") String cabang_id,

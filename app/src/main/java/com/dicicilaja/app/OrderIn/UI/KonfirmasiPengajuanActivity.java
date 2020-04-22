@@ -40,7 +40,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.dicicilaja.app.Session.SessionManager;
+
 public class KonfirmasiPengajuanActivity extends AppCompatActivity {
+
+    SessionManager sessionAuth;
+    String apiKey;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -120,6 +125,9 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         session = new SessionOrderIn(KonfirmasiPengajuanActivity.this);
+
+        sessionAuth = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + sessionAuth.getToken();
 
         initToolbar();
         initAction();
@@ -386,6 +394,7 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
 
                                 Call<Transaksi> call1 = apiService3.postTransaksi(
+                                        apiKey,
                                         session.getAgen_id(),
                                         calon_nasabah_id,
                                         session.getArea_id(),
