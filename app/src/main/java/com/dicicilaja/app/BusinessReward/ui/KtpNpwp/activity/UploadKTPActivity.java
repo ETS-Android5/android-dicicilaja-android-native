@@ -54,6 +54,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class UploadKTPActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+
+    String apiKey;
+    SessionManager session;
     @BindView(R.id.upload)
     Button upload;
     @BindView(R.id.toolbar)
@@ -98,7 +101,6 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
     String fKtp, fNpwp, nomorKtp, nomorNpwp, axiId;
     int textlength;
-    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +126,8 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         getSupportActionBar().setTitle("Upload KTP & NPWP");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        session = new SessionManager(getBaseContext());
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         axiId = session.getNomorAxiId();
 
@@ -154,7 +157,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
 
                     ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-                    Call<Foto> postKtp = apiService.postFoto(axiId, fKtp, fNpwp, nomorKtp, nomorNpwp);
+                    Call<Foto> postKtp = apiService.postFoto(apiKey, axiId, fKtp, fNpwp, nomorKtp, nomorNpwp);
                     postKtp.enqueue(new Callback<Foto>() {
                         @Override
                         public void onResponse(Call<Foto> call, Response<Foto> response) {

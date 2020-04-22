@@ -245,7 +245,7 @@ public class ProductMaxiActivity extends AppCompatActivity {
 //                    intent.putExtra("id_partner",detailProducts.get(0).getIdPartner().toString());
 //                    startActivity(intent);
 
-                    Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                    Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {

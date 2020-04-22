@@ -23,6 +23,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,8 @@ import retrofit2.Response;
 
 public class ListKategori extends AppCompatActivity {
     ApiService apiService;
+    String apiKey;
+    SessionManager session;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -55,6 +58,9 @@ public class ListKategori extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_kategori);
         ButterKnife.bind(this);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -79,7 +85,7 @@ public class ListKategori extends AppCompatActivity {
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<KategoriProduk> call = apiService.getKategori();
+        Call<KategoriProduk> call = apiService.getKategori(apiKey);
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
             @Override
@@ -87,11 +93,10 @@ public class ListKategori extends AppCompatActivity {
                 final List<Datum> dataItems = response.body().getData();
 
                 for (int i = 0; i < response.body().getData().size(); i++) {
-                    Log.d("disiniiiiiiiiiiiii", String.valueOf(i));
+
                     KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
                     KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_DATA));
-                    Log.d("disinianjay", String.valueOf(KATEGORI_ITEMS));
+
 //                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
                     stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
@@ -113,10 +118,9 @@ public class ListKategori extends AppCompatActivity {
                         }
 
                         selected = KATEGORI_DATA.get(id);
-                        Log.d("DISINIIII", String.valueOf(id));
-                        Log.d("DISINIIII", String.valueOf(KATEGORI_DATA.get(id)));
+
                         size = KATEGORI_ITEMS.get(id);
-                        Log.d("DISINIIII2", String.valueOf(KATEGORI_ITEMS.get(id)));
+
                     }
                 });
 

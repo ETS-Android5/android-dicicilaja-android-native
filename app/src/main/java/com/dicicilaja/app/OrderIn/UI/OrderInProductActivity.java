@@ -78,6 +78,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    String apiKey;
     @BindView(R.id.gambar)
     ImageView gambar;
     @BindView(R.id.tv_title)
@@ -213,6 +214,7 @@ public class OrderInProductActivity extends AppCompatActivity {
 
         session = new SessionOrderIn(OrderInProductActivity.this);
         sessionUser = new SessionManager(OrderInProductActivity.this);
+        apiKey = "Bearer " + sessionUser.getToken();
 
         session.clearOrderIn();
 
@@ -905,7 +907,7 @@ public class OrderInProductActivity extends AppCompatActivity {
                     cariAxiClose.setVisibility(View.VISIBLE);
                     cariAxi.setVisibility(View.GONE);
 
-                    Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
+                    Call<Axi> axiReff = apiService3.getAxi(apiKey, etAxiIdReff.getText().toString());
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {

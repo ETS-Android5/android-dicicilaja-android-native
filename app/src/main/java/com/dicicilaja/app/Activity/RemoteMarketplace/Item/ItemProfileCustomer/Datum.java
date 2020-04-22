@@ -1,13 +1,11 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by fawazrifqi on 05/05/18.
- */
+public class Datum {
 
-public class Data {
     @SerializedName("name")
     @Expose
     private String name;
@@ -22,19 +20,19 @@ public class Data {
     private String birthDate;
     @SerializedName("address")
     @Expose
-    private String address;
+    private Object address;
     @SerializedName("province")
     @Expose
-    private String province;
+    private Object province;
     @SerializedName("city")
     @Expose
-    private String city;
+    private Object city;
     @SerializedName("district")
     @Expose
-    private String district;
+    private Object district;
     @SerializedName("subdistrict")
     @Expose
-    private String subdistrict;
+    private Object subdistrict;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -77,43 +75,43 @@ public class Data {
         this.birthDate = birthDate;
     }
 
-    public String getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
-    public String getProvince() {
+    public Object getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(Object province) {
         this.province = province;
     }
 
-    public String getCity() {
+    public Object getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Object city) {
         this.city = city;
     }
 
-    public String getDistrict() {
+    public Object getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public void setDistrict(Object district) {
         this.district = district;
     }
 
-    public String getSubdistrict() {
+    public Object getSubdistrict() {
         return subdistrict;
     }
 
-    public void setSubdistrict(String subdistrict) {
+    public void setSubdistrict(Object subdistrict) {
         this.subdistrict = subdistrict;
     }
 
@@ -140,4 +138,5 @@ public class Data {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
 }

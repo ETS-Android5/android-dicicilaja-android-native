@@ -15,6 +15,7 @@ import com.dicicilaja.app.InformAXI.network.NetworkInterface;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.InformAXI.utils.ViewPagerCustom;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ import static com.dicicilaja.app.InformAXI.utils.Constants.PROFILE_ID;
 import static com.dicicilaja.app.InformAXI.utils.Constants.PROFILE_NAME;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    SessionManager session;
+    String apiKey;
 
     private Toolbar toolbar;
     private TabLayout tabProfile;
@@ -52,6 +56,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informaxi_profile);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initVariables();
         initToolbar();
@@ -95,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getProfileData() {
         mCompositeDisposable.add(
-                jsonApi.getDetail(profileId)
+                jsonApi.getDetail(apiKey, profileId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetProfile, this::onError)

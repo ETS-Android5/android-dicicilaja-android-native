@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
@@ -43,7 +43,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
     String apiKey;
     RelativeLayout changePassword;
     ProgressDialog progress;
-    Data dataCustomer;
+    Datum dataCustomer;
     Button btnLogout;
     TextView name_user, api_email, api_telephone, api_jk, api_bill;
 
@@ -115,25 +115,41 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileCustomer apiService =
-                ApiClient2.getClient().create(InterfaceProfileCustomer.class);
+                ApiClient.getClient().create(InterfaceProfileCustomer.class);
 
+        Log.d("APIKEY", "onCreate: " + apiKey);
         Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
         callProfile.enqueue(new Callback<ProfileCustomer>() {
             @Override
             public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
-                dataCustomer = response.body().getData();
+                try {
+                    Log.d("APIKEY", "onCreate: " + response);
+                    dataCustomer = response.body().getData().get(0);
 
-                name_user.setText(dataCustomer.getName());
-                api_email.setText(dataCustomer.getEmail());
-                api_telephone.setText(dataCustomer.getPhone());
-                if (dataCustomer.getGender().equals("l")) {
-                    api_jk.setText("Laki-laki");
-                } else if (dataCustomer.getGender().equals("p")) {
-                    api_jk.setText("Perempuan");
+                    name_user.setText(dataCustomer.getName());
+                    api_email.setText(dataCustomer.getEmail());
+                    api_telephone.setText(dataCustomer.getPhone());
+                    if (dataCustomer.getGender().equals("l")) {
+                        api_jk.setText("Laki-laki");
+                    } else if (dataCustomer.getGender().equals("p")) {
+                        api_jk.setText("Perempuan");
+                    }
+                    api_bill.setText(dataCustomer.getBillNumber());
+
+                    progress.dismiss();
+                } catch (Exception ex) {
+                    progress.dismiss();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileCustomerActivity.this);
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
                 }
-                api_bill.setText(dataCustomer.getBillNumber());
 
-                progress.dismiss();
             }
 
             @Override

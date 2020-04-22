@@ -90,7 +90,7 @@ public class PengajuanFragment extends Fragment {
                 progress.show();
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {

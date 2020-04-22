@@ -391,7 +391,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                        Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -569,7 +569,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         InterfaceCustomerSlider apiSlider =
                 com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceCustomerSlider.class);
-        Call<Slider> call5 = apiSlider.getSlider("6", "slider");
+        Call<Slider> call5 = apiSlider.getSlider(apiKey, "6", "slider");
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -592,7 +592,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         ApiService apiService =
                 ApiClient3.getClient().create(ApiService.class);
 
-        Call<ExistingPoint> call2 = apiService.getExistingPoint(session.getNomorAxiId());
+        Call<ExistingPoint> call2 = apiService.getExistingPoint(apiKey, session.getNomorAxiId());
         call2.enqueue(new Callback<ExistingPoint>() {
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
@@ -951,7 +951,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         nanti.setEnabled(false);
 
         progress_popup.show();
-        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        Call<Popup> popupCall = apiService4.getPopup(apiKey, session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {

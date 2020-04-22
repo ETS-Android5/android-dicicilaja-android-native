@@ -44,11 +44,12 @@ public interface ApiService {
     })
 
     @GET("existing/point")
-    Call<ExistingPoint> getExistingPoint(@Query("profile_id") String profileId);
+    Call<ExistingPoint> getExistingPoint(@Header("Authorization") String apiKey,
+                                         @Query("profile_id") String profileId);
 
     //GET
     @GET("kategori")
-    Call<KategoriProduk> getKategori();
+    Call<KategoriProduk> getKategori(@Header("Authorization") String apiKey);
 
     @GET("branch")
     Call<Branch> getCabang(@Path("id") int cabang_id);
@@ -60,7 +61,8 @@ public interface ApiService {
     Call<Area2> getArea();
 
     @GET("axi-foto")
-    Call<FotoKtpNpwp> getFoto(@Query("axi_id") String axi_id);
+    Call<FotoKtpNpwp> getFoto(@Header("Authorization") String apiKey,
+                              @Query("axi_id") String axi_id);
 
     @GET("claim-reward")
     Call<ClaimRewards> getClaim(@Query("profile_id") String profile_id,
@@ -69,7 +71,8 @@ public interface ApiService {
                                 @Query("ot") String ot);
 
     @GET("existing/claim-reward")
-    Call<ClaimRewards> getClaimHistory(@Query("search") String profileId,
+    Call<ClaimRewards> getClaimHistory(@Header("Authorization") String apiKey,
+                                       @Query("search") String profileId,
                                        @Query("page") int page,
                                        @Query("ob") String ob,
                                        @Query("ot") String ot);
@@ -84,15 +87,18 @@ public interface ApiService {
     Call<Point> getPoint(@Query("profile_id") String profile_id);
 
     @GET("product-catalog")
-    Call<Produk> getProduk(@Query("nama") String nama);
+    Call<Produk> getProduk(@Header("Authorization") String apiKey,
+                           @Query("nama") String nama);
 
     @GET("product-catalog")
-    Call<Produk> getProdukSort(@Query("kategori_id") String kategori_id,
+    Call<Produk> getProdukSort(@Header("Authorization") String apiKey,
+                               @Query("kategori_id") String kategori_id,
                                @Query("ob") String ob,
                                @Query("ot") String ot);
 
     @GET("product-catalog")
-    Call<Produk> getProdukAll(@Query("kategori_id") String kategori_id);
+    Call<Produk> getProdukAll(@Header("Authorization") String apiKey,
+                              @Query("kategori_id") String kategori_id);
 
     @GET("kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);
@@ -218,6 +224,7 @@ public interface ApiService {
     @POST("testimoni")
     @FormUrlEncoded
     Call<Testimoni> postTestimoni(
+            @Header("Authorization") String apiKey,
             @Field("profile_id") String profile_id,
             @Field("claim_reward_id") String claim_reward_id,
             @Field("status_id") String status_id,
@@ -227,6 +234,7 @@ public interface ApiService {
     @POST("axi-foto")
     @FormUrlEncoded
     Call<Foto> postFoto(
+            @Header("Authorization") String apiKey,
             @Field("axi_id") String axi_id,
             @Field("foto_ktp") String foto_ktp,
             @Field("foto_npwp") String foto_npwp,

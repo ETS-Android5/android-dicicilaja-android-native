@@ -265,7 +265,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                 progress.show();
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -480,7 +480,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         nanti.setEnabled(false);
 
         progress_popup.show();
-        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        Call<Popup> popupCall = apiService4.getPopup(apiKey, session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {

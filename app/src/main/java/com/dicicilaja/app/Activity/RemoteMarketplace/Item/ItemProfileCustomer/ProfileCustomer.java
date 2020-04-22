@@ -1,19 +1,18 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by fawazrifqi on 05/05/18.
- */
-
 public class ProfileCustomer {
+
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private List<Datum> data = null;
 
     public String getStatus() {
         return status;
@@ -23,11 +22,11 @@ public class ProfileCustomer {
         this.status = status;
     }
 
-    public Data getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 

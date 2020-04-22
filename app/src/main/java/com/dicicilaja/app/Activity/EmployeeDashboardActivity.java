@@ -44,6 +44,7 @@ import java.util.HashMap;
 public class EmployeeDashboardActivity extends AppCompatActivity {
 
     SessionManager session;
+    String apiKey;
 
     String agen_id, agen_axi_id, agen_name;
     ApiService3 apiService3;
@@ -58,6 +59,8 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
         progress = new ProgressDialog(this);
@@ -91,7 +94,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
                         progress.show();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                        Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {
@@ -204,8 +207,6 @@ public class EmployeeDashboardActivity extends AppCompatActivity {
         LinearLayout open_profile = navbarView.findViewById(R.id.open_profile);
         ImageView profile_pictures = navbarView.findViewById(R.id.imageView);
         TextView name = navbarView.findViewById(R.id.nameView);
-
-        session = new SessionManager(getApplicationContext());
 
         area.setText(session.getArea());
         String imageUrl = session.getPhoto();

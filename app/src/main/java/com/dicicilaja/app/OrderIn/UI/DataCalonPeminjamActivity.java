@@ -29,6 +29,7 @@ import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService2;
 import com.dicicilaja.app.OrderIn.Session.SessionOrderIn;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
@@ -48,6 +49,8 @@ import retrofit2.Response;
 
 public class DataCalonPeminjamActivity extends AppCompatActivity {
 
+    SessionManager sessionAuth;
+    String apiKey;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.et_nama_lengkap)
@@ -112,6 +115,8 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_calon_peminjam);
         ButterKnife.bind(this);
 
+        sessionAuth = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + sessionAuth.getToken();
         session = new SessionOrderIn(DataCalonPeminjamActivity.this);
 
         initToolbar();
@@ -761,7 +766,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
+        Call<Provinsi> call = apiServiceArea.getProvinsi(apiKey, 1000);
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {

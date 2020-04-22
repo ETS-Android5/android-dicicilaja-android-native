@@ -6,6 +6,7 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Branch
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateOrder.Colleteral.Colleteral;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -14,11 +15,13 @@ import retrofit2.http.Query;
 
 public interface InterfaceAreaBranch {
     @GET("coleteral")
-    Call<Colleteral> getColleteral();
+    Call<Colleteral> getColleteral(@Header("Authorization") String apiKey
+                                   );
 
     @GET("area/areas?filter[transaksi]=true&page[size]=100")
-    Call<Area> getArea();
+    Call<Area> getArea(@Header("Authorization") String apiKey);
 
     @GET("area/branches?page[size]=100")
-    Call<Branch> getBranch(@Query("filter[area_id]") String area_id);
+    Call<Branch> getBranch(@Header("Authorization") String apiKey,
+                           @Query("filter[area_id]") String area_id);
 }

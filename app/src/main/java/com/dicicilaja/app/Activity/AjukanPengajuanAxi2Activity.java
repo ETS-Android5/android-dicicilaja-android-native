@@ -17,6 +17,8 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -41,8 +43,6 @@ import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.app.API.Model.CreateRequest.CreateRequest;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
@@ -90,7 +90,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
     Service service;
     String mCurrentPhotoPath;
 
-    Data dataCustomer;
+    Datum dataCustomer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +151,7 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 callProfile.enqueue(new Callback<ProfileCustomer>() {
                     @Override
                     public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
-                        dataCustomer = response.body().getData();
+                        dataCustomer = response.body().getData().get(0);
 
                         try {
                             inputNama.setText(dataCustomer.getName().toString());
@@ -593,6 +593,8 @@ public class AjukanPengajuanAxi2Activity extends AppCompatActivity implements Ea
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {

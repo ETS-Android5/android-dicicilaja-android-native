@@ -50,6 +50,8 @@ public class TransactionActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.recycler_transaksi)
     RecyclerView recyclerTransaksi;
+    SessionManager session;
+    String apiKey;
 
     TransaksiAdapter adapter;
     @BindView(R.id.dataTrans)
@@ -60,8 +62,6 @@ public class TransactionActivity extends AppCompatActivity {
     NestedScrollView nestedTransaction;
     @BindView(R.id.pb_list)
     ProgressBar pbList;
-
-    SessionManager session;
 
     List<Included> dataIncl;
     List<Datum> dataTemp;
@@ -99,6 +99,7 @@ public class TransactionActivity extends AppCompatActivity {
 //        apiKey = "Bearer " + session.getToken();
 
         session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
         dataIncl = new ArrayList<>();
         dataTemp = new ArrayList<>();
 
@@ -140,7 +141,7 @@ public class TransactionActivity extends AppCompatActivity {
         showLoading(false);
         ApiService apiService = ApiClient3.getClient().create(ApiService.class);
 
-        Call<ClaimRewards> call = apiService.getClaimHistory(session.getNomorAxiId(), currentPage, "id", "desc");
+        Call<ClaimRewards> call = apiService.getClaimHistory(apiKey, session.getNomorAxiId(), currentPage, "id", "desc");
         call.enqueue(new Callback<ClaimRewards>() {
             @SuppressLint("WrongConstant")
             @Override

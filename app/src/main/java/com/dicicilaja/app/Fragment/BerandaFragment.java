@@ -416,7 +416,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
 //        file_maps.put("","https://dicicilaja.com/uploads/banner/0persen.jpg");
         InterfaceCustomerSlider apiSlider2 =
                 com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceCustomerSlider.class);
-        Call<Slider> call5 = apiSlider2.getSlider("1", "slider");
+        Call<Slider> call5 = apiSlider2.getSlider(apiKey, "1", "slider");
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {

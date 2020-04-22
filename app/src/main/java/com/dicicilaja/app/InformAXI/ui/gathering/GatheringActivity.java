@@ -19,6 +19,7 @@ import com.dicicilaja.app.InformAXI.network.NetworkClient;
 import com.dicicilaja.app.InformAXI.network.NetworkInterface;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ import retrofit2.Retrofit;
 import static com.dicicilaja.app.InformAXI.utils.Constants.GOOGLE_DOCS_PDF;
 
 public class GatheringActivity extends AppCompatActivity {
+
+    SessionManager session;
+    String apiKey;
 
     /* UI Region */
     private Toolbar toolbar;
@@ -45,6 +49,9 @@ public class GatheringActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gathering);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initVariables();
         initToolbar();
@@ -73,7 +80,7 @@ public class GatheringActivity extends AppCompatActivity {
          * Hardcoded ID and Branch ID
          */
         mCompositeDisposable.add(
-                jsonApi.getGatheringInfo(2, 2)
+                jsonApi.getGatheringInfo(apiKey, 2, 2)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetGatheringInfo, this::onError)

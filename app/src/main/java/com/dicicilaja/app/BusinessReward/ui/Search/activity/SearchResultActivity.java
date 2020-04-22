@@ -45,6 +45,8 @@ import retrofit2.Response;
 
 public class SearchResultActivity extends AppCompatActivity {
 
+    String apiKey;
+    SessionManager session;
     ListSearchAdapter listSearchAdapter;
     @BindView(R.id.recycler_search)
     RecyclerView recyclerSearch;
@@ -67,8 +69,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     ProgressDialog progress;
 
-    SessionManager session;
-
     int totalData = 1;
     int totalPage = 1;
     int currentPage = 1;
@@ -81,6 +81,9 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,7 +100,6 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         fabScrollTop.bringToFront();
-        session = new SessionManager(getBaseContext());
         dataTemp = new ArrayList<>();
 
         listSearchAdapter = new ListSearchAdapter(getBaseContext(), dataTemp);
@@ -164,7 +166,7 @@ public class SearchResultActivity extends AppCompatActivity {
         showLoading(false);
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<Produk> call = apiService.getProduk(barang_dicari);
+        Call<Produk> call = apiService.getProduk(apiKey, barang_dicari);
         call.enqueue(new Callback<Produk>() {
             @SuppressLint("WrongConstant")
             @Override

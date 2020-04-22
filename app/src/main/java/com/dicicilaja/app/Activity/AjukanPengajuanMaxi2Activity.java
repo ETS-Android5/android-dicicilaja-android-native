@@ -17,6 +17,8 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 
 import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,8 +43,6 @@ import com.dicicilaja.app.API.Interface.InterfaceCreateRequest;
 import com.dicicilaja.app.API.Interface.InterfaceCreateRequestMitra;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateRequestMitra.CreateRequestMitra;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
@@ -74,6 +74,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
     Button upload_ktp, upload_colleteral;
     ImageView image_ktp, image_colleteral;
     TextView textCheck;
+    String apiKey;
     SessionManager session;
     private Bitmap bitmap;
     private int PICK_IMAGE_KTP = 100;
@@ -87,7 +88,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
 
     String fileKtp, fileBpkb;
 
-    Data dataCustomer;
+    Datum dataCustomer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
         }
 
         session = new SessionManager(getBaseContext());
-        final String apiKey = "Bearer " + session.getToken();
+        apiKey = "Bearer " + session.getToken();
 
         inputNama = findViewById(R.id.inputNama);
         inputHp = findViewById(R.id.inputHp);
@@ -143,7 +144,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 callProfile.enqueue(new Callback<ProfileCustomer>() {
                     @Override
                     public void onResponse(Call<ProfileCustomer> call, Response<ProfileCustomer> response) {
-                        dataCustomer = response.body().getData();
+                        dataCustomer = response.body().getData().get(0);
 
                         try {
                             inputNama.setText(dataCustomer.getName().toString());
@@ -549,6 +550,8 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 //    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {

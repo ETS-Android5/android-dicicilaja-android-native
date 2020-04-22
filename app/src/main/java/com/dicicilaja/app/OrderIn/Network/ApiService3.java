@@ -26,11 +26,13 @@ public interface ApiService3 {
     Call<PlatNomor> getPlatNomor(@Query("vehicle_id") String nomor);
 
     @GET("profile/detail-axis/search")
-    Call<Axi> getAxi(@Query("nomor_axi_id") String id);
+    Call<Axi> getAxi(@Header("Authorization") String apiKey,
+                     @Query("nomor_axi_id") String id);
 
     @POST("profile/profiles/order-in")
     @FormUrlEncoded
-    Call<Profile> postProfil(@Field("nama") String name,
+    Call<Profile> postProfil(@Header("Authorization") String apiKey,
+                             @Field("nama") String name,
                              @Field("email") String email,
                              @Field("no_hp") String no_hp,
                              @Field("no_ktp") String no_ktp,

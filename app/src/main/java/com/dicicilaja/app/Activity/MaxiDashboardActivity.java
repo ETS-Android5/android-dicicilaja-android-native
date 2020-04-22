@@ -321,7 +321,7 @@ public class MaxiDashboardActivity extends AppCompatActivity implements BaseSlid
         InterfaceCustomerSlider apiSlider =
                 ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-        Call<Slider> call = apiSlider.getSlider("5", "slider");
+        Call<Slider> call = apiSlider.getSlider(apiKey, "5", "slider");
         call.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {

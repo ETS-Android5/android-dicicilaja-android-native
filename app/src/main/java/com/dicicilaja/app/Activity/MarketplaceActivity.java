@@ -601,7 +601,7 @@ public class MarketplaceActivity extends AppCompatActivity
         nanti.setEnabled(false);
 
         progress_popup.show();
-        Call<Popup> popupCall = apiService4.getPopup(session.getRole());
+        Call<Popup> popupCall = apiService4.getPopup(apiKey, session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {

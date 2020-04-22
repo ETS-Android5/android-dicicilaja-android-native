@@ -99,7 +99,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         if(content.equals("travel")){
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
-            Call<Slider> call5 = apiSlider.getSlider("9", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "9", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -125,7 +125,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<Slider> call5 = apiSlider.getSlider("10", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "10", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -148,7 +148,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<Slider> call5 = apiSlider.getSlider("11", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "11", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -171,7 +171,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<Slider> call5 = apiSlider.getSlider("12", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "12", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -194,7 +194,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<Slider> call5 = apiSlider.getSlider("13", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "13", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {
@@ -217,7 +217,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
             InterfaceCustomerSlider apiSlider =
                     ApiClient2.getClient().create(InterfaceCustomerSlider.class);
 
-            Call<Slider> call5 = apiSlider.getSlider("14", "slider");
+            Call<Slider> call5 = apiSlider.getSlider(apiKey, "14", "slider");
             call5.enqueue(new Callback<Slider>() {
                 @Override
                 public void onResponse(Call<Slider> call, Response<Slider> response) {

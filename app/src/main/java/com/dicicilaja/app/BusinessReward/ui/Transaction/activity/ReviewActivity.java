@@ -22,6 +22,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.testimoni.Testimoni;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,8 @@ import retrofit2.Response;
 
 public class ReviewActivity extends AppCompatActivity {
 
-
+    String apiKey;
+    SessionManager session;
     String id, user_id, isi_ulasan_text;
     float ratingValue;
     @BindView(R.id.toolbar)
@@ -71,6 +73,8 @@ public class ReviewActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
@@ -108,7 +112,7 @@ public class ReviewActivity extends AppCompatActivity {
                 Log.d("Testimo3", isi_ulasan_text);
                 Log.d("Testimo10", String.valueOf(isiUlasanText.getText()));
                 Log.d("Testimo4", String.valueOf(ratingValue));
-                Call<Testimoni> call = apiService.postTestimoni(user_id, id, "3", isi_ulasan_text, String.valueOf(ratingValue));
+                Call<Testimoni> call = apiService.postTestimoni(apiKey,user_id, id, "3", isi_ulasan_text, String.valueOf(ratingValue));
                 call.enqueue(new Callback<Testimoni>() {
                     @Override
                     public void onResponse(Call<Testimoni> call, Response<Testimoni> response) {

@@ -135,7 +135,7 @@ public class NasabahActivity extends AppCompatActivity {
     private void buatAkun(final String nama, final String email, final String no_hp, final String password) {
         InterfaceCreateCustomer apiService =
                 ApiClient2.getClient().create(InterfaceCreateCustomer.class);
-        Call<CreateCustomer> call = apiService.create(nama, email, no_hp, password, password);
+        Call<CreateCustomer> call = apiService.create(apiKey, nama, email, no_hp, password, password);
         call.enqueue(new Callback<CreateCustomer>() {
             @Override
             public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {

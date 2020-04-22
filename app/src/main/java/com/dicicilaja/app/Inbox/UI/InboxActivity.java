@@ -38,6 +38,8 @@ import retrofit2.Response;
 
 public class InboxActivity extends AppCompatActivity {
 
+    SessionManager session;
+    String apiKey;
     List<Datum> notifs;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -49,13 +51,15 @@ public class InboxActivity extends AppCompatActivity {
     LinearLayout order;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
-    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
         ButterKnife.bind(this);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initAction();
         initLoadData();
@@ -95,7 +99,7 @@ public class InboxActivity extends AppCompatActivity {
 
     private void initLoadData() {
         progress.show();
-        Call<Notif> call = apiService.getNotifPersonal(session.getUserIdOneSignal());
+        Call<Notif> call = apiService.getNotifPersonal(apiKey, session.getUserIdOneSignal());
         call.enqueue(new Callback<Notif>() {
             @Override
             public void onResponse(Call<Notif> call, Response<Notif> response) {

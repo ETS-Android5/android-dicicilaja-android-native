@@ -235,7 +235,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             }
         });
 
-        Call<ExistingPoint> call2 = api.getExistingPoint(session.getUserId());
+        Call<ExistingPoint> call2 = api.getExistingPoint(apiKey, session.getUserId());
 //        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<ExistingPoint>() {
             @Override
@@ -265,7 +265,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         });
 
 
-        Call<FotoKtpNpwp> callKtp = apiService.getFoto(session.getUserId());
+        Call<FotoKtpNpwp> callKtp = apiService.getFoto(apiKey, session.getUserId());
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
@@ -287,7 +287,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             }
         });
 
-        Call<KategoriProduk> call = apiService.getKategori();
+        Call<KategoriProduk> call = apiService.getKategori(apiKey);
         call.enqueue(new Callback<KategoriProduk>() {
             @SuppressLint("WrongConstant")
             @Override

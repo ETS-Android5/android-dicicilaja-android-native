@@ -74,6 +74,8 @@ import static com.dicicilaja.app.InformAXI.utils.Constants.SUB_PICKER;
  */
 public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemClickListener {
 
+    SessionManager session;
+    String apiKey;
     /* UI Region */
     private SwipeRefreshLayout swipeHome;
     private NestedScrollView nestedHome;
@@ -102,7 +104,6 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
     private String endDateStr = null;
 
     private SharedPreferences pref;
-    private SessionManager session;
 
     private CompositeDisposable mCompositeDisposable;
     private NetworkInterface jsonApi;
@@ -163,6 +164,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
         listAdapter = new AxiHomeAdapter(axiList, requireContext());
 
         session = new SessionManager(requireContext());
+        apiKey = "Bearer " + session.getToken();
         branchId = Integer.valueOf(session.getBranchId());
         branchName = session.getBranch();
 
@@ -237,7 +239,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
 
     private void getHomeData(int page) {
         mCompositeDisposable.add(
-                jsonApi.getHome(page, branchId, 10)
+                jsonApi.getHome(apiKey, page, branchId, 10)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetHomeData, this::onError)
@@ -247,7 +249,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
     private void getHomeDataWithFilter() {
         if (groupBy != null && sortBy != null) {
             mCompositeDisposable.add(
-                    jsonApi.getHomeDataWithFilter(groupBy, sortBy, 12, page, branchId)
+                    jsonApi.getHomeDataWithFilter(apiKey, groupBy, sortBy, 12, page, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessGetHomeData, this::onError)
@@ -259,14 +261,14 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
     private void getHomeDataWithFilters(int page) {
         if (startDate != null && endDate != null)
             mCompositeDisposable.add(
-                    jsonApi.getHomeWithFilter(status, date, startDate, endDate, page, branchId)
+                    jsonApi.getHomeWithFilter(apiKey, status, date, startDate, endDate, page, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessGetHomeData, this::onError)
             );
         else
             mCompositeDisposable.add(
-                    jsonApi.getHomeWithFilter(status, date, page, branchId)
+                    jsonApi.getHomeWithFilter(apiKey, status, date, page, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessGetHomeData, this::onError)

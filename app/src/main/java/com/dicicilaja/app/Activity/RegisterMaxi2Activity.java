@@ -400,7 +400,7 @@ public class RegisterMaxi2Activity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
+        Call<Provinsi> call = apiServiceArea.getProvinsi(apiKey, 1000);
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
@@ -481,7 +481,7 @@ public class RegisterMaxi2Activity extends AppCompatActivity {
                 clearDesa();
                 if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
+                    Call<Kota> call = apiServiceArea.getKota(apiKey, PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
                     call.enqueue(new Callback<Kota>() {
                         @Override
                         public void onResponse(Call<Kota> call, Response<Kota> response) {
@@ -559,7 +559,7 @@ public class RegisterMaxi2Activity extends AppCompatActivity {
                             clearDesa();
                             if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<Kecamatan> call = apiServiceArea.getKecamatan(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
+                                Call<Kecamatan> call = apiServiceArea.getKecamatan(apiKey, KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
                                 call.enqueue(new Callback<Kecamatan>() {
                                     @Override
                                     public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
@@ -636,7 +636,7 @@ public class RegisterMaxi2Activity extends AppCompatActivity {
                                         clearDesa();
                                         if (Integer.parseInt(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<Kelurahan> call = apiServiceArea.getKelurahan(DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()), 1000);
+                                            Call<Kelurahan> call = apiServiceArea.getKelurahan(apiKey, DISTRIK_DATA.get(spinnerDistrik.getSelectedItemPosition()), 1000);
                                             call.enqueue(new Callback<Kelurahan>() {
                                                 @Override
                                                 public void onResponse(Call<Kelurahan> call, Response<Kelurahan> response) {

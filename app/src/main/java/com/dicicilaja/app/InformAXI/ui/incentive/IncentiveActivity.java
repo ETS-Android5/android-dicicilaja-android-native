@@ -13,6 +13,7 @@ import com.dicicilaja.app.InformAXI.network.NetworkClient;
 import com.dicicilaja.app.InformAXI.network.NetworkInterface;
 import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,6 +26,9 @@ import static com.dicicilaja.app.InformAXI.utils.Constants.INCENTIVE;
 import static com.dicicilaja.app.InformAXI.utils.Constants.PROFILE_ID;
 
 public class IncentiveActivity extends AppCompatActivity {
+
+    SessionManager session;
+    String apiKey;
 
     private Toolbar toolbar;
     private TextView tvAppreciate;
@@ -46,6 +50,9 @@ public class IncentiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incentive);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initVariables();
         initToolbar();
@@ -97,7 +104,7 @@ public class IncentiveActivity extends AppCompatActivity {
 
     private void getIncentive() {
         mCompositeDisposable.add(
-                jsonApi.getBikeIncentive(id, incentiveType)
+                jsonApi.getBikeIncentive(apiKey, id, incentiveType)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetIncentive, this::onError)

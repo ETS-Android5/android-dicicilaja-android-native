@@ -77,6 +77,7 @@ import retrofit2.Response;
 
 public class OrderInActivity extends AppCompatActivity {
 
+    String apiKey;
     @BindView(R.id.txt_program_cicilan)
     TextView txtProgramCicilan;
     @BindView(R.id.hide)
@@ -200,6 +201,7 @@ public class OrderInActivity extends AppCompatActivity {
 
         session = new SessionOrderIn(OrderInActivity.this);
         sessionUser = new SessionManager(OrderInActivity.this);
+        apiKey = "Bearer " + sessionUser.getToken();
 
         session.clearOrderIn();
 
@@ -876,7 +878,7 @@ public class OrderInActivity extends AppCompatActivity {
                     cariAxiClose.setVisibility(View.VISIBLE);
                     cariAxi.setVisibility(View.GONE);
 
-                    Call<Axi> axiReff = apiService3.getAxi(etAxiIdReff.getText().toString());
+                    Call<Axi> axiReff = apiService3.getAxi(apiKey, etAxiIdReff.getText().toString());
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {

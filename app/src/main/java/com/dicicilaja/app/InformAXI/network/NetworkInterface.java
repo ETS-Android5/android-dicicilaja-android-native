@@ -10,17 +10,15 @@ import com.dicicilaja.app.InformAXI.model.TripInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
-
-/**
- * Created by Husni with ❤
- */
 
 public interface NetworkInterface {
 
     @GET("v2/profile/axi/filterDashboard")
     Observable<AxiHome>
-    getHomeDataWithFilter(@Query("group") String group,
+    getHomeDataWithFilter(@Header("Authorization") String apiKey,
+                          @Query("group") String group,
                           @Query("ot") String orderBy,
                           @Query("limit") int limit,
                           @Query("page") int page,
@@ -28,7 +26,8 @@ public interface NetworkInterface {
 
     @GET("v2/profile/axi/list")
     Observable<AxiHome>
-    getRegListDetail(@Query("date") String date,
+    getRegListDetail(@Header("Authorization") String apiKey,
+                     @Query("date") String date,
                      @Query("cabang_id") int branchId);
 
     /**
@@ -41,12 +40,14 @@ public interface NetworkInterface {
 
     @GET("v2/profile/axi/informasi-trip")
     Observable<TripInfo>
-    getTripInfo(@Query("id") int id,
+    getTripInfo(@Header("Authorization") String apiKey,
+                @Query("id") int id,
                 @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/gathering")
     Observable<GatheringInfo>
-    getGatheringInfo(@Query("id") int id,
+    getGatheringInfo(@Header("Authorization") String apiKey,
+                     @Query("id") int id,
                      @Query("cabang_id") int branchId);
 
     /**
@@ -62,7 +63,8 @@ public interface NetworkInterface {
      */
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
-    searchWithFilter(@Query("status") String status,
+    searchWithFilter(@Header("Authorization") String apiKey,
+                     @Query("status") String status,
                      @Query("date") String date,
                      @Query("from") String from,
                      @Query("to") String to,
@@ -81,7 +83,8 @@ public interface NetworkInterface {
      */
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
-    searchWithFilter(@Query("status") String status,
+    searchWithFilter(@Header("Authorization") String apiKey,
+                     @Query("status") String status,
                      @Query("date") String date,
                      @Query("page") int page,
                      @Query("all") String all,
@@ -89,7 +92,8 @@ public interface NetworkInterface {
 
     @GET("v2/profile/axi/detail-intensif")
     Observable<Incentive>
-    getBikeIncentive(@Query("id") int id,
+    getBikeIncentive(@Header("Authorization") String apiKey,
+                     @Query("id") int id,
                      @Query("type") String type);
 
     /**
@@ -105,7 +109,8 @@ public interface NetworkInterface {
     @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
-    getHomeWithFilter(@Query("status") String status,
+    getHomeWithFilter(@Header("Authorization") String apiKey,
+                      @Query("status") String status,
                       @Query("date") String date,
                       @Query("from") String from,
                       @Query("to") String to,
@@ -123,29 +128,34 @@ public interface NetworkInterface {
     @Deprecated
     @GET("v2/profile/axi/filter")
     Observable<AxiHome>
-    getHomeWithFilter(@Query("status") String status,
+    getHomeWithFilter(@Header("Authorization") String apiKey,
+                      @Query("status") String status,
                       @Query("date") String date,
                       @Query("page") int page,
                       @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/home")
     Observable<AxiHome>
-    getHome(@Query("page") int page,
+    getHome(@Header("Authorization") String apiKey,
+            @Query("page") int page,
             @Query("cabang_id") int branchId,
             @Query("show") int show);
 
     @GET("v2/profile/axi/detail")
     Observable<AxiProfile>
-    getDetail(@Query("id") int id);
+    getDetail(@Header("Authorization") String apiKey,
+              @Query("id") int id);
 
     @GET("v2/profile/axi/search")
     Observable<AxiHome>
-    doSearch(@Query("page") int page,
+    doSearch(@Header("Authorization") String apiKey,
+             @Query("page") int page,
              @Query("all") String keyword,
              @Query("cabang_id") int branchId);
 
     @GET("v2/profile/axi/registration")
     Observable<AxiRegister>
-    getRegistration(@Query("cabang_id") int branchId);
+    getRegistration(@Header("Authorization") String apiKey,
+                    @Query("cabang_id") int branchId);
 
 }

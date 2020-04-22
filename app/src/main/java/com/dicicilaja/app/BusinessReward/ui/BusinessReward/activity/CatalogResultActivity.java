@@ -32,6 +32,7 @@ import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListAllProduc
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.adapter.ListProductCatalogAdapter;
 import com.dicicilaja.app.BusinessReward.ui.DetailProduct.activity.PilihCabangVendorActivity;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,8 @@ public class CatalogResultActivity extends AppCompatActivity {
     RadioButton rb;
     RadioGroup rg;
     Button btnOk;
+    SessionManager session;
+    String apiKey;
 
     final HashMap<Integer, String> KATEGORI_ITEMS = new HashMap<Integer, String>();
     final HashMap<Integer, String> KATEGORI_DATA = new HashMap<Integer, String>();
@@ -84,6 +87,9 @@ public class CatalogResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_catalog_result);
         ButterKnife.bind(this);
 
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
+
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -95,6 +101,7 @@ public class CatalogResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         apiService = ApiClient.getClient().create(ApiService.class);
+
 
         stringList = new ArrayList<>();
 
@@ -143,7 +150,7 @@ public class CatalogResultActivity extends AppCompatActivity {
 //                }
 //            });
 
-            call2 = apiService.getProdukAll(id);
+            call2 = apiService.getProdukAll(apiKey, id);
 
             call2.enqueue(new Callback<Produk>() {
                 @SuppressLint("WrongConstant")
@@ -164,7 +171,7 @@ public class CatalogResultActivity extends AppCompatActivity {
             });
         }
         else{
-            call2 = apiService.getProdukSort(id, "nama", order_by);
+            call2 = apiService.getProdukSort(apiKey, id, "nama", order_by);
 
             call2.enqueue(new Callback<Produk>() {
                 @SuppressLint("WrongConstant")

@@ -60,6 +60,9 @@ import static com.dicicilaja.app.InformAXI.utils.Constants.SUB_PICKER;
 
 public class SearchActivity extends AppCompatActivity {
 
+    SessionManager session;
+    String apiKey;
+
     /* UI Region */
     private Toolbar toolbarSearch;
     private RecyclerView rvSearch;
@@ -88,12 +91,13 @@ public class SearchActivity extends AppCompatActivity {
     private int lastPage = 0;
     private int branchId = -1;
 
-    private SessionManager session;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informaxi_search);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initVariables();
         initToolbar();
@@ -122,7 +126,6 @@ public class SearchActivity extends AppCompatActivity {
         axiList = new ArrayList<>();
 
         searchAdapter = new AxiHomeAdapter(axiList, this);
-        session = new SessionManager(this);
         branchId = Integer.parseInt(session.getBranchId());
 
         mCompositeDisposable = new CompositeDisposable();
@@ -172,7 +175,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void search(String keyword, int page) {
         mCompositeDisposable.add(
-                jsonApi.doSearch(page, keyword, branchId)
+                jsonApi.doSearch(apiKey, page, keyword, branchId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessSearch, this::onError)
@@ -182,14 +185,14 @@ public class SearchActivity extends AppCompatActivity {
     private void searchWithFilter(String keyword, int page) {
         if (startDate != null && endDate != null)
             mCompositeDisposable.add(
-                    jsonApi.searchWithFilter(status, date, startDate, endDate, page, keyword, branchId)
+                    jsonApi.searchWithFilter(apiKey, status, date, startDate, endDate, page, keyword, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessSearch, this::onError)
             );
         else
             mCompositeDisposable.add(
-                    jsonApi.searchWithFilter(status, date, page, keyword, branchId)
+                    jsonApi.searchWithFilter(apiKey, status, date, page, keyword, branchId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onSuccessSearch, this::onError)

@@ -31,6 +31,9 @@ import retrofit2.Retrofit;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    SessionManager session;
+    String apiKey;
+
     /* UI Region */
     private Toolbar toolbar;
     private RecyclerView rvRegister;
@@ -44,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
     private NetworkInterface jsonApi;
 
     private SharedPreferences pref;
-    private SessionManager session;
 
     private int branchId = -1;
 
@@ -52,6 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informaxi_register);
+
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
 
         initVariables();
         initToolbar();
@@ -72,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
         //if (!pref.getString("branch_id", "").isEmpty())
         //    branchId = Integer.valueOf(pref.getString("branch_id", ""));
 
-        session = new SessionManager(this);
         branchId = Integer.valueOf(session.getBranchId());
 
         mCompositeDisposable = new CompositeDisposable();
@@ -97,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void getRegistration() {
         mCompositeDisposable.add(
-                jsonApi.getRegistration(branchId)
+                jsonApi.getRegistration(apiKey, branchId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::onSuccessGetRegistration, this::onError)

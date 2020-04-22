@@ -37,6 +37,9 @@ import retrofit2.Retrofit;
 
 public class DetailRegisterActivity extends AppCompatActivity {
 
+    SessionManager session;
+    String apiKey;
+
     /* UI Region */
     private Toolbar toolbar;
     private RecyclerView rvDetailRegister;
@@ -49,7 +52,6 @@ public class DetailRegisterActivity extends AppCompatActivity {
     private CompositeDisposable mCompositeDisposable;
     private NetworkInterface jsonApi;
 
-    private SessionManager session;
     private AxiHomeAdapter adapter;
 
     private int branchId = -1;
@@ -76,7 +78,8 @@ public class DetailRegisterActivity extends AppCompatActivity {
         pbDetail = findViewById(R.id.pb_detail);
         emptyContainer = findViewById(R.id.empty_container);
 
-        session = new SessionManager(this);
+        session = new SessionManager(getApplicationContext());
+        apiKey = "Bearer " + session.getToken();
         branchId = Integer.valueOf(session.getBranchId());
 
         regDetailList = new ArrayList<>();
@@ -105,7 +108,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
 
     private void getRegListDetail() {
         mCompositeDisposable.add(
-                jsonApi.getRegListDetail(monthId, branchId)
+                jsonApi.getRegListDetail(apiKey, monthId, branchId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> pbDetail.setVisibility(View.VISIBLE))

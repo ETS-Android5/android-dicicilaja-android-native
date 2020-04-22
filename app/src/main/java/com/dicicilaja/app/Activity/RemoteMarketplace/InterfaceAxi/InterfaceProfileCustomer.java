@@ -7,12 +7,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Path;
 
 public interface InterfaceProfileCustomer {
     @Headers({
             "Accept: application/json",
     })
-    @GET("bffnew/customer/profile/")
+    @GET("customer/profile")
     Call<ProfileCustomer> getProfile(@Header("Authorization") String apiKey);
 }

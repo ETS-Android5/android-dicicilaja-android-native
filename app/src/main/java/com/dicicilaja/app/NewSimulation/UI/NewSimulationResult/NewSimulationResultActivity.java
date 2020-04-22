@@ -855,7 +855,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
 
 
-                Call<Axi> axiReff = apiService3.getAxi(session.getNomorAxiId());
+                Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
                 axiReff.enqueue(new Callback<Axi>() {
                     @Override
                     public void onResponse(Call<Axi> call, Response<Axi> response) {

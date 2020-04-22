@@ -16,9 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "https://apiuatbusiness.dicicilaja.com/api/";
-    public static final String BASE_URL2 = "https://api.dicicilaja.com";
-    public static final String BASE_URL3 = "https://dev.dicicilaja.com/v2/reward-cart/";
+    public static final String BASE_URL = "https://dev.dicicilaja.com/v2/reward/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -37,52 +35,6 @@ public class ApiClient {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-
-    public static Retrofit getClient2() {
-        if (retrofit==null) {
-            Cache cache = null;
-
-            RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
-
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .cache(cache)
-                    .connectTimeout(2, TimeUnit.MINUTES)
-                    .readTimeout(2, TimeUnit.MINUTES)
-                    .writeTimeout(2, TimeUnit.MINUTES)
-                    .build();
-
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL2)
-                    .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-
-    public static Retrofit getClient3() {
-        if (retrofit==null) {
-            Cache cache = null;
-
-            RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
-
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .cache(cache)
-                    .connectTimeout(2, TimeUnit.MINUTES)
-                    .readTimeout(2, TimeUnit.MINUTES)
-                    .writeTimeout(2, TimeUnit.MINUTES)
-                    .build();
-
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL3)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
