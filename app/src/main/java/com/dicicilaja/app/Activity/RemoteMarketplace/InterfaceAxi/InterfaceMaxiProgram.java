@@ -1,6 +1,7 @@
 package com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi;
 
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.MaxiProgram;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.ItemMaxiProgram;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -15,6 +16,6 @@ public interface InterfaceMaxiProgram {
     @Headers({
             "Accept: application/json",
     })
-    @GET("bffnew/maxi/{slug}")
-    Call<MaxiProgram> getProduct(@Header("Authorization") String apiKey, @Path("slug") String slug);
+    @GET("product/slug/{slug}")
+    Call<ItemMaxiProgram> getProduct(@Header("Authorization") String apiKey, @Path("slug") String slug);
 }

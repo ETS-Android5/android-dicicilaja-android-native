@@ -19,14 +19,10 @@ import android.view.WindowManager;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAsuransi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceEdukasi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceExtraguna;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceSehat;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceTravel;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUsaha;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.ItemMaxiProgram;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Slider;
 import com.dicicilaja.app.Adapter.ListMaxiAdapter;
@@ -39,8 +35,6 @@ import java.util.List;
 
 import com.dicicilaja.app.API.Model.Product.SectionDataModel;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceMaxiProgram;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.MaxiProgram;
 import com.dicicilaja.app.Content.PromoModel;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
@@ -243,19 +237,19 @@ public class ProductCategoryActivity extends AppCompatActivity implements BaseSl
         search.setLayoutManager(new GridLayoutManager(this, 2));
 
         InterfaceMaxiProgram apiService =
-                ApiClient2.getClient().create(InterfaceMaxiProgram.class);
+                ApiClient.getClient().create(InterfaceMaxiProgram.class);
 
-        Call<MaxiProgram> call = apiService.getProduct(apiKey, content);
-        call.enqueue(new Callback<MaxiProgram>() {
+        Call<ItemMaxiProgram> call = apiService.getProduct(apiKey, content);
+        call.enqueue(new Callback<ItemMaxiProgram>() {
             @Override
-            public void onResponse(Call<MaxiProgram> call, Response<MaxiProgram> response) {
-                List<Data> maxi = response.body().getData();
+            public void onResponse(Call<ItemMaxiProgram> call, Response<ItemMaxiProgram> response) {
+                List<com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Datum> maxi = response.body().getData();
                 search.setAdapter(new ListMaxiAdapter(maxi, getBaseContext()));
                 progress.dismiss();
             }
 
             @Override
-            public void onFailure(Call<MaxiProgram> call, Throwable t) {
+            public void onFailure(Call<ItemMaxiProgram> call, Throwable t) {
 
             }
         });

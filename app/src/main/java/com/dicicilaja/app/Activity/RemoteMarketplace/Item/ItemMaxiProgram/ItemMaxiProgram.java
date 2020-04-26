@@ -1,21 +1,18 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class ItemMaxiProgram {
 
-/**
- * Created by fawazrifqi on 13/05/18.
- */
-
-public class MaxiProgram {
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private List<Data> data = null;
+    private List<Datum> data = null;
 
     public String getStatus() {
         return status;
@@ -25,13 +22,12 @@ public class MaxiProgram {
         this.status = status;
     }
 
-    public List<Data> getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(List<Data> data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
-
 
 }

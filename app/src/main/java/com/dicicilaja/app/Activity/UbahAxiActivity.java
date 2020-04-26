@@ -58,7 +58,7 @@ public class UbahAxiActivity extends AppCompatActivity {
 
     SessionManager session;
     ProgressDialog progress;
-    String namaLengkap,tempatLahir,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk, kdBank,NPWP,namaBank,cabang,rekening,AN,kotaBank;
+    String idBank,namaLengkap,tanggal,noHp,email,alamat,rtRw,kelurahan,kecamatan,provinsi,kodepos,jk, kdBank,NPWP,namaBank,cabang,rekening,AN,kotaBank;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +78,9 @@ public class UbahAxiActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorAccentDark));
         }
 
-        jenisKelamin        = findViewById(R.id.spinnerJenisKelamin);
+//        jenisKelamin        = findViewById(R.id.spinnerJenisKelamin);
         inputNamaLengkap    = findViewById(R.id.inputNamaLengkap);
-        inputTempatLahir    = findViewById(R.id.inputTempatLahir);
-        inputTanggal        = findViewById(R.id.inputTanggal);
+//        inputTanggal        = findViewById(R.id.inputTanggal);
         inputNoHp           = findViewById(R.id.inputNoHp);
         inputEmail          = findViewById(R.id.inputEmail);
         inputAlamat         = findViewById(R.id.inputAlamat);
@@ -99,8 +98,8 @@ public class UbahAxiActivity extends AppCompatActivity {
         save                = findViewById(R.id.save);
 
         inputNamaLengkap.setText(getIntent().getStringExtra("name_user"));
-        inputTempatLahir.setText(getIntent().getStringExtra("api_tempat_lahir"));
-        inputTanggal.setText(getIntent().getStringExtra("api_tanggal_lahir"));
+//        inputTempatLahir.setText(getIntent().getStringExtra("api_tempat_lahir"));
+//        inputTanggal.setText(getIntent().getStringExtra("api_tanggal_lahir"));
         inputNoHp.setText(getIntent().getStringExtra("api_no_hp"));
         inputEmail.setText(getIntent().getStringExtra("api_email"));
         inputAlamat.setText(getIntent().getStringExtra("api_alamat"));
@@ -110,43 +109,42 @@ public class UbahAxiActivity extends AppCompatActivity {
 //        inputProvinsi.setText(getIntent().getStringExtra("api_provinsi"));
 //        inputKodepos.setText(getIntent().getStringExtra("api_kodepos"));
         inputNPWP.setText(getIntent().getStringExtra("api_no_npwp"));
-//        kodeBank.setSelection(Integer.parseInt(getIntent().getStringExtra("api_kode_bank")));
         inputCabang.setText(getIntent().getStringExtra("api_cabang_bank"));
         inputRekening.setText(getIntent().getStringExtra("api_no_rekening"));
         inputAN.setText(getIntent().getStringExtra("api_an_rekening"));
         inputKotaBank.setText(getIntent().getStringExtra("api_kota_bank"));
-        jenisKelamin.setSelection(Integer.parseInt(getIntent().getStringExtra("api_jk")));
+//        jenisKelamin.setSelection(Integer.parseInt(getIntent().getStringExtra("api_jk")));
 
         progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
 
 
-        inputTanggal.setKeyListener(null);
-        inputTanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment dialogfragment = new UbahAxiActivity.DatePickerDialogTheme4();
-
-                dialogfragment.show(getSupportFragmentManager(), "Theme 4");
-            }
-        });
-        final List<String> JK_ITEMS = new ArrayList<>();
-        final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
+//        inputTanggal.setKeyListener(null);
+//        inputTanggal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DialogFragment dialogfragment = new UbahAxiActivity.DatePickerDialogTheme4();
+//
+//                dialogfragment.show(getSupportFragmentManager(), "Theme 4");
+//            }
+//        });
+//        final List<String> JK_ITEMS = new ArrayList<>();
+//        final HashMap<Integer, String> JK_DATA = new HashMap<Integer, String>();
         final List<String> KODEBANK_ITEMS = new ArrayList<>();
         final HashMap<Integer, String> KODEBANK_DATA = new HashMap<Integer, String>();
 
-        JK_ITEMS.clear();
-        JK_DATA.clear();
+//        JK_ITEMS.clear();
+//        JK_DATA.clear();
+//
+//        JK_DATA.put(1, "L");
+//        JK_DATA.put(2, "P");
+//        JK_ITEMS.add("Laki-laki");
+//        JK_ITEMS.add("Perempuan");
 
-        JK_DATA.put(1, "L");
-        JK_DATA.put(2, "P");
-        JK_ITEMS.add("Laki-laki");
-        JK_ITEMS.add("Perempuan");
-
-        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JK_ITEMS);
-        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        jenisKelamin.setAdapter(tenor_adapter);
+//        ArrayAdapter<String> tenor_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, JK_ITEMS);
+//        tenor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        jenisKelamin.setAdapter(tenor_adapter);
 
         apiService = ApiClient2.getClient().create(InterfaceKodeBank.class);
 
@@ -170,6 +168,7 @@ public class UbahAxiActivity extends AppCompatActivity {
                                 KODEBANK_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
                             }
                             progress.dismiss();
+                            kodeBank.setSelection(Integer.parseInt(getIntent().getStringExtra("api_id_bank")));
                         } else {
                             KODEBANK_DATA.clear();
                             KODEBANK_ITEMS.clear();
@@ -225,10 +224,9 @@ public class UbahAxiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    jk = JK_DATA.get(jenisKelamin.getSelectedItemPosition());
+//                    jk = JK_DATA.get(jenisKelamin.getSelectedItemPosition());
                     namaLengkap = inputNamaLengkap.getText().toString();
-                    tempatLahir = inputTempatLahir.getText().toString();
-                    tanggal = inputTanggal.getText().toString();
+//                    tanggal = inputTanggal.getText().toString();
                     noHp = inputNoHp.getText().toString();
                     email = inputEmail.getText().toString();
                     alamat = inputAlamat.getText().toString();
@@ -246,8 +244,8 @@ public class UbahAxiActivity extends AppCompatActivity {
                 } catch (Exception ex) {
 
                 }
-                if(validateForm(namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,kdBank,cabang,rekening,AN,kotaBank)) {
-                    ubahAxi(apiKey,namaLengkap,tempatLahir,tanggal,noHp,email,alamat,jk,NPWP,kdBank,cabang,rekening,AN,kotaBank);
+                if(validateForm(namaLengkap,noHp,email,alamat,NPWP,kdBank,cabang,rekening,AN,kotaBank)) {
+                    ubahAxi(apiKey,namaLengkap,noHp,email,alamat,NPWP,kdBank,cabang,rekening,AN,kotaBank);
 
                 }
             }
@@ -256,12 +254,9 @@ public class UbahAxiActivity extends AppCompatActivity {
     private void ubahAxi(
             final String apiKey,
             final String namaLengkap,
-            final String tempatLahir,
-            final String tanggal,
             final String noHp,
             final String email,
             final String alamat,
-            final String jk,
             final String NPWP,
             final String kdBank,
             final String cabang,
@@ -275,12 +270,9 @@ public class UbahAxiActivity extends AppCompatActivity {
         Call<UbahAxi> call = apiService.change(
                 apiKey,
                 namaLengkap,
-                tempatLahir,
-                tanggal,
                 noHp,
                 email,
                 alamat,
-                jk,
                 NPWP,
                 kdBank,
                 cabang,
@@ -308,7 +300,7 @@ public class UbahAxiActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm(String namaLengkap, String tempatLahir, String tanggal, String noHp, String email, String alamat, String jk, String NPWP, String kdBank, String cabang, String rekening, String AN, String kotaBank) {
+    private boolean validateForm(String namaLengkap, String noHp, String email, String alamat, String NPWP, String kdBank, String cabang, String rekening, String AN, String kotaBank) {
         if(namaLengkap == null || namaLengkap.trim().length() == 0 || namaLengkap.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
             alertDialog.setMessage("Masukan nama lengkap");
@@ -322,31 +314,18 @@ public class UbahAxiActivity extends AppCompatActivity {
             return false;
         }
 
-        if(tempatLahir == null || tempatLahir.trim().length() == 0 || tempatLahir.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan tempat lahir");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputTempatLahir);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
-
-        if(tanggal == null || tanggal.trim().length() == 0 || tanggal.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Masukan tanggal lahir");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(inputTanggal);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
+//        if(tempatLahir == null || tempatLahir.trim().length() == 0 || tempatLahir.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Masukan tempat lahir");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(inputTempatLahir);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
 
         if(noHp == null || noHp.trim().length() == 0 || noHp.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
@@ -452,18 +431,18 @@ public class UbahAxiActivity extends AppCompatActivity {
 //            return false;
 //        }
 
-        if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
-            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
-            alertDialog.setMessage("Pilih jenis kelamin");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    requestFocus(jenisKelamin);
-                }
-            });
-            alertDialog.show();
-            return false;
-        }
+//        if(jk == null || jk.trim().length() == 0 || jk.equals("0")) {
+//            androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
+//            alertDialog.setMessage("Pilih jenis kelamin");
+//
+//            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    requestFocus(jenisKelamin);
+//                }
+//            });
+//            alertDialog.show();
+//            return false;
+//        }
 
         if(NPWP == null || NPWP.trim().length() == 0 || NPWP.equals("0")) {
             androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(UbahAxiActivity.this);
@@ -561,38 +540,38 @@ public class UbahAxiActivity extends AppCompatActivity {
         return true;
     }
 
-    public static class DatePickerDialogTheme4 extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState){
-            final Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
-                    AlertDialog.THEME_HOLO_LIGHT,this,year,month,day);
-
-            return datepickerdialog;
-        }
-        public void onDateSet(DatePicker view, int year, int month, int day){
-
-            EditText textview = (EditText)getActivity().findViewById(R.id.inputTanggal);
-
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String dateInString = year + "-" + (month + 1) + "-" + day;
-                Date date = formatter.parse(dateInString);
-
-                formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-                textview.setText(formatter.format(date).toString());
-
-
-            } catch (Exception ex) {
-
-            }
-
-        }
-    }
+//    public static class DatePickerDialogTheme4 extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+//
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState){
+//            final Calendar calendar = Calendar.getInstance();
+//            int year = calendar.get(Calendar.YEAR);
+//            int month = calendar.get(Calendar.MONTH);
+//            int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
+//                    AlertDialog.THEME_HOLO_LIGHT,this,year,month,day);
+//
+//            return datepickerdialog;
+//        }
+//        public void onDateSet(DatePicker view, int year, int month, int day){
+//
+//            EditText textview = (EditText)getActivity().findViewById(R.id.inputTanggal);
+//
+//            try {
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                String dateInString = year + "-" + (month + 1) + "-" + day;
+//                Date date = formatter.parse(dateInString);
+//
+//                formatter = new SimpleDateFormat("yyyy-MM-dd");
+//
+//                textview.setText(formatter.format(date).toString());
+//
+//
+//            } catch (Exception ex) {
+//
+//            }
+//
+//        }
+//    }
 }

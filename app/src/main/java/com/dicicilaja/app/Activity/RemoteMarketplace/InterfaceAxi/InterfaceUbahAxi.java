@@ -23,12 +23,9 @@ public interface InterfaceUbahAxi {
     @FormUrlEncoded
     Call<UbahAxi> change(@Header("Authorization") String apiKey,
                          @Field("namaLengkap") String namaLengkap,
-                         @Field("tempatLahir") String tempatLahir,
-                         @Field("tanggal") String tanggal,
                          @Field("noHp") String noHp,
                          @Field("email") String email,
                          @Field("alamat") String alamat,
-                         @Field("jk") String jk,
                          @Field("NPWP") String NPWP,
                          @Field("namaBank") String namaBank,
                          @Field("cabang") String cabang,

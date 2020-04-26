@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
         search.setHasFixedSize(true);
         search.setLayoutManager(new GridLayoutManager(this, 2));
         InterfaceAllProduk apiService =
-                ApiClient2.getClient().create(InterfaceAllProduk.class);
+                ApiClient.getClient().create(InterfaceAllProduk.class);
 
         Call<AllProduk> call = apiService.getProduct();
         call.enqueue(new Callback<AllProduk>() {

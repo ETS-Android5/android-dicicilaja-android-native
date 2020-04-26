@@ -1,15 +1,12 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class Datum {
 
-/**
- * Created by fawazrifqi on 13/05/18.
- */
-
-public class Data {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -33,10 +30,10 @@ public class Data {
     private String excerpt;
     @SerializedName("views")
     @Expose
-    private Integer views;
+    private String views;
     @SerializedName("tenor")
     @Expose
-    private List<TenorItem> tenor;
+    private List<List<Tenor>> tenor = null;
 
     public Integer getId() {
         return id;
@@ -94,19 +91,20 @@ public class Data {
         this.excerpt = excerpt;
     }
 
-    public Integer getViews() {
+    public String getViews() {
         return views;
     }
 
-    public void setViews(Integer views) {
+    public void setViews(String views) {
         this.views = views;
     }
 
-    public List<TenorItem> getTenor() {
+    public List<List<Tenor>> getTenor() {
         return tenor;
     }
 
-    public void setTenor(List<TenorItem> tenor) {
+    public void setTenor(List<List<Tenor>> tenor) {
         this.tenor = tenor;
     }
+
 }

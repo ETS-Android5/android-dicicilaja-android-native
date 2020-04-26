@@ -635,7 +635,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceAxiDetail apiService5 =
-                com.dicicilaja.app.API.Client.ApiClient2.getClient().create(InterfaceAxiDetail.class);
+                com.dicicilaja.app.API.Client.ApiClient.getClient().create(InterfaceAxiDetail.class);
 
 //        showLoading();
         Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
@@ -676,10 +676,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 if (response.isSuccessful()) {
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-                    Log.d("DISNI", String.valueOf(infoJaringan.size()));
                     contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
                 } else {
-                    Log.d("DISNI", "ERROR");
+                    Log.d("ERROR", "ERROR");
                 }
 
             }

@@ -165,55 +165,55 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutTempatLahir"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tempat Lahir *"
-                    android:layout_marginTop="16dp">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/inputLayoutTempatLahir"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Tempat Lahir *"-->
+<!--                    android:layout_marginTop="16dp">-->
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputTempatLahir"
-                        android:layout_width="match_parent"
-                        app:met_helperText="Contoh : Cirebon"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="textPersonName|textCapWords"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@id/inputTanggal"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+<!--                        android:id="@+id/inputTempatLahir"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        app:met_helperText="Contoh : Cirebon"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:inputType="textPersonName|textCapWords"-->
+<!--                        android:imeOptions="actionNext"-->
+<!--                        android:nextFocusDown="@id/inputTanggal"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:fontFamily="sans-serif"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="14sp"/>-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutTanggal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tanggal Lahir *"
-                    android:layout_marginTop="16dp">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/inputLayoutTanggal"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Tanggal Lahir *"-->
+<!--                    android:layout_marginTop="16dp">-->
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputTanggal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:met_helperText="Contoh : 17/08/1945"
-                        android:layout_centerHorizontal="true"
-                        android:inputType="date"
-                        android:focusable="false"
-                        android:clickable="false"
-                        android:focusableInTouchMode="false"
-                        android:cursorVisible="false"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
+<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+<!--                        android:id="@+id/inputTanggal"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:met_helperText="Contoh : 17/08/1945"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:inputType="date"-->
+<!--                        android:focusable="false"-->
+<!--                        android:clickable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:cursorVisible="false"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:fontFamily="sans-serif"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="14sp"/>-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNoHp"
@@ -405,37 +405,37 @@
 
 <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputLayoutJenisKelamin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/inputLayoutJenisKelamin"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="5dp">-->
 
-                    <fr.ganfra.materialspinner.MaterialSpinner
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/spinnerJenisKelamin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ms_multiline="false"
-                        app:ms_dropDownHintView="@layout/dropdown_hint_item"
-                        app:ms_hintView="@layout/hint_item"
-                        app:ms_hint="Jenis Kelamin *"
-                        app:ms_enableFloatingLabel="true"
-                        app:ms_enableErrorLabel="false"
-                        app:ms_floatingLabelText="Jenis Kelamin"
-                        app:ms_baseColor="@color/colorBlack"
-                        app:ms_highlightColor="@color/colorPrimaryDark"
-                        app:ms_errorColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:imeOptions="actionNext"
-                        android:nextFocusDown="@+id/inputNPWP"
-                        app:ms_alignLabels="true"
-                        android:textSize="14sp"
-                        app:ms_hintTextSize="14sp"
-                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>
+<!--                    <fr.ganfra.materialspinner.MaterialSpinner-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:id="@+id/spinnerJenisKelamin"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:ms_multiline="false"-->
+<!--                        app:ms_dropDownHintView="@layout/dropdown_hint_item"-->
+<!--                        app:ms_hintView="@layout/hint_item"-->
+<!--                        app:ms_hint="Jenis Kelamin *"-->
+<!--                        app:ms_enableFloatingLabel="true"-->
+<!--                        app:ms_enableErrorLabel="false"-->
+<!--                        app:ms_floatingLabelText="Jenis Kelamin"-->
+<!--                        app:ms_baseColor="@color/colorBlack"-->
+<!--                        app:ms_highlightColor="@color/colorPrimaryDark"-->
+<!--                        app:ms_errorColor="@color/colorPrimaryDark"-->
+<!--                        android:layout_marginLeft="9dp"-->
+<!--                        android:layout_marginRight="9dp"-->
+<!--                        android:imeOptions="actionNext"-->
+<!--                        android:nextFocusDown="@+id/inputNPWP"-->
+<!--                        app:ms_alignLabels="true"-->
+<!--                        android:textSize="14sp"-->
+<!--                        app:ms_hintTextSize="14sp"-->
+<!--                        app:ms_floatingLabelColor="@color/colorBackgroundDark"/>-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutNPWP"

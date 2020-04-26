@@ -6,18 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("nama_lengkap")
     @Expose
     private String namaLengkap;
-    @SerializedName("axi_id")
-    @Expose
-    private String axiId;
     @SerializedName("cabang")
     @Expose
     private String cabang;
-    @SerializedName("tanggal_daftar")
-    @Expose
-    private String tanggalDaftar;
     @SerializedName("no_ktp")
     @Expose
     private String noKtp;
@@ -27,9 +24,6 @@ public class Data {
     @SerializedName("tanggal_lahir")
     @Expose
     private String tanggalLahir;
-    @SerializedName("axi_id_reff")
-    @Expose
-    private String axiIdReff;
     @SerializedName("no_hp")
     @Expose
     private String noHp;
@@ -60,12 +54,6 @@ public class Data {
     @SerializedName("npwp_no")
     @Expose
     private String npwpNo;
-    @SerializedName("nama_bank")
-    @Expose
-    private String namaBank;
-    @SerializedName("no_rekening")
-    @Expose
-    private String noRekening;
     @SerializedName("an_rekening")
     @Expose
     private String anRekening;
@@ -75,51 +63,38 @@ public class Data {
     @SerializedName("kota_bank")
     @Expose
     private String kotaBank;
-    @SerializedName("point_trip")
-    @Expose
-    private Integer pointTrip;
     @SerializedName("point_reward")
     @Expose
     private Integer pointReward;
-    @SerializedName("incentive_car")
+    @SerializedName("point_trip")
     @Expose
-    private Integer incentiveCar;
-    @SerializedName("incentive_car_mentor")
+    private Integer pointTrip;
+    @SerializedName("axi_id")
     @Expose
-    private Integer incentiveCarMentor;
-    @SerializedName("incentive_car_extra_bulanan")
+    private String axiId;
+    @SerializedName("tanggal_daftar")
     @Expose
-    private Integer incentiveCarExtraBulanan;
-    @SerializedName("incentive_car_group")
+    private String tanggalDaftar;
+    @SerializedName("axi_id_reff")
     @Expose
-    private Integer incentiveCarGroup;
-    @SerializedName("incentive_car_bonus_tahunan")
+    private String axiIdReff;
+    @SerializedName("nama_bank")
     @Expose
-    private Integer incentiveCarBonusTahunan;
-    @SerializedName("incentive_car_bonus_layout")
+    private String namaBank;
+    @SerializedName("id_bank")
     @Expose
-    private Integer incentiveCarBonusLayout;
-    @SerializedName("incentive_mcy")
+    private String idBank;
+    @SerializedName("no_rekening")
     @Expose
-    private Integer incentiveMcy;
-    @SerializedName("incentive_mcy_mentor")
-    @Expose
-    private Integer incentiveMcyMentor;
-    @SerializedName("incentive_mcy_extra_bulanan")
-    @Expose
-    private Integer incentiveMcyExtraBulanan;
-    @SerializedName("incentive_mcy_group")
-    @Expose
-    private Integer incentiveMcyGroup;
-    @SerializedName("incentive_mcy_bonus_tahunan")
-    @Expose
-    private Integer incentiveMcyBonusTahunan;
-    @SerializedName("incentive_mcy_bonus_layout")
-    @Expose
-    private Integer incentiveMcyBonusLayout;
-    @SerializedName("replica_web_link")
-    @Expose
-    private String replicaWebLink;
+    private String noRekening;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNamaLengkap() {
         return namaLengkap;
@@ -129,28 +104,12 @@ public class Data {
         this.namaLengkap = namaLengkap;
     }
 
-    public String getAxiId() {
-        return axiId;
-    }
-
-    public void setAxiId(String axiId) {
-        this.axiId = axiId;
-    }
-
     public String getCabang() {
         return cabang;
     }
 
     public void setCabang(String cabang) {
         this.cabang = cabang;
-    }
-
-    public String getTanggalDaftar() {
-        return tanggalDaftar;
-    }
-
-    public void setTanggalDaftar(String tanggalDaftar) {
-        this.tanggalDaftar = tanggalDaftar;
     }
 
     public String getNoKtp() {
@@ -175,14 +134,6 @@ public class Data {
 
     public void setTanggalLahir(String tanggalLahir) {
         this.tanggalLahir = tanggalLahir;
-    }
-
-    public String getAxiIdReff() {
-        return axiIdReff;
-    }
-
-    public void setAxiIdReff(String axiIdReff) {
-        this.axiIdReff = axiIdReff;
     }
 
     public String getNoHp() {
@@ -265,22 +216,6 @@ public class Data {
         this.npwpNo = npwpNo;
     }
 
-    public String getNamaBank() {
-        return namaBank;
-    }
-
-    public void setNamaBank(String namaBank) {
-        this.namaBank = namaBank;
-    }
-
-    public String getNoRekening() {
-        return noRekening;
-    }
-
-    public void setNoRekening(String noRekening) {
-        this.noRekening = noRekening;
-    }
-
     public String getAnRekening() {
         return anRekening;
     }
@@ -305,14 +240,6 @@ public class Data {
         this.kotaBank = kotaBank;
     }
 
-    public Integer getPointTrip() {
-        return pointTrip;
-    }
-
-    public void setPointTrip(Integer pointTrip) {
-        this.pointTrip = pointTrip;
-    }
-
     public Integer getPointReward() {
         return pointReward;
     }
@@ -321,108 +248,60 @@ public class Data {
         this.pointReward = pointReward;
     }
 
-    public Integer getIncentiveCar() {
-        return incentiveCar;
+    public Integer getPointTrip() {
+        return pointTrip;
     }
 
-    public void setIncentiveCar(Integer incentiveCar) {
-        this.incentiveCar = incentiveCar;
+    public void setPointTrip(Integer pointTrip) {
+        this.pointTrip = pointTrip;
     }
 
-    public Integer getIncentiveCarMentor() {
-        return incentiveCarMentor;
+    public String getAxiId() {
+        return axiId;
     }
 
-    public void setIncentiveCarMentor(Integer incentiveCarMentor) {
-        this.incentiveCarMentor = incentiveCarMentor;
+    public void setAxiId(String axiId) {
+        this.axiId = axiId;
     }
 
-    public Integer getIncentiveCarExtraBulanan() {
-        return incentiveCarExtraBulanan;
+    public String getTanggalDaftar() {
+        return tanggalDaftar;
     }
 
-    public void setIncentiveCarExtraBulanan(Integer incentiveCarExtraBulanan) {
-        this.incentiveCarExtraBulanan = incentiveCarExtraBulanan;
+    public void setTanggalDaftar(String tanggalDaftar) {
+        this.tanggalDaftar = tanggalDaftar;
     }
 
-    public Integer getIncentiveCarGroup() {
-        return incentiveCarGroup;
+    public String getAxiIdReff() {
+        return axiIdReff;
     }
 
-    public void setIncentiveCarGroup(Integer incentiveCarGroup) {
-        this.incentiveCarGroup = incentiveCarGroup;
+    public void setAxiIdReff(String axiIdReff) {
+        this.axiIdReff = axiIdReff;
     }
 
-    public Integer getIncentiveCarBonusTahunan() {
-        return incentiveCarBonusTahunan;
+    public String getNamaBank() {
+        return namaBank;
     }
 
-    public void setIncentiveCarBonusTahunan(Integer incentiveCarBonusTahunan) {
-        this.incentiveCarBonusTahunan = incentiveCarBonusTahunan;
+    public void setNamaBank(String namaBank) {
+        this.namaBank = namaBank;
     }
 
-    public Integer getIncentiveCarBonusLayout() {
-        return incentiveCarBonusLayout;
+    public String getIdBank() {
+        return idBank;
     }
 
-    public void setIncentiveCarBonusLayout(Integer incentiveCarBonusLayout) {
-        this.incentiveCarBonusLayout = incentiveCarBonusLayout;
+    public void setIdBank(String idBank) {
+        this.idBank = idBank;
     }
 
-    public Integer getIncentiveMcy() {
-        return incentiveMcy;
+    public String getNoRekening() {
+        return noRekening;
     }
 
-    public void setIncentiveMcy(Integer incentiveMcy) {
-        this.incentiveMcy = incentiveMcy;
-    }
-
-    public Integer getIncentiveMcyMentor() {
-        return incentiveMcyMentor;
-    }
-
-    public void setIncentiveMcyMentor(Integer incentiveMcyMentor) {
-        this.incentiveMcyMentor = incentiveMcyMentor;
-    }
-
-    public Integer getIncentiveMcyExtraBulanan() {
-        return incentiveMcyExtraBulanan;
-    }
-
-    public void setIncentiveMcyExtraBulanan(Integer incentiveMcyExtraBulanan) {
-        this.incentiveMcyExtraBulanan = incentiveMcyExtraBulanan;
-    }
-
-    public Integer getIncentiveMcyGroup() {
-        return incentiveMcyGroup;
-    }
-
-    public void setIncentiveMcyGroup(Integer incentiveMcyGroup) {
-        this.incentiveMcyGroup = incentiveMcyGroup;
-    }
-
-    public Integer getIncentiveMcyBonusTahunan() {
-        return incentiveMcyBonusTahunan;
-    }
-
-    public void setIncentiveMcyBonusTahunan(Integer incentiveMcyBonusTahunan) {
-        this.incentiveMcyBonusTahunan = incentiveMcyBonusTahunan;
-    }
-
-    public Integer getIncentiveMcyBonusLayout() {
-        return incentiveMcyBonusLayout;
-    }
-
-    public void setIncentiveMcyBonusLayout(Integer incentiveMcyBonusLayout) {
-        this.incentiveMcyBonusLayout = incentiveMcyBonusLayout;
-    }
-
-    public String getReplicaWebLink() {
-        return replicaWebLink;
-    }
-
-    public void setReplicaWebLink(String replicaWebLink) {
-        this.replicaWebLink = replicaWebLink;
+    public void setNoRekening(String noRekening) {
+        this.noRekening = noRekening;
     }
 
 }

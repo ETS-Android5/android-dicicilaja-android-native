@@ -12,31 +12,26 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi.Tenor;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.TenorItem;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Datum;
+import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemMaxiProgram.Tenor;
 import com.dicicilaja.app.R;
 import com.squareup.picasso.Picasso;
-
-import org.jsoup.Jsoup;
 
 import java.util.List;
 
 
 public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.SingleItemRowHolder> {
-    private List<Data> produk;
-    private List<TenorItem> tenor;
+    private List<Datum> produk;
+    private List<Tenor> tenor;
     private StringBuilder sb = new StringBuilder();
     private String cicilan;
     private Context mContext;
 
-    public ListMaxiAdapter(List<Data> produk, Context mContext) {
+    public ListMaxiAdapter(List<Datum> produk, Context mContext) {
         this.produk = produk;
         this.mContext = mContext;
     }
@@ -57,7 +52,7 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, final int position) {
-        final Data itemModel = produk.get(position);
+        final Datum itemModel = produk.get(position);
         sb = new StringBuilder();
         holder.tv_title.setText(itemModel.getName());
         if (itemModel.getName().length() >= 35) {
@@ -74,9 +69,9 @@ public class ListMaxiAdapter extends RecyclerView.Adapter<ListMaxiAdapter.Single
         holder.tv_harga.setText(String.valueOf(itemModel.getPrice()));
         for(int i = 0 ; i<itemModel.getTenor().size();i++){
             if (i == 0) {
-                sb.append(itemModel.getTenor().get(i).getCicilan()).toString();
+                sb.append(itemModel.getTenor().get(0).get(i).getCicilan()).toString();
             }else{
-                sb.append("\n"+itemModel.getTenor().get(i).getCicilan()).toString();
+                sb.append("\n"+itemModel.getTenor().get(0).get(i).getCicilan()).toString();
             }
         }
         cicilan = sb.toString();

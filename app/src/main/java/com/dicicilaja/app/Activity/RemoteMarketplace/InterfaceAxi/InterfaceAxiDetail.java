@@ -15,6 +15,6 @@ public interface InterfaceAxiDetail {
     @Headers({
             "Accept: application/json",
     })
-    @GET("bffnew/axi/detail")
+    @GET("axi/detail")
     Call<AXIDetail> getDetail(@Header("Authorization") String apiKey);
 }

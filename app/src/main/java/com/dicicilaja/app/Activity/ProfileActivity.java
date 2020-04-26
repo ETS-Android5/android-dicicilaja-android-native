@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,12 +22,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
+import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.Data;
+import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
 import com.dicicilaja.app.InformAXI.model.ShProfile;
 import com.dicicilaja.app.InformAXI.ui.UbahShActivity;
 import com.squareup.picasso.Picasso;
@@ -37,16 +34,10 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileAxi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.Data;
-import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Remote.ApiUtils;
 import com.dicicilaja.app.Session.SessionManager;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,13 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
     RelativeLayout changePassword;
     Data dataAxi;
 
-    TextView name_user, api_axi_id, api_cabang, api_tanggal_daftar, api_no_ktp, api_mentor, api_no_hp, api_email, api_alamat, api_rt_rw, api_kelurahan, api_kecamatan, api_provinsi, api_kodepos, api_jk, api_no_npwp;
-    TextView api_tempat_lahir, api_tanggal_lahir, api_nama_bank, api_no_rekening, api_an_rekening, api_cabang_bank, api_kota_bank;
+    TextView name_user, api_axi_id, api_cabang, api_tanggal_daftar, api_no_ktp, api_mentor, api_no_hp, api_email, api_alamat, api_rt_rw, api_kelurahan, api_kecamatan, api_provinsi, api_kodepos, api_no_npwp;
+    TextView api_tempat_lahir, api_nama_bank, api_no_rekening, api_an_rekening, api_cabang_bank, api_kota_bank;
 
     LinearLayout cvDetailRekening;
     LinearLayout titleDetailRekening, topCard2, shProfile;
 
     private String role = null;
+    private String api_id_bank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +195,6 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ShProfile> call, Throwable t) {
                     progress.dismiss();
-                    Log.d("asd", "onFailure: " + t.getMessage());
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                     alertDialog.setTitle("Perhatian");
                     alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
@@ -226,7 +217,30 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
 //                Log.d("PROFILE::::", response.body().getData().toString());
 //                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
-                    if (response.body() == null) {
+                    if (response.isSuccessful()) {
+                        try {
+                            dataAxi = response.body().getData();
+                            api_id_bank = dataAxi.getIdBank();
+                            api_axi_id.setText(dataAxi.getAxiId());
+                            api_cabang.setText(dataAxi.getCabang());
+                            api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
+                            api_no_ktp.setText(dataAxi.getNoKtp());
+                            api_mentor.setText(dataAxi.getAxiIdReff());
+                            api_no_hp.setText(dataAxi.getNoHp());
+                            api_email.setText(dataAxi.getEmail());
+                            api_alamat.setText(dataAxi.getAlamatKtp());
+                            api_no_npwp.setText(dataAxi.getNpwpNo());
+
+                            api_nama_bank.setText(dataAxi.getNamaBank());
+                            api_no_rekening.setText(dataAxi.getNoRekening());
+                            api_an_rekening.setText(dataAxi.getAnRekening());
+                            api_cabang_bank.setText(dataAxi.getCabangBank());
+                            api_kota_bank.setText(dataAxi.getKotaBank());
+                        } catch (Exception ex) {}
+
+                        progress.dismiss();
+                    } else {
+                        progress.dismiss();
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data gagal dipanggil, silahkan coba beberapa saat lagi.");
@@ -236,28 +250,12 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         });
                         alertDialog.show();
-                    } else {
-
-                        api_tanggal_daftar.setText(dataAxi.getTanggalDaftar());
-                        api_no_ktp.setText(dataAxi.getNoKtp());
-                        api_mentor.setText(dataAxi.getAxiIdReff());
-                        api_no_hp.setText(dataAxi.getNoHp());
-                        api_email.setText(dataAxi.getEmail());
-                        api_alamat.setText(dataAxi.getAlamatKtp());
-                        api_no_npwp.setText(dataAxi.getNpwpNo());
-
-                        api_nama_bank.setText(dataAxi.getNamaBank());
-                        api_no_rekening.setText(dataAxi.getNoRekening());
-                        api_an_rekening.setText(dataAxi.getAnRekening());
-                        api_cabang_bank.setText(dataAxi.getCabangBank());
-                        api_kota_bank.setText(dataAxi.getKotaBank());
                     }
-                    progress.dismiss();
+
                 }
 
                 @Override
                 public void onFailure(Call<ProfileAxi> call, Throwable t) {
-                    Log.e("PROFILE::::", t.toString());
                     progress.dismiss();
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                     alertDialog.setTitle("Perhatian");
@@ -353,45 +351,38 @@ public class ProfileActivity extends AppCompatActivity {
             if (role != null && role.equalsIgnoreCase("sh")) {
                 Intent intent = new Intent(getBaseContext(), UbahShActivity.class);
 
-                intent.putExtra("name_user", name_user.getText().toString());
-                intent.putExtra("api_no_hp", ((TextView) findViewById(R.id.api_phone_sh)).getText().toString());
-                intent.putExtra("api_email", ((TextView) findViewById(R.id.api_email_sh)).getText().toString());
+                try {
+                    intent.putExtra("name_user", name_user.getText().toString());
+                    intent.putExtra("api_no_hp", ((TextView) findViewById(R.id.api_phone_sh)).getText().toString());
+                    intent.putExtra("api_email", ((TextView) findViewById(R.id.api_email_sh)).getText().toString());
+                } catch (Exception ex) {}
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(getBaseContext(), UbahAxiActivity.class);
 
                 intent.putExtra("name_user", name_user.getText().toString());
-                intent.putExtra("api_axi_id", api_axi_id.getText().toString());
-                intent.putExtra("api_cabang", api_cabang.getText().toString());
-                intent.putExtra("api_tanggal_daftar", api_tanggal_daftar.getText().toString());
-                intent.putExtra("api_no_ktp", api_no_ktp.getText().toString());
-                intent.putExtra("api_mentor", api_mentor.getText().toString());
-                intent.putExtra("api_tanggal_lahir", api_tanggal_lahir.getText().toString());
-                intent.putExtra("api_tempat_lahir", api_tempat_lahir.getText().toString());
+//                intent.putExtra("api_axi_id", api_axi_id.getText().toString());
+//                intent.putExtra("api_cabang", api_cabang.getText().toString());
+//                intent.putExtra("api_tanggal_daftar", api_tanggal_daftar.getText().toString());
+//                intent.putExtra("api_no_ktp", api_no_ktp.getText().toString());
+//                intent.putExtra("api_mentor", api_mentor.getText().toString());
+//                intent.putExtra("api_tempat_lahir", api_tempat_lahir.getText().toString());
                 intent.putExtra("api_no_hp", api_no_hp.getText().toString());
                 intent.putExtra("api_email", api_email.getText().toString());
                 intent.putExtra("api_alamat", api_alamat.getText().toString());
-                intent.putExtra("api_rt_rw", api_rt_rw.getText().toString());
-                intent.putExtra("api_kelurahan", api_kelurahan.getText().toString());
-                intent.putExtra("api_kecamatan", api_kecamatan.getText().toString());
-                intent.putExtra("api_provinsi", api_provinsi.getText().toString());
-                intent.putExtra("api_kodepos", api_kodepos.getText().toString());
+//                intent.putExtra("api_rt_rw", api_rt_rw.getText().toString());
+//                intent.putExtra("api_kelurahan", api_kelurahan.getText().toString());
+//                intent.putExtra("api_kecamatan", api_kecamatan.getText().toString());
+//                intent.putExtra("api_provinsi", api_provinsi.getText().toString());
+//                intent.putExtra("api_kodepos", api_kodepos.getText().toString());
 
                 intent.putExtra("api_no_npwp", api_no_npwp.getText().toString());
-                intent.putExtra("api_nama_bank", api_nama_bank.getText().toString());
+                intent.putExtra("api_id_bank", api_id_bank);
                 intent.putExtra("api_no_rekening", api_no_rekening.getText().toString());
                 intent.putExtra("api_an_rekening", api_an_rekening.getText().toString());
                 intent.putExtra("api_cabang_bank", api_cabang_bank.getText().toString());
                 intent.putExtra("api_kota_bank", api_kota_bank.getText().toString());
 
-                String jk = api_jk.getText().toString();
-                if (jk.toLowerCase().equals("l") || jk.toLowerCase().equals("laki-laki") || jk.toLowerCase().equals("laki - laki")) {
-                    intent.putExtra("api_jk", "1");
-                } else if (jk.toLowerCase().equals("p") || jk.toLowerCase().equals("perempuan")) {
-                    intent.putExtra("api_jk", "2");
-                } else {
-                    intent.putExtra("api_jk", "0");
-                }
                 startActivity(intent);
             }
             return true;

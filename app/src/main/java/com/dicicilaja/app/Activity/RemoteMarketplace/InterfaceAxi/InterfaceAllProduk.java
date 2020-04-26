@@ -8,6 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 
 public interface InterfaceAllProduk {
-    @GET("bffnew/product")
+    @GET("product")
     Call<AllProduk> getProduct();
 }
