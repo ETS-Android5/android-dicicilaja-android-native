@@ -18,9 +18,9 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.LoginMarketpla
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "https://prod.dicicilaja.com/v3/";
+    public static final String BASE_URL = "https://prod.dicicilaja.com/v3/bff/";
 
-    public static final String NEW_URL = "https://prod.dicicilaja.com/v3/";
+    public static final String NEW_URL = "https://prod.dicicilaja.com/v3/bff/";
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_URL).create(UserService.class);
