@@ -19,6 +19,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.dataAPI.produk.Produk;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardphase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.dataAPI.semester.Semester;
 import com.dicicilaja.app.BusinessReward.dataAPI.status.Status;
 import com.dicicilaja.app.BusinessReward.dataAPI.statusUBClaim.StatusClaim;
@@ -46,6 +47,9 @@ public interface ApiService {
     @GET("existing/point")
     Call<ExistingPoint> getExistingPoint(@Header("Authorization") String apiKey,
                                          @Query("profile_id") String profileId);
+
+    @GET("reward-phase/1")
+    Call<RewardPhase> getRewardPhase(@Header("Authorization") String apiKey);
 
     //GET
     @GET("existing/kategori")

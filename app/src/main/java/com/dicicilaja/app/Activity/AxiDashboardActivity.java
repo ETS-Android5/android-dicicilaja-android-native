@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -58,8 +59,10 @@ import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardphase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
@@ -689,7 +692,32 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 t.printStackTrace();
             }
         });
+
+        ApiService service = ApiClient3.getClient().create(ApiService.class);
+        Call<RewardPhase> call = service.getRewardPhase(apiKey);
+        call.enqueue(new Callback<RewardPhase>() {
+            @Override
+            public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
+                isHasCheckRewardPhase = true;
+                if (response.isSuccessful()) {
+                    if (response.body().getData().getAttributes().getStatus() == 1) {
+                        isRewardPhaseAvailable = true;
+                    }
+                } else {
+                    Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RewardPhase> call, Throwable t) {
+                isHasCheckRewardPhase = true;
+                Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    private boolean isHasCheckRewardPhase = false;
+    private boolean isRewardPhaseAvailable = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -862,12 +890,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                intent.putExtra("POINT_REWARD", contentBox1.getText());
-                startActivityForResult(intent, 96);
+                if (isHasCheckRewardPhase) {
+                    if (isRewardPhaseAvailable) {
+                        intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                        intent.putExtra("POINT_REWARD", contentBox1.getText());
+                        startActivityForResult(intent, 96);
+                    } else
+                        intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                        startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
+                }
 
-//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-//                startActivity(intent);
+
+//
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);
