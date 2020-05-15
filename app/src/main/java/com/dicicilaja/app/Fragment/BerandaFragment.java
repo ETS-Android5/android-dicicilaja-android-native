@@ -154,7 +154,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_sehat = view.findViewById(R.id.maxi_sehat);
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
         maxi_griya = view.findViewById(R.id.maxi_griya);
-        show_all_partner = view.findViewById(R.id.show_all_partner);
+//        show_all_partner = view.findViewById(R.id.show_all_partner);
 //        show_all_promo = view.findViewById(R.id.show_all_promo);
 //        show_all_recommend = view.findViewById(R.id.show_all_recommend);
 //        allpromo = view.findViewById(R.id.allpromo);
@@ -489,13 +489,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             }
         });
 
-        show_all_partner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllPartnerActivity.class);
-                startActivity(intent);
-            }
-        });
+//        show_all_partner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), AllPartnerActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 //        show_all_promo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

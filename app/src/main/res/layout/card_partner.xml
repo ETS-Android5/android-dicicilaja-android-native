@@ -23,7 +23,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:padding="10dp"
-            android:src="@drawable/illustration_1_02"
             android:scaleType="fitCenter"
             android:layout_gravity="center"
             android:adjustViewBounds="true"/>
