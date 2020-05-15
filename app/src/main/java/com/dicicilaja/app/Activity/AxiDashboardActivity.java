@@ -480,7 +480,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         startActivity(intent6);
                         break;
                     case R.id.navbar_add:
-                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+//                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+                        Intent intent2 = new Intent(getBaseContext(), RegisterAxiWebViewActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.branch_office:
