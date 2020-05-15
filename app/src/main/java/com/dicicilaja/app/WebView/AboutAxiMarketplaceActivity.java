@@ -42,6 +42,8 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setAllowContentAccess(true);
+        webView.getSettings().setAllowFileAccess(true);
 
 //        webView.getSettings().setSupportZoom(true);
 //        webView.getSettings().setBuiltInZoomControls(true);

@@ -523,6 +523,14 @@
                 android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
+            android:name=".Activity.RegisterAxiWebViewActivity"
+            android:label="Pendaftaran AXI"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.Activity.AxiDashboardActivity" />
+        </activity>
+        <activity
             android:name=".Activity.RegisterAxi1Activity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">
