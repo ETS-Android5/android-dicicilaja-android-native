@@ -20,40 +20,40 @@ public interface ApiService2 {
             "Accept: application/vnd.api+json",
     })
 
-    @GET("v3/area/provinces")
+    @GET("area/provinces")
     Call<Provinsi> getProvinsi(@Header("Authorization") String apiKey,
                                @Query("page[size]") int size);
 
-    @GET("v3/area/cities")
+    @GET("area/cities")
     Call<Kota> getKota(@Header("Authorization") String apiKey,
                        @Query("filter[provinsi_id]") String id,
                        @Query("page[size]") int size);
 
 
-    @GET("v3/area/branches")
+    @GET("area/branches")
     Call<CabangRekomendasi> getCabangRekomendasi(@Header("Authorization") String apiKey,
                                                  @Query("filter[district]") String id,
                                                  @Query("include") String param,
                                                  @Query("page[size]") int size);
 
-    @GET("v3/area/branches")
+    @GET("area/branches")
     Call<CabangTerdekat> getCabangTerdekat(@Header("Authorization") String apiKey,
                                            @Query("filter[city]") String id,
                                            @Query("include") String param,
                                            @Query("page[size]") int size);
 
-    @GET("v3/area/branches")
+    @GET("area/branches")
     Call<CabangLainnya> getCabangLainnya(@Header("Authorization") String apiKey,
                                          @Query("filter[province]") String id,
                                          @Query("include") String param,
                                          @Query("page[size]") int size);
 
-    @GET("v3/area/districts")
+    @GET("area/districts")
     Call<Kecamatan> getKecamatan(@Header("Authorization") String apiKey,
                                  @Query("filter[kota_id]") String id,
                                  @Query("page[size]") int size);
 
-    @GET("v3/area/villages")
+    @GET("area/villages")
     Call<Kelurahan> getKelurahan(@Header("Authorization") String apiKey,
                                  @Query("filter[distrik_id]") String id,
                                  @Query("page[size]") int size);
