@@ -84,6 +84,6 @@ public interface ApiService {
                                      @Field("tenor") String tenor);
 
     @GET("v3/area/areas")
-    Call<AreaSimulasi> getAreaSimulasi(@Query("simulasi") Boolean simulasi);
+    Call<AreaSimulasi> getAreaSimulasi(@Query("filter[simulasi]") Boolean simulasi);
 
 }

@@ -34,6 +34,6 @@ public interface ApiService {
                                            @Path("area_id") int area_id);
 
     @GET("v3/area/areas")
-    Call<AreaSimulasi> getAreaSimulasi(@Query("simulasi") Boolean simulasi);
+    Call<AreaSimulasi> getAreaSimulasi(@Query("filter[simulasi]") Boolean simulasi);
 
 }
