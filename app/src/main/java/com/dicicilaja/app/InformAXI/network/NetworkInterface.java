@@ -28,6 +28,8 @@ public interface NetworkInterface {
     Observable<AxiHome>
     getRegListDetail(@Header("Authorization") String apiKey,
                      @Query("date") String date,
+                     @Query("limit") int limit,
+                     @Query("page") int page,
                      @Query("cabang_id") int branchId);
 
     /**

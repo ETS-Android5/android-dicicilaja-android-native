@@ -18,9 +18,6 @@ import com.dicicilaja.app.R;
 
 import java.util.List;
 
-/**
- * Created by Husni with ❤
- */
 
 public class AxiRegisterAdapter extends RecyclerView.Adapter<AxiRegisterAdapter.ViewHolder> {
 
