@@ -40,7 +40,8 @@ import com.bumptech.glide.request.target.Target;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
+import com.dicicilaja.app.API.Client.ApiBffNew;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
@@ -501,7 +502,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                             public void onClick(DialogInterface dialog, int which) {
                                 progress.show();
                                 InterfaceLogout apiService =
-                                        ApiClient.getClient().create(InterfaceLogout.class);
+                                        ApiBff.getClient().create(InterfaceLogout.class);
 
                                 Call<Logout> call2 = apiService.logout(apiKey);
                                 call2.enqueue(new Callback<Logout>() {
@@ -634,7 +635,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceAxiDetail apiService5 =
-                com.dicicilaja.app.API.Client.ApiClient.getClient().create(InterfaceAxiDetail.class);
+                ApiBffNew.getClient().create(InterfaceAxiDetail.class);
 
 //        showLoading();
         Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
@@ -666,7 +667,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfaceInfoJaringan apiService4 =
-                ApiClient.getClient().create(InterfaceInfoJaringan.class);
+                ApiBff.getClient().create(InterfaceInfoJaringan.class);
 
         Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
         call4.enqueue(new Callback<InfoJaringan>() {

@@ -14,18 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfaceLogout;
-import com.dicicilaja.app.Activity.AxiDashboardActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.ProfileCustomerActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllFavorite;
@@ -35,7 +30,6 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.app.Adapter.FavoriteAllAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
-import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.squareup.picasso.Picasso;

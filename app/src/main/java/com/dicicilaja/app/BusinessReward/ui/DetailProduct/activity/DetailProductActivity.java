@@ -194,7 +194,7 @@ public class DetailProductActivity extends AppCompatActivity {
 //                            crhId = String.valueOf(0);
 //                            alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                                    ApiService apiService = ApiBff.getClient().create(ApiService.class);
 //
 //                                    profileId = session.getAxiId();
 //                                    name = session.getName();
@@ -303,10 +303,10 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
 
-//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                ApiService apiService = ApiBff.getClient().create(ApiService.class);
 //
 //                ApiService apiService2 =
-//                        ApiClient.getClient2().create(ApiService.class);
+//                        ApiBff.getClient2().create(ApiService.class);
 //
 //                InterfaceAxiDetail apiService5 =
 //                        RetrofitClient.getClient().create(InterfaceAxiDetail.class);

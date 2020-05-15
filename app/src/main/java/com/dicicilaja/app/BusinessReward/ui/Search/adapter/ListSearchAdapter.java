@@ -95,7 +95,7 @@ public class ListSearchAdapter extends RecyclerView.Adapter<ListSearchAdapter.My
             }
         });
 
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//        ApiService apiService = ApiBff.getClient().create(ApiService.class);
     }
 
     @Override

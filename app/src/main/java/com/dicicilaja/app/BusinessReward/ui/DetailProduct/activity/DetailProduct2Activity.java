@@ -265,7 +265,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
                         }
                     });
 
-//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                ApiService apiService = ApiBff.getClient().create(ApiService.class);
 
 //                profileId = session.getAxiId();
 //                name = session.getName();

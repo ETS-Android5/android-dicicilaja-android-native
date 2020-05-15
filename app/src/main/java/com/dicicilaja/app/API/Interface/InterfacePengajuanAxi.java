@@ -16,7 +16,7 @@ public interface InterfacePengajuanAxi {
     @Headers({
             "Accept: application/json",
     })
-    @GET("bffnew/request/user")
+    @GET("request/user")
     Call<PengajuanAxi> getPengajuanAxi(@Header("Authorization") String apiKey,
                                        @Query("page") int page);
 

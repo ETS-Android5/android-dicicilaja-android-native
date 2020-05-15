@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfileCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Datum;
@@ -115,7 +115,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         InterfaceProfileCustomer apiService =
-                ApiClient.getClient().create(InterfaceProfileCustomer.class);
+                ApiBff.getClient().create(InterfaceProfileCustomer.class);
 
         Log.d("APIKEY", "onCreate: " + apiKey);
         Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
@@ -184,7 +184,7 @@ public class ProfileCustomerActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         progress.show();
                         InterfaceLogout apiService =
-                                ApiClient.getClient().create(InterfaceLogout.class);
+                                ApiBff.getClient().create(InterfaceLogout.class);
 
                         Call<Logout> call2 = apiService.logout(apiKey);
                         call2.enqueue(new Callback<Logout>() {

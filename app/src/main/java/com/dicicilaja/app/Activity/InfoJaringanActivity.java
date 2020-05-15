@@ -18,8 +18,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
@@ -90,7 +89,7 @@ public class InfoJaringanActivity extends AppCompatActivity {
         progress.show();
 
         InterfaceInfoJaringan apiService =
-                ApiClient.getClient().create(InterfaceInfoJaringan.class);
+                ApiBff.getClient().create(InterfaceInfoJaringan.class);
 
         final RecyclerView recyclerView =  findViewById(R.id.recycler_rb);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

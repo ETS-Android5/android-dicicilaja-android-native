@@ -235,7 +235,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             }
         });
 
-        Call<ExistingPoint> call2 = api.getExistingPoint(apiKey, session.getUserId());
+        Call<ExistingPoint> call2 = api.getExistingPoint(apiKey, session.getNomorAxiId());
 //        Call<Point> call2 = apiService.getPoint(Integer.parseInt(session.getUserId()));
         call2.enqueue(new Callback<ExistingPoint>() {
             @Override

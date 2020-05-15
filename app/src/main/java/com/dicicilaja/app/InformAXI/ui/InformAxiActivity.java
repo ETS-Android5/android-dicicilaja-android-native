@@ -33,7 +33,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.Activity.SearchActivity;
@@ -383,7 +383,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             public void onClick(DialogInterface dialog, int which) {
                 progress.show();
                 InterfaceLogout apiService =
-                        ApiClient.getClient().create(InterfaceLogout.class);
+                        ApiBff.getClient().create(InterfaceLogout.class);
 
                 Call<Logout> call2 = apiService.logout(apiKey);
                 call2.enqueue(new Callback<Logout>() {

@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
 import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
@@ -143,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // TODO: Change after role is fixed
         if (role.equalsIgnoreCase("sh")) {
-            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiBff.getClient().create(InterfaceProfile.class);
             Call<ShProfile> call = apiService.getShProfile(apiKey);
             call.enqueue(new Callback<ShProfile>() {
                 @Override
@@ -209,7 +208,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Call<ProfileAxi> callProfile;
 
-            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiBff.getClient().create(InterfaceProfile.class);
             callProfile = apiService.getProfile(apiKey);
 
             callProfile.enqueue(new Callback<ProfileAxi>() {
@@ -287,7 +286,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         progress.show();
                         InterfaceLogout apiService =
-                                ApiClient.getClient().create(InterfaceLogout.class);
+                                ApiBff.getClient().create(InterfaceLogout.class);
 
                         Call<Logout> call2 = apiService.logout(apiKey);
                         call2.enqueue(new Callback<Logout>() {
