@@ -380,7 +380,12 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 if (text_colleteral.equals("Motor")) {
                     String value = totalEdit.getText().toString().replace(".", "").replace("Rp", "").replace(",", "");
-                    int total_edit_value = Integer.parseInt(value);
+                    int total_edit_value;
+                    try {
+                        total_edit_value = Integer.parseInt(value);
+                    } catch (NumberFormatException e) {
+                        total_edit_value = 0;
+                    }
                     Log.d("TAGTAGTAG", "text_total: " + total_edit_value);
                     Log.d("TAGTAGTAG", "text_max: " + text_max);
                     if(total_edit_value < 3000000) {
