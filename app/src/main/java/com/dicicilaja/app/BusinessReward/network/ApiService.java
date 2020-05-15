@@ -48,7 +48,7 @@ public interface ApiService {
                                          @Query("profile_id") String profileId);
 
     //GET
-    @GET("kategori")
+    @GET("existing/kategori")
     Call<KategoriProduk> getKategori(@Header("Authorization") String apiKey);
 
     @GET("branch")
@@ -60,7 +60,7 @@ public interface ApiService {
     @GET("v3/area/areas")
     Call<Area2> getArea();
 
-    @GET("axi-foto")
+    @GET("existing/axi-foto")
     Call<FotoKtpNpwp> getFoto(@Header("Authorization") String apiKey,
                               @Query("axi_id") String axi_id);
 
@@ -83,32 +83,32 @@ public interface ApiService {
     @GET("axi/detail")
     Call<DetailProfile> getDetailProfile(@Header("Authorization") String apiKey);
 
-    @GET("point")
+    @GET("existing/point")
     Call<Point> getPoint(@Query("profile_id") String profile_id);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProduk(@Header("Authorization") String apiKey,
                            @Query("nama") String nama);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProdukSort(@Header("Authorization") String apiKey,
                                @Query("kategori_id") String kategori_id,
                                @Query("ob") String ob,
                                @Query("ot") String ot);
 
-    @GET("product-catalog")
+    @GET("existing/product-catalog")
     Call<Produk> getProdukAll(@Header("Authorization") String apiKey,
                               @Query("kategori_id") String kategori_id);
 
-    @GET("kategori/{id}")
+    @GET("existing/kategori/{id}")
     Call<DetailKategori> getDetailKategori(@Path("id") int id);
 
-    @GET("kategori/{id}")
+    @GET("existing/kategori/{id}")
     Call<DetailKategori> getDetailKategoriSort(@Path("id") int id,
                                                @Query("ob") String ob,
                                                @Query("ot") String ot);
 
-    @GET("status")
+    @GET("existing/status")
     Call<Status> getStatus();
 
     @GET("statusUBProduk")
@@ -123,7 +123,7 @@ public interface ApiService {
     @GET("semester")
     Call<Semester> getSemester();
 
-    @GET("claimReward")
+    @GET("existing/claimReward")
     Call<ClaimReward> getClaimReward();
 
     @GET("testimoni")
@@ -221,7 +221,7 @@ public interface ApiService {
             @Field("total_harga") String total_harga,
             @Header("Authorization") String authorization);
 
-    @POST("testimoni")
+    @POST("existing/testimoni")
     @FormUrlEncoded
     Call<Testimoni> postTestimoni(
             @Header("Authorization") String apiKey,
@@ -231,7 +231,7 @@ public interface ApiService {
             @Field("testimoni") String testimoni,
             @Field("rating") String rating);
 
-    @POST("axi-foto")
+    @POST("existing/axi-foto")
     @FormUrlEncoded
     Call<Foto> postFoto(
             @Header("Authorization") String apiKey,

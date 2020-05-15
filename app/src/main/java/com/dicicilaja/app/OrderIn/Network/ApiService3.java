@@ -2,7 +2,6 @@ package com.dicicilaja.app.OrderIn.Network;
 
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Pekerjaan;
-import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Response;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;

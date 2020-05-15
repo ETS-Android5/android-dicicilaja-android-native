@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -47,7 +46,6 @@ import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
@@ -428,7 +426,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                     progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setTitle("Perhatian 1");
                                     alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -445,7 +443,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                             public void onFailure(Call<Axi> call, Throwable t) {
                                 progress.hide();
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setTitle("Perhatian 2");
                                 alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
