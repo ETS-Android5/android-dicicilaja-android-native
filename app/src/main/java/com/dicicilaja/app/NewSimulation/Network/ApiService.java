@@ -83,7 +83,7 @@ public interface ApiService {
                                      @Field("area_id") String area_id,
                                      @Field("tenor") String tenor);
 
-    @GET("area")
+    @GET("v3/area/areas")
     Call<AreaSimulasi> getAreaSimulasi(@Query("simulasi") Boolean simulasi);
 
 }

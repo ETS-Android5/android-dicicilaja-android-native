@@ -57,7 +57,7 @@ public interface ApiService {
     @GET("cabang/get-by-area/{id}")
     Call<Cabang> getAllCabang(@Path("id") int cabang_id);
 
-    @GET("area")
+    @GET("v3/area/areas")
     Call<Area2> getArea();
 
     @GET("axi-foto")
