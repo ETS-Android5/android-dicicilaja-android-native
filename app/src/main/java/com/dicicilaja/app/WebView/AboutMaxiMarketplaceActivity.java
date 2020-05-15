@@ -1,15 +1,20 @@
 package com.dicicilaja.app.WebView;
 
+import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.dicicilaja.app.Activity.RegisterActivity;
 import com.dicicilaja.app.Activity.RegisterMaxi1Activity;
@@ -17,11 +22,13 @@ import com.dicicilaja.app.R;
 
 public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
 
+    private Context mContext;
     Button daftar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_maxi_marketplace);
+        mContext = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,8 +45,35 @@ public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
 
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+            // For api level bellow 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                if(url.startsWith("tel:")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            // From api level 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+                String url = request.getUrl().toString();
+                if(url.startsWith("tel:")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+        });
         webView.loadUrl("http://dicicilaja.com/mitra-bisnis");
+
+
 
         daftar = findViewById(R.id.daftar);
         daftar.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +84,14 @@ public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+    }
+
+    protected void handleTelLink(String url){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     @Override

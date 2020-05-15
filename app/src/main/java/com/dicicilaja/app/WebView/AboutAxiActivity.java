@@ -1,9 +1,14 @@
 package com.dicicilaja.app.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,10 +17,12 @@ import com.dicicilaja.app.R;
 
 public class AboutAxiActivity extends AppCompatActivity {
 
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_axi);
+        mContext = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,7 +39,32 @@ public class AboutAxiActivity extends AppCompatActivity {
 
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+            // For api level bellow 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                if(url.startsWith("tel:")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            // From api level 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+                String url = request.getUrl().toString();
+                if(url.startsWith("tel:")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+        });
         webView.loadUrl("http://dicicilaja.com/axi");
     }
 
@@ -43,5 +75,11 @@ public class AboutAxiActivity extends AppCompatActivity {
                 super.finish();
         }
         return true;
+    }
+
+    protected void handleTelLink(String url){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 }
