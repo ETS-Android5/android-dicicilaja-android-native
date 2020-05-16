@@ -103,7 +103,7 @@ public class MarketplaceActivity extends AppCompatActivity
         }else {
             navigationView = findViewById(R.id.nav_view) ;
             Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.navbar_keluar).setVisible(false);
+            menu.findItem(R.id.navbar_keluar).setVisible(true);
         }
 
         apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
