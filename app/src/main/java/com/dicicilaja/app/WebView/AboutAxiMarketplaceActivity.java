@@ -26,7 +26,7 @@ import com.dicicilaja.app.R;
 
 public class AboutAxiMarketplaceActivity extends AppCompatActivity {
 
-    private Context mContext;
+    public Context mContext;
     Button daftar;
     private ValueCallback<Uri> mUploadMessage;
     public ValueCallback<Uri[]> uploadMessage;
@@ -183,7 +183,7 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
 
     protected void handleTelLink(String url){
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(url));
+        intent.setData(Uri.parse(url.replace("/", "")));
         startActivity(intent);
     }
 }

@@ -646,7 +646,6 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
                 if (response.isSuccessful()) {
-                    Log.e("AAAA::::", "AXI Profile loaded");
                     itemDetail = response.body().getData();
 
                     Locale localeID = new Locale("in", "ID");

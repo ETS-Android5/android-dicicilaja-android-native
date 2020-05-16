@@ -22,7 +22,7 @@ import com.dicicilaja.app.R;
 
 public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
 
-    private Context mContext;
+    public Context mContext;
     Button daftar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class AboutMaxiMarketplaceActivity extends AppCompatActivity {
 
     protected void handleTelLink(String url){
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(url));
+        intent.setData(Uri.parse(url.replace("/", "")));
         startActivity(intent);
     }
 

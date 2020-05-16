@@ -17,7 +17,7 @@ import com.dicicilaja.app.R;
 
 public class AboutMaxiActivity extends AppCompatActivity {
 
-    private Context mContext;
+    public Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class AboutMaxiActivity extends AppCompatActivity {
 
     protected void handleTelLink(String url){
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(url));
+        intent.setData(Uri.parse(url.replace("/", "")));
         startActivity(intent);
     }
 }
