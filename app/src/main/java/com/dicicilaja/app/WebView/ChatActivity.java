@@ -46,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
             // For api level bellow 24
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url){
-                if(url.startsWith("tel:")){
+                if(url.startsWith("whatsapp://")){
                     handleTelLink(url);
                     return true;
                 }
@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
                 String url = request.getUrl().toString();
-                if(url.startsWith("tel:")){
+                if(url.startsWith("whatsapp://")){
                     handleTelLink(url);
                     return true;
                 }
@@ -73,8 +73,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     protected void handleTelLink(String url){
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(url.replace("/", "")));
-        startActivity(intent);
+        Uri uri=Uri.parse(url);
+        String msg = uri.getQueryParameter("text");
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        startActivity(sendIntent);
     }
 }

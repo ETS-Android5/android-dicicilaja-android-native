@@ -13,7 +13,7 @@ public class ApiBff {
     public static final String BASE_URL = "https://prod.dicicilaja.com/v3/bff/";
     private static Retrofit retrofit = null;
 
-    public static Retrofit getClient() {
+    public static Retrofit  getClient() {
         if (retrofit==null) {
             Cache cache = null;
 

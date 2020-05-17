@@ -35,6 +35,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
+import com.dicicilaja.app.Activity.GuestActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
@@ -79,6 +80,8 @@ import com.smarteist.autoimageslider.SliderView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Boolean.FALSE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -201,8 +204,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         dana_multiguna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), OrderInActivity.class);
-                startActivity(intent);
+                if(session.isLoggedIn() == FALSE){
+                    Intent intent = new Intent(getContext(), GuestActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getContext(), OrderInActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 //        promoData = new ArrayList<>();

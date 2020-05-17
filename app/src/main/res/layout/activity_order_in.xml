@@ -459,7 +459,6 @@
                             android:layout_height="match_parent">
 
                             <RelativeLayout
-                                android:visibility="gone"
                                 android:id="@+id/btn_upload_ktp"
                                 android:layout_marginLeft="25dp"
                                 android:layout_marginRight="25dp"
@@ -497,7 +496,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/view_upload_ktp"
-                                android:visibility="visible"
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_marginLeft="25dp"
                                 android:layout_marginRight="25dp"
