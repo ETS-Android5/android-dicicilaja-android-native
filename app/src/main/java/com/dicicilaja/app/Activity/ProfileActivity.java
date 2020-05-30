@@ -147,7 +147,13 @@ public class ProfileActivity extends AppCompatActivity {
             call.enqueue(new Callback<ShProfile>() {
                 @Override
                 public void onResponse(Call<ShProfile> call, Response<ShProfile> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        progress.dismiss();
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.isSuccessful()) {
                         shProfile.setVisibility(View.VISIBLE);
                         ShProfile.Data data = response.body().getData().get(0);
 
@@ -216,9 +222,17 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
 //                Log.d("PROFILE::::", response.body().getData().toString());
 //                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
-                    if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        progress.dismiss();
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.isSuccessful()) {
                         try {
+
                             dataAxi = response.body().getData();
+                            name_user.setText(dataAxi.getNamaLengkap());
                             api_id_bank = dataAxi.getIdBank();
                             api_axi_id.setText(dataAxi.getAxiId());
                             api_cabang.setText(dataAxi.getCabang());
@@ -293,7 +307,13 @@ public class ProfileActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                 try {
-                                    if (response2.isSuccessful()) {
+                                    if (response2.code() == 401) {
+                                        progress.dismiss();
+                                        session.logoutUser();
+                                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else if (response2.isSuccessful()) {
                                         progress.dismiss();
                                         session.logoutUser();
                                         Intent intent = new Intent(getBaseContext(), LoginActivity.class);

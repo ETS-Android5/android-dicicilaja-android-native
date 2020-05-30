@@ -397,7 +397,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progress.hide();
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         if (response.body().getData().size() > 0) {
                                             agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
@@ -512,7 +518,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                     @Override
                                     public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                         try {
-                                            if (response2.isSuccessful()) {
+                                            if (response2.code() == 401) {
+                                                progress.hide();
+                                                session.logoutUser();
+                                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else  if (response2.isSuccessful()) {
                                                 progress.hide();
                                                 session.logoutUser();
                                             }
@@ -576,13 +588,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
-                //                progress.dismiss();
-                List<Datum> slider = response.body().getData();
-                maxSlide = slider.size();
-                for (int i = 0; i < slider.size(); i++) {
-                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    //                progress.dismiss();
+                    List<Datum> slider = response.body().getData();
+                    maxSlide = slider.size();
+                    for (int i = 0; i < slider.size(); i++) {
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    }
+                    setSliderView(getBaseContext(), maxSlide, file_maps);
                 }
-                setSliderView(getBaseContext(), maxSlide, file_maps);
             }
 
             @Override
@@ -600,7 +619,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
                 try {
-                    if (response2.isSuccessful()) {
+                    if (response2.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else  if (response2.isSuccessful()) {
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                         contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
                         contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointTrip()))).replace(",", "."));
@@ -623,7 +647,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call3.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
                     pengajuan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -645,7 +674,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         callProfile.enqueue(new Callback<AXIDetail>() {
             @Override
             public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    hideLoading();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     itemDetail = response.body().getData();
 
                     Locale localeID = new Locale("in", "ID");
@@ -675,7 +710,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                     contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
@@ -698,7 +738,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
                 isHasCheckRewardPhase = true;
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
                     if (response.body().getData().getAttributes().getStatus() == 1) {
                         isRewardPhaseAvailable = true;
                     }
@@ -990,7 +1035,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
                 progress_popup.hide();
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {
