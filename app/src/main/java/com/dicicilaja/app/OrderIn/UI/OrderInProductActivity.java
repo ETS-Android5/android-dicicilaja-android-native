@@ -35,6 +35,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
@@ -911,7 +912,13 @@ public class OrderInProductActivity extends AppCompatActivity {
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progressBar.setVisibility(View.GONE);
+                                sessionUser.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         clearAxi();
