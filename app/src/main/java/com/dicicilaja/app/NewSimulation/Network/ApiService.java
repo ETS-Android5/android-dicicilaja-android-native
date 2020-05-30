@@ -29,7 +29,8 @@ public interface ApiService {
 
     @POST("simulasi/hitung/")
     @FormUrlEncoded
-    Call<HitungSimulasi> hitungCar(@Field("tipe_objek_id") String tipe_objek_id,
+    Call<HitungSimulasi> hitungCar(@Header("Authorization") String apiKey,
+                                   @Field("tipe_objek_id") String tipe_objek_id,
                                    @Field("objek_model_id") String objek_model_id,
                                    @Field("tahun_kendaraan") String tahun_kendaraan,
                                    @Field("area_id") String area_id,
@@ -39,7 +40,8 @@ public interface ApiService {
 
     @POST("simulasi/hitung/")
     @FormUrlEncoded
-    Call<HitungSimulasi> reHitungCar(@Field("tipe_objek_id") String tipe_objek_id,
+    Call<HitungSimulasi> reHitungCar(@Header("Authorization") String apiKey,
+                                     @Field("tipe_objek_id") String tipe_objek_id,
                                      @Field("objek_model_id") String objek_model_id,
                                      @Field("tahun_kendaraan") String tahun_kendaraan,
                                      @Field("area_id") String area_id,
@@ -60,7 +62,8 @@ public interface ApiService {
 
     @POST("simulasi/hitung/")
     @FormUrlEncoded
-    Call<HitungSimulasi> hitungMcy(@Field("tipe_objek_id") String tipe_objek_id,
+    Call<HitungSimulasi> hitungMcy(@Header("Authorization") String apiKey,
+                                   @Field("tipe_objek_id") String tipe_objek_id,
                                    @Field("objek_model_id") String objek_model_id,
                                    @Field("tahun_kendaraan") String tahun_kendaraan,
                                    @Field("area_id") String area_id,
@@ -68,7 +71,8 @@ public interface ApiService {
 
     @POST("simulasi/hitung/")
     @FormUrlEncoded
-    Call<HitungSimulasi> reHitungMcy(@Field("tipe_objek_id") String tipe_objek_id,
+    Call<HitungSimulasi> reHitungMcy(@Header("Authorization") String apiKey,
+                                     @Field("tipe_objek_id") String tipe_objek_id,
                                      @Field("objek_model_id") String objek_model_id,
                                      @Field("tahun_kendaraan") String tahun_kendaraan,
                                      @Field("area_id") String area_id,

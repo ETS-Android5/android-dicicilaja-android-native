@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
@@ -125,6 +126,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
         sessionUser = new SessionManager(NewSimulationResultActivity.this);
         session = new SessionManager(getBaseContext());
 
+        apiKey = "Bearer " + session.getToken();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -222,12 +225,18 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungMcy(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungMcy(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
                             public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -300,12 +309,18 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungCar(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
                             public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -434,7 +449,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungMcy(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungMcy(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -443,7 +458,13 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 hide.setVisibility(View.GONE);
                                 show.setVisibility(View.VISIBLE);
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -555,7 +576,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungCar(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -564,7 +585,13 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 hide.setVisibility(View.GONE);
                                 show.setVisibility(View.VISIBLE);
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -871,7 +898,13 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progress.hide();
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
