@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.Data;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.DetailKategori;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.Included;
@@ -156,12 +157,20 @@ public class CatalogResultActivity extends AppCompatActivity {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+                    if (response.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
 //                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
 
                     Log.d("Cek2", "" + response.code());
 
                     recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+
+                    }
                 }
 
                 @Override
@@ -177,12 +186,19 @@ public class CatalogResultActivity extends AppCompatActivity {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onResponse(Call<Produk> call, Response<Produk> response) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
+                    if (response.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.produk.Datum> dataItems = response.body().getData();
 //                    getSupportActionBar().setTitle(dataItems.getAttributes().getNama());
 
                     Log.d("Cek2", "" + response.code());
 
                     recyclerCatalog.setAdapter(new ListAllProductAdapter(dataItems, getBaseContext(), id, size));
+                    }
                 }
 
                 @Override

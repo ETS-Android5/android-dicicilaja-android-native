@@ -28,6 +28,8 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RegisterAxi5Activity;
 import com.dicicilaja.app.BusinessReward.dataAPI.foto.Foto;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
@@ -161,8 +163,13 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     postKtp.enqueue(new Callback<Foto>() {
                         @Override
                         public void onResponse(Call<Foto> call, Response<Foto> response) {
-                            Log.d("UPLOADKTP", "KODE: " + response.code());
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progressBar.setVisibility(View.GONE);
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 progressBar.setVisibility(View.GONE);
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
                                 alertDialog.setTitle("Sukses");

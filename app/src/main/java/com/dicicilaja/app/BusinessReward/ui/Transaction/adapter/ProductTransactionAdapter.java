@@ -18,10 +18,6 @@ import com.dicicilaja.app.R;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Husni with ❤
- */
-
 public class ProductTransactionAdapter extends RecyclerView.Adapter<ProductTransactionAdapter.ProductTransactionViewHolder> {
 
     private Context mContext;

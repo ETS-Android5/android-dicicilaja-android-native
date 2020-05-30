@@ -18,10 +18,6 @@ import com.dicicilaja.app.R;
 
 import java.util.List;
 
-/**
- * Created by Husni with ❤
- */
-
 public class ProductSummaryAdapter extends RecyclerView.Adapter<ProductSummaryAdapter.ProductViewHolder> {
 
     private List<Item> itemList;

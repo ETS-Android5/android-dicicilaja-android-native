@@ -3,6 +3,7 @@ package com.dicicilaja.app.BusinessReward.ui.Transaction.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Adapter.TransaksiAdapter;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.Datum;
@@ -146,7 +148,13 @@ public class TransactionActivity extends AppCompatActivity {
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<ClaimRewards> call, Response<ClaimRewards> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    hideLoading();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     final List<Datum> dataItems = response.body().getData();
                     final List<Included> inclData = response.body().getIncluded();
 

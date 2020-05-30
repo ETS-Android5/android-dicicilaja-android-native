@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.testimoni.Testimoni;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
@@ -107,23 +108,24 @@ public class ReviewActivity extends AppCompatActivity {
                 ApiService apiService = ApiClient.getClient().create(ApiService.class);
 //                TestimoniTemp testimoniTemp = new TestimoniTemp(Integer.valueOf(user_id), Integer.valueOf(id), 3, isi_ulasan, ratingValue);
 //                Call<Testimoni> call = apiService.postTestimoni(testimoniTemp);
-                Log.d("Testimo1", user_id);
-                Log.d("Testimo2", id);
-                Log.d("Testimo3", isi_ulasan_text);
-                Log.d("Testimo10", String.valueOf(isiUlasanText.getText()));
-                Log.d("Testimo4", String.valueOf(ratingValue));
                 Call<Testimoni> call = apiService.postTestimoni(apiKey,user_id, id, "3", isi_ulasan_text, String.valueOf(ratingValue));
                 call.enqueue(new Callback<Testimoni>() {
                     @Override
                     public void onResponse(Call<Testimoni> call, Response<Testimoni> response) {
-                        try {
-                            Log.d("Responnya2", String.valueOf(response.code()));
-                            Log.d("Responnya2", String.valueOf(response.message()));
-                            Intent intent = new Intent(getBaseContext(), TransactionActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (response.code() == 401) {
+                            session.logoutUser();
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                             startActivity(intent);
                             finish();
-                        } catch (Exception ex) {
+                        } else {
+                            try {
+                                Intent intent = new Intent(getBaseContext(), TransactionActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception ex) {
+
+                            }
 
                         }
                     }

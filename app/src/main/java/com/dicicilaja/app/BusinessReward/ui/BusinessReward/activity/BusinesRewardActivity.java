@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
@@ -215,7 +216,13 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         callCart.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
-                if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
+                if (response2.code() == 401) {
+                    progress.hide();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
                     progress.hide();
                     int total_points = response2.body().getData().getAttributes().getTotalPoints();
                     int total_items = response2.body().getData().getAttributes().getTotalItems();
@@ -241,7 +248,12 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
 
-                if (response2.isSuccessful()) {
+                if (response2.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response2.isSuccessful()) {
                     final List<ExistingPoint.Data> dataItems = response2.body().getData();
                     if (dataItems.size() == 0) {
                         Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
@@ -270,7 +282,12 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
                 final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
-                if (dataItems.size() == 0) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (dataItems.size() == 0) {
                     uploadKTP.setVisibility(View.VISIBLE);
                     ktpnpwp = "Tidak";
                 } else {
@@ -292,11 +309,18 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
-                final List<Datum> dataItems = response.body().getData();
-                final List<Included> dataItems2 = response.body().getIncluded();
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    final List<Datum> dataItems = response.body().getData();
+                    final List<Included> dataItems2 = response.body().getIncluded();
 
-                recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext(), BusinesRewardActivity.this));
-                progressBar.setVisibility(View.GONE);
+                    recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext(), BusinesRewardActivity.this));
+                    progressBar.setVisibility(View.GONE);
+                }
             }
 
             @Override

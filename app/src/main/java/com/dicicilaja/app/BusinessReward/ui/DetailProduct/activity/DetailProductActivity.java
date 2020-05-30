@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.postCart.PostCart;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
@@ -154,12 +155,20 @@ public class DetailProductActivity extends AppCompatActivity {
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<PostCart> call, Response<PostCart> response) {
-                        //finish();
+                        if (response.code() == 401) {
+                            session.logoutUser();
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            //finish();
 
                         setResult(RESULT_OK);
                         finish();
 
         //                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
+
+                        }
                     }
 
                     @Override
