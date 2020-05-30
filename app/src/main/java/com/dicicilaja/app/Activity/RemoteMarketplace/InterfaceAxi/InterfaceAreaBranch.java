@@ -15,13 +15,11 @@ import retrofit2.http.Query;
 
 public interface InterfaceAreaBranch {
     @GET("coleteral")
-    Call<Colleteral> getColleteral(@Header("Authorization") String apiKey
-                                   );
+    Call<Colleteral> getColleteral();
 
     @GET("area/areas?filter[transaksi]=true&page[size]=100")
-    Call<Area> getArea(@Header("Authorization") String apiKey);
+    Call<Area> getArea();
 
     @GET("area/branches?page[size]=100")
-    Call<Branch> getBranch(@Header("Authorization") String apiKey,
-                           @Query("filter[area_id]") String area_id);
+    Call<Branch> getBranch(@Query("filter[area_id]") String area_id);
 }

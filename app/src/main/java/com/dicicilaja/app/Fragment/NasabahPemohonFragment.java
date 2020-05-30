@@ -21,6 +21,7 @@ import com.dicicilaja.app.API.Interface.InterfaceDetailRequest;
 import com.dicicilaja.app.API.Model.DetailRequest.Datum;
 import com.dicicilaja.app.API.Model.DetailRequest.DetailRequest;
 import com.dicicilaja.app.API.Model.DetailRequest.SurveyChecklist;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.ProsesPengajuanActivity;
 import com.dicicilaja.app.Activity.RequestProcessActivity;
 import com.dicicilaja.app.R;
@@ -129,7 +130,12 @@ public class NasabahPemohonFragment extends Fragment {
         call.enqueue(new Callback<DetailRequest>() {
             @Override
             public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
-                if ( response.isSuccessful() ) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else if ( response.isSuccessful() ) {
                     detailRequests = response.body().getData();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();

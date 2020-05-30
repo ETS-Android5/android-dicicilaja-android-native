@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -112,7 +113,13 @@ public class PengajuanJaminanFragment extends Fragment {
             @Override
             public void onResponse(Call<DetailRequest> call, Response<DetailRequest> response) {
 
-                if ( response.isSuccessful() ) {
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else if ( response.isSuccessful() ) {
                     detailRequests = response.body().getData();
                     surveyChecklists = response.body().getSurveyChecklist();
                     nikCrh = response.body().getResponsibleCrh();

@@ -36,6 +36,7 @@ import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
 import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
@@ -428,13 +429,22 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else {
 //                progress.dismiss();
-                List<Datum> slider = response.body().getData();
-                maxSlide = slider.size();
-                for (int i = 0; i < slider.size(); i++) {
-                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    List<Datum> slider = response.body().getData();
+                    maxSlide = slider.size();
+                    for (int i = 0; i < slider.size(); i++) {
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    }
+                    setSliderView(getContext(),maxSlide,file_maps);
+
                 }
-                setSliderView(getContext(),maxSlide,file_maps);
             }
 
             @Override

@@ -524,7 +524,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                                                 startActivity(intent);
                                                 finish();
-                                            } else  if (response2.isSuccessful()) {
+                                            } else if (response2.isSuccessful()) {
                                                 progress.hide();
                                                 session.logoutUser();
                                             }

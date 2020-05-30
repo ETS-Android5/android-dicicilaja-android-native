@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePengajuanMarketplace;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;
@@ -97,7 +98,13 @@ public class PengajuanFragment extends Fragment {
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progress.hide();
+                                session.logoutUser();
+                                Intent intent = new Intent(getContext(), LoginActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            } else if (response.isSuccessful()) {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
@@ -178,7 +185,12 @@ public class PengajuanFragment extends Fragment {
         call2.enqueue(new Callback<AllPengajuan>() {
             @Override
             public void onResponse(Call<AllPengajuan> call, Response<AllPengajuan> response) {
-                if(response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else if(response.isSuccessful()) {
                     final List<Datum> pengajuan = response.body().getData();
                     if(pengajuan.size() == 0){
                         recyclerPengajuan.setVisibility(View.GONE);

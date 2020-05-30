@@ -287,7 +287,13 @@ public class MarketplaceActivity extends AppCompatActivity
                                     @Override
                                     public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                         try {
-                                            if (response2.isSuccessful()) {
+                                            if (response2.code() == 401) {
+                                                progress.dismiss();
+                                                session.logoutUser();
+                                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else if (response2.isSuccessful()) {
                                                 progress.dismiss();
                                                 session.logoutUser();
                                             }
@@ -606,7 +612,13 @@ public class MarketplaceActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
                 progress_popup.dismiss();
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    progress_popup.hide();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {

@@ -3,10 +3,13 @@ package com.dicicilaja.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -243,7 +246,13 @@ public class InprogressFragment extends Fragment implements RequestAdapter.Reque
             call.enqueue(new Callback<Request>() {
                 @Override
                 public void onResponse(Call<Request> call, Response<Request> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        progress.dismiss();
+                        session.logoutUser();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else if (response.isSuccessful()) {
                         List<com.dicicilaja.app.API.Model.Request.Datum> items = response.body().getData();
                         RequestMeta meta = response.body().getMeta();
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");

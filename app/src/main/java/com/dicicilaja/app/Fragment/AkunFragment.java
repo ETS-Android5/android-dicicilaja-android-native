@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.dicicilaja.app.API.Client.ApiClient2;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.ProfileCustomerActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllFavorite;
@@ -116,25 +117,34 @@ public class AkunFragment extends Fragment {
         call5.enqueue(new Callback<ItemFavorite>() {
             @Override
             public void onResponse(Call<ItemFavorite> call, Response<ItemFavorite> response) {
-                favorite = response.body().getData();
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else {
+                    favorite = response.body().getData();
 
-                recyclerView2.setAdapter(new FavoriteAllAdapter(favorite, R.layout.card_program, getContext()));
-                recyclerView2.setNestedScrollingEnabled(false);
-                recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView2, new ClickListener() {
-                    @Override
-                    public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getContext(), ProductMaxiActivity.class);
-                        intent.putExtra("EXTRA_REQUEST_ID", favorite.get(position).getId().toString());
-                        startActivity(intent);
+                    recyclerView2.setAdapter(new FavoriteAllAdapter(favorite, R.layout.card_program, getContext()));
+                    recyclerView2.setNestedScrollingEnabled(false);
+                    recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView2, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getContext(), ProductMaxiActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", favorite.get(position).getId().toString());
+                            startActivity(intent);
 
-                    }
+                        }
 
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
 
-                progress.dismiss();
+                    progress.dismiss();
+
+                }
             }
 
             @Override

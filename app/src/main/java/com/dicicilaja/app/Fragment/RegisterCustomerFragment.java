@@ -27,6 +27,7 @@ import com.dicicilaja.app.Activity.RegisterCustomerDone;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCreateCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemCreateCustomer.CreateCustomer;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
@@ -48,6 +49,7 @@ public class RegisterCustomerFragment extends Fragment {
     CheckBox check;
     String apiKey;
     ProgressDialog progress;
+    SessionManager session;
     TextInputLayout inputLayoutNamaLengkap, inputLayoutEmail, inputLayoutNoHp, inputLayoutKataSandi, inputLayoutKonfirmasi;
     public RegisterCustomerFragment() {
         // Required empty public constructor
@@ -74,6 +76,9 @@ public class RegisterCustomerFragment extends Fragment {
         inputLayoutNoHp = view.findViewById(R.id.inputLayoutNoHp);
         inputLayoutKataSandi = view.findViewById(R.id.inputLayoutKataSandi);
         inputLayoutKonfirmasi = view.findViewById(R.id.inputLayoutKonfirmasi);
+
+        session = new SessionManager(getContext());
+        apiKey = "Bearer " + session.getToken();
 
         progress = new ProgressDialog(getContext());
         progress.setMessage("Sedang mengirim data...");
@@ -239,19 +244,25 @@ public class RegisterCustomerFragment extends Fragment {
         call.enqueue(new Callback<CreateCustomer>() {
             @Override
             public void onResponse(Call<CreateCustomer> call, Response<CreateCustomer> response) {
-                if(response.isSuccessful()){
+                if (response.code() == 401) {
                     progress.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Intent intent = new Intent(getContext(), RegisterCustomerDone.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 } else if (response.code() == 422){
                     progress.dismiss();
                     Toast.makeText(getContext(),"Email Anda sudah terdaftar atau silahkan hubungi Tasya.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                } else{
+                } else if(response.isSuccessful()){
+                    progress.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Intent intent = new Intent(getContext(), RegisterCustomerDone.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
                     progress.dismiss();
                     Toast.makeText(getContext(),"Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), LoginActivity.class);
