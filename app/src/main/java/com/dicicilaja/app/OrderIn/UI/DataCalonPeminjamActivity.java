@@ -564,6 +564,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         PUNYA_NPWP_ITEMS.clear();
         PUNYA_NPWP_DATA.clear();
 
+        PUNYA_NPWP_DATA.put(0, "0");
         PUNYA_NPWP_DATA.put(1, "1");
         PUNYA_NPWP_DATA.put(2, "2");
         PUNYA_NPWP_ITEMS.add("Ya");
@@ -1634,9 +1635,9 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             nama_ibu_kandung = inputIbuKandung.getText().toString();
 //            tanggal_janji_survey = inputJanjiSurvey.getText().toString();
             punya_npwp_id = PUNYA_NPWP_DATA.get(spinnerPunyaNpwp.getSelectedItemPosition());
-            punya_npwp = PUNYA_NPWP_ITEMS.get(spinnerPunyaNpwp.getSelectedItemPosition());
+            punya_npwp = PUNYA_NPWP_ITEMS.get(spinnerPunyaNpwp.getSelectedItemPosition()-1);
             pekerjaan_id= JOB_DATA.get(spinnerPekerjaan.getSelectedItemPosition());
-            pekerjaan = JOB_ITEMS.get(spinnerPekerjaan.getSelectedItemPosition());
+            pekerjaan = JOB_ITEMS.get(spinnerPekerjaan.getSelectedItemPosition()-1);
 
 
         } catch (Exception ex) {

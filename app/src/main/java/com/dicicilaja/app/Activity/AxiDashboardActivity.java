@@ -626,8 +626,15 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         finish();
                     } else  if (response2.isSuccessful()) {
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                        Locale localeID = new Locale("in", "ID");
+                        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
                         contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
                         contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointTrip()))).replace(",", "."));
+                        contentBox3.setText(formatRupiah.format((float) Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getInsentifCar()))));
+                        contentBox4.setText(formatRupiah.format((float) Float.parseFloat(String.valueOf(response2.body().getData().get(0).getAttributes().getInsentifMcy()))));
+                        linkWeb.setText("https://dicicilaja.com/" + session.getNomorAxiId());
 
                     }
                 } catch (Exception ex) {
@@ -666,42 +673,42 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        InterfaceAxiDetail apiService5 =
-                ApiBffNew.getClient().create(InterfaceAxiDetail.class);
-
-//        showLoading();
-        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
-        callProfile.enqueue(new Callback<AXIDetail>() {
-            @Override
-            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if (response.code() == 401) {
-                    hideLoading();
-                    session.logoutUser();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (response.isSuccessful()) {
-                    itemDetail = response.body().getData();
-
-                    Locale localeID = new Locale("in", "ID");
-                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
-                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    linkWeb.setText("https://dicicilaja.com/" + itemDetail.getAxiId());
-                }
-                hideLoading();
-            }
-
-            @Override
-            public void onFailure(Call<AXIDetail> call, Throwable t) {
-                hideLoading();
-                t.printStackTrace();
-            }
-        });
+//        InterfaceAxiDetail apiService5 =
+//                ApiBffNew.getClient().create(InterfaceAxiDetail.class);
+//
+////        showLoading();
+//        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
+//        callProfile.enqueue(new Callback<AXIDetail>() {
+//            @Override
+//            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
+//                if (response.code() == 401) {
+//                    hideLoading();
+//                    session.logoutUser();
+//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                } else if (response.isSuccessful()) {
+//                    itemDetail = response.body().getData();
+//
+//                    Locale localeID = new Locale("in", "ID");
+//                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+//
+//                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+//
+////                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+//                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+//                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
+//                    linkWeb.setText("https://dicicilaja.com/" + itemDetail.getAxiId());
+//                }
+//                hideLoading();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AXIDetail> call, Throwable t) {
+//                hideLoading();
+//                t.printStackTrace();
+//            }
+//        });
 
         InterfaceInfoJaringan apiService4 =
                 ApiBff.getClient().create(InterfaceInfoJaringan.class);
@@ -955,29 +962,29 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(intent);
                 break;
             case R.id.insentif_car:
-                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
-                startActivity(intent);
+//                intent = new Intent(getBaseContext(), InsentifCarActivity.class);
+//                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
+//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
+//                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
+//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
+//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+//                startActivity(intent);
                 break;
             case R.id.insentif_mcy:
-                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
-                startActivity(intent);
+//                intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
+//                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
+//                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
+//                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
+//                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
+//                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+//                startActivity(intent);
                 break;
             case R.id.card2:
                 break;
             case R.id.button_rb:
-                intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
-                intent.putExtra("total_rb", contentBox5.getText().toString());
-                startActivity(intent);
+//                intent = new Intent(getBaseContext(), InfoJaringanActivity.class);
+//                intent.putExtra("total_rb", contentBox5.getText().toString());
+//                startActivity(intent);
                 break;
 //            case R.id.button_kedalaman_rb:
 //                intent = new Intent(getBaseContext(), AllPengajuanAxiActivity.class);
