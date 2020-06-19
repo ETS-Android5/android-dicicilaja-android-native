@@ -853,10 +853,38 @@ public class OrderInActivity extends AppCompatActivity {
                 alertDialog6.show();
                 break;
             case R.id.change_ktp:
-                requestStoragePermission(false, PICK_IMAGE_KTP);
+                AlertDialog.Builder alertDialog8 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog8.setTitle("Perhatian");
+                alertDialog8.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog8.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_KTP_GALLERY);
+                    }
+                });
+                alertDialog8.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_KTP);
+                    }
+                });
+                alertDialog8.show();
                 break;
             case R.id.change_bpkb:
-                requestStoragePermission(false, PICK_IMAGE_BPKB);
+                AlertDialog.Builder alertDialog9 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog9.setTitle("Perhatian");
+                alertDialog9.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog9.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_BPKB_GALLERY);
+                    }
+                });
+                alertDialog9.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_BPKB);
+                    }
+                });
+                alertDialog9.show();
                 break;
             case R.id.next:
                 try {
