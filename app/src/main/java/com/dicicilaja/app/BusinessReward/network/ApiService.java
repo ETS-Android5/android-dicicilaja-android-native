@@ -1,5 +1,7 @@
 package com.dicicilaja.app.BusinessReward.network;
 
+import android.graphics.Point;
+
 import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
 import com.dicicilaja.app.BusinessReward.dataAPI.branch.Branch;
 import com.dicicilaja.app.BusinessReward.dataAPI.cabang.Cabang;
@@ -17,7 +19,6 @@ import com.dicicilaja.app.BusinessReward.dataAPI.getClaimReward.ClaimRewards;
 import com.dicicilaja.app.BusinessReward.dataAPI.getDetailKategori.DetailKategori;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
-import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.dataAPI.produk.Produk;
 import com.dicicilaja.app.BusinessReward.dataAPI.rewardphase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.dataAPI.semester.Semester;

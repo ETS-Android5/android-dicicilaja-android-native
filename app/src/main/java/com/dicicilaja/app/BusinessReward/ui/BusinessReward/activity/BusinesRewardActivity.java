@@ -33,9 +33,7 @@ import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
-import com.dicicilaja.app.BusinessReward.dataAPI.point.DataItem;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
-import com.dicicilaja.app.BusinessReward.dataAPI.point.Point;
 import com.dicicilaja.app.BusinessReward.network.ApiClient;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
@@ -254,7 +252,7 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                     startActivity(intent);
                     finish();
                 } else if (response2.isSuccessful()) {
-                    final List<ExistingPoint.Data> dataItems = response2.body().getData();
+                    final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
                     if (dataItems.size() == 0) {
                         Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
                     } else {

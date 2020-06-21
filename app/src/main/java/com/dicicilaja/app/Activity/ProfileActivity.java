@@ -126,12 +126,15 @@ public class ProfileActivity extends AppCompatActivity {
         title_info.setTypeface(opensans_bold);
 
         CircleImageView profilePictures = findViewById(R.id.profile_picture_page);
-        String imageUrl = session.getPhoto();
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(profilePictures);
+        try {
+            String imageUrl = session.getPhoto();
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(profilePictures);
+        } catch (Exception ex) {}
+
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");

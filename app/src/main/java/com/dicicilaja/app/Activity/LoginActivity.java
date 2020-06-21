@@ -524,7 +524,7 @@ public class LoginActivity extends AppCompatActivity {
 //                break;
 
             default:
-                progress.dismiss();
+//                progress.dismiss();
                 hideSoftKeyboard();
                 androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
                 alertDialog.setTitle("Perhatian");

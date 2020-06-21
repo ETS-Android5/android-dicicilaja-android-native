@@ -1,83 +1,87 @@
+
 package com.dicicilaja.app.BusinessReward.dataAPI.point;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meta{
+public class Meta {
 
-	@SerializedName("path")
-	private String path;
+    @SerializedName("current_page")
+    @Expose
+    private Integer currentPage;
+    @SerializedName("from")
+    @Expose
+    private Integer from;
+    @SerializedName("last_page")
+    @Expose
+    private Integer lastPage;
+    @SerializedName("path")
+    @Expose
+    private String path;
+    @SerializedName("per_page")
+    @Expose
+    private Integer perPage;
+    @SerializedName("to")
+    @Expose
+    private Integer to;
+    @SerializedName("total")
+    @Expose
+    private Integer total;
 
-	@SerializedName("per_page")
-	private int perPage;
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
 
-	@SerializedName("total")
-	private int total;
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
 
-	@SerializedName("last_page")
-	private int lastPage;
+    public Integer getFrom() {
+        return from;
+    }
 
-	@SerializedName("from")
-	private int from;
+    public void setFrom(Integer from) {
+        this.from = from;
+    }
 
-	@SerializedName("to")
-	private int to;
+    public Integer getLastPage() {
+        return lastPage;
+    }
 
-	@SerializedName("current_page")
-	private int currentPage;
+    public void setLastPage(Integer lastPage) {
+        this.lastPage = lastPage;
+    }
 
-	public void setPath(String path){
-		this.path = path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public String getPath(){
-		return path;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public void setPerPage(int perPage){
-		this.perPage = perPage;
-	}
+    public Integer getPerPage() {
+        return perPage;
+    }
 
-	public int getPerPage(){
-		return perPage;
-	}
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
+    }
 
-	public void setTotal(int total){
-		this.total = total;
-	}
+    public Integer getTo() {
+        return to;
+    }
 
-	public int getTotal(){
-		return total;
-	}
+    public void setTo(Integer to) {
+        this.to = to;
+    }
 
-	public void setLastPage(int lastPage){
-		this.lastPage = lastPage;
-	}
+    public Integer getTotal() {
+        return total;
+    }
 
-	public int getLastPage(){
-		return lastPage;
-	}
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
-	public void setFrom(int from){
-		this.from = from;
-	}
-
-	public int getFrom(){
-		return from;
-	}
-
-	public void setTo(int to){
-		this.to = to;
-	}
-
-	public int getTo(){
-		return to;
-	}
-
-	public void setCurrentPage(int currentPage){
-		this.currentPage = currentPage;
-	}
-
-	public int getCurrentPage(){
-		return currentPage;
-	}
 }
