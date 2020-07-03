@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkClient {
 
-    public static final String BASE_URL = "https://prod.dicicilaja.com/v3/";
+    public static final String BASE_URL = "https://dev.dicicilaja.com/v2/";
 
     public Retrofit getRetrofitInstance() {
 
