@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicicilaja.app">
-
-<!--    <uses-feature android:name="android.hardware.camera.flash" />-->
-    <uses-feature android:name="android.hardware.camera" />
-<!--    <uses-feature android:name="android.hardware.camera.autofocus" />-->
-
+    <!-- <uses-feature android:name="android.hardware.camera.flash" /> -->
+    <uses-feature android:name="android.hardware.camera" /> <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<!--    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />-->
 
     <application
         android:name=".BaseApplication"
@@ -24,7 +20,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".InformAXI.ui.UbahShActivity"></activity>
+        <activity android:name=".InformAXI.ui.InformSmActivity"></activity>
+        <activity android:name=".InformAXI.ui.UbahShActivity" />
         <activity android:name=".Activity.RegisterMaxiDone" />
         <activity android:name=".Activity.RegisterCustomerDone" />
         <activity android:name=".Activity.RegisterAxiDone" />
@@ -116,10 +113,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-	</activity>
-        <activity android:name=".Activity.LoginActivity">
-
         </activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"
@@ -220,6 +215,7 @@
             android:name=".Activity.SimulationActivity"
             android:label="Simulasi Cicilan"
             android:theme="@style/AppTheme.NoActionBar">
+
             <!-- <meta-data -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="com.dicicilaja.app.Activity.MarketplaceActivity" /> -->
@@ -555,7 +551,7 @@
                 android:value="com.dicicilaja.app.Activity.MarketplaceActivity" />
         </activity>
         <activity
-	    android:name=".Activity.NotificationActivity"
+            android:name=".Activity.NotificationActivity"
             android:label="Notifikasi"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

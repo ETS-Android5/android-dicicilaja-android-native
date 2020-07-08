@@ -2,6 +2,7 @@ package com.dicicilaja.app.InformAXI.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -9,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -34,22 +34,22 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dicicilaja.app.API.Client.ApiBff;
+import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
-import com.dicicilaja.app.Activity.ProfileActivity;
-import com.dicicilaja.app.Activity.SearchActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.Inbox.UI.PopUpActivity;
 import com.dicicilaja.app.InformAXI.OrderTrackingActivity;
 import com.dicicilaja.app.InformAXI.ui.gathering.GatheringActivity;
-import com.dicicilaja.app.InformAXI.ui.home.HomeFragment;
+import com.dicicilaja.app.InformAXI.ui.sm.SmFragment;
+import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.InformAXI.ui.register.RegisterActivity;
+import com.dicicilaja.app.InformAXI.ui.search.SearchActivity;
 import com.dicicilaja.app.InformAXI.ui.trip.TripActivity;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
-import com.dicicilaja.app.OrderIn.Network.ApiClient2;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.OrderIn.UI.OrderInActivity;
 import com.dicicilaja.app.R;
@@ -65,7 +65,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InformAxiActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class InformSmActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private NavigationView navView;
@@ -78,7 +78,6 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     private ImageButton ibMenu, ibNotification;
     String agen_axi_id, agen_id, agen_name;
 
-    List<Datum> dataPopups;
     String apiKey;
 
 
@@ -87,10 +86,11 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     Dialog InAppDialog;
 
     public static int navItemIndex = 0;
-    public static String CURRENT_TAG = "home";
+    public static String CURRENT_TAG = "sm";
     public boolean isDialogShowing = false;
 
     private Handler mHandler;
+    List<Datum> dataPopups;
 
     com.dicicilaja.app.Inbox.Network.ApiService apiService4;
 
@@ -104,12 +104,12 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inform_axi);
+        setContentView(R.layout.activity_inform_sm);
 
         initVariables();
         initToolbar();
         initListener();
-        loadHomeFragment();
+        loadSmFragment();
 
         apiService3 = ApiClient2.getClient().create(ApiService3.class);
 
@@ -186,7 +186,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                     .into(ivAvatar);
     }
 
-    private void loadHomeFragment() {
+    private void loadSmFragment() {
         // select appropriate nav menu item
         selectNavMenu();
 
@@ -205,7 +205,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             Fragment fragment = getFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            transaction.replace(R.id.frame_layout_axi, fragment, CURRENT_TAG);
+            transaction.replace(R.id.frame_layout_sm, fragment, CURRENT_TAG);
             transaction.commitAllowingStateLoss();
         };
 
@@ -221,14 +221,10 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
 
     private Fragment getFragment() {
         switch (CURRENT_TAG) {
-            case "home":
-                return HomeFragment.newInstance("home");
-            case "register":
-                return HomeFragment.newInstance("register");
-            case "trip":
-                return HomeFragment.newInstance("home");
+            case "sm":
+                return SmFragment.newInstance("sm");
             default:
-                return HomeFragment.newInstance("home");
+                return SmFragment.newInstance("sm");
         }
     }
 
@@ -237,25 +233,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 navItemIndex = 0;
-                CURRENT_TAG = getString(R.string.home_tag);
-                break;
-            case R.id.nav_regist:
-                drawerLayout.closeDrawers();
-                startActivity(new Intent(this, RegisterActivity.class));
-                navItemIndex = 1;
-                //CURRENT_TAG = getString(R.string.regist_tag);
-                break;
-            case R.id.nav_trip:
-                drawerLayout.closeDrawers();
-                startActivity(new Intent(this, TripActivity.class));
-                navItemIndex = 2;
-                //CURRENT_TAG = getString(R.string.trip_tag);
-                break;
-            case R.id.nav_gathering:
-                drawerLayout.closeDrawers();
-                startActivity(new Intent(this, GatheringActivity.class));
-                navItemIndex = 3;
-                //CURRENT_TAG = getString(R.string.gathering_tag);
+                CURRENT_TAG = getString(R.string.sm_tag);
                 break;
             case R.id.nav_submission:
                 progress.show();
@@ -297,7 +275,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                         } else {
                             progress.hide();
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformAxiActivity.this);
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformSmActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -314,7 +292,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onFailure(Call<Axi> call, Throwable t) {
                         progress.hide();
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformAxiActivity.this);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformSmActivity.this);
                         alertDialog.setTitle("Perhatian");
                         alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
@@ -327,14 +305,6 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                         alertDialog.show();
                     }
                 });
-                break;
-            case R.id.nav_financing:
-                Intent intent4 = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(intent4);
-                break;
-            case R.id.nav_tracking:
-                drawerLayout.closeDrawers();
-                startActivity(new Intent(this, OrderTrackingActivity.class));
                 break;
             case R.id.nav_simulation:
                 Intent intent5 = new Intent(getBaseContext(), NewSimulationActivity.class);
@@ -364,12 +334,12 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         //}
 
         //menuItem.setChecked(true);
-        //loadHomeFragment();
+        //loadSmFragment();
         return true;
     }
 
     private void showDialogLogout() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformAxiActivity.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InformSmActivity.this);
 
         // Setting Dialog Title
         alertDialog.setTitle("Konfirmasi");
@@ -427,8 +397,8 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
 
         if (navItemIndex != 0) {
             navItemIndex = 0;
-            CURRENT_TAG = getString(R.string.home_tag);
-            loadHomeFragment();
+            CURRENT_TAG = getString(R.string.sm_tag);
+            loadSmFragment();
             selectNavMenu();
             return;
         }
@@ -443,8 +413,8 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
 
         if (navItemIndex != 0) {
             navItemIndex = 0;
-            CURRENT_TAG = getString(R.string.home_tag);
-            loadHomeFragment();
+            CURRENT_TAG = getString(R.string.sm_tag);
+            loadSmFragment();
             selectNavMenu();
             return;
         }
@@ -460,7 +430,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         progress_popup.setMessage("Sedang memuat data...");
         progress_popup.setCanceledOnTouchOutside(false);
 
-        InAppDialog = new Dialog(InformAxiActivity.this);
+        InAppDialog = new Dialog(InformSmActivity.this);
         InAppDialog.setContentView(R.layout.in_app_dialog);
         InAppDialog.setCanceledOnTouchOutside(false);
         InAppDialog.setCancelable(false);
@@ -476,7 +446,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
         nanti.setEnabled(false);
 
         progress_popup.show();
-        Call<Popup> popupCall = apiService4.getPopup(apiKey, session.getRole());
+        Call<Popup> popupCall = apiService4.getPopup(apiKey, "sh");
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
@@ -485,7 +455,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {
-                            Glide.with(InformAxiActivity.this)
+                            Glide.with(InformSmActivity.this)
                                     .load(dataPopups.get(0).getAttributes().getImage())
                                     .fitCenter()
                                     .listener(new RequestListener<Drawable>() {

@@ -9,6 +9,7 @@ import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
 import com.dicicilaja.app.BFF.API.Data.Login.Login;
 import com.dicicilaja.app.BFF.API.Network.ApiClient;
 import com.dicicilaja.app.BFF.API.Network.ApiService;
+import com.dicicilaja.app.InformAXI.ui.InformSmActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -274,6 +275,7 @@ public class LoginActivity extends AppCompatActivity {
                             resObj.getBranch(),
                             resObj.getBranchId(),
                             area,
+                            String.valueOf(resObj.getAreaId()),
                             zipcode,
                             refreshedToken,
                             String.valueOf(resObj.getPhone()),
@@ -480,11 +482,18 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
 
-            case "nasabah":
-                Intent intent3 = new Intent(getBaseContext(), MarketplaceActivity.class);
+            case "sm":
+                Intent intent3 = new Intent(getBaseContext(), InformSmActivity.class);
                 intent3.putExtra("openInbox", openInbox);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent3);
+                break;
+
+            case "nasabah":
+                Intent intent4 = new Intent(getBaseContext(), MarketplaceActivity.class);
+                intent4.putExtra("openInbox", openInbox);
+                intent4.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent4);
                 break;
 
 //            case "channel":
