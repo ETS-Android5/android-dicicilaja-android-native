@@ -169,7 +169,7 @@ public class AssignSurveyorWebViewActivity extends AppCompatActivity {
 
         if(session.getEmail() != null){
 //            webView.loadUrl("https://dicicilaja.com/axi/register/mobile");
-            webView.loadUrl("http://147.139.167.16/crh/orderin?crhEmail=" + session.getEmail());
+            webView.loadUrl("https://dicicilaja.com/crh/orderin?crhEmail=" + session.getEmail());
         }else{
 //            webView.loadUrl("https://dicicilaja.com/axi/register/mobile");
         }
