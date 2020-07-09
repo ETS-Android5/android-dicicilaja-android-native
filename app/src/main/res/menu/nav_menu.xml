@@ -22,6 +22,10 @@
             android:title="@string/nav_gathering" />
 
         <item
+            android:id="@+id/nav_assign_surveyor"
+            android:title="@string/nav_assign_surveyor" />
+
+        <item
             android:id="@+id/nav_submission"
             android:title="@string/nav_submission" />
 
