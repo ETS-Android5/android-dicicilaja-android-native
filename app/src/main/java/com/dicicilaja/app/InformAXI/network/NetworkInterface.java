@@ -33,6 +33,14 @@ public interface NetworkInterface {
                      @Query("page") int page,
                      @Query("cabang_id") int branchId);
 
+    @GET("profile/axi/list")
+    Observable<AxiHome>
+    getRegListDetailByArea(@Header("Authorization") String apiKey,
+                     @Query("date") String date,
+                     @Query("limit") int limit,
+                     @Query("page") int page,
+                     @Query("area_id") int areaId);
+
     /**
      * For testing purposes only
      *
