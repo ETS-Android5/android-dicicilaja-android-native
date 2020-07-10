@@ -36,6 +36,7 @@ import com.bumptech.glide.request.target.Target;
 import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
+import com.dicicilaja.app.Activity.RegisterAxiWebViewActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
@@ -305,6 +306,10 @@ public class InformSmActivity extends AppCompatActivity implements NavigationVie
                         alertDialog.show();
                     }
                 });
+                break;
+            case R.id.nav_partner:
+                Intent intent2 = new Intent(getBaseContext(), RegisterAxiWebViewActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.nav_simulation:
                 Intent intent5 = new Intent(getBaseContext(), NewSimulationActivity.class);
