@@ -261,6 +261,7 @@
     <string name="nav_download">UNDUH MATERI</string>
     <string name="nav_info">GUDANG INFO</string>
     <string name="nav_logout">KELUAR</string>
+    <string name="nav_assign_surveyor">ASSIGN SURVEYOR</string>
 
     <string name="home_tag">home</string>
     <string name="regist_tag">register</string>
