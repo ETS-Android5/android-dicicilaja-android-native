@@ -214,29 +214,54 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         callCart.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response2) {
-                if (response2.code() == 401) {
-                    progress.hide();
-                    session.logoutUser();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
-                    progress.hide();
-                    int total_points = response2.body().getData().getAttributes().getTotalPoints();
-                    int total_items = response2.body().getData().getAttributes().getTotalItems();
+                if (response2.isSuccessful()) {
+                    if (response2.code() == 401) {
+                        progress.hide();
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response2.body().getData().getAttributes().getItems().size() != 0 ) {
+                        progress.hide();
+                        int total_points = response2.body().getData().getAttributes().getTotalPoints();
+                        int total_items = response2.body().getData().getAttributes().getTotalItems();
 
-                    floatingCart.setVisibility(View.VISIBLE);
-                    textCart.setText(total_items + " Barang dikeranjang");
-                    pointCart.setText(total_points + " Poin");
+                        floatingCart.setVisibility(View.VISIBLE);
+                        textCart.setText(total_items + " Barang dikeranjang");
+                        pointCart.setText(total_points + " Poin");
+                    } else {
+                        progress.hide();
+                        floatingCart.setVisibility(View.GONE);
+                    }
                 } else {
-                    progress.hide();
-                    floatingCart.setVisibility(View.GONE);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
                 }
+
             }
 
             @Override
             public void onFailure(Call<GetCart> call, Throwable t) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.");
 
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -245,32 +270,67 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         call2.enqueue(new Callback<ExistingPoint>() {
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
-
-                if (response2.code() == 401) {
-                    session.logoutUser();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (response2.isSuccessful()) {
-                    final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
-                    if (dataItems.size() == 0) {
-                        Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (response2.body().getData().get(0).getAttributes().getPointReward() == 0) {
-                            profilePoint.setText("0");
+                if (response2.isSuccessful()) {
+                    if (response2.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response2.isSuccessful()) {
+                        final List<com.dicicilaja.app.BusinessReward.dataAPI.point.Datum> dataItems = response2.body().getData();
+                        if (dataItems.size() == 0) {
+                            Toast.makeText(getBaseContext(), "Belum ada data point.", Toast.LENGTH_SHORT).show();
                         } else {
-                            profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                            if (response2.body().getData().get(0).getAttributes().getPointReward() == 0) {
+                                profilePoint.setText("0");
+                            } else {
+                                profilePoint.setText(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()));
+                            }
+                            point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
                         }
-                        point_reward = String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward());
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                        alertDialog.setTitle("Perhatian");
+                        alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        });
+                        alertDialog.show();
                     }
                 } else {
-                    Log.d("asd", "onResponse: " + new Gson().toJson(response2.body()));
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
                 }
+
+
             }
 
             @Override
             public void onFailure(Call<ExistingPoint> call, Throwable t) {
-                Log.d("asd", "onResponse: " + t.getMessage());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -279,26 +339,51 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
-                final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
-                if (response.code() == 401) {
-                    session.logoutUser();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (dataItems.size() == 0) {
-                    uploadKTP.setVisibility(View.VISIBLE);
-                    ktpnpwp = "Tidak";
+                if (response.isSuccessful()) {
+                    final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
+                    if (response.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (dataItems.size() == 0) {
+                        uploadKTP.setVisibility(View.VISIBLE);
+                        ktpnpwp = "Tidak";
+                    } else {
+                        ktpnpwp = "Ada";
+                        no_ktp = response.body().getData().get(0).getAttributes().getNoKtp();
+                        no_npwp = response.body().getData().get(0).getAttributes().getNoNpwp();
+                    }
                 } else {
-                    ktpnpwp = "Ada";
-                    no_ktp = response.body().getData().get(0).getAttributes().getNoKtp();
-                    no_npwp = response.body().getData().get(0).getAttributes().getNoNpwp();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
                 }
+
 
             }
 
             @Override
             public void onFailure(Call<FotoKtpNpwp> call, Throwable t) {
-                Log.d("sizenyaaa", "data: " + t.getMessage());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                alertDialog.setTitle("Perhatian");
+                alertDialog.setMessage("Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.");
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -307,25 +392,40 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
-                if (response.code() == 401) {
-                    session.logoutUser();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    final List<Datum> dataItems = response.body().getData();
-                    final List<Included> dataItems2 = response.body().getIncluded();
+                if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        final List<Datum> dataItems = response.body().getData();
+                        final List<Included> dataItems2 = response.body().getIncluded();
 
-                    recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext(), BusinesRewardActivity.this));
-                    progressBar.setVisibility(View.GONE);
+                        recyclerProduk.setAdapter(new ListProductCatalogAdapter(dataItems, dataItems2, getBaseContext(), BusinesRewardActivity.this));
+                        progressBar.setVisibility(View.GONE);
+                    }
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
+                    alertDialog.setTitle("Perhatian");
+                    alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
+                    alertDialog.show();
                 }
+
             }
 
             @Override
             public void onFailure(Call<KategoriProduk> call, Throwable t) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(BusinesRewardActivity.this);
                 alertDialog.setTitle("Perhatian");
-                alertDialog.setMessage("Gagal memuat data, silahkan coba beberapa saat lagi.");
+                alertDialog.setMessage("Terjadi kesalahan teknis, silahkan coba beberapa saat lagi.");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

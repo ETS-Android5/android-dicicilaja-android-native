@@ -451,7 +451,7 @@ public class InformSmActivity extends AppCompatActivity implements NavigationVie
         nanti.setEnabled(false);
 
         progress_popup.show();
-        Call<Popup> popupCall = apiService4.getPopup(apiKey, "sh");
+        Call<Popup> popupCall = apiService4.getPopup(apiKey, session.getRole());
         popupCall.enqueue(new Callback<Popup>() {
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
