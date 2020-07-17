@@ -206,7 +206,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             Fragment fragment = getFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            transaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
+            transaction.replace(R.id.frame_layout_axi, fragment, CURRENT_TAG);
             transaction.commitAllowingStateLoss();
         };
 

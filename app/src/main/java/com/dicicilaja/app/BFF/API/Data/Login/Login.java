@@ -29,6 +29,9 @@ public class Login {
     @SerializedName("area")
     @Expose
     private String area;
+    @SerializedName("area_id")
+    @Expose
+    private String areaId;
     @SerializedName("branch_id")
     @Expose
     private String branchId;
@@ -119,6 +122,14 @@ public class Login {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
     public String getBranchId() {

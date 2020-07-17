@@ -217,6 +217,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int totalData = 1;
     int totalPage = 1;
     int currentPage = 1;
+    int point_trip = 0;
+    int point_reward = 0;
     int incentive_car_mentor = 0;
     int incentive_car_extra_bulanan = 0;
     int incentive_car_group = 0;
@@ -964,7 +966,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 if (isHasCheckRewardPhase) {
                     if (isRewardPhaseAvailable) {
                         intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                        intent.putExtra("POINT_REWARD", contentBox1.getText());
+                        intent.putExtra("POINT_REWARD", String.valueOf(contentBox1.getText()));
                         startActivityForResult(intent, 96);
                     } else
                         intent = new Intent(getBaseContext(), AvailableBRActivity.class);
@@ -978,26 +980,26 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);
-                intent.putExtra("POINT_TRIP", contentBox2.getText());
+                intent.putExtra("POINT_TRIP", String.valueOf(contentBox2.getText()));
 //                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
                 startActivity(intent);
                 break;
             case R.id.insentif_car:
                 intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-                intent.putExtra("MENTOR", incentive_car_mentor);
-                intent.putExtra("EXTRA_BULANAN", incentive_car_extra_bulanan);
-                intent.putExtra("GROUP", incentive_car_group);
-                intent.putExtra("BONUS_TAHUNAN", incentive_car_bonus_tahunan);
-                intent.putExtra("BONUS_LAYOUT", incentive_car_bonus_layout);
+                intent.putExtra("MENTOR", String.valueOf(incentive_car_mentor));
+                intent.putExtra("EXTRA_BULANAN", String.valueOf(incentive_car_extra_bulanan));
+                intent.putExtra("GROUP", String.valueOf(incentive_car_group));
+                intent.putExtra("BONUS_TAHUNAN", String.valueOf(incentive_car_bonus_tahunan));
+                intent.putExtra("BONUS_LAYOUT", String.valueOf(incentive_car_bonus_layout));
                 startActivity(intent);
                 break;
             case R.id.insentif_mcy:
                 intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", incentive_mcy_mentor);
-                intent.putExtra("EXTRA_BULANAN", incentive_mcy_extra_bulanan);
-                intent.putExtra("GROUP", incentive_mcy_group);
-                intent.putExtra("BONUS_TAHUNAN", incentive_mcy_bonus_tahunan);
-                intent.putExtra("BONUS_LAYOUT", incentive_mcy_bonus_layout);
+                intent.putExtra("MENTOR", String.valueOf(incentive_mcy_mentor));
+                intent.putExtra("EXTRA_BULANAN", String.valueOf(incentive_mcy_extra_bulanan));
+                intent.putExtra("GROUP", String.valueOf(incentive_mcy_group));
+                intent.putExtra("BONUS_TAHUNAN", String.valueOf(incentive_mcy_bonus_tahunan));
+                intent.putExtra("BONUS_LAYOUT", String.valueOf(incentive_mcy_bonus_layout));
                 startActivity(intent);
                 break;
             case R.id.card2:

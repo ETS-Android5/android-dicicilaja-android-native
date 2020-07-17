@@ -276,4 +276,6 @@
     <string name="axi_search_placeholder">Cari AXI berdasarkan ID atau Nama</string>
     <string name="axi_search_result">3081 AXI di Cabang Bandung - Setiabudi</string>
     <string name="no_results_yet">Belum ada hasil</string>
+    <string name="sm_tag">sm</string>
+    <string name="nav_partner_text">TAMBAH REKAN BISNIS</string>
 </resources>
