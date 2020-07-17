@@ -144,7 +144,7 @@ public class ProfileActivity extends AppCompatActivity {
         role = session.getRole();
 
         // TODO: Change after role is fixed
-        if (role.equalsIgnoreCase("sh")) {
+        if (role.equalsIgnoreCase("sh") || role.equalsIgnoreCase("sm")) {
             InterfaceProfile apiService = ApiBff.getClient().create(InterfaceProfile.class);
             Call<ShProfile> call = apiService.getShProfile(apiKey);
             call.enqueue(new Callback<ShProfile>() {
@@ -354,7 +354,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maxi_profile, menu);
+        if(!role.equalsIgnoreCase("sm")) {
+            getMenuInflater().inflate(R.menu.maxi_profile, menu);
+
+        }
         return true;
     }
 
@@ -370,7 +373,7 @@ public class ProfileActivity extends AppCompatActivity {
 //            Toast.makeText(getBaseContext(),api_cabang.getText()+" " +api_kodepos.getText(),Toast.LENGTH_LONG).show();
 
 
-            if (role != null && role.equalsIgnoreCase("sh")) {
+            if (role != null && (role.equalsIgnoreCase("sh") || role.equalsIgnoreCase("sm"))) {
                 Intent intent = new Intent(getBaseContext(), UbahShActivity.class);
 
                 try {

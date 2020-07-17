@@ -261,6 +261,7 @@
     <string name="nav_download">UNDUH MATERI</string>
     <string name="nav_info">GUDANG INFO</string>
     <string name="nav_logout">KELUAR</string>
+    <string name="nav_assign_surveyor">ASSIGN SURVEYOR</string>
 
     <string name="home_tag">home</string>
     <string name="regist_tag">register</string>
@@ -275,4 +276,6 @@
     <string name="axi_search_placeholder">Cari AXI berdasarkan ID atau Nama</string>
     <string name="axi_search_result">3081 AXI di Cabang Bandung - Setiabudi</string>
     <string name="no_results_yet">Belum ada hasil</string>
+    <string name="sm_tag">sm</string>
+    <string name="nav_partner_text">TAMBAH REKAN BISNIS</string>
 </resources>

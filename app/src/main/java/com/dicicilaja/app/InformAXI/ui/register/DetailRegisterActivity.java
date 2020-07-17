@@ -2,6 +2,7 @@ package com.dicicilaja.app.InformAXI.ui.register;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -38,6 +39,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
 
     SessionManager session;
     String apiKey;
+    int areaId;
 
     private SwipeRefreshLayout swipeHome;
     private NestedScrollView nestedHome;
@@ -73,7 +75,12 @@ public class DetailRegisterActivity extends AppCompatActivity {
         initToolbar();
         initRecyclerView();
         initListener();
-        getRegListDetail(START_PAGE);
+        if (session.getRole().equals("sm")) {
+            getRegListDetailByArea(START_PAGE);
+        } else {
+            getRegListDetail(START_PAGE);
+        }
+
     }
 
     private void initVariables() {
@@ -90,6 +97,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         branchId = Integer.valueOf(session.getBranchId());
+        areaId = Integer.valueOf(session.getAreaId());
 
         regDetailList = new ArrayList<>();
 
@@ -123,7 +131,12 @@ public class DetailRegisterActivity extends AppCompatActivity {
                 if (page < lastPage) {
                     pbDetail.setVisibility(View.VISIBLE);
                     page += 1;
-                    getRegListDetail(page);
+
+                    if (session.getRole().equals("sm")) {
+                        getRegListDetailByArea(page);
+                    } else {
+                        getRegListDetail(page);
+                    }
                 }
             }
         });
@@ -135,13 +148,28 @@ public class DetailRegisterActivity extends AppCompatActivity {
             regDetailList.clear();
             adapter.notifyDataSetChanged();
             pbDetail.setVisibility(View.VISIBLE);
-            getRegListDetail(page);
+            if (session.getRole().equals("sm")) {
+                getRegListDetailByArea(page);
+            } else {
+                getRegListDetail(page);
+            }
         });
     }
 
     private void getRegListDetail(int page) {
         mCompositeDisposable.add(
                 jsonApi.getRegListDetail(apiKey, monthId, 10, page, branchId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> pbDetail.setVisibility(View.VISIBLE))
+                        .doOnComplete(() -> pbDetail.setVisibility(View.GONE))
+                        .subscribe(this::onSuccessGetRegListDetail, this::onError)
+        );
+    }
+
+    private void getRegListDetailByArea(int page) {
+        mCompositeDisposable.add(
+                jsonApi.getRegListDetailByArea(apiKey, monthId, 10, page, areaId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> pbDetail.setVisibility(View.VISIBLE))

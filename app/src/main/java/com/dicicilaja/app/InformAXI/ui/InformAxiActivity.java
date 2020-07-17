@@ -35,6 +35,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
+import com.dicicilaja.app.Activity.AssignSurveyorWebViewActivity;
 import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.Activity.SearchActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
@@ -205,7 +206,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             Fragment fragment = getFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            transaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
+            transaction.replace(R.id.frame_layout_axi, fragment, CURRENT_TAG);
             transaction.commitAllowingStateLoss();
         };
 
@@ -347,6 +348,10 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_download:
                 Intent intent7 = new Intent(getBaseContext(), MateriActivity.class);
                 startActivity(intent7);
+                break;
+            case R.id.nav_assign_surveyor:
+                Intent intent8 = new Intent(getBaseContext(), AssignSurveyorWebViewActivity.class);
+                startActivity(intent8);
                 break;
             case R.id.nav_logout:
                 showDialogLogout();

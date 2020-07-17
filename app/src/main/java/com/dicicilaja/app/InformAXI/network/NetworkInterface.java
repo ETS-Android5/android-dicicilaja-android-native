@@ -7,6 +7,7 @@ import com.dicicilaja.app.InformAXI.model.AxiRegister;
 import com.dicicilaja.app.InformAXI.model.GatheringInfo;
 import com.dicicilaja.app.InformAXI.model.Incentive;
 import com.dicicilaja.app.InformAXI.model.TripInfo;
+import com.dicicilaja.app.InformAXI.model.axiterdaftar.AxiTerdaftar;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -31,6 +32,14 @@ public interface NetworkInterface {
                      @Query("limit") int limit,
                      @Query("page") int page,
                      @Query("cabang_id") int branchId);
+
+    @GET("profile/axi/list")
+    Observable<AxiHome>
+    getRegListDetailByArea(@Header("Authorization") String apiKey,
+                     @Query("date") String date,
+                     @Query("limit") int limit,
+                     @Query("page") int page,
+                     @Query("area_id") int areaId);
 
     /**
      * For testing purposes only
@@ -142,6 +151,11 @@ public interface NetworkInterface {
             @Query("page") int page,
             @Query("cabang_id") int branchId,
             @Query("show") int show);
+
+    @GET("profile/sm/axi-terdaftar")
+    Observable<AxiTerdaftar>
+    getAxiTerdaftar(@Header("Authorization") String apiKey,
+            @Query("area_id") String area_id);
 
     @GET("profile/axi/detail")
     Observable<AxiProfile>
