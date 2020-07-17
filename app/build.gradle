@@ -32,7 +32,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         manifestPlaceholders = [
-                onesignal_app_id               : 'e80af654-77c6-40b8-9acb-b0ffeef3f032',
+                onesignal_app_id               : 'bf812738-d6ad-44d2-ac11-bed334c73dbf',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE']
         applicationId "com.dicicilaja.app"
