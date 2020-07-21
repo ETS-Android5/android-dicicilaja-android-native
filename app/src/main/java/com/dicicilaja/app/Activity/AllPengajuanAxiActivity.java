@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ApiBff;
+import com.dicicilaja.app.API.Client.ApiBffNew;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.PengajuanAxi.Datum;
 import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
@@ -101,7 +101,7 @@ public class AllPengajuanAxiActivity extends AppCompatActivity {
         showLoading();
 
         InterfacePengajuanAxi apiService =
-                ApiClient.getClient().create(InterfacePengajuanAxi.class);
+                ApiBffNew.getClient().create(InterfacePengajuanAxi.class);
 
         Call<PengajuanAxi> call2 = apiService.getPengajuanAxi(apiKey, currentPage);
         call2.enqueue(new Callback<PengajuanAxi>() {

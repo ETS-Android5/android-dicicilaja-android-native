@@ -41,16 +41,13 @@ import com.bumptech.glide.request.target.Target;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
 import com.dicicilaja.app.API.Model.PengajuanAxi.PengajuanAxi;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceInfoJaringan;
-import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAxiDetail.AXIDetail;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemInfoJaringan.InfoJaringan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
@@ -59,8 +56,10 @@ import com.dicicilaja.app.Adapter.AxiImageSliderAdapter;
 import com.dicicilaja.app.Adapter.ListPPOBAdapter;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.point.ExistingPoint;
+import com.dicicilaja.app.BusinessReward.dataAPI.rewardphase.RewardPhase;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
 import com.dicicilaja.app.BusinessReward.network.ApiService;
+import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.AvailableBRActivity;
 import com.dicicilaja.app.BusinessReward.ui.BusinessReward.activity.BusinesRewardActivity;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
@@ -218,6 +217,18 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int totalData = 1;
     int totalPage = 1;
     int currentPage = 1;
+    int point_trip = 0;
+    int point_reward = 0;
+    int incentive_car_mentor = 0;
+    int incentive_car_extra_bulanan = 0;
+    int incentive_car_group = 0;
+    int  incentive_car_bonus_tahunan = 0;
+    int incentive_car_bonus_layout = 0;
+    int incentive_mcy_mentor = 0;
+    int incentive_mcy_extra_bulanan = 0;
+    int incentive_mcy_group = 0;
+    int  incentive_mcy_bonus_tahunan = 0;
+    int incentive_mcy_bonus_layout = 0;
     boolean isLoading = false;
     String agen_axi_id, agen_id, agen_name;
 
@@ -395,7 +406,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         axiReff.enqueue(new Callback<Axi>() {
                             @Override
                             public void onResponse(Call<Axi> call, Response<Axi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progress.hide();
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         if (response.body().getData().size() > 0) {
                                             agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
@@ -428,7 +445,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                                     progress.hide();
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                                    alertDialog.setTitle("Perhatian");
+                                    alertDialog.setTitle("Perhatian 1");
                                     alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -445,7 +462,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                             public void onFailure(Call<Axi> call, Throwable t) {
                                 progress.hide();
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AxiDashboardActivity.this);
-                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setTitle("Perhatian 2");
                                 alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
                                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -480,7 +497,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                         startActivity(intent6);
                         break;
                     case R.id.navbar_add:
-                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+//                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+                        Intent intent2 = new Intent(getBaseContext(), RegisterAxiWebViewActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.branch_office:
@@ -502,14 +520,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                             public void onClick(DialogInterface dialog, int which) {
                                 progress.show();
                                 InterfaceLogout apiService =
-                                        ApiClient.getClient().create(InterfaceLogout.class);
+                                        ApiBff.getClient().create(InterfaceLogout.class);
 
                                 Call<Logout> call2 = apiService.logout(apiKey);
                                 call2.enqueue(new Callback<Logout>() {
                                     @Override
                                     public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                         try {
-                                            if (response2.isSuccessful()) {
+                                            if (response2.code() == 401) {
+                                                progress.hide();
+                                                session.logoutUser();
+                                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else if (response2.isSuccessful()) {
                                                 progress.hide();
                                                 session.logoutUser();
                                             }
@@ -573,13 +597,20 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
-                //                progress.dismiss();
-                List<Datum> slider = response.body().getData();
-                maxSlide = slider.size();
-                for (int i = 0; i < slider.size(); i++) {
-                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    //                progress.dismiss();
+                    List<Datum> slider = response.body().getData();
+                    maxSlide = slider.size();
+                    for (int i = 0; i < slider.size(); i++) {
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    }
+                    setSliderView(getBaseContext(), maxSlide, file_maps);
                 }
-                setSliderView(getBaseContext(), maxSlide, file_maps);
             }
 
             @Override
@@ -589,6 +620,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     }
 
     private void initLoadData() {
+
+        linkWeb.setText("https://dicicilaja.com/" + session.getNomorAxiId());
+
         ApiService apiService =
                 ApiClient3.getClient().create(ApiService.class);
 
@@ -597,10 +631,32 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<ExistingPoint> call, Response<ExistingPoint> response2) {
                 try {
-                    if (response2.isSuccessful()) {
+                    if (response2.code() == 401) {
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else  if (response2.isSuccessful()) {
                         DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+
+                        Locale localeID = new Locale("in", "ID");
+                        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+                        incentive_car_mentor = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveCarMentor()));
+                        incentive_car_extra_bulanan = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveCarExtraBulanan()));
+                        incentive_car_group = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveCarGroup()));
+                        incentive_car_bonus_tahunan = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveCarBonusTahunan()));
+                        incentive_car_bonus_layout = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveCarBonusLayout()));
+                        incentive_mcy_mentor = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveMcyMentor()));
+                        incentive_mcy_extra_bulanan = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveMcyExtraBulanan()));
+                        incentive_mcy_group = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveMcyGroup()));
+                        incentive_mcy_bonus_tahunan = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveMcyBonusTahunan()));
+                        incentive_mcy_bonus_layout = Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getIncentiveMcyBonusLayout()));
+
                         contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointReward()))).replace(",", "."));
                         contentBox2.setText(formatter.format(Integer.parseInt(String.valueOf(response2.body().getData().get(0).getAttributes().getPointTrip()))).replace(",", "."));
+                        contentBox3.setText(formatRupiah.format((float) Float.parseFloat(String.valueOf(response2.body().getData().get(0).getAttributes().getInsentifCar()))));
+                        contentBox4.setText(formatRupiah.format((float) Float.parseFloat(String.valueOf(response2.body().getData().get(0).getAttributes().getInsentifMcy()))));
 
                     }
                 } catch (Exception ex) {
@@ -620,7 +676,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         call3.enqueue(new Callback<PengajuanAxi>() {
             @Override
             public void onResponse(Call<PengajuanAxi> call, Response<PengajuanAxi> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
                     pengajuan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
 
@@ -634,46 +695,56 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             }
         });
 
-        InterfaceAxiDetail apiService5 =
-                com.dicicilaja.app.API.Client.ApiClient.getClient().create(InterfaceAxiDetail.class);
-
-//        showLoading();
-        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
-        callProfile.enqueue(new Callback<AXIDetail>() {
-            @Override
-            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
-                if (response.isSuccessful()) {
-                    Log.e("AAAA::::", "AXI Profile loaded");
-                    itemDetail = response.body().getData();
-
-                    Locale localeID = new Locale("in", "ID");
-                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-
-                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
-
-//                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
-                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
-                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
-                    linkWeb.setText("https://dicicilaja.com/" + itemDetail.getAxiId());
-                }
-                hideLoading();
-            }
-
-            @Override
-            public void onFailure(Call<AXIDetail> call, Throwable t) {
-                hideLoading();
-                t.printStackTrace();
-            }
-        });
+//        InterfaceAxiDetail apiService5 =
+//                ApiBffNew.getClient().create(InterfaceAxiDetail.class);
+//
+////        showLoading();
+//        Call<AXIDetail> callProfile = apiService5.getDetail(apiKey);
+//        callProfile.enqueue(new Callback<AXIDetail>() {
+//            @Override
+//            public void onResponse(Call<AXIDetail> call, Response<AXIDetail> response) {
+//                if (response.code() == 401) {
+//                    hideLoading();
+//                    session.logoutUser();
+//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                } else if (response.isSuccessful()) {
+//                    itemDetail = response.body().getData();
+//
+//                    Locale localeID = new Locale("in", "ID");
+//                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+//
+//                    DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
+//
+////                    contentBox1.setText(formatter.format(Integer.parseInt(String.valueOf(itemDetail.getPointReward()))).replace(",", "."));
+//                    contentBox3.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveCar())));
+//                    contentBox4.setText(formatRupiah.format((float) Float.parseFloat(itemDetail.getIncentiveMcy())));
+//                    linkWeb.setText("https://dicicilaja.com/" + itemDetail.getAxiId());
+//                }
+//                hideLoading();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AXIDetail> call, Throwable t) {
+//                hideLoading();
+//                t.printStackTrace();
+//            }
+//        });
 
         InterfaceInfoJaringan apiService4 =
-                ApiClient.getClient().create(InterfaceInfoJaringan.class);
+                ApiBff.getClient().create(InterfaceInfoJaringan.class);
 
         Call<InfoJaringan> call4 = apiService4.getInfoJaringan(apiKey);
         call4.enqueue(new Callback<InfoJaringan>() {
             @Override
             public void onResponse(Call<InfoJaringan> call, Response<InfoJaringan> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     infoJaringan = response.body().getData();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                     contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
@@ -689,7 +760,37 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 t.printStackTrace();
             }
         });
+
+        ApiService service = ApiClient3.getClient().create(ApiService.class);
+        Call<RewardPhase> call = service.getRewardPhase(apiKey);
+        call.enqueue(new Callback<RewardPhase>() {
+            @Override
+            public void onResponse(Call<RewardPhase> call, Response<RewardPhase> response) {
+                isHasCheckRewardPhase = true;
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
+                    if (response.body().getData().getAttributes().getStatus() == 1) {
+                        isRewardPhaseAvailable = true;
+                    }
+                } else {
+                    Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RewardPhase> call, Throwable t) {
+                isHasCheckRewardPhase = true;
+                Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    private boolean isHasCheckRewardPhase = false;
+    private boolean isRewardPhaseAvailable = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -862,34 +963,43 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 startActivity(Intent.createChooser(intent, "Bagikan link web replika Anda"));
                 break;
             case R.id.point_reward:
-                intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
-                intent.putExtra("POINT_REWARD", contentBox1.getText());
-                startActivityForResult(intent, 96);
+                if (isHasCheckRewardPhase) {
+                    if (isRewardPhaseAvailable) {
+                        intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
+                        intent.putExtra("POINT_REWARD", String.valueOf(contentBox1.getText()));
+                        startActivityForResult(intent, 96);
+                    } else
+                        intent = new Intent(getBaseContext(), AvailableBRActivity.class);
+                        startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
+                }
 
-//                intent = new Intent(getBaseContext(), AvailableBRActivity.class);
-//                startActivity(intent);
+
+//
                 break;
             case R.id.point_trip:
                 intent = new Intent(getBaseContext(), PointTripActivity.class);
-                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
+                intent.putExtra("POINT_TRIP", String.valueOf(contentBox2.getText()));
+//                intent.putExtra("POINT_TRIP", itemDetail.getPointTrip().toString());
                 startActivity(intent);
                 break;
             case R.id.insentif_car:
                 intent = new Intent(getBaseContext(), InsentifCarActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveCarMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveCarExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveCarGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveCarBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveCarBonusLayout().toString());
+                intent.putExtra("MENTOR", String.valueOf(incentive_car_mentor));
+                intent.putExtra("EXTRA_BULANAN", String.valueOf(incentive_car_extra_bulanan));
+                intent.putExtra("GROUP", String.valueOf(incentive_car_group));
+                intent.putExtra("BONUS_TAHUNAN", String.valueOf(incentive_car_bonus_tahunan));
+                intent.putExtra("BONUS_LAYOUT", String.valueOf(incentive_car_bonus_layout));
                 startActivity(intent);
                 break;
             case R.id.insentif_mcy:
                 intent = new Intent(getBaseContext(), InsentifMcyActivity.class);
-                intent.putExtra("MENTOR", itemDetail.getIncentiveMcyMentor().toString());
-                intent.putExtra("EXTRA_BULANAN", itemDetail.getIncentiveMcyExtraBulanan().toString());
-                intent.putExtra("GROUP", itemDetail.getIncentiveMcyGroup().toString());
-                intent.putExtra("BONUS_TAHUNAN", itemDetail.getIncentiveMcyBonusTahunan().toString());
-                intent.putExtra("BONUS_LAYOUT", itemDetail.getIncentiveMcyBonusLayout().toString());
+                intent.putExtra("MENTOR", String.valueOf(incentive_mcy_mentor));
+                intent.putExtra("EXTRA_BULANAN", String.valueOf(incentive_mcy_extra_bulanan));
+                intent.putExtra("GROUP", String.valueOf(incentive_mcy_group));
+                intent.putExtra("BONUS_TAHUNAN", String.valueOf(incentive_mcy_bonus_tahunan));
+                intent.putExtra("BONUS_LAYOUT", String.valueOf(incentive_mcy_bonus_layout));
                 startActivity(intent);
                 break;
             case R.id.card2:
@@ -955,7 +1065,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
                 progress_popup.hide();
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else  if (response.isSuccessful()) {
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {

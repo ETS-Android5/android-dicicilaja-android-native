@@ -2,6 +2,7 @@ package com.dicicilaja.app.InformAXI.ui.register;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -11,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dicicilaja.app.InformAXI.adapter.AxiHomeAdapter;
 import com.dicicilaja.app.InformAXI.model.AxiHome;
@@ -25,20 +28,21 @@ import com.dicicilaja.app.Session.SessionManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-/**
- * Created by Husni with ❤
- */
-
 public class DetailRegisterActivity extends AppCompatActivity {
 
     SessionManager session;
     String apiKey;
+    int areaId;
+
+    private SwipeRefreshLayout swipeHome;
+    private NestedScrollView nestedHome;
 
     /* UI Region */
     private Toolbar toolbar;
@@ -51,6 +55,10 @@ public class DetailRegisterActivity extends AppCompatActivity {
 
     private CompositeDisposable mCompositeDisposable;
     private NetworkInterface jsonApi;
+
+    private final int START_PAGE = 1;
+    private int page = START_PAGE, lastPage = 0;
+    private boolean isRefresh = false, isLastPage = false;
 
     private AxiHomeAdapter adapter;
 
@@ -66,13 +74,21 @@ public class DetailRegisterActivity extends AppCompatActivity {
         initVariables();
         initToolbar();
         initRecyclerView();
-        getRegListDetail();
+        initListener();
+        if (session.getRole().equals("sm")) {
+            getRegListDetailByArea(START_PAGE);
+        } else {
+            getRegListDetail(START_PAGE);
+        }
+
     }
 
     private void initVariables() {
         toolbarTitle = getIntent().getStringExtra("monthName");
         monthId = getIntent().getStringExtra("monthId");
 
+        swipeHome = findViewById(R.id.swipe_home);
+        nestedHome = findViewById(R.id.nested_home);
         toolbar = findViewById(R.id.toolbar);
         rvDetailRegister = findViewById(R.id.rv_detail);
         pbDetail = findViewById(R.id.pb_detail);
@@ -81,6 +97,7 @@ public class DetailRegisterActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         apiKey = "Bearer " + session.getToken();
         branchId = Integer.valueOf(session.getBranchId());
+        areaId = Integer.valueOf(session.getAreaId());
 
         regDetailList = new ArrayList<>();
 
@@ -106,9 +123,53 @@ public class DetailRegisterActivity extends AppCompatActivity {
         rvDetailRegister.setAdapter(adapter);
     }
 
-    private void getRegListDetail() {
+    private void initListener() {
+
+        nestedHome.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            emptyContainer.setVisibility(View.GONE);
+            if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                if (page < lastPage) {
+                    pbDetail.setVisibility(View.VISIBLE);
+                    page += 1;
+
+                    if (session.getRole().equals("sm")) {
+                        getRegListDetailByArea(page);
+                    } else {
+                        getRegListDetail(page);
+                    }
+                }
+            }
+        });
+
+        swipeHome.setOnRefreshListener(() -> {
+            isRefresh = true;
+            isLastPage = false;
+            page = START_PAGE;
+            regDetailList.clear();
+            adapter.notifyDataSetChanged();
+            pbDetail.setVisibility(View.VISIBLE);
+            if (session.getRole().equals("sm")) {
+                getRegListDetailByArea(page);
+            } else {
+                getRegListDetail(page);
+            }
+        });
+    }
+
+    private void getRegListDetail(int page) {
         mCompositeDisposable.add(
-                jsonApi.getRegListDetail(apiKey, monthId, branchId)
+                jsonApi.getRegListDetail(apiKey, monthId, 10, page, branchId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> pbDetail.setVisibility(View.VISIBLE))
+                        .doOnComplete(() -> pbDetail.setVisibility(View.GONE))
+                        .subscribe(this::onSuccessGetRegListDetail, this::onError)
+        );
+    }
+
+    private void getRegListDetailByArea(int page) {
+        mCompositeDisposable.add(
+                jsonApi.getRegListDetailByArea(apiKey, monthId, 10, page, areaId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> pbDetail.setVisibility(View.VISIBLE))
@@ -118,14 +179,26 @@ public class DetailRegisterActivity extends AppCompatActivity {
     }
 
     private void onSuccessGetRegListDetail(AxiHome data) {
-        if (data != null) {
-            if (data.getData() != null && !data.getData().isEmpty()) {
-                regDetailList.addAll(data.getData());
+
+        if (data != null && data.getData() != null && data.getData().size() > 0) {
+            if (isRefresh) {
+                regDetailList.clear();
                 adapter.notifyDataSetChanged();
-            } else {
+                isRefresh = false;
+            }
+
+            regDetailList.addAll(data.getData());
+            lastPage = data.getMeta().getLastPage();
+            adapter.notifyDataSetChanged();
+        } else {
+            if (page == START_PAGE) {
                 emptyContainer.setVisibility(View.VISIBLE);
+            } else {
+                emptyContainer.setVisibility(View.GONE);
             }
         }
+        pbDetail.setVisibility(View.GONE);
+        swipeHome.setRefreshing(false);
     }
 
     private void onError(Throwable t) {

@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.NewSimulation.Data.AreaSimulasi.AreaSimulasi;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.Data.ObjekBrand.ObjekBrand;
@@ -31,6 +33,7 @@ import com.dicicilaja.app.NewSimulation.UI.NewSimulationResult.NewSimulationResu
 import com.dicicilaja.app.OrderIn.Data.Vehicles.Vehicles;
 import com.dicicilaja.app.OrderIn.Network.ApiService3;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -82,6 +85,9 @@ public class MotorColleteralActivity extends AppCompatActivity {
     MaterialProgressBar progressBar0;
     @BindView(R.id.not_available)
     TextView notAvailable;
+    SessionManager session;
+
+    String apiKey;
 
     List<ObjekTahun> objekTahuns;
     String tipe_objek_id, area_id, tahun_kendaraan, model_id, type_id, tenor, vehicles, vehicles_id;
@@ -130,6 +136,9 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
     private void initAction() {
         //Initialize
+
+        session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
         progressBar0.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         progressBar2.setVisibility(View.GONE);
@@ -703,14 +712,20 @@ public class MotorColleteralActivity extends AppCompatActivity {
 
                 tipe_objek_id = "2";
 
-                Call<HitungSimulasi> call = apiService.hitungMcy(tipe_objek_id, type_id, tahun_kendaraan, area_id, tenor);
+                Call<HitungSimulasi> call = apiService.hitungMcy(apiKey, tipe_objek_id, type_id, tahun_kendaraan, area_id, tenor);
                 call.enqueue(new Callback<HitungSimulasi>() {
 
                     @Override
                     public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
                         Log.d("MOTORMOTOR", "code: " + response.code());
 
-                        if (response.isSuccessful()) {
+                        if (response.code() == 401) {
+                            progressBar4.setVisibility(View.GONE);
+                            session.logoutUser();
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.isSuccessful()) {
                             try {
                                 progressBar4.setVisibility(View.GONE);
 

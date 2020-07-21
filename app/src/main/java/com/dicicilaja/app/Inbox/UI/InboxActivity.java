@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Inbox.Adapter.InboxAdapter;
 import com.dicicilaja.app.Inbox.Data.Notif.Datum;
 import com.dicicilaja.app.Inbox.Data.Notif.Notif;
@@ -103,7 +104,13 @@ public class InboxActivity extends AppCompatActivity {
         call.enqueue(new Callback<Notif>() {
             @Override
             public void onResponse(Call<Notif> call, Response<Notif> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     notifs = response.body().getData();
                     if (notifs.size() == 0) {
                         recyclerNotif.setVisibility(View.GONE);

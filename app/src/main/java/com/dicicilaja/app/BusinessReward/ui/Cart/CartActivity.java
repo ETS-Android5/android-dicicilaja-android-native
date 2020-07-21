@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.delCart.DelCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.FotoKtpNpwp;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
@@ -122,7 +123,12 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     final List<com.dicicilaja.app.BusinessReward.dataAPI.fotoKtpNpwp.Datum> dataItems = response.body().getData();
                     if (dataItems.size() == 0) {
                         ktpnpwp = "Tidak";
@@ -170,7 +176,13 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         call.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     itemList.clear();
                     includedList.clear();
                     itemList.addAll(response.body().getData().getAttributes().getItems());
@@ -264,16 +276,25 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
                         @SuppressLint("WrongConstant")
                         @Override
                         public void onResponse(Call<DelCart> call, Response<DelCart> response) {
-                            //((Activity) context).finish();
-                            Toast.makeText(CartActivity.this, "Produk berhasil di hapus", Toast.LENGTH_SHORT).show();
-
-                            if (itemList.size() == 1) {
-                                setResult(RESULT_OK);
+                            if (response.code() == 401) {
+                                progress.dismiss();
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
                                 finish();
                             } else {
-                                itemList.clear();
-                                loadData();
-                                setResult(RESULT_OK);
+                                    //((Activity) context).finish();
+                                Toast.makeText(CartActivity.this, "Produk berhasil di hapus", Toast.LENGTH_SHORT).show();
+
+                                if (itemList.size() == 1) {
+                                    setResult(RESULT_OK);
+                                    finish();
+                                } else {
+                                    itemList.clear();
+                                    loadData();
+                                    setResult(RESULT_OK);
+                                }
+
                             }
                         }
 

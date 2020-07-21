@@ -395,7 +395,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Area> callArea = apiServiceArea.getArea(apiKey);
+        Call<Area> callArea = apiServiceArea.getArea();
         callArea.enqueue(new Callback<Area>() {
             @Override
             public void onResponse(Call<Area> call, Response<Area> response) {
@@ -474,7 +474,7 @@ public class RegisterAxi1Activity extends AppCompatActivity {
                 clearCabang();
                 if (Integer.parseInt(AREA_MAP.get(spinnerArea.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<Branch> callBranch = apiServiceArea.getBranch(apiKey, AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
+                    Call<Branch> callBranch = apiServiceArea.getBranch(AREA_MAP.get(spinnerArea.getSelectedItemPosition()));
                     callBranch.enqueue(new Callback<Branch>() {
                         @Override
                         public void onResponse(Call<Branch> call, Response<Branch> response) {

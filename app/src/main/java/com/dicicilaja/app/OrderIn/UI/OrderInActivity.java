@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
@@ -58,7 +59,9 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -175,6 +178,9 @@ public class OrderInActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_KTP = 100;
     private int PICK_IMAGE_BPKB = 200;
+    private int PICK_IMAGE_KTP_GALLERY = 150;
+    private int PICK_IMAGE_BPKB_GALLERY = 250;
+
     private static final String TAG = OrderInActivity.class.getSimpleName();
 
     String jumlah_pinjaman, plat_nomor, voucher_code, axi_reff, fKtp, fBpkb;
@@ -813,16 +819,72 @@ public class OrderInActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.btn_upload_ktp:
-                requestStoragePermission(true, PICK_IMAGE_KTP);
+                AlertDialog.Builder alertDialog7 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog7.setTitle("Perhatian");
+                alertDialog7.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog7.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_KTP_GALLERY);
+                    }
+                });
+                alertDialog7.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_KTP);
+                    }
+                });
+                alertDialog7.show();
                 break;
             case R.id.btn_upload_bpkb:
-                requestStoragePermission(true, PICK_IMAGE_BPKB);
+                AlertDialog.Builder alertDialog6 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog6.setTitle("Perhatian");
+                alertDialog6.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog6.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_BPKB_GALLERY);
+                    }
+                });
+                alertDialog6.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_BPKB);
+                    }
+                });
+                alertDialog6.show();
                 break;
             case R.id.change_ktp:
-                requestStoragePermission(true, PICK_IMAGE_KTP);
+                AlertDialog.Builder alertDialog8 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog8.setTitle("Perhatian");
+                alertDialog8.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog8.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_KTP_GALLERY);
+                    }
+                });
+                alertDialog8.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_KTP);
+                    }
+                });
+                alertDialog8.show();
                 break;
             case R.id.change_bpkb:
-                requestStoragePermission(true, PICK_IMAGE_BPKB);
+                AlertDialog.Builder alertDialog9 = new AlertDialog.Builder(OrderInActivity.this);
+                alertDialog9.setTitle("Perhatian");
+                alertDialog9.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
+
+                alertDialog9.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(false, PICK_IMAGE_BPKB_GALLERY);
+                    }
+                });
+                alertDialog9.setNegativeButton("Kamera", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestStoragePermission(true, PICK_IMAGE_BPKB);
+                    }
+                });
+                alertDialog9.show();
                 break;
             case R.id.next:
                 try {
@@ -882,7 +944,13 @@ public class OrderInActivity extends AppCompatActivity {
                     axiReff.enqueue(new Callback<Axi>() {
                         @Override
                         public void onResponse(Call<Axi> call, Response<Axi> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progressBar.setVisibility(View.GONE);
+                                sessionUser.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 try {
                                     if (response.body().getData().size() > 0) {
                                         clearAxi();
@@ -1117,7 +1185,10 @@ public class OrderInActivity extends AppCompatActivity {
                         if (report.areAllPermissionsGranted()) {
                             if (isCamera) {
                                 dispatchTakePictureIntent(requestCode);
+                            }else{
+                                pickFromGallery(requestCode);
                             }
+
                         }
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
@@ -1185,8 +1256,54 @@ public class OrderInActivity extends AppCompatActivity {
                         .into(imageBpkb);
 
                 session.setBpkb(encoded);
+            }else if (requestCode == PICK_IMAGE_KTP_GALLERY) {
+
+                String encoded = null;
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    encoded = encodeTobase64(selectedImage);
+                    imageKtp.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                btnUploadKtp.setVisibility(View.GONE);
+                viewUploadKtp.setVisibility(View.VISIBLE);
+
+                session.setKtp_image(encoded);
+
+            }else if (requestCode == PICK_IMAGE_BPKB_GALLERY) {
+                String encoded = null;
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    encoded = encodeTobase64(selectedImage);
+                    imageBpkb.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                btnUploadBpkb.setVisibility(View.GONE);
+                viewUploadBpkb.setVisibility(View.VISIBLE);
+
+                session.setBpkb(encoded);
+
             }
         }
+    }
+
+    public static String encodeTobase64(Bitmap image) {
+        Bitmap immagex=image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
+
+        Log.e("LOOK", imageEncoded);
+        return imageEncoded;
     }
 
     private void showSettingsDialog() {
@@ -1266,5 +1383,17 @@ public class OrderInActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    private void pickFromGallery(int GALLERY_REQUEST_CODE) {
+        //Create an Intent with action as ACTION_PICK
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 }

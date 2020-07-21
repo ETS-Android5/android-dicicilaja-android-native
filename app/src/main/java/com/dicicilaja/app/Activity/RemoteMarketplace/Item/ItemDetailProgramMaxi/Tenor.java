@@ -1,13 +1,11 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by fawazrifqi on 10/05/18.
- */
-
 public class Tenor {
+
     @SerializedName("bulan")
     @Expose
     private String bulan;

@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceProfile;
 import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.ItemBFF.ProfileAxi.ProfileAxi;
@@ -127,12 +126,15 @@ public class ProfileActivity extends AppCompatActivity {
         title_info.setTypeface(opensans_bold);
 
         CircleImageView profilePictures = findViewById(R.id.profile_picture_page);
-        String imageUrl = session.getPhoto();
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(profilePictures);
+        try {
+            String imageUrl = session.getPhoto();
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(profilePictures);
+        } catch (Exception ex) {}
+
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Sedang memuat data...");
@@ -142,13 +144,19 @@ public class ProfileActivity extends AppCompatActivity {
         role = session.getRole();
 
         // TODO: Change after role is fixed
-        if (role.equalsIgnoreCase("sh")) {
-            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
+        if (role.equalsIgnoreCase("sh") || role.equalsIgnoreCase("sm")) {
+            InterfaceProfile apiService = ApiBff.getClient().create(InterfaceProfile.class);
             Call<ShProfile> call = apiService.getShProfile(apiKey);
             call.enqueue(new Callback<ShProfile>() {
                 @Override
                 public void onResponse(Call<ShProfile> call, Response<ShProfile> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        progress.dismiss();
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.isSuccessful()) {
                         shProfile.setVisibility(View.VISIBLE);
                         ShProfile.Data data = response.body().getData().get(0);
 
@@ -209,7 +217,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Call<ProfileAxi> callProfile;
 
-            InterfaceProfile apiService = ApiClient.getClient().create(InterfaceProfile.class);
+            InterfaceProfile apiService = ApiBff.getClient().create(InterfaceProfile.class);
             callProfile = apiService.getProfile(apiKey);
 
             callProfile.enqueue(new Callback<ProfileAxi>() {
@@ -217,9 +225,17 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileAxi> call, Response<ProfileAxi> response) {
 //                Log.d("PROFILE::::", response.body().getData().toString());
 //                Log.d("PROFILE::::", String.valueOf(response.body().equals(null)));
-                    if (response.isSuccessful()) {
+                    if (response.code() == 401) {
+                        progress.dismiss();
+                        session.logoutUser();
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.isSuccessful()) {
                         try {
+
                             dataAxi = response.body().getData();
+                            name_user.setText(dataAxi.getNamaLengkap());
                             api_id_bank = dataAxi.getIdBank();
                             api_axi_id.setText(dataAxi.getAxiId());
                             api_cabang.setText(dataAxi.getCabang());
@@ -287,14 +303,20 @@ public class ProfileActivity extends AppCompatActivity {
 
                         progress.show();
                         InterfaceLogout apiService =
-                                ApiClient.getClient().create(InterfaceLogout.class);
+                                ApiBff.getClient().create(InterfaceLogout.class);
 
                         Call<Logout> call2 = apiService.logout(apiKey);
                         call2.enqueue(new Callback<Logout>() {
                             @Override
                             public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                 try {
-                                    if (response2.isSuccessful()) {
+                                    if (response2.code() == 401) {
+                                        progress.dismiss();
+                                        session.logoutUser();
+                                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else if (response2.isSuccessful()) {
                                         progress.dismiss();
                                         session.logoutUser();
                                         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
@@ -332,7 +354,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maxi_profile, menu);
+        if(!role.equalsIgnoreCase("sm")) {
+            getMenuInflater().inflate(R.menu.maxi_profile, menu);
+
+        }
         return true;
     }
 
@@ -348,7 +373,7 @@ public class ProfileActivity extends AppCompatActivity {
 //            Toast.makeText(getBaseContext(),api_cabang.getText()+" " +api_kodepos.getText(),Toast.LENGTH_LONG).show();
 
 
-            if (role != null && role.equalsIgnoreCase("sh")) {
+            if (role != null && (role.equalsIgnoreCase("sh") || role.equalsIgnoreCase("sm"))) {
                 Intent intent = new Intent(getBaseContext(), UbahShActivity.class);
 
                 try {

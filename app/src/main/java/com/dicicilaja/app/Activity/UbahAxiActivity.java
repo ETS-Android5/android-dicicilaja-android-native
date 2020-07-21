@@ -1,13 +1,10 @@
 package com.dicicilaja.app.Activity;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -19,22 +16,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceKodeBank;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.KodeBank.KodeBank;
-import com.dicicilaja.app.NewSimulation.Network.ApiService;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -265,7 +255,7 @@ public class UbahAxiActivity extends AppCompatActivity {
             final String kotaBank
     ) {
         InterfaceUbahAxi apiService =
-                ApiClient.getClient().create(InterfaceUbahAxi.class);
+                ApiBff.getClient().create(InterfaceUbahAxi.class);
 
         Call<UbahAxi> call = apiService.change(
                 apiKey,

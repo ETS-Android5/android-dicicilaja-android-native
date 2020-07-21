@@ -4,10 +4,13 @@ package com.dicicilaja.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -214,7 +217,13 @@ public class CompleteFragment extends Fragment implements RequestProgressAdapter
         call.enqueue(new Callback<RequestProgress>() {
             @Override
             public void onResponse(Call<RequestProgress> call, Response<RequestProgress> response) {
-                if ( response.isSuccessful() ) {
+                if (response.code() == 401) {
+                    hideLoading();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else if ( response.isSuccessful() ) {
                     List<Datum> items = response.body().getData();
                     RequestMeta meta = response.body().getMeta();
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");

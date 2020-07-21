@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Datum;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.kategori.KategoriProduk;
@@ -90,55 +91,63 @@ public class ListKategori extends AppCompatActivity {
             @SuppressLint("WrongConstant")
             @Override
             public void onResponse(Call<KategoriProduk> call, Response<KategoriProduk> response) {
-                final List<Datum> dataItems = response.body().getData();
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
 
-                for (int i = 0; i < response.body().getData().size(); i++) {
+                    final List<Datum> dataItems = response.body().getData();
 
-                    KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
-                    KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
+                    for (int i = 0; i < response.body().getData().size(); i++) {
 
-//                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
-                    stringList.add(response.body().getData().get(i).getAttributes().getNama());
+                        KATEGORI_DATA.put(i+1, String.valueOf(dataItems.get(i).getId()));
+                        KATEGORI_ITEMS.put(i+1, String.valueOf(dataItems.get(i).getRelationships().getProductCatalogs().getData().size()));
 
-                    rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
-                    rb.setText(stringList.get(i));
-//                    radioGroup.setId(0);
-                    rg.addView(rb);
-                }
+    //                    KATEGORI_ITEMS.put(response.body().getData().size(), String.valueOf(response.body().getData().get(i).getId()));
+                        stringList.add(response.body().getData().get(i).getAttributes().getNama());
 
-                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        int id = rg.getCheckedRadioButtonId();
+                        rb = new RadioButton(ListKategori.this); // dynamically creating RadioButton and adding to RadioGroup.
+                        rb.setText(stringList.get(i));
+    //                    radioGroup.setId(0);
+                        rg.addView(rb);
+                    }
 
-                        if(id % response.body().getData().size() == 0){
-                            id = response.body().getData().size();
-                        }else{
-                            id = id % response.body().getData().size();
+                    rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            int id = rg.getCheckedRadioButtonId();
+
+                            if(id % response.body().getData().size() == 0){
+                                id = response.body().getData().size();
+                            }else{
+                                id = id % response.body().getData().size();
+                            }
+
+                            selected = KATEGORI_DATA.get(id);
+
+                            size = KATEGORI_ITEMS.get(id);
+
                         }
+                    });
 
-                        selected = KATEGORI_DATA.get(id);
+                    pilihKat.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+    //                                Log.d("selectednya", selected);
+                            Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
 
-                        size = KATEGORI_ITEMS.get(id);
-
-                    }
-                });
-
-                pilihKat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                                Log.d("selectednya", selected);
-                        Intent intent = new Intent(getBaseContext(), CatalogResultActivity.class);
-
-                        intent.putExtra("ID", selected);
-                        intent.putExtra("SIZE", size);
-//                        intent.putExtra("ID", String.valueOf(3));
-//                        intent.putExtra("SIZE", String.valueOf(5));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                            intent.putExtra("ID", selected);
+                            intent.putExtra("SIZE", size);
+    //                        intent.putExtra("ID", String.valueOf(3));
+    //                        intent.putExtra("SIZE", String.valueOf(5));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }
             }
 
             @Override

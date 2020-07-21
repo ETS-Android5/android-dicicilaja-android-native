@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.dicicilaja.app.Fragment.RegisterAxiFragment;
+import com.dicicilaja.app.Fragment.RegisterAxiWebViewFragment;
 import com.dicicilaja.app.Fragment.RegisterCustomerFragment;
 import com.dicicilaja.app.Fragment.RegisterMaxiFragment;
 
@@ -27,7 +28,8 @@ public class RegisterAdapter extends FragmentStatePagerAdapter {
                 return new RegisterCustomerFragment();
 
             case 1:
-                return new RegisterAxiFragment();
+                return new RegisterAxiWebViewFragment();
+//                return new RegisterAxiFragment();
 
             case 2:
                 return new RegisterMaxiFragment();

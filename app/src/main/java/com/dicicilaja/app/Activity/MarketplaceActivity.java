@@ -14,7 +14,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.BranchOffice.UI.AreaBranchOffice.Activity.AreaBranchOfficeActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
@@ -103,7 +103,7 @@ public class MarketplaceActivity extends AppCompatActivity
         }else {
             navigationView = findViewById(R.id.nav_view) ;
             Menu menu = navigationView.getMenu();
-            menu.findItem(R.id.navbar_keluar).setVisible(false);
+            menu.findItem(R.id.navbar_keluar).setVisible(true);
         }
 
         apiService4 = com.dicicilaja.app.Inbox.Network.ApiClient.getClient().create(com.dicicilaja.app.Inbox.Network.ApiService.class);
@@ -280,14 +280,20 @@ public class MarketplaceActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 progress.show();
                                 InterfaceLogout apiService =
-                                        ApiClient.getClient().create(InterfaceLogout.class);
+                                        ApiBff.getClient().create(InterfaceLogout.class);
 
                                 Call<Logout> call2 = apiService.logout(apiKey);
                                 call2.enqueue(new Callback<Logout>() {
                                     @Override
                                     public void onResponse(Call<Logout> call, Response<Logout> response2) {
                                         try {
-                                            if (response2.isSuccessful()) {
+                                            if (response2.code() == 401) {
+                                                progress.dismiss();
+                                                session.logoutUser();
+                                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else if (response2.isSuccessful()) {
                                                 progress.dismiss();
                                                 session.logoutUser();
                                             }
@@ -606,7 +612,13 @@ public class MarketplaceActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Popup> call, Response<Popup> response) {
                 progress_popup.dismiss();
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    progress_popup.hide();
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     dataPopups = response.body().getData();
                     if (dataPopups.size() != 0) {
                         try {

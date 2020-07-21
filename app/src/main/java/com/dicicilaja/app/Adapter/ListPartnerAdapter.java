@@ -41,7 +41,12 @@ public class      ListPartnerAdapter extends RecyclerView.Adapter<ListPartnerAda
     @Override
     public void onBindViewHolder(final ListPartnerAdapter.SingleItemRowHolder holder, final int position) {
         final Datum itemModel = partners.get(position);
-        Picasso.get().load(itemModel.getImages()).into(holder.image);
+        try {
+            Picasso.get()
+                    .load(itemModel.getImages())
+                    .into(holder.image);
+        } catch (Exception ex) {}
+
 //        holder.card_merchant.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

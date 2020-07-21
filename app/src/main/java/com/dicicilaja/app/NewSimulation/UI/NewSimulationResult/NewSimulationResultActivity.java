@@ -22,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
@@ -44,6 +46,8 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static java.lang.Boolean.FALSE;
 
 public class NewSimulationResultActivity extends AppCompatActivity {
 
@@ -121,6 +125,8 @@ public class NewSimulationResultActivity extends AppCompatActivity {
 
         sessionUser = new SessionManager(NewSimulationResultActivity.this);
         session = new SessionManager(getBaseContext());
+
+        apiKey = "Bearer " + session.getToken();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -219,12 +225,18 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungMcy(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungMcy(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
                             public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -297,12 +309,18 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungCar(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
                             public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -380,7 +398,12 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 if (text_colleteral.equals("Motor")) {
                     String value = totalEdit.getText().toString().replace(".", "").replace("Rp", "").replace(",", "");
-                    int total_edit_value = Integer.parseInt(value);
+                    int total_edit_value;
+                    try {
+                        total_edit_value = Integer.parseInt(value);
+                    } catch (NumberFormatException e) {
+                        total_edit_value = 0;
+                    }
                     Log.d("TAGTAGTAG", "text_total: " + total_edit_value);
                     Log.d("TAGTAGTAG", "text_max: " + text_max);
                     if(total_edit_value < 3000000) {
@@ -426,7 +449,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "tenor_simulasi: " + tenor_simulasi);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungMcy(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungMcy(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -435,7 +458,13 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 hide.setVisibility(View.GONE);
                                 show.setVisibility(View.VISIBLE);
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -547,7 +576,7 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                         Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
                         Log.d("TAGTAG", "total_edit_value: " + total_edit_value);
 
-                        Call<HitungSimulasi> call = apiService.reHitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
+                        Call<HitungSimulasi> call = apiService.reHitungCar(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id, String.valueOf(total_edit_value));
                         call.enqueue(new Callback<HitungSimulasi>() {
 
                             @Override
@@ -556,7 +585,13 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 hide.setVisibility(View.GONE);
                                 show.setVisibility(View.VISIBLE);
-                                if (response.isSuccessful()) {
+                                if (response.code() == 401) {
+                                    progressBar.setVisibility(View.GONE);
+                                    session.logoutUser();
+                                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (response.isSuccessful()) {
                                     try {
                                         progressBar.setVisibility(View.GONE);
                                         text_angsuran = response.body().getData().getAttributes().getHasilSimulasi().getAngsuranPerBulanPrefix();
@@ -810,123 +845,150 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.next:
-                progress.show();
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                if (spinner_jaminan.equals("1")) {
-                    jaminan = "BPKB Mobil";
-                } else if (spinner_jaminan.equals("2")) {
-                    jaminan = "BPKB Motor";
-                }
-
-                if (tipe_angsuran_id != null) {
-                    if (tipe_asuransi_id.equals("1")) {
-                        tipe_asuransi = "Total Lost Only";
-                    } else if (tipe_asuransi_id.equals("2")) {
-                        tipe_asuransi = "All Risk";
+                if(session.isLoggedIn() == FALSE){
+                    Intent intent = new Intent(getBaseContext(), GuestActivity.class);
+                    startActivity(intent);
+                }else{
+                    progress.show();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    if (spinner_jaminan.equals("1")) {
+                        jaminan = "BPKB Mobil";
+                    } else if (spinner_jaminan.equals("2")) {
+                        jaminan = "BPKB Motor";
                     }
-                }
 
-                if (tipe_angsuran_id != null) {
-                    if (tipe_angsuran_id.equals("1")) {
-                        tipe_angsuran = "Angsuran Per Bulan (ADDB)";
-                    } else if (tipe_angsuran_id.equals("2")) {
-                        tipe_angsuran = "Pembayaran Pertama (ADDM)";
+                    if (tipe_angsuran_id != null) {
+                        if (tipe_asuransi_id.equals("1")) {
+                            tipe_asuransi = "Total Lost Only";
+                        } else if (tipe_asuransi_id.equals("2")) {
+                            tipe_asuransi = "All Risk";
+                        }
                     }
-                }
 
-                Log.d("ORDERDONE", "jenis_pengajuan: " + "1");
-                Log.d("ORDERDONE", "program_id: " + "1");
-                Log.d("ORDERDONE", "product_id: " + "1");
-                Log.d("ORDERDONE", "qty: " + "1");
-                Log.d("ORDERDONE", "agen_id: " + sessionUser.getNomorAxiId());
-                Log.d("ORDERDONE", "amount: " + text_total);
-                Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
-                Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
-                Log.d("ORDERDONE", "area_id: " + area_id);
-                Log.d("ORDERDONE", "area: " + text_area);
-                Log.d("ORDERDONE", "objek_brand_id: " + objek_brand_id);
-                Log.d("ORDERDONE", "brand: " + text_merk);
-                Log.d("ORDERDONE", "objek_model_id: " + objek_model_id);
-                Log.d("ORDERDONE", "model: " + text_type);
-                Log.d("ORDERDONE", "year: " + text_year);
-                Log.d("ORDERDONE", "tenor_simulasi_id: " + text_tenor);
-                Log.d("ORDERDONE", "tipe_asuransi_id: " + tipe_asuransi_id);
-                Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
+                    if (tipe_angsuran_id != null) {
+                        if (tipe_angsuran_id.equals("1")) {
+                            tipe_angsuran = "Angsuran Per Bulan (ADDB)";
+                        } else if (tipe_angsuran_id.equals("2")) {
+                            tipe_angsuran = "Pembayaran Pertama (ADDM)";
+                        }
+                    }
+
+                    Log.d("ORDERDONE", "jenis_pengajuan: " + "1");
+                    Log.d("ORDERDONE", "program_id: " + "1");
+                    Log.d("ORDERDONE", "product_id: " + "1");
+                    Log.d("ORDERDONE", "qty: " + "1");
+                    Log.d("ORDERDONE", "agen_id: " + sessionUser.getNomorAxiId());
+                    Log.d("ORDERDONE", "amount: " + text_total);
+                    Log.d("ORDERDONE", "status_informasi_jaminan: " + true);
+                    Log.d("ORDERDONE", "jaminan_id: " + spinner_jaminan);
+                    Log.d("ORDERDONE", "area_id: " + area_id);
+                    Log.d("ORDERDONE", "area: " + text_area);
+                    Log.d("ORDERDONE", "objek_brand_id: " + objek_brand_id);
+                    Log.d("ORDERDONE", "brand: " + text_merk);
+                    Log.d("ORDERDONE", "objek_model_id: " + objek_model_id);
+                    Log.d("ORDERDONE", "model: " + text_type);
+                    Log.d("ORDERDONE", "year: " + text_year);
+                    Log.d("ORDERDONE", "tenor_simulasi_id: " + text_tenor);
+                    Log.d("ORDERDONE", "tipe_asuransi_id: " + tipe_asuransi_id);
+                    Log.d("ORDERDONE", "jenis_angsuran_id: " + tipe_angsuran_id);
 
 
-                Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
-                axiReff.enqueue(new Callback<Axi>() {
-                    @Override
-                    public void onResponse(Call<Axi> call, Response<Axi> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
-                                    agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
-                                    agen_name = response.body().getData().get(0).getAttributes().getNama();
-                                    Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
-                                    intent2.putExtra("amount", total.getText().toString());
-                                    intent2.putExtra("max", String.valueOf(text_max));
-                                    intent2.putExtra("max_prefix", text_max_prefix);
-                                    intent2.putExtra("simulasi", "1");
-                                    intent2.putExtra("jaminan_id", spinner_jaminan);
-                                    intent2.putExtra("jaminan", jaminan);
-                                    intent2.putExtra("area_id", area_id);
-                                    intent2.putExtra("area", text_area);
-                                    intent2.putExtra("objek_brand_id", objek_brand_id);
-                                    intent2.putExtra("brand", text_merk);
-                                    intent2.putExtra("objek_model_id", objek_model_id);
-                                    intent2.putExtra("model", text_type);
-                                    intent2.putExtra("year", text_year);
-                                    intent2.putExtra("tenor_simulasi_id", text_tenor);
-                                    intent2.putExtra("tipe_asuransi_id", tipe_asuransi_id);
-                                    intent2.putExtra("tipe_asuransi", tipe_asuransi);
-                                    intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
-                                    intent2.putExtra("jenis_angsuran", tipe_angsuran);
-                                    intent2.putExtra("agen_id", agen_id);
-                                    intent2.putExtra("agen_axi_id", agen_axi_id);
-                                    intent2.putExtra("agen_name", agen_name);
-                                    startActivity(intent2);
-                                    progress.hide();
-                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                } else {
-                                    agen_id = null;
-                                    agen_axi_id = null;
-                                    agen_name = null;
-                                    Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
-                                    intent2.putExtra("amount", total.getText().toString());
-                                    intent2.putExtra("max", String.valueOf(text_max));
-                                    intent2.putExtra("max_prefix", text_max_prefix);
-                                    intent2.putExtra("simulasi", "1");
-                                    intent2.putExtra("jaminan_id", spinner_jaminan);
-                                    intent2.putExtra("jaminan", jaminan);
-                                    intent2.putExtra("area_id", area_id);
-                                    intent2.putExtra("area", text_area);
-                                    intent2.putExtra("objek_brand_id", objek_brand_id);
-                                    intent2.putExtra("brand", text_merk);
-                                    intent2.putExtra("objek_model_id", objek_model_id);
-                                    intent2.putExtra("model", text_type);
-                                    intent2.putExtra("year", text_year);
-                                    intent2.putExtra("tenor_simulasi_id", text_tenor);
-                                    intent2.putExtra("tipe_asuransi_id", tipe_asuransi_id);
-                                    intent2.putExtra("tipe_asuransi", tipe_asuransi);
-                                    intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
-                                    intent2.putExtra("jenis_angsuran", tipe_angsuran);
-                                    intent2.putExtra("agen_id", agen_id);
-                                    intent2.putExtra("agen_axi_id", agen_axi_id);
-                                    intent2.putExtra("agen_name", agen_name);
-                                    startActivity(intent2);
-                                    progress.hide();
-                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
+                    axiReff.enqueue(new Callback<Axi>() {
+                        @Override
+                        public void onResponse(Call<Axi> call, Response<Axi> response) {
+                            if (response.code() == 401) {
+                                progress.hide();
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                        agen_axi_id = String.valueOf(response.body().getData().get(0).getAttributes().getNomorAxiId());
+                                        agen_name = response.body().getData().get(0).getAttributes().getNama();
+                                        Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                        intent2.putExtra("amount", total.getText().toString());
+                                        intent2.putExtra("max", String.valueOf(text_max));
+                                        intent2.putExtra("max_prefix", text_max_prefix);
+                                        intent2.putExtra("simulasi", "1");
+                                        intent2.putExtra("jaminan_id", spinner_jaminan);
+                                        intent2.putExtra("jaminan", jaminan);
+                                        intent2.putExtra("area_id", area_id);
+                                        intent2.putExtra("area", text_area);
+                                        intent2.putExtra("objek_brand_id", objek_brand_id);
+                                        intent2.putExtra("brand", text_merk);
+                                        intent2.putExtra("objek_model_id", objek_model_id);
+                                        intent2.putExtra("model", text_type);
+                                        intent2.putExtra("year", text_year);
+                                        intent2.putExtra("tenor_simulasi_id", text_tenor);
+                                        intent2.putExtra("tipe_asuransi_id", tipe_asuransi_id);
+                                        intent2.putExtra("tipe_asuransi", tipe_asuransi);
+                                        intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
+                                        intent2.putExtra("jenis_angsuran", tipe_angsuran);
+                                        intent2.putExtra("agen_id", agen_id);
+                                        intent2.putExtra("agen_axi_id", agen_axi_id);
+                                        intent2.putExtra("agen_name", agen_name);
+                                        startActivity(intent2);
+                                        progress.hide();
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    } else {
+                                        agen_id = null;
+                                        agen_axi_id = null;
+                                        agen_name = null;
+                                        Intent intent2 = new Intent(getBaseContext(), OrderInActivity.class);
+                                        intent2.putExtra("amount", total.getText().toString());
+                                        intent2.putExtra("max", String.valueOf(text_max));
+                                        intent2.putExtra("max_prefix", text_max_prefix);
+                                        intent2.putExtra("simulasi", "1");
+                                        intent2.putExtra("jaminan_id", spinner_jaminan);
+                                        intent2.putExtra("jaminan", jaminan);
+                                        intent2.putExtra("area_id", area_id);
+                                        intent2.putExtra("area", text_area);
+                                        intent2.putExtra("objek_brand_id", objek_brand_id);
+                                        intent2.putExtra("brand", text_merk);
+                                        intent2.putExtra("objek_model_id", objek_model_id);
+                                        intent2.putExtra("model", text_type);
+                                        intent2.putExtra("year", text_year);
+                                        intent2.putExtra("tenor_simulasi_id", text_tenor);
+                                        intent2.putExtra("tipe_asuransi_id", tipe_asuransi_id);
+                                        intent2.putExtra("tipe_asuransi", tipe_asuransi);
+                                        intent2.putExtra("jenis_angsuran_id", tipe_angsuran_id);
+                                        intent2.putExtra("jenis_angsuran", tipe_angsuran);
+                                        intent2.putExtra("agen_id", agen_id);
+                                        intent2.putExtra("agen_axi_id", agen_axi_id);
+                                        intent2.putExtra("agen_name", agen_name);
+                                        startActivity(intent2);
+                                        progress.hide();
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    }
+
+
+                                } catch (Exception ex) {
                                 }
+                            } else {
+                                progress.hide();
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
-
-                            } catch (Exception ex) {
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<Axi> call, Throwable t) {
                             progress.hide();
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
                             alertDialog.setTitle("Perhatian");
                             alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
@@ -939,24 +1001,9 @@ public class NewSimulationResultActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                    }
+                    });
+                }
 
-                    @Override
-                    public void onFailure(Call<Axi> call, Throwable t) {
-                        progress.hide();
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewSimulationResultActivity.this);
-                        alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                                startActivity(getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                });
 
                 break;
             case R.id.simulation:

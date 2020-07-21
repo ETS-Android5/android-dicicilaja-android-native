@@ -1,12 +1,14 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Related {
+
     @SerializedName("id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("title_program")
     @Expose
     private String titleProgram;
@@ -15,7 +17,7 @@ public class Related {
     private String price;
     @SerializedName("price_without_rp")
     @Expose
-    private String priceWithoutRp;
+    private Integer priceWithoutRp;
     @SerializedName("jenis_program")
     @Expose
     private String jenisProgram;
@@ -35,11 +37,11 @@ public class Related {
     @Expose
     private String link;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,11 +61,11 @@ public class Related {
         this.price = price;
     }
 
-    public String getPriceWithoutRp() {
+    public Integer getPriceWithoutRp() {
         return priceWithoutRp;
     }
 
-    public void setPriceWithoutRp(String priceWithoutRp) {
+    public void setPriceWithoutRp(Integer priceWithoutRp) {
         this.priceWithoutRp = priceWithoutRp;
     }
 

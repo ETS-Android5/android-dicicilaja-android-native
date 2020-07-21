@@ -8,12 +8,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,9 +33,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
-import com.dicicilaja.app.Activity.LoginActivity;
+import com.dicicilaja.app.Activity.AssignSurveyorWebViewActivity;
 import com.dicicilaja.app.Activity.ProfileActivity;
 import com.dicicilaja.app.Activity.SearchActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
@@ -49,7 +47,6 @@ import com.dicicilaja.app.InformAXI.ui.gathering.GatheringActivity;
 import com.dicicilaja.app.InformAXI.ui.home.HomeFragment;
 import com.dicicilaja.app.InformAXI.ui.register.RegisterActivity;
 import com.dicicilaja.app.InformAXI.ui.trip.TripActivity;
-import com.dicicilaja.app.InformAXI.utils.Tools;
 import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulation.NewSimulationActivity;
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
@@ -209,7 +206,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             Fragment fragment = getFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            transaction.replace(R.id.frame_layout, fragment, CURRENT_TAG);
+            transaction.replace(R.id.frame_layout_axi, fragment, CURRENT_TAG);
             transaction.commitAllowingStateLoss();
         };
 
@@ -352,6 +349,10 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                 Intent intent7 = new Intent(getBaseContext(), MateriActivity.class);
                 startActivity(intent7);
                 break;
+            case R.id.nav_assign_surveyor:
+                Intent intent8 = new Intent(getBaseContext(), AssignSurveyorWebViewActivity.class);
+                startActivity(intent8);
+                break;
             case R.id.nav_logout:
                 showDialogLogout();
                 break;
@@ -387,7 +388,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
             public void onClick(DialogInterface dialog, int which) {
                 progress.show();
                 InterfaceLogout apiService =
-                        ApiClient.getClient().create(InterfaceLogout.class);
+                        ApiBff.getClient().create(InterfaceLogout.class);
 
                 Call<Logout> call2 = apiService.logout(apiKey);
                 call2.enqueue(new Callback<Logout>() {

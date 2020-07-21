@@ -345,7 +345,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
                     groupBy = "nomor_axi_id";
                     break;
                 case R.id.rb_date:
-                    groupBy = "get";
+                    groupBy = "date";
                     break;
             }
         });

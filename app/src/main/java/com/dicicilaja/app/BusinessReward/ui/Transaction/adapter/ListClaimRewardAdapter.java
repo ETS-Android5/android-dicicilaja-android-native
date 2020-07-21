@@ -89,7 +89,7 @@ public class ListClaimRewardAdapter extends RecyclerView.Adapter<ListClaimReward
 
         holder.tv_tgl.setText(cl.getAttributes().getUpdatedAtstring());
 
-//        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//        ApiService apiService = ApiBff.getClient().create(ApiService.class);
 //
 //        Call<DetailProduk> call = apiService.getDetailProduk(cl.getAttributes().getProductCatalogId());
 //        call.enqueue(new Callback<DetailProduk>() {

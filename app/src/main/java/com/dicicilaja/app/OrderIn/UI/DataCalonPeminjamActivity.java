@@ -564,6 +564,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
         PUNYA_NPWP_ITEMS.clear();
         PUNYA_NPWP_DATA.clear();
 
+        PUNYA_NPWP_DATA.put(0, "0");
         PUNYA_NPWP_DATA.put(1, "1");
         PUNYA_NPWP_DATA.put(2, "2");
         PUNYA_NPWP_ITEMS.add("Ya");
@@ -980,7 +981,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
 
     private void initLoadData() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<Provinsi> call = apiServiceArea.getProvinsi(apiKey, 1000);
+        Call<Provinsi> call = apiServiceArea.getProvinsi(1000);
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
@@ -1061,7 +1062,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                 clearKelurahan();
                 if (Integer.parseInt(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition())) > 0) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Call<Kota> call = apiServiceArea.getKota(apiKey, PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
+                    Call<Kota> call = apiServiceArea.getKota(PROVINSI_DATA.get(spinnerProvinsi.getSelectedItemPosition()), 1000);
                     call.enqueue(new Callback<Kota>() {
                         @Override
                         public void onResponse(Call<Kota> call, Response<Kota> response) {
@@ -1139,7 +1140,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                             clearKelurahan();
                             if (Integer.parseInt(KOTA_DATA.get(spinnerKota.getSelectedItemPosition())) > 0) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                Call<Kecamatan> call = apiServiceArea.getKecamatan(apiKey, KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
+                                Call<Kecamatan> call = apiServiceArea.getKecamatan(KOTA_DATA.get(spinnerKota.getSelectedItemPosition()), 1000);
                                 call.enqueue(new Callback<Kecamatan>() {
                                     @Override
                                     public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
@@ -1216,7 +1217,7 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
                                         clearKelurahan();
                                         if (Integer.parseInt(KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition())) > 0) {
                                             progressBar.setVisibility(View.VISIBLE);
-                                            Call<Kelurahan> call = apiServiceArea.getKelurahan(apiKey, KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition()), 1000);
+                                            Call<Kelurahan> call = apiServiceArea.getKelurahan(KECAMATAN_DATA.get(spinnerKecamatan.getSelectedItemPosition()), 1000);
                                             call.enqueue(new Callback<Kelurahan>() {
                                                 @Override
                                                 public void onResponse(Call<Kelurahan> call, Response<Kelurahan> response) {
@@ -1634,9 +1635,9 @@ public class DataCalonPeminjamActivity extends AppCompatActivity {
             nama_ibu_kandung = inputIbuKandung.getText().toString();
 //            tanggal_janji_survey = inputJanjiSurvey.getText().toString();
             punya_npwp_id = PUNYA_NPWP_DATA.get(spinnerPunyaNpwp.getSelectedItemPosition());
-            punya_npwp = PUNYA_NPWP_ITEMS.get(spinnerPunyaNpwp.getSelectedItemPosition());
+            punya_npwp = PUNYA_NPWP_ITEMS.get(spinnerPunyaNpwp.getSelectedItemPosition()-1);
             pekerjaan_id= JOB_DATA.get(spinnerPekerjaan.getSelectedItemPosition());
-            pekerjaan = JOB_ITEMS.get(spinnerPekerjaan.getSelectedItemPosition());
+            pekerjaan = JOB_ITEMS.get(spinnerPekerjaan.getSelectedItemPosition()-1);
 
 
         } catch (Exception ex) {

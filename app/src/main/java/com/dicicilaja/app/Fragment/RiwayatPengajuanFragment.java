@@ -140,9 +140,7 @@ public class RiwayatPengajuanFragment extends Fragment {
                     responsiblePersonResponseTime.setText(detailRequests.get(0).getResponsiblePerson().getResponseTime());
                     responsiblePersonNote.setText(detailRequests.get(0).getResponsiblePerson().getCatatan());
 
-                } catch (Exception ex) {
-
-                }
+                } catch (Exception ex) { }
 
                 try {
                     titleTerkirim.setText(progress.get(0).getStatus());

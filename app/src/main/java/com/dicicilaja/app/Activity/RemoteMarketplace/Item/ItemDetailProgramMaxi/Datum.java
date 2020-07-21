@@ -1,18 +1,15 @@
+
 package com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemDetailProgramMaxi;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class Datum {
 
-/**
- * Created by fawazrifqi on 10/05/18.
- */
-
-public class Data {
     @SerializedName("id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("title_program")
     @Expose
     private String titleProgram;
@@ -21,7 +18,7 @@ public class Data {
     private String price;
     @SerializedName("price_without_rp")
     @Expose
-    private String priceWithoutRp;
+    private Integer priceWithoutRp;
     @SerializedName("jenis_program")
     @Expose
     private String jenisProgram;
@@ -37,9 +34,12 @@ public class Data {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("is_liked")
+    @Expose
+    private Integer isLiked;
     @SerializedName("tenor")
     @Expose
-    private List<Tenor> tenor = null;
+    private List<List<Tenor>> tenor = null;
     @SerializedName("link")
     @Expose
     private String link;
@@ -47,11 +47,11 @@ public class Data {
     @Expose
     private List<Related> related = null;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,11 +71,11 @@ public class Data {
         this.price = price;
     }
 
-    public String getPriceWithoutRp() {
+    public Integer getPriceWithoutRp() {
         return priceWithoutRp;
     }
 
-    public void setPriceWithoutRp(String priceWithoutRp) {
+    public void setPriceWithoutRp(Integer priceWithoutRp) {
         this.priceWithoutRp = priceWithoutRp;
     }
 
@@ -119,11 +119,19 @@ public class Data {
         this.description = description;
     }
 
-    public List<Tenor> getTenor() {
+    public Integer getIsLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(Integer isLiked) {
+        this.isLiked = isLiked;
+    }
+
+    public List<List<Tenor>> getTenor() {
         return tenor;
     }
 
-    public void setTenor(List<Tenor> tenor) {
+    public void setTenor(List<List<Tenor>> tenor) {
         this.tenor = tenor;
     }
 
@@ -142,4 +150,5 @@ public class Data {
     public void setRelated(List<Related> related) {
         this.related = related;
     }
+
 }

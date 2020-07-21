@@ -20,7 +20,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePengajuanMarketplace;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.AllPengajuan;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemAllPengajuan.Datum;
@@ -86,40 +87,67 @@ public class PengajuanFragment extends Fragment {
         pengajuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(session.isLoggedIn() == FALSE){
+                    Intent intent = new Intent(getContext(), GuestActivity.class);
+                    startActivity(intent);
+                }else{
+                    progress.show();
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
+                    axiReff.enqueue(new Callback<Axi>() {
+                        @Override
+                        public void onResponse(Call<Axi> call, Response<Axi> response) {
+                            if (response.code() == 401) {
+                                progress.hide();
+                                session.logoutUser();
+                                Intent intent = new Intent(getContext(), LoginActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            } else if (response.isSuccessful()) {
+                                try {
+                                    if (response.body().getData().size() > 0) {
+                                        agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
+                                        agen_name = response.body().getData().get(0).getAttributes().getNama();
+                                        Intent intent2 = new Intent(getContext(), OrderInActivity.class);
+                                        intent2.putExtra("agen_id", agen_id);
+                                        intent2.putExtra("agen_name", agen_name);
+                                        startActivity(intent2);
+                                        progress.hide();
+                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    } else {
+                                        agen_id = null;
+                                        agen_name = null;
+                                        Intent intent2 = new Intent(getContext(), OrderInActivity.class);
+                                        intent2.putExtra("agen_id", agen_id);
+                                        intent2.putExtra("agen_name", agen_name);
+                                        startActivity(intent2);
+                                        progress.hide();
+                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    }
 
-                progress.show();
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Call<Axi> axiReff = apiService3.getAxi(apiKey, session.getNomorAxiId());
-                axiReff.enqueue(new Callback<Axi>() {
-                    @Override
-                    public void onResponse(Call<Axi> call, Response<Axi> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                if (response.body().getData().size() > 0) {
-                                    agen_id = String.valueOf(response.body().getData().get(0).getAttributes().getProfileId());
-                                    agen_name = response.body().getData().get(0).getAttributes().getNama();
-                                    Intent intent2 = new Intent(getContext(), OrderInActivity.class);
-                                    intent2.putExtra("agen_id", agen_id);
-                                    intent2.putExtra("agen_name", agen_name);
-                                    startActivity(intent2);
-                                    progress.hide();
-                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                } else {
-                                    agen_id = null;
-                                    agen_name = null;
-                                    Intent intent2 = new Intent(getContext(), OrderInActivity.class);
-                                    intent2.putExtra("agen_id", agen_id);
-                                    intent2.putExtra("agen_name", agen_name);
-                                    startActivity(intent2);
-                                    progress.hide();
-                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                } catch (Exception ex) {
                                 }
+                            } else {
+                                progress.hide();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                alertDialog.setTitle("Perhatian");
+                                alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
 
-
-                            } catch (Exception ex) {
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        getActivity().finish();
+                                        startActivity(getActivity().getIntent());
+                                    }
+                                });
+                                alertDialog.show();
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<Axi> call, Throwable t) {
                             progress.hide();
                             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -134,25 +162,9 @@ public class PengajuanFragment extends Fragment {
                             });
                             alertDialog.show();
                         }
-                    }
+                    });
+                }
 
-                    @Override
-                    public void onFailure(Call<Axi> call, Throwable t) {
-                        progress.hide();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                        alertDialog.setTitle("Perhatian");
-                        alertDialog.setMessage("Data axi gagal dipanggil, silahkan coba beberapa saat lagi.");
-
-                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                getActivity().finish();
-                                startActivity(getActivity().getIntent());
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                });
             }
         });
 
@@ -173,7 +185,12 @@ public class PengajuanFragment extends Fragment {
         call2.enqueue(new Callback<AllPengajuan>() {
             @Override
             public void onResponse(Call<AllPengajuan> call, Response<AllPengajuan> response) {
-                if(response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else if(response.isSuccessful()) {
                     final List<Datum> pengajuan = response.body().getData();
                     if(pengajuan.size() == 0){
                         recyclerPengajuan.setVisibility(View.GONE);

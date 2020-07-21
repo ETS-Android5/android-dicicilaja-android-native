@@ -14,8 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahPassword;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahPassword.UbahPassword;
 import com.dicicilaja.app.R;
@@ -145,7 +144,7 @@ public class UbahPasswordMaxiActivity extends AppCompatActivity {
 
     private void changePassword(final String apiKey, final String old_password, final String new_password, final String second_new_password) {
         InterfaceUbahPassword apiService =
-                ApiClient.getClient().create(InterfaceUbahPassword.class);
+                ApiBff.getClient().create(InterfaceUbahPassword.class);
 
         Call<UbahPassword> call = apiService.change(apiKey, old_password, new_password, second_new_password);
         call.enqueue(new Callback<UbahPassword>() {

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.claimReward.PostClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
@@ -161,7 +162,12 @@ public class DetailProduct2Activity extends AppCompatActivity {
         call.enqueue(new Callback<GetCart>() {
             @Override
             public void onResponse(Call<GetCart> call, Response<GetCart> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     itemList = response.body().getData().getAttributes().getItems();
                     includedList = response.body().getIncluded();
                     point = Integer.valueOf(getIntent().getStringExtra("point"));
@@ -246,8 +252,12 @@ public class DetailProduct2Activity extends AppCompatActivity {
                     call.enqueue(new Callback<PostClaimReward>() {
                         @Override
                         public void onResponse(Call<PostClaimReward> call, Response<PostClaimReward> response) {
-                            if (response.isSuccessful()) {
-                                Log.d("Responnya", String.valueOf(response.code()));
+                            if (response.code() == 401) {
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 setResult(RESULT_OK);
                                 Intent intent = new Intent(getBaseContext(), RedeemConfirmationActivity.class);
                                 intent.putExtra("DATE", date);
@@ -265,7 +275,7 @@ public class DetailProduct2Activity extends AppCompatActivity {
                         }
                     });
 
-//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                ApiService apiService = ApiBff.getClient().create(ApiService.class);
 
 //                profileId = session.getAxiId();
 //                name = session.getName();

@@ -1,6 +1,7 @@
 package com.dicicilaja.app.WebView;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +26,7 @@ import com.dicicilaja.app.R;
 
 public class AboutAxiMarketplaceActivity extends AppCompatActivity {
 
+    public Context mContext;
     Button daftar;
     private ValueCallback<Uri> mUploadMessage;
     public ValueCallback<Uri[]> uploadMessage;
@@ -33,6 +36,7 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_axi_marketplace);
+        mContext = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,6 +46,8 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setAllowContentAccess(true);
+        webView.getSettings().setAllowFileAccess(true);
 
 //        webView.getSettings().setSupportZoom(true);
 //        webView.getSettings().setBuiltInZoomControls(true);
@@ -49,8 +55,33 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
 
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://dicicilaja.com/axi");
+        webView.setWebViewClient(new WebViewClient() {
+
+            // For api level bellow 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                if(url.startsWith("whatsapp://")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            // From api level 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+                String url = request.getUrl().toString();
+                if(url.startsWith("whatsapp://")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+        webView.loadUrl("https://dicicilaja.com/axi");
         webView.setWebChromeClient(new WebChromeClient()
         {
             // For 3.0+ Devices (Start)
@@ -148,5 +179,16 @@ public class AboutAxiMarketplaceActivity extends AppCompatActivity {
                 super.finish();
         }
         return true;
+    }
+
+    protected void handleTelLink(String url){
+        Uri uri=Uri.parse(url);
+        String msg = uri.getQueryParameter("text");
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        startActivity(sendIntent);
     }
 }

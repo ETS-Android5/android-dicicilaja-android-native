@@ -1,16 +1,13 @@
 package com.dicicilaja.app.Activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -25,29 +22,22 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahCustomer.UbahCustomer;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -188,7 +178,7 @@ public class UbahCustomerActivity extends AppCompatActivity {
 
     private void ubahCustomer(final String apiKey, final String namaLengkap, final String handphone, final String jk, final String bill) {
         InterfaceUbahCustomer apiService =
-                ApiClient.getClient().create(InterfaceUbahCustomer.class);
+                ApiBff.getClient().create(InterfaceUbahCustomer.class);
 
         Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, handphone, jk, bill);
         call.enqueue(new Callback<UbahCustomer>() {

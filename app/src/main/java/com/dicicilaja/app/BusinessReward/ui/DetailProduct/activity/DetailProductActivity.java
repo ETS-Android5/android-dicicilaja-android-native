@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.getCart.GetCart;
 import com.dicicilaja.app.BusinessReward.dataAPI.postCart.PostCart;
 import com.dicicilaja.app.BusinessReward.network.ApiClient3;
@@ -154,12 +155,20 @@ public class DetailProductActivity extends AppCompatActivity {
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<PostCart> call, Response<PostCart> response) {
-                        //finish();
+                        if (response.code() == 401) {
+                            session.logoutUser();
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            //finish();
 
                         setResult(RESULT_OK);
                         finish();
 
         //                recyclerTransaksi.setAdapter(new ListClaimRewardAdapter(dataItems, getBaseContext()));
+
+                        }
                     }
 
                     @Override
@@ -194,7 +203,7 @@ public class DetailProductActivity extends AppCompatActivity {
 //                            crhId = String.valueOf(0);
 //                            alertDialog.setPositiveButton("Setuju", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                                    ApiService apiService = ApiBff.getClient().create(ApiService.class);
 //
 //                                    profileId = session.getAxiId();
 //                                    name = session.getName();
@@ -303,10 +312,10 @@ public class DetailProductActivity extends AppCompatActivity {
 
 
 
-//                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+//                ApiService apiService = ApiBff.getClient().create(ApiService.class);
 //
 //                ApiService apiService2 =
-//                        ApiClient.getClient2().create(ApiService.class);
+//                        ApiBff.getClient2().create(ApiService.class);
 //
 //                InterfaceAxiDetail apiService5 =
 //                        RetrofitClient.getClient().create(InterfaceAxiDetail.class);

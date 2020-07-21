@@ -35,6 +35,8 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiClient2;
 import com.dicicilaja.app.Activity.AllProductPromoActivity;
 import com.dicicilaja.app.Activity.AllProductRecommendationActivity;
+import com.dicicilaja.app.Activity.GuestActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceCustomerSlider;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemSlider.Datum;
@@ -79,6 +81,8 @@ import com.smarteist.autoimageslider.SliderView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Boolean.FALSE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -154,7 +158,7 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         maxi_sehat = view.findViewById(R.id.maxi_sehat);
         maxi_extraguna = view.findViewById(R.id.maxi_extraguna);
         maxi_griya = view.findViewById(R.id.maxi_griya);
-        show_all_partner = view.findViewById(R.id.show_all_partner);
+//        show_all_partner = view.findViewById(R.id.show_all_partner);
 //        show_all_promo = view.findViewById(R.id.show_all_promo);
 //        show_all_recommend = view.findViewById(R.id.show_all_recommend);
 //        allpromo = view.findViewById(R.id.allpromo);
@@ -201,8 +205,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         dana_multiguna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), OrderInActivity.class);
-                startActivity(intent);
+                if(session.isLoggedIn() == FALSE){
+                    Intent intent = new Intent(getContext(), GuestActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getContext(), OrderInActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 //        promoData = new ArrayList<>();
@@ -420,13 +429,22 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
         call5.enqueue(new Callback<Slider>() {
             @Override
             public void onResponse(Call<Slider> call, Response<Slider> response) {
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else {
 //                progress.dismiss();
-                List<Datum> slider = response.body().getData();
-                maxSlide = slider.size();
-                for (int i = 0; i < slider.size(); i++) {
-                    file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    List<Datum> slider = response.body().getData();
+                    maxSlide = slider.size();
+                    for (int i = 0; i < slider.size(); i++) {
+                        file_maps.put(i, slider.get(i).getAttributes().getGambar());
+                    }
+                    setSliderView(getContext(),maxSlide,file_maps);
+
                 }
-                setSliderView(getContext(),maxSlide,file_maps);
             }
 
             @Override
@@ -489,13 +507,13 @@ public class BerandaFragment extends Fragment implements BaseSliderView.OnSlider
             }
         });
 
-        show_all_partner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllPartnerActivity.class);
-                startActivity(intent);
-            }
-        });
+//        show_all_partner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), AllPartnerActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 //        show_all_promo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

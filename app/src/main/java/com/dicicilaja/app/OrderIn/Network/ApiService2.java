@@ -21,40 +21,33 @@ public interface ApiService2 {
     })
 
     @GET("area/provinces")
-    Call<Provinsi> getProvinsi(@Header("Authorization") String apiKey,
-                               @Query("page[size]") int size);
+    Call<Provinsi> getProvinsi(@Query("page[size]") int size);
 
     @GET("area/cities")
-    Call<Kota> getKota(@Header("Authorization") String apiKey,
-                       @Query("filter[provinsi_id]") String id,
+    Call<Kota> getKota(@Query("filter[provinsi_id]") String id,
                        @Query("page[size]") int size);
 
 
     @GET("area/branches")
-    Call<CabangRekomendasi> getCabangRekomendasi(@Header("Authorization") String apiKey,
-                                                 @Query("filter[district]") String id,
+    Call<CabangRekomendasi> getCabangRekomendasi(@Query("filter[district]") String id,
                                                  @Query("include") String param,
                                                  @Query("page[size]") int size);
 
     @GET("area/branches")
-    Call<CabangTerdekat> getCabangTerdekat(@Header("Authorization") String apiKey,
-                                           @Query("filter[city]") String id,
+    Call<CabangTerdekat> getCabangTerdekat(@Query("filter[city]") String id,
                                            @Query("include") String param,
                                            @Query("page[size]") int size);
 
     @GET("area/branches")
-    Call<CabangLainnya> getCabangLainnya(@Header("Authorization") String apiKey,
-                                         @Query("filter[province]") String id,
+    Call<CabangLainnya> getCabangLainnya(@Query("filter[province]") String id,
                                          @Query("include") String param,
                                          @Query("page[size]") int size);
 
     @GET("area/districts")
-    Call<Kecamatan> getKecamatan(@Header("Authorization") String apiKey,
-                                 @Query("filter[kota_id]") String id,
+    Call<Kecamatan> getKecamatan(@Query("filter[kota_id]") String id,
                                  @Query("page[size]") int size);
 
     @GET("area/villages")
-    Call<Kelurahan> getKelurahan(@Header("Authorization") String apiKey,
-                                 @Query("filter[distrik_id]") String id,
+    Call<Kelurahan> getKelurahan(@Query("filter[distrik_id]") String id,
                                  @Query("page[size]") int size);
 }

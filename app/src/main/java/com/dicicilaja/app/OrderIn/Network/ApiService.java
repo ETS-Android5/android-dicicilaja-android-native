@@ -33,7 +33,7 @@ public interface ApiService {
     Call<TahunKendaraan> getTahunKendaraan(@Path("objek_id") int objek_id,
                                            @Path("area_id") int area_id);
 
-    @GET("area")
-    Call<AreaSimulasi> getAreaSimulasi(@Query("simulasi") Boolean simulasi);
+    @GET("v3/area/areas")
+    Call<AreaSimulasi> getAreaSimulasi(@Query("filter[simulasi]") Boolean simulasi);
 
 }

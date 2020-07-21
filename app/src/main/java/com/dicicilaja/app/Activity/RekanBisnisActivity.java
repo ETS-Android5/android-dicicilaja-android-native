@@ -20,8 +20,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.API.Client.RetrofitClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceRekanBisnis;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRekanBisnis.Data;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemRekanBisnis.InfoJaringan;
@@ -128,7 +127,7 @@ public class RekanBisnisActivity extends AppCompatActivity {
             progress.show();
 
             InterfaceRekanBisnis apiService =
-                    ApiClient.getClient().create(InterfaceRekanBisnis.class);
+                    ApiBff.getClient().create(InterfaceRekanBisnis.class);
 
 
 

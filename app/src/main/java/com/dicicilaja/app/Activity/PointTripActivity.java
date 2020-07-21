@@ -6,6 +6,8 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -69,8 +71,7 @@ public class PointTripActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             }
         });
-
-        value_point.setText(formatter.format(Integer.parseInt(String.valueOf(getIntent().getStringExtra("POINT_TRIP")))).replace(",","."));
+        value_point.setText(getIntent().getStringExtra("POINT_TRIP"));
         trip = findViewById(R.id.trip);
         String imageUrl = "https://dicicilaja.com/uploads/trip/trips.png";
         Picasso.get().load(imageUrl).into(trip);

@@ -2,7 +2,6 @@ package com.dicicilaja.app.OrderIn.Network;
 
 import com.dicicilaja.app.OrderIn.Data.Axi.Axi;
 import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Pekerjaan;
-import com.dicicilaja.app.OrderIn.Data.Pekerjaan.Response;
 import com.dicicilaja.app.OrderIn.Data.PlatNomor.PlatNomor;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
@@ -26,7 +25,7 @@ public interface ApiService3 {
     @GET("transaction/voucher-codes/search")
     Call<VoucherCode> getVoucherCode(@Query("code") String code);
 
-    @GET("transaction/transactions/check-vehicle-id")
+    @GET("transaction/transactions/search/check-vehicle-id")
     Call<PlatNomor> getPlatNomor(@Query("vehicle_id") String nomor);
 
     @GET("profile/detail-axis/search")
@@ -78,9 +77,9 @@ public interface ApiService3 {
                                   @Field("pekerjaan") String  pekerjaan,
                                   @Field("jenis_kendaraan") String jenis_kendaraan);
 
-    @GET("orderIn/jobs")
+    @GET("orderin/jobs")
     Call<List<Pekerjaan>> getPekerjaan();
 
-    @GET("orderIn/vehicles/{vehicles_type}")
+    @GET("orderin/vehicles/{vehicles_type}")
     Call<List<Vehicles>> getVehicles(@Path("vehicles_type") String vehicles_type);
 }

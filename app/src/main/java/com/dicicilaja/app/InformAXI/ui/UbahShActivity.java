@@ -1,18 +1,14 @@
 package com.dicicilaja.app.InformAXI.ui;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import com.dicicilaja.app.API.Client.ApiClient;
-import com.dicicilaja.app.Activity.RegisterAxi1Activity;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahSh;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -20,36 +16,22 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceUbahCustomer;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemUbahCustomer.UbahCustomer;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,7 +163,7 @@ public class UbahShActivity extends AppCompatActivity {
 
     private void ubahSh(final String apiKey, final String namaLengkap, final String email, final String handphone) {
         InterfaceUbahSh apiService =
-                ApiClient.getClient().create(InterfaceUbahSh.class);
+                ApiBff.getClient().create(InterfaceUbahSh.class);
 
         Call<UbahCustomer> call = apiService.change(apiKey,namaLengkap, email, handphone);
         call.enqueue(new Callback<UbahCustomer>() {

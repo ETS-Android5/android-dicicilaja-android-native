@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.OrderIn.Data.Profile.Profile;
 import com.dicicilaja.app.OrderIn.Data.Transaksi.Transaksi;
 import com.dicicilaja.app.OrderIn.Network.ApiClient2;
@@ -371,7 +372,13 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<Profile> call, Response<Profile> response) {
-                        if (response.isSuccessful()) {
+                        if (response.code() == 401) {
+                            progress.hide();
+                            sessionAuth.logoutUser();
+                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.isSuccessful()) {
                             try {
                                 String calon_nasabah_id = response.body().getData().getId();
 
@@ -430,7 +437,13 @@ public class KonfirmasiPengajuanActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
                                         Log.d("HASIL", "code: " + response.code());
-                                        if (response.isSuccessful()) {
+                                        if (response.code() == 401) {
+                                            progress.dismiss();
+                                            sessionAuth.logoutUser();
+                                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (response.isSuccessful()) {
 
                                             progress.hide();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

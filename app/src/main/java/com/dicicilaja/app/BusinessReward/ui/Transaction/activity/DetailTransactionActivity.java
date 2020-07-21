@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.DetailClaimReward;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailClaimReward.Included;
 import com.dicicilaja.app.BusinessReward.dataAPI.detailProduk.DetailProduk;
@@ -191,7 +192,12 @@ public class DetailTransactionActivity extends AppCompatActivity {
         call.enqueue(new Callback<DetailClaimReward>() {
             @Override
             public void onResponse(Call<DetailClaimReward> call, Response<DetailClaimReward> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 401) {
+                    session.logoutUser();
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (response.isSuccessful()) {
                     Log.d("Responnya", String.valueOf(response.code()));
 
                     String curString = response.body().getData().getAttributes().getUpdatedAt();

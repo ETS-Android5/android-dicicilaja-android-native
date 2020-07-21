@@ -14,18 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-import com.dicicilaja.app.API.Client.ApiClient;
 import com.dicicilaja.app.API.Client.ApiClient2;
-import com.dicicilaja.app.API.Client.RetrofitClient;
-import com.dicicilaja.app.API.Interface.InterfaceLogout;
-import com.dicicilaja.app.Activity.AxiDashboardActivity;
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.Activity.ProductMaxiActivity;
 import com.dicicilaja.app.Activity.ProfileCustomerActivity;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAllFavorite;
@@ -35,7 +31,6 @@ import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProgramMaxi.Data;
 import com.dicicilaja.app.Adapter.FavoriteAllAdapter;
 import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
-import com.dicicilaja.app.Model.Logout;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 import com.squareup.picasso.Picasso;
@@ -122,25 +117,34 @@ public class AkunFragment extends Fragment {
         call5.enqueue(new Callback<ItemFavorite>() {
             @Override
             public void onResponse(Call<ItemFavorite> call, Response<ItemFavorite> response) {
-                favorite = response.body().getData();
+                if (response.code() == 401) {
+                    progress.dismiss();
+                    session.logoutUser();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else {
+                    favorite = response.body().getData();
 
-                recyclerView2.setAdapter(new FavoriteAllAdapter(favorite, R.layout.card_program, getContext()));
-                recyclerView2.setNestedScrollingEnabled(false);
-                recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView2, new ClickListener() {
-                    @Override
-                    public void onClick(View view, final int position) {
-                        Intent intent = new Intent(getContext(), ProductMaxiActivity.class);
-                        intent.putExtra("EXTRA_REQUEST_ID", favorite.get(position).getId().toString());
-                        startActivity(intent);
+                    recyclerView2.setAdapter(new FavoriteAllAdapter(favorite, R.layout.card_program, getContext()));
+                    recyclerView2.setNestedScrollingEnabled(false);
+                    recyclerView2.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView2, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            Intent intent = new Intent(getContext(), ProductMaxiActivity.class);
+                            intent.putExtra("EXTRA_REQUEST_ID", favorite.get(position).getId().toString());
+                            startActivity(intent);
 
-                    }
+                        }
 
-                    @Override
-                    public void onLongClick(View view, int position) {
-                    }
-                }));
+                        @Override
+                        public void onLongClick(View view, int position) {
+                        }
+                    }));
 
-                progress.dismiss();
+                    progress.dismiss();
+
+                }
             }
 
             @Override

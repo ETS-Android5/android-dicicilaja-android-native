@@ -1,9 +1,14 @@
 package com.dicicilaja.app.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,10 +17,12 @@ import com.dicicilaja.app.R;
 
 public class InfoActivity extends AppCompatActivity {
 
+    public Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        mContext = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,8 +39,44 @@ public class InfoActivity extends AppCompatActivity {
 
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+            // For api level bellow 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                if(url.startsWith("whatsapp://")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            // From api level 24
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+                String url = request.getUrl().toString();
+                if(url.startsWith("whatsapp://")){
+                    handleTelLink(url);
+                    return true;
+                }
+
+                return false;
+            }
+        });
         webView.loadUrl("https://dicicilaja.com/gudang-info");
+    }
+
+    protected void handleTelLink(String url){
+        Uri uri=Uri.parse(url);
+        String msg = uri.getQueryParameter("text");
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        startActivity(sendIntent);
     }
 
     @Override

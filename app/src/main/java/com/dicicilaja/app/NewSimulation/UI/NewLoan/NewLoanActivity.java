@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.dicicilaja.app.Activity.LoginActivity;
 import com.dicicilaja.app.NewSimulation.Data.HitungSimulasi.HitungSimulasi;
 import com.dicicilaja.app.NewSimulation.Network.ApiClient;
 import com.dicicilaja.app.NewSimulation.Network.ApiService;
@@ -23,6 +25,7 @@ import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.JenisAngsuranAct
 import com.dicicilaja.app.NewSimulation.UI.BantuanNewSimulation.TipeAsuransiActivity;
 import com.dicicilaja.app.NewSimulation.UI.NewSimulationResult.NewSimulationResultActivity;
 import com.dicicilaja.app.R;
+import com.dicicilaja.app.Session.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -71,6 +74,8 @@ public class NewLoanActivity extends AppCompatActivity {
     Button next;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
+    SessionManager session;
+    String apiKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,8 @@ public class NewLoanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_loan);
         ButterKnife.bind(this);
 
+        session = new SessionManager(getBaseContext());
+        apiKey = "Bearer " + session.getToken();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -199,12 +206,18 @@ public class NewLoanActivity extends AppCompatActivity {
                     Log.d("TAGTAG", "tipe_angsuran_id: " + tipe_angsuran_id);
                     Log.d("TAGTAG", "value_tipe_angsuran_id: " + value_tipe_angsuran_id);
 
-                    Call<HitungSimulasi> call = apiService.hitungCar(tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
+                    Call<HitungSimulasi> call = apiService.hitungCar(apiKey, tipe_objek_id, objek_model_id, tahun_kendaraan, area_id, tenor_simulasi, tipe_asuransi_id, value_tipe_angsuran_id);
                     call.enqueue(new Callback<HitungSimulasi>() {
 
                         @Override
                         public void onResponse(Call<HitungSimulasi> call, Response<HitungSimulasi> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 401) {
+                                progressBar.setVisibility(View.GONE);
+                                session.logoutUser();
+                                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (response.isSuccessful()) {
                                 try {
                                     progressBar.setVisibility(View.GONE);
                                     text_max = response.body().getData().getAttributes().getHasilSimulasi().getMaksPencairan();

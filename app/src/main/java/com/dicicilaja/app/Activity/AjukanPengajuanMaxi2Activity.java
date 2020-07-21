@@ -16,7 +16,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 
-import com.dicicilaja.app.API.Client.ApiClient;
+import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.Datum;
 import com.dicicilaja.app.Activity.RemoteMarketplace.Item.ItemProfileCustomer.ProfileCustomer;
 import com.google.android.material.textfield.TextInputLayout;
@@ -138,7 +138,7 @@ public class AjukanPengajuanMaxi2Activity extends AppCompatActivity implements E
                 progress1.setCanceledOnTouchOutside(false);
                 progress1.show();
                 InterfaceProfileCustomer apiService =
-                        ApiClient.getClient().create(InterfaceProfileCustomer.class);
+                        ApiBff.getClient().create(InterfaceProfileCustomer.class);
 
                 Call<ProfileCustomer> callProfile = apiService.getProfile(apiKey);
                 callProfile.enqueue(new Callback<ProfileCustomer>() {

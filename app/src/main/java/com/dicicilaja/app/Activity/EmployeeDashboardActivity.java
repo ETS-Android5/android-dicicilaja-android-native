@@ -39,8 +39,6 @@ import com.dicicilaja.app.Adapter.TCHomePagerAdapter;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
-import java.util.HashMap;
-
 public class EmployeeDashboardActivity extends AppCompatActivity {
 
     SessionManager session;
