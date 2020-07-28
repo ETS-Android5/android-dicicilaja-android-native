@@ -42,6 +42,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiBff;
+import com.dicicilaja.app.API.Client.ApiBffNew;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
@@ -670,7 +671,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         });
 
         InterfacePengajuanAxi apiService2 =
-                ApiClient2.getClient().create(InterfacePengajuanAxi.class);
+                ApiBff.getClient().create(InterfacePengajuanAxi.class);
 
         Call<PengajuanAxi> call3 = apiService2.getPengajuanAxi(apiKey, currentPage);
         call3.enqueue(new Callback<PengajuanAxi>() {
