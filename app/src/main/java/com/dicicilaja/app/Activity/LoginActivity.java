@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 
+import com.dicicilaja.app.BFF.API.Network.ApiClientBFF;
 import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
 import com.dicicilaja.app.BFF.API.Data.Login.Login;
 import com.dicicilaja.app.BFF.API.Network.ApiClient;
@@ -37,6 +38,8 @@ import com.dicicilaja.app.Session.SessionManager;
 import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -340,8 +343,16 @@ public class LoginActivity extends AppCompatActivity {
                     progress.dismiss();
                     hideSoftKeyboard();
                     androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+                    String messageError = null;
+                    try {
+                        String error = response.errorBody().string();
+                        messageError = error.trim();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     alertDialog.setTitle("Perhatian");
-                    alertDialog.setMessage("Username atau password salah");
+                    alertDialog.setMessage(messageError.substring(1, messageError.length() - 1));
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
