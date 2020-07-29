@@ -154,7 +154,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                 Log.d("UPLOADKTP", "FOTO KTP: " + fKtp);
                 Log.d("UPLOADKTP", "FOTO NPWP: " + fNpwp);
 
-                if (validateForm(fKtp, nomorKtp)) {
+                if (validateForm(fKtp, nomorKtp, fNpwp, nomorNpwp)) {
                     progressBar.setVisibility(View.VISIBLE);
 
                     ApiService apiService = ApiClient.getClient().create(ApiService.class);
@@ -490,7 +490,7 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
         return null;
     }
 
-    private boolean validateForm(String fKtp, String nomorKtp) {
+    private boolean validateForm(String fKtp, String nomorKtp, String fNpwp, String nomorNpwp) {
         if (nomorKtp == null || nomorKtp.trim().length() == 0 || nomorKtp.equals("0")) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
             alertDialog.setTitle("Perhatian");
@@ -516,6 +516,37 @@ public class UploadKTPActivity extends AppCompatActivity implements EasyPermissi
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_KTP);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (nomorNpwp == null || nomorNpwp.trim().length() == 0 || nomorNpwp.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan masukan nomor NPWP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    requestFocus(noKtp);
+                }
+            });
+            alertDialog.show();
+            return false;
+        }
+
+        if (fNpwp == null || fNpwp.trim().length() == 0 || fNpwp.equals("0")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(UploadKTPActivity.this);
+            alertDialog.setTitle("Perhatian");
+            alertDialog.setMessage("Silahkan upload foto NPWP");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Pilih foto"), PICK_IMAGE_NPWP);
                 }
             });
             alertDialog.show();

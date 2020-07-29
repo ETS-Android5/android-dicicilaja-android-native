@@ -38,6 +38,8 @@ import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -340,8 +342,16 @@ public class LoginActivity extends AppCompatActivity {
                     progress.dismiss();
                     hideSoftKeyboard();
                     androidx.appcompat.app.AlertDialog.Builder alertDialog = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this);
+                    String messageError = null;
+                    try {
+                        String error = response.errorBody().string();
+                        messageError = error.trim();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     alertDialog.setTitle("Perhatian");
-                    alertDialog.setMessage("Username atau password salah");
+                    alertDialog.setMessage(messageError.substring(1, messageError.length() - 1));
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

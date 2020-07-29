@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dicicilaja.app.API.Client.ApiProd;
 import com.dicicilaja.app.API.Client.RetrofitClient;
 import com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfaceAxiDetail;
 import com.dicicilaja.app.BusinessReward.dataAPI.area2.Area2;
@@ -110,7 +111,7 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
         clearArea();
         clearCabang();
 
-        apiService = ApiClient2.getClient().create(ApiService.class);
+        apiService = ApiProd.getClient().create(ApiService.class);
         apiServices = RetrofitClient.getClient().create(InterfaceAxiDetail.class);
     }
 
@@ -152,10 +153,10 @@ public class PilihCabangVendorActivity extends AppCompatActivity {
                     try {
                         if (response.body().getData().size() > 0) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
-                                if(response.body().getData().get(i).getAttributes().getIsAreaSimulasi() == false){
+//                                if(response.body().getData().get(i).getAttributes().getIsAreaSimulasi() == false){
                                     AREA_DATA.put(i + 1, String.valueOf(response.body().getData().get(i).getId()));
                                     AREA_ITEMS.add(String.valueOf(response.body().getData().get(i).getAttributes().getNama()));
-                                }
+//                                }
                             }
                             progressBar0.setVisibility(View.GONE);
                         } else {

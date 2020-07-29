@@ -119,7 +119,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         apiService = ApiClient.getClient().create(ApiService.class);
         apiService3 = ApiClient3.getClient().create(ApiService3.class);
 
-        Call<FotoKtpNpwp> callKtp = apiService.getFoto(apiKey, session.getUserId());
+        Call<FotoKtpNpwp> callKtp = apiService.getFoto(apiKey, session.getNomorAxiId());
         callKtp.enqueue(new Callback<FotoKtpNpwp>() {
             @Override
             public void onResponse(Call<FotoKtpNpwp> call, Response<FotoKtpNpwp> response) {

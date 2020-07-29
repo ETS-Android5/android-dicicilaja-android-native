@@ -59,10 +59,10 @@ public interface ApiService {
     @GET("branch")
     Call<Branch> getCabang(@Path("id") int cabang_id);
 
-    @GET("cabang/get-by-area/{id}")
+    @GET("area/cabang/get-by-area/{id}")
     Call<Cabang> getAllCabang(@Path("id") int cabang_id);
 
-    @GET("v3/area/areas")
+    @GET("area/areas?filter[transaksi]=true")
     Call<Area2> getArea();
 
     @GET("existing/axi-foto")
