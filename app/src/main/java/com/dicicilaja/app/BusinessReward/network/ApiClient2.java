@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class  ApiClient2 {
 
-    public static final String BASE_URL = "https://prod.dicicilaja.com/v3/simulation/api/";
+    public static final String BASE_URL = "https://uatgw.dicicilaja.com/v3/simulation/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
