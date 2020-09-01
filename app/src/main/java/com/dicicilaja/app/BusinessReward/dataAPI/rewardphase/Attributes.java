@@ -12,6 +12,12 @@ public class Attributes {
     @SerializedName("status")
     @Expose
     private Integer status;
+    @SerializedName("reward_phase_start")
+    @Expose
+    private String rewardPhaseStart;
+    @SerializedName("reward_phase_end")
+    @Expose
+    private String rewardPhaseEnd;
     @SerializedName("created-at")
     @Expose
     private Object createdAt;
@@ -33,6 +39,22 @@ public class Attributes {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getRewardPhaseStart() {
+        return rewardPhaseStart;
+    }
+
+    public void setRewardPhaseStart(String rewardPhaseStart) {
+        this.rewardPhaseStart = rewardPhaseStart;
+    }
+
+    public String getRewardPhaseEnd() {
+        return rewardPhaseEnd;
+    }
+
+    public void setRewardPhaseEnd(String rewardPhaseEnd) {
+        this.rewardPhaseEnd = rewardPhaseEnd;
     }
 
     public Object getCreatedAt() {

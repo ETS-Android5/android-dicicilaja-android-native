@@ -251,6 +251,7 @@
     <!--  navigation menu  -->
     <string name="nav_home">HOME</string>
     <string name="nav_regist">AXI TERDAFTAR</string>
+    <string name="nav_axi">DAFTARKAN AXI</string>
     <string name="nav_trip">INFORMASI TRIP</string>
     <string name="nav_gathering">INFORMASI GATHERING</string>
     <string name="nav_submission">BUAT PENGAJUAN</string>

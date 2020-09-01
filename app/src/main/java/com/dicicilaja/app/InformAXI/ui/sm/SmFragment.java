@@ -197,7 +197,7 @@ public class SmFragment extends Fragment implements ImageSliderAdapter.OnItemCli
     }
 
     private void initListener() {
-
+        area_id = session.getAreaId();
         pbHome.setVisibility(View.VISIBLE);
         getHomeData(area_id);
 

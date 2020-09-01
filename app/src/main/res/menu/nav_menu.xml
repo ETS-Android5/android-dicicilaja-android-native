@@ -14,6 +14,10 @@
             android:title="@string/nav_regist" />
 
         <item
+            android:id="@+id/nav_axi"
+            android:title="@string/nav_axi"/>
+
+        <item
             android:id="@+id/nav_trip"
             android:title="@string/nav_trip" />
 

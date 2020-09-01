@@ -36,7 +36,8 @@ import java.util.Date;
 
 import static java.lang.Boolean.TRUE;
 
-public class RegisterAxiWebViewActivity extends AppCompatActivity {
+public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
+
 
     private ValueCallback<Uri> mUploadMessage;
     public ValueCallback<Uri[]> uploadMessage;
@@ -45,6 +46,7 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
     private final static int FILECHOOSER_RESULTCODE = 1;
     private File mFileFromCamera;
     SessionManager session;
+    private Uri imageURI;
     private int PERMISSION_ALL = 2;
     private String[] PERMISSIONS = {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -54,16 +56,17 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_axi_webview);
+        setContentView(R.layout.activity_register_axi_webview_sh);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        session = new SessionManager(RegisterAxiWebViewActivity.this);
+        session = new SessionManager(RegisterAxiWebViewSHActivity.this);
         if(session.isLoggedIn() == TRUE){
-            getSupportActionBar().setTitle("Tambah Rekan Bisnis");
+            getSupportActionBar().setTitle("Daftarkan AXI");
         }
+
 
         final ProgressDialog pd = ProgressDialog.show(this, "", "Loading...",true);
         WebView webView = (WebView) findViewById(R.id.webview);
@@ -100,7 +103,7 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
 
 
             // For Lollipop 5.0+ Devices
-            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams)
+            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams)
             {
                 if (uploadMessage != null) {
                     uploadMessage.onReceiveValue(null);
@@ -108,13 +111,13 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
                 }
 
                 uploadMessage = filePathCallback;
-                if (!hasPermissions(RegisterAxiWebViewActivity.this, PERMISSIONS)) {
-                    ActivityCompat.requestPermissions(RegisterAxiWebViewActivity.this, PERMISSIONS, PERMISSION_ALL);
+                if (!hasPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS)) {
+                    ActivityCompat.requestPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS, PERMISSION_ALL);
                 }
 
                 try
                 {
-                    AlertDialog.Builder alertDialog7 = new AlertDialog.Builder(RegisterAxiWebViewActivity.this);
+                    AlertDialog.Builder alertDialog7 = new AlertDialog.Builder(RegisterAxiWebViewSHActivity.this);
                     alertDialog7.setTitle("Perhatian");
                     alertDialog7.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
 
@@ -137,7 +140,7 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException e)
                 {
                     uploadMessage = null;
-                    Toast.makeText(RegisterAxiWebViewActivity.this, "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterAxiWebViewSHActivity.this, "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
                     return false;
                 }
                 return true;
@@ -163,14 +166,8 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
             }
         });
 
-        if(session.getNomorAxiId() != null){
-//            webView.loadUrl("https://dicicilaja.com/axi/register/mobile");
-            webView.loadUrl("https://dicicilaja.com/axi/register/mobile/" + session.getNomorAxiId());
-        }else{
-            webView.loadUrl("https://dicicilaja.com/axi/register/mobile");
-        }
+        webView.loadUrl("https://dicicilaja.com/axi/register/mobile?isCrh=true");
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -198,7 +195,7 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
             mUploadMessage.onReceiveValue(result);
             mUploadMessage = null;
         } else
-            Toast.makeText(RegisterAxiWebViewActivity.this, "Failed to Upload Image", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterAxiWebViewSHActivity.this, "Failed to Upload Image", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -227,8 +224,8 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
     }
 
     private void processPickImage() throws IOException {
-        if (!hasPermissions(RegisterAxiWebViewActivity.this, PERMISSIONS)) {
-            ActivityCompat.requestPermissions(RegisterAxiWebViewActivity.this, PERMISSIONS, PERMISSION_ALL);
+        if (!hasPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS, PERMISSION_ALL);
         }
         takeCameraPhoto();
     }
@@ -242,6 +239,25 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
         }
         return true;
     }
+//    private boolean hasCameraPermission() {
+//        return ContextCompat.checkSelfPermission(getApplicationContext(),
+//                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+//    }
+//    private boolean hasWritePermission() {
+//        return ContextCompat.checkSelfPermission(getApplicationContext(),
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+//    }
+//
+//    @TargetApi(Build.VERSION_CODES.M)
+//    private void requestCameraPermission() {
+//        requestPermissions(new String[]{Manifest.permission.CAMERA},
+//                REQUEST_CAMERA_CAPTURE_FILE );
+//    }
+//    @TargetApi(Build.VERSION_CODES.M)
+//    private void requestWritePermission() {
+//        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                REQUEST_CAMERA_CAPTURE_FILE );
+//    }
 
     public void takeCameraPhoto() throws IOException {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -262,4 +278,5 @@ public class RegisterAxiWebViewActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_CAMERA_CAPTURE_FILE);
         }
     }
+
 }

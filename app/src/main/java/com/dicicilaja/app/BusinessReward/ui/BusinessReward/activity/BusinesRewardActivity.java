@@ -51,7 +51,13 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +98,10 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
 
     SessionManager session;
     public static String final_point;
-    public static String ktpnpwp, no_ktp, no_npwp, point_reward;
+    public static String ktpnpwp, no_ktp, no_npwp, point_reward, reward_phase_start, reward_phase_end;
+    Date reward_start_date, reward_end_date;
+    Calendar calStart = Calendar.getInstance();
+    Calendar calEnd = Calendar.getInstance();
     ApiService apiService, api;
     ApiService3 apiService3;
 
@@ -209,6 +218,21 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
         progress.setMessage("Sedang memuat data...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+
+        reward_phase_start= getIntent().getStringExtra("REWARD_PHASE_START");
+        reward_phase_end = getIntent().getStringExtra("REWARD_PHASE_END");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        try {
+            reward_start_date = format.parse(reward_phase_start);
+            reward_end_date = format.parse(reward_phase_end);
+
+            calStart.setTime(reward_start_date);
+            calEnd.setTime(reward_end_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        profileNote.setText("Batas waktu klaim reward sampai " + calEnd.get(Calendar.DAY_OF_MONTH) + " " + getMonth(calEnd.get(Calendar.MONTH)) + " " + calEnd.get(Calendar.YEAR)+ ".");
 
         Call<GetCart> callCart = apiService3.getCart(apiKey);
         callCart.enqueue(new Callback<GetCart>() {
@@ -511,5 +535,10 @@ public class BusinesRewardActivity extends AppCompatActivity implements ListProd
                 setResult(RESULT_OK);
             }
         }
+    }
+
+    public static String getMonth(int month){
+        String[] monthNames = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
+        return monthNames[month];
     }
 }

@@ -37,6 +37,8 @@ import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.Activity.AssignSurveyorWebViewActivity;
 import com.dicicilaja.app.Activity.ProfileActivity;
+import com.dicicilaja.app.Activity.RegisterAxiWebViewActivity;
+import com.dicicilaja.app.Activity.RegisterAxiWebViewSHActivity;
 import com.dicicilaja.app.Activity.SearchActivity;
 import com.dicicilaja.app.Inbox.Data.Popup.Datum;
 import com.dicicilaja.app.Inbox.Data.Popup.Popup;
@@ -246,16 +248,23 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                 navItemIndex = 1;
                 //CURRENT_TAG = getString(R.string.regist_tag);
                 break;
+            case R.id.nav_axi:
+                drawerLayout.closeDrawers();
+                startActivity(new Intent(this, RegisterAxiWebViewSHActivity.class));
+                navItemIndex = 2;
+                //CURRENT_TAG = getString(R.string.regist_tag);
+                break;
+
             case R.id.nav_trip:
                 drawerLayout.closeDrawers();
                 startActivity(new Intent(this, TripActivity.class));
-                navItemIndex = 2;
+                navItemIndex = 3;
                 //CURRENT_TAG = getString(R.string.trip_tag);
                 break;
             case R.id.nav_gathering:
                 drawerLayout.closeDrawers();
                 startActivity(new Intent(this, GatheringActivity.class));
-                navItemIndex = 3;
+                navItemIndex = 4;
                 //CURRENT_TAG = getString(R.string.gathering_tag);
                 break;
             case R.id.nav_submission:
@@ -357,7 +366,7 @@ public class InformAxiActivity extends AppCompatActivity implements NavigationVi
                 showDialogLogout();
                 break;
             default:
-                navItemIndex = 4;
+                navItemIndex = 5;
                 //CURRENT_TAG = getString(R.string.home_tag);
                 break;
         }

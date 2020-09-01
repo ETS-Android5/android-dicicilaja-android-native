@@ -231,7 +231,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int  incentive_mcy_bonus_tahunan = 0;
     int incentive_mcy_bonus_layout = 0;
     boolean isLoading = false;
-    String agen_axi_id, agen_id, agen_name;
+    String agen_axi_id, agen_id, agen_name, reward_phase_start, reward_phase_end;
 
     Dialog InAppDialog;
 
@@ -776,6 +776,8 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                 } else  if (response.isSuccessful()) {
                     if (response.body().getData().getAttributes().getStatus() == 1) {
                         isRewardPhaseAvailable = true;
+                        reward_phase_start = response.body().getData().getAttributes().getRewardPhaseStart();
+                        reward_phase_end = response.body().getData().getAttributes().getRewardPhaseEnd();
                     }
                 } else {
                     Toast.makeText(AxiDashboardActivity.this, "Terjadi kesalahan jaringan, mohon coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
@@ -968,6 +970,9 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     if (isRewardPhaseAvailable) {
                         intent = new Intent(getBaseContext(), BusinesRewardActivity.class);
                         intent.putExtra("POINT_REWARD", String.valueOf(contentBox1.getText()));
+
+                        intent.putExtra("REWARD_PHASE_START",reward_phase_start);
+                        intent.putExtra("REWARD_PHASE_END",reward_phase_end);
                         startActivityForResult(intent, 96);
                     } else
                         intent = new Intent(getBaseContext(), AvailableBRActivity.class);
