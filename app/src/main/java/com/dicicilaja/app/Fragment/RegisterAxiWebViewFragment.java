@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
@@ -69,9 +70,6 @@ public class RegisterAxiWebViewFragment extends Fragment {
     public static final int REQUEST_CAMERA_CAPTURE_FILE = 101;
     private final static int FILECHOOSER_RESULTCODE = 1;
     private File mFileFromCamera;
-    private Bitmap mPhotoBitmap;
-    private FileCompressor mCompressor;
-    private String mFileFromCameraPath;
     private Uri imageURI;
     private int PERMISSION_ALL = 2;
     private String[] PERMISSIONS = {
@@ -223,6 +221,16 @@ public class RegisterAxiWebViewFragment extends Fragment {
                     return;
                 }
 
+                try {
+//                    System.out.println("Size Before : " + mFileFromCamera.length());
+                    while (mFileFromCamera.length()/1000 > 1024) {
+                        mFileFromCamera = new FileCompressor(getContext()).compressToFile(mFileFromCamera);
+                    }
+//                    System.out.println("Size After : " + mFileFromCamera.length());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 results = new Uri[]{Uri.fromFile(mFileFromCamera)};
                 uploadMessage.onReceiveValue(results);
                 uploadMessage = null;
@@ -244,6 +252,37 @@ public class RegisterAxiWebViewFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable("file_uri", imageURI);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            switch (requestCode) {
+                case REQUEST_CAMERA_CAPTURE_FILE :
+
+                    try {
+                        processPickImage();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+            Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
+        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+            Toast.makeText(getContext(), "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_SHORT).show();
+
+        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[1])) {
+            Toast.makeText(getContext(), "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+            if (!hasPermissions(getContext(), PERMISSIONS)) {
+                requestPermissions(PERMISSIONS, PERMISSION_ALL);
+            }
+        }
     }
 
     private File createImageFile() throws IOException {

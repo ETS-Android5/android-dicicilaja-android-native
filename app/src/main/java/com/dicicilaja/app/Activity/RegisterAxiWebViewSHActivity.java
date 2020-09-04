@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.dicicilaja.app.BuildConfig;
+import com.dicicilaja.app.OrderIn.Utility.FileCompressor;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
 
@@ -115,8 +116,7 @@ public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS, PERMISSION_ALL);
                 }
 
-                try
-                {
+                try {
                     AlertDialog.Builder alertDialog7 = new AlertDialog.Builder(RegisterAxiWebViewSHActivity.this);
                     alertDialog7.setTitle("Perhatian");
                     alertDialog7.setMessage("Pilih foto dari Gallery atau foto dengan Kamera?");
@@ -137,8 +137,7 @@ public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
                         }
                     });
                     alertDialog7.show();
-                } catch (ActivityNotFoundException e)
-                {
+                } catch (ActivityNotFoundException e) {
                     uploadMessage = null;
                     Toast.makeText(RegisterAxiWebViewSHActivity.this, "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
                     return false;
@@ -182,6 +181,17 @@ public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
             }else if (requestCode == REQUEST_CAMERA_CAPTURE_FILE){
                 if (uploadMessage == null)
                     return;
+
+                try {
+//                    System.out.println("Size Before : " + mFileFromCamera.length());
+                    while (mFileFromCamera.length()/1000 > 1024) {
+                        mFileFromCamera = new FileCompressor(getBaseContext()).compressToFile(mFileFromCamera);
+                    }
+//                    System.out.println("Size After : " + mFileFromCamera.length());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 results = new Uri[]{Uri.fromFile(mFileFromCamera)};
                 uploadMessage.onReceiveValue(results);
                 uploadMessage = null;
@@ -201,17 +211,31 @@ public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CAMERA_CAPTURE_FILE :
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            switch (requestCode) {
+                case REQUEST_CAMERA_CAPTURE_FILE :
 
-                try {
-                    processPickImage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                    try {
+                        processPickImage();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+            Toast.makeText(RegisterAxiWebViewSHActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+            Toast.makeText(RegisterAxiWebViewSHActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_SHORT).show();
+
+        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[1])) {
+            Toast.makeText(RegisterAxiWebViewSHActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(RegisterAxiWebViewSHActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            if (!hasPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS)) {
+                ActivityCompat.requestPermissions(RegisterAxiWebViewSHActivity.this, PERMISSIONS, PERMISSION_ALL);
+            }
         }
     }
 
@@ -219,7 +243,7 @@ public class RegisterAxiWebViewSHActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String mFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File mFile = File.createTempFile(mFileName, ".jpg", storageDir);
+        File mFile = new File(storageDir, mFileName + ".jpg");
         return mFile;
     }
 
