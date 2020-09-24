@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".InformAXI.ui.InformSmActivity"></activity>
+        <activity android:name=".InformAXI.ui.InformSmActivity" />
         <activity android:name=".InformAXI.ui.UbahShActivity" />
         <activity android:name=".Activity.RegisterMaxiDone" />
         <activity android:name=".Activity.RegisterCustomerDone" />
@@ -114,7 +114,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.LoginActivity" />
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:label="Lupa Kata Sandi"

@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,7 @@ import com.dicicilaja.app.Listener.ClickListener;
 import com.dicicilaja.app.Listener.RecyclerTouchListener;
 import com.dicicilaja.app.R;
 import com.dicicilaja.app.Session.SessionManager;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.List;
 
@@ -52,6 +55,8 @@ public class InboxActivity extends AppCompatActivity {
     LinearLayout order;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
+    @BindView(R.id.layout_loader)
+    SpinKitView loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,18 +104,20 @@ public class InboxActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        progress.show();
+//        progress.show();
+        loader.setVisibility(View.VISIBLE);
         Call<Notif> call = apiService.getNotifPersonal(apiKey, session.getUserIdOneSignal());
         call.enqueue(new Callback<Notif>() {
             @Override
             public void onResponse(Call<Notif> call, Response<Notif> response) {
                 if (response.code() == 401) {
-                    progress.dismiss();
+                    loader.setVisibility(View.GONE);
                     session.logoutUser();
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
-                } else if (response.isSuccessful()) {
+                } else if (response.code() == 200) {
+                    loader.setVisibility(View.GONE);
                     notifs = response.body().getData();
                     if (notifs.size() == 0) {
                         recyclerNotif.setVisibility(View.GONE);
@@ -119,7 +126,6 @@ public class InboxActivity extends AppCompatActivity {
                         recyclerNotif.setVisibility(View.VISIBLE);
                         order.setVisibility(View.GONE);
                         recyclerNotif.setAdapter(new InboxAdapter(notifs, R.layout.card_notification, getBaseContext()));
-
                         recyclerNotif.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(), recyclerNotif, new ClickListener() {
                             @Override
                             public void onClick(View view, final int position) {
@@ -136,20 +142,22 @@ public class InboxActivity extends AppCompatActivity {
                             public void onLongClick(View view, int position) {
                             }
                         }));
-
                     }
-                    progress.dismiss();
+                } else {
+                    loader.setVisibility(View.GONE);
+                    recyclerNotif.setVisibility(View.GONE);
+                    order.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi sesuatu, silakan refresh", Toast.LENGTH_LONG).show();
                 }
-                progress.dismiss();
 
             }
 
             @Override
             public void onFailure(Call<Notif> call, Throwable t) {
-                progress.dismiss();
+//                progress.dismiss();
+                loader.setVisibility(View.GONE);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(InboxActivity.this);
                 alertDialog.setMessage("Koneksi internet tidak ditemukan");
-
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

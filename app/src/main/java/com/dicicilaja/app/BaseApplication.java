@@ -6,10 +6,7 @@ import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 
 import com.dicicilaja.app.Activity.LoginActivity;
-import com.dicicilaja.app.Activity.SplashActivity;
 import com.dicicilaja.app.Inbox.UI.InboxActivity;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
 
@@ -49,19 +46,22 @@ public class BaseApplication extends MultiDexApplication {
 
             if (data != null) {
                 openInbox = data.optString("openInbox", null);
+
                 if (openInbox != null) {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    intent.putExtra("openInbox", true);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Log.e("Intent", "open inbox : " + openInbox);
+//                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
+//                    intent.putExtra("openInbox", true);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
             } else {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
 

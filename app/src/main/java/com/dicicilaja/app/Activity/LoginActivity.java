@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 
+import com.dicicilaja.app.Inbox.UI.InboxActivity;
 import com.dicicilaja.app.InformAXI.ui.InformAxiActivity;
 import com.dicicilaja.app.BFF.API.Data.Login.Login;
 import com.dicicilaja.app.BFF.API.Network.ApiClient;
@@ -481,7 +482,7 @@ public class LoginActivity extends AppCompatActivity {
             case "axi":
                 Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                 intent.putExtra("openInbox", openInbox);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                 startActivity(intent);
                 break;
 

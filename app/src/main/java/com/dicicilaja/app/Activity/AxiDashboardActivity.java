@@ -245,37 +245,38 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         setContentView(R.layout.activity_axi_dashboard);
         ButterKnife.bind(this);
 
-        initAction();
-        initLoadData();
-
-        swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
-        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initLoadData();
-                swipeToRefresh.setRefreshing(false);
-            }
-        });
-
-
-//        openInbox = getIntent().getBooleanExtra("openInbox", false);
-//        if(openInbox) {
+//        initAction();
+//        initLoadData();
 //
-////            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-////            startActivityForResult(intent, 77);
-//        } else {
-//            initAction();
-//            initLoadData();
-//
-//            swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
-//            swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//                @Override
-//                public void onRefresh() {
-//                    initLoadData();
-//                    swipeToRefresh.setRefreshing(false);
-//                }
-//            });
-//        }
+//        swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+//        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                initLoadData();
+//                swipeToRefresh.setRefreshing(false);
+//            }
+//        });
+
+
+
+        openInbox = getIntent().getBooleanExtra("openInbox", false);
+        if(openInbox) {
+            Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+            startActivity(intent);
+//            startActivityForResult(intent, 77);
+        } else {
+            initAction();
+            initLoadData();
+
+            swipeToRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+            swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    initLoadData();
+                    swipeToRefresh.setRefreshing(false);
+                }
+            });
+        }
     }
 
     private void setSliderView(Context context, int maxSlide, HashMap<Integer,String> file_maps){

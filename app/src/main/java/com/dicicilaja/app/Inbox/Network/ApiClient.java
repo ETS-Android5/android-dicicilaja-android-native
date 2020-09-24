@@ -1,11 +1,13 @@
 package com.dicicilaja.app.Inbox.Network;
 
+import com.dicicilaja.app.BuildConfig;
 import com.dicicilaja.app.Utils.RetrofitLoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -19,6 +21,7 @@ public class ApiClient {
 
             RetrofitLoggingInterceptor logging = new RetrofitLoggingInterceptor();
 
+
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(logging)
                     .cache(cache)
@@ -26,6 +29,7 @@ public class ApiClient {
                     .readTimeout(2, TimeUnit.MINUTES)
                     .writeTimeout(2, TimeUnit.MINUTES)
                     .build();
+
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
