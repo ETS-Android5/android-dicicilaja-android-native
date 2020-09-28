@@ -247,6 +247,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         openInbox = getIntent().getBooleanExtra("openInbox", false);
         if(openInbox) {
+            Log.d("Intent", "open inbox dashboard: " + openInbox);
             Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivityForResult(intent, 77);
         } else {

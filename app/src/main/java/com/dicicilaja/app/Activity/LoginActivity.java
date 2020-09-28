@@ -479,6 +479,7 @@ public class LoginActivity extends AppCompatActivity {
         role = role.toLowerCase();
         switch (role) {
             case "axi":
+                Log.d("Intent", "open inbox login activity : " + openInbox);
                 Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                 intent.putExtra("openInbox", openInbox);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
