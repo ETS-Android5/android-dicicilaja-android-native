@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                Log.d("log_login", "code: " + response.code() + " body: " + response.body());
+                Log.d("log_loginlog_login", "code: " + response.code() + " body: " + response.body());
                 if(response.isSuccessful()) {
                     progress.dismiss();
                     Login resObj = response.body();
