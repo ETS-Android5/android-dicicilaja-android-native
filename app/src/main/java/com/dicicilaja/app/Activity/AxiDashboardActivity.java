@@ -43,6 +43,8 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.dicicilaja.app.API.Client.ApiBff;
 import com.dicicilaja.app.API.Client.ApiBffNew;
+import com.dicicilaja.app.API.Client.RetrofitClient2;
+import com.dicicilaja.app.API.Interface.InterfaceEncrDecr;
 import com.dicicilaja.app.API.Interface.InterfaceLogout;
 import com.dicicilaja.app.API.Interface.InterfacePengajuanAxi;
 import com.dicicilaja.app.API.Model.LayananPPOB.PPOB;
@@ -231,7 +233,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
     int  incentive_mcy_bonus_tahunan = 0;
     int incentive_mcy_bonus_layout = 0;
     boolean isLoading = false;
-    String agen_axi_id, agen_id, agen_name, reward_phase_start, reward_phase_end;
+    String agen_axi_id, agen_id, agen_name, reward_phase_start, reward_phase_end, kode;
 
     Dialog InAppDialog;
 
@@ -352,6 +354,25 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //get encryption code for profile id
+        InterfaceEncrDecr apiService2 =
+                RetrofitClient2.getClient().create(InterfaceEncrDecr.class);
+
+        Call<String> call3 = apiService2.getEncr(session.getProfileId());
+        call3.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    setKode(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
         //        com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo apiService =
         //                com.dicicilaja.app.Activity.RemoteMarketplace.Client.RetrofitClient.getClient().create(com.dicicilaja.app.Activity.RemoteMarketplace.InterfaceAxi.InterfacePromo.class);
@@ -501,6 +522,12 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 //                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
                         Intent intent2 = new Intent(getBaseContext(), RegisterAxiWebViewActivity.class);
                         startActivity(intent2);
+                        break;
+                    case R.id.navbar_epks:
+//                        Intent intent2 = new Intent(getBaseContext(), RegisterAxi1Activity.class);
+                        Intent intent7 = new Intent(getBaseContext(), UnduhEPKSWebViewActivity.class);
+                        intent7.putExtra("kode", getKode());
+                        startActivity(intent7);
                         break;
                     case R.id.branch_office:
                         Intent intent3 = new Intent(getBaseContext(), AreaBranchOfficeActivity.class);
@@ -1148,5 +1175,13 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
         if (progress_popup != null && progress_popup.isShowing()) {
             progress_popup.dismiss();
         }
+    }
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
     }
 }

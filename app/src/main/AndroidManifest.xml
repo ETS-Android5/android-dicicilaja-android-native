@@ -520,6 +520,14 @@
                 android:value="com.dicicilaja.app.Activity.MaxiDashboardActivity" />
         </activity>
         <activity
+            android:name=".Activity.UnduhEPKSWebViewActivity"
+            android:label="Unduh EPKS"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicicilaja.app.AWRITE_EXTERNAL_STORAGEctivity.AxiDashboardActivity" />
+        </activity>
+        <activity
             android:name=".Activity.RegisterAxiWebViewActivity"
             android:label="Pendaftaran AXI"
             android:theme="@style/AppTheme.NoActionBar">

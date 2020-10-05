@@ -29,6 +29,9 @@
         android:id="@+id/navbar_materi"
         android:title="UNDUH MATERI"/>
     <item
+        android:id="@+id/navbar_epks"
+        android:title="UNDUH EPKS"/>
+    <item
         android:id="@+id/branch_office"
         android:title="KANTOR CABANG"/>
     <item
