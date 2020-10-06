@@ -46,13 +46,13 @@ public class BaseApplication extends MultiDexApplication {
         // This fires when a notification is opened by tapping on it.
         @Override
         public void notificationOpened(OSNotificationOpenResult result) {
-            Log.d("Intent", "open inbox base: " + openInbox);
+//            Log.d("Intent", "open inbox base: " + openInbox);
             JSONObject data = result.notification.payload.additionalData;
 
             if (data != null) {
                 openInbox = data.optString("openInbox", null);
                 if (openInbox != null) {
-                    Log.d("Intent", "open inbox base: " + openInbox);
+//                    Log.d("Intent", "open inbox base: " + openInbox);
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     intent.putExtra("openInbox", true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -106,7 +106,7 @@ public class InboxActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        Log.d("Intent", "open inbox notif : ");
+//        Log.d("Intent", "open inbox notif : ");
         loader.setVisibility(View.VISIBLE);
         Call<Notif> call = apiService.getNotifPersonal(apiKey, session.getUserIdOneSignal());
         call.enqueue(new Callback<Notif>() {

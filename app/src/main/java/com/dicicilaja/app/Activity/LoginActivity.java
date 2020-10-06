@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                Log.d("log_loginlog_login", "code: " + response.code() + " body: " + response.body());
+//                Log.d("log_loginlog_login", "code: " + response.code() + " body: " + response.body());
                 if(response.isSuccessful()) {
                     progress.dismiss();
                     Login resObj = response.body();
@@ -479,7 +479,7 @@ public class LoginActivity extends AppCompatActivity {
         role = role.toLowerCase();
         switch (role) {
             case "axi":
-                Log.d("Intent", "open inbox login activity : " + openInbox);
+//                Log.d("Intent", "open inbox login activity : " + openInbox);
                 Intent intent = new Intent(getBaseContext(), AxiDashboardActivity.class);
                 intent.putExtra("openInbox", openInbox);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

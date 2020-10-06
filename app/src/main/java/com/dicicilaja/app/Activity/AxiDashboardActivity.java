@@ -249,7 +249,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
         openInbox = getIntent().getBooleanExtra("openInbox", false);
         if(openInbox) {
-            Log.d("Intent", "open inbox dashboard: " + openInbox);
+//            Log.d("Intent", "open inbox dashboard: " + openInbox);
             Intent intent = new Intent(getBaseContext(), InboxActivity.class);
             startActivityForResult(intent, 77);
         } else {
@@ -671,7 +671,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
             @Override
             public void onFailure(Call<ExistingPoint> call, Throwable t) {
-                Log.d("TAGTAGTAG", "data:" + t.getMessage());
+//                Log.d("TAGTAGTAG", "data:" + t.getMessage());
             }
         });
 
@@ -755,7 +755,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
                     DecimalFormat formatter = new DecimalFormat("#,###,###,###,###");
                     contentBox5.setText(formatter.format(Integer.parseInt(String.valueOf(infoJaringan.size()))).replace(",", "."));
                 } else {
-                    Log.d("ERROR", "ERROR");
+//                    Log.d("ERROR", "ERROR");
                 }
 
             }
@@ -851,7 +851,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
             @Override
             public void onFailure(Call<ExistingPoint> call, Throwable t) {
-                Log.d("TAGTAGTAG", "data:" + t.getMessage());
+//                Log.d("TAGTAGTAG", "data:" + t.getMessage());
             }
         });
 
@@ -894,7 +894,7 @@ public class AxiDashboardActivity extends AppCompatActivity implements BaseSlide
 
     @Override
     public void onPageSelected(int position) {
-        Log.d("Slider Demo", "Page Changed: " + position);
+//        Log.d("Slider Demo", "Page Changed: " + position);
     }
 
     @Override
