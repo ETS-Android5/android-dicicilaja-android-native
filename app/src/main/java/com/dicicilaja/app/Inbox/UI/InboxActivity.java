@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +38,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.github.ybq.android.spinkit.SpinKitView;
+
+import android.widget.Toast;
+
 public class InboxActivity extends AppCompatActivity {
 
     SessionManager session;
@@ -52,6 +57,8 @@ public class InboxActivity extends AppCompatActivity {
     LinearLayout order;
     @BindView(R.id.swipeToRefresh)
     SwipeRefreshLayout swipeToRefresh;
+    @BindView(R.id.layout_loader)
+    SpinKitView loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +106,14 @@ public class InboxActivity extends AppCompatActivity {
     }
 
     private void initLoadData() {
-        progress.show();
+//        Log.d("Intent", "open inbox notif : ");
+        loader.setVisibility(View.VISIBLE);
         Call<Notif> call = apiService.getNotifPersonal(apiKey, session.getUserIdOneSignal());
         call.enqueue(new Callback<Notif>() {
             @Override
             public void onResponse(Call<Notif> call, Response<Notif> response) {
                 if (response.code() == 401) {
-                    progress.dismiss();
+                    loader.setVisibility(View.GONE);
                     session.logoutUser();
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(intent);
@@ -138,9 +146,13 @@ public class InboxActivity extends AppCompatActivity {
                         }));
 
                     }
-                    progress.dismiss();
+                    loader.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi sesuatu, silakan refresh", Toast.LENGTH_LONG).show();
+                    loader.setVisibility(View.GONE);
+                    recyclerNotif.setVisibility(View.GONE);
+                    order.setVisibility(View.VISIBLE);
                 }
-                progress.dismiss();
 
             }
 

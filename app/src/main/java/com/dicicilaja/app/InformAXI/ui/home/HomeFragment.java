@@ -23,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -259,6 +260,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnItemC
 
     @Deprecated
     private void getHomeDataWithFilters(int page) {
+        Log.d("Debug", "branch id" + branchId);
         if (startDate != null && endDate != null)
             mCompositeDisposable.add(
                     jsonApi.getHomeWithFilter(apiKey, status, date, startDate, endDate, page, branchId)

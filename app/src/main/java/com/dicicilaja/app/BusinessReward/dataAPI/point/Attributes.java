@@ -123,6 +123,9 @@ public class Attributes {
     @SerializedName("axi_id")
     @Expose
     private String axiId;
+    @SerializedName("count_today_notif")
+    @Expose
+    private String countTodayNotif;
 
     public String getNamaLengkap() {
         return namaLengkap;
@@ -434,6 +437,14 @@ public class Attributes {
 
     public void setAxiId(String axiId) {
         this.axiId = axiId;
+    }
+
+    public String getCountTodayNotif() {
+        return countTodayNotif;
+    }
+
+    public void setCountTodayNotif(String countTodayNotif) {
+        this.countTodayNotif = countTodayNotif;
     }
 
 }
